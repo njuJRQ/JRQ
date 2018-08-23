@@ -1,0 +1,93 @@
+/* pages/myHistory/myHistory.wxss */
+@import '/style/common.wxss';
+/*本页面css属性*/
+/*关于我的名片的属性*/
+.my-card {
+  margin: 10px 0 0 0;
+  padding: 10px;
+  background-color: white;
+}
+.my-card-face {
+  margin: 0 20px 0 0;
+}
+.my-card-face image {
+  width: 80px;
+  height: 80px;
+  border-radius: 5px;
+}
+.my-card-info text {
+  font-size: 0.4rem;
+}
+.my-card-info-username {
+  margin: 0 0 10px 0;
+}
+.my-card-info-username > text {
+  margin: 0 10px 0 0;
+  font-size:0.8rem;
+  color:#252D47;
+}
+.my-card-info-username image {
+  width: 15px;
+  height: 15px;
+}
+/*关于我的联系方式的属性*/
+.my-contact {
+  background-color: #F5F5F5;
+  padding: 10px;
+}
+.my-contact button {
+  height: 1.5rem;
+  font-size: 0.5rem;
+  color: white;
+  background-color: #243264;
+}
+.my-contact-info text {
+  font-size: 0.5rem;
+  color: #252D47;
+  margin: 2px 0;
+}
+/*关于历史发布的属性*/
+.blue-block {
+  width: 10px;
+  height: 20px;
+  margin: 0 5px 0 0;
+  background-color: #243264;
+}
+.my-history-title-word text {
+  color: #243264;
+  font-size: 0.9rem;
+}
+/*关于文章的属性*/
+.article-images > image {
+  width: 33%;
+  height: 100px;
+  margin: 2px;
+}
+.article-text {
+  font-size: 0.6rem;
+  margin: 5px 0 10px 0;
+}
+.article-info {
+  width: 100%;
+  justify-content: space-between;
+  font-size: 0.5rem;
+}
+.article-share {
+  margin: 5px 0;
+  justify-content: space-between;
+  font-size: 0.5rem;
+}
+/*关于作者的属性*/
+.writer-info {
+  margin: 3px 0 0 0;
+}
+.writer-info > image {
+  width: 25px;
+  height: 25px;
+  margin: 0 5px;
+}
+.like-info > image {
+  width: 15px;
+  height: 15px;
+  margin: 5px;
+}

@@ -1,0 +1,41 @@
+<!--pages/community/community.wxml-->
+<view class='container'>
+  <view style='width: 90%;'>
+    <view wx:for='{{articles}}'>
+      <view class='article'>
+
+        <view class='writer-info v-center'>
+          <image src='{{item.writerFace}}'></image>
+          <text style='font-size: 0.7rem;'>{{item.writerName}}</text>
+        </view>
+
+        <view class='article-info row'>
+          <view class='article-text'>
+            <text>{{item.text}}</text>
+          </view>
+          <view class='like-info v-center'>
+            <text>{{item.likeNum}}</text>
+            <image src='img/like.png'></image>
+          </view>
+        </view>
+
+        <view class='article-images row'>
+          <image src='{{item.images[0]}}'></image>
+          <image src='{{item.images[1]}}'></image>
+          <image src='{{item.images[2]}}'></image>
+        </view>
+
+        <view class='article-share row'>
+          <view class='v-center'>
+            <image src='../../default/default-icon.png' style='width: 20px; height: 20px;'></image>
+            <text>分享到朋友圈</text>
+          </view>
+          <text class='v-center'>{{item.date}}</text>
+        </view>
+
+        <view class='div-line'></view>
+
+      </view>
+    </view>
+  </view>
+</view>

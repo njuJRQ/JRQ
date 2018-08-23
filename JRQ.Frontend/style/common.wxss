@@ -1,0 +1,33 @@
+text {
+  color: gray;
+}
+.div-line{
+  background: #E0E3DA;
+  width: 100%;
+  height: 1px;
+  margin: 5px 0;
+}
+.container {
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+}
+.module {
+  margin: 10px;
+}
+.h-center {
+  display: flex;
+  justify-content: center;
+}
+.v-center {
+  display: flex;
+  align-items: center;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,110 @@
+<!--pages/me/me.wxml-->
+<view class='container column'>
+  <view class='head column v-center'>
+    <view class='publisher row'>
+      <view class='publisher-input'>
+        <input placeholder='发布业务合作、商业资讯或日常信息...'></input>
+      </view>
+      <view class='publisher-image h-center v-center' bindtap='onPublish'>
+        <image src='../../default/default-icon.png'></image>
+      </view>
+    </view>
+    <view class='my-card column'>
+      <view class='row v-center'>
+        <view class='my-card-face'>
+          <image src='../../default/default-pic.png'></image>
+        </view>
+        <view class='my-card-info column'>
+          <view class='my-card-info-username row v-center'>
+            <text>{{myInfo.username}}</text>
+            <view wx:for='{{myInfo.medals}}'>
+              <image src='{{item}}'></image>
+            </view>
+          </view>
+          <text>手机号: {{myInfo.phone}}</text>
+          <text>Email: {{myInfo.email}}</text>
+          <text>任职公司: {{myInfo.company}}</text>
+          <text>部门: {{myInfo.department}}</text>
+          <text>职位: {{myInfo.position}}</text>
+        </view>
+      </view>
+      <view class='div-line'></view>
+      <view class='my-card-intro'>
+        <text style='font-size: 0.5rem;'>个人简介：{{myInfo.intro}}</text>
+      </view>
+    </view>
+
+    <button class='my-card-send' bindtap='onSendMe'>递名片</button>
+
+    <view class='icons'>
+      <view class='module column' bindtap='showCourses'>
+        <view class='h-center'>
+          <image src='../../default/default-icon.png'></image>
+        </view>
+        <view class='h-center'>
+          <text>课程</text>
+        </view>
+      </view>
+      <view class='module column' bindtap='showDocuments'>
+        <view class='h-center'>
+          <image src='../../default/default-icon.png'></image>
+        </view>
+        <view class='h-center'>
+          <text>文档</text>
+        </view>
+      </view>
+      <view class='module column' bindtap='showProjects'>
+        <view class='h-center'>
+          <image src='../../default/default-icon.png'></image>
+        </view>
+        <view class='h-center'>
+          <text>项目</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view style='width:100%'>
+    <view class='more'>
+      <view class='more-item'>
+        <navigator class='row' url='../myCardHolder/myCardHolder' open-type='navigate'>
+          <text>我的名片夹</text>
+          <view class='v-center'>
+            <view class='arrow'></view>
+          </view>
+        </navigator>
+      </view>
+
+      <view class='div-line'></view>
+
+      <view class='more-item'>
+        <navigator class='row' url='../myHistory/myHistory' open-type='navigate'>
+          <text>我的发布</text>
+          <view class='v-center'>
+            <view class='arrow'></view>
+          </view>
+        </navigator>
+      </view>
+
+      <view class='div-line'></view>
+
+      <view class='more-item'>
+        <navigator class='row' url='' open-type='navigate'>
+          <text>身份升级</text>
+          <view class='v-center'>
+            <view class='arrow'></view>
+          </view>
+        </navigator>
+      </view>
+    </view>
+    <view class='setting'>
+      <view class='more-item'>
+        <navigator class='row' url='../modifyMyCard/modifyMyCard' open-type='navigate'>
+          <text>设置</text>
+          <view class='v-center'>
+            <view class='arrow'></view>
+          </view>
+        </navigator>
+      </view>
+    </view>
+  </view>
+</view>

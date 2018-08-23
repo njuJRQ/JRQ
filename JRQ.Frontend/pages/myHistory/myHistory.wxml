@@ -1,0 +1,85 @@
+<!--pages/myHistory/myHistory.wxml-->
+<view class='container'>
+  <view style='width: 100%;'>
+    <view class='my-card column'>
+      <view class='row v-center'>
+        <view class='my-card-face'>
+          <image src='../../default/default-pic.png'></image>
+        </view>
+        <view class='my-card-info column'>
+          <view class='my-card-info-username row v-center'>
+            <text>{{myInfo.username}}</text>
+            <view wx:for='{{myInfo.medals}}'>
+              <image src='{{item}}'></image>
+            </view>
+          </view>
+          <text>公司: {{myInfo.company}}</text>
+          <text>部门: {{myInfo.department}}</text>
+          <text>职位: {{myInfo.position}}</text>
+        </view>
+      </view>
+      <view class='div-line'></view>
+      <view class='my-card-intro'>
+        <text style='font-size: 0.5rem;'>个人简介：{{myInfo.intro}} </text>
+      </view>
+      <view class='my-contact row'>
+        <view class='my-contact-info column' style='width: 70%;'>
+          <text style='font-size: 0.8rem;'>185****6956</text>
+          <text>微信号：****</text>
+          <text>邮箱: ******</text>
+        </view>
+        <view class='v-center'>
+          <button class='v-center'>查看联系方式</button>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view style='width:100%;'>
+    <view class='my-history'>
+      <view class='my-history-title row v-center'>
+        <view class='blue-block'></view>
+        <view class='my-history-title-word'>
+          <text class='v-center'>历史发布</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view style='width: 100%'>
+    <view wx:for='{{myArticles}}' style='padding: 0 10px;'>
+      <view class='article'>
+
+        <view class='writer-info v-center'>
+          <image src='{{item.writerFace}}'></image>
+          <text style='font-size: 0.7rem;'>{{item.writerName}}</text>
+        </view>
+
+        <view class='article-info row'>
+          <view class='article-text'>
+            <text>{{item.text}}</text>
+          </view>
+          <view class='like-info v-center'>
+            <text>{{item.likeNum}}</text>
+            <image src='img/like.png'></image>
+          </view>
+        </view>
+
+        <view class='article-images row'>
+          <image src='{{item.images[0]}}'></image>
+          <image src='{{item.images[1]}}'></image>
+          <image src='{{item.images[2]}}'></image>
+        </view>
+
+        <view class='article-share row'>
+          <view class='v-center'>
+            <image src='../../default/default-icon.png' style='width: 20px; height: 20px;'></image>
+            <text>分享到朋友圈</text>
+          </view>
+          <text class='v-center'>{{item.date}}</text>
+        </view>
+
+        <view class='div-line'></view>
+
+      </view>
+    </view>
+  </view>
+</view>

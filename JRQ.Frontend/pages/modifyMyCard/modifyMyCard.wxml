@@ -1,0 +1,60 @@
+<!--pages/modifyMyCard/modifyMyCard.wxml-->
+<view class='container'>
+  <view class='face h-center column'>
+    <image src='{{info.face}}'></image>
+    <text class='face-text'>更换头像</text>
+  </view>
+  <view style='width: 100%;'>
+    <view class='info column'>
+
+      <view class='info-item row v-center'>
+        <text>姓名</text>
+        <input placeholder='{{info.username}}' placeholder-class='info-item-placeholder'></input>
+      </view>
+
+      <view class='div-line'></view>
+
+      <view class='info-item row v-center'>
+        <text>手机号</text>
+        <input placeholder='{{info.phone}}' placeholder-class='info-item-placeholder'></input>
+      </view>
+
+      <view class='div-line'></view>
+
+      <view class='info-item row v-center'>
+        <text>Email</text>
+        <input placeholder='{{info.email}}' placeholder-class='info-item-placeholder'></input>
+      </view>
+
+      <view class='div-line'></view>
+
+      <view class='info-item row v-center'>
+        <text>任职公司</text>
+        <input placeholder='{{info.company}}' placeholder-class='info-item-placeholder'></input>
+      </view>
+
+      <view class='div-line'></view>
+
+      <view class='info-item row v-center'>
+        <text>部门</text>
+        <input placeholder='{{info.department}}' placeholder-class='info-item-placeholder'></input>
+      </view>
+
+      <view class='div-line'></view>
+
+      <view class='info-item row v-center'>
+        <text>职位</text>
+        <input placeholder='{{info.position}}' placeholder-class='info-item-placeholder'></input>
+      </view>
+
+      <view class='div-line'></view>
+
+      <view class='info-item column'>
+        <text>个人简介:</text>
+        <textarea placeholder='{{info.intro}}' style='height: 3rem;'></textarea>
+      </view>
+
+    </view>
+  </view>
+  <button class='save-btn' bindtap='onSave'>保存</button>
+</view>

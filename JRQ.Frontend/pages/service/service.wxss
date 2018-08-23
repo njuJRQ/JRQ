@@ -1,0 +1,71 @@
+/* pages/service/service.wxss */
+@import '/style/common.wxss';
+/*本页面css属性*/
+/*关于头部导航栏的属性*/
+.head {
+  width: 60%;
+  display: flex;
+  justify-content: space-around;
+}
+.head image {
+  width: 35px;
+  height: 35px;
+}
+.head text {
+  font-size: 15px;
+}
+.content {
+  width: 100%;
+  background-color: #f5f5f5;
+}
+/*关于业务卡片的属性*/
+.card {
+  margin: 10px;
+  border-radius: 10%;
+}
+.card-main {
+  vertical-align: flex-start;
+  width: 87.5%;
+  padding: 10px 0 10px 10px;
+  background-color: white;
+  border-radius: 5px 0 0 5px;
+}
+.card-face > image {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+}
+.card-info {
+  padding: 0 10px;
+}
+.card-info text {
+  padding: 0 3px;
+}
+.card-category {
+  vertical-align: flex-end;
+  width: 12.5%;
+  font-size: 0.5rem;
+  border-radius: 0 5px 5px 0;
+}
+.card-category text {
+  writing-mode: tb-rl;
+  font-size: 0.7rem;
+  color: white;
+  letter-spacing:3px;
+}
+/*融资租赁背景色*/
+.card-category-rzzl {
+  background-color: rgba(255, 161, 177, 0.699);
+}
+/*商业保理背景色*/
+.card-category-sybl {
+  background-color: rgba(138, 138, 252, 0.767);
+}
+/*地产交易背景色*/
+.card-category-dcjy {
+  background-color: rgba(109, 156, 90, 0.726);
+}
+/*金融牌照*/
+.card-category-jrpz {
+  background-color: rgba(255, 58, 58, 0.678);
+}

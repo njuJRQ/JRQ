@@ -15,30 +15,31 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
+    "selectedColor": "#C09B54",
     "list": [
       {
         "pagePath": "pages/index/index",
         "text": "首页",
-        "iconPath": "default/default-icon.png",
-        "selectedIconPath": "default/default-icon.png"
+        "iconPath": "img/index.png",
+        "selectedIconPath": "img/index-choose.png"
       },
       {
         "pagePath": "pages/service/service",
         "text": "业务",
-        "iconPath": "default/default-icon.png",
-        "selectedIconPath": "default/default-icon.png"
+        "iconPath": "img/service.png",
+        "selectedIconPath": "img/service-choose.png"
       },
       {
         "pagePath": "pages/community/community",
         "text": "圈子",
-        "iconPath": "default/default-icon.png",
-        "selectedIconPath": "default/default-icon.png"
+        "iconPath": "img/community.png",
+        "selectedIconPath": "img/community-choose.png"
       },
       {
         "pagePath": "pages/me/me",
         "text": "我的",
-        "iconPath": "default/default-icon.png",
-        "selectedIconPath": "default/default-icon.png"
+        "iconPath": "img/me.png",
+        "selectedIconPath": "img/me-choose.png"
       }
     ]
   }

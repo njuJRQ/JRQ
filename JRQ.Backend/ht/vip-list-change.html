@@ -1,0 +1,190 @@
+<!doctype html>
+<html class="no-js fixed-layout">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Amaze UI Admin index Examples</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <script type="text/javascript" src="./assets/jedate/jedate.js" ></script>
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+    以获得更好的体验！</p>
+<![endif]-->
+
+
+<!-- sidebar end -->
+
+<!-- content start -->
+<div class="admin-content">
+    <div class="admin-content-body">
+        <div class="am-cf am-padding am-padding-bottom-0">
+            <div class="am-fl am-cf">
+                <strong class="am-text-primary am-text-lg">人员管理</strong> /
+
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="am-tabs am-margin" data-am-tabs>
+            <ul class="am-tabs-nav am-nav am-nav-tabs">
+                <li class="am-active"><a href="#tab1">编辑人员</a></li>
+
+            </ul>
+
+            <div class="am-tabs-bd">
+                <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">编号</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <div id="number" class="am-u-sm-8 am-u-md-10"></div>
+                        </div>
+                    </div>
+                    <div class="am-g am-margin-top">
+                    <div class="am-u-sm-4 am-u-md-2 am-text-right">用户名</div>
+                    <div class="am-u-sm-8 am-u-md-10">
+                        <div id="username" class="am-u-sm-8 am-u-md-10"></div>
+                    </div>
+                </div>
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">学历</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <select id="xueli">
+                                <option>专科</option>
+                                <option>本科</option>
+                                <option>硕士</option>
+                            </select>
+                        </div>
+                        <!--<div clarss="am-u-sm-8 am-u-md-10" style="margin-left: 2rem;">
+                            <select>
+                                <option>专科</option>
+                                <option>本科</option>
+                                <option>硕士</option>
+                            </select>
+                        </div>-->
+                    </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">姓名</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <input id="name" type="text">
+                        </div>
+                    </div>
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">民族</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <select id="minzu">
+                                <option>汉族</option>
+                                <option>回族</option>
+                                <option>壮族</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--<div class="am-g am-margin-top">
+                    <div class="am-u-sm-4 am-u-md-2 am-text-right">手机</div>
+                    <div class="am-u-sm-8 am-u-md-10">
+                        <input type="text"value="">
+                    </div>
+                  </div>
+                    <div class="am-g am-margin-top">
+                    <div class="am-u-sm-4 am-u-md-2 am-text-right">邮箱</div>
+                    <div class="am-u-sm-8 am-u-md-10">
+                        <input type="text"value="">
+                    </div>
+                  </div>
+                    <div class="am-g am-margin-top">
+                    <div class="am-u-sm-4 am-u-md-2 am-text-right">地址</div>
+                    <div class="am-u-sm-8 am-u-md-10">
+                        <input type="text"value="">
+                    </div>
+                  </div> -->
+
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">性别</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <select id="sex" class="input_l">
+                                <option>性别</option>
+                                <option>男</option>
+                                <option>女</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">出生日期</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <label class="input_icon"><i class="iconfont icon-riqi"></i> <input id="dateinfo" type="text" class="input_l" placeholder="出生日期" ></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="am-margin">
+                <button id="changevip" type="button" class="am-btn am-btn-primary am-btn-xs"style="background-color: #22cc77; margin-left: 20%;margin-bottom: 20%;">确定</button>
+            </div>
+        </div>
+
+        <footer class="admin-content-footer">
+
+            <p class="am-padding-left"></p>
+        </footer>
+    </div>
+    <!-- content end -->
+
+</div>
+
+
+
+<footer>
+    <hr>
+    <p class="am-padding-left"></p>
+</footer>
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="assets/js/amazeui.min.js"></script>
+<script src="assets/js/app.js"></script>
+<script type="text/javascript">
+    jeDate({
+        dateCell:"#dateinfo",
+//				format:"YYYY-MM-DD",
+//				clearRestore:true,
+//				fixedCell:"",
+//				isinitVal:true,
+//				isTime:true,
+//				minDate:"2017-01-08",
+
+        isinitVal: false,
+        festival: true,
+        ishmsVal: false,
+        format: "YYYY-MM-DD",
+        choosefun:function(val) {
+            okdate(val.toString());
+        },
+    })
+
+</script>
+<script src="./assets/js/changevip.js"></script>
+</body>
+</html>

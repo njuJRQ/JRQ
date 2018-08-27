@@ -1,6 +1,6 @@
 <!--pages/modifyMyCard/modifyMyCard.wxml-->
 <view class='container'>
-  <view class='face h-center column'>
+  <view class='face h-center column' bindtap='updateFace'>
     <image src='{{oldInfo.face}}'></image>
     <text class='face-text'>更换头像</text>
   </view>

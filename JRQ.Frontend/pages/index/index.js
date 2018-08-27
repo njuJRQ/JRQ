@@ -41,7 +41,7 @@ Page({
         date: '2020-01-01',
         likeNum: 8888
       }],
-    ad: ""
+    ad: '../../default/default-pic.png'
   },
   //事件处理函数
   //onLoad函数
@@ -53,11 +53,6 @@ Page({
   },
   //展示广告
   showAd() {
-    var fakeData = '../../default/default-pic.png';
-    this.setData({
-      ad: fakeData
-    })
-
     /**
      * 方法：getAd
      * 参数：
@@ -81,12 +76,12 @@ Page({
   //展示文章
   showArticles: function(kind) {
     /**
-     * 方法：getArticles
+     * 方法：getAbstracts
      * 参数：
      * 文章类别：kind
      */
     wx.request({
-      url: app.globalData.backendUrl + "getArticles",
+      url: app.globalData.backendUrl + "getAbstracts",
       data: {
         kind: kind
       },
@@ -97,7 +92,7 @@ Page({
       method: 'GET',
       success: (res) => {
         this.setData({
-          articles: res.data.articleList
+          articles: res.data.abstractList
         })
       }
     })

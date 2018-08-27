@@ -1,4 +1,6 @@
 // pages/modifyMyCard/modifyMyCard.js
+var app = getApp();
+
 Page({
 
   /**
@@ -15,6 +17,20 @@ Page({
       position: 'T1初级经理',
       intro: '我要在代码的世界里飞翔。我要在代码的世界里飞翔。我要在代码的世界里飞翔。我要在代码的世界里飞翔。我要在代码的世界里飞翔。我要在代码的世界里飞翔。我要在代码的世界里飞翔。我要在代码的世界里飞翔。'
     }
+  },
+  updateFace: function () {
+    var that = this;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        var tempFilePath = res.tempFilePaths[0];
+        that.data.face = tempFilePath;
+        that.data.oldInfo.face = tempFilePath;
+        that.setData(that.data);
+      },
+    })
   },
   updateName: function (e) {
     this.data.name = e.detail.value;
@@ -61,7 +77,7 @@ Page({
       url: app.globalData.backendUrl + "modifyMyInfo",
       data: {
         openId: app.getOpenId(),
-        face: "",
+        face: this.data.face,
         username: this.data.username,
         phone: this.data.phone,
         email: this.data.email,

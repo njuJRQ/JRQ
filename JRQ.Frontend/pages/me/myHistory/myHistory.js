@@ -89,11 +89,11 @@ Page({
   },
   showMyHistoryArticles: function () {
     /**
-     * 方法：showMyHistoryArticles
+     * 方法：showMyHistoryAbstracts
      * 参数：用户openId：openId
      */
     wx.request({
-      url: app.globalData.backendUrl + "showMyHistoryArticles",
+      url: app.globalData.backendUrl + "showMyHistoryAbstracts",
       data: {
         openId: app.getOpenId()
       },
@@ -104,7 +104,7 @@ Page({
       method: 'GET',
       success: (res) => {
         this.setData({
-          myArticles: res.data.articleList
+          myArticles: res.data.abstractList
         })
       }
     })

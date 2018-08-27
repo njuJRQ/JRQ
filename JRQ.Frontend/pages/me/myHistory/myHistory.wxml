@@ -4,7 +4,7 @@
     <view class='my-card column'>
       <view class='row v-center'>
         <view class='my-card-face'>
-          <image src='../../default/default-pic.png'></image>
+          <image src='../../../default/default-pic.png'></image>
         </view>
         <view class='my-card-info column'>
           <view class='my-card-info-username row v-center'>
@@ -70,8 +70,8 @@
         </view>
 
         <view class='article-share row'>
-          <view class='v-center'>
-            <image src='../../default/default-icon.png' style='width: 20px; height: 20px;'></image>
+          <view class='v-center' bindtap='onShare'>
+            <image src='img/share.png' style='width: 20px; height: 20px;'></image>
             <text>分享到朋友圈</text>
           </view>
           <text class='v-center'>{{item.date}}</text>

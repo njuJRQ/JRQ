@@ -2,6 +2,15 @@
 App({
   onLaunch: function () {
     console.log('App Launch')
+  }, 
+  getToken: function () {
+    return wx.getStorageSync("token");
+  },
+  getSupplierToken: function () {
+    return wx.getStorageSync("supplierToken");
+  },
+  getOpenId: function () {
+    return wx.getStorageSync("openId");
   },
   onShow: function () {
     //获得openid,token
@@ -22,6 +31,7 @@ App({
             //获得从后端获取认证信息
             if (res.statusCode == 200) {
               var openId = res.data.openId;
+              wx.setStorageSync("openId", openId);
               var sessionKey = res.data.sessionKey;
               wx.setStorageSync("sessionKey", sessionKey);
               wx.request({

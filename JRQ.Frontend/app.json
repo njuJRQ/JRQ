@@ -4,14 +4,14 @@
     "pages/community/community",
     "pages/service/service",
     "pages/me/me",
-    "pages/myCardHolder/myCardHolder",
-    "pages/modifyMyCard/modifyMyCard",
-    "pages/myHistory/myHistory"
+    "pages/me/myCardHolder/myCardHolder",
+    "pages/me/modifyMyCard/modifyMyCard",
+    "pages/me/myHistory/myHistory"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "钧融圈",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {

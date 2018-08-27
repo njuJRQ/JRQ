@@ -3,10 +3,10 @@
   <!--搜索框-->
   <view class='search row'>
     <view class='search-image h-center v-center' bindtap='onSearch'>
-      <image src='../../default/default-icon.png'></image>
+      <image src='img/search.png'></image>
     </view>
     <view class='search-input'>
-      <input placeholder='搜索姓名、公司名称'></input>
+      <input placeholder='搜索姓名、公司名称' bindinput='updateSearchCondition'></input>
     </view>
   </view>
   <view class='navbar row'>
@@ -25,7 +25,7 @@
     <view class='one-card column'>
       <view class='row v-center'>
         <view class='one-card-face'>
-          <image src='../../default/default-pic.png'></image>
+          <image src='../../../default/default-pic.png'></image>
         </view>
         <view class='one-card-info column'>
           <view class='one-card-info-username row v-center'>

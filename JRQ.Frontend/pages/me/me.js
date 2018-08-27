@@ -21,7 +21,8 @@ Page({
       position: 'IT初级经理',
       intro: '我要在代码的世界里飞翔。'
     },
-    publishInputValue: ""
+    publishInputValue: "",
+    publishPhotos: null
   },
 
   /**
@@ -58,11 +59,17 @@ Page({
     console.log("Input: " + this.data.publishInputValue);
   },
   onUploadPhotos: function () {
+    var that = this;
     wx.chooseImage({
       count: 3,
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
-      success: function(res) {},
+      success: function(res) {
+        var tempFilePaths = res.tempFilePaths;
+        that.setData({
+          publishPhotos: tempFilePaths
+        })
+      },
     })
   },
   //发布信息

@@ -25,4 +25,9 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 	public InfoResponse likePlus(String kind, long articleId, String openid) {
 		return null;
 	}
+
+	@Override
+	public AbstractListResponse getMyHistoryAbstractList(String openid) {
+		return null;
+	}
 }

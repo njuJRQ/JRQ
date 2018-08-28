@@ -3,7 +3,9 @@ package njurestaurant.njutakeout.blservice.article.course;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.course.CourseListResponse;
 import njurestaurant.njutakeout.response.article.course.CourseResponse;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface CourseBlService {
 	/**
 	 *  添加课程

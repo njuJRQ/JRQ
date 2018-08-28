@@ -11,7 +11,7 @@ public class PurchaseCourse {
 	private String openid; //用户微信ID
 
 	@Id
-	@Column(name = "openid")
+	@Column(name = "courseId")
 	private long courseId; //课程ID
 
 	public PurchaseCourse() {

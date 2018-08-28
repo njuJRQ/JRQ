@@ -3,7 +3,9 @@ package njurestaurant.njutakeout.blservice.article.document;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.document.DocumentListResponse;
 import njurestaurant.njutakeout.response.article.document.DocumentResponse;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface DocumentBlService {
 	/**
 	 * 添加文档

@@ -2,7 +2,9 @@ package njurestaurant.njutakeout.blservice.article;
 
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.*;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface ArticleBlService {
 
 	/**
@@ -35,5 +37,12 @@ public interface ArticleBlService {
 	 * @return 是否成功
 	 */
 	InfoResponse likePlus(String kind, long articleId, String openid);
+
+	/**
+	 * 用户获取自己发布过的文章摘要
+	 * @param openid 用户的微信openid
+	 * @return 文章摘要
+	 */
+	AbstractListResponse getMyHistoryAbstractList(String openid);
 
 }

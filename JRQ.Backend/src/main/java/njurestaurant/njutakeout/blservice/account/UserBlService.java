@@ -70,4 +70,20 @@ public interface UserBlService {
 	 * @return 业务名片列表
 	 */
 	PersonListResponse getPersonList(String kind);
+
+	/**
+	 * 获取符合特定条件的业务名片列表
+	 * @param condition 条件
+	 * @return 业务名片列表
+	 */
+	PersonListResponse getPersonListByCondition(String condition);
+
+	/**
+	 * 用户获取自己的名片列表
+	 * @param openid 用户的微信openid
+	 * @param kind 名片类型 "new","current","whoHasMyCard"
+	 * @return 特定类型的名片列表
+	 */
+	PersonListResponse getMyPersonList(String openid, String kind);
+
 }

@@ -16,7 +16,7 @@ public class ArticleItem {
 	public ArticleItem(){
 	}
 
-	public ArticleItem(long id, String title, String content, List<String> images, String writerFace, String writerName, String date, long likeNum) {
+	public ArticleItem(long id, String title, String content, List<String> images, String writerFace, String writerName, String date, long likeNum, String kind) {
 		this.id = id;
 		this.title = title;
 		this.content = content;
@@ -25,6 +25,7 @@ public class ArticleItem {
 		this.writerName = writerName;
 		this.date = date;
 		this.likeNum = likeNum;
+		this.kind = kind;
 	}
 
 	public long getId() {

@@ -15,7 +15,7 @@ public class AbstractItem {
 	public AbstractItem(){
 	}
 
-	public AbstractItem(long id, String title, List<String> images, String writerFace, String writerName, String date, long likeNum) {
+	public AbstractItem(long id, String title, List<String> images, String writerFace, String writerName, String date, long likeNum, String kind) {
 		this.id = id;
 		this.title = title;
 		this.images = images;
@@ -23,6 +23,7 @@ public class AbstractItem {
 		this.writerName = writerName;
 		this.date = date;
 		this.likeNum = likeNum;
+		this.kind = kind;
 	}
 
 	public long getId() {

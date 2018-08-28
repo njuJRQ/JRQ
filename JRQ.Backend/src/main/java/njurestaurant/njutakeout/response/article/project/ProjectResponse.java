@@ -1,4 +1,4 @@
-package njurestaurant.njutakeout.response.article;
+package njurestaurant.njutakeout.response.article.project;
 
 public class ProjectResponse {
 	private ProjectItem project;

@@ -1,4 +1,4 @@
-package njurestaurant.njutakeout.response.article;
+package njurestaurant.njutakeout.response.article.document;
 
 public class DocumentResponse {
 	private DocumentItem document;

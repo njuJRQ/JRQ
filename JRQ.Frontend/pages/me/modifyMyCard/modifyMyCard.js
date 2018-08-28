@@ -1,5 +1,6 @@
 // pages/modifyMyCard/modifyMyCard.js
-var app = getApp();
+const app = getApp();
+var api = require('../../../util/api.js')
 
 Page({
 
@@ -60,40 +61,7 @@ Page({
     
   },
   onSave: function(){
-    console.log('save');
-    /**
-     * 方法：modifyMyInfo
-     * 参数：
-     * 用户头像：face
-     * 用户名：username
-     * 电话：phone
-     * 邮箱：email
-     * 公司：company
-     * 部门：department
-     * 职位：position
-     * 个人简介：intro
-     */
-    wx.request({
-      url: app.globalData.backendUrl + "modifyMyInfo",
-      data: {
-        openId: app.getOpenId(),
-        face: this.data.face,
-        username: this.data.username,
-        phone: this.data.phone,
-        email: this.data.email,
-        company: this.data.company,
-        department: this.data.department,
-        position: this.data.position,
-        intro: this.data.intro
-      },
-      header: {
-        'Authorization': 'Bearer ' + app.getToken(),
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'GET',
-      success: (res) => {
-        //do nothing
-      }
-    })
+    console.log('save')
+    api.updateUser(this)
   }
 })

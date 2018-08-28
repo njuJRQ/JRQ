@@ -6,7 +6,11 @@
     "pages/me/me",
     "pages/me/myCardHolder/myCardHolder",
     "pages/me/modifyMyCard/modifyMyCard",
-    "pages/me/myHistory/myHistory"
+    "pages/me/myHistory/myHistory",
+    "pages/articleDetail/courseDetail/courseDetail",
+    "pages/articleDetail/documentDetail/documentDetail",
+    "pages/articleDetail/projectDetail/projectDetail",
+    "pages/index/ad/ad"
   ],
   "window": {
     "backgroundTextStyle": "light",

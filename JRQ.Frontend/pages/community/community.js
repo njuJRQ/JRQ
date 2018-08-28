@@ -1,6 +1,7 @@
 // pages/community/community.js
 //获取应用实例
 const app = getApp();
+var api = require('../../util/api.js')
 
 Page({
 
@@ -51,58 +52,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.showAll();
+  //展示圈子文章
+    api.getAbstractList('feed', app.getOpenid(), this)
   },
   onShare: function () {
     console.log('on share')
   },
-  //展示所有文章
-  showAll: function () {
-    /**
-     * 方法：getArticles
-     * 参数：
-     * 无
-     */
-    wx.request({
-      url: app.globalData.backendUrl + "getArticles",
-      data: {
-        kind: 'all'
-      },
-      header: {
-        'Authorization': 'Bearer ' + app.getToken(),
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'GET',
-      success: (res) => {
-        this.setData({
-          articles: res.data.articleList
-        })
-      }
-    })
-  },
   //点赞数加一
   likePlus: function (event) {
-    //获取当前文章id
-    var id = event.currentTarget.dataset.id;
-    //获取当前文章
-    var article = this.getCurrentArticle(id);
-    /**
-     * 方法：likePlus
-     * 参数：
-     * id: id
-     * username: username
-     */
-    wx.request({
-      url: app.globalData.backendUrl + "likePlus",
-      header: {
-        'Authorization': 'Bearer ' + app.getToken(),
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'GET',
-      success: (res) => {
-        article.likeNum++;
-        this.setData(this.data)
-      }
+    var id = event.currentTarget.dataset.id //获取当前文章id
+    var article = this.getCurrentArticle(id) //获取当前文章
+    api.likePlus(article.kind, id, app.getOpenid(), {
+      article: article,
+      that: this
     })
   },
   //获取当前文章

@@ -4,13 +4,13 @@ import njurestaurant.njutakeout.response.Response;
 
 import java.util.List;
 
-public class GetAbstractsResponse extends Response {
+public class AbstractListResponse extends Response {
 	private List<AbstractItem> abstractList; //首页所有文章列表
 
-	public GetAbstractsResponse(){
+	public AbstractListResponse(){
 	}
 
-	public GetAbstractsResponse(List<AbstractItem> abstractList) {
+	public AbstractListResponse(List<AbstractItem> abstractList) {
 		this.abstractList = abstractList;
 	}
 

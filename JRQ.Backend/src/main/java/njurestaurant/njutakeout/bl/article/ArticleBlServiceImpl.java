@@ -7,97 +7,27 @@ import njurestaurant.njutakeout.response.article.*;
 public class ArticleBlServiceImpl implements ArticleBlService {
 
 	@Override
-	public GetAbstractsResponse getAbstracts(String kind) {
+	public AbstractListResponse getAbstractList(String kind, String openid) {
 		return null;
 	}
 
 	@Override
-	public GetOneArticleResponse getOneArticleById(long id) {
+	public ArticleResponse getArticle(String kind, long id) {
 		return null;
 	}
 
 	@Override
-	public GetAdResponse getAd() {
+	public AdResponse getAd() {
 		return null;
 	}
 
 	@Override
-	public LikePlusResponse likePlus(long id, String openId) {
+	public InfoResponse likePlus(String kind, long articleId, String openid) {
 		return null;
 	}
 
 	@Override
-	public InfoResponse addCourse(String title, String image, String writerName, String date, long likeNum, String video, int price) {
-		return null;
-	}
-
-	@Override
-	public CourseResponse getCourse(long id) {
-		return null;
-	}
-
-	@Override
-	public CourseListResponse getCourseList() {
-		return null;
-	}
-
-	@Override
-	public InfoResponse updateCourse(long id, String title, String image, String writerName, String date, long likeNum, String video, int price) {
-		return null;
-	}
-
-	@Override
-	public InfoResponse deleteCourse(long id) {
-		return null;
-	}
-
-	@Override
-	public InfoResponse addDocument(String title, String writerName, String date, long likeNum) {
-		return null;
-	}
-
-	@Override
-	public DocumentResponse getDocument(long id) {
-		return null;
-	}
-
-	@Override
-	public DocumentListResponse getDocumentList() {
-		return null;
-	}
-
-	@Override
-	public InfoResponse updateDocument(long id, String title, String writerName, String date, long likeNum) {
-		return null;
-	}
-
-	@Override
-	public InfoResponse deleteDocument(long id) {
-		return null;
-	}
-
-	@Override
-	public InfoResponse addProject(String title, String identity, String phone, String city, String industry, String business, String content, int money, String attachment) {
-		return null;
-	}
-
-	@Override
-	public ProjectResponse getProject(long id) {
-		return null;
-	}
-
-	@Override
-	public ProjectListResponse getProjectList() {
-		return null;
-	}
-
-	@Override
-	public InfoResponse updateProject(long id, String title, String identity, String phone, String city, String industry, String business, String content, int money, String attachment) {
-		return null;
-	}
-
-	@Override
-	public InfoResponse deleteProject(long id) {
+	public AbstractListResponse getMyHistoryAbstractList(String openid) {
 		return null;
 	}
 }

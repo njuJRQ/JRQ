@@ -2,13 +2,13 @@ package njurestaurant.njutakeout.response.article;
 
 import njurestaurant.njutakeout.response.Response;
 
-public class GetOneArticleResponse extends Response {
+public class ArticleResponse extends Response {
 	private ArticleItem article;
 
-	private GetOneArticleResponse(){
+	private ArticleResponse(){
 	}
 
-	public GetOneArticleResponse(ArticleItem article) {
+	public ArticleResponse(ArticleItem article) {
 		this.article = article;
 	}
 

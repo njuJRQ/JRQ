@@ -75,42 +75,43 @@ public class OrderBlServiceImpl implements OrderBlService {
      */
     @Override
     public FinalPriceGetResponse getFinalPrice(OrderFinalPriceParameters orderFinalPriceParameters, String username) {
-        double originTotal = orderFinalPriceParameters.getTotal();
-        List<OrderSubmitFood> orderSubmitFoods = orderFinalPriceParameters.getFoods();
-        List<Event> events = eventDataService.getAllEvents().stream().filter((event) -> event.getEventState() == EventState.ACTIVE).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
-        for (Event event : events) {
-            switch (event.getEventType()) {
-                case FirstOrder:
-                    User user = userDataService.getUserByUsername(username);
-                    if (user.getOrders().size() == 0) {
-                        double result = (originTotal - ((FirstOrderEvent) event).getMinusPrice()) <= 0 ? 0.01 : (originTotal - ((FirstOrderEvent) event).getMinusPrice());
-                        return new FinalPriceGetResponse(result);
-                    }
-                    break;
-                case FullSubtraction:
-                    if (originTotal >= ((FullSubtractionEvent) event).getFullPrice()) {
-                        double result = (originTotal - ((FullSubtractionEvent) event).getMinusPrice()) <= 0 ? 0.01 : (originTotal - ((FullSubtractionEvent) event).getMinusPrice());
-                        return new FinalPriceGetResponse(result);
-                    }
-                    break;
-                case ItemSubtraction:
-                    for (int itemId : ((ItemSubtractionEvent) event).getItemList()) {
-                        if (orderSubmitFoods.stream().noneMatch((food) -> food.getFoodId() == itemId)) {
-                            break;
-                        }
-                    }
-                    double result = (originTotal - ((ItemSubtractionEvent) event).getMinusPrice()) <= 0 ? 0.01 : (originTotal - ((ItemSubtractionEvent) event).getMinusPrice());
-                    return new FinalPriceGetResponse(result);
-                case ItemSubtractionOnce:
-                    if (!orderDataService.hasOrderedTheFoodBefore(((ItemSubtractionOnceEvent) event).getItemId(), username)) {
-                        if (orderSubmitFoods.stream().anyMatch((food) -> food.getFoodId() == ((ItemSubtractionOnceEvent) event).getItemId())) {
-                            result = (originTotal - ((ItemSubtractionOnceEvent) event).getMinusPrice()) <= 0 ? 0.01 : (originTotal - ((ItemSubtractionOnceEvent) event).getMinusPrice());
-                            return new FinalPriceGetResponse(result);
-                        }
-                    }
-            }
-        }
-        return new FinalPriceGetResponse(originTotal);
+//        double originTotal = orderFinalPriceParameters.getTotal();
+//        List<OrderSubmitFood> orderSubmitFoods = orderFinalPriceParameters.getFoods();
+//        List<Event> events = eventDataService.getAllEvents().stream().filter((event) -> event.getEventState() == EventState.ACTIVE).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+//        for (Event event : events) {
+//            switch (event.getEventType()) {
+//                case FirstOrder:
+//                    User user = userDataService.getUserByUsername(username);
+//                    if (user.getOrders().size() == 0) {
+//                        double result = (originTotal - ((FirstOrderEvent) event).getMinusPrice()) <= 0 ? 0.01 : (originTotal - ((FirstOrderEvent) event).getMinusPrice());
+//                        return new FinalPriceGetResponse(result);
+//                    }
+//                    break;
+//                case FullSubtraction:
+//                    if (originTotal >= ((FullSubtractionEvent) event).getFullPrice()) {
+//                        double result = (originTotal - ((FullSubtractionEvent) event).getMinusPrice()) <= 0 ? 0.01 : (originTotal - ((FullSubtractionEvent) event).getMinusPrice());
+//                        return new FinalPriceGetResponse(result);
+//                    }
+//                    break;
+//                case ItemSubtraction:
+//                    for (int itemId : ((ItemSubtractionEvent) event).getItemList()) {
+//                        if (orderSubmitFoods.stream().noneMatch((food) -> food.getFoodId() == itemId)) {
+//                            break;
+//                        }
+//                    }
+//                    double result = (originTotal - ((ItemSubtractionEvent) event).getMinusPrice()) <= 0 ? 0.01 : (originTotal - ((ItemSubtractionEvent) event).getMinusPrice());
+//                    return new FinalPriceGetResponse(result);
+//                case ItemSubtractionOnce:
+//                    if (!orderDataService.hasOrderedTheFoodBefore(((ItemSubtractionOnceEvent) event).getItemId(), username)) {
+//                        if (orderSubmitFoods.stream().anyMatch((food) -> food.getFoodId() == ((ItemSubtractionOnceEvent) event).getItemId())) {
+//                            result = (originTotal - ((ItemSubtractionOnceEvent) event).getMinusPrice()) <= 0 ? 0.01 : (originTotal - ((ItemSubtractionOnceEvent) event).getMinusPrice());
+//                            return new FinalPriceGetResponse(result);
+//                        }
+//                    }
+//            }
+//        }
+//        return new FinalPriceGetResponse(originTotal);
+        return null;
     }
 
     /**
@@ -316,14 +317,15 @@ public class OrderBlServiceImpl implements OrderBlService {
      */
     @Override
     public CommentLoadResponse loadComments() throws OrderIdDoesNotExistException {
-        List<CommentItem> commentItems = new ArrayList<>();
-        List<Comment> comments = orderDataService.loadAllComments();
-        for (Comment comment : comments) {
-            Order order = orderDataService.getOrderByOrderId(comment.getOrderId());
-            String avatarUrl = order.getUser().getAvatarUrl();
-            commentItems.add(new CommentItem(avatarUrl, FormatDateTime.toLongDateString(comment.getDate()), comment.getComment()));
-        }
-        return new CommentLoadResponse(commentItems);
+//        List<CommentItem> commentItems = new ArrayList<>();
+//        List<Comment> comments = orderDataService.loadAllComments();
+//        for (Comment comment : comments) {
+//            Order order = orderDataService.getOrderByOrderId(comment.getOrderId());
+//            String avatarUrl = order.getUser().getAvatarUrl();
+//            commentItems.add(new CommentItem(avatarUrl, FormatDateTime.toLongDateString(comment.getDate()), comment.getComment()));
+//        }
+//        return new CommentLoadResponse(commentItems);
+        return null;
     }
 
     private OrderSubmitResponse unifiedorder(Order order) throws SystemException {

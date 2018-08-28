@@ -10,11 +10,12 @@ public class AbstractItem {
 	private String writerName; //作者名字
 	private String date; //文章发布日期，如“2018-1-1”
 	private long likeNum; //文章点赞数
+	private String kind; //文章类型，可能值：course，document，project
 
 	public AbstractItem(){
 	}
 
-	public AbstractItem(long id, String title, List<String> images, String writerFace, String writerName, String date, long likeNum) {
+	public AbstractItem(long id, String title, List<String> images, String writerFace, String writerName, String date, long likeNum, String kind) {
 		this.id = id;
 		this.title = title;
 		this.images = images;
@@ -22,6 +23,7 @@ public class AbstractItem {
 		this.writerName = writerName;
 		this.date = date;
 		this.likeNum = likeNum;
+		this.kind = kind;
 	}
 
 	public long getId() {
@@ -78,5 +80,13 @@ public class AbstractItem {
 
 	public void setLikeNum(long likeNum) {
 		this.likeNum = likeNum;
+	}
+
+	public String getKind() {
+		return kind;
+	}
+
+	public void setKind(String kind) {
+		this.kind = kind;
 	}
 }

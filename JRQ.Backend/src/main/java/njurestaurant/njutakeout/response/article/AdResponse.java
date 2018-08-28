@@ -2,14 +2,14 @@ package njurestaurant.njutakeout.response.article;
 
 import njurestaurant.njutakeout.response.Response;
 
-public class GetAdResponse extends Response {
+public class AdResponse extends Response {
 	private String ad; //首页广告图片路径
 	private String link; //跳转链接
 
-	public GetAdResponse(){
+	public AdResponse(){
 	}
 
-	public GetAdResponse(String ad, String link) {
+	public AdResponse(String ad, String link) {
 		this.ad = ad;
 		this.link = link;
 	}

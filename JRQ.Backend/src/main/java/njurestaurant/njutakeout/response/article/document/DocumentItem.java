@@ -1,4 +1,4 @@
-package njurestaurant.njutakeout.response.article;
+package njurestaurant.njutakeout.response.article.document;
 
 import njurestaurant.njutakeout.entity.article.Document;
 

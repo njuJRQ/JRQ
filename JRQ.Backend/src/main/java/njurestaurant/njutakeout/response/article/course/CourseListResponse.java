@@ -1,6 +1,5 @@
-package njurestaurant.njutakeout.response.article;
+package njurestaurant.njutakeout.response.article.course;
 
-import njurestaurant.njutakeout.entity.article.CourseItem;
 import njurestaurant.njutakeout.response.Response;
 
 import java.util.List;

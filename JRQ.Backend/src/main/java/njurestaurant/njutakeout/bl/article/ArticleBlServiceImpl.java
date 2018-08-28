@@ -3,33 +3,26 @@ package njurestaurant.njutakeout.bl.article;
 import njurestaurant.njutakeout.blservice.article.ArticleBlService;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.*;
-import njurestaurant.njutakeout.response.article.course.CourseListResponse;
-import njurestaurant.njutakeout.response.article.course.CourseResponse;
-import njurestaurant.njutakeout.response.article.document.DocumentListResponse;
-import njurestaurant.njutakeout.response.article.document.DocumentResponse;
-import njurestaurant.njutakeout.response.article.project.ProjectListResponse;
-import njurestaurant.njutakeout.response.article.project.ProjectResponse;
 
 public class ArticleBlServiceImpl implements ArticleBlService {
 
 	@Override
-	public GetAbstractsResponse getAbstracts(String kind) {
+	public AbstractListResponse getAbstractList(String kind, String openid) {
 		return null;
 	}
 
 	@Override
-	public GetOneArticleResponse getOneArticleById(long id) {
+	public ArticleResponse getArticle(String kind, long id) {
 		return null;
 	}
 
 	@Override
-	public GetAdResponse getAd() {
+	public AdResponse getAd() {
 		return null;
 	}
 
 	@Override
-	public LikePlusResponse likePlus(long id, String openId) {
+	public InfoResponse likePlus(String kind, long articleId, String openid) {
 		return null;
 	}
-
 }

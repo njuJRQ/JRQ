@@ -2,12 +2,10 @@ package njurestaurant.njutakeout.entity.article;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "document")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class Document {
 	@Id

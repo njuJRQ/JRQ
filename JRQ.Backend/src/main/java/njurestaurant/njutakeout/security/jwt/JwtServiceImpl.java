@@ -48,11 +48,7 @@ public class JwtServiceImpl implements JwtService {
 
     @Override
     public JwtUser convertUserToJwtUser(User user) {
-        return new JwtUser(
-                user.getUsername(),
-                user.getPassword(),
-                mapToJwtRole(user.getRole())
-        );
+        return null;
     }
 
 

@@ -47,15 +47,16 @@ public class UserDataServiceImpl implements UserDataService {
      */
     @Override
     public boolean confirmPassword(String username, String password) {
-        User user = userDao.findUserByUsername(username);
-        if (user != null) {
-            if (BCrypt.checkpw(password, user.getPassword())) {
-                return true;
-            }
-            return false;
-        } else {
-            return false;
-        }
+//        User user = userDao.findUserByUsername(username);
+//        if (user != null) {
+//            if (BCrypt.checkpw(password, user.getPassword())) {
+//                return true;
+//            }
+//            return false;
+//        } else {
+//            return false;
+//        }
+        return false;
     }
 
     /**

@@ -11,7 +11,7 @@ public class ArticleItem {
 	private String writerName; //作者名字
 	private String date; //文章发布日期，如"2018-1-1"
 	private long likeNum; //文章点赞数
-	private String kind; //文章类型，可能值：course，document，project
+	private String kind; //文章类型，可能值：course，document，project，feed
 
 	public ArticleItem(){
 	}

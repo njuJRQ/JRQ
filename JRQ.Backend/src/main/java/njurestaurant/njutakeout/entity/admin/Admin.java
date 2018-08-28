@@ -2,12 +2,10 @@ package njurestaurant.njutakeout.entity.admin;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "admin")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class Admin {
 	@Id

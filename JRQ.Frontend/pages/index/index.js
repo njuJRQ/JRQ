@@ -1,6 +1,7 @@
 //index.js
 //获取应用实例
 const app = getApp()
+var api = require('../../util/api.js')
 
 Page({
   data: {
@@ -15,143 +16,99 @@ Page({
       writerFace: '../../default/default-icon.png',
       writerName: '锄禾日当午',
       date: '2020-01-01',
-      likeNum: 8888
+      likeNum: 8888,
+      kind: 'course'
     }, {
-        id: 2,
-        text: '与钧融资本成功签订2个亿的基金合约，环保领域。',
-        images: [
-          '../../default/default-pic.png',
-          '../../default/default-pic.png',
-          '../../default/default-pic.png'
-        ],
-        writerFace: '../../default/default-icon.png',
-        writerName: '汗滴禾下土',
-        date: '2020-01-01',
-        likeNum: 9999
-      }, {
-        id: 3,
-        text: '《有效识别金融项目》课程。',
-        images: [
-          '../../default/default-pic.png',
-          '../../default/default-pic.png',
-          '../../default/default-pic.png'
-        ],
-        writerFace: '../../default/default-icon.png',
-        writerName: '锄禾日当午',
-        date: '2020-01-01',
-        likeNum: 8888
-      }],
-    ad: '../../default/default-pic.png'
+      id: 2,
+      text: '与钧融资本成功签订2个亿的基金合约，环保领域。',
+      images: [
+        '../../default/default-pic.png',
+        '../../default/default-pic.png',
+        '../../default/default-pic.png'
+      ],
+      writerFace: '../../default/default-icon.png',
+      writerName: '汗滴禾下土',
+      date: '2020-01-01',
+      likeNum: 9999,
+      kind: 'document'
+    }, {
+      id: 3,
+      text: '《有效识别金融项目》课程。',
+      images: [
+        '../../default/default-pic.png',
+        '../../default/default-pic.png',
+        '../../default/default-pic.png'
+      ],
+      writerFace: '../../default/default-icon.png',
+      writerName: '锄禾日当午',
+      date: '2020-01-01',
+      likeNum: 8888,
+      kind: 'course'
+    }],
+    ad: '../../default/default-pic.png',
+    adLink: 'https://www.baidu.com'
   },
   //事件处理函数
   //onLoad函数
-  onLoad: function () {
-    //展示广告
-    this.showAd();
-    //展示所有文章
-    this.showArticles('all');
+  onLoad: function() {
+    api.getAd(this) //展示广告
+    api.getAbstractList('course', app.getOpenid(), this) //展示课程类文章
   },
-  //展示广告
-  showAd() {
-    /**
-     * 方法：getAd
-     * 参数：
-     * 无
-     */
-
-    wx.request({
-      url: app.globalData.backendUrl + "getAd",
-      header: {
-        'Authorization': 'Bearer ' + app.getToken(),
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'GET',
-      success: (res) => {
-        this.setData({
-          ad: res.data.ad
-        })
-      }
-    })
-  },
-  //展示文章
-  showArticles: function(kind) {
-    /**
-     * 方法：getAbstracts
-     * 参数：
-     * 文章类别：kind
-     */
-    wx.request({
-      url: app.globalData.backendUrl + "getAbstracts",
-      data: {
-        kind: kind
-      },
-      header: {
-        'Authorization': 'Bearer ' + app.getToken(),
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'GET',
-      success: (res) => {
-        this.setData({
-          articles: res.data.abstractList
-        })
-      }
+  //点击广告跳转
+  onAd: function() {
+    wx.navigateTo({
+      url: 'ad/ad'
     })
   },
   //展示课程
   showCourses: function() {
-    console.log('show courses');
-    this.showArticles('course');
+    console.log('show courses')
+    api.getAbstractList('course', app.getOpenid(), this)
   },
   //展示文档
   showDocuments: function() {
     console.log('show documents');
-    this.showArticles('document');
+    api.getAbstractList('document', app.getOpenid(), this)
   },
   //展示项目
   showProjects: function() {
     console.log('show projects');
-    this.showArticles('project');
+    api.getAbstractList('project', app.getOpenid(), this)
   },
   //展示文章详情
-  onTouchThisArticle: function(event) {
-    //获取当前文章id
-    var id = event.currentTarget.dataset.id;
-    console.log(id);
-    //TODO
+  onTouchThisArticle: function(e) {
+    var id = e.currentTarget.dataset.id //获取当前文章id
+    var kind = e.currentTarget.dataset.kind
+    var url = '../articleDetail/'
+    switch (kind) {
+      case 'course':
+        url += 'courseDetail/courseDetail?id=' + id
+        break;
+      case 'document':
+        url += 'documentDetail/documentDetail?id=' + id
+        break;
+      case 'project':
+        url += 'projectDetail/projectDetail?id=' + id
+        break;
+      default:
+    }
+    wx.navigateTo({
+      url: url
+    })
   },
   //点赞数加一
   likePlus: function(event) {
-    //获取当前文章id
-    var id = event.currentTarget.dataset.id;
-    //获取当前文章
-    var article = this.getCurrentArticle(id);
-    /**
-     * 方法：likePlus
-     * 参数：
-     * id: id
-     * username: username
-     */
-    wx.request({
-      url: app.globalData.backendUrl + "likePlus",
-      data: {
-        id: id,
-        openId: app.getOpenId()
-      },
-      header: {
-        'Authorization': 'Bearer ' + app.getToken(),
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'GET',
-      success: (res) => {
-        article.likeNum++;
-        this.setData(this.data)
-      }
+    var id = event.currentTarget.dataset.id //获取当前文章id
+    var article = this.getCurrentArticle(id) //获取当前文章
+    api.likePlus(article.kind, id, app.getOpenid(), {
+      article: article,
+      that: this
     })
   },
   //获取当前文章
   getCurrentArticle: function(id) {
     var that = null;
-    for(var i = 0; i < this.data.articles.length; i++) {
+    for (var i = 0; i < this.data.articles.length; i++) {
       if (this.data.articles[i].id == id)
         that = this.data.articles[i];
     }

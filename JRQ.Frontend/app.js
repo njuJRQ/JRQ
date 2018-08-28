@@ -9,8 +9,8 @@ App({
   getSupplierToken: function () {
     return wx.getStorageSync("supplierToken");
   },
-  getOpenId: function () {
-    return wx.getStorageSync("openId");
+  getOpenid: function () {
+    return wx.getStorageSync("openid");
   },
   onShow: function () {
     //获得openid,token
@@ -19,7 +19,7 @@ App({
       success: function (res) {
         var js_code = res.code;
         wx.request({
-          url: that.globalData.backendUrl + "getOpenId",
+          url: that.globalData.backendUrl + "getOpenid",
           header: {
             'content-type': 'application/x-www-form-urlencoded'
           },
@@ -31,7 +31,7 @@ App({
             //获得从后端获取认证信息
             if (res.statusCode == 200) {
               var openId = res.data.openId;
-              wx.setStorageSync("openId", openId);
+              wx.setStorageSync("openid", openId);
               var sessionKey = res.data.sessionKey;
               wx.setStorageSync("sessionKey", sessionKey);
               wx.request({

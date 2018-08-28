@@ -1,5 +1,6 @@
 // pages/me/me.js
-var app = getApp();
+const app = getApp();
+var api = require('../../util/api.js')
 
 Page({
 
@@ -32,27 +33,7 @@ Page({
     this.showMyInfo();
   },
   showMyInfo: function() {
-    /**
-     * 方法：getMyInfo
-     * 参数：
-     * 无
-     */
-    wx.request({
-      url: app.globalData.backendUrl + "getMyInfo",
-      data: {
-        openId: app.getOpenId()
-      },
-      header: {
-        'Authorization': 'Bearer ' + app.getToken(),
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'GET',
-      success: (res) => {
-        this.setData({
-          myInfo: res.data.myInfo
-        })
-      }
-    })
+    api.getMyInfo(app.getOpenid(), this)
   },
   bindPublishInput: function(e) {
     this.data.publishInputValue = e.detail.value;
@@ -75,26 +56,7 @@ Page({
   //发布信息
   onPublish: function () {
     console.log('publish');
-    /**
-     * 方法：publishMyArticle
-     * 参数：
-     * 文本内容：content
-     */
-    wx.request({
-      url: app.globalData.backendUrl + "publishMyArticle",
-      data: {
-        openId: app.getOpenId(),
-        content: this.data.publishInputValue
-      },
-      header: {
-        'Authorization': 'Bearer ' + app.getToken(),
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'GET',
-      success: (res) => {
-        //do nothing
-      }
-    })
+    
   },
   //递名片
   onSendMe: function() {

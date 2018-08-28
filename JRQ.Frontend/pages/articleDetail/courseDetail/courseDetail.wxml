@@ -1,0 +1,34 @@
+<!--pages/articleDetail/articleDetail.wxml-->
+<!--课程类展示-->
+<view style='width:100%;'>
+  <view class='head'>
+    <image src='{{course.image}}'></image>
+  </view>
+  <view class='coursePrice column'>
+    <text style='color:black; font-size:1rem; font-weight:bold;'>{{course.name}}</text>
+    <text style='color:orange; font-size:0.8rem'>¥{{course.price}}</text>
+  </view>
+  <view class='courseIntro column'>
+    <text style='color:black; font-size:1rem; font-weight:bold;'>课程介绍</text>
+    <view class='detail column' style='font-size:0.8rem;'>
+      <text>课程作者：{{course.writerName}}</text>
+      <text>课程发布日期：{{course.date}}</text>
+      <text>课程点赞数：{{course.likeNum}}</text>
+      <view class='content column'>
+        <view class='h-center'>
+          <video src='{{course.video}}'></video>
+        </view>
+        <button>下载视频</button>
+        <view style='height:100px;'></view>
+      </view>
+    </view>
+  </view>
+  <view class='courseButtons row'>
+    <view class='consult' style='width:30%'>
+      <button>咨询</button>
+    </view>
+    <view class='purchase' style='width:70%'>
+      <button bindtap='onPurchase'>立即购买</button>
+    </view>
+  </view>
+</view>

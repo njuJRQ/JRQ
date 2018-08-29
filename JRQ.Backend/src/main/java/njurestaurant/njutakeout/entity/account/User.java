@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "old_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

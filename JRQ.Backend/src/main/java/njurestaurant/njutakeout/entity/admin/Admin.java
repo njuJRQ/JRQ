@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Admin {
 	@Id
 	@GeneratedValue(generator = "jpa-uuid")
-	private int id;//编号
+	private String id;//编号
 
 	@Column(name = "username")
 	private String username;//用户名
@@ -34,11 +34,11 @@ public class Admin {
 		this.date = date;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

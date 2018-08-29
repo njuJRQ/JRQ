@@ -3,7 +3,7 @@ package njurestaurant.njutakeout.response.admin;
 import njurestaurant.njutakeout.entity.admin.Admin;
 
 public class AdminItem {
-	private int id;//编号
+	private String id;//编号
 	private String username;//用户名
 	private String password; //密码
 	private String limits; //权限
@@ -17,11 +17,11 @@ public class AdminItem {
 		this.date = admin.getDate();
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

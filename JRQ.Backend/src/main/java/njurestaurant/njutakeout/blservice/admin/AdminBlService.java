@@ -1,5 +1,6 @@
 package njurestaurant.njutakeout.blservice.admin;
 
+import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.admin.AdminListResponse;
 import njurestaurant.njutakeout.response.admin.AdminResponse;
@@ -22,7 +23,7 @@ public interface AdminBlService {
 	 * @param id 管理员id
 	 * @return 管理员信息
 	 */
-	AdminResponse getAdmin(int id);
+	AdminResponse getAdmin(String id) throws NotExistException;
 
 	/**
 	 * 获取管理员列表
@@ -39,12 +40,12 @@ public interface AdminBlService {
 	 * @param date 创建日期
 	 * @return 是否成功
 	 */
-	InfoResponse updateAdmin(int id, String username, String password, String limits, String date);
+	InfoResponse updateAdmin(String id, String username, String password, String limits, String date) throws NotExistException;
 
 	/**
 	 * 根据管理员ID删除管理员
 	 * @param id 管理员ID
 	 * @return 是否成功
 	 */
-	InfoResponse deleteAdmin(int id);
+	InfoResponse deleteAdmin(String id);
 }

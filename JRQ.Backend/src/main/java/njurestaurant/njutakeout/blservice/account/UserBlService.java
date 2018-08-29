@@ -1,10 +1,10 @@
 package njurestaurant.njutakeout.blservice.account;
 
 import njurestaurant.njutakeout.exception.*;
-import njurestaurant.njutakeout.response.user.AvatarSaveResponse;
-import njurestaurant.njutakeout.response.user.OpenIdAndSessionKeyResponse;
-import njurestaurant.njutakeout.response.user.PhoneNumberGetResponse;
-import njurestaurant.njutakeout.response.user.UserLoginResponse;
+import njurestaurant.njutakeout.response.account.AvatarSaveResponse;
+import njurestaurant.njutakeout.response.account.OpenIdAndSessionKeyResponse;
+import njurestaurant.njutakeout.response.account.PhoneNumberGetResponse;
+import njurestaurant.njutakeout.response.account.UserLoginResponse;
 import org.springframework.stereotype.Service;
 
 @Service

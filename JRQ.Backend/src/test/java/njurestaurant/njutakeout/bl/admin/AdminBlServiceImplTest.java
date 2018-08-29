@@ -24,7 +24,7 @@ public class AdminBlServiceImplTest {
 	@Rollback(false) // 测试中执行的SQL命令不回滚
 	public void functionTest() throws NotExistException {
 		System.out.println("TEST BEGIN");
-		adminBlService.deleteAdmin("297e11aa6584789b01658478c6190001");
+//		adminBlService.deleteAdmin("297e11aa6584789b01658478c6190001");
 		System.out.println("TEST END");
 	}
 }

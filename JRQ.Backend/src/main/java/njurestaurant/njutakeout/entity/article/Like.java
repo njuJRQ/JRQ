@@ -3,11 +3,11 @@ package njurestaurant.njutakeout.entity.article;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "like")
+@Table(name = "userLike")
 @IdClass(LikeKey.class)
 public class Like {
 	@Id
-	@Column(name = "openid")
+	@Column(name = "openid", length = 32)
 	private String openid; //微信用户ID
 
 	@Id

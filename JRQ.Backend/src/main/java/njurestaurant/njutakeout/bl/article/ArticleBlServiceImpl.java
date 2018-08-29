@@ -26,8 +26,4 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 		return null;
 	}
 
-	@Override
-	public AbstractListResponse getMyHistoryAbstractList(String openid) {
-		return null;
-	}
 }

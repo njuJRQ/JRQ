@@ -5,7 +5,7 @@ import njurestaurant.njutakeout.response.article.project.ProjectListResponse;
 import njurestaurant.njutakeout.response.article.project.ProjectResponse;
 import org.springframework.stereotype.Service;
 
-@Service
+
 public interface ProjectBlService {
 	/**
 	 * 添加项目

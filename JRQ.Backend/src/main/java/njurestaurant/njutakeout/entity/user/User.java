@@ -1,40 +1,73 @@
-package njurestaurant.njutakeout.response.account;
+package njurestaurant.njutakeout.entity.user;
 
-import njurestaurant.njutakeout.entity.account.User;
-
+import javax.persistence.*;
 import java.util.List;
 
-public class UserItem {
+@Entity
+@Table(name = "user")
+public class User {
+	@Id
+	@Column(name = "openid")
 	private String openid;//用户微信编号
+
+	@Column(name = "username")
 	private String username; //用户名
+
+	@Column(name = "face")
 	private String face; //用户头像
+
+	@Column(name = "medals")
+	@ElementCollection(targetClass = String.class)
 	private List<String> medals; //用户类别提示（可多个）
+
+	@Column(name = "phone")
 	private String phone; //电话号码
+
+	@Column(name = "email")
 	private String email; //电子邮件
+
+	@Column(name = "company")
 	private String company; //公司名称
+
+	@Column(name = "department")
 	private String department; //部门
+
+	@Column(name = "position")
 	private String position; //职位
+
+	@Column(name = "intro")
 	private String intro; //个人简介
+
+	@Column(name = "city")
 	private String city; //所在城市
+
+	@Column(name = "credit")
 	private int credit; //账户余额
+
+	@Column(name = "label")
 	private String label; //用户类别信息，可取值：融资租赁，商业保理，地产交易，金融牌照
+
+	@Column(name = "valid")
 	private boolean valid;//是否冻结/启用，true代表启用
 
-	public UserItem(User user){
-		this.openid = user.getOpenid();
-		this.username = user.getUsername();
-		this.face = user.getFace();
-		this.medals = user.getMedals();
-		this.phone = user.getPhone();
-		this.email = user.getEmail();
-		this.company = user.getCompany();
-		this.department = user.getDepartment();
-		this.position = user.getPosition();
-		this.intro = user.getIntro();
-		this.city = user.getCity();
-		this.credit = user.getCredit();
-		this.label = user.getLabel();
-		this.valid = user.isValid();
+	public User() {
+	}
+
+	public User(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, boolean valid) {
+		this.openid = openid;
+		this.username = username;
+		this.face = face;
+		this.medals = medals;
+		this.phone = phone;
+		this.email = email;
+		this.company = company;
+		this.department = department;
+		this.position = position;
+		this.intro = intro;
+		this.city = city;
+		this.credit = credit;
+		this.label = label;
+		this.valid = valid;
 	}
 
 	public String getOpenid() {
@@ -148,4 +181,5 @@ public class UserItem {
 	public void setValid(boolean valid) {
 		this.valid = valid;
 	}
+
 }

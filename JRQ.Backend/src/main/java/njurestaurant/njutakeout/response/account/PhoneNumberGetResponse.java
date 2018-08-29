@@ -1,4 +1,4 @@
-package njurestaurant.njutakeout.response.user;
+package njurestaurant.njutakeout.response.account;
 
 import njurestaurant.njutakeout.response.Response;
 

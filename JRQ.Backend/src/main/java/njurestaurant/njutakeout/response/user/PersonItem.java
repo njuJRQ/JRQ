@@ -1,4 +1,4 @@
-package njurestaurant.njutakeout.response.account;
+package njurestaurant.njutakeout.response.user;
 
 public class PersonItem {
 	private String username; //用户名

@@ -5,7 +5,7 @@ import njurestaurant.njutakeout.response.admin.AdminListResponse;
 import njurestaurant.njutakeout.response.admin.AdminResponse;
 import org.springframework.stereotype.Service;
 
-@Service
+
 public interface AdminBlService {
 	/**
 	 * 添加管理员

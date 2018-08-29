@@ -4,7 +4,7 @@ import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.*;
 import org.springframework.stereotype.Service;
 
-@Service
+
 public interface ArticleBlService {
 
 	/**

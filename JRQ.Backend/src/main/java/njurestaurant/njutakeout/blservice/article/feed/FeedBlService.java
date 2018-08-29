@@ -4,7 +4,6 @@ import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.AbstractListResponse;
 import org.springframework.stereotype.Service;
 
-@Service
 public interface FeedBlService {
 	/**
 	 * 用户获取自己发布过的文章摘要

@@ -4,7 +4,6 @@ import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.admin.AdminListResponse;
 import njurestaurant.njutakeout.response.admin.AdminResponse;
-import org.springframework.stereotype.Service;
 
 
 public interface AdminBlService {

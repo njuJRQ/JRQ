@@ -1,5 +1,6 @@
 // pages/myCardHolder/myCardHolder.js
-var app = getApp();
+const app = getApp()
+var api = require('../../../util/api.js')
 
 Page({
 
@@ -63,52 +64,11 @@ Page({
   //搜索触发函数
   onSearch: function() {
     console.log('on search')
-    /**
-     * 方法：searchCards
-     * 参数：
-     * 搜索条件：condition
-     */
-    wx.request({
-      url: app.globalData.backendUrl + "searchCards",
-      data: {
-        condition: this.data.searchCondition
-      },
-      header: {
-        'Authorization': 'Bearer ' + app.getToken(),
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'GET',
-      success: (res) => {
-        this.setData({
-          cards: res.data.results
-        })
-      }
-    })
+    api.getPersonListByCondition(this.data.searchCondition, this)
   },
+  //展示我的某一类型的名片
   showCards: function (kind) {
-    /**
-     * 方法：showCards
-     * 参数：
-     * 用户openId：openId
-     * 展示类别：kind
-     */
-    wx.request({
-      url: app.globalData.backendUrl + "showCards",
-      data: {
-        openId: app.getOpenId(),
-        kind: kind
-      },
-      header: {
-        'Authorization': 'Bearer ' + app.getToken(),
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'GET',
-      success: (res) => {
-        this.setData({
-          cards: res.data.results
-        })
-      }
-    })
+    api.getMyPersonList(app.getOpenid(), kind, this)
   },
   //展示新收到的名片
   showNewCards: function () {

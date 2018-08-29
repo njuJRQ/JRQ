@@ -1,14 +1,25 @@
 <!--pages/me/me.wxml-->
 <view class='container column'>
   <view class='head column v-center'>
-    <view class='publisher row'>
-      <view class='publisher-input'>
-        <input placeholder='发布业务合作、商业资讯或日常信息...' bindinput='bindPublishInput' confirm-type='send'></input>
+    <view class='publisher column'>
+      <view class='publisher-text row'>
+        <view class='publisher-input'>
+          <input placeholder='发布业务合作、商业资讯或日常信息...' bindinput='bindPublishInput' confirm-type='send'></input>
+        </view>
+        <view class='publisher-image h-center v-center' bindtap='onUploadPhotos'>
+          <image src='img/camera.png'></image>
+        </view>
+        <view class='publisher-button h-center v-center' bindtap='onPublish'>
+          <image src='img/publish.png'></image>
+        </view>
       </view>
-      <view class='publisher-image h-center v-center' bindtap='onUploadPhotos'>
-        <image src='img/camera.png'></image>
+      <view class='publisher-photos row'>
+        <view wx:for='{{publishPhotos}}' class='publisher-photo'>
+          <image src='{{item}}'></image>
+        </view>
       </view>
     </view>
+
     <view class='my-card column'>
       <view class='row v-center'>
         <view class='my-card-face'>
@@ -66,8 +77,8 @@
   <view style='width:100%'>
     <view class='more'>
       <view class='more-item'>
-        <navigator class='row' url='myCardHolder/myCardHolder' open-type='navigate'>
-          <text>我的名片夹</text>
+        <navigator class='row' url='modifyMyCard/modifyMyCard' hover-class="none" open-type='navigate'>
+          <text>我的基本信息</text>
           <view class='v-center'>
             <view class='arrow'></view>
           </view>
@@ -77,7 +88,7 @@
       <view class='div-line'></view>
 
       <view class='more-item'>
-        <navigator class='row' url='myHistory/myHistory' open-type='navigate'>
+        <navigator class='row' url='myHistory/myHistory' hover-class="none"  open-type='navigate'>
           <text>我的发布</text>
           <view class='v-center'>
             <view class='arrow'></view>
@@ -88,7 +99,7 @@
       <view class='div-line'></view>
 
       <view class='more-item'>
-        <navigator class='row' url='' open-type='navigate'>
+        <navigator class='row' url='' hover-class="none"  open-type='navigate'>
           <text>身份升级</text>
           <view class='v-center'>
             <view class='arrow'></view>
@@ -98,7 +109,7 @@
     </view>
     <view class='setting'>
       <view class='more-item'>
-        <navigator class='row' url='modifyMyCard/modifyMyCard' open-type='navigate'>
+        <navigator class='row' url='' hover-class="none"  open-type='navigate'>
           <text>设置</text>
           <view class='v-center'>
             <view class='arrow'></view>

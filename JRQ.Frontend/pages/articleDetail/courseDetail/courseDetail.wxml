@@ -19,7 +19,6 @@
           <video src='{{course.video}}'></video>
         </view>
         <button>下载视频</button>
-        <view style='height:100px;'></view>
       </view>
     </view>
   </view>

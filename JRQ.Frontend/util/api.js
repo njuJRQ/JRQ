@@ -1,4 +1,4 @@
-var app = getApp();
+const app = getApp()
 
 function getAbstractList(kind, openid, that) {
   wx.request({
@@ -159,12 +159,12 @@ function getPersonList(kind, that) {
 
 function getMyInfo(openid, that) {
   /**
-   * 方法：getMyInfo
+   * 方法：getUser
    * 参数：
    * 无
    */
   wx.request({
-    url: app.globalData.backendUrl + "getMyInfo",
+    url: app.globalData.backendUrl + "getUser",
     data: {
       openid: openid
     },
@@ -175,13 +175,13 @@ function getMyInfo(openid, that) {
     method: 'GET',
     success: (res) => {
       that.setData({
-        myInfo: res.data.myInfo
+        myInfo: res.data.user
       })
     }
   })
 }
 
-function publishMyArticle () {
+function publishMyArticle (openid, content, photos, that) {
   //TODO
   /**
    * 方法：publishMyArticle
@@ -191,8 +191,9 @@ function publishMyArticle () {
   wx.request({
     url: app.globalData.backendUrl + "publishMyArticle",
     data: {
-      openid: app.getOpenid(),
-      content: this.data.publishInputValue
+      openid: openid,
+      content: content,
+      photos: photos
     },
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
@@ -205,7 +206,7 @@ function publishMyArticle () {
   })
 }
 
-function updateUser(that) {
+function modifyMyInfo(that) {
   /**
    * 方法：updateUser
    * 参数：
@@ -242,6 +243,79 @@ function updateUser(that) {
   })
 }
 
+function getPersonListByCondition (condition, that) {
+  /**
+   * 方法：searchCards
+   * 参数：
+   * 搜索条件：condition
+   */
+  wx.request({
+    url: app.globalData.backendUrl + "getPersonListByCondition",
+    data: {
+      condition: that.data.searchCondition
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      that.setData({
+        cards: res.data.persons
+      })
+    }
+  })
+}
+
+function getMyPersonList (openid, kind, that) {
+  /**
+   * 方法：getMyPersonList
+   * 参数：
+   * 用户openId：openId
+   * 展示类别：kind
+   */
+  wx.request({
+    url: app.globalData.backendUrl + "getMyPersonList",
+    data: {
+      openid: openid,
+      kind: kind
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      that.setData({
+        cards: res.data.persons
+      })
+    }
+  })
+}
+
+function getMyHistoryAbstractList (openid, that) {
+  /**
+   * 方法：getMyHistoryAbstractList
+   * 参数：用户openId：openId
+   */
+  wx.request({
+    url: app.globalData.backendUrl + "getMyHistoryAbstractList",
+    data: {
+      openid: openid
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      that.setData({
+        myArticles: res.data.abstractList
+      })
+    }
+  })
+}
+
 module.exports = {
   getAbstractList: getAbstractList,
   getCourse: getCourse,
@@ -252,5 +326,9 @@ module.exports = {
   purchaseCourse: purchaseCourse,
   getPersonList: getPersonList,
   getMyInfo: getMyInfo,
-  updateUser: updateUser
+  publishMyArticle: publishMyArticle,
+  modifyMyInfo: modifyMyInfo,
+  getPersonListByCondition: getPersonListByCondition,
+  getMyPersonList: getMyPersonList,
+  getMyHistoryAbstractList: getMyHistoryAbstractList
 }

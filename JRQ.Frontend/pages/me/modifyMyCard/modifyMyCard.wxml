@@ -1,7 +1,7 @@
 <!--pages/modifyMyCard/modifyMyCard.wxml-->
 <view class='container'>
   <view class='face h-center column' bindtap='updateFace'>
-    <image src='{{oldInfo.face}}'></image>
+    <image src='{{myInfo.face}}'></image>
     <text class='face-text'>更换头像</text>
   </view>
   <view style='width: 100%;'>
@@ -9,49 +9,49 @@
 
       <view class='info-item row v-center'>
         <text>姓名</text>
-        <input placeholder='{{oldInfo.username}}' placeholder-class='info-item-placeholder' bindinput='updateName'></input>
+        <input placeholder='{{myInfo.username}}' placeholder-class='info-item-placeholder' bindinput='updateName'></input>
       </view>
 
       <view class='div-line'></view>
 
       <view class='info-item row v-center'>
         <text>手机号</text>
-        <input placeholder='{{oldInfo.phone}}' placeholder-class='info-item-placeholder' bindinput='updatePhone'></input>
+        <input placeholder='{{myInfo.phone}}' placeholder-class='info-item-placeholder' bindinput='updatePhone'></input>
       </view>
 
       <view class='div-line'></view>
 
       <view class='info-item row v-center'>
         <text>Email</text>
-        <input placeholder='{{oldInfo.email}}' placeholder-class='info-item-placeholder' bindinput='updateEmail'></input>
+        <input placeholder='{{myInfo.email}}' placeholder-class='info-item-placeholder' bindinput='updateEmail'></input>
       </view>
 
       <view class='div-line'></view>
 
       <view class='info-item row v-center'>
         <text>任职公司</text>
-        <input placeholder='{{oldInfo.company}}' placeholder-class='info-item-placeholder' bindinput='updateCompany'></input>
+        <input placeholder='{{myInfo.company}}' placeholder-class='info-item-placeholder' bindinput='updateCompany'></input>
       </view>
 
       <view class='div-line'></view>
 
       <view class='info-item row v-center'>
         <text>部门</text>
-        <input placeholder='{{oldInfo.department}}' placeholder-class='info-item-placeholder' bindinput='updateDepartment'></input>
+        <input placeholder='{{myInfo.department}}' placeholder-class='info-item-placeholder' bindinput='updateDepartment'></input>
       </view>
 
       <view class='div-line'></view>
 
       <view class='info-item row v-center'>
         <text>职位</text>
-        <input placeholder='{{oldInfo.position}}' placeholder-class='info-item-placeholder' bindinput='updatePosition'></input>
+        <input placeholder='{{myInfo.position}}' placeholder-class='info-item-placeholder' bindinput='updatePosition'></input>
       </view>
 
       <view class='div-line'></view>
 
       <view class='info-item column'>
         <text>个人简介:</text>
-        <textarea placeholder='{{oldInfo.intro}}' style='height: 3rem;' bindinput='updateIntro'></textarea>
+        <textarea placeholder='{{myInfo.intro}}' style='height: 3rem;' bindinput='updateIntro'></textarea>
       </view>
 
     </view>

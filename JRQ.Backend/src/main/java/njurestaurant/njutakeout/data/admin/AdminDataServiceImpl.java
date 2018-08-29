@@ -20,7 +20,7 @@ public class AdminDataServiceImpl implements AdminDataService {
 	}
 
 	@Override
-	public void saveAdmin(Admin admin) {
+	public void addAdmin(Admin admin) {
 		adminDao.save(admin);
 	}
 

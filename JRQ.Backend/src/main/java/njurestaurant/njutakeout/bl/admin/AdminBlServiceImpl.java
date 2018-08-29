@@ -25,7 +25,7 @@ public class AdminBlServiceImpl implements AdminBlService {
 
 	@Override
 	public InfoResponse addAdmin(String username, String password, String limits, String date) {
-		adminDataService.saveAdmin(new Admin(username, password, limits, date));
+		adminDataService.addAdmin(new Admin(username, password, limits, date));
 		return new InfoResponse();
 	}
 

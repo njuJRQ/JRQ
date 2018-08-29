@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AdminDataService {
 
-	void saveAdmin(Admin admin);
+	void addAdmin(Admin admin);
 
 	Admin getAdminById(String id) throws NotExistException;
 

@@ -27,6 +27,13 @@
       </view>
 
       <view class='div-line'></view>
+      
+      <view class='info-item row v-center'>
+        <text>城市</text>
+        <input placeholder='{{myInfo.city}}' placeholder-class='info-item-placeholder' bindinput='updateCity'></input>
+      </view>
+
+      <view class='div-line'></view>
 
       <view class='info-item row v-center'>
         <text>任职公司</text>

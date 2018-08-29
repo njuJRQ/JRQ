@@ -214,6 +214,7 @@ function modifyMyInfo(that) {
    * 用户名：username
    * 电话：phone
    * 邮箱：email
+   * 城市：city
    * 公司：company
    * 部门：department
    * 职位：position
@@ -223,14 +224,15 @@ function modifyMyInfo(that) {
     url: app.globalData.backendUrl + "updateUser",
     data: {
       openId: app.getOpenid(),
-      face: that.data.face,
-      username: that.data.username,
-      phone: that.data.phone,
-      email: that.data.email,
-      company: that.data.company,
-      department: that.data.department,
-      position: that.data.position,
-      intro: that.data.intro
+      face: that.data.newMyInfo.face,
+      username: that.data.newMyInfo.username,
+      phone: that.data.newMyInfo.phone,
+      email: that.data.newMyInfo.email,
+      city: that.data.newMyInfo.city,
+      company: that.data.newMyInfo.company,
+      department: that.data.newMyInfo.department,
+      position: that.data.newMyInfo.position,
+      intro: that.data.newMyInfo.intro
     },
     header: {
       'Authorization': 'Bearer ' + app.getToken(),

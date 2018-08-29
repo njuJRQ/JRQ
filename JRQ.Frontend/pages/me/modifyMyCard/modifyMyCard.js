@@ -14,6 +14,7 @@ Page({
       phone: '13952146595',
       email: '13952146595@163.com',
       company: '美国永辉公司',
+      city: '亚太区',
       department: 'IT技术部',
       position: 'T1初级经理',
       intro: '我要在代码的世界里飞翔。我要在代码的世界里飞翔。我要在代码的世界里飞翔。我要在代码的世界里飞翔。我要在代码的世界里飞翔。我要在代码的世界里飞翔。我要在代码的世界里飞翔。我要在代码的世界里飞翔。'
@@ -43,6 +44,9 @@ Page({
   },
   updateEmail: function (e) {
     this.data.newMyInfo.email = e.detail.value;
+  },
+  updateCity: function (e) {
+    this.data.newMyInfo.city = e.detail.value;
   },
   updateCompany: function (e) {
     this.data.newMyInfo.company = e.detail.value;

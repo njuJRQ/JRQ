@@ -49,7 +49,6 @@ public class AdminDataServiceImpl implements AdminDataService {
 			admin.setLimits(limits);
 			admin.setDate(date);
 			adminDao.save(admin);
-			System.out.println(admin.getPassword());
 		} else {
 			throw new NotExistException("Admin");
 		}

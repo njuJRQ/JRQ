@@ -1,5 +1,7 @@
 package njurestaurant.njutakeout.response.user;
 
+import njurestaurant.njutakeout.entity.user.User;
+
 public class PersonItem {
 	private String username; //用户名
 	private String face; //用户头像
@@ -12,14 +14,14 @@ public class PersonItem {
 	public PersonItem() {
 	}
 
-	public PersonItem(String username, String face, String company, String position, String intro, String city, String label) {
-		this.username = username;
-		this.face = face;
-		this.company = company;
-		this.position = position;
-		this.intro = intro;
-		this.city = city;
-		this.label = label;
+	public PersonItem(User user) {
+		this.username = user.getUsername();
+		this.face = user.getFace();
+		this.company = user.getCompany();
+		this.position = user.getPosition();
+		this.intro = user.getIntro();
+		this.city = user.getCity();
+		this.label = user.getLabel();
 	}
 
 	public String getUsername() {

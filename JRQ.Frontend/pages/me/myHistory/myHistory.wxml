@@ -24,12 +24,32 @@
       </view>
       <view class='my-contact row'>
         <view class='my-contact-info column' style='width: 70%;'>
-          <text style='font-size: 0.8rem;'>185****6956</text>
-          <text>微信号：****</text>
-          <text>邮箱: ******</text>
+          <view wx:if='{{isMyInfoVisiable}}'>
+            <text style='font-size: 0.8rem;'>{{myInfo.phone}}</text>
+          </view>
+          <view wx:else>
+            <text style='font-size: 0.8rem;'>{{encreptInfo.phone}}</text>
+          </view>
+          <view wx:if='{{isMyInfoVisiable}}'>
+            <text>微信号：{{wechatId}}</text>
+          </view>
+          <view wx:else>
+            <text>微信号：{{encreptInfo.wechatId}}</text>
+          </view>
+          <view wx:if='{{isMyInfoVisiable}}'>
+            <text>邮箱: {{myInfo.email}}</text>
+          </view>
+          <view wx:else>
+            <text>邮箱：{{encreptInfo.email}}</text>
+          </view>
         </view>
         <view class='v-center'>
-          <button class='v-center'>查看联系方式</button>
+          <view wx:if='{{isMyInfoVisiable}}'>
+            <button class='v-center' bindtap='isMyInfoVisiableToggle'>隐藏联系方式</button>
+          </view>
+          <view wx:else>
+            <button class='v-center' bindtap='isMyInfoVisiableToggle'>查看联系方式</button>
+          </view>
         </view>
       </view>
     </view>

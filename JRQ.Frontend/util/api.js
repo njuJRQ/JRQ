@@ -1,4 +1,4 @@
-var app = getApp();
+const app = getApp()
 
 function getAbstractList(kind, openid, that) {
   wx.request({
@@ -159,12 +159,12 @@ function getPersonList(kind, that) {
 
 function getMyInfo(openid, that) {
   /**
-   * 方法：getMyInfo
+   * 方法：getUser
    * 参数：
    * 无
    */
   wx.request({
-    url: app.globalData.backendUrl + "getMyInfo",
+    url: app.globalData.backendUrl + "getUser",
     data: {
       openid: openid
     },
@@ -175,13 +175,13 @@ function getMyInfo(openid, that) {
     method: 'GET',
     success: (res) => {
       that.setData({
-        myInfo: res.data.myInfo
+        myInfo: res.data.user
       })
     }
   })
 }
 
-function publishMyArticle () {
+function publishMyArticle (openid, content, photos, that) {
   //TODO
   /**
    * 方法：publishMyArticle
@@ -191,8 +191,9 @@ function publishMyArticle () {
   wx.request({
     url: app.globalData.backendUrl + "publishMyArticle",
     data: {
-      openid: app.getOpenid(),
-      content: this.data.publishInputValue
+      openid: openid,
+      content: content,
+      photos: photos
     },
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
@@ -205,7 +206,7 @@ function publishMyArticle () {
   })
 }
 
-function updateUser(that) {
+function modifyMyInfo(that) {
   /**
    * 方法：updateUser
    * 参数：
@@ -213,6 +214,7 @@ function updateUser(that) {
    * 用户名：username
    * 电话：phone
    * 邮箱：email
+   * 城市：city
    * 公司：company
    * 部门：department
    * 职位：position
@@ -222,14 +224,15 @@ function updateUser(that) {
     url: app.globalData.backendUrl + "updateUser",
     data: {
       openId: app.getOpenid(),
-      face: that.data.face,
-      username: that.data.username,
-      phone: that.data.phone,
-      email: that.data.email,
-      company: that.data.company,
-      department: that.data.department,
-      position: that.data.position,
-      intro: that.data.intro
+      face: that.data.newMyInfo.face,
+      username: that.data.newMyInfo.username,
+      phone: that.data.newMyInfo.phone,
+      email: that.data.newMyInfo.email,
+      city: that.data.newMyInfo.city,
+      company: that.data.newMyInfo.company,
+      department: that.data.newMyInfo.department,
+      position: that.data.newMyInfo.position,
+      intro: that.data.newMyInfo.intro
     },
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
@@ -238,6 +241,79 @@ function updateUser(that) {
     method: 'GET',
     success: (res) => {
       //do nothing
+    }
+  })
+}
+
+function getPersonListByCondition (condition, that) {
+  /**
+   * 方法：searchCards
+   * 参数：
+   * 搜索条件：condition
+   */
+  wx.request({
+    url: app.globalData.backendUrl + "getPersonListByCondition",
+    data: {
+      condition: that.data.searchCondition
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      that.setData({
+        cards: res.data.persons
+      })
+    }
+  })
+}
+
+function getMyPersonList (openid, kind, that) {
+  /**
+   * 方法：getMyPersonList
+   * 参数：
+   * 用户openId：openId
+   * 展示类别：kind
+   */
+  wx.request({
+    url: app.globalData.backendUrl + "getMyPersonList",
+    data: {
+      openid: openid,
+      kind: kind
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      that.setData({
+        cards: res.data.persons
+      })
+    }
+  })
+}
+
+function getMyHistoryAbstractList (openid, that) {
+  /**
+   * 方法：getMyHistoryAbstractList
+   * 参数：用户openId：openId
+   */
+  wx.request({
+    url: app.globalData.backendUrl + "getMyHistoryAbstractList",
+    data: {
+      openid: openid
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      that.setData({
+        myArticles: res.data.abstractList
+      })
     }
   })
 }
@@ -252,5 +328,9 @@ module.exports = {
   purchaseCourse: purchaseCourse,
   getPersonList: getPersonList,
   getMyInfo: getMyInfo,
-  updateUser: updateUser
+  publishMyArticle: publishMyArticle,
+  modifyMyInfo: modifyMyInfo,
+  getPersonListByCondition: getPersonListByCondition,
+  getMyPersonList: getMyPersonList,
+  getMyHistoryAbstractList: getMyHistoryAbstractList
 }

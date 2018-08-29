@@ -45,8 +45,8 @@ Page({
       count: 3,
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
-      success: function(res) {
-        var tempFilePaths = res.tempFilePaths;
+      success: (res) => {
+        var tempFilePaths = res.tempFilePaths
         that.setData({
           publishPhotos: tempFilePaths
         })
@@ -55,11 +55,19 @@ Page({
   },
   //发布信息
   onPublish: function () {
-    console.log('publish');
-    
+    console.log('publish')
+    api.publishMyArticle(app.getOpenid(), this.data.publishInputValue, this.data.publishPhotos, this)
+    wx.showToast({
+      title: '发布成功',
+      icon: 'succes',
+      duration: 1000,
+      mask: true
+    })
   },
   //递名片
   onSendMe: function() {
-    console.log('send me');
+    wx.navigateTo({
+      url: 'myCardHolder/myCardHolder',
+    })
   }
 })

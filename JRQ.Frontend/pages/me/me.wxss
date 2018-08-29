@@ -11,7 +11,7 @@ page {
 /*关于发布栏的属性*/
 .publisher {
   width: 100%;
-  padding: 0 10px;
+  padding: 5px 10px 0 10px;
   background: white;
   justify-content: space-between;
   border: 1px rgba(0, 0, 0, 0.103) solid;
@@ -23,12 +23,33 @@ page {
   font-size: 0.7rem;
 }
 .publisher-image {
-  padding: 3px 10px;
+  padding: 5px;
   margin: 0;
 }
 .publisher-image image {
   width: 20px;
   height: 20px;
+}
+.publisher-button {
+  padding: 5px 5px 5px 0;
+  margin: 0;
+}
+.publisher-button image {
+  width: 20px;
+  height: 20px;
+}
+.publisher-photos {
+  width: 100%;
+  margin: 0 0 5px 0;
+}
+.publisher-photo {
+  width: 33%;
+  height: 100px;
+  margin: 2px;
+}
+.publisher-photo image {
+  width: 100%;
+  height: 100%;
 }
 /*关于我的名片的属性*/
 .my-card {

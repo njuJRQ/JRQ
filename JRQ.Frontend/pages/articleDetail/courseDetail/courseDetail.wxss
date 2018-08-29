@@ -26,7 +26,5 @@ page {
   width: 100%;
 }
 .courseButtons {
-  position: fixed;
-  bottom: 0;
   width: 100%;
 }

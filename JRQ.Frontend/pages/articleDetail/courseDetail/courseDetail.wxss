@@ -1,0 +1,32 @@
+/* pages/articleDetail/articleDetail.wxss */
+@import '/style/common.wxss';
+page {
+  background: #efefef;
+}
+.head > image {
+  width: 100%;
+  height: 200px;
+}
+.coursePrice {
+  padding: 10px;
+  background-color: white;
+}
+.courseIntro {
+  margin: 20px 0 0 0;
+  padding: 10px;
+  background-color: white;
+}
+.courseIntro > .detail > text {
+  margin: 3px 0;
+}
+.courseIntro video {
+  margin: 5px 0;
+}
+.courseIntro > content{
+  width: 100%;
+}
+.courseButtons {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

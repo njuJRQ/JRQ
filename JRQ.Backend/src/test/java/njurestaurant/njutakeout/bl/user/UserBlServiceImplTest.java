@@ -2,6 +2,8 @@ package njurestaurant.njutakeout.bl.user;
 
 import njurestaurant.njutakeout.blservice.user.UserBlService;
 import njurestaurant.njutakeout.exception.NotExistException;
+import njurestaurant.njutakeout.response.user.PersonItem;
+import njurestaurant.njutakeout.response.user.PersonListResponse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +67,27 @@ public class UserBlServiceImplTest {
 	@Test
 	public void getPersonList() {
 		System.out.println(userBlService.getPersonList("地产交易").getPersons().get(0).getUsername());
+	}
+
+	@Test
+	public void getPersonListByCondition() {
+	}
+
+	@Test
+	public void sendMyCard() {
+		userBlService.sendMyCard("111111", "222222");
+	}
+
+	@Test
+	public void getMyPersonList() throws NotExistException {
+		PersonListResponse personListResponse = userBlService.getMyPersonList("222222", "current");
+		for(PersonItem personItem:personListResponse.getPersons()) {
+			System.out.println(personItem.getUsername());
+		}
+	}
+
+	@Test
+	public void checkMyReceivedCard() throws NotExistException {
+		userBlService.checkMyReceivedCard("111111", "222222");
 	}
 }

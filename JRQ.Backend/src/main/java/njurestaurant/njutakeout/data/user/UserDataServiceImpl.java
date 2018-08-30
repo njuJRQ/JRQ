@@ -1,22 +1,28 @@
 package njurestaurant.njutakeout.data.user;
 
+import njurestaurant.njutakeout.data.dao.user.SendCardDao;
 import njurestaurant.njutakeout.data.dao.user.UserDao;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
+import njurestaurant.njutakeout.entity.user.SendCard;
+import njurestaurant.njutakeout.entity.user.SendCardKey;
 import njurestaurant.njutakeout.entity.user.User;
 import njurestaurant.njutakeout.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserDataServiceImpl implements UserDataService {
 	private final UserDao userDao;
+	private final SendCardDao sendCardDao;
 
 	@Autowired
-	public UserDataServiceImpl(UserDao userDao) {
+	public UserDataServiceImpl(UserDao userDao, SendCardDao sendCardDao) {
 		this.userDao = userDao;
+		this.sendCardDao = sendCardDao;
 	}
 
 	@Override
@@ -66,5 +72,32 @@ public class UserDataServiceImpl implements UserDataService {
 	@Override
 	public void deleteUserByOpenid(String openid) {
 		userDao.deleteById(openid);
+	}
+
+	@Override
+	public void addSendCard(SendCard sendCard) {
+		sendCardDao.save(sendCard);
+	}
+
+	@Override
+	public List<SendCard> getSendsByOpenid(String openid) {
+		return sendCardDao.findAllByReceiverOpenid(openid);
+	}
+
+	@Override
+	public List<SendCard> getReceivesByOpenid(String openid) {
+		return sendCardDao.findAllBySenderOpenid(openid);
+	}
+
+	@Override
+	public void checkSendCard(SendCardKey sendCardKey) throws NotExistException {
+		Optional<SendCard> optionalSendCard = sendCardDao.findById(sendCardKey);
+		if(optionalSendCard.isPresent()) {
+			SendCard sendCard = optionalSendCard.get();
+			sendCard.setChecked(true);
+			sendCardDao.save(sendCard);
+		} else {
+			throw new NotExistException("SendCard");
+		}
 	}
 }

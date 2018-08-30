@@ -2,6 +2,8 @@ package njurestaurant.njutakeout.bl.user;
 
 import njurestaurant.njutakeout.blservice.user.UserBlService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
+import njurestaurant.njutakeout.entity.user.SendCard;
+import njurestaurant.njutakeout.entity.user.SendCardKey;
 import njurestaurant.njutakeout.entity.user.User;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
@@ -71,8 +73,44 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
-	public PersonListResponse getMyPersonList(String openid, String kind) {
-		//TODO: 对名片进行分类
-		return null;
+	public InfoResponse sendMyCard(String senderOpenid, String receiverOpenid) {
+		userDataService.addSendCard(new SendCard(senderOpenid, receiverOpenid, false));
+		return new InfoResponse();
+	}
+
+	@Override
+	public PersonListResponse getMyPersonList(String openid, String kind) throws NotExistException {
+		List<String> personOpenidList = new ArrayList<>();
+		if(kind.equals("new") || kind.equals("current")) {
+			List<SendCard> sendCards = userDataService.getSendsByOpenid(openid); //用户收到的
+			if(kind.equals("new")) { //用户新收到，尚未查看的
+				for(SendCard sendCard:sendCards) {
+					if(!sendCard.isChecked()){
+						personOpenidList.add(sendCard.getSenderOpenid());
+					}
+				}
+			} else if(kind.equals("current")) { //用户总共收到的
+				for(SendCard sendCard:sendCards) {
+					personOpenidList.add(sendCard.getSenderOpenid());
+				}
+			}
+		} else if(kind.equals("whoHasMyCard")) {
+			List<SendCard> sendCards = userDataService.getReceivesByOpenid(openid); //用户发给别人的
+			for(SendCard sendCard:sendCards) {
+				personOpenidList.add(sendCard.getReceiverOpenid());
+			}
+		}
+
+		List<PersonItem> personItemList = new ArrayList<>();
+		for(String personId:personOpenidList) {
+			personItemList.add(new PersonItem(userDataService.getUserByOpenid(personId)));
+		}
+		return new PersonListResponse(personItemList);
+	}
+
+	@Override
+	public InfoResponse checkMyReceivedCard(String senderOpenid, String receiverOpenid) throws NotExistException {
+		userDataService.checkSendCard(new SendCardKey(senderOpenid, receiverOpenid));
+		return new InfoResponse();
 	}
 }

@@ -84,11 +84,27 @@ public interface UserBlService {
 	PersonListResponse getPersonListByCondition(String condition);
 
 	/**
+	 * 用户向别人发送名片
+	 * @param senderOpenid 发送者微信openid
+	 * @param receiverOpenid 接收者微信openid
+	 * @return 是否成功
+	 */
+	InfoResponse sendMyCard(String senderOpenid, String receiverOpenid);
+
+	/**
 	 * 用户获取自己的名片列表
 	 * @param openid 用户的微信openid
 	 * @param kind 名片类型 "new","current","whoHasMyCard"
 	 * @return 特定类型的名片列表
 	 */
-	PersonListResponse getMyPersonList(String openid, String kind);
+	PersonListResponse getMyPersonList(String openid, String kind) throws NotExistException;
+
+	/**
+	 * 将用户收到的名片设置为已读
+	 * @param senderOpenid 发送者微信openid
+	 * @param receiverOpenid 接收者微信openid
+	 * @return 是否成功
+	 */
+	InfoResponse checkMyReceivedCard(String senderOpenid, String receiverOpenid) throws NotExistException;
 
 }

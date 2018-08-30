@@ -29,10 +29,11 @@ public interface UserBlService {
 	 * @param city 所在城市
 	 * @param credit 账户余额
 	 * @param label 用户类别信息，可取值：融资租赁，商业保理，地产交易，金融牌照
+	 * @param levelName 用户会员等级名称
 	 * @param valid 是否冻结/启用，true代表启用
 	 * @return 是否成功
 	 */
-	InfoResponse addUser(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, boolean valid);
+	InfoResponse addUser(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, String levelName, boolean valid);
 
 	/**
 	 * 根据微信openid获取用户信息(Admin)
@@ -62,10 +63,11 @@ public interface UserBlService {
 	 * @param city 所在城市
 	 * @param credit 账户余额
 	 * @param label 用户类别信息，可取值：融资租赁，商业保理，地产交易，金融牌照
+	 * @param levelName 用户的会员等级名称，可取值：common，298，998
 	 * @param valid 是否冻结/启用，true代表启用
 	 * @return 是否成功
 	 */
-	InfoResponse updateUser(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, boolean valid) throws NotExistException;
+	InfoResponse updateUser(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, String levelName, boolean valid) throws NotExistException;
 
 	/**
 	 * 根据微信openid删除用户(Admin)
@@ -151,7 +153,7 @@ public interface UserBlService {
 	 * @param username 初始用户名
 	 * @return 用户个人信息
 	 */
-	UserResponse loginMyUser(String openid, String username);
+	UserResponse loginMyUser(String openid, String username) throws NotExistException;
 
 	/**
 	 * 用户获取自己的个人信息(User)

@@ -32,13 +32,13 @@ public class UserBlServiceImplTest {
 				medals, "13011112222", "hello@example.com",
 				"NJU", "CS", "student",
 				"我要在代码的世界里飞翔", "NJ", 1000,
-				"地产交易", 10, true);
+				"地产交易", 10, "common", true);
 		userBlService.addUser(
 				"222222", "czq", "czq_face.jpg",
 				medals, "13022221111", "helloczq@example.com",
 				"PKU", "CS", "student",
 				"我要在代码的世界里爬行", "NJ", -3,
-				"融资租赁", 5, false);
+				"融资租赁", 5, "common", false);
 	}
 
 	@Test
@@ -58,7 +58,7 @@ public class UserBlServiceImplTest {
 				medals, "13011112222", "hellozs@example.com",
 				"NJU", "CS", "student",
 				"我要在代码的世界里飞翔", "NJ", 1000,
-				"地产交易", 15, true);
+				"地产交易", 15, "common", true);
 	}
 
 	@Test
@@ -94,5 +94,12 @@ public class UserBlServiceImplTest {
 	@Test
 	public void checkMyReceivedCard() throws NotExistException {
 		userBlService.checkMyReceivedCard("111111", "222222");
+	}
+
+	@Test
+	public void addLevel() {
+		userBlService.addLevel("common", 5, 0);
+		userBlService.addLevel("298", 10, 20);
+		userBlService.addLevel("998", 100, 50);
 	}
 }

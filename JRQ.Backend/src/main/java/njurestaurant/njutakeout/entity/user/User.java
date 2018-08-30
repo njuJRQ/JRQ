@@ -51,12 +51,15 @@ public class User {
 	private int cardLimit; //今天剩余查看别人名片的次数
 
 	@Column
+	private String levelName; //用户所属会员等级
+
+	@Column
 	private boolean valid;//是否冻结/启用，true代表启用
 
 	public User() {
 	}
 
-	public User(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, boolean valid) {
+	public User(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, String levelName, boolean valid) {
 		this.openid = openid;
 		this.username = username;
 		this.face = face;
@@ -71,6 +74,7 @@ public class User {
 		this.credit = credit;
 		this.label = label;
 		this.cardLimit = cardLimit;
+		this.levelName = levelName;
 		this.valid = valid;
 	}
 
@@ -184,6 +188,14 @@ public class User {
 
 	public void setCardLimit(int cardLimit) {
 		this.cardLimit = cardLimit;
+	}
+
+	public String getLevelName() {
+		return levelName;
+	}
+
+	public void setLevelName(String levelName) {
+		this.levelName = levelName;
 	}
 
 	public boolean isValid() {

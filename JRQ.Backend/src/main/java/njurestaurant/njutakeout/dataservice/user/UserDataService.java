@@ -9,13 +9,15 @@ import java.util.List;
 
 public interface UserDataService {
 
+	void saveUser(User user);
+
 	void addUser(User user);
 
 	User getUserByOpenid(String openid) throws NotExistException;
 
 	List<User> getAllUsers();
 
-	void updateUserByOpenid(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, boolean valid) throws NotExistException;
+	void updateUserByOpenid(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, String levelName, boolean valid) throws NotExistException;
 
 	void deleteUserByOpenid(String openid) throws NotExistException;
 

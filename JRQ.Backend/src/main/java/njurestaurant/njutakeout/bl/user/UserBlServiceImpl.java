@@ -30,8 +30,8 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
-	public InfoResponse addUser(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, boolean valid) {
-		userDataService.addUser(new User(openid, username, face, medals, phone, email, company, department, position, intro, city, credit, label, cardLimit, valid));
+	public InfoResponse addUser(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, String levelName, boolean valid) {
+		userDataService.addUser(new User(openid, username, face, medals, phone, email, company, department, position, intro, city, credit, label, cardLimit, levelName, valid));
 		return new InfoResponse();
 	}
 
@@ -51,8 +51,8 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
-	public InfoResponse updateUser(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, boolean valid) throws NotExistException {
-		userDataService.updateUserByOpenid(openid, username, face, medals, phone, email, company, department, position, intro, city, credit, label, cardLimit, valid);
+	public InfoResponse updateUser(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, String levelName, boolean valid) throws NotExistException {
+		userDataService.updateUserByOpenid(openid, username, face, medals, phone, email, company, department, position, intro, city, credit, label, cardLimit, levelName, valid);
 		return new InfoResponse();
 	}
 
@@ -125,12 +125,13 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
-	public UserResponse loginMyUser(String openid, String username) {
+	public UserResponse loginMyUser(String openid, String username) throws NotExistException {
 		try {
 			User user = userDataService.getUserByOpenid(openid);
 			return new UserResponse(new UserItem(user));
 		} catch (NotExistException exception) {
-			User user = new User(openid, username, "", new ArrayList<>(), "", "", "", "", "", "", "", 0, "", 20, true);
+			int initCardLimit = levelDataService.getLevelByName("common").getCardLimit();
+			User user = new User(openid, username, "", new ArrayList<>(), "", "", "", "", "", "", "", 0, "", initCardLimit, "common", true);
 			userDataService.addUser(user);
 			return new UserResponse(new UserItem(user));
 		}
@@ -144,7 +145,7 @@ public class UserBlServiceImpl implements UserBlService {
 	@Override
 	public InfoResponse updateMyProfile(String openid, String username, String face, String phone, String email, String company, String department, String position, String intro, String city, String label) throws NotExistException {
 		User user = userDataService.getUserByOpenid(openid);
-		userDataService.updateUserByOpenid(openid, username, face, user.getMedals(), phone, email, company, department, position, intro, city, user.getCredit(), label, user.getCardLimit(), user.isValid());
+		userDataService.updateUserByOpenid(openid, username, face, user.getMedals(), phone, email, company, department, position, intro, city, user.getCredit(), label, user.getCardLimit(), user.getLevelName(), user.isValid());
 		return new InfoResponse();
 	}
 
@@ -217,6 +218,18 @@ public class UserBlServiceImpl implements UserBlService {
 			return new CardResponse(new CardItem(other));
 		} else {
 			throw new CardLimitUseUpException();
+		}
+	}
+
+	/**
+	 * 定时任务：每天0点自动重置所有用户查看别人名片的次数
+	 */
+	@Scheduled(cron = "0 0 0 * * ?")
+	private void resetUserCardLimit() throws NotExistException {
+		List<User> users = userDataService.getAllUsers();
+		for(User user:users) {
+			user.setCardLimit(levelDataService.getLevelByName(user.getLevelName()).getCardLimit());
+			userDataService.saveUser(user);
 		}
 	}
 

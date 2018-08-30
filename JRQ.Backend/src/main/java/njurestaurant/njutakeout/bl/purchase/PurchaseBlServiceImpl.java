@@ -2,7 +2,11 @@ package njurestaurant.njutakeout.bl.purchase;
 
 import njurestaurant.njutakeout.blservice.purchase.PurchaseBlService;
 import njurestaurant.njutakeout.dataservice.purchase.PurchaseDataService;
+import njurestaurant.njutakeout.dataservice.user.LevelDataService;
+import njurestaurant.njutakeout.dataservice.user.UserDataService;
 import njurestaurant.njutakeout.entity.purchase.Purchase;
+import njurestaurant.njutakeout.entity.user.Level;
+import njurestaurant.njutakeout.entity.user.User;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.purchase.PurchaseItem;
@@ -17,16 +21,39 @@ import java.util.List;
 @Service
 public class PurchaseBlServiceImpl implements PurchaseBlService {
 	private final PurchaseDataService purchaseDataService;
+	private final UserDataService userDataService;
+	private final LevelDataService levelDataService;
 
 	@Autowired
-	public PurchaseBlServiceImpl(PurchaseDataService purchaseDataService) {
+	public PurchaseBlServiceImpl(PurchaseDataService purchaseDataService, UserDataService userDataService, LevelDataService levelDataService) {
 		this.purchaseDataService = purchaseDataService;
+		this.userDataService = userDataService;
+		this.levelDataService = levelDataService;
 	}
 
 	@Override
-	public InfoResponse addPurchase(String openid, String type, String detail, int price, String date) {
-		purchaseDataService.addPurchase(new Purchase(openid, type, detail, price, date));
-		return new InfoResponse();
+	public boolean addPurchase(String openid, String type, String detail, int price, String date) throws NotExistException {
+		User user = userDataService.getUserByOpenid(openid);
+		if (user.getCredit()>=price) {
+			user.setCredit(user.getCredit()-price); //付款
+			purchaseDataService.addPurchase(new Purchase(openid, type, detail, price, date)); //记录订单
+			switch (type) {
+				case "level":
+					int used = levelDataService.getLevelByName(user.getLevelName()).getCardLimit() - user.getCardLimit();
+					user.setLevelName(detail);
+					user.setCardLimit(levelDataService.getLevelByName(detail).getCardLimit() - used); //更新权限
+					userDataService.saveUser(user);
+					break;
+				case "course":
+					//TODO: 添加课程
+					break;
+				default:
+					throw new NotExistException("PurchaseType");
+			}
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override

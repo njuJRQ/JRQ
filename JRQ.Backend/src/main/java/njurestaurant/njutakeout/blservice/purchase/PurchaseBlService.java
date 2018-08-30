@@ -11,12 +11,12 @@ public interface PurchaseBlService {
 	 * 用户下订单(User)
 	 * @param openid 用户微信openid
 	 * @param type 订单类型："course", "level"
-	 * @param detail 订单详情：课程ID，会员等级
+	 * @param detail 订单详情：课程ID，会员等级名称
 	 * @param price 交易金额
 	 * @param date 交易日期
 	 * @return 是否成功
 	 */
-	InfoResponse addPurchase(String openid, String type, String detail, int price, String date);
+	boolean addPurchase(String openid, String type, String detail, int price, String date) throws NotExistException;
 
 	/**
 	 * 根据订单号获取单个订单信息(User&Admin)

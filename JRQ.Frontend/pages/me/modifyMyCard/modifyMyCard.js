@@ -72,11 +72,5 @@ Page({
   onSave: function(){
     console.log('save')
     api.modifyMyInfo(this)
-    wx.showToast({
-      title: '修改成功',
-      icon: 'succes',
-      duration: 1000,
-      mask: true
-    })
   }
 })

@@ -30,7 +30,7 @@
 
     <view wx:for='{{cards}}'>
 
-      <view class='card row'>
+      <view class='card row' bindtap='onClickThisCard'>
         <view class='card-main row'>
           <view class='card-face v-center'>
             <image src='{{item.face}}'></image>

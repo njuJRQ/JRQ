@@ -21,9 +21,7 @@ Page({
       department: 'IT技术部',
       position: 'IT初级经理',
       intro: '我要在代码的世界里飞翔。'
-    },
-    publishInputValue: "",
-    publishPhotos: null
+    }
   },
 
   /**
@@ -35,33 +33,11 @@ Page({
   showMyInfo: function() {
     api.getMyInfo(app.getOpenid(), this)
   },
-  bindPublishInput: function(e) {
-    this.data.publishInputValue = e.detail.value;
-    console.log("Input: " + this.data.publishInputValue);
-  },
-  onUploadPhotos: function () {
-    var that = this;
-    wx.chooseImage({
-      count: 3,
-      sizeType: ['original', 'compressed'],
-      sourceType: ['album', 'camera'],
-      success: (res) => {
-        var tempFilePaths = res.tempFilePaths
-        that.setData({
-          publishPhotos: tempFilePaths
-        })
-      },
-    })
-  },
   //发布信息
   onPublish: function () {
     console.log('publish')
-    api.publishMyArticle(app.getOpenid(), this.data.publishInputValue, this.data.publishPhotos, this)
-    wx.showToast({
-      title: '发布成功',
-      icon: 'succes',
-      duration: 1000,
-      mask: true
+    wx.navigateTo({
+      url: 'publishMyArticle/publishMyArticle',
     })
   },
   //递名片

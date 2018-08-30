@@ -4,7 +4,9 @@ package njurestaurant.njutakeout.springcontroller.admin;
 import io.swagger.annotations.*;
 import njurestaurant.njutakeout.blservice.admin.AdminBlService;
 import njurestaurant.njutakeout.blservice.event.EventBlService;
+import njurestaurant.njutakeout.exception.DuplicateUsernameException;
 import njurestaurant.njutakeout.exception.NotExistException;
+import njurestaurant.njutakeout.exception.WrongPasswordException;
 import njurestaurant.njutakeout.publicdatas.account.Role;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.Response;
@@ -40,7 +42,7 @@ public class adminController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public InfoResponse addAdmin(@RequestParam(name="username")String username, @RequestParam(name="password")String password, @RequestParam(name="limits")String limits, @RequestParam(name="date")String date){
+    public InfoResponse addAdmin(@RequestParam(name="username")String username, @RequestParam(name="password")String password, @RequestParam(name="limits")String limits, @RequestParam(name="date")String date) throws DuplicateUsernameException {
         InfoResponse info=adminBlService.addAdmin(username, password, limits, date);
         return info;
     }
@@ -101,9 +103,24 @@ public class adminController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public InfoResponse deleteAdmin(@RequestParam(name="id")String id) {
+    public InfoResponse deleteAdmin(@RequestParam(name="id")String id) throws NotExistException {
         InfoResponse r=adminBlService.deleteAdmin(id);
         return r;
+    }
+
+    @ApiOperation(value = "管理员登录", notes = "管理员登录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username", value = "管理员用户名", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "password", value = "管理员密码", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/loginAdmin", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public boolean loginAdmin(@RequestParam(name="username")String username,@RequestParam(name="password")String password) {
+          return adminBlService.loginAdmin(username,password);
     }
 
 

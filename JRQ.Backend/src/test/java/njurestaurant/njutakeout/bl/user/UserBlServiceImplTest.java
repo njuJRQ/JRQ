@@ -2,6 +2,8 @@ package njurestaurant.njutakeout.bl.user;
 
 import njurestaurant.njutakeout.blservice.user.UserBlService;
 import njurestaurant.njutakeout.exception.NotExistException;
+import njurestaurant.njutakeout.response.user.CardItem;
+import njurestaurant.njutakeout.response.user.CardListResponse;
 import njurestaurant.njutakeout.response.user.PersonItem;
 import njurestaurant.njutakeout.response.user.PersonListResponse;
 import org.junit.Test;
@@ -30,13 +32,13 @@ public class UserBlServiceImplTest {
 				medals, "13011112222", "hello@example.com",
 				"NJU", "CS", "student",
 				"我要在代码的世界里飞翔", "NJ", 1000,
-				"地产交易", true);
+				"地产交易", 10, true);
 		userBlService.addUser(
 				"222222", "czq", "czq_face.jpg",
 				medals, "13022221111", "helloczq@example.com",
 				"PKU", "CS", "student",
 				"我要在代码的世界里爬行", "NJ", -3,
-				"融资租赁", false);
+				"融资租赁", 5, false);
 	}
 
 	@Test
@@ -56,7 +58,7 @@ public class UserBlServiceImplTest {
 				medals, "13011112222", "hellozs@example.com",
 				"NJU", "CS", "student",
 				"我要在代码的世界里飞翔", "NJ", 1000,
-				"地产交易", true);
+				"地产交易", 15, true);
 	}
 
 	@Test
@@ -65,8 +67,11 @@ public class UserBlServiceImplTest {
 	}
 
 	@Test
-	public void getPersonList() {
-		System.out.println(userBlService.getPersonList("地产交易").getPersons().get(0).getUsername());
+	public void getPersonList() throws NotExistException {
+		PersonListResponse personListResponse = userBlService.getPersonList("stock");
+		for(PersonItem personItem:personListResponse.getPersons()) {
+			System.out.println(personItem.getUsername());
+		}
 	}
 
 	@Test
@@ -79,10 +84,10 @@ public class UserBlServiceImplTest {
 	}
 
 	@Test
-	public void getMyPersonList() throws NotExistException {
-		PersonListResponse personListResponse = userBlService.getMyPersonList("222222", "current");
-		for(PersonItem personItem:personListResponse.getPersons()) {
-			System.out.println(personItem.getUsername());
+	public void getMyCardList() throws NotExistException {
+		CardListResponse cardListResponse = userBlService.getMyCardList("222222", "current");
+		for(CardItem cardItem:cardListResponse.getCards()) {
+			System.out.println(cardItem.getUsername());
 		}
 	}
 

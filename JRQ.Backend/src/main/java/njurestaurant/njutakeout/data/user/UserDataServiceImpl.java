@@ -8,6 +8,7 @@ import njurestaurant.njutakeout.entity.user.SendCardKey;
 import njurestaurant.njutakeout.entity.user.User;
 import njurestaurant.njutakeout.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 @Service
 public class UserDataServiceImpl implements UserDataService {
+	private final int cardLimit = 20; //每个用户每天最多能看的卡片数
 	private final UserDao userDao;
 	private final SendCardDao sendCardDao;
 
@@ -46,7 +48,7 @@ public class UserDataServiceImpl implements UserDataService {
 	}
 
 	@Override
-	public void updateUserByOpenid(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, boolean valid) throws NotExistException {
+	public void updateUserByOpenid(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, boolean valid) throws NotExistException {
 		Optional<User> optionalUser = userDao.findById(openid);
 		if(optionalUser.isPresent()) {
 			User user = optionalUser.get();
@@ -62,6 +64,7 @@ public class UserDataServiceImpl implements UserDataService {
 			user.setCity(city);
 			user.setCredit(credit);
 			user.setLabel(label);
+			user.setCardLimit(cardLimit);
 			user.setValid(valid);
 			userDao.save(user);
 		} else {
@@ -98,6 +101,18 @@ public class UserDataServiceImpl implements UserDataService {
 			sendCardDao.save(sendCard);
 		} else {
 			throw new NotExistException("SendCard");
+		}
+	}
+
+	/**
+	 * 定时任务：每天0点自动重置所有用户查看别人名片的次数
+	 */
+	@Scheduled(cron = "0 0 0 * * ?")
+	private void resetUserCardLimit(){
+		List<User> users = userDao.findAll();
+		for(User user:users) {
+			user.setCardLimit(cardLimit);
+			userDao.save(user);
 		}
 	}
 }

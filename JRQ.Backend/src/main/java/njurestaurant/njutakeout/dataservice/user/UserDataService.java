@@ -15,7 +15,7 @@ public interface UserDataService {
 
 	List<User> getAllUsers();
 
-	void updateUserByOpenid(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, boolean valid) throws NotExistException;
+	void updateUserByOpenid(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, boolean valid) throws NotExistException;
 
 	void deleteUserByOpenid(String openid);
 

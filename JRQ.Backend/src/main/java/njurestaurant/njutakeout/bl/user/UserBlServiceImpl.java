@@ -1,31 +1,38 @@
 package njurestaurant.njutakeout.bl.user;
 
 import njurestaurant.njutakeout.blservice.user.UserBlService;
+import njurestaurant.njutakeout.dataservice.user.ClassificationDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
+import njurestaurant.njutakeout.entity.user.Classification;
 import njurestaurant.njutakeout.entity.user.SendCard;
 import njurestaurant.njutakeout.entity.user.SendCardKey;
 import njurestaurant.njutakeout.entity.user.User;
+import njurestaurant.njutakeout.exception.CardLimitUseUpException;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserBlServiceImpl implements UserBlService {
 	private final UserDataService userDataService;
+	private final ClassificationDataService classificationDataService;
 
 	@Autowired
-	public UserBlServiceImpl(UserDataService userDataService) {
+	public UserBlServiceImpl(UserDataService userDataService, ClassificationDataService classificationDataService) {
 		this.userDataService = userDataService;
+		this.classificationDataService = classificationDataService;
 	}
 
 	@Override
-	public InfoResponse addUser(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, boolean valid) {
-		userDataService.addUser(new User(openid, username, face, medals, phone, email, company, department, position, intro, city, credit, label, valid));
+	public InfoResponse addUser(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, boolean valid) {
+		userDataService.addUser(new User(openid, username, face, medals, phone, email, company, department, position, intro, city, credit, label, cardLimit, valid));
 		return new InfoResponse();
 	}
 
@@ -45,8 +52,8 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
-	public InfoResponse updateUser(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, boolean valid) throws NotExistException {
-		userDataService.updateUserByOpenid(openid, username, face, medals, phone, email, company, department, position, intro, city, credit, label, valid);
+	public InfoResponse updateUser(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, boolean valid) throws NotExistException {
+		userDataService.updateUserByOpenid(openid, username, face, medals, phone, email, company, department, position, intro, city, credit, label, cardLimit, valid);
 		return new InfoResponse();
 	}
 
@@ -57,11 +64,13 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
-	public PersonListResponse getPersonList(String kind) {
+	public PersonListResponse getPersonList(String workClass) throws NotExistException {
 		List<User> userList = userDataService.getAllUsers();
 		List<PersonItem> personItemList = new ArrayList<>();
 		for(User user:userList) {
-			personItemList.add(new PersonItem(user));
+			if(classificationDataService.getClassificationByUserLabel(user.getLabel()).getWorkClass().equals(workClass)) {
+				personItemList.add(new PersonItem(user));
+			}
 		}
 		return new PersonListResponse(personItemList);
 	}
@@ -79,7 +88,7 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
-	public PersonListResponse getMyPersonList(String openid, String kind) throws NotExistException {
+	public CardListResponse getMyCardList(String openid, String kind) throws NotExistException {
 		List<String> personOpenidList = new ArrayList<>();
 		if(kind.equals("new") || kind.equals("current")) {
 			List<SendCard> sendCards = userDataService.getSendsByOpenid(openid); //用户收到的
@@ -101,11 +110,11 @@ public class UserBlServiceImpl implements UserBlService {
 			}
 		}
 
-		List<PersonItem> personItemList = new ArrayList<>();
+		List<CardItem> cardItemList = new ArrayList<>();
 		for(String personId:personOpenidList) {
-			personItemList.add(new PersonItem(userDataService.getUserByOpenid(personId)));
+			cardItemList.add(new CardItem(userDataService.getUserByOpenid(personId)));
 		}
-		return new PersonListResponse(personItemList);
+		return new CardListResponse(cardItemList);
 	}
 
 	@Override
@@ -113,4 +122,17 @@ public class UserBlServiceImpl implements UserBlService {
 		userDataService.checkSendCard(new SendCardKey(senderOpenid, receiverOpenid));
 		return new InfoResponse();
 	}
+
+	@Override
+	public CardResponse getOtherCard(String userOpenid, String otherOpenid) throws NotExistException, CardLimitUseUpException {
+		User other = userDataService.getUserByOpenid(otherOpenid);
+		User user = userDataService.getUserByOpenid(userOpenid);
+		if (user.getCardLimit() > 0) {
+			user.setCardLimit(user.getCardLimit() - 1);
+			return new CardResponse(new CardItem(other));
+		} else {
+			throw new CardLimitUseUpException();
+		}
+	}
+
 }

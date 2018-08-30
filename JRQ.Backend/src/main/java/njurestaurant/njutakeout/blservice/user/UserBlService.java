@@ -1,10 +1,9 @@
 package njurestaurant.njutakeout.blservice.user;
 
+import njurestaurant.njutakeout.exception.CardLimitUseUpException;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
-import njurestaurant.njutakeout.response.user.PersonListResponse;
-import njurestaurant.njutakeout.response.user.UserListResponse;
-import njurestaurant.njutakeout.response.user.UserResponse;
+import njurestaurant.njutakeout.response.user.*;
 
 import java.util.List;
 
@@ -27,7 +26,7 @@ public interface UserBlService {
 	 * @param valid 是否冻结/启用，true代表启用
 	 * @return 是否成功
 	 */
-	InfoResponse addUser(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, boolean valid);
+	InfoResponse addUser(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, boolean valid);
 
 	/**
 	 * 根据微信openid获取用户信息
@@ -60,7 +59,7 @@ public interface UserBlService {
 	 * @param valid 是否冻结/启用，true代表启用
 	 * @return 是否成功
 	 */
-	InfoResponse updateUser(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, boolean valid) throws NotExistException;
+	InfoResponse updateUser(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, boolean valid) throws NotExistException;
 
 	/**
 	 * 根据微信openid删除用户
@@ -71,10 +70,10 @@ public interface UserBlService {
 
 	/**
 	 * 获取业务名片列表
-	 * @param kind 业务类别：capital, stock, merge分别代表金融类，股票类，并购类
+	 * @param workClass 业务类别：capital, stock, merge分别代表金融类，股票类，并购类
 	 * @return 业务名片列表
 	 */
-	PersonListResponse getPersonList(String kind);
+	PersonListResponse getPersonList(String workClass) throws NotExistException;
 
 	/**
 	 * 获取符合特定条件的业务名片列表
@@ -97,7 +96,7 @@ public interface UserBlService {
 	 * @param kind 名片类型 "new","current","whoHasMyCard"
 	 * @return 特定类型的名片列表
 	 */
-	PersonListResponse getMyPersonList(String openid, String kind) throws NotExistException;
+	CardListResponse getMyCardList(String openid, String kind) throws NotExistException;
 
 	/**
 	 * 将用户收到的名片设置为已读
@@ -106,5 +105,13 @@ public interface UserBlService {
 	 * @return 是否成功
 	 */
 	InfoResponse checkMyReceivedCard(String senderOpenid, String receiverOpenid) throws NotExistException;
+
+	/**
+	 * 用户查看别人的名片，每天次数有限制
+	 * @param userOpenid 用户自己的微信openid
+	 * @param otherOpenid 要查看的用户的openid
+	 * @return 别人的名片
+	 */
+	CardResponse getOtherCard(String userOpenid, String otherOpenid) throws NotExistException, CardLimitUseUpException;
 
 }

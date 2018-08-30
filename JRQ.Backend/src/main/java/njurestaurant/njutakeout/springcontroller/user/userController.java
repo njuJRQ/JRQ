@@ -17,5 +17,5 @@ public class userController {
     public userController(UserBlService userBlService) {
         this.userBlService = userBlService;
     }
-    
+
 }

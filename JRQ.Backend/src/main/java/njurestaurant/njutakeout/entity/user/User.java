@@ -4,56 +4,59 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table
 public class User {
 	@Id
-	@Column(name = "openid")
+	@Column
 	private String openid;//用户微信编号
 
-	@Column(name = "username")
+	@Column
 	private String username; //用户名
 
-	@Column(name = "face")
+	@Column
 	private String face; //用户头像
 
-	@Column(name = "medals")
+	@Column
 	@ElementCollection(targetClass = String.class)
 	private List<String> medals; //用户类别提示（可多个）
 
-	@Column(name = "phone")
+	@Column
 	private String phone; //电话号码
 
-	@Column(name = "email")
+	@Column
 	private String email; //电子邮件
 
-	@Column(name = "company")
+	@Column
 	private String company; //公司名称
 
-	@Column(name = "department")
+	@Column
 	private String department; //部门
 
-	@Column(name = "position")
+	@Column
 	private String position; //职位
 
-	@Column(name = "intro")
+	@Column
 	private String intro; //个人简介
 
-	@Column(name = "city")
+	@Column
 	private String city; //所在城市
 
-	@Column(name = "credit")
+	@Column
 	private int credit; //账户余额
 
-	@Column(name = "label")
+	@Column
 	private String label; //用户类别信息，可取值：融资租赁，商业保理，地产交易，金融牌照
 
-	@Column(name = "valid")
+	@Column
+	private int cardLimit; //今天剩余查看别人名片的次数
+
+	@Column
 	private boolean valid;//是否冻结/启用，true代表启用
 
 	public User() {
 	}
 
-	public User(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, boolean valid) {
+	public User(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, boolean valid) {
 		this.openid = openid;
 		this.username = username;
 		this.face = face;
@@ -67,6 +70,7 @@ public class User {
 		this.city = city;
 		this.credit = credit;
 		this.label = label;
+		this.cardLimit = cardLimit;
 		this.valid = valid;
 	}
 
@@ -172,6 +176,14 @@ public class User {
 
 	public void setLabel(String label) {
 		this.label = label;
+	}
+
+	public int getCardLimit() {
+		return cardLimit;
+	}
+
+	public void setCardLimit(int cardLimit) {
+		this.cardLimit = cardLimit;
 	}
 
 	public boolean isValid() {

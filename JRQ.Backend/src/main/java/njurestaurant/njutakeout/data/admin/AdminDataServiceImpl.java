@@ -20,6 +20,11 @@ public class AdminDataServiceImpl implements AdminDataService {
 	}
 
 	@Override
+	public boolean isAdminExistent(String username) {
+		return !adminDao.findAdminByUsername(username).isEmpty();
+	}
+
+	@Override
 	public void addAdmin(Admin admin) {
 		adminDao.save(admin);
 	}
@@ -31,6 +36,15 @@ public class AdminDataServiceImpl implements AdminDataService {
 			return optionalAdmin.get();
 		}else {
 			throw new NotExistException("Admin");
+		}
+	}
+
+	@Override
+	public Admin getAdminByUsername(String username) throws NotExistException {
+		if (!adminDao.findAdminByUsername(username).isEmpty()) {
+			return adminDao.findAdminByUsername(username).get(0);
+		} else {
+			throw new NotExistException("Admin "+username);
 		}
 	}
 
@@ -55,7 +69,12 @@ public class AdminDataServiceImpl implements AdminDataService {
 	}
 
 	@Override
-	public void deleteAdminById(String id) {
-		adminDao.deleteById(id);
+	public void deleteAdminById(String id) throws NotExistException {
+		Optional<Admin> optionalAdmin = adminDao.findById(id);
+		if(optionalAdmin.isPresent()) {
+			adminDao.deleteById(id);
+		} else {
+			throw new NotExistException("Admin");
+		}
 	}
 }

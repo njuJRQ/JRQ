@@ -1,7 +1,6 @@
 package njurestaurant.njutakeout.security.jwt;
 
-import njurestaurant.njutakeout.data.dao.account.UserDao;
-import njurestaurant.njutakeout.entity.account.User;
+import njurestaurant.njutakeout.data.dao.user.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -33,11 +32,12 @@ public class JwtUserDetailsServiceImpl implements JwtUserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.findUserByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
-        } else {
-            return jwtService.convertUserToJwtUser(user);
-        }
+//        User user = userDao.findUserByUsername(username);
+//        if (user == null) {
+//            throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
+//        } else {
+//            return jwtService.convertUserToJwtUser(user);
+//        }
+        return null; //edited by zs
     }
 }

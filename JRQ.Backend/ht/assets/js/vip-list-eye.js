@@ -1,12 +1,11 @@
-$.get("assets/php/getthisvip.php" ,async =false,function (data){
-    var temp=data.split("\n");
-    var temp1=temp[temp.length-1];
-    var question=temp1.split(" ");
-    document.getElementById("number").innerText=question[0];
-    document.getElementById("username").innerText=question[1];
-    document.getElementById("xueli").innerText=question[2];
-    document.getElementById("name").innerText=question[3];
-    document.getElementById("minzu").innerText=question[4];
-    document.getElementById("sex").innerText=question[5];
-    document.getElementById("date").innerText=question[6];
-})
+document.getElementById("number").innerText="dhjfnewcwiuanca";
+document.getElementById("username").innerText="明天";
+document.getElementById("head").src="assets/i/y.jpg";
+document.getElementById("type").innerText="购买课程";
+document.getElementById("phone").innerText="手机号";
+document.getElementById("email").innerText="邮箱";
+document.getElementById("company").innerText="公司";
+document.getElementById("department").innerText="部门";
+document.getElementById("position").innerText="经理";
+document.getElementById("intro").innerText="离哈";
+document.getElementById("valid").innerText="启用";

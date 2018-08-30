@@ -68,8 +68,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if (options.id)
+      api.getOtherInfo(app.getOpenid(), options.id, this)
+    else
+      api.getMyInfo(app.getOpenid(), this) //获取个人信息
     this.init()
-    api.getMyInfo(app.getOpenid(), this) //获取个人信息
     this.encrept() //加密个人信息
     api.getMyHistoryAbstractList(app.getOpenid(), this) //获取个人历史文章列表信息
   },
@@ -80,7 +83,7 @@ Page({
   },
   init: function () {
     this.setData({
-      wechatId: app.getOpenid(),
+      wechatId: '这里是微信号',
     })
   },
   encrept: function () {

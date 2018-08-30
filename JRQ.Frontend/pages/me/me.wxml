@@ -2,20 +2,12 @@
 <view class='container column'>
   <view class='head column v-center'>
     <view class='publisher column'>
-      <view class='publisher-text row'>
+      <view class='publisher-text row' bindtap='onPublish'>
         <view class='publisher-input'>
-          <input placeholder='发布业务合作、商业资讯或日常信息...' bindinput='bindPublishInput' confirm-type='send'></input>
+          <text>发布业务合作、商业资讯或日常信息...</text>
         </view>
         <view class='publisher-image h-center v-center' bindtap='onUploadPhotos'>
           <image src='img/camera.png'></image>
-        </view>
-        <view class='publisher-button h-center v-center' bindtap='onPublish'>
-          <image src='img/publish.png'></image>
-        </view>
-      </view>
-      <view class='publisher-photos row'>
-        <view wx:for='{{publishPhotos}}' class='publisher-photo'>
-          <image src='{{item}}'></image>
         </view>
       </view>
     </view>

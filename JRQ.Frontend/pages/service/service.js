@@ -10,6 +10,7 @@ Page({
    */
   data: {
     cards: [{
+      openid: 1,
       face: '../../default/default-pic.png',
       userName: 'USERNAME',
       position: '项目经理',
@@ -18,6 +19,7 @@ Page({
       detail: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
       categoryId: '融资租赁'
     }, {
+        openid: 2,
         face: '../../default/default-pic.png',
         userName: 'USERNAME',
         position: '项目经理',
@@ -26,6 +28,7 @@ Page({
         detail: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
         categoryId: '商业保理'
       }, {
+        openid: 3,
         face: '../../default/default-pic.png',
         userName: 'USERNAME',
         position: '项目经理',
@@ -34,6 +37,7 @@ Page({
         detail: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
         categoryId: '地产交易'
       }, {
+        openid: 4,
         face: '../../default/default-pic.png',
         userName: 'USERNAME',
         position: '项目经理',
@@ -42,6 +46,7 @@ Page({
         detail: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
         categoryId: '金融牌照'
       }, {
+        openid: 5,
         face: '../../default/default-pic.png',
         userName: 'USERNAME',
         position: '项目经理',
@@ -50,6 +55,7 @@ Page({
         detail: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
         categoryId: '地产交易'
       }, {
+        openid: 6,
         face: '../../default/default-pic.png',
         userName: 'USERNAME',
         position: '项目经理',
@@ -58,6 +64,7 @@ Page({
         detail: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
         categoryId: '商业保理'
       }, {
+        openid: 7,
         face: '../../default/default-pic.png',
         userName: 'USERNAME',
         position: '项目经理',
@@ -105,5 +112,11 @@ Page({
   showMergeClass: function() {
     this.showClass('mergeClass');
     console.log('show merge class')
+  },
+  onClickThisCard: function (e) {
+    var id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '../me/myHistory/myHistory?id=' + id,
+    })
   }
 })

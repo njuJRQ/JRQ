@@ -164,7 +164,7 @@ function getMyInfo(openid, that) {
    * 无
    */
   wx.request({
-    url: app.globalData.backendUrl + "getUser",
+    url: app.globalData.backendUrl + "getMyUser",
     data: {
       openid: openid
     },
@@ -181,7 +181,50 @@ function getMyInfo(openid, that) {
   })
 }
 
-function publishMyArticle (openid, content, photos, that) {
+function getOtherInfo(myid, otherid, that) {
+  /**
+   * 方法：getUser
+   * 参数：
+   * 无
+   */
+  wx.request({
+    url: app.globalData.backendUrl + "getOtherCard",
+    data: {
+      userOpenid: myid,
+      otherOpenid: otherid
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      that.setData({
+        myInfo: res.data.card
+      })
+    }
+  })
+}
+
+function checkMyReceivedCard(senderOpenid, receiverOpenid) {
+  wx.request({
+    url: app.globalData.backendUrl + "checkMyReceivedCard",
+    data: {
+      senderOpenid: senderOpenid,
+      receiverOpenid: receiverOpenid
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      //do nothing
+    }
+  })
+}
+
+function publishMyArticle (openid, kind, content, photos, that) {
   //TODO
   /**
    * 方法：publishMyArticle
@@ -192,6 +235,7 @@ function publishMyArticle (openid, content, photos, that) {
     url: app.globalData.backendUrl + "publishMyArticle",
     data: {
       openid: openid,
+      kind: kind,
       content: content,
       photos: photos
     },
@@ -220,29 +264,48 @@ function modifyMyInfo(that) {
    * 职位：position
    * 个人简介：intro
    */
-  wx.request({
-    url: app.globalData.backendUrl + "updateUser",
-    data: {
-      openId: app.getOpenid(),
-      face: that.data.newMyInfo.face,
-      username: that.data.newMyInfo.username,
-      phone: that.data.newMyInfo.phone,
-      email: that.data.newMyInfo.email,
-      city: that.data.newMyInfo.city,
-      company: that.data.newMyInfo.company,
-      department: that.data.newMyInfo.department,
-      position: that.data.newMyInfo.position,
-      intro: that.data.newMyInfo.intro
-    },
+  wx.uploadFile({
+    url: app.globalData.backendUrl + "uploadhead/" + app.getOpenid(),
+    filePath: that.data.newMyInfo.face,
+    name: 'file',
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
       'content-type': 'application/x-www-form-urlencoded'
     },
-    method: 'GET',
     success: (res) => {
-      //do nothing
+      wx.request({
+        //上传用户信息
+        url: app.globalData.backendUrl + "updateMyProfile",
+        data: {
+          openId: app.getOpenid(),
+          username: that.data.newMyInfo.username,
+          face: res.data.facePath, //res结果返回图片存放的路径
+          phone: that.data.newMyInfo.phone,
+          email: that.data.newMyInfo.email,
+          city: that.data.newMyInfo.city,
+          company: that.data.newMyInfo.company,
+          department: that.data.newMyInfo.department,
+          position: that.data.newMyInfo.position,
+          intro: that.data.newMyInfo.intro,
+          label: that.newMyInfo.label
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          wx.showToast({
+            title: '修改成功',
+            icon: 'succes',
+            duration: 1000,
+            mask: true
+          })
+        }
+      })
     }
   })
+  
 }
 
 function getPersonListByCondition (condition, that) {
@@ -277,7 +340,7 @@ function getMyPersonList (openid, kind, that) {
    * 展示类别：kind
    */
   wx.request({
-    url: app.globalData.backendUrl + "getMyPersonList",
+    url: app.globalData.backendUrl + "getMyCardList",
     data: {
       openid: openid,
       kind: kind
@@ -328,6 +391,8 @@ module.exports = {
   purchaseCourse: purchaseCourse,
   getPersonList: getPersonList,
   getMyInfo: getMyInfo,
+  getOtherInfo: getOtherInfo,
+  checkMyReceivedCard: checkMyReceivedCard,
   publishMyArticle: publishMyArticle,
   modifyMyInfo: modifyMyInfo,
   getPersonListByCondition: getPersonListByCondition,

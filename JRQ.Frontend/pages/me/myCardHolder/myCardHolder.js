@@ -10,7 +10,9 @@ Page({
   data: {
     cards: [
       {
+        openid: 1,
         username: 'USERNAME',
+        face: '../../../default/default-pic.png',
         medals: [
           '../../../default/default-icon.png',
           '../../../default/default-icon.png',
@@ -23,7 +25,9 @@ Page({
         position: 'IT初级经理',
         intro: '我要在代码的世界里飞翔。'
       }, {
+        openid: 2,
         username: 'USERNAME',
+        face: '../../../default/default-pic.png',
         medals: [
           '../../../default/default-icon.png',
           '../../../default/default-icon.png',
@@ -36,7 +40,9 @@ Page({
         position: 'IT初级经理',
         intro: '我要在代码的世界里飞翔。'
       }, {
+        openid: 3,
         username: 'USERNAME',
+        face: '../../../default/default-pic.png',
         medals: [
           '../../../default/default-icon.png',
           '../../../default/default-icon.png',
@@ -85,4 +91,11 @@ Page({
     console.log('show who has my card');
     this.showCards('whoHasMyCard');
   },
+  onClickThisCard: function (e) {
+    var id = e.currentTarget.dataset.id
+    api.checkMyReceivedCard(app.getOpenid(), id)
+    wx.navigateTo({
+      url: '../myHistory/myHistory?id='+id,
+    })
+  }
 })

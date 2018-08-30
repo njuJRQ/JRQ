@@ -98,6 +98,30 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
+	public UserResponse loginMyUser(String openid, String username) {
+		try {
+			User user = userDataService.getUserByOpenid(openid);
+			return new UserResponse(new UserItem(user));
+		} catch (NotExistException exception) {
+			User user = new User(openid, username, "", new ArrayList<>(), "", "", "", "", "", "", "", 0, "", 20, true);
+			userDataService.addUser(user);
+			return new UserResponse(new UserItem(user));
+		}
+	}
+
+	@Override
+	public UserResponse getMyUser(String openid) throws NotExistException {
+		return new UserResponse(new UserItem(userDataService.getUserByOpenid(openid)));
+	}
+
+	@Override
+	public InfoResponse updateMyProfile(String openid, String username, String face, String phone, String email, String company, String department, String position, String intro, String city, String label) throws NotExistException {
+		User user = userDataService.getUserByOpenid(openid);
+		userDataService.updateUserByOpenid(openid, username, face, user.getMedals(), phone, email, company, department, position, intro, city, user.getCredit(), label, user.getCardLimit(), user.isValid());
+		return new InfoResponse();
+	}
+
+	@Override
 	public PersonListResponse getPersonList(String workClass) throws NotExistException {
 		List<User> userList = userDataService.getAllUsers();
 		List<PersonItem> personItemList = new ArrayList<>();

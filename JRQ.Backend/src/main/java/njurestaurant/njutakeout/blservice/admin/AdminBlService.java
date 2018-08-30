@@ -1,12 +1,23 @@
 package njurestaurant.njutakeout.blservice.admin;
 
+import njurestaurant.njutakeout.exception.DuplicateUsernameException;
 import njurestaurant.njutakeout.exception.NotExistException;
+import njurestaurant.njutakeout.exception.WrongPasswordException;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.admin.AdminListResponse;
 import njurestaurant.njutakeout.response.admin.AdminResponse;
 
 
 public interface AdminBlService {
+
+	/**
+	 * 管理员登录验证
+	 * @param username 用户名
+	 * @param password 密码
+	 * @return 是否验证成功
+	 */
+	InfoResponse loginAdmin(String username, String password) throws NotExistException, WrongPasswordException;
+
 	/**
 	 * 添加管理员
 	 * @param username 用户名
@@ -15,7 +26,7 @@ public interface AdminBlService {
 	 * @param date 创建时间
 	 * @return 是否成功
 	 */
-	InfoResponse addAdmin(String username, String password, String limits, String date);
+	InfoResponse addAdmin(String username, String password, String limits, String date) throws DuplicateUsernameException;
 
 	/**
 	 * 获取管理员信息
@@ -46,5 +57,5 @@ public interface AdminBlService {
 	 * @param id 管理员ID
 	 * @return 是否成功
 	 */
-	InfoResponse deleteAdmin(String id);
+	InfoResponse deleteAdmin(String id) throws NotExistException;
 }

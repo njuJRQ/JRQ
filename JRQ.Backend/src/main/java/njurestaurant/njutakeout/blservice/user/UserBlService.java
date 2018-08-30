@@ -9,6 +9,11 @@ import njurestaurant.njutakeout.response.user.*;
 import java.util.List;
 
 public interface UserBlService {
+
+
+	/*------------ 管理员使用的API ------------*/
+
+
 	/**
 	 * 添加用户
 	 * @param openid 微信openid
@@ -42,7 +47,7 @@ public interface UserBlService {
 	 */
 	UserListResponse getUserList();
 
-	/** TODO:用户修改自己的信息应该使用其他API，另外，仅有openid就可以修改是很不安全的
+	/**
 	 * 根据微信openid更新用户信息
 	 * @param openid 微信openid
 	 * @param username 用户名
@@ -104,6 +109,42 @@ public interface UserBlService {
 	 * @return 是否成功
 	 */
 	InfoResponse deleteClassification(String userLabel);
+
+
+	/*------------ 用户使用的API ------------*/
+
+
+	/**
+	 * 用户登录小程序，若账号不存在则新建一个，否则不处理
+	 * @param openid 用户的微信openid
+	 * @param username 初始用户名
+	 * @return 用户个人信息
+	 */
+	UserResponse loginMyUser(String openid, String username);
+
+	/**
+	 * 用户获取自己的个人信息：直接调用了管理员的方法
+	 * @param openid 用户的微信openid
+	 * @return 用户个人信息
+	 */
+	UserResponse getMyUser(String openid) throws NotExistException;
+
+	/**
+	 * 用户修改自己的个人信息，只能改部分属性
+	 * @param openid 用户微信openid
+	 * @param username 用户名
+	 * @param face 用户头像
+	 * @param phone 用户手机号
+	 * @param email 用户邮箱
+	 * @param company 所在公司
+	 * @param department 所在部门
+	 * @param position 职位
+	 * @param intro 个人简介
+	 * @param city 城市
+	 * @param label 用户标签
+	 * @return 是否成功
+	 */
+	InfoResponse updateMyProfile(String openid, String username, String face, String phone, String email, String company, String department, String position, String intro, String city, String label) throws NotExistException;
 
 	/**
 	 * 获取业务名片列表

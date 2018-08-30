@@ -58,7 +58,7 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
-	public InfoResponse deleteUser(String openid) {
+	public InfoResponse deleteUser(String openid) throws NotExistException {
 		userDataService.deleteUserByOpenid(openid);
 		return new InfoResponse();
 	}
@@ -92,7 +92,7 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
-	public InfoResponse deleteClassification(String userLabel) {
+	public InfoResponse deleteClassification(String userLabel) throws NotExistException {
 		classificationDataService.deleteClassificationByUserLabel(userLabel);
 		return new InfoResponse();
 	}

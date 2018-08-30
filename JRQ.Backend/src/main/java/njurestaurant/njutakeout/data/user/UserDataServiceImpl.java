@@ -73,8 +73,12 @@ public class UserDataServiceImpl implements UserDataService {
 	}
 
 	@Override
-	public void deleteUserByOpenid(String openid) {
-		userDao.deleteById(openid);
+	public void deleteUserByOpenid(String openid) throws NotExistException {
+		if (userDao.existsById(openid)) {
+			userDao.deleteById(openid);
+		} else {
+			throw new NotExistException("User");
+		}
 	}
 
 	@Override

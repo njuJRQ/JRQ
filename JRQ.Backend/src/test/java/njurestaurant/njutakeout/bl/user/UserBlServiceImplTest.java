@@ -62,7 +62,7 @@ public class UserBlServiceImplTest {
 	}
 
 	@Test
-	public void deleteUser() {
+	public void deleteUser() throws NotExistException {
 		userBlService.deleteUser("222222");
 	}
 

@@ -70,8 +70,7 @@ public class AdminDataServiceImpl implements AdminDataService {
 
 	@Override
 	public void deleteAdminById(String id) throws NotExistException {
-		Optional<Admin> optionalAdmin = adminDao.findById(id);
-		if(optionalAdmin.isPresent()) {
+		if(adminDao.existsById(id)) {
 			adminDao.deleteById(id);
 		} else {
 			throw new NotExistException("Admin");

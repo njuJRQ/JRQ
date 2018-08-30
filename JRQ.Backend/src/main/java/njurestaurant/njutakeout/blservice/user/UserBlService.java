@@ -72,7 +72,7 @@ public interface UserBlService {
 	 * @param openid 微信openid
 	 * @return 是否成功
 	 */
-	InfoResponse deleteUser(String openid);
+	InfoResponse deleteUser(String openid) throws NotExistException;
 
 	/**
 	 * 添加用户标签相应的业务分类项
@@ -108,7 +108,7 @@ public interface UserBlService {
 	 * @param userLabel 用户标签
 	 * @return 是否成功
 	 */
-	InfoResponse deleteClassification(String userLabel);
+	InfoResponse deleteClassification(String userLabel) throws NotExistException;
 
 
 	/*------------ 用户使用的API ------------*/

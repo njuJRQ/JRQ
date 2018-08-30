@@ -15,5 +15,5 @@ public interface ClassificationDataService {
 
 	void updateClassificationByUserLabel(String userLabel, String workClass) throws NotExistException;
 
-	void deleteClassificationByUserLabel(String userLabel);
+	void deleteClassificationByUserLabel(String userLabel) throws NotExistException;
 }

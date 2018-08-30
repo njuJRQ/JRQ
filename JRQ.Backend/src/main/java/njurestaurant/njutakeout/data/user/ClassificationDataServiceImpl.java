@@ -52,7 +52,11 @@ public class ClassificationDataServiceImpl implements ClassificationDataService 
 	}
 
 	@Override
-	public void deleteClassificationByUserLabel(String userLabel) {
-		classificationDao.deleteById(userLabel);
+	public void deleteClassificationByUserLabel(String userLabel) throws NotExistException {
+		if (classificationDao.existsById(userLabel)) {
+			classificationDao.deleteById(userLabel);
+		} else {
+			throw new NotExistException("Classification");
+		}
 	}
 }

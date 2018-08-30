@@ -15,7 +15,7 @@ public interface UserBlService {
 
 
 	/**
-	 * 添加用户
+	 * 添加用户(Admin)
 	 * @param openid 微信openid
 	 * @param username 用户名
 	 * @param face 用户头像
@@ -35,20 +35,20 @@ public interface UserBlService {
 	InfoResponse addUser(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, boolean valid);
 
 	/**
-	 * 根据微信openid获取用户信息
+	 * 根据微信openid获取用户信息(Admin)
 	 * @param openid 微信的openid
 	 * @return 用户信息
 	 */
 	UserResponse getUser(String openid) throws NotExistException;
 
 	/**
-	 * 获取用户列表
+	 * 获取用户列表(Admin)
 	 * @return 用户列表
 	 */
 	UserListResponse getUserList();
 
 	/**
-	 * 根据微信openid更新用户信息
+	 * 根据微信openid更新用户信息(Admin)
 	 * @param openid 微信openid
 	 * @param username 用户名
 	 * @param face 用户头像
@@ -68,14 +68,14 @@ public interface UserBlService {
 	InfoResponse updateUser(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, boolean valid) throws NotExistException;
 
 	/**
-	 * 根据微信openid删除用户
+	 * 根据微信openid删除用户(Admin)
 	 * @param openid 微信openid
 	 * @return 是否成功
 	 */
 	InfoResponse deleteUser(String openid) throws NotExistException;
 
 	/**
-	 * 添加用户标签相应的业务分类项
+	 * 添加用户标签相应的业务分类项(Admin)
 	 * @param userLabel 用户标签：融资租赁，商业保理，地产交易，金融牌照
 	 * @param workClass 业务分类：capital, stock, merge分别代表金融类，股票类，并购类
 	 * @return 是否成功
@@ -83,20 +83,20 @@ public interface UserBlService {
 	InfoResponse addClassification(String userLabel, String workClass);
 
 	/**
-	 * 根据用户标签获取其对应的业务分类
+	 * 根据用户标签获取其对应的业务分类(Admin)
 	 * @param userLabel 用户标签
 	 * @return 分类项
 	 */
 	ClassificationResponse getClassification(String userLabel) throws NotExistException;
 
 	/**
-	 * 获取所有业务分类项
+	 * 获取所有业务分类项(Admin)
 	 * @return 业务分类项列表
 	 */
 	ClassificationListResponse getClassificationList();
 
 	/**
-	 * 更新特定用户标签所属的业务分类
+	 * 更新特定用户标签所属的业务分类(Admin)
 	 * @param userLabel 用户标签
 	 * @param workClass 业务分类
 	 * @return 是否成功
@@ -104,18 +104,49 @@ public interface UserBlService {
 	InfoResponse updateClassification(String userLabel, String workClass) throws NotExistException;
 
 	/**
-	 * 删除特定用户标签的分类项
+	 * 删除特定用户标签的分类项(Admin)
 	 * @param userLabel 用户标签
 	 * @return 是否成功
 	 */
 	InfoResponse deleteClassification(String userLabel) throws NotExistException;
+
+	/**
+	 * 添加会员等级信息(Admin)
+	 * @param name 会员等级名称
+	 * @param cardLimit 每天能看的名片数
+	 * @param price 价格
+	 * @return 是否成功
+	 */
+	InfoResponse addLevel(String name, int cardLimit, int price);
+
+	/**
+	 * 获取所有会员等级信息(User&Admin)
+	 * @return 会员等级信息
+	 */
+	LevelListResponse getLevelList();
+
+	/**
+	 * 修改某会员等级的信息(Admin)
+	 * @param name 会员等级名称
+	 * @param cardLimit 新的每天能看的名片数
+	 * @param price 新的价格
+	 * @return 是否成功
+	 */
+	InfoResponse updateLevel(String name, int cardLimit, int price) throws NotExistException;
+
+	/**
+	 * 删除某会员等级(Admin)
+	 * @param name 要被删除的会员等级名称
+	 * @return 是否成功
+	 */
+	InfoResponse deleteLevel(String name) throws NotExistException;
 
 
 	/*------------ 用户使用的API ------------*/
 
 
 	/**
-	 * 用户登录小程序，若账号不存在则新建一个，否则不处理
+	 * 用户登录小程序，若账号不存在则新建一个，否则不处理(User)
 	 * @param openid 用户的微信openid
 	 * @param username 初始用户名
 	 * @return 用户个人信息
@@ -123,14 +154,14 @@ public interface UserBlService {
 	UserResponse loginMyUser(String openid, String username);
 
 	/**
-	 * 用户获取自己的个人信息：直接调用了管理员的方法
+	 * 用户获取自己的个人信息(User)
 	 * @param openid 用户的微信openid
 	 * @return 用户个人信息
 	 */
 	UserResponse getMyUser(String openid) throws NotExistException;
 
 	/**
-	 * 用户修改自己的个人信息，只能改部分属性
+	 * 用户修改自己的个人信息，只能改部分属性(User)
 	 * @param openid 用户微信openid
 	 * @param username 用户名
 	 * @param face 用户头像
@@ -147,21 +178,21 @@ public interface UserBlService {
 	InfoResponse updateMyProfile(String openid, String username, String face, String phone, String email, String company, String department, String position, String intro, String city, String label) throws NotExistException;
 
 	/**
-	 * 获取业务名片列表
+	 * 获取业务名片列表(User)
 	 * @param workClass 业务类别：capital, stock, merge分别代表金融类，股票类，并购类
 	 * @return 业务名片列表
 	 */
 	PersonListResponse getPersonList(String workClass) throws NotExistException;
 
 	/**
-	 * 获取符合特定条件的业务名片列表
+	 * 获取符合特定条件的业务名片列表(User)
 	 * @param condition 条件
 	 * @return 业务名片列表
 	 */
 	PersonListResponse getPersonListByCondition(String condition);
 
 	/**
-	 * 用户向别人发送名片
+	 * 用户向别人发送名片(User)
 	 * @param senderOpenid 发送者微信openid
 	 * @param receiverOpenid 接收者微信openid
 	 * @return 是否成功
@@ -169,7 +200,7 @@ public interface UserBlService {
 	InfoResponse sendMyCard(String senderOpenid, String receiverOpenid);
 
 	/**
-	 * 用户获取自己的名片列表
+	 * 用户获取自己的名片列表(User)
 	 * @param openid 用户的微信openid
 	 * @param kind 名片类型 "new","current","whoHasMyCard"
 	 * @return 特定类型的名片列表
@@ -177,7 +208,7 @@ public interface UserBlService {
 	CardListResponse getMyCardList(String openid, String kind) throws NotExistException;
 
 	/**
-	 * 将用户收到的名片设置为已读
+	 * 将用户收到的名片设置为已读(User)
 	 * @param senderOpenid 发送者微信openid
 	 * @param receiverOpenid 接收者微信openid
 	 * @return 是否成功
@@ -185,7 +216,7 @@ public interface UserBlService {
 	InfoResponse checkMyReceivedCard(String senderOpenid, String receiverOpenid) throws NotExistException;
 
 	/**
-	 * 用户查看别人的名片，每天次数有限制
+	 * 用户查看别人的名片，每天次数有限制(User)
 	 * @param userOpenid 用户自己的微信openid
 	 * @param otherOpenid 要查看的用户的openid
 	 * @return 别人的名片

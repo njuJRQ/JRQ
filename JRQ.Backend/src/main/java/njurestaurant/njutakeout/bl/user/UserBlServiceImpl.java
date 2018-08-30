@@ -2,11 +2,9 @@ package njurestaurant.njutakeout.bl.user;
 
 import njurestaurant.njutakeout.blservice.user.UserBlService;
 import njurestaurant.njutakeout.dataservice.user.ClassificationDataService;
+import njurestaurant.njutakeout.dataservice.user.LevelDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
-import njurestaurant.njutakeout.entity.user.Classification;
-import njurestaurant.njutakeout.entity.user.SendCard;
-import njurestaurant.njutakeout.entity.user.SendCardKey;
-import njurestaurant.njutakeout.entity.user.User;
+import njurestaurant.njutakeout.entity.user.*;
 import njurestaurant.njutakeout.exception.CardLimitUseUpException;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
@@ -23,11 +21,12 @@ import java.util.Optional;
 public class UserBlServiceImpl implements UserBlService {
 	private final UserDataService userDataService;
 	private final ClassificationDataService classificationDataService;
+	private final LevelDataService levelDataService;
 
-	@Autowired
-	public UserBlServiceImpl(UserDataService userDataService, ClassificationDataService classificationDataService) {
+	public UserBlServiceImpl(UserDataService userDataService, ClassificationDataService classificationDataService, LevelDataService levelDataService) {
 		this.userDataService = userDataService;
 		this.classificationDataService = classificationDataService;
+		this.levelDataService = levelDataService;
 	}
 
 	@Override
@@ -94,6 +93,34 @@ public class UserBlServiceImpl implements UserBlService {
 	@Override
 	public InfoResponse deleteClassification(String userLabel) throws NotExistException {
 		classificationDataService.deleteClassificationByUserLabel(userLabel);
+		return new InfoResponse();
+	}
+
+	@Override
+	public InfoResponse addLevel(String name, int cardLimit, int price) {
+		levelDataService.addLevel(new Level(name, cardLimit, price));
+		return new InfoResponse();
+	}
+
+	@Override
+	public LevelListResponse getLevelList() {
+		List<Level> levels = levelDataService.getAllLevels();
+		List<LevelItem> levelItems = new ArrayList<>();
+		for(Level level:levels) {
+			levelItems.add(new LevelItem(level));
+		}
+		return new LevelListResponse(levelItems);
+	}
+
+	@Override
+	public InfoResponse updateLevel(String name, int cardLimit, int price) throws NotExistException {
+		levelDataService.updateLevelByName(name, cardLimit, price);
+		return new InfoResponse();
+	}
+
+	@Override
+	public InfoResponse deleteLevel(String name) throws NotExistException {
+		levelDataService.deleteLevelByName(name);
 		return new InfoResponse();
 	}
 

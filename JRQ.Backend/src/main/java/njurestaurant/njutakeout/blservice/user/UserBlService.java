@@ -1,5 +1,6 @@
 package njurestaurant.njutakeout.blservice.user;
 
+import njurestaurant.njutakeout.entity.user.Classification;
 import njurestaurant.njutakeout.exception.CardLimitUseUpException;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
@@ -41,7 +42,7 @@ public interface UserBlService {
 	 */
 	UserListResponse getUserList();
 
-	/**
+	/** TODO:用户修改自己的信息应该使用其他API，另外，仅有openid就可以修改是很不安全的
 	 * 根据微信openid更新用户信息
 	 * @param openid 微信openid
 	 * @param username 用户名
@@ -67,6 +68,42 @@ public interface UserBlService {
 	 * @return 是否成功
 	 */
 	InfoResponse deleteUser(String openid);
+
+	/**
+	 * 添加用户标签相应的业务分类项
+	 * @param userLabel 用户标签：融资租赁，商业保理，地产交易，金融牌照
+	 * @param workClass 业务分类：capital, stock, merge分别代表金融类，股票类，并购类
+	 * @return 是否成功
+	 */
+	InfoResponse addClassification(String userLabel, String workClass);
+
+	/**
+	 * 根据用户标签获取其对应的业务分类
+	 * @param userLabel 用户标签
+	 * @return 分类项
+	 */
+	ClassificationResponse getClassification(String userLabel) throws NotExistException;
+
+	/**
+	 * 获取所有业务分类项
+	 * @return 业务分类项列表
+	 */
+	ClassificationListResponse getClassificationList();
+
+	/**
+	 * 更新特定用户标签所属的业务分类
+	 * @param userLabel 用户标签
+	 * @param workClass 业务分类
+	 * @return 是否成功
+	 */
+	InfoResponse updateClassification(String userLabel, String workClass) throws NotExistException;
+
+	/**
+	 * 删除特定用户标签的分类项
+	 * @param userLabel 用户标签
+	 * @return 是否成功
+	 */
+	InfoResponse deleteClassification(String userLabel);
 
 	/**
 	 * 获取业务名片列表

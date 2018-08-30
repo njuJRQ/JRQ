@@ -64,6 +64,40 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
+	public InfoResponse addClassification(String userLabel, String workClass) {
+		classificationDataService.addClassification(new Classification(userLabel, workClass));
+		return new InfoResponse();
+	}
+
+	@Override
+	public ClassificationResponse getClassification(String userLabel) throws NotExistException {
+		return new ClassificationResponse(new ClassificationItem(
+				classificationDataService.getClassificationByUserLabel(userLabel)));
+	}
+
+	@Override
+	public ClassificationListResponse getClassificationList() {
+		List<Classification> classificationList = classificationDataService.getAllClassifications();
+		List<ClassificationItem> classificationItemList = new ArrayList<>();
+		for(Classification classification:classificationList) {
+			classificationItemList.add(new ClassificationItem(classification));
+		}
+		return new ClassificationListResponse(classificationItemList);
+	}
+
+	@Override
+	public InfoResponse updateClassification(String userLabel, String workClass) throws NotExistException {
+		classificationDataService.updateClassificationByUserLabel(userLabel, workClass);
+		return new InfoResponse();
+	}
+
+	@Override
+	public InfoResponse deleteClassification(String userLabel) {
+		classificationDataService.deleteClassificationByUserLabel(userLabel);
+		return new InfoResponse();
+	}
+
+	@Override
 	public PersonListResponse getPersonList(String workClass) throws NotExistException {
 		List<User> userList = userDataService.getAllUsers();
 		List<PersonItem> personItemList = new ArrayList<>();

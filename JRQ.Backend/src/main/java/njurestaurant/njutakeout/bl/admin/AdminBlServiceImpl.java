@@ -26,15 +26,12 @@ public class AdminBlServiceImpl implements AdminBlService {
 	}
 
 	@Override
-	public InfoResponse loginAdmin(String username, String password) throws NotExistException, WrongPasswordException {
-		if (adminDataService.isAdminExistent(username)) {
-			if (adminDataService.getAdminByUsername(username).getPassword().equals(password)) {
-				return new InfoResponse();
-			} else {
-				throw new WrongPasswordException(username);
-			}
-		} else {
-			throw new NotExistException("Admin "+username);
+	public boolean loginAdmin(String username, String password) {
+		try {
+			return adminDataService.isAdminExistent(username)
+					&& adminDataService.getAdminByUsername(username).getPassword().equals(password);
+		} catch (NotExistException exception) {
+			return false;
 		}
 	}
 

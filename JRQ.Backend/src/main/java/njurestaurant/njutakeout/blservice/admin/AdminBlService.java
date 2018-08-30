@@ -16,7 +16,7 @@ public interface AdminBlService {
 	 * @param password 密码
 	 * @return 是否验证成功
 	 */
-	InfoResponse loginAdmin(String username, String password) throws NotExistException, WrongPasswordException;
+	boolean loginAdmin(String username, String password);
 
 	/**
 	 * 添加管理员

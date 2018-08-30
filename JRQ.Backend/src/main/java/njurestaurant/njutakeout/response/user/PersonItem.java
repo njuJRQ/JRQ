@@ -3,6 +3,7 @@ package njurestaurant.njutakeout.response.user;
 import njurestaurant.njutakeout.entity.user.User;
 
 public class PersonItem {
+	private String openid; //用户微信openid
 	private String username; //用户名
 	private String face; //用户头像
 	private String company; //公司名称
@@ -15,6 +16,7 @@ public class PersonItem {
 	}
 
 	public PersonItem(User user) {
+		this.openid = user.getOpenid();
 		this.username = user.getUsername();
 		this.face = user.getFace();
 		this.company = user.getCompany();
@@ -22,6 +24,14 @@ public class PersonItem {
 		this.intro = user.getIntro();
 		this.city = user.getCity();
 		this.label = user.getLabel();
+	}
+
+	public String getOpenid() {
+		return openid;
+	}
+
+	public void setOpenid(String openid) {
+		this.openid = openid;
 	}
 
 	public String getUsername() {

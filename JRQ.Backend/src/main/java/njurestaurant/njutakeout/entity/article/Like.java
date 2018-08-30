@@ -7,7 +7,7 @@ import javax.persistence.*;
 @IdClass(LikeKey.class)
 public class Like {
 	@Id
-	@Column(name = "openid", length = 32)
+	@Column(name = "openid", length = 28)
 	private String openid; //微信用户ID
 
 	@Id

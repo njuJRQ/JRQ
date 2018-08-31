@@ -1,5 +1,7 @@
 package njurestaurant.njutakeout.response.article.course;
 
+import njurestaurant.njutakeout.entity.article.Course;
+
 public class CourseItem {
 	private long id;
 	private String title;
@@ -10,7 +12,7 @@ public class CourseItem {
 	private String video;
 	private int price;
 
-	public CourseItem(CourseItem course){
+	public CourseItem(Course course){
 		this.id = course.getId();
 		this.title = course.getTitle();
 		this.image = course.getImage();

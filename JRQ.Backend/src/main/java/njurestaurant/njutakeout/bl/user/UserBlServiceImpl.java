@@ -23,6 +23,7 @@ public class UserBlServiceImpl implements UserBlService {
 	private final ClassificationDataService classificationDataService;
 	private final LevelDataService levelDataService;
 
+	@Autowired
 	public UserBlServiceImpl(UserDataService userDataService, ClassificationDataService classificationDataService, LevelDataService levelDataService) {
 		this.userDataService = userDataService;
 		this.classificationDataService = classificationDataService;

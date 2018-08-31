@@ -1,43 +1,24 @@
-package njurestaurant.njutakeout.entity.article;
+package njurestaurant.njutakeout.response.article.feed;
 
-import org.hibernate.annotations.GenericGenerator;
+import njurestaurant.njutakeout.entity.article.Feed;
 
-import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table
-@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class Feed {
-	@Id
-	@GeneratedValue(generator = "jpa-uuid")
+public class FeedItem {
 	private String id; //文章编号
-
-	@Column
 	private String content; //文章内容
-
-	@Column
-	@ElementCollection(targetClass = String.class)
 	private List<String> images; //文章图片路径集合（不超过3张）
-
-	@Column
 	private String writerOpenid; //作者微信openid
-
-	@Column
 	private String date; //文章发布日期，如"2018-1-1"
-
-	@Column
 	private long likeNum; //文章点赞数
 
-	public Feed() {
-	}
-
-	public Feed(String content, List<String> images, String writerOpenid, String date, long likeNum) {
-		this.content = content;
-		this.images = images;
-		this.writerOpenid = writerOpenid;
-		this.date = date;
-		this.likeNum = likeNum;
+	public FeedItem(Feed feed) {
+		this.id = feed.getId();
+		this.content = feed.getContent();
+		this.images = feed.getImages();
+		this.writerOpenid = feed.getWriterOpenid();
+		this.date = feed.getDate();
+		this.likeNum = feed.getLikeNum();
 	}
 
 	public String getId() {

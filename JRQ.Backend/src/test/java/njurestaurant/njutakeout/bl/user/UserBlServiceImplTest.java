@@ -24,22 +24,22 @@ public class UserBlServiceImplTest {
 	@Autowired
 	private UserBlService userBlService;
 
-	@Test
-	public void addUser() {
-		List<String> medals = Arrays.asList("common", "298", "998");
-		userBlService.addUser(
-				"111111", "zs", "zs_face.jpg",
-				medals, "13011112222", "hello@example.com",
-				"NJU", "CS", "student",
-				"我要在代码的世界里飞翔", "NJ", 1000,
-				"地产交易", 10, "common", true);
-		userBlService.addUser(
-				"222222", "czq", "czq_face.jpg",
-				medals, "13022221111", "helloczq@example.com",
-				"PKU", "CS", "student",
-				"我要在代码的世界里爬行", "NJ", -3,
-				"融资租赁", 5, "common", false);
-	}
+//	@Test
+//	public void addUser() {
+//		List<String> medals = Arrays.asList("common", "298", "998");
+//		userBlService.addUser(
+//				"111111", "zs", "zs_face.jpg",
+//				medals, "13011112222", "hello@example.com",
+//				"NJU", "CS", "student",
+//				"我要在代码的世界里飞翔", "NJ", 1000,
+//				"地产交易", 10, "common", true);
+//		userBlService.addUser(
+//				"222222", "czq", "czq_face.jpg",
+//				medals, "13022221111", "helloczq@example.com",
+//				"PKU", "CS", "student",
+//				"我要在代码的世界里爬行", "NJ", -3,
+//				"融资租赁", 5, "common", false);
+//	}
 
 	@Test
 	public void getUser() throws NotExistException {
@@ -58,7 +58,7 @@ public class UserBlServiceImplTest {
 				medals, "13011112222", "hellozs@example.com",
 				"NJU", "CS", "student",
 				"我要在代码的世界里飞翔", "NJ", 1000,
-				"地产交易", 15, "common", true);
+				"地产交易", "common", true);
 	}
 
 	@Test

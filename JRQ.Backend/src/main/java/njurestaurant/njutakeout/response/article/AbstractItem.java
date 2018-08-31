@@ -3,7 +3,7 @@ package njurestaurant.njutakeout.response.article;
 import java.util.List;
 
 public class AbstractItem {
-	private long id; //文章编号
+	private String id; //文章编号
 	private String title; //文章标题
 	private List<String> images; //文章图片路径集合（不超过3张）
 	private String writerFace; //作者头像图片路径（可能为空）
@@ -15,7 +15,7 @@ public class AbstractItem {
 	public AbstractItem(){
 	}
 
-	public AbstractItem(long id, String title, List<String> images, String writerFace, String writerName, String date, long likeNum, String kind) {
+	public AbstractItem(String id, String title, List<String> images, String writerFace, String writerName, String date, long likeNum, String kind) {
 		this.id = id;
 		this.title = title;
 		this.images = images;
@@ -26,11 +26,11 @@ public class AbstractItem {
 		this.kind = kind;
 	}
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

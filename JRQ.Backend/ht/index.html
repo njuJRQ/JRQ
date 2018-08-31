@@ -27,6 +27,7 @@
             }
         }
     </style>
+    <script src="assets/js/getUrl.js"></script>
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -255,37 +256,46 @@
         })
     }
 
+    var storage = window.localStorage;
+    var user=storage["adminUsername"];
+    document.getElementById("username").innerText="用户名:"+user;
+    var url=getUrl();
+    $.ajax(
+        {
+            url: url+"/getAdminList",
+            data: {
+            },
+            async:false,
+            success: function (data) {
+                for(var i=0;i<data.admins.length;i++){
+                    if(user==data.admins[i].username){
+                        var limits=data.admins[i].limits.split("...");
+                        $("#c1").hide();
+                        $("#c2").hide();
+                        $("#c3").hide();
+                        $("#c4").hide();
+                        $("#c5").hide();
+                        $("#c6").hide();
+                        $("#c7").hide();
 
-    $.get("assets/php/getadminbyname.php" ,async =false,function (data){
-        var temp=data.split("\n");
-        var temp1=temp[temp.length-1];
-        var question=temp1.split(" ");
-       document.getElementById("username").innerText="用户名:"+question[1];
-       var limits=question[3].split("...");
-       $("#c1").hide();
-        $("#c2").hide();
-        $("#c3").hide();
-        $("#c4").hide();
-        $("#c5").hide();
-        $("#c6").hide();
-        $("#c7").hide();
-        $("#c8").hide();
-        $("#c9").hide();
-        $("#c10").hide();
-        $("#c11").hide();
-        $("#c12").hide();
-        $("#c13").hide();
-        $("#c14").hide();
+                        for(var i=1;i<=14;i++){
+                            for(var j=0;j<limits.length;j++){
+                                if(parseInt(limits[j])==i){
+                                    $("#c"+i).show();
+                                }
+                            }
+                        }
+                        break;
+                    }
+                }
 
-       for(var i=1;i<=14;i++){
-           for(var j=0;j<limits.length;j++){
-               if(parseInt(limits[j])==i){
-                    $("#c"+i).show();
-               }
-           }
-       }
-
-    })
+            },
+            error: function (xhr) {
+                alert('动态页有问题噶！\n\n' + xhr.responseText);
+            },
+            traditional: true,
+        }
+    )
 
 </script>
 </body>

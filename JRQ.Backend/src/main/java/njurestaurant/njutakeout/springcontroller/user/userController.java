@@ -70,7 +70,6 @@ public class userController {
             @ApiImplicitParam(name = "city", value = "用户城市", required = true, dataType = "String"),
             @ApiImplicitParam(name = "credit", value = "余额", required = true, dataType = "String"),
             @ApiImplicitParam(name = "label", value = "用户标签", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "cardLimit", value = "用户名片查看限制", required = true, dataType = "String"),
             @ApiImplicitParam(name = "levelName", value = "用户等级", required = true, dataType = "String"),
             @ApiImplicitParam(name = "valid", value = "是否启用", required = true, dataType = "boolean")
     })
@@ -80,8 +79,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public InfoResponse updateUser(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username,@RequestParam(name="face")String face,@RequestParam(name="phone")String phone,@RequestParam(name="email")String email,@RequestParam(name="company")String company,@RequestParam(name="department")String department,@RequestParam(name="position")String position,@RequestParam(name="intro")String intro,@RequestParam(name="city")String city,@RequestParam(name="credit")String credit,@RequestParam(name="label")String label,@RequestParam(name="cardLimit")String cardLimit,@RequestParam(name="levelName")String levelName,@RequestParam(name="valid")boolean valid) throws NotExistException {
-        InfoResponse r=userBlService.updateUser(openid,username,face,null,phone,email,company,department,position,intro,city,Integer.parseInt(credit),label,Integer.parseInt(cardLimit),levelName,valid);
+    public InfoResponse updateUser(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username,@RequestParam(name="face")String face,@RequestParam(name="phone")String phone,@RequestParam(name="email")String email,@RequestParam(name="company")String company,@RequestParam(name="department")String department,@RequestParam(name="position")String position,@RequestParam(name="intro")String intro,@RequestParam(name="city")String city,@RequestParam(name="credit")String credit,@RequestParam(name="label")String label,@RequestParam(name="levelName")String levelName,@RequestParam(name="valid")boolean valid) throws NotExistException {
+        InfoResponse r=userBlService.updateUser(openid,username,face,null,phone,email,company,department,position,intro,city,Integer.parseInt(credit),label,levelName,valid);
         return r;
     }
 

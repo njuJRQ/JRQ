@@ -27,7 +27,7 @@
 <body>
 <div class="header">
   <div class="am-g">
-  <img src="assets/i/s.jpg" style="width: 10%;height: 10%;"><font size="5"> 钧融圈后台管理系统</font>
+  <img src="assets/i/logo.jpeg" style="width: 10%;height: 10%;"><font size="5"> 钧融圈后台管理系统</font>
   </div>
   <hr />
 </div>
@@ -75,7 +75,6 @@
     function login() {
         var username=$("#email").val();
         var password=$("#password").val();
-
         var url=getUrl();
         $.ajax(
             {
@@ -87,6 +86,8 @@
                 success: function (data) {
                     if(data) {
                         alert("登录成功");
+                        var storage = window.localStorage;
+                        storage["adminUsername"]=username;
                         window.location.href = "index.html";
                     }
                     else{

@@ -14,6 +14,7 @@ public class SendCard {
 	@Column(length = 28)
 	private String receiverOpenid; //接收者openid
 
+	@Column
 	private boolean checked; //发送者是否已读
 
 	public SendCard() {

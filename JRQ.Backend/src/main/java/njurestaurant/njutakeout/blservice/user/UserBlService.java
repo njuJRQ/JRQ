@@ -180,6 +180,13 @@ public interface UserBlService {
 	InfoResponse updateMyProfile(String openid, String username, String face, String phone, String email, String company, String department, String position, String intro, String city, String label) throws NotExistException;
 
 	/**
+	 * 根据用户微信openid获取其业务名片(User)
+	 * @param openid 用户微信openid
+	 * @return 业务名片
+	 */
+	PersonResponse getPerson(String openid) throws NotExistException;
+
+	/**
 	 * 获取业务名片列表(User)
 	 * @param workClass 业务类别：capital, stock, merge分别代表金融类，股票类，并购类
 	 * @return 业务名片列表

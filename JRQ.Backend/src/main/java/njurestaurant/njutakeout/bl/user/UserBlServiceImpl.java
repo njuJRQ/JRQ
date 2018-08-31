@@ -150,6 +150,11 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
+	public PersonResponse getPerson(String openid) throws NotExistException {
+		return new PersonResponse(new PersonItem(userDataService.getUserByOpenid(openid)));
+	}
+
+	@Override
 	public PersonListResponse getPersonList(String workClass) throws NotExistException {
 		List<User> userList = userDataService.getAllUsers();
 		List<PersonItem> personItemList = new ArrayList<>();

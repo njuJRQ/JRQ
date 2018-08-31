@@ -52,12 +52,10 @@ public class FeedBlServiceImpl implements FeedBlService {
 
 	@Override
 	public AbstractListResponse getMyHistoryAbstractList(String openid) throws NotExistException {
-		User user = userDataService.getUserByOpenid(openid);
 		List<Feed> feeds = feedDataService.getFeedsByWriterOpenid(openid);
 		List<AbstractItem> abstractItems = new ArrayList<>();
 		for (Feed feed:feeds) {
-			abstractItems.add(new AbstractItem(feed.getId(), feed.getContent(), feed.getImages(),
-					user.getFace(), user.getUsername(), feed.getDate(), feed.getLikeNum(), "feed"));
+			abstractItems.add(new AbstractItem(feed, userDataService));
 		}
 		return new AbstractListResponse(abstractItems);
 	}

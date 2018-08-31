@@ -5,38 +5,38 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "project")
+@Table
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class Project {
 	@Id
 	@GeneratedValue(generator = "jpa-uuid")
-	private long id; //编号
+	private String id; //编号
 
-	@Column(name = "title")
+	@Column
 	private String title; //简介
 
-	@Column(name = "identity")
+	@Column
 	private String identity; //身份
 
-	@Column(name = "phone")
+	@Column
 	private String phone; //联系方式
 
-	@Column(name = "city")
+	@Column
 	private String city; //所在城市
 
-	@Column(name = "industry")
+	@Column
 	private String industry; //所属行业
 
-	@Column(name = "business")
+	@Column
 	private String business; //业务标签
 
-	@Column(name = "content")
+	@Column
 	private String content; //项目详情
 
-	@Column(name = "money")
+	@Column
 	private int money; //项目资金
 
-	@Column(name = "attachment")
+	@Column
 	private String attachment; //附件路径
 
 	public Project(){
@@ -54,11 +54,11 @@ public class Project {
 		this.attachment = attachment;
 	}
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

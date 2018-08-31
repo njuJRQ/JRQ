@@ -1,9 +1,9 @@
 package njurestaurant.njutakeout.blservice.article.project;
 
+import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.project.ProjectListResponse;
 import njurestaurant.njutakeout.response.article.project.ProjectResponse;
-import org.springframework.stereotype.Service;
 
 
 public interface ProjectBlService {
@@ -27,7 +27,7 @@ public interface ProjectBlService {
 	 * @param id 项目ID
 	 * @return 项目内容
 	 */
-	ProjectResponse getProject(long id);
+	ProjectResponse getProject(String id) throws NotExistException;
 
 	/**
 	 * 获取项目列表
@@ -49,12 +49,12 @@ public interface ProjectBlService {
 	 * @param attachment 附件路径
 	 * @return 是否成功
 	 */
-	InfoResponse updateProject(long id, String title, String identity, String phone, String city, String industry, String business, String content, int money, String attachment);
+	InfoResponse updateProject(String id, String title, String identity, String phone, String city, String industry, String business, String content, int money, String attachment) throws NotExistException;
 
 	/**
 	 * 根据项目ID删除项目
 	 * @param id 项目ID
 	 * @return 是否成功
 	 */
-	InfoResponse deleteProject(long id);
+	InfoResponse deleteProject(String id) throws NotExistException;
 }

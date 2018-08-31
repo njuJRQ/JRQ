@@ -3,7 +3,7 @@ package njurestaurant.njutakeout.response.article.project;
 import njurestaurant.njutakeout.entity.article.Project;
 
 public class ProjectItem {
-	private long id; //编号
+	private String id; //编号
 	private String title; //简介
 	private String identity; //身份
 	private String phone; //联系方式
@@ -27,11 +27,11 @@ public class ProjectItem {
 		this.attachment = project.getAttachment();
 	}
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

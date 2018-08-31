@@ -18,6 +18,8 @@ public class UserItem {
 	private String city; //所在城市
 	private int credit; //账户余额
 	private String label; //用户类别信息，可取值：融资租赁，商业保理，地产交易，金融牌照
+	private int cardLimit; //今天剩余查看别人名片的次数
+	private String levelName; //用户所属会员等级
 	private boolean valid;//是否冻结/启用，true代表启用
 
 	public UserItem(User user){
@@ -34,6 +36,8 @@ public class UserItem {
 		this.city = user.getCity();
 		this.credit = user.getCredit();
 		this.label = user.getLabel();
+		this.cardLimit = user.getCardLimit();
+		this.levelName = user.getLevelName();
 		this.valid = user.isValid();
 	}
 
@@ -139,6 +143,22 @@ public class UserItem {
 
 	public void setLabel(String label) {
 		this.label = label;
+	}
+
+	public int getCardLimit() {
+		return cardLimit;
+	}
+
+	public void setCardLimit(int cardLimit) {
+		this.cardLimit = cardLimit;
+	}
+
+	public String getLevelName() {
+		return levelName;
+	}
+
+	public void setLevelName(String levelName) {
+		this.levelName = levelName;
 	}
 
 	public boolean isValid() {

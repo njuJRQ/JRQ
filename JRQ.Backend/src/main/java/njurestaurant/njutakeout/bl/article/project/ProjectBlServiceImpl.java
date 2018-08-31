@@ -24,8 +24,8 @@ public class ProjectBlServiceImpl implements ProjectBlService {
 	}
 
 	@Override
-	public InfoResponse addProject(String title, String identity, String phone, String city, String industry, String business, String content, int money, String attachment) {
-		projectDataService.addProject(new Project(title, identity, phone, city, industry, business, content, money, attachment));
+	public InfoResponse addProject(String title, String writerName, String identity, String phone, String city, String industry, String business, String content, int money, String attachment, String date) {
+		projectDataService.addProject(new Project(title, writerName, identity, phone, city, industry, business, content, money, attachment, date, 0));
 		return new InfoResponse();
 	}
 
@@ -45,9 +45,10 @@ public class ProjectBlServiceImpl implements ProjectBlService {
 	}
 
 	@Override
-	public InfoResponse updateProject(String id, String title, String identity, String phone, String city, String industry, String business, String content, int money, String attachment) throws NotExistException {
+	public InfoResponse updateProject(String id, String title, String writerName, String identity, String phone, String city, String industry, String business, String content, int money, String attachment, String date) throws NotExistException {
 		Project project = projectDataService.getProjectById(id);
 		project.setTitle(title);
+		project.setWriterName(writerName);
 		project.setIdentity(identity);
 		project.setPhone(phone);
 		project.setCity(city);
@@ -56,6 +57,7 @@ public class ProjectBlServiceImpl implements ProjectBlService {
 		project.setContent(content);
 		project.setMoney(money);
 		project.setAttachment(attachment);
+		project.setDate(date);
 		projectDataService.saveProject(project);
 		return new InfoResponse();
 	}

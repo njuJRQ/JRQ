@@ -16,6 +16,9 @@ public class Project {
 	private String title; //简介
 
 	@Column
+	private String writerName; //作者名字
+
+	@Column
 	private String identity; //身份
 
 	@Column
@@ -39,11 +42,18 @@ public class Project {
 	@Column
 	private String attachment; //附件路径
 
+	@Column
+	private String date; //发布日期
+
+	@Column
+	private long likeNum; //点赞数
+
 	public Project(){
 	}
 
-	public Project(String title, String identity, String phone, String city, String industry, String business, String content, int money, String attachment) {
+	public Project(String title, String writerName, String identity, String phone, String city, String industry, String business, String content, int money, String attachment, String date, long likeNum) {
 		this.title = title;
+		this.writerName = writerName;
 		this.identity = identity;
 		this.phone = phone;
 		this.city = city;
@@ -52,6 +62,8 @@ public class Project {
 		this.content = content;
 		this.money = money;
 		this.attachment = attachment;
+		this.date = date;
+		this.likeNum = likeNum;
 	}
 
 	public String getId() {
@@ -68,6 +80,14 @@ public class Project {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getWriterName() {
+		return writerName;
+	}
+
+	public void setWriterName(String writerName) {
+		this.writerName = writerName;
 	}
 
 	public String getIdentity() {
@@ -132,5 +152,21 @@ public class Project {
 
 	public void setAttachment(String attachment) {
 		this.attachment = attachment;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public long getLikeNum() {
+		return likeNum;
+	}
+
+	public void setLikeNum(long likeNum) {
+		this.likeNum = likeNum;
 	}
 }

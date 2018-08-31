@@ -16,6 +16,9 @@ public class Document {
 	private String title;//标题
 
 	@Column
+	private String content; //内容
+
+	@Column
 	private String writerName;//作者名字
 
 	@Column
@@ -27,8 +30,9 @@ public class Document {
 	public Document(){
 	}
 
-	public Document(String title, String writerName, String date, long likeNum) {
+	public Document(String title, String content, String writerName, String date, long likeNum) {
 		this.title = title;
+		this.content = content;
 		this.writerName = writerName;
 		this.date = date;
 		this.likeNum = likeNum;
@@ -48,6 +52,14 @@ public class Document {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public String getWriterName() {

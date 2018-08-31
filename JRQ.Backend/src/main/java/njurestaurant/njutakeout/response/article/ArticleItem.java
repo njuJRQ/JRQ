@@ -1,9 +1,19 @@
 package njurestaurant.njutakeout.response.article;
 
+import njurestaurant.njutakeout.dataservice.user.UserDataService;
+import njurestaurant.njutakeout.entity.article.Course;
+import njurestaurant.njutakeout.entity.article.Document;
+import njurestaurant.njutakeout.entity.article.Feed;
+import njurestaurant.njutakeout.entity.article.Project;
+import njurestaurant.njutakeout.entity.user.User;
+import njurestaurant.njutakeout.exception.NotExistException;
+
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ArticleItem {
-	private long id; //文章编号
+	private String id; //文章编号
 	private String title; //文章标题
 	private String content; //文章内容
 	private List<String> images; //文章图片路径集合（不超过3张）
@@ -16,7 +26,7 @@ public class ArticleItem {
 	public ArticleItem(){
 	}
 
-	public ArticleItem(long id, String title, String content, List<String> images, String writerFace, String writerName, String date, long likeNum, String kind) {
+	public ArticleItem(String id, String title, String content, List<String> images, String writerFace, String writerName, String date, long likeNum, String kind) {
 		this.id = id;
 		this.title = title;
 		this.content = content;
@@ -28,11 +38,60 @@ public class ArticleItem {
 		this.kind = kind;
 	}
 
-	public long getId() {
+	public ArticleItem(Course course) {
+		this.id = course.getId();
+		this.title = course.getTitle();
+		this.content = course.getTitle();
+		this.images = Collections.singletonList(course.getImage());
+		this.writerFace = "";
+		this.writerName = course.getWriterName();
+		this.date = course.getDate();
+		this.likeNum = course.getLikeNum();
+		this.kind = "course";
+	}
+
+	public ArticleItem(Document document) {
+		this.id = document.getId();
+		this.title = document.getTitle();
+		this.content = document.getContent();
+		this.images = Collections.emptyList();
+		this.writerFace = "";
+		this.writerName = document.getWriterName();
+		this.date = document.getDate();
+		this.likeNum = document.getLikeNum();
+		this.kind = "document";
+	}
+
+	public ArticleItem(Project project) {
+		this.id = project.getId();
+		this.title = project.getTitle();
+		this.content = project.getContent();
+		this.images = Collections.emptyList();
+		this.writerFace = "";
+		this.writerName = project.getWriterName();
+		this.date = project.getDate();
+		this.likeNum = project.getLikeNum();
+		this.kind = "project";
+	}
+
+	public ArticleItem(Feed feed, UserDataService userDataService) throws NotExistException {
+		this.id = feed.getId();
+		this.title = feed.getContent();
+		this.content = feed.getContent();
+		this.images = feed.getImages();
+		User user = userDataService.getUserByOpenid(feed.getWriterOpenid());
+		this.writerFace = user.getFace();
+		this.writerName = user.getUsername();
+		this.date = feed.getDate();
+		this.likeNum = feed.getLikeNum();
+		this.kind = "feed";
+	}
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

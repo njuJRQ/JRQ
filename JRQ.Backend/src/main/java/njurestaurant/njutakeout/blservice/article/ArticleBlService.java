@@ -1,5 +1,6 @@
 package njurestaurant.njutakeout.blservice.article;
 
+import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.*;
 import njurestaurant.njutakeout.response.article.ad.AdResponse;
@@ -13,7 +14,7 @@ public interface ArticleBlService {
 	 * @param openid 只有在文章类型为feed时才会用到
 	 * @return 摘要列表
 	 */
-	AbstractListResponse getAbstractList(String kind, String openid);
+	AbstractListResponse getAbstractList(String kind, String openid) throws NotExistException;
 
 	/**
 	 * 获取文章详情(User&Admin)
@@ -21,7 +22,7 @@ public interface ArticleBlService {
 	 * @param id 文章ID
 	 * @return 文章详情
 	 */
-	ArticleResponse getArticle(String kind, long id);
+	ArticleResponse getArticle(String kind, String id) throws NotExistException;
 
 	/**
 	 * 点赞
@@ -30,6 +31,6 @@ public interface ArticleBlService {
 	 * @param openid 用户微信ID
 	 * @return 是否成功
 	 */
-	InfoResponse likePlus(String kind, long articleId, String openid);
+	InfoResponse likePlus(String kind, String articleId, String openid) throws NotExistException;
 
 }

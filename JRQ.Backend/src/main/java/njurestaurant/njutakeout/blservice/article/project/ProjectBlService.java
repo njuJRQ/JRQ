@@ -10,6 +10,7 @@ public interface ProjectBlService {
 	/**
 	 * 添加项目
 	 * @param title 项目标题（简介）
+	 * @param writerName 作者名字
 	 * @param identity 身份
 	 * @param phone 联系方式
 	 * @param city 所在城市
@@ -18,9 +19,10 @@ public interface ProjectBlService {
 	 * @param content 项目详情
 	 * @param money 项目资金
 	 * @param attachment 附件路径
+	 * @param date 发布日期
 	 * @return 是否成功
 	 */
-	InfoResponse addProject(String title, String identity, String phone, String city, String industry, String business, String content, int money, String attachment);
+	InfoResponse addProject(String title, String writerName, String identity, String phone, String city, String industry, String business, String content, int money, String attachment, String date);
 
 	/**
 	 * 根据项目ID获取项目
@@ -39,6 +41,7 @@ public interface ProjectBlService {
 	 * 根据项目ID修改项目
 	 * @param id 项目ID
 	 * @param title 项目标题
+	 * @param writerName 作者名字
 	 * @param identity 身份
 	 * @param phone 联系方式
 	 * @param city 所在城市
@@ -47,9 +50,10 @@ public interface ProjectBlService {
 	 * @param content 项目详情
 	 * @param money 项目资金
 	 * @param attachment 附件路径
+	 * @param date 发布日期
 	 * @return 是否成功
 	 */
-	InfoResponse updateProject(String id, String title, String identity, String phone, String city, String industry, String business, String content, int money, String attachment) throws NotExistException;
+	InfoResponse updateProject(String id, String title, String writerName, String identity, String phone, String city, String industry, String business, String content, int money, String attachment, String date) throws NotExistException;
 
 	/**
 	 * 根据项目ID删除项目

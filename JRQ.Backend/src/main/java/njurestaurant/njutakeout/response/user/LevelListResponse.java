@@ -1,8 +1,10 @@
 package njurestaurant.njutakeout.response.user;
 
+import njurestaurant.njutakeout.response.Response;
+
 import java.util.List;
 
-public class LevelListResponse {
+public class LevelListResponse extends Response{
 	private List<LevelItem> levels;
 
 	public LevelListResponse() {

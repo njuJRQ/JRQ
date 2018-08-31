@@ -1,8 +1,10 @@
 package njurestaurant.njutakeout.response.purchase;
 
+import njurestaurant.njutakeout.response.Response;
+
 import java.util.List;
 
-public class PurchaseListResponse {
+public class PurchaseListResponse extends Response{
 	private List<PurchaseItem> purchases;
 
 	public PurchaseListResponse() {

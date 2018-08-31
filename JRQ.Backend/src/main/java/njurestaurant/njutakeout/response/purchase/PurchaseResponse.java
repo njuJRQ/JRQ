@@ -1,6 +1,8 @@
 package njurestaurant.njutakeout.response.purchase;
 
-public class PurchaseResponse {
+import njurestaurant.njutakeout.response.Response;
+
+public class PurchaseResponse extends Response {
 	private PurchaseItem purchase;
 
 	public PurchaseResponse() {

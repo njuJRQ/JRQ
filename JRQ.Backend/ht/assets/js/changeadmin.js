@@ -44,6 +44,9 @@ document.getElementById("ad").onclick=function() {
     if (document.getElementById("c6").checked) {
         limits = limits + "6" + "...";
     }
+    if (document.getElementById("c7").checked) {
+        limits = limits + "7" + "...";
+    }
 
     $.ajax(
         {

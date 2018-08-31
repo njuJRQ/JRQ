@@ -1,5 +1,6 @@
 package njurestaurant.njutakeout.blservice.article.document;
 
+import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.document.DocumentListResponse;
 import njurestaurant.njutakeout.response.article.document.DocumentResponse;
@@ -21,7 +22,7 @@ public interface DocumentBlService {
 	 * @param id 文档ID
 	 * @return 文档内容
 	 */
-	DocumentResponse getDocument(long id);
+	DocumentResponse getDocument(String id) throws NotExistException;
 
 	/**
 	 * 获取文档列表
@@ -38,12 +39,12 @@ public interface DocumentBlService {
 	 * @param likeNum 点赞数
 	 * @return 是否成功
 	 */
-	InfoResponse updateDocument(long id, String title, String writerName, String date, long likeNum);
+	InfoResponse updateDocument(String id, String title, String writerName, String date, long likeNum) throws NotExistException;
 
 	/**
 	 * 根据文档ID删除文档
 	 * @param id 文档ID
 	 * @return 是否成功
 	 */
-	InfoResponse deleteDocument(long id);
+	InfoResponse deleteDocument(String id) throws NotExistException;
 }

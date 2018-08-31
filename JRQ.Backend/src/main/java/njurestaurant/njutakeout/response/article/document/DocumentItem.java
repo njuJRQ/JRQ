@@ -3,11 +3,11 @@ package njurestaurant.njutakeout.response.article.document;
 import njurestaurant.njutakeout.entity.article.Document;
 
 public class DocumentItem {
-	private long id;//编号
+	private String id;//编号
 	private String title;//标题
 	private String writerName;//作者名字
 	private String date;//日期
-	private String likeNum;//点赞数
+	private long likeNum;//点赞数
 
 	public DocumentItem(Document document){
 		this.id = document.getId();
@@ -17,11 +17,11 @@ public class DocumentItem {
 		this.likeNum = document.getLikeNum();
 	}
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -49,11 +49,11 @@ public class DocumentItem {
 		this.date = date;
 	}
 
-	public String getLikeNum() {
+	public long getLikeNum() {
 		return likeNum;
 	}
 
-	public void setLikeNum(String likeNum) {
+	public void setLikeNum(long likeNum) {
 		this.likeNum = likeNum;
 	}
 }

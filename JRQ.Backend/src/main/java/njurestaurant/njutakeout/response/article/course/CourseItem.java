@@ -3,7 +3,7 @@ package njurestaurant.njutakeout.response.article.course;
 import njurestaurant.njutakeout.entity.article.Course;
 
 public class CourseItem {
-	private long id;
+	private String id;
 	private String title;
 	private String image;
 	private String writerName;
@@ -23,11 +23,11 @@ public class CourseItem {
 		this.price = course.getPrice();
 	}
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

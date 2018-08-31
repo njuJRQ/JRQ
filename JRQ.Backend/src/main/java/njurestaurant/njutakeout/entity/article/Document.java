@@ -5,40 +5,40 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "document")
+@Table
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class Document {
 	@Id
 	@GeneratedValue(generator = "jpa-uuid")
-	private long id;//编号
+	private String id;//编号
 
-	@Column(name = "title")
+	@Column
 	private String title;//标题
 
-	@Column(name = "writerName")
+	@Column
 	private String writerName;//作者名字
 
-	@Column(name = "date")
+	@Column
 	private String date;//日期
 
-	@Column(name = "likeNum")
-	private String likeNum;//点赞数
+	@Column
+	private long likeNum;//点赞数
 
 	public Document(){
 	}
 
-	public Document(String title, String writerName, String date, String likeNum) {
+	public Document(String title, String writerName, String date, long likeNum) {
 		this.title = title;
 		this.writerName = writerName;
 		this.date = date;
 		this.likeNum = likeNum;
 	}
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -66,11 +66,11 @@ public class Document {
 		this.date = date;
 	}
 
-	public String getLikeNum() {
+	public long getLikeNum() {
 		return likeNum;
 	}
 
-	public void setLikeNum(String likeNum) {
+	public void setLikeNum(long likeNum) {
 		this.likeNum = likeNum;
 	}
 }

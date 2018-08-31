@@ -2,13 +2,13 @@ package njurestaurant.njutakeout.blservice.article;
 
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.*;
-import org.springframework.stereotype.Service;
+import njurestaurant.njutakeout.response.article.ad.AdResponse;
 
 
 public interface ArticleBlService {
 
 	/**
-	 * 获取摘要列表：包括首页和圈子
+	 * 获取摘要列表：包括首页和圈子(User&Admin)
 	 * @param kind 文章类型，可能值：course，document，project，feed分别对应课程，文档，项目，圈子
 	 * @param openid 只有在文章类型为feed时才会用到
 	 * @return 摘要列表
@@ -16,18 +16,12 @@ public interface ArticleBlService {
 	AbstractListResponse getAbstractList(String kind, String openid);
 
 	/**
-	 * 获取文章详情
+	 * 获取文章详情(User&Admin)
 	 * @param kind 文章类型，可能值：course，document，project，feed分别对应课程，文档，项目，圈子
 	 * @param id 文章ID
 	 * @return 文章详情
 	 */
 	ArticleResponse getArticle(String kind, long id);
-
-	/**
-	 * 获取首页广告
-	 * @return 首页广告信息
-	 */
-	AdResponse getAd();
 
 	/**
 	 * 点赞

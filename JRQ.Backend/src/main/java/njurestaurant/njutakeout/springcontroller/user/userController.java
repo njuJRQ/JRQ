@@ -286,6 +286,20 @@ public class userController {
         return new ResponseEntity<>(userBlService.updateMyProfile(openid,username,face,phone,email,company,department,position,intro,city,label), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "根据用户微信openid获取其业务名片", notes = "根据用户微信openid获取其业务名片")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "用户微信openid", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getPerson", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getPerson(@RequestParam(name="openid")String openid) throws NotExistException {
+        return new ResponseEntity<>(userBlService.getPerson(openid), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "获取业务名片列表", notes = "获取业务名片列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "workClass", value = "类别", required = true, dataType = "String")

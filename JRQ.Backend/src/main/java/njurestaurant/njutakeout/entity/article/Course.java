@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Course {
 	@Id
 	@GeneratedValue(generator = "jpa-uuid")
-	private long id;
+	private String id;
 
 	@Column(name = "title")
 	private String title;
@@ -46,11 +46,11 @@ public class Course {
 		this.price = price;
 	}
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

@@ -31,12 +31,6 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
-	public InfoResponse addUser(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, String levelName, boolean valid) {
-		userDataService.addUser(new User(openid, username, face, medals, phone, email, company, department, position, intro, city, credit, label, cardLimit, levelName, valid));
-		return new InfoResponse();
-	}
-
-	@Override
 	public UserResponse getUser(String openid) throws NotExistException {
 		return new UserResponse(new UserItem(userDataService.getUserByOpenid(openid)));
 	}
@@ -52,8 +46,11 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
-	public InfoResponse updateUser(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, String levelName, boolean valid) throws NotExistException {
-		userDataService.updateUserByOpenid(openid, username, face, medals, phone, email, company, department, position, intro, city, credit, label, cardLimit, levelName, valid);
+	public InfoResponse updateUser(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, String levelName, boolean valid) throws NotExistException {
+		User user = userDataService.getUserByOpenid(openid);
+		int used = levelDataService.getLevelByName(user.getLevelName()).getCardLimit() - user.getCardLimit(); //已经用掉的次数
+		userDataService.updateUserByOpenid(openid, username, face, medals, phone, email, company, department, position, intro, city, credit, label,
+				levelDataService.getLevelByName(levelName).getCardLimit()-used,levelName, valid);
 		return new InfoResponse();
 	}
 

@@ -1,5 +1,6 @@
 package njurestaurant.njutakeout.blservice.article;
 
+import njurestaurant.njutakeout.exception.AlreadyExistException;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.*;
@@ -25,12 +26,12 @@ public interface ArticleBlService {
 	ArticleResponse getArticle(String kind, String id) throws NotExistException;
 
 	/**
-	 * 点赞
+	 * 点赞，若已经赞过则取消赞
+	 * @param openid 用户微信ID
 	 * @param kind 文章类型
 	 * @param articleId 文章ID
-	 * @param openid 用户微信ID
 	 * @return 是否成功
 	 */
-	InfoResponse likePlus(String kind, String articleId, String openid) throws NotExistException;
+	InfoResponse likePlus(String openid, String kind, String articleId) throws NotExistException, AlreadyExistException;
 
 }

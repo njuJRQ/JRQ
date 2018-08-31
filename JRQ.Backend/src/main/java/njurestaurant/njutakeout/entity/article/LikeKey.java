@@ -5,12 +5,12 @@ import java.io.Serializable;
 public class LikeKey implements Serializable {
 	private String openid; //微信用户ID
 	private String kind; //文章类别："course", "document", "project", "feed"
-	private int articleId; //文章ID
+	private String articleId; //文章ID
 
 	public LikeKey() {
 	}
 
-	public LikeKey(String openid, String kind, int articleId) {
+	public LikeKey(String openid, String kind, String articleId) {
 		this.openid = openid;
 		this.kind = kind;
 		this.articleId = articleId;
@@ -32,11 +32,11 @@ public class LikeKey implements Serializable {
 		this.kind = kind;
 	}
 
-	public int getArticleId() {
+	public String getArticleId() {
 		return articleId;
 	}
 
-	public void setArticleId(int articleId) {
+	public void setArticleId(String articleId) {
 		this.articleId = articleId;
 	}
 }

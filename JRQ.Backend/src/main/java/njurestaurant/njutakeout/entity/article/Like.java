@@ -16,12 +16,12 @@ public class Like {
 
 	@Id
 	@Column(name = "articleId")
-	private int articleId; //文章ID
+	private String articleId; //文章ID
 
 	public Like() {
 	}
 
-	public Like(String openid, String kind, int articleId) {
+	public Like(String openid, String kind, String articleId) {
 		this.openid = openid;
 		this.kind = kind;
 		this.articleId = articleId;
@@ -43,11 +43,11 @@ public class Like {
 		this.kind = kind;
 	}
 
-	public int getArticleId() {
+	public String getArticleId() {
 		return articleId;
 	}
 
-	public void setArticleId(int articleId) {
+	public void setArticleId(String articleId) {
 		this.articleId = articleId;
 	}
 }

@@ -1,6 +1,8 @@
 package njurestaurant.njutakeout.response.article.document;
 
-public class DocumentResponse {
+import njurestaurant.njutakeout.response.Response;
+
+public class DocumentResponse extends Response{
 	private DocumentItem document;
 
 	public DocumentResponse(){

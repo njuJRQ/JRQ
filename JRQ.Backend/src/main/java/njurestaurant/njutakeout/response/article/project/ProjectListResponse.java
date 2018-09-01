@@ -1,8 +1,10 @@
 package njurestaurant.njutakeout.response.article.project;
 
+import njurestaurant.njutakeout.response.Response;
+
 import java.util.List;
 
-public class ProjectListResponse {
+public class ProjectListResponse extends Response{
 	private List<ProjectItem> projects;
 
 	public ProjectListResponse(){

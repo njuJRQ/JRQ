@@ -1,6 +1,8 @@
 package njurestaurant.njutakeout.response.article.project;
 
-public class ProjectResponse {
+import njurestaurant.njutakeout.response.Response;
+
+public class ProjectResponse extends Response {
 	private ProjectItem project;
 
 	public ProjectResponse(){

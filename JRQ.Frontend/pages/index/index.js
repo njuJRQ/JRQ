@@ -43,7 +43,7 @@ Page({
       writerName: '锄禾日当午',
       date: '2020-01-01',
       likeNum: 8888,
-      kind: 'course'
+      kind: 'project'
     }],
     ad: '../../default/default-pic.png',
     adLink: 'https://www.baidu.com'

@@ -28,10 +28,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.showMyInfo();
+    api.getMyInfo(app.getOpenid(), this) //获取个人信息
   },
-  showMyInfo: function() {
-    api.getMyInfo(app.getOpenid(), this)
+  onPullDownRefresh: function () {
+    this.onLoad()
   },
   //发布信息
   onPublish: function () {

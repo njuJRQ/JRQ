@@ -49,11 +49,14 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面加载
+   * 生命周期函数--监听页面加载a
    */
   onLoad: function (options) {
   //展示圈子文章
     api.getAbstractList('feed', app.getOpenid(), this)
+  },
+  onPullDownRefresh: function () {
+    this.onLoad()
   },
   onShare: function () {
     console.log('on share')
@@ -62,7 +65,7 @@ Page({
   likePlus: function (event) {
     var id = event.currentTarget.dataset.id //获取当前文章id
     var article = this.getCurrentArticle(id) //获取当前文章
-    api.likePlus(article.kind, id, app.getOpenid(), {
+    api.likePlus(app.getOpenid(), 'feed', id, {
       article: article,
       that: this
     })

@@ -8,6 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    labelArray: ['(请选择标签)','承兑汇票','股票质押','大宗减持','定增','短拆过桥','企业信用贷','供应链金融','商业保理','融资租赁','股权融资','并购重组','壳资源','基金产品','资产证券化','土地并购','自定义'],
+    labelIndex: 0,
     myInfo: {
       face: '../../../default/default-pic.png',
       username: 'USERNAME',
@@ -60,14 +62,18 @@ Page({
   updateIntro: function (e) {
     this.data.newMyInfo.intro = e.detail.value;
   },
+  bindLabelPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      labelIndex: e.detail.value
+    })
+    this.data.newMyInfo.label = this.data.labelArray[this.data.labelIndex];
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     api.getMyInfo(app.getOpenid(), this)
-    this.setData({
-      newMyInfo: this.data.myInfo
-    })
   },
   onSave: function(){
     console.log('save')

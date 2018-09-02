@@ -1,66 +1,34 @@
 // pages/articleDetail/projectDetail/projectDetail.js
+const app = getApp()
+var api = require('../../../util/api.js')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    project: {
+      id: 1, //编号
+      title: '这是一个页面', //简介
+      identity: 'IT初级经理', //身份
+      phone: '123456789', //联系方式
+      city: '亚太区', //所在城市
+      industry: 'IT', //所属行业
+      business: '金融牌照', //业务标签
+      content: '这是一个很牛逼的项目', //项目详情
+      money: 2333, //项目资金
+      attachment: 'http://www.baidu.com/test.zip' //附件路径
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    api.getProject(options.id, this)
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+  onDownload: function () {
+    api.downloadFile(this.data.project.attachment)
   }
 })

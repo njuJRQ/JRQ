@@ -1,2 +1,29 @@
 <!--pages/articleDetail/projectDetail/projectDetail.wxml-->
-<text>pages/articleDetail/projectDetail/projectDetail.wxml</text>
+<view style='width:100%'>
+  <view class='head-pic'>
+    <image src='img/project.png'></image>
+  </view>
+  <view class='project-title column'>
+    <text style='color:black; font-size:1rem; font-weight:bold;'>{{project.title}}</text>
+  </view>
+  <view class='project-intro column'>
+    <text style='color:black; font-size:1rem; font-weight:bold;'>项目介绍</text>
+    <view class='div-line'></view>
+    <view class='detail column' style='font-size:0.8rem;'>
+      <text>项目编号：{{project.id}}</text>
+      <text>身份：{{project.identity}}</text>
+      <text>项目联系方式：{{project.phone}}</text>
+      <text>所在城市：{{project.city}}</text>
+      <text>所属行业：{{project.industry}}</text>
+      <text>业务标签：{{project.business}}</text>
+      <text>项目详情：{{project.content}}</text>
+      <text>项目资金：{{project.money}}</text>
+      <text>附件路径：{{project.attachment}}</text>
+    </view>
+  </view>
+  <view class='courseButtons row'>
+    <view class='download' style='width:100%'>
+      <button bindtap='onDownload'>下载附件</button>
+    </view>
+  </view>
+</view>

@@ -23,12 +23,16 @@ Page({
       intro: '我要在代码的世界里飞翔。'
     },
     isMyInfoVisiable: false,
+    isGetOtherInfo: null,
+    isAlreadyGetOtherInfo: null,
+    otherid: null,
     encreptInfo: {
       phone: '',
       wechatId: '',
       email: ''
     },
     myArticles: [{
+      id: 1,
       text: '《有效识别金融项目》课程。',
       images: [
         '../../../default/default-pic.png',
@@ -39,7 +43,8 @@ Page({
       writerName: 'USERNAME',
       date: '2020-01-01',
       likeNum: 8965
-    },{
+    }, {
+      id: 2,
       text: '《有效识别金融项目》课程。',
       images: [
         '../../../default/default-pic.png',
@@ -50,7 +55,8 @@ Page({
       writerName: 'USERNAME',
       date: '2020-01-01',
       likeNum: 8965
-    },{
+    }, {
+      id: 3,
       text: '《有效识别金融项目》课程。',
       images: [
         '../../../default/default-pic.png',
@@ -68,28 +74,46 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (options.id)
-      api.getOtherInfo(app.getOpenid(), options.id, this)
-    else
-      api.getMyInfo(app.getOpenid(), this) //获取个人信息
-    this.init()
-    this.encrept() //加密个人信息
-    api.getMyHistoryAbstractList(app.getOpenid(), this) //获取个人历史文章列表信息
+    if (options.id) {
+      this.data.isGetOtherInfo = true
+      this.data.isAlreadyGetOtherInfo = false
+      this.data.otherid = options.id
+      api.getOtherBasicInfo(this.data.otherid, this) //获取除联系方式外的其他信息
+      api.getMyHistoryAbstractList(this.data.otherid, this) //获取文章历史记录
+    }
+    else {
+      var that = this
+      this.data.isGetOtherInfo = false
+      api.getMyInfo(app.getOpenid(), this, function () {
+        that.init()
+        that.encrept() //加密个人信息
+      }) //获取个人信息
+      api.getMyHistoryAbstractList(app.getOpenid(), this) //获取个人历史文章列表信息
+    }
   },
+  //点击查看联系方式
   isMyInfoVisiableToggle: function () {
+    if (this.data.isGetOtherInfo) {
+      if (!this.data.isAlreadyGetOtherInfo)
+        api.getOtherInfo(app.getOpenid(), this.data.otherid, this)
+    }
+    else {
+      api.getMyInfo(app.getOpenid(), this)
+    }
     this.setData({
       isMyInfoVisiable: !this.data.isMyInfoVisiable,
     })
   },
+  //初始化数据
   init: function () {
     this.setData({
-      wechatId: '这里是微信号',
+      wechatId: app.getWechatUsername(),
     })
   },
   encrept: function () {
     var phone = this.data.myInfo.phone
     this.setData({
-      encreptInfo: { 
+      encreptInfo: {
         phone: phone.substr(0, 3) + '****' + phone.substr(7),
         wechatId: '****',
         email: '******'

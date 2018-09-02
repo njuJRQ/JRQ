@@ -13,8 +13,26 @@ function getAbstractList(kind, openid, that) {
     },
     method: 'GET',
     success: (res) => {
+      console.log(res.data)
       that.setData({
         articles: res.data.abstractList
+      })
+    }
+  })
+}
+
+function getFeedList (that) {
+  wx.request({
+    url: app.globalData.backendUrl + "getFeedList",
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      console.log(res.data)
+      that.setData({
+        articles: res.data.feeds
       })
     }
   })
@@ -84,7 +102,7 @@ function getAd(that) {
    * 无
    */
   wx.request({
-    url: app.globalData.backendUrl + "getAd",
+    url: app.globalData.backendUrl + "getCheckedAd",
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
       'content-type': 'application/x-www-form-urlencoded'
@@ -99,13 +117,13 @@ function getAd(that) {
   })
 }
 
-function likePlus(kind, articleId, openid, context) {
+function likePlus(openid, kind, articleId, context) {
   wx.request({
     url: app.globalData.backendUrl + "likePlus",
     data: {
+      openid: openid,
       kind: kind,
-      articleId: articleId,
-      openid: openid
+      articleId: articleId
     },
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
@@ -113,8 +131,7 @@ function likePlus(kind, articleId, openid, context) {
     },
     method: 'GET',
     success: (res) => {
-      context.article.likeNum++
-      context.that.setData(context.that.data)
+      context.that.onLoad()
     }
   })
 }
@@ -137,11 +154,11 @@ function purchaseCourse(courseId, openid, that) {
   })
 }
 
-function getPersonList(kind, that) {
+function getPersonList(kind, that, then) {
   wx.request({
     url: app.globalData.backendUrl + "getPersonList",
     data: {
-      kind: kind
+      workClass: kind
     },
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
@@ -149,15 +166,16 @@ function getPersonList(kind, that) {
     },
     method: 'GET',
     success: (res) => {
+      console.log(res)
       that.setData({
         cards: res.data.personList
       })
-      that.addLabel()
+      if (then) then()
     }
   })
 }
 
-function getMyInfo(openid, that) {
+function getMyInfo(openid, that, then) {
   /**
    * 方法：getUser
    * 参数：
@@ -175,7 +193,30 @@ function getMyInfo(openid, that) {
     method: 'GET',
     success: (res) => {
       that.setData({
+        newMyInfo: res.data.user
+      })
+      that.setData({
         myInfo: res.data.user
+      })
+      if (then) then()
+    }
+  })
+}
+
+function getOtherBasicInfo(id, that) {
+  wx.request({
+    url: app.globalData.backendUrl + "getPerson",
+    data: {
+      id: id
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      that.setData({
+        myInfo: res.data.person
       })
     }
   })
@@ -183,7 +224,7 @@ function getMyInfo(openid, that) {
 
 function getOtherInfo(myid, otherid, that) {
   /**
-   * 方法：getUser
+   * 方法：getOtherCard
    * 参数：
    * 无
    */
@@ -227,17 +268,19 @@ function checkMyReceivedCard(senderOpenid, receiverOpenid) {
 function publishMyArticle (openid, kind, content, photos, that) {
   //TODO
   /**
-   * 方法：publishMyArticle
+   * 方法：publishMyFeed
    * 参数：
    * 文本内容：content
    */
+  var date = new Date()
   wx.request({
-    url: app.globalData.backendUrl + "publishMyArticle",
+    url: app.globalData.backendUrl + "publishMyFeed",
     data: {
-      openid: openid,
+      writerOpenid: openid,
       kind: kind,
+      date: [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('-'), 
       content: content,
-      photos: photos
+      images: photos
     },
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
@@ -245,7 +288,15 @@ function publishMyArticle (openid, kind, content, photos, that) {
     },
     method: 'GET',
     success: (res) => {
-      //do nothing
+      wx.showToast({
+        title: '发布成功',
+        icon: 'succes',
+        duration: 1000,
+        success: ()=>{
+          setTimeout(() => { wx.navigateBack()}, 1000)
+        },
+        mask: true
+      })
     }
   })
 }
@@ -264,6 +315,38 @@ function modifyMyInfo(that) {
    * 职位：position
    * 个人简介：intro
    */
+
+  wx.request({
+    //上传用户信息
+    url: app.globalData.backendUrl + "updateMyProfile",
+    data: {
+      openid: app.getOpenid(),
+      username: that.data.newMyInfo.username,
+      face: 'unknown path',
+      phone: that.data.newMyInfo.phone,
+      email: that.data.newMyInfo.email,
+      city: that.data.newMyInfo.city,
+      company: that.data.newMyInfo.company,
+      department: that.data.newMyInfo.department,
+      position: that.data.newMyInfo.position,
+      intro: that.data.newMyInfo.intro,
+      label: that.data.newMyInfo.label
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      wx.showToast({
+        title: '修改成功',
+        icon: 'succes',
+        duration: 1000,
+        mask: true
+      })
+    }
+  })
+
   wx.uploadFile({
     url: app.globalData.backendUrl + "uploadhead/" + app.getOpenid(),
     filePath: that.data.newMyInfo.face,
@@ -273,36 +356,7 @@ function modifyMyInfo(that) {
       'content-type': 'application/x-www-form-urlencoded'
     },
     success: (res) => {
-      wx.request({
-        //上传用户信息
-        url: app.globalData.backendUrl + "updateMyProfile",
-        data: {
-          openId: app.getOpenid(),
-          username: that.data.newMyInfo.username,
-          face: res.data.facePath, //res结果返回图片存放的路径
-          phone: that.data.newMyInfo.phone,
-          email: that.data.newMyInfo.email,
-          city: that.data.newMyInfo.city,
-          company: that.data.newMyInfo.company,
-          department: that.data.newMyInfo.department,
-          position: that.data.newMyInfo.position,
-          intro: that.data.newMyInfo.intro,
-          label: that.newMyInfo.label
-        },
-        header: {
-          'Authorization': 'Bearer ' + app.getToken(),
-          'content-type': 'application/x-www-form-urlencoded'
-        },
-        method: 'GET',
-        success: (res) => {
-          wx.showToast({
-            title: '修改成功',
-            icon: 'succes',
-            duration: 1000,
-            mask: true
-          })
-        }
-      })
+      //do nothing
     }
   })
   
@@ -381,8 +435,24 @@ function getMyHistoryAbstractList (openid, that) {
   })
 }
 
+function downloadFile(filepath) {
+  wx.downloadFile({
+    url: filepath,
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    success: (res) => {
+      wx.saveFile({
+        tempFilePath: res.tempFilePath
+      })
+    }
+  })
+}
+
 module.exports = {
   getAbstractList: getAbstractList,
+  getFeedList: getFeedList,
   getCourse: getCourse,
   getDocument: getDocument,
   getProject: getProject,
@@ -391,11 +461,13 @@ module.exports = {
   purchaseCourse: purchaseCourse,
   getPersonList: getPersonList,
   getMyInfo: getMyInfo,
+  getOtherBasicInfo: getOtherBasicInfo,
   getOtherInfo: getOtherInfo,
   checkMyReceivedCard: checkMyReceivedCard,
   publishMyArticle: publishMyArticle,
   modifyMyInfo: modifyMyInfo,
   getPersonListByCondition: getPersonListByCondition,
   getMyPersonList: getMyPersonList,
-  getMyHistoryAbstractList: getMyHistoryAbstractList
+  getMyHistoryAbstractList: getMyHistoryAbstractList,
+  downloadFile: downloadFile
 }

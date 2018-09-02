@@ -10,6 +10,7 @@
   </view>
   <view class='courseIntro column'>
     <text style='color:black; font-size:1rem; font-weight:bold;'>课程介绍</text>
+    <view class='div-line'></view>
     <view class='detail column' style='font-size:0.8rem;'>
       <text>课程作者：{{course.writerName}}</text>
       <text>课程发布日期：{{course.date}}</text>
@@ -23,10 +24,7 @@
     </view>
   </view>
   <view class='courseButtons row'>
-    <view class='consult' style='width:30%'>
-      <button>咨询</button>
-    </view>
-    <view class='purchase' style='width:70%'>
+    <view class='purchase' style='width:100%'>
       <button bindtap='onPurchase'>立即购买</button>
     </view>
   </view>

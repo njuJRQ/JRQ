@@ -85,14 +85,14 @@ public interface UserBlService {
 	InfoResponse addClassification(String userLabel, String workClass);
 
 	/**
-	 * 根据用户标签获取其对应的业务分类(Admin)
+	 * 根据用户标签获取其对应的业务分类(User&Admin)
 	 * @param userLabel 用户标签
 	 * @return 分类项
 	 */
 	ClassificationResponse getClassification(String userLabel) throws NotExistException;
 
 	/**
-	 * 获取所有业务分类项(Admin)
+	 * 获取所有业务分类项(User&Admin)
 	 * @return 业务分类项列表
 	 */
 	ClassificationListResponse getClassificationList();

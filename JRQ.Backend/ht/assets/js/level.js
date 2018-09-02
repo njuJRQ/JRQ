@@ -50,6 +50,7 @@ function deletequestion(n){
             },
             async:false,
             success: function (data) {
+                window.location.href="level.html";
             },
             error: function (xhr) {
                 alert('动态页有问题噶！\n\n' + xhr.responseText);

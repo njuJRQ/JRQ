@@ -10,27 +10,17 @@ $("#page4").hide();
 $("#page5").hide();
 var list=new Array();
 var firstID=0;
-var currentpage=1;
 var theGroup=0;
 var url=getUrl();
 $.ajax(
     {
-        url: url+"/getClassificationList",
+        url: url+"/getAdList",
         data: {
         },
         async:false,
         success: function (data) {
-            for(var i=0;i<data.classifications.length;i++){
-                if(data.classifications[i].workClass=="capital"){
-                    data.classifications[i].workClass="金融类";
-                }
-                else if(data.classifications[i].workClass=="stock"){
-                    data.classifications[i].workClass="股票类";
-                }
-                else if(data.classifications[i].workClass=="merge"){
-                    data.classifications[i].workClass="并购类";
-                }
-                list.push(data.classifications[i]);
+            for(var i=0;i<data.ads.length;i++){
+                list.push(data.ads[i]);
             }
             document.getElementById("jilu").innerText="共"+(list.length)+"条记录";
             changepage(1);
@@ -41,23 +31,24 @@ $.ajax(
         traditional: true,
     }
 )
+
 function setthisquestion(n){
     var q=list[firstID+n];
     var storage = window.localStorage;
-    storage["thisClassification"]=q.userLabel;
+    storage["thisAd"]=q.id;
 }
 function deletequestion(n){
     var q=list[firstID+n];
     var url=getUrl();
     $.ajax(
         {
-            url: url+"/deleteClassification",
+            url: url+"/deleteAd",
             data: {
-                userLabel:q.userLabel
+                id:q.id
             },
             async:false,
             success: function (data) {
-                window.location.href="classification.html";
+                window.location.href="ads.html";
             },
             error: function (xhr) {
                 alert('动态页有问题噶！\n\n' + xhr.responseText);
@@ -125,8 +116,9 @@ function changepage(page){
     }
     else if(list.length<(firstID+2)){
         $("#your-alert-1").show();
-        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].workClass;
-        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].userLabel;
+        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
+        document.getElementById("name"+(firstID%5+1)).src="../"+list[firstID].image;
+        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].link;
         $("#your-alert-2").hide();
         $("#your-alert-3").hide();
         $("#your-alert-4").hide();
@@ -135,11 +127,13 @@ function changepage(page){
     else if(list.length<(firstID+3)){
         $("#your-alert-1").show();
         $("#your-alert-2").show();
-        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].workClass;
-        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].userLabel;
+        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
+        document.getElementById("name"+(firstID%5+1)).src="../"+list[firstID].image;
+        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].link;
 
-        document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].workClass;
-        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].userLabel;
+        document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].id;
+        document.getElementById("name"+(firstID%5+2)).src="../"+list[firstID+1].image;
+        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].link;
         $("#your-alert-3").hide();
         $("#your-alert-4").hide();
         $("#your-alert-5").hide();
@@ -148,14 +142,17 @@ function changepage(page){
         $("#your-alert-1").show();
         $("#your-alert-2").show();
         $("#your-alert-3").show();
-        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].workClass;
-        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].userLabel;
+        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
+        document.getElementById("name"+(firstID%5+1)).src="../"+list[firstID].image;
+        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].link;
 
-        document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].workClass;
-        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].userLabel;
+        document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].id;
+        document.getElementById("name"+(firstID%5+2)).src="../"+list[firstID+1].image;
+        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].link;
 
-        document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].workClass;
-        document.getElementById("name"+(firstID%5+3)).innerText=list[firstID+2].userLabel;
+        document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].id;
+        document.getElementById("name"+(firstID%5+3)).src="../"+list[firstID+2].image;
+        document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].link;
         $("#your-alert-4").hide();
         $("#your-alert-5").hide();
     }
@@ -164,17 +161,21 @@ function changepage(page){
         $("#your-alert-2").show();
         $("#your-alert-3").show();
         $("#your-alert-4").show();
-        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].workClass;
-        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].userLabel;
+        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
+        document.getElementById("name"+(firstID%5+1)).src="../"+list[firstID].image;
+        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].link;
 
-        document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].workClass;
-        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].userLabel;
+        document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].id;
+        document.getElementById("name"+(firstID%5+2)).src="../"+list[firstID+1].image;
+        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].link;
 
-        document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].workClass;
-        document.getElementById("name"+(firstID%5+3)).innerText=list[firstID+2].userLabel;
+        document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].id;
+        document.getElementById("name"+(firstID%5+3)).src="../"+list[firstID+2].image;
+        document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].link;
 
-        document.getElementById("number"+(firstID%5+4)).innerText=list[firstID+3].workClass;
-        document.getElementById("name"+(firstID%5+4)).innerText=list[firstID+3].userLabel;
+        document.getElementById("number"+(firstID%5+4)).innerText=list[firstID+3].id;
+        document.getElementById("name"+(firstID%5+4)).src="../"+list[firstID+3].image;
+        document.getElementById("date"+(firstID%5+4)).innerText=list[firstID+3].link;
         $("#your-alert-5").hide();
     }
     else{
@@ -183,21 +184,25 @@ function changepage(page){
         $("#your-alert-3").show();
         $("#your-alert-4").show();
         $("#your-alert-5").show();
-        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].workClass;
-        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].userLabel;
+        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
+        document.getElementById("name"+(firstID%5+1)).src="../"+list[firstID].image;
+        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].link;
 
-        document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].workClass;
-        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].userLabel;
+        document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].id;
+        document.getElementById("name"+(firstID%5+2)).src="../"+list[firstID+1].image;
+        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].link;
 
-        document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].workClass;
-        document.getElementById("name"+(firstID%5+3)).innerText=list[firstID+2].userLabel;
+        document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].id;
+        document.getElementById("name"+(firstID%5+3)).src="../"+list[firstID+2].image;
+        document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].link;
 
-        document.getElementById("number"+(firstID%5+4)).innerText=list[firstID+3].workClass;
-        document.getElementById("name"+(firstID%5+4)).innerText=list[firstID+3].userLabel;
+        document.getElementById("number"+(firstID%5+4)).innerText=list[firstID+3].id;
+        document.getElementById("name"+(firstID%5+4)).src="../"+list[firstID+3].image;
+        document.getElementById("date"+(firstID%5+4)).innerText=list[firstID+3].link;
 
-        document.getElementById("number"+(firstID%5+5)).innerText=list[firstID+4].workClass;
-        document.getElementById("name"+(firstID%5+5)).innerText=list[firstID+4].userLabel;
-
+        document.getElementById("number"+(firstID%5+5)).innerText=list[firstID+4].id;
+        document.getElementById("name"+(firstID%5+5)).src="../"+list[firstID+4].image;
+        document.getElementById("date"+(firstID%5+5)).innerText=list[firstID+4].link;
     }
 
 
@@ -208,9 +213,9 @@ function deletesingle(n){
     var url=getUrl();
     $.ajax(
         {
-            url: url+"/deleteClassification",
+            url: url+"/deleteAd",
             data: {
-                userLabel:q.userLabel
+                id:q.openid
             },
             async:false,
             success: function (data) {
@@ -224,32 +229,33 @@ function deletesingle(n){
 }
 function delAll(){
     if(document.getElementById("c1").checked){
-        deletesingle(0);
-    }
-    if(document.getElementById("c2").checked){
         deletesingle(1);
     }
-    if(document.getElementById("c3").checked){
+    if(document.getElementById("c2").checked){
         deletesingle(2);
     }
-    if(document.getElementById("c4").checked){
+    if(document.getElementById("c3").checked){
         deletesingle(3);
     }
-    if(document.getElementById("c5").checked){
+    if(document.getElementById("c4").checked){
         deletesingle(4);
     }
+    if(document.getElementById("c5").checked){
+        deletesingle(5);
+    }
     alert("批量删除成功");
-    window.location.href="classification.html";
+    window.location.href="ads.html";
 
 }
 
 function search(){
     var text=$("#con").val();
     for(var i=0;i<list.length;i++){
-        if(list[i].userLabel==text){
+        if(list[i].id==text){
             $("#your-alert-1").show();
-            document.getElementById("number"+(firstID%5+1)).innerText=list[i].workClass;
-            document.getElementById("name"+(firstID%5+1)).innerText=list[i].userLabel;
+            document.getElementById("number"+(firstID%5+1)).innerText=list[i].id;
+            document.getElementById("name"+(firstID%5+1)).innerText="../"+list[i].image;
+            document.getElementById("date"+(firstID%5+1)).innerText=list[i].link;
             $("#your-alert-2").hide();
             $("#your-alert-3").hide();
             $("#your-alert-4").hide();

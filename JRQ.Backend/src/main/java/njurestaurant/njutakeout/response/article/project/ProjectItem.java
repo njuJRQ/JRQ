@@ -5,6 +5,7 @@ import njurestaurant.njutakeout.entity.article.Project;
 public class ProjectItem {
 	private String id; //编号
 	private String title; //简介
+	private String writerName; //作者名字
 	private String identity; //身份
 	private String phone; //联系方式
 	private String city; //所在城市
@@ -13,10 +14,13 @@ public class ProjectItem {
 	private String content; //项目详情
 	private int money; //项目资金
 	private String attachment; //附件路径
+	private String date; //发布日期
+	private long likeNum; //点赞数
 
 	public ProjectItem(Project project){
 		this.id = project.getId();
 		this.title = project.getTitle();
+		this.writerName = project.getWriterName();
 		this.identity = project.getIdentity();
 		this.phone = project.getPhone();
 		this.city = project.getCity();
@@ -25,6 +29,8 @@ public class ProjectItem {
 		this.content = project.getContent();
 		this.money = project.getMoney();
 		this.attachment = project.getAttachment();
+		this.date = project.getDate();
+		this.likeNum = project.getLikeNum();
 	}
 
 	public String getId() {
@@ -41,6 +47,14 @@ public class ProjectItem {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getWriterName() {
+		return writerName;
+	}
+
+	public void setWriterName(String writerName) {
+		this.writerName = writerName;
 	}
 
 	public String getIdentity() {
@@ -105,5 +119,21 @@ public class ProjectItem {
 
 	public void setAttachment(String attachment) {
 		this.attachment = attachment;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public long getLikeNum() {
+		return likeNum;
+	}
+
+	public void setLikeNum(long likeNum) {
+		this.likeNum = likeNum;
 	}
 }

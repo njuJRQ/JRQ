@@ -18,6 +18,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class userController {
@@ -28,6 +36,95 @@ public class userController {
         this.userBlService = userBlService;
     }
 
+    private static String headPath="";
+    @ApiOperation(value = "获取用户头像", notes = "获取用户头像")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "face", value = "用户头像", required = true, dataType = "MultipartFile")
+    })
+    @RequestMapping(value = "/uploadHead", method = RequestMethod.POST)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public void uploadHead(@RequestParam("face")MultipartFile face){
+        Map<String,Object> map= new HashMap<String,Object>();
+        if(face.isEmpty()){
+            map.put( "result", "error");
+            map.put( "msg", "上传文件不能为空" );
+        } else {
+
+            // 获取文件名
+            String fileName = face.getOriginalFilename();
+            // 获取文件后缀
+
+            // 用uuid作为文件名，防止生成的临时文件重复
+            // MultipartFile to File
+            //你的业务逻辑
+            int bytesum = 0;
+            int byteread = 0;
+            InputStream inStream = null;    //读入原文件
+            try {
+                inStream = face.getInputStream();
+                FileOutputStream fs = new FileOutputStream(fileName);
+                headPath=fileName;
+                byte[] buffer = new byte[200000000];
+                while ( (byteread = inStream.read(buffer)) != -1) {
+                    bytesum += byteread;            //字节数 文件大小
+                    fs.write(buffer, 0, byteread);
+                }
+                inStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        }
+    }
+
+
+
+    @ApiOperation(value = "增加用户", notes = "增加用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "用户编号", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "phone", value = "用户手机", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "email", value = "用户邮箱", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "company", value = "用户公司", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "department", value = "用户部门", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "position", value = "用户职位", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "intro", value = "用户简介", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "city", value = "用户城市", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "credit", value = "余额", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "label", value = "用户标签", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "levelName", value = "用户等级", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "valid", value = "是否启用", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/addUser", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public InfoResponse addUser(@RequestParam(name="openid")String openid, @RequestParam(name="username")String username, @RequestParam(name="phone")String phone, @RequestParam(name="email")String email, @RequestParam(name="company")String company, @RequestParam(name="department")String department, @RequestParam(name="position")String position, @RequestParam(name="intro")String intro, @RequestParam(name="city")String city, @RequestParam(name="credit")String credit, @RequestParam(name="label")String label, @RequestParam(name="levelName")String levelName, @RequestParam(name="valid")String valid) throws NotExistException {
+        boolean is=true;
+        if(valid=="冻结"){
+            is=false;
+        }
+        File file = new File(headPath);
+        String[] temp=headPath.split("\\.");
+        String thePath="record/user/head/"+openid+"."+temp[1];
+        String path="JRQ.Backend/record/user/head/"+openid+"."+temp[1];
+        File tempfile=new File(path);
+        if (tempfile.exists() && tempfile.isFile()) {
+             tempfile.delete();
+        }
+        file.renameTo(new File(path));
+        InfoResponse r=userBlService.addUser(openid,username,thePath,null,phone,email,company,department,position,intro,city,Integer.parseInt(credit),label,levelName,is);
+        return r;
+    }
 
     @ApiOperation(value = "获取用户列表", notes = "获取用户列表")
     @RequestMapping(value = "/getUserList", method = RequestMethod.GET)
@@ -386,16 +483,6 @@ public class userController {
     public ResponseEntity<Response> getOtherCard(@RequestParam(name="userOpenid")String userOpenid,@RequestParam(name="otherOpenid")String otherOpenid) throws NotExistException, CardLimitUseUpException {
         return new ResponseEntity<>(userBlService.getOtherCard(userOpenid,otherOpenid), HttpStatus.OK);
     }
-
-
-
-
-
-
-
-
-
-
 
 
 

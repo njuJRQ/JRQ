@@ -79,11 +79,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.showClass('capital');
+    this.showClass('capitalClass');
   },
   showClass: function(kind) {
-    this.addLabel()
-    api.getPersonList(kind, this)
+    var that = this
+    api.getPersonList(kind, this, ()=>{
+      that.addLabel()
+    })
   },
   addLabel: function() {
     var categoryDict = {

@@ -93,7 +93,7 @@ Page({
   },
   onClickThisCard: function (e) {
     var id = e.currentTarget.dataset.id
-    api.checkMyReceivedCard(app.getOpenid(), id)
+    api.checkMyReceivedCard(app.getOpenid(), id) //设置当前的卡片为已读
     wx.navigateTo({
       url: '../myHistory/myHistory?id='+id,
     })

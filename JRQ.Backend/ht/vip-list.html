@@ -38,7 +38,7 @@
                     <div class="am-btn-group am-btn-group-xs">
                         <button type="button" id="checkall"class="am-btn am-btn-default"><span class="icon-check"></span> 全选</button>
                         <button type="button" class="am-btn am-btn-default" onclick="delAll()"><span class="am-icon-trash-o"></span> 删除</button>
-
+                        <button type="button" class="am-btn am-btn-default">   <a href="vip-add.html"><span class="am-icon-plus"></span> 添加用户</a></button>
 
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                 <div class="am-input-group am-input-group-sm">
                     <input id="con" type="text" class="am-form-field">
                     <span class="am-input-group-btn">
-            <button class="am-btn am-btn-default" type="button" onclick="search()">名称搜索</button>
+            <button class="am-btn am-btn-default" type="button" onclick="search()">根据openid搜索</button>
           </span>
                 </div>
             </div>
@@ -340,6 +340,7 @@
         }
     }
 </script>
+<script src="assets/js/getUrl.js"></script>
 <script src="./assets/js/vip-list.js"></script>
 </body>
 </html>

@@ -48,11 +48,5 @@ Page({
   //发布文章
   onPublish: function () {
     api.publishMyArticle(app.getOpenid(), this.data.publishType, this.data.publishInputValue, this.data.publishPhotos, this)
-    wx.showToast({
-      title: '发布成功',
-      icon: 'succes',
-      duration: 1000,
-      mask: true
-    })
   }
 })

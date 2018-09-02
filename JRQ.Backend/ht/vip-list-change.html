@@ -13,7 +13,7 @@
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
     <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
     <link rel="stylesheet" href="assets/css/admin.css">
-    <script type="text/javascript" src="./assets/jedate/jedate.js" ></script>
+    <script src="assets/js/getUrl.js"></script>
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -38,103 +38,131 @@
 
         <div class="am-tabs am-margin" data-am-tabs>
             <ul class="am-tabs-nav am-nav am-nav-tabs">
-                <li class="am-active"><a href="#tab1">编辑人员</a></li>
+                <li class="am-active"><a href="#tab1">添加人员</a></li>
 
             </ul>
 
             <div class="am-tabs-bd">
+
                 <div class="am-tab-panel am-fade am-in am-active" id="tab1">
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">编号</div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">用户微信id</div>
+                        <div id="openid" class="am-u-sm-8 am-u-md-10"></div>
+                    </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">用户名</div>
                         <div class="am-u-sm-8 am-u-md-10">
-                            <div id="number" class="am-u-sm-8 am-u-md-10"></div>
+                            <input id="username" name="username" type="text" value="">
                         </div>
                     </div>
+                    <form id="upload-file-form">
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">头像</div>
+                            <div class="am-u-sm-8 am-u-md-10">
+                                <input type="file" name="face" id="face"><br>
+                                <p>（头像大小不要超过500K）</p>
+                            </div>
+
+                        </div>
+                    </form>
+
+
                     <div class="am-g am-margin-top">
-                    <div class="am-u-sm-4 am-u-md-2 am-text-right">用户名</div>
-                    <div class="am-u-sm-8 am-u-md-10">
-                        <div id="username" class="am-u-sm-8 am-u-md-10"></div>
-                    </div>
-                </div>
-                    <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">学历</div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">电话号码</div>
                         <div class="am-u-sm-8 am-u-md-10">
-                            <select id="xueli">
-                                <option>专科</option>
-                                <option>本科</option>
-                                <option>硕士</option>
+                            <input id="phone" name="phone" type="text" value="">
+                        </div>
+                    </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">电子邮箱</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <input id="email" name="email" type="text" value="">
+                        </div>
+                    </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">公司名称</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <input id="company" name="company" type="text" value="">
+                        </div>
+                    </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">部门</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <input id="department" name="department" type="text" value="">
+                        </div>
+                    </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">职位</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <input id="position" name="position" type="text" value="">
+                        </div>
+                    </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">个人简介</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <input id="intro" name="intro" type="text" value="">
+                        </div>
+                    </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">城市</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <input id="city" name="city" type="text" value="">
+                        </div>
+                    </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">账户余额</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <input id="credit" name="credit" type="text" value="">
+                        </div>
+                    </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">用户标签</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <select id="label">
+                                <option id="tempLabel">标签</option>
                             </select>
                         </div>
-                        <!--<div clarss="am-u-sm-8 am-u-md-10" style="margin-left: 2rem;">
-                            <select>
-                                <option>专科</option>
-                                <option>本科</option>
-                                <option>硕士</option>
-                            </select>
-                        </div>-->
                     </div>
 
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">姓名</div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">用户等级</div>
                         <div class="am-u-sm-8 am-u-md-10">
-                            <input id="name" type="text">
-                        </div>
-                    </div>
-                    <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">民族</div>
-                        <div class="am-u-sm-8 am-u-md-10">
-                            <select id="minzu">
-                                <option>汉族</option>
-                                <option>回族</option>
-                                <option>壮族</option>
+                            <select id="levelName">
+                                <option id="tempLevel">等级</option>
                             </select>
                         </div>
                     </div>
-                    <!--<div class="am-g am-margin-top">
-                    <div class="am-u-sm-4 am-u-md-2 am-text-right">手机</div>
-                    <div class="am-u-sm-8 am-u-md-10">
-                        <input type="text"value="">
-                    </div>
-                  </div>
-                    <div class="am-g am-margin-top">
-                    <div class="am-u-sm-4 am-u-md-2 am-text-right">邮箱</div>
-                    <div class="am-u-sm-8 am-u-md-10">
-                        <input type="text"value="">
-                    </div>
-                  </div>
-                    <div class="am-g am-margin-top">
-                    <div class="am-u-sm-4 am-u-md-2 am-text-right">地址</div>
-                    <div class="am-u-sm-8 am-u-md-10">
-                        <input type="text"value="">
-                    </div>
-                  </div> -->
-
 
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">性别</div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">启用/冻结</div>
                         <div class="am-u-sm-8 am-u-md-10">
-                            <select id="sex" class="input_l">
-                                <option>性别</option>
-                                <option>男</option>
-                                <option>女</option>
+                            <select id="is">
+                                <option id="tempis">请选择启用或冻结</option>
+                                <option>启用</option>
+                                <option>冻结</option>
                             </select>
                         </div>
                     </div>
 
 
 
-                    <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">出生日期</div>
-                        <div class="am-u-sm-8 am-u-md-10">
-                            <label class="input_icon"><i class="iconfont icon-riqi"></i> <input id="dateinfo" type="text" class="input_l" placeholder="出生日期" ></label>
-                        </div>
-                    </div>
+
+
                 </div>
             </div>
-
             <div class="am-margin">
-                <button id="changevip" type="button" class="am-btn am-btn-primary am-btn-xs"style="background-color: #22cc77; margin-left: 20%;margin-bottom: 20%;">确定</button>
+                <button id="addbutton" onclick="adduser()" type="button" class="am-btn am-btn-primary am-btn-xs"style="background-color: #22cc77; margin-left: 20%;margin-bottom: 20%;">确定</button>
             </div>
+
         </div>
 
         <footer class="admin-content-footer">
@@ -164,26 +192,12 @@
 <!--<![endif]-->
 <script src="assets/js/amazeui.min.js"></script>
 <script src="assets/js/app.js"></script>
+<script src="assets/js/changevip.js"></script>
 <script type="text/javascript">
-    jeDate({
-        dateCell:"#dateinfo",
-//				format:"YYYY-MM-DD",
-//				clearRestore:true,
-//				fixedCell:"",
-//				isinitVal:true,
-//				isTime:true,
-//				minDate:"2017-01-08",
 
-        isinitVal: false,
-        festival: true,
-        ishmsVal: false,
-        format: "YYYY-MM-DD",
-        choosefun:function(val) {
-            okdate(val.toString());
-        },
-    })
+
+
 
 </script>
-<script src="./assets/js/changevip.js"></script>
 </body>
 </html>

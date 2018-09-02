@@ -23,6 +23,10 @@ page {
   padding: 10px;
   font-size: 0.6rem;
 }
+.info > text {
+  font-size: 0.8rem;
+  color: black;
+}
 .info-item {
   width: 100%;
   justify-content: space-between;

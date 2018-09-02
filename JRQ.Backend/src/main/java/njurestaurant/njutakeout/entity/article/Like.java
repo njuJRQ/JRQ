@@ -15,8 +15,8 @@ public class Like {
 	private String kind; //文章类别："course", "document", "project", "feed"
 
 	@Id
-	@Column(name = "articleId")
-	private String articleId; //文章ID
+	@Column(name = "articleId", length = 32)
+	private String articleId; //文章ID，UUID长度为32
 
 	public Like() {
 	}

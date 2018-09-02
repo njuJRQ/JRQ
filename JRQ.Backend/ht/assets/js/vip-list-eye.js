@@ -1,11 +1,38 @@
-document.getElementById("number").innerText="dhjfnewcwiuanca";
-document.getElementById("username").innerText="明天";
-document.getElementById("head").src="assets/i/y.jpg";
-document.getElementById("type").innerText="购买课程";
-document.getElementById("phone").innerText="手机号";
-document.getElementById("email").innerText="邮箱";
-document.getElementById("company").innerText="公司";
-document.getElementById("department").innerText="部门";
-document.getElementById("position").innerText="经理";
-document.getElementById("intro").innerText="离哈";
-document.getElementById("valid").innerText="启用";
+var url=getUrl();
+var storage = window.localStorage;
+var openid=storage["thisUser"];
+$.ajax(
+    {
+        url: url+"/getUser",
+        data: {
+            openid:openid
+        },
+        async:false,
+        success: function (data) {
+            document.getElementById("number").innerText=data.user.openid;
+            document.getElementById("username").innerText=data.user.username;
+            document.getElementById("head").src="../"+data.user.face;
+            document.getElementById("phone").innerText=data.user.phone;
+            document.getElementById("email").innerText=data.user.email;
+            document.getElementById("company").innerText=data.user.company;
+            document.getElementById("department").innerText=data.user.department;
+            document.getElementById("position").innerText=data.user.position;
+            document.getElementById("intro").innerText=data.user.intro;
+            document.getElementById("city").innerText=data.user.city;
+            document.getElementById("credit").innerText=data.user.credit;
+            document.getElementById("label").innerText=data.user.label;
+            document.getElementById("levelName").innerText=data.user.levelName;
+            if(data.user.valid){
+                document.getElementById("valid").innerText="启用";
+            }
+            else{
+                document.getElementById("valid").innerText="禁用";
+            }
+
+        },
+        error: function (xhr) {
+            alert('动态页有问题噶！\n\n' + xhr.responseText);
+        },
+        traditional: true,
+    }
+)

@@ -54,63 +54,11 @@ $.ajax(
 )
 
 
-var storage = window.localStorage;
-var id=storage["thisUser"];
-$.ajax(
-    {
-        url: url+"/getUser",
-        data: {
-            openid:id
-        },
-        async:false,
-        success: function (data) {
-            document.getElementById("openid").innerText=data.user.openid;
-            document.getElementById("username").value=data.user.username;
-            document.getElementById("phone").value=data.user.phone;
-            document.getElementById("email").value=data.user.email;
-            document.getElementById("company").value=data.user.company;
-            document.getElementById("department").value=data.user.department;
-            document.getElementById("position").value=data.user.position;
-            document.getElementById("intro").value=data.user.intro;
-            document.getElementById("city").value=data.user.city;
-            document.getElementById("credit").value=data.user.credit;
-            document.getElementById("tempLabel").innerText=data.user.label;
-            document.getElementById("tempLevel").innerText=data.user.levelName;
-            if(data.user.valid){
-                document.getElementById("tempis").innerText="启用";
-            }
-            else{
-                document.getElementById("tempis").innerText="冻结";
-            }
-
-        },
-        error: function (xhr) {
-            alert('动态页有问题噶！\n\n' + xhr.responseText);
-        },
-        traditional: true,
-    }
-)
 
 
 function adduser() {
-    var url = getUrl();
-    $.ajax(
-        {
-            url: url+"/deleteUser",
-            data: {
-                id:document.getElementById("openid").innerText
-            },
-            async:false,
-            success: function (data) {
-            },
-            error: function (xhr) {
-                alert('动态页有问题噶！\n\n' + xhr.responseText);
-            },
-            traditional: true,
-        }
-    )
     var fd = new FormData($("#upload-file-form")[0]);
-
+    var url = getUrl();
     var obj1= document.getElementById("is"); //定位id
     var index1 = obj1.selectedIndex; // 选中索引
     var valid = obj1.options[index1].text; // 选中文本
@@ -136,7 +84,7 @@ function adduser() {
                 {
                     url: url + "/addUser",
                     data: {
-                        openid:document.getElementById("openid").innerText,
+                        openid:$("#openid").val(),
                         username:$("#username").val(),
                         phone:$("#phone").val(),
                         email:$("#email").val(),
@@ -152,7 +100,7 @@ function adduser() {
                     },
                     async: false,
                     success: function (data) {
-                        alert("修改成功");
+                        alert("添加成功");
                         window.location.href="vip-list.html";
                     },
                     error: function (xhr) {

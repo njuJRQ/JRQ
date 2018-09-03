@@ -222,6 +222,9 @@ public class UserBlServiceImpl implements UserBlService {
 	@Override
 	public CardResponse getOtherCard(String userOpenid, String otherOpenid) throws NotExistException, CardLimitUseUpException {
 		User other = userDataService.getUserByOpenid(otherOpenid);
+		if (userOpenid.equals(otherOpenid)) {
+			return new CardResponse(new CardItem(other));
+		}
 		User user = userDataService.getUserByOpenid(userOpenid);
 		if (user.getCardLimit() > 0) {
 			user.setCardLimit(user.getCardLimit() - 1);

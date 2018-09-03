@@ -7,6 +7,7 @@ public class PersonItem {
 	private String username; //用户名
 	private String face; //用户头像
 	private String company; //公司名称
+	private String department; //部门
 	private String position; //职位
 	private String intro; //个人简介
 	private String city; //所在城市
@@ -20,6 +21,7 @@ public class PersonItem {
 		this.username = user.getUsername();
 		this.face = user.getFace();
 		this.company = user.getCompany();
+		this.department = user.getDepartment();
 		this.position = user.getPosition();
 		this.intro = user.getIntro();
 		this.city = user.getCity();
@@ -56,6 +58,14 @@ public class PersonItem {
 
 	public void setCompany(String company) {
 		this.company = company;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 
 	public String getPosition() {

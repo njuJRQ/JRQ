@@ -1,20 +1,31 @@
 package njurestaurant.njutakeout.security.jwt;
 
+import io.jsonwebtoken.Jwt;
+import njurestaurant.njutakeout.data.dao.admin.AdminDao;
 import njurestaurant.njutakeout.data.dao.user.UserDao;
+import njurestaurant.njutakeout.entity.admin.Admin;
+import njurestaurant.njutakeout.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class JwtUserDetailsServiceImpl implements JwtUserDetailsService {
     private final UserDao userDao;
+    private final AdminDao adminDao;
 
     private final JwtService jwtService;
 
     @Autowired
-    public JwtUserDetailsServiceImpl(UserDao userDao, JwtService jwtService) {
+    public JwtUserDetailsServiceImpl(UserDao userDao, AdminDao adminDao, JwtService jwtService) {
         this.userDao = userDao;
+        this.adminDao = adminDao;
         this.jwtService = jwtService;
     }
 
@@ -32,12 +43,40 @@ public class JwtUserDetailsServiceImpl implements JwtUserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        User user = userDao.findUserByUsername(username);
-//        if (user == null) {
-//            throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
+        Optional<User> optionalUser = userDao.findById(username); //用户的username为openid
+        if (optionalUser.isPresent()) {
+            return new JwtUser(optionalUser.get().getUsername(), "", Collections.singletonList(JwtRole.USER));
+        } else {
+            List<Admin> admins = adminDao.findAdminByUsername(username);
+            if (!admins.isEmpty()) {
+                Admin admin = admins.get(0);
+                return new JwtUser(admin.getUsername(), admin.getPassword(), Collections.singletonList(JwtRole.ADMIN));
+            } else {
+                throw new UsernameNotFoundException("username " + username + " not found");
+            }
+        }
+        /*
+         * edit by zlz
+         * 2018-9-3
+         */
+//        List<User> users = userDao.findUserByUsername(username);
+//        List<Admin> admins = adminDao.findAdminByUsername(username);
+//        if (users.isEmpty() && admins.isEmpty()) {
+//            throw new UsernameNotFoundException("username not found");
 //        } else {
-//            return jwtService.convertUserToJwtUser(user);
+//            if (!users.isEmpty()) {
+//                User user = users.get(0);
+//                List<JwtRole> jwtRoles = new ArrayList<>();
+//                jwtRoles.add(JwtRole.USER);
+//                JwtUser jwtUser = new JwtUser(user.getUsername(), "", jwtRoles);
+//                return jwtUser;
+//            } else {
+//                Admin user = admins.get(0);
+//                List<JwtRole> jwtRoles = new ArrayList<>();
+//                jwtRoles.add(JwtRole.ADMIN);
+//                JwtUser jwtUser = new JwtUser(user.getUsername(), "", jwtRoles);
+//                return jwtUser;
+//            }
 //        }
-        return null; //edited by zs
     }
 }

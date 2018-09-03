@@ -21,14 +21,14 @@ public interface CourseBlService {
 	InfoResponse addCourse(String title, String image, String writerName, String date, long likeNum, String video, int price);
 
 	/**
-	 * 根据课程ID获取课程内容(User&Admin)
+	 * 根据课程ID获取课程内容(Admin)
 	 * @param id 课程ID
 	 * @return 课程内容
 	 */
 	CourseResponse getCourse(String id) throws NotExistException;
 
 	/**
-	 * 获取课程列表(User&Admin)
+	 * 获取课程列表(Admin)
 	 * @return 课程列表
 	 */
 	CourseListResponse getCourseList();
@@ -53,4 +53,19 @@ public interface CourseBlService {
 	 * @return 是否成功
 	 */
 	InfoResponse deleteCourse(String id) throws NotExistException;
+
+	/**
+	 * 用户根据课程ID获取课程信息，未购买则video属性为空串(User)
+	 * @param openid 用户openid
+	 * @param courseId 课程ID
+	 * @return 课程信息
+	 */
+	CourseResponse getMyCourse(String openid, String courseId) throws NotExistException;
+
+	/**
+	 * 用户获取所有课程信息列表，video属性为空串(User)
+	 * @param openid 用户openid
+	 * @return 去掉video信息的课程列表
+	 */
+	CourseListResponse getMyCourseList(String openid);
 }

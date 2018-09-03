@@ -2,7 +2,9 @@ package njurestaurant.njutakeout.bl.article.course;
 
 import njurestaurant.njutakeout.blservice.article.course.CourseBlService;
 import njurestaurant.njutakeout.dataservice.article.CourseDataService;
+import njurestaurant.njutakeout.dataservice.purchase.PurchaseDataService;
 import njurestaurant.njutakeout.entity.article.Course;
+import njurestaurant.njutakeout.entity.purchase.Purchase;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.course.CourseItem;
@@ -17,10 +19,12 @@ import java.util.List;
 @Service
 public class CourseBlServiceImpl implements CourseBlService {
 	private final CourseDataService courseDataService;
+	private final PurchaseDataService purchaseDataService;
 
 	@Autowired
-	public CourseBlServiceImpl(CourseDataService courseDataService) {
+	public CourseBlServiceImpl(CourseDataService courseDataService, PurchaseDataService purchaseDataService) {
 		this.courseDataService = courseDataService;
+		this.purchaseDataService = purchaseDataService;
 	}
 
 	@Override
@@ -62,5 +66,32 @@ public class CourseBlServiceImpl implements CourseBlService {
 	public InfoResponse deleteCourse(String id) throws NotExistException {
 		courseDataService.deleteCourseById(id);
 		return new InfoResponse();
+	}
+
+	@Override
+	public CourseResponse getMyCourse(String openid, String courseId) throws NotExistException {
+		Course course = courseDataService.getCourseById(courseId);
+		CourseItem courseItem = new CourseItem(course);
+		courseItem.setVideo("");
+		List<Purchase> purchases = purchaseDataService.getPurchasesByOpenid(openid);
+		for (Purchase purchase:purchases) {
+			if (purchase.getType().equals("course") && purchase.getDetail().equals(courseId)) {
+				courseItem.setVideo(course.getVideo());
+				return new CourseResponse(courseItem);
+			}
+		}
+		return new CourseResponse(courseItem);
+	}
+
+	@Override
+	public CourseListResponse getMyCourseList(String openid) {
+		List<Course> courses = courseDataService.getAllCourses();
+		List<CourseItem> courseItems = new ArrayList<>();
+		for (Course course:courses) {
+			CourseItem courseItem = new CourseItem(course);
+			courseItem.setVideo("");
+			courseItems.add(courseItem);
+		}
+		return new CourseListResponse(courseItems);
 	}
 }

@@ -166,9 +166,8 @@ function getPersonList(kind, that, then) {
     },
     method: 'GET',
     success: (res) => {
-      console.log(res)
       that.setData({
-        cards: res.data.personList
+        cards: res.data.persons
       })
       if (then) then()
     }
@@ -207,7 +206,7 @@ function getOtherBasicInfo(id, that) {
   wx.request({
     url: app.globalData.backendUrl + "getPerson",
     data: {
-      id: id
+      openid: id
     },
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
@@ -215,6 +214,7 @@ function getOtherBasicInfo(id, that) {
     },
     method: 'GET',
     success: (res) => {
+      /*console.log(res)*/
       that.setData({
         myInfo: res.data.person
       })
@@ -240,9 +240,18 @@ function getOtherInfo(myid, otherid, that) {
     },
     method: 'GET',
     success: (res) => {
+      console.log(res)
       that.setData({
         myInfo: res.data.card
       })
+    },
+    fail: (res) => {
+      if (res.statusCode == 500) {
+        wx.showModal({
+          title: res.data.error,
+          content: res.data.message
+        })
+      }
     }
   })
 }
@@ -315,51 +324,47 @@ function modifyMyInfo(that) {
    * 职位：position
    * 个人简介：intro
    */
-
-  wx.request({
-    //上传用户信息
-    url: app.globalData.backendUrl + "updateMyProfile",
-    data: {
-      openid: app.getOpenid(),
-      username: that.data.newMyInfo.username,
-      face: 'unknown path',
-      phone: that.data.newMyInfo.phone,
-      email: that.data.newMyInfo.email,
-      city: that.data.newMyInfo.city,
-      company: that.data.newMyInfo.company,
-      department: that.data.newMyInfo.department,
-      position: that.data.newMyInfo.position,
-      intro: that.data.newMyInfo.intro,
-      label: that.data.newMyInfo.label
-    },
+  console.log(that.data.newMyInfo.face)
+  wx.uploadFile({
+    url: app.globalData.backendUrl + "uploadHead",
+    filePath: that.data.newMyInfo.face,
+    name: 'face',
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
       'content-type': 'application/x-www-form-urlencoded'
     },
-    method: 'GET',
     success: (res) => {
-      wx.showToast({
-        title: '修改成功',
-        icon: 'succes',
-        duration: 1000,
-        mask: true
+      wx.request({
+        //上传用户信息
+        url: app.globalData.backendUrl + "updateMyProfile",
+        data: {
+          openid: app.getOpenid(),
+          username: that.data.newMyInfo.username,
+          phone: that.data.newMyInfo.phone,
+          email: that.data.newMyInfo.email,
+          city: that.data.newMyInfo.city,
+          company: that.data.newMyInfo.company,
+          department: that.data.newMyInfo.department,
+          position: that.data.newMyInfo.position,
+          intro: that.data.newMyInfo.intro,
+          label: that.data.newMyInfo.label
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          wx.showToast({
+            title: '修改成功',
+            icon: 'succes',
+            duration: 1000,
+            mask: true
+          })
+        }
       })
     }
   })
-
-  wx.uploadFile({
-    url: app.globalData.backendUrl + "uploadhead/" + app.getOpenid(),
-    filePath: that.data.newMyInfo.face,
-    name: 'file',
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    success: (res) => {
-      //do nothing
-    }
-  })
-  
 }
 
 function getPersonListByCondition (condition, that) {
@@ -450,6 +455,22 @@ function downloadFile(filepath) {
   })
 }
 
+function getClassificationList (that) {
+  wx.request({
+    url: app.globalData.backendUrl + "getClassificationList",
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      that.setData({
+        labelArray: res.data.classifications.map((c)=>c.userLabel)
+      })
+    }
+  })
+}
+
 module.exports = {
   getAbstractList: getAbstractList,
   getFeedList: getFeedList,
@@ -469,5 +490,6 @@ module.exports = {
   getPersonListByCondition: getPersonListByCondition,
   getMyPersonList: getMyPersonList,
   getMyHistoryAbstractList: getMyHistoryAbstractList,
-  downloadFile: downloadFile
+  downloadFile: downloadFile,
+  getClassificationList: getClassificationList
 }

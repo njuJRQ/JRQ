@@ -30,28 +30,28 @@
 
     <view wx:for='{{cards}}'>
 
-      <view class='card row' bindtap='onClickThisCard'>
+      <view class='card row' bindtap='onClickThisCard' data-id='{{item.openid}}'>
         <view class='card-main row'>
           <view class='card-face v-center'>
             <image src='{{item.face}}'></image>
           </view>
           <view class='card-info column'>
             <view class='row'>
-              <text style='font-size: 0.8rem;'>{{item.userName}}</text>
+              <text style='font-size: 0.8rem;'>{{item.username}}</text>
               <text class='v-center' style='font-size: 0.5rem; color: gray;'>{{item.position}}</text>
             </view>
             <view class='row' style='font-size: 0.5rem;'>
-              <text style='color: gray;'>{{item.area}}</text>
+              <text style='color: gray;'>{{item.city}}</text>
               <text style='color: gray;'>{{item.company}}</text>
             </view>
             <view class='div-line'></view>
             <view class='detail' style='font-size: 0.5rem'>
-              <text>{{item.detail}}</text>
+              <text>{{item.intro}}</text>
             </view>
           </view>
         </view>
         <view class='card-category {{item.categoryClass}} v-center h-center'>
-          <text>{{item.categoryText}}</text>
+          <text>{{item.label}}</text>
         </view>
       </view>
 

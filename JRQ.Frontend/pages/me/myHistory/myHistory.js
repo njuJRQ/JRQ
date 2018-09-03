@@ -27,9 +27,9 @@ Page({
     isAlreadyGetOtherInfo: null,
     otherid: null,
     encreptInfo: {
-      phone: '',
-      wechatId: '',
-      email: ''
+      phone: '************',
+      wechatId: '****',
+      email: '******'
     },
     myArticles: [{
       id: 1,
@@ -84,40 +84,28 @@ Page({
     else {
       var that = this
       this.data.isGetOtherInfo = false
-      api.getMyInfo(app.getOpenid(), this, function () {
-        that.init()
-        that.encrept() //加密个人信息
-      }) //获取个人信息
+      api.getMyInfo(app.getOpenid(), this) //获取个人信息
       api.getMyHistoryAbstractList(app.getOpenid(), this) //获取个人历史文章列表信息
     }
   },
   //点击查看联系方式
   isMyInfoVisiableToggle: function () {
+    var that = this
     if (this.data.isGetOtherInfo) {
-      if (!this.data.isAlreadyGetOtherInfo)
-        api.getOtherInfo(app.getOpenid(), this.data.otherid, this)
+      if (!this.data.isAlreadyGetOtherInfo) {
+        api.getOtherInfo(app.getOpenid(), this.data.otherid, this, ()=>{
+          this.setData({
+            isMyInfoVisiable: !that.data.isMyInfoVisiable,
+          })
+        })
+      }
     }
     else {
-      api.getMyInfo(app.getOpenid(), this)
+      api.getMyInfo(app.getOpenid(), this, ()=> {
+        this.setData({
+          isMyInfoVisiable: !that.data.isMyInfoVisiable,
+        })
+      })
     }
-    this.setData({
-      isMyInfoVisiable: !this.data.isMyInfoVisiable,
-    })
-  },
-  //初始化数据
-  init: function () {
-    this.setData({
-      wechatId: app.getWechatUsername(),
-    })
-  },
-  encrept: function () {
-    var phone = this.data.myInfo.phone
-    this.setData({
-      encreptInfo: {
-        phone: phone.substr(0, 3) + '****' + phone.substr(7),
-        wechatId: '****',
-        email: '******'
-      }
-    })
   }
 })

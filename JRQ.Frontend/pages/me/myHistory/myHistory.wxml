@@ -30,12 +30,14 @@
           <view wx:else>
             <text style='font-size: 0.8rem;'>{{encreptInfo.phone}}</text>
           </view>
+          <!-- 显示微信号
           <view wx:if='{{isMyInfoVisiable}}'>
             <text>微信号：{{wechatId}}</text>
           </view>
           <view wx:else>
             <text>微信号：{{encreptInfo.wechatId}}</text>
           </view>
+          -->
           <view wx:if='{{isMyInfoVisiable}}'>
             <text>邮箱: {{myInfo.email}}</text>
           </view>

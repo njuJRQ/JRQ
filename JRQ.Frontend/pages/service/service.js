@@ -12,66 +12,66 @@ Page({
     cards: [{
       openid: 1,
       face: '../../default/default-pic.png',
-      userName: 'USERNAME',
+      username: 'username',
       position: '项目经理',
-      area: '亚太区',
+      city: '亚太区',
       company: '上海崇尚金融担保有限公司 (美资)',
-      detail: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
-      categoryId: '融资租赁'
+      intro: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
+      label: '融资租赁'
     }, {
         openid: 2,
         face: '../../default/default-pic.png',
-        userName: 'USERNAME',
+        username: 'username',
         position: '项目经理',
-        area: '亚太区',
+        city: '亚太区',
         company: '上海崇尚金融担保有限公司 (美资)',
-        detail: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
-        categoryId: '商业保理'
+        intro: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
+        label: '商业保理'
       }, {
         openid: 3,
         face: '../../default/default-pic.png',
-        userName: 'USERNAME',
+        username: 'username',
         position: '项目经理',
-        area: '亚太区',
+        city: '亚太区',
         company: '上海崇尚金融担保有限公司 (美资)',
-        detail: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
-        categoryId: '地产交易'
+        intro: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
+        label: '地产交易'
       }, {
         openid: 4,
         face: '../../default/default-pic.png',
-        userName: 'USERNAME',
+        username: 'username',
         position: '项目经理',
-        area: '亚太区',
+        city: '亚太区',
         company: '上海崇尚金融担保有限公司 (美资)',
-        detail: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
-        categoryId: '金融牌照'
+        intro: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
+        label: '金融牌照'
       }, {
         openid: 5,
         face: '../../default/default-pic.png',
-        userName: 'USERNAME',
+        username: 'username',
         position: '项目经理',
-        area: '亚太区',
+        city: '亚太区',
         company: '上海崇尚金融担保有限公司 (美资)',
-        detail: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
-        categoryId: '地产交易'
+        intro: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
+        label: '地产交易'
       }, {
         openid: 6,
         face: '../../default/default-pic.png',
-        userName: 'USERNAME',
+        username: 'username',
         position: '项目经理',
-        area: '亚太区',
+        city: '亚太区',
         company: '上海崇尚金融担保有限公司 (美资)',
-        detail: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
-        categoryId: '商业保理'
+        intro: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
+        label: '商业保理'
       }, {
         openid: 7,
         face: '../../default/default-pic.png',
-        userName: 'USERNAME',
+        username: 'username',
         position: '项目经理',
-        area: '亚太区',
+        city: '亚太区',
         company: '上海崇尚金融担保有限公司 (美资)',
-        detail: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
-        categoryId: '商业保理'
+        intro: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
+        label: '商业保理'
       }]
   },
 
@@ -79,7 +79,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.showClass('capitalClass');
+    this.showClass('capital');
+  },
+  onPullDownRefresh: function () {
+    this.onLoad()
   },
   showClass: function(kind) {
     var that = this
@@ -95,24 +98,24 @@ Page({
       金融牌照: { text: '金融牌照', class_: 'card-category-jrpz' }
     };
     this.data.cards.forEach(function (card) {
-      card['categoryText'] = categoryDict[card.categoryId].text;
-      card['categoryClass'] = categoryDict[card.categoryId].class_;
+      card['categoryText'] = categoryDict[card.label].text;
+      card['categoryClass'] = categoryDict[card.label].class_;
     });
     this.setData(this.data)
   },
   //展示资金类
   showCapitalClass: function(event) {
-    this.showClass('capitalClass');
+    this.showClass('capital');
     console.log('show capital class')
   },
   //展示股票类
   showStockClass: function() {
-    this.showClass('stockClass');
+    this.showClass('stock');
     console.log('show stock class')
   },
   //展示并购类
   showMergeClass: function() {
-    this.showClass('mergeClass');
+    this.showClass('merge');
     console.log('show merge class')
   },
   onClickThisCard: function (e) {

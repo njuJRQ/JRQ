@@ -39,7 +39,7 @@ App({
               //获取个人微信号信息
               wx.getUserInfo({
                 success: function (data) {
-                  /*console.log(data)*/
+                  console.log(data)
                   wx.setStorageSync("wechatUsername", data.userInfo.nickName);
                   wx.request({
                     url: that.globalData.backendUrl + "loginMyUser",

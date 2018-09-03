@@ -27,7 +27,7 @@ public interface AdminBlService {
 	 * @param date 创建时间
 	 * @return 是否成功
 	 */
-	InfoResponse addAdmin(String username, String password, String limits, String date) throws DuplicateUsernameException, AlreadyExistException;
+	InfoResponse addAdmin(String username, String password, String limits, String date) throws DuplicateUsernameException;
 
 	/**
 	 * 获取管理员信息

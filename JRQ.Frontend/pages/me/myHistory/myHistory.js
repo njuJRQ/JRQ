@@ -94,7 +94,7 @@ Page({
     if (this.data.isGetOtherInfo) {
       if (!this.data.isAlreadyGetOtherInfo) {
         api.getOtherInfo(app.getOpenid(), this.data.otherid, this, ()=>{
-          this.setData({
+          that.setData({
             isMyInfoVisiable: !that.data.isMyInfoVisiable,
           })
         })
@@ -102,7 +102,7 @@ Page({
     }
     else {
       api.getMyInfo(app.getOpenid(), this, ()=> {
-        this.setData({
+        that.setData({
           isMyInfoVisiable: !that.data.isMyInfoVisiable,
         })
       })

@@ -21,7 +21,7 @@ function getAbstractList(kind, openid, that) {
   })
 }
 
-function getFeedList (that) {
+function getFeedList(that) {
   wx.request({
     url: app.globalData.backendUrl + "getFeedList",
     header: {
@@ -38,7 +38,7 @@ function getFeedList (that) {
   })
 }
 
-function getCourse (id, that) {
+function getCourse(id, that) {
   wx.request({
     url: app.globalData.backendUrl + "getCourse",
     data: {
@@ -222,7 +222,7 @@ function getOtherBasicInfo(id, that) {
   })
 }
 
-function getOtherInfo(myid, otherid, that) {
+function getOtherInfo(myid, otherid, that, then) {
   /**
    * 方法：getOtherCard
    * 参数：
@@ -241,15 +241,17 @@ function getOtherInfo(myid, otherid, that) {
     method: 'GET',
     success: (res) => {
       console.log(res)
-      that.setData({
-        myInfo: res.data.card
-      })
-    },
-    fail: (res) => {
-      if (res.statusCode == 500) {
+      if (res.statusCode == 200) {
+        that.setData({
+          myInfo: res.data.card
+        })
+        if (then) then()
+      }
+      else if (res.statusCode == 500) {
         wx.showModal({
           title: res.data.error,
-          content: res.data.message
+          content: res.data.message,
+          showCancel: false
         })
       }
     }
@@ -274,7 +276,7 @@ function checkMyReceivedCard(senderOpenid, receiverOpenid) {
   })
 }
 
-function publishMyArticle (openid, kind, content, photos, that) {
+function publishMyArticle(openid, kind, content, photos, that) {
   //TODO
   /**
    * 方法：publishMyFeed
@@ -287,7 +289,7 @@ function publishMyArticle (openid, kind, content, photos, that) {
     data: {
       writerOpenid: openid,
       kind: kind,
-      date: [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('-'), 
+      date: [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('-'),
       content: content,
       images: photos
     },
@@ -301,8 +303,8 @@ function publishMyArticle (openid, kind, content, photos, that) {
         title: '发布成功',
         icon: 'succes',
         duration: 1000,
-        success: ()=>{
-          setTimeout(() => { wx.navigateBack()}, 1000)
+        success: () => {
+          setTimeout(() => { wx.navigateBack() }, 1000)
         },
         mask: true
       })
@@ -367,7 +369,7 @@ function modifyMyInfo(that) {
   })
 }
 
-function getPersonListByCondition (condition, that) {
+function getPersonListByCondition(condition, that) {
   /**
    * 方法：searchCards
    * 参数：
@@ -391,7 +393,7 @@ function getPersonListByCondition (condition, that) {
   })
 }
 
-function getMyPersonList (openid, kind, that) {
+function getMyPersonList(openid, kind, that) {
   /**
    * 方法：getMyPersonList
    * 参数：
@@ -417,7 +419,7 @@ function getMyPersonList (openid, kind, that) {
   })
 }
 
-function getMyHistoryAbstractList (openid, that) {
+function getMyHistoryAbstractList(openid, that) {
   /**
    * 方法：getMyHistoryAbstractList
    * 参数：用户openId：openId
@@ -455,7 +457,7 @@ function downloadFile(filepath) {
   })
 }
 
-function getClassificationList (that) {
+function getClassificationList(that) {
   wx.request({
     url: app.globalData.backendUrl + "getClassificationList",
     header: {
@@ -465,7 +467,7 @@ function getClassificationList (that) {
     method: 'GET',
     success: (res) => {
       that.setData({
-        labelArray: res.data.classifications.map((c)=>c.userLabel)
+        labelArray: res.data.classifications.map((c) => c.userLabel)
       })
     }
   })
@@ -478,7 +480,7 @@ module.exports = {
   getDocument: getDocument,
   getProject: getProject,
   getAd: getAd,
-  likePlus: likePlus, 
+  likePlus: likePlus,
   purchaseCourse: purchaseCourse,
   getPersonList: getPersonList,
   getMyInfo: getMyInfo,

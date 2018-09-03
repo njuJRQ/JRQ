@@ -362,7 +362,6 @@ public class userController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "openid", value = "用户编号", required = true, dataType = "String"),
             @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "face", value = "用户头像", required = true, dataType = "String"),
             @ApiImplicitParam(name = "phone", value = "用户手机", required = true, dataType = "String"),
             @ApiImplicitParam(name = "email", value = "用户邮箱", required = true, dataType = "String"),
             @ApiImplicitParam(name = "company", value = "用户公司", required = true, dataType = "String"),
@@ -378,8 +377,17 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> updateMyProfile(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username,@RequestParam(name="face")String face,@RequestParam(name="phone")String phone,@RequestParam(name="email")String email,@RequestParam(name="company")String company,@RequestParam(name="department")String department,@RequestParam(name="position")String position,@RequestParam(name="intro")String intro,@RequestParam(name="city")String city,@RequestParam(name="label")String label) throws NotExistException {
-        return new ResponseEntity<>(userBlService.updateMyProfile(openid,username,face,phone,email,company,department,position,intro,city,label), HttpStatus.OK);
+    public ResponseEntity<Response> updateMyProfile(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username,@RequestParam(name="phone")String phone,@RequestParam(name="email")String email,@RequestParam(name="company")String company,@RequestParam(name="department")String department,@RequestParam(name="position")String position,@RequestParam(name="intro")String intro,@RequestParam(name="city")String city,@RequestParam(name="label")String label) throws NotExistException {
+        File file = new File(headPath);
+        String[] temp=headPath.split("\\.");
+        String thePath="record/user/head/"+openid+"."+temp[1];
+        String path="JRQ.Backend/record/user/head/"+openid+"."+temp[1];
+        File tempfile=new File(path);
+        if (tempfile.exists() && tempfile.isFile()) {
+            tempfile.delete();
+        }
+        file.renameTo(new File(path));
+        return new ResponseEntity<>(userBlService.updateMyProfile(openid,username,thePath,phone,email,company,department,position,intro,city,label), HttpStatus.OK);
     }
 
     @ApiOperation(value = "根据用户微信openid获取其业务名片", notes = "根据用户微信openid获取其业务名片")

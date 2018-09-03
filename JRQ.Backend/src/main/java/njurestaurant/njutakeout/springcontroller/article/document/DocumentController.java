@@ -21,8 +21,8 @@ public class DocumentController {
 
     @ApiOperation(value = "添加文档", notes = "添加文档")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "title", value = "课程标题", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "content", value = "图片路径", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "title", value = "文档标题", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "content", value = "文档内容", required = true, dataType = "String"),
             @ApiImplicitParam(name = "writerName", value = "作者名字", required = true, dataType = "String"),
             @ApiImplicitParam(name = "date", value = "发布日期", required = true, dataType = "String")
     })

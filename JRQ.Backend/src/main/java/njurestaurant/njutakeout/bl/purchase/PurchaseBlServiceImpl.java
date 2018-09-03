@@ -45,7 +45,7 @@ public class PurchaseBlServiceImpl implements PurchaseBlService {
 					userDataService.saveUser(user);
 					break;
 				case "course":
-					//TODO: 添加课程
+					//这里只需记录订单，之后显示course时会查订单表
 					break;
 				default:
 					throw new NotExistException("Purchase type", type);

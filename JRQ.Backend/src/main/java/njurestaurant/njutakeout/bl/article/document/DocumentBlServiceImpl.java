@@ -52,6 +52,7 @@ public class DocumentBlServiceImpl implements DocumentBlService {
 		document.setWriterName(writerName);
 		document.setDate(date);
 		document.setLikeNum(likeNum);
+		documentDataService.saveDocument(document);
 		return new InfoResponse();
 	}
 

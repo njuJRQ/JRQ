@@ -11,6 +11,9 @@ import njurestaurant.njutakeout.response.article.course.CourseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CourseBlServiceImpl implements CourseBlService {
 	private final CourseDataService courseDataService;
@@ -33,7 +36,12 @@ public class CourseBlServiceImpl implements CourseBlService {
 
 	@Override
 	public CourseListResponse getCourseList() {
-		return null;
+		List<Course> courses = courseDataService.getAllCourses();
+		List<CourseItem> courseItems = new ArrayList<>();
+		for (Course course:courses) {
+			courseItems.add(new CourseItem(course));
+		}
+		return new CourseListResponse(courseItems);
 	}
 
 	@Override

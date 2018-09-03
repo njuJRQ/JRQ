@@ -1,5 +1,6 @@
 package njurestaurant.njutakeout.blservice.admin;
 
+import njurestaurant.njutakeout.exception.AlreadyExistException;
 import njurestaurant.njutakeout.exception.DuplicateUsernameException;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.exception.WrongPasswordException;
@@ -26,7 +27,7 @@ public interface AdminBlService {
 	 * @param date 创建时间
 	 * @return 是否成功
 	 */
-	InfoResponse addAdmin(String username, String password, String limits, String date) throws DuplicateUsernameException;
+	InfoResponse addAdmin(String username, String password, String limits, String date) throws DuplicateUsernameException, AlreadyExistException;
 
 	/**
 	 * 获取管理员信息

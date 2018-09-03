@@ -3,6 +3,7 @@ package njurestaurant.njutakeout.bl.admin;
 import njurestaurant.njutakeout.blservice.admin.AdminBlService;
 import njurestaurant.njutakeout.dataservice.admin.AdminDataService;
 import njurestaurant.njutakeout.entity.admin.Admin;
+import njurestaurant.njutakeout.exception.AlreadyExistException;
 import njurestaurant.njutakeout.exception.DuplicateUsernameException;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.exception.WrongPasswordException;

@@ -28,7 +28,7 @@ public class LikeDataServiceImpl implements LikeDataService {
 		if (!likeDao.existsById(new LikeKey(openid, kind, articleId))) {
 			likeDao.save(new Like(openid, kind, articleId));
 		} else {
-			throw new AlreadyExistException("Like");
+			throw new AlreadyExistException("点赞项");
 		}
 	}
 

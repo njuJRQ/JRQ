@@ -34,14 +34,14 @@ public interface DocumentBlService {
 	/**
 	 * 根据文档ID修改文档
 	 * @param id 文档ID
-	 * @param content 文档内容
 	 * @param title 文档标题
+	 * @param content 文档内容
 	 * @param writerName 作者名字
 	 * @param date 发布日期
 	 * @param likeNum 点赞数
 	 * @return 是否成功
 	 */
-	InfoResponse updateDocument(String id, String content, String title, String writerName, String date, long likeNum) throws NotExistException;
+	InfoResponse updateDocument(String id, String title, String content, String writerName, String date, long likeNum) throws NotExistException;
 
 	/**
 	 * 根据文档ID删除文档

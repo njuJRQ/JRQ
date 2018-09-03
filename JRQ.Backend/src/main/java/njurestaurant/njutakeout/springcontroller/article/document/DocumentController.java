@@ -68,7 +68,7 @@ public class DocumentController {
             @ApiImplicitParam(name = "content", value = "图片路径", required = true, dataType = "String"),
             @ApiImplicitParam(name = "writerName", value = "作者名字", required = true, dataType = "String"),
             @ApiImplicitParam(name = "date", value = "发布日期", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "likeNum", value = "点赞数", required = true, dataType = "long")
+            @ApiImplicitParam(name = "likeNum", value = "点赞数", required = true, dataType = "String")
     })
     @RequestMapping(value = "/updateDocument", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -76,8 +76,8 @@ public class DocumentController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> updateDocument(@RequestParam(name="id")String id,@RequestParam(name="title")String title, @RequestParam(name="content")String content, @RequestParam(name="writerName")String writerName, @RequestParam(name="date")String date, @RequestParam(name="likeNum")long likeNum) throws NotExistException {
-        return new ResponseEntity<>(documentBlService.updateDocument(id,content,title,writerName,date,likeNum), HttpStatus.OK);
+    public ResponseEntity<Response> updateDocument(@RequestParam(name="id")String id,@RequestParam(name="title")String title, @RequestParam(name="content")String content, @RequestParam(name="writerName")String writerName, @RequestParam(name="date")String date, @RequestParam(name="likeNum")String likeNum) throws NotExistException {
+        return new ResponseEntity<>(documentBlService.updateDocument(id,title,content,writerName,date,Long.parseLong(likeNum)), HttpStatus.OK);
     }
 
     @ApiOperation(value = "根据文档ID删除文档", notes = "根据文档ID删除文档")

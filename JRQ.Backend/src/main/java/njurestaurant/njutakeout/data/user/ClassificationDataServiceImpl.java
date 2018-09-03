@@ -30,7 +30,7 @@ public class ClassificationDataServiceImpl implements ClassificationDataService 
 		if (optionalClassification.isPresent()) {
 			return optionalClassification.get();
 		} else {
-			throw new NotExistException("UserLabel");
+			throw new NotExistException("UserLabel", userLabel);
 		}
 	}
 
@@ -47,7 +47,7 @@ public class ClassificationDataServiceImpl implements ClassificationDataService 
 			classification.setWorkClass(workClass);
 			classificationDao.save(classification);
 		} else {
-			throw new NotExistException("UserLabel");
+			throw new NotExistException("UserLabel", userLabel);
 		}
 	}
 
@@ -56,7 +56,7 @@ public class ClassificationDataServiceImpl implements ClassificationDataService 
 		if (classificationDao.existsById(userLabel)) {
 			classificationDao.deleteById(userLabel);
 		} else {
-			throw new NotExistException("Classification");
+			throw new NotExistException("Classification", userLabel);
 		}
 	}
 }

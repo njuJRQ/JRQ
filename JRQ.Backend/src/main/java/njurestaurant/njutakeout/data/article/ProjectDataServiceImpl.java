@@ -40,7 +40,7 @@ public class ProjectDataServiceImpl implements ProjectDataService {
 		if (optionalProject.isPresent()) {
 			return optionalProject.get();
 		} else {
-			throw new NotExistException("Project");
+			throw new NotExistException("Project ID", id);
 		}
 	}
 
@@ -54,7 +54,7 @@ public class ProjectDataServiceImpl implements ProjectDataService {
 		if (projectDao.existsById(id)) {
 			projectDao.deleteById(id);
 		} else {
-			throw new NotExistException("Project");
+			throw new NotExistException("Project ID", id);
 		}
 	}
 }

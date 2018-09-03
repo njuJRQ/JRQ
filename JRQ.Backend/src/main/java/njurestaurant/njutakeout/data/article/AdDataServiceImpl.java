@@ -40,7 +40,7 @@ public class AdDataServiceImpl implements AdDataService {
 		if (optionalAd.isPresent()) {
 			return optionalAd.get();
 		} else {
-			throw new NotExistException("Ad");
+			throw new NotExistException("Ad ID", id);
 		}
 	}
 
@@ -59,7 +59,7 @@ public class AdDataServiceImpl implements AdDataService {
 		if (adDao.existsById(id)) {
 			adDao.deleteById(id);
 		} else {
-			throw new NotExistException("Ad");
+			throw new NotExistException("Ad ID", id);
 		}
 	}
 }

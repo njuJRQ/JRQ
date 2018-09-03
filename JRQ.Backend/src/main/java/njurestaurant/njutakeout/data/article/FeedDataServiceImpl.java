@@ -40,7 +40,7 @@ public class FeedDataServiceImpl implements FeedDataService {
 		if (optionalFeed.isPresent()) {
 			return optionalFeed.get();
 		} else {
-			throw new NotExistException("Feed");
+			throw new NotExistException("Feed ID", id);
 		}
 	}
 
@@ -59,7 +59,7 @@ public class FeedDataServiceImpl implements FeedDataService {
 		if (feedDao.existsById(id)) {
 			feedDao.deleteById(id);
 		} else {
-			throw new NotExistException("Feed");
+			throw new NotExistException("Feed ID", id);
 		}
 	}
 }

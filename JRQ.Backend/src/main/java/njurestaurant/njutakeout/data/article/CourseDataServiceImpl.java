@@ -40,7 +40,7 @@ public class CourseDataServiceImpl implements CourseDataService {
 		if (optionalCourse.isPresent()) {
 			return optionalCourse.get();
 		} else {
-			throw new NotExistException("Course");
+			throw new NotExistException("Course ID", id);
 		}
 	}
 
@@ -54,7 +54,7 @@ public class CourseDataServiceImpl implements CourseDataService {
 		if (courseDao.existsById(id)) {
 			courseDao.deleteById(id);
 		} else {
-			throw new NotExistException("Course");
+			throw new NotExistException("Course ID", id);
 		}
 	}
 }

@@ -37,7 +37,7 @@ public class LikeDataServiceImpl implements LikeDataService {
 		if (likeDao.existsById(new LikeKey(openid, kind, articleId))) {
 			likeDao.deleteById(new LikeKey(openid, kind, articleId));
 		} else {
-			throw new NotExistException("Like");
+			throw new NotExistException("Like key", "(openid="+openid+",kind="+kind+",articleId="+articleId+")");
 		}
 	}
 }

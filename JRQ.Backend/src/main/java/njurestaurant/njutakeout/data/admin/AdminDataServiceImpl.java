@@ -35,7 +35,7 @@ public class AdminDataServiceImpl implements AdminDataService {
 		if(optionalAdmin.isPresent()) {
 			return optionalAdmin.get();
 		}else {
-			throw new NotExistException("Admin");
+			throw new NotExistException("Admin ID", id);
 		}
 	}
 
@@ -44,7 +44,7 @@ public class AdminDataServiceImpl implements AdminDataService {
 		if (!adminDao.findAdminByUsername(username).isEmpty()) {
 			return adminDao.findAdminByUsername(username).get(0);
 		} else {
-			throw new NotExistException("Admin "+username);
+			throw new NotExistException("Admin username", username);
 		}
 	}
 
@@ -64,7 +64,7 @@ public class AdminDataServiceImpl implements AdminDataService {
 			admin.setDate(date);
 			adminDao.save(admin);
 		} else {
-			throw new NotExistException("Admin");
+			throw new NotExistException("Admin ID", id);
 		}
 	}
 
@@ -73,7 +73,7 @@ public class AdminDataServiceImpl implements AdminDataService {
 		if(adminDao.existsById(id)) {
 			adminDao.deleteById(id);
 		} else {
-			throw new NotExistException("Admin");
+			throw new NotExistException("Admin ID", id);
 		}
 	}
 }

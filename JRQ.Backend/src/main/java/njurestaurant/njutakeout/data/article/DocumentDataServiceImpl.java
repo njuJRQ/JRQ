@@ -40,7 +40,7 @@ public class DocumentDataServiceImpl implements DocumentDataService {
 		if (optionalDocument.isPresent()) {
 			return optionalDocument.get();
 		} else {
-			throw new NotExistException("Document");
+			throw new NotExistException("Document ID", id);
 		}
 	}
 
@@ -54,7 +54,7 @@ public class DocumentDataServiceImpl implements DocumentDataService {
 		if (documentDao.existsById(id)) {
 			documentDao.deleteById(id);
 		} else {
-			throw new NotExistException("Document");
+			throw new NotExistException("Document ID", id);
 		}
 	}
 }

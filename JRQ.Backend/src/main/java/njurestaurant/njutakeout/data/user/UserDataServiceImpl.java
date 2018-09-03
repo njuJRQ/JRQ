@@ -42,7 +42,7 @@ public class UserDataServiceImpl implements UserDataService {
 		if(optionalUser.isPresent()) {
 			return optionalUser.get();
 		} else {
-			throw new NotExistException("User");
+			throw new NotExistException("User openid", openid);
 		}
 	}
 
@@ -73,7 +73,7 @@ public class UserDataServiceImpl implements UserDataService {
 			user.setValid(valid);
 			userDao.save(user);
 		} else {
-			throw new NotExistException("User");
+			throw new NotExistException("User openid", openid);
 		}
 	}
 
@@ -82,7 +82,7 @@ public class UserDataServiceImpl implements UserDataService {
 		if (userDao.existsById(openid)) {
 			userDao.deleteById(openid);
 		} else {
-			throw new NotExistException("User");
+			throw new NotExistException("User openid", openid);
 		}
 	}
 
@@ -112,7 +112,7 @@ public class UserDataServiceImpl implements UserDataService {
 			sendCard.setChecked(true);
 			sendCardDao.save(sendCard);
 		} else {
-			throw new NotExistException("SendCard");
+			throw new NotExistException("SendCard key", "(senderOpenid="+sendCardKey.getSenderOpenid()+",receiverOpenid="+sendCardKey.getReceiverOpenid()+")");
 		}
 	}
 

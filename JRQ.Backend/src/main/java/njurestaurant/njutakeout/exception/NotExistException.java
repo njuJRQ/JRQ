@@ -5,8 +5,8 @@ import njurestaurant.njutakeout.response.WrongResponse;
 public class NotExistException extends Exception {
 	private WrongResponse response;
 
-	public NotExistException(String missingItem) {
-		super(missingItem + " does not exist");
+	public NotExistException(String missingClass, String missingItem) {
+		super(missingClass + " '" + missingItem + "' does not exist");
 		response = new WrongResponse(10001, this.getMessage());
 	}
 
@@ -16,7 +16,7 @@ public class NotExistException extends Exception {
 
 	public static void main(String []args) {
 		try {
-			throw new NotExistException("ID");
+			throw new NotExistException("ID", "123456");
 		} catch (NotExistException e) {
 			System.out.println(e.getMessage());
 		}

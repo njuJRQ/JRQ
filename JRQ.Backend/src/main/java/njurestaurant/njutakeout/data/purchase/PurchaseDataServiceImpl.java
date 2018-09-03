@@ -30,7 +30,7 @@ public class PurchaseDataServiceImpl implements PurchaseDataService {
 		if(optionalPurchase.isPresent()) {
 			return optionalPurchase.get();
 		} else {
-			throw new NotExistException("Purchase");
+			throw new NotExistException("Purchase ID", id);
 		}
 	}
 
@@ -49,7 +49,7 @@ public class PurchaseDataServiceImpl implements PurchaseDataService {
 		if (purchaseDao.existsById(id)) {
 			purchaseDao.deleteById(id);
 		} else {
-			throw new NotExistException("Purchase");
+			throw new NotExistException("Purchase ID", id);
 		}
 	}
 }

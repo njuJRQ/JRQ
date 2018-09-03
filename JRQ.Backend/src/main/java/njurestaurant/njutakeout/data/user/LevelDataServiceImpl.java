@@ -30,7 +30,7 @@ public class LevelDataServiceImpl implements LevelDataService {
 		if (optionalLevel.isPresent()) {
 			return optionalLevel.get();
 		} else {
-			throw new NotExistException("Level");
+			throw new NotExistException("Level name", name);
 		}
 	}
 
@@ -48,7 +48,7 @@ public class LevelDataServiceImpl implements LevelDataService {
 			level.setCardLimit(cardLimit);
 			levelDao.save(level);
 		} else {
-			throw new NotExistException("Level");
+			throw new NotExistException("Level name", name);
 		}
 	}
 
@@ -57,7 +57,7 @@ public class LevelDataServiceImpl implements LevelDataService {
 		if (levelDao.existsById(name)) {
 			levelDao.deleteById(name);
 		} else {
-			throw new NotExistException("Level");
+			throw new NotExistException("Level name", name);
 		}
 	}
 }

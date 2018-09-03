@@ -48,7 +48,7 @@ public class PurchaseBlServiceImpl implements PurchaseBlService {
 					//TODO: 添加课程
 					break;
 				default:
-					throw new NotExistException("PurchaseType");
+					throw new NotExistException("Purchase type", type);
 			}
 			return true;
 		} else {

@@ -6,7 +6,7 @@ public class WrongPasswordException extends Exception {
 	private WrongResponse response;
 
 	public WrongPasswordException(String username) {
-		super("Password of "+username+" is wrong");
+		super("用户"+username+"密码错误");
 		response = new WrongResponse(10003, this.getMessage());
 	}
 

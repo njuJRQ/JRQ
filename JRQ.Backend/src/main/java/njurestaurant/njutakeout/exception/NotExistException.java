@@ -6,7 +6,7 @@ public class NotExistException extends Exception {
 	private WrongResponse response;
 
 	public NotExistException(String missingClass, String missingItem) {
-		super(missingClass + " '" + missingItem + "' does not exist");
+		super(missingClass + " '" + missingItem + "' 不存在");
 		response = new WrongResponse(10001, this.getMessage());
 	}
 

@@ -17,9 +17,13 @@
       <text>课程点赞数：{{course.likeNum}}</text>
       <view class='content column'>
         <view class='h-center'>
-          <video src='{{course.video}}'></video>
+          <view wx:if='{{isOwnCourse}}'>
+            <video src='{{course.video}}'></video>
+          </view>
+          <view wx:else>
+            <text>请购买该课程后观看课程视频</text>
+          </view>
         </view>
-        <button>下载视频</button>
       </view>
     </view>
   </view>

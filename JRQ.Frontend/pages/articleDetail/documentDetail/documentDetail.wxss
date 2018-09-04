@@ -1,1 +1,34 @@
 /* pages/articleDetail/documentDetail/documentDetail.wxss */
+@import '/style/common.wxss';
+page {
+  background: #efefef;
+}
+.head-pic {
+  width: 100%;
+  height: 200px;
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+.head-pic > image {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+.document-title {
+  padding: 10px;
+  background-color: white;
+}
+.document-intro {
+  margin: 20px 0 0 0;
+  padding: 10px;
+  background-color: white;
+}
+.document-intro > .detail > text {
+  margin: 3px 0;
+}
+.document-intro > content{
+  width: 100%;
+}

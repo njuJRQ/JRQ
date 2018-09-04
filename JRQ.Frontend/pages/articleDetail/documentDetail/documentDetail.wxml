@@ -1,2 +1,17 @@
 <!--pages/articleDetail/documentDetail/documentDetail.wxml-->
-<text>pages/articleDetail/documentDetail/documentDetail.wxml</text>
+<view style='width:100%'>
+  <view class='head-pic'>
+    <image src='img/document.png'></image>
+  </view>
+  <view class='document-title column'>
+    <text style='color:black; font-size:1rem; font-weight:bold;'>{{document.title}}</text>
+  </view>
+  <view class='document-intro column'>
+    <text style='color:black; font-size:1rem; font-weight:bold;'>文档详情</text>
+    <view class='div-line'></view>
+    <view class='detail column' style='font-size:0.8rem;'>
+      <text>文档编号：{{document.id}}</text>
+      <text>文档内容：{{document.content}}</text>
+    </view>
+  </view>
+</view>

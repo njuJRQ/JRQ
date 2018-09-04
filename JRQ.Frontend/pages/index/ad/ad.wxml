@@ -1,2 +1,2 @@
 <!--pages/index/ad/ad.wxml-->
-<web-view src='www.baidu.com'></web-view>
+<web-view src='{{url}}'></web-view>

@@ -45,19 +45,21 @@ Page({
       likeNum: 8888,
       kind: 'project'
     }],
-    ad: '../../default/default-pic.png',
-    adLink: 'https://www.baidu.com'
+    ad: {
+      image: '../../default/default-pic.png',
+      link: 'https://www.baidu.com'
+      }
   },
   //事件处理函数
   //onLoad函数
   onLoad: function() {
     api.getAd(this) //展示广告
-    //api.getAbstractList('course', app.getOpenid(), this) //展示课程类文章
+    api.getAbstractList('course', app.getOpenid(), this) //展示课程类文章
   },
   //点击广告跳转
   onAd: function() {
     wx.navigateTo({
-      url: 'ad/ad'
+      url: 'ad/ad?url=' + this.data.ad.link
     })
   },
   //展示课程
@@ -113,5 +115,14 @@ Page({
         that = this.data.articles[i];
     }
     return that;
+  },
+  //广告图片加载失败
+  errorAdImage: function () {
+    this.setData({
+      ad: {
+        image: app.globalData.defaultPic,
+        link: 'http://www.baidu.com'
+      }
+    })
   }
 })

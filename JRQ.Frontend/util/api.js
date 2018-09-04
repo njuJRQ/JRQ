@@ -57,6 +57,27 @@ function getCourse(id, that) {
   })
 }
 
+function getMyCourse(openid, courseId, that, then) {
+  wx.request({
+    url: app.globalData.backendUrl + "getMyCourse",
+    data: {
+      openid: openid,
+      courseId: courseId
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      that.setData({
+        course: res.data.course
+      })
+      if(then) then()
+    }
+  })
+}
+
 function getDocument(id, that) {
   wx.request({
     url: app.globalData.backendUrl + "getDocument",
@@ -69,9 +90,17 @@ function getDocument(id, that) {
     },
     method: 'GET',
     success: (res) => {
-      that.setData({
-        document: res.data.document
-      })
+      if (res.statusCode == 200) {
+        that.setData({
+          document: res.data.document
+        })
+      }
+      else if (res.statusCode == 500) {
+        console.log(res.data.message)
+      }
+      else {
+        console.log(res)
+      }
     }
   })
 }
@@ -110,8 +139,7 @@ function getAd(that) {
     method: 'GET',
     success: (res) => {
       that.setData({
-        ad: res.data.ad,
-        adLink: res.data.link
+        ad: res.data.ad
       })
     }
   })
@@ -131,6 +159,7 @@ function likePlus(openid, kind, articleId, context) {
     },
     method: 'GET',
     success: (res) => {
+      console.log('likePlus ' + res.data.info)
       context.that.onLoad()
     }
   })
@@ -477,6 +506,7 @@ module.exports = {
   getAbstractList: getAbstractList,
   getFeedList: getFeedList,
   getCourse: getCourse,
+  getMyCourse: getMyCourse,
   getDocument: getDocument,
   getProject: getProject,
   getAd: getAd,

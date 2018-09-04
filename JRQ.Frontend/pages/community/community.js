@@ -11,12 +11,13 @@ Page({
   data: {
     articles: [{
       id: 1,
-      text: '《有效识别金融项目》课程。',
+      content: '《有效识别金融项目》课程。',
       images: [
         '../../default/default-pic.png',
         '../../default/default-pic.png',
         '../../default/default-pic.png'
       ],
+      writerOpenid: '123',
       writerFace: '../../default/default-icon.png',
       writerName: '锄禾日当午',
       date: '2020-01-01',
@@ -53,7 +54,8 @@ Page({
    */
   onLoad: function (options) {
   //展示圈子文章
-    api.getAbstractList('feed', app.getOpenid(), this)
+    //api.getAbstractList('feed', app.getOpenid(), this)
+    api.getFeedList(this)
   },
   onPullDownRefresh: function () {
     this.onLoad()

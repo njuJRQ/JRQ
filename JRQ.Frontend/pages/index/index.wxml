@@ -27,7 +27,7 @@
     </view>
   </view>
   <view class='ad h-center'>
-    <image src='{{ad}}' bindtap='onAd'></image>
+    <image src='{{ad.image}}' bindtap='onAd' binderror='errorAdImage'></image>
   </view>
   <view style='width: 90%;'>
     <view wx:for='{{articles}}'>

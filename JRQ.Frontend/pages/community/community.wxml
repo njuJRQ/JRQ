@@ -11,7 +11,7 @@
 
         <view class='article-info row'>
           <view class='article-text'>
-            <text>{{item.title}}</text>
+            <text>{{item.content}}</text>
           </view>
           <view class='like-info v-center' catchtap='likePlus' data-id='{{item.id}}'>
             <text>{{item.likeNum}}</text>

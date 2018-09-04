@@ -115,8 +115,9 @@ public class userController {
         }
         File file = new File(headPath);
         String[] temp=headPath.split("\\.");
+        headPath="";
         String thePath="record/user/head/"+openid+"."+temp[1];
-        String path="JRQ.Backend/record/user/head/"+openid+"."+temp[1];
+        String path="record/user/head/"+openid+"."+temp[1];
         File tempfile=new File(path);
         if (tempfile.exists() && tempfile.isFile()) {
              tempfile.delete();
@@ -380,8 +381,9 @@ public class userController {
     public ResponseEntity<Response> updateMyProfile(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username,@RequestParam(name="phone")String phone,@RequestParam(name="email")String email,@RequestParam(name="company")String company,@RequestParam(name="department")String department,@RequestParam(name="position")String position,@RequestParam(name="intro")String intro,@RequestParam(name="city")String city,@RequestParam(name="label")String label) throws NotExistException {
         File file = new File(headPath);
         String[] temp=headPath.split("\\.");
+        headPath="";
         String thePath="record/user/head/"+openid+"."+temp[1];
-        String path="JRQ.Backend/record/user/head/"+openid+"."+temp[1];
+        String path="record/user/head/"+openid+"."+temp[1];
         File tempfile=new File(path);
         if (tempfile.exists() && tempfile.isFile()) {
             tempfile.delete();

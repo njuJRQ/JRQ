@@ -19,7 +19,6 @@ $.ajax(
         },
         async:false,
         success: function (data) {
-            alert(data)
             for(var i=0;i<data.courseList.length;i++){
                 list.push(data.courseList[i]);
             }

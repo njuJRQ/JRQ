@@ -73,7 +73,7 @@ public class CourseController {
             File file = new File(fileName);
             String[] temp=fileName.split("\\.");
             String thePath="record/course/image/"+uuid+"."+temp[1];
-            String path="JRQ.Backend/record/course/image/"+uuid+"."+temp[1];
+            String path="record/course/image/"+uuid+"."+temp[1];
             File tempfile=new File(path);
             if (tempfile.exists() && tempfile.isFile()) {
                 tempfile.delete();
@@ -129,7 +129,7 @@ public class CourseController {
             File file = new File(fileName);
             String[] temp=fileName.split("\\.");
             String thePath="record/course/video/"+uuid+"."+temp[1];
-            String path="JRQ.Backend/record/course/video/"+uuid+"."+temp[1];
+            String path="record/course/video/"+uuid+"."+temp[1];
             File tempfile=new File(path);
             if (tempfile.exists() && tempfile.isFile()) {
                 tempfile.delete();
@@ -155,7 +155,10 @@ public class CourseController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> addCourse(@RequestParam(name="title")String title, @RequestParam(name="writerName")String writerName, @RequestParam(name="date")String date, @RequestParam(name="price")int price) {
-        return new ResponseEntity<>(courseBlService.addCourse(title,courseImage,writerName,date,0,courseVideo,price), HttpStatus.OK);
+        ResponseEntity<Response> r=new ResponseEntity<>(courseBlService.addCourse(title,courseImage,writerName,date,0,courseVideo,price), HttpStatus.OK);
+        courseImage="";
+        courseVideo="";
+        return r;
     }
 
     @ApiOperation(value = "根据课程ID获取课程内容", notes = "根据课程ID获取课程内容")
@@ -199,7 +202,11 @@ public class CourseController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> updateCourse(@RequestParam(name="id")String id, @RequestParam(name="title")String title, @RequestParam(name="writerName")String writerName, @RequestParam(name="date")String date, @RequestParam(name="likeNum")long likeNum, @RequestParam(name="price")int price) throws NotExistException {
-        return new ResponseEntity<>(courseBlService.updateCourse(id,title,courseImage,writerName,date,likeNum,courseVideo,price), HttpStatus.OK);
+
+        ResponseEntity<Response> r= new ResponseEntity<>(courseBlService.updateCourse(id,title,courseImage,writerName,date,likeNum,courseVideo,price), HttpStatus.OK);
+        courseImage="";
+        courseVideo="";
+        return r;
     }
 
 

@@ -217,81 +217,8 @@
 <!--<![endif]-->
 <script src="assets/js/amazeui.min.js"></script>
 <script src="assets/js/app.js"></script>
-<script>
-    $(function() {
-        $('#doc-alert-btn-close').one('click', function() {
-            $('#your-alert-1').alert('close');
-        });
 
-        $(document).on('close.alert.amui', '#your-alert-1', function(e) {
-            alert('您确认要删除选中的内容吗？');
-        });
 
-        $(document).on('closed.alert.amui', '#your-alert-1', function(e) {
-            alert('恭喜您，已成功删除!');
-        });
-    });
-</script>
-<script>
-    $(function() {
-        $('#doc-alert-btn-close2').one('click', function() {
-            $('#your-alert-2').alert('close');
-        });
-
-        $(document).on('close.alert.amui', '#your-alert-2', function(e) {
-            alert('您确认要删除选中的内容吗？');
-        });
-
-        $(document).on('closed.alert.amui', '#your-alert-2', function(e) {
-            alert('恭喜您，已成功删除!');
-        });
-    });
-</script>
-<script>
-    $(function() {
-        $('#doc-alert-btn-close3').one('click', function() {
-            $('#your-alert-3').alert('close');
-        });
-
-        $(document).on('close.alert.amui', '#your-alert-3', function(e) {
-            alert('您确认要删除选中的内容吗？');
-        });
-
-        $(document).on('closed.alert.amui', '#your-alert-3', function(e) {
-            alert('恭喜您，已成功删除!');
-        });
-    });
-</script>
-<script>
-    $(function() {
-        $('#doc-alert-btn-close4').one('click', function() {
-            $('#your-alert-4').alert('close');
-        });
-
-        $(document).on('close.alert.amui', '#your-alert-4', function(e) {
-            alert('您确认要删除选中的内容吗？');
-        });
-
-        $(document).on('closed.alert.amui', '#your-alert-4', function(e) {
-            alert('恭喜您，已成功删除!');
-        });
-    });
-</script>
-<script>
-    $(function() {
-        $('#doc-alert-btn-close5').one('click', function() {
-            $('#your-alert-5').alert('close');
-        });
-
-        $(document).on('close.alert.amui', '#your-alert-5', function(e) {
-            alert('您确认要删除选中的内容吗？');
-        });
-
-        $(document).on('closed.alert.amui', '#your-alert-5', function(e) {
-            alert('恭喜您，已成功删除!');
-        });
-    });
-</script>
 <script>
     $("#checkall").click(function(){
         $("input[name='id[]']").each(function(){

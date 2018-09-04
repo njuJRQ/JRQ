@@ -44,10 +44,11 @@ function deletequestion(n){
         {
             url: url+"/deleteUser",
             data: {
-                id:q.openid
+                openid:q.openid
             },
             async:false,
             success: function (data) {
+                alert("删除成功");
                 window.location.href="vip-list.html";
             },
             error: function (xhr) {

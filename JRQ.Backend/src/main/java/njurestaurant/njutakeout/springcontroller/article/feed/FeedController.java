@@ -72,7 +72,7 @@ public class FeedController {
             File file = new File(fileName);
             String[] temp=fileName.split("\\.");
             String thePath="record/feed/image/"+uuid+"."+temp[1];
-            String path="JRQ.Backend/record/feed/image/"+uuid+"."+temp[1];
+            String path="record/feed/image/"+uuid+"."+temp[1];
             File tempfile=new File(path);
             if (tempfile.exists() && tempfile.isFile()) {
                 tempfile.delete();

@@ -31,6 +31,7 @@ App({
           success: function (res) {
             //获得从后端获取认证信息
             if (res.statusCode == 200) {
+              console.log(res)
               var openid = res.data.openid;
               //console.log(res.data)
               wx.setStorageSync("openid", openid);
@@ -58,6 +59,9 @@ App({
                 },
                 fail: function (failData) {
                   console.info("用户拒绝授权");
+                  wx.navigateTo({
+                    url: '../login/login',
+                  })
                 }
               });
             }

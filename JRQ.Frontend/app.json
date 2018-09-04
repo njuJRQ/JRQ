@@ -11,14 +11,15 @@
     "pages/articleDetail/documentDetail/documentDetail",
     "pages/articleDetail/projectDetail/projectDetail",
     "pages/index/ad/ad",
-    "pages/me/publishMyArticle/publishMyArticle"
+    "pages/me/publishMyArticle/publishMyArticle",
+    "pages/login/login"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "钧融圈",
     "navigationBarTextStyle": "black",
-    "enablePullDownRefresh" : true
+    "enablePullDownRefresh": true
   },
   "tabBar": {
     "selectedColor": "#C09B54",

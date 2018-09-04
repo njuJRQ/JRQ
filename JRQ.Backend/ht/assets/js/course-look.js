@@ -28,5 +28,5 @@ $.ajax(
 
 function look(){
     storage["thisVideo"]=video;
-    window.location.href="";
+    window.location.href="tv.html";
 }

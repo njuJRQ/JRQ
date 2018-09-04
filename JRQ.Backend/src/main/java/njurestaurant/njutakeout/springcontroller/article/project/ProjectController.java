@@ -10,6 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
 @RestController
 public class ProjectController {
@@ -19,6 +26,63 @@ public class ProjectController {
         this.projectBlService = projectBlService;
     }
 
+    private static String attachmentPath="";
+
+    @ApiOperation(value = "获取附件", notes = "获取附件")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "attachment", value = "附件路径", required = true, dataType = "MultipartFile")
+    })
+    @RequestMapping(value = "/uploadAttachment", method = RequestMethod.POST)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public void uploadAttachment(@RequestParam("attachment")MultipartFile attachment){
+        Map<String,Object> map= new HashMap<String,Object>();
+        if(attachment.isEmpty()){
+            map.put( "result", "error");
+            map.put( "msg", "上传文件不能为空" );
+        } else {
+
+            // 获取文件名
+            String fileName = attachment.getOriginalFilename();
+            // 获取文件后缀
+
+            // 用uuid作为文件名，防止生成的临时文件重复
+            // MultipartFile to File
+            //你的业务逻辑
+            int bytesum = 0;
+            int byteread = 0;
+            InputStream inStream = null;    //读入原文件
+            try {
+                inStream = attachment.getInputStream();
+                FileOutputStream fs = new FileOutputStream(fileName);
+                byte[] buffer = new byte[200000000];
+                while ( (byteread = inStream.read(buffer)) != -1) {
+                    bytesum += byteread;            //字节数 文件大小
+                    fs.write(buffer, 0, byteread);
+                }
+                inStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
+            File file = new File(fileName);
+            String[] temp=fileName.split("\\.");
+            String thePath="record/project/"+uuid+"."+temp[1];
+            String path="record/project/"+uuid+"."+temp[1];
+            File tempfile=new File(path);
+            if (tempfile.exists() && tempfile.isFile()) {
+                tempfile.delete();
+            }
+            file.renameTo(new File(path));
+            attachmentPath=thePath;
+
+        }
+    }
     @ApiOperation(value = "添加项目", notes = "添加项目")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "title", value = "项目标题（简介）", required = true, dataType = "String"),
@@ -30,7 +94,6 @@ public class ProjectController {
             @ApiImplicitParam(name = "business", value = "业务标签", required = true, dataType = "String"),
             @ApiImplicitParam(name = "content", value = "项目详情", required = true, dataType = "String"),
             @ApiImplicitParam(name = "money", value = "项目资金", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "attachment", value = "附件路径", required = true, dataType = "String"),
             @ApiImplicitParam(name = "date", value = "发布日期", required = true, dataType = "String")
     })
     @RequestMapping(value = "/addProject", method = RequestMethod.GET)
@@ -39,8 +102,10 @@ public class ProjectController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> addProject(@RequestParam(name="title")String title, @RequestParam(name="writerName")String writerName, @RequestParam(name="identity")String identity, @RequestParam(name="phone")String phone, @RequestParam(name="city")String city, @RequestParam(name="industry")String industry, @RequestParam(name="business")String business, @RequestParam(name="content")String content, @RequestParam(name="money")int money, @RequestParam(name="attachment")String attachment,@RequestParam(name="date")String date) {
-        return new ResponseEntity<>(projectBlService.addProject(title,writerName,identity,phone,city,industry,business,content,money,attachment,date), HttpStatus.OK);
+    public ResponseEntity<Response> addProject(@RequestParam(name="title")String title, @RequestParam(name="writerName")String writerName, @RequestParam(name="identity")String identity, @RequestParam(name="phone")String phone, @RequestParam(name="city")String city, @RequestParam(name="industry")String industry, @RequestParam(name="business")String business, @RequestParam(name="content")String content, @RequestParam(name="money")int money, @RequestParam(name="date")String date) {
+        ResponseEntity<Response> r = new ResponseEntity<>(projectBlService.addProject(title,writerName,identity,phone,city,industry,business,content,money,attachmentPath,date), HttpStatus.OK);
+        attachmentPath="";
+        return r;
     }
 
     @ApiOperation(value = "根据项目ID获取项目", notes = "根据项目ID获取项目")
@@ -80,7 +145,6 @@ public class ProjectController {
             @ApiImplicitParam(name = "business", value = "业务标签", required = true, dataType = "String"),
             @ApiImplicitParam(name = "content", value = "项目详情", required = true, dataType = "String"),
             @ApiImplicitParam(name = "money", value = "项目资金", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "attachment", value = "附件路径", required = true, dataType = "String"),
             @ApiImplicitParam(name = "date", value = "发布日期", required = true, dataType = "String")
     })
     @RequestMapping(value = "/updateProject", method = RequestMethod.GET)
@@ -89,8 +153,10 @@ public class ProjectController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> updateProject(@RequestParam(name="id")String id,@RequestParam(name="title")String title, @RequestParam(name="writerName")String writerName, @RequestParam(name="identity")String identity, @RequestParam(name="phone")String phone, @RequestParam(name="city")String city, @RequestParam(name="industry")String industry, @RequestParam(name="business")String business, @RequestParam(name="content")String content, @RequestParam(name="money")int money, @RequestParam(name="attachment")String attachment,@RequestParam(name="date")String date) throws NotExistException {
-        return new ResponseEntity<>(projectBlService.updateProject(id,title,writerName,identity,phone,city,industry,business,content,money,attachment,date), HttpStatus.OK);
+    public ResponseEntity<Response> updateProject(@RequestParam(name="id")String id,@RequestParam(name="title")String title, @RequestParam(name="writerName")String writerName, @RequestParam(name="identity")String identity, @RequestParam(name="phone")String phone, @RequestParam(name="city")String city, @RequestParam(name="industry")String industry, @RequestParam(name="business")String business, @RequestParam(name="content")String content, @RequestParam(name="money")int money, @RequestParam(name="date")String date) throws NotExistException {
+        ResponseEntity<Response> r=new ResponseEntity<>(projectBlService.updateProject(id,title,writerName,identity,phone,city,industry,business,content,money,attachmentPath,date), HttpStatus.OK);
+        attachmentPath="";
+        return r;
     }
 
     @ApiOperation(value = "根据项目ID删除项目", notes = "根据项目ID删除项目")

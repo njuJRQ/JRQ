@@ -206,7 +206,7 @@ function deletesingle(n){
         {
             url: url+"/deleteUser",
             data: {
-                id:q.openid
+                id:q.id
             },
             async:false,
             success: function (data) {

@@ -1,4 +1,6 @@
 // pages/login/login.js
+const app = getApp()
+
 Page({
 
   /**
@@ -15,9 +17,25 @@ Page({
   
   },
 
-  bindGetUserInfo: function () {
-    wx.navigateBack({
-      delta: 1
+  bindGetUserInfo: function (e) {
+    console.log(e)
+    wx.setStorageSync("wechatUsername", e.detail.userInfo.nickName);
+    wx.request({
+      url: app.globalData.backendUrl + "loginMyUser",
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        openid: getApp().getOpenid(),
+        username: getApp().getWechatUsername()
+      },
+      method: 'GET',
+      success: (res) => {
+        wx.setStorageSync("token", res.data.token);
+      }
+    })
+    wx.switchTab({
+      url: '/pages/index/index',
     })
   }
 })

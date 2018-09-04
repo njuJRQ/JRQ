@@ -59,8 +59,8 @@ App({
                 },
                 fail: function (failData) {
                   console.info("用户拒绝授权");
-                  wx.navigateTo({
-                    url: '../login/login',
+                  wx.redirectTo({
+                    url: '/pages/login/login',
                   })
                 }
               });

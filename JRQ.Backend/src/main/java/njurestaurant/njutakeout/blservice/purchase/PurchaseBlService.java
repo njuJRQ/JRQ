@@ -12,8 +12,8 @@ public interface PurchaseBlService {
 	/**
 	 * 用户下订单(User)
 	 * @param openid 用户微信openid
-	 * @param type 订单类型："course", "level", "enterprise"
-	 * @param detail 订单详情：课程ID，会员等级名称，企业AdminId
+	 * @param type 订单类型："course", "level"
+	 * @param detail 订单详情：课程ID，会员等级名称
 	 * @param price 交易金额
 	 * @param date 交易日期
 	 * @return 是否成功

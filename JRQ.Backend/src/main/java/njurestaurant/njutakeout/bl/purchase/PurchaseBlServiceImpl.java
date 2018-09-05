@@ -78,14 +78,6 @@ public class PurchaseBlServiceImpl implements PurchaseBlService {
 						return new BoolResponse(false, e.getMessage());
 					}
 					break;
-				case "enterprise":
-					String adminUsername = UUID.randomUUID().toString();
-					while (adminDataService.isAdminExistent(adminUsername)) {
-						adminUsername = UUID.randomUUID().toString();
-					}
-					adminDataService.addAdmin(new Admin(adminUsername, adminUsername, "3", date));
-					enterpriseDataService.addEnterprise(new Enterprise(openid, adminUsername));
-					break;
 				default:
 					return new BoolResponse(false, "购买类型不存在");
 			}

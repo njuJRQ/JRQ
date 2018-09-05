@@ -4,6 +4,7 @@ import njurestaurant.njutakeout.blservice.user.EnterpriseBlService;
 import njurestaurant.njutakeout.dataservice.admin.AdminDataService;
 import njurestaurant.njutakeout.dataservice.purchase.PurchaseDataService;
 import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
+import njurestaurant.njutakeout.dataservice.user.PrivilegeDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
 import njurestaurant.njutakeout.entity.admin.Admin;
 import njurestaurant.njutakeout.entity.purchase.Purchase;
@@ -23,13 +24,15 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 	private final UserDataService userDataService;
 	private final PurchaseDataService purchaseDataService;
 	private final AdminDataService adminDataService;
+	private final PrivilegeDataService privilegeDataService;
 
 	@Autowired
-	public EnterpriseBlServiceImpl(EnterpriseDataService enterpriseDataService, UserDataService userDataService, PurchaseDataService purchaseDataService, AdminDataService adminDataService) {
+	public EnterpriseBlServiceImpl(EnterpriseDataService enterpriseDataService, UserDataService userDataService, PurchaseDataService purchaseDataService, AdminDataService adminDataService, PrivilegeDataService privilegeDataService) {
 		this.enterpriseDataService = enterpriseDataService;
 		this.userDataService = userDataService;
 		this.purchaseDataService = purchaseDataService;
 		this.adminDataService = adminDataService;
+		this.privilegeDataService = privilegeDataService;
 	}
 
 	@Override
@@ -40,7 +43,12 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 		} catch (NotExistException e) {
 			return new BoolResponse(false, e.getMessage());
 		}
-		int price = 20; //企业认证价格，暂定为20
+		int price = 0; //企业认证价格
+		try {
+			price = privilegeDataService.getPrivilegeByName("enterprise").getPrice();
+		} catch (NotExistException e) {
+			return new BoolResponse(false, e.getMessage());
+		}
 		if (user.getCredit()<price) {
 			return new BoolResponse(false, "账户余额不足");
 		} else {

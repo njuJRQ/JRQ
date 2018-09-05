@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 public class PurchaseCourseKey implements Serializable {
 	private String openid; //用户微信ID
-	private long courseId; //课程ID
+	private String courseId; //课程ID
 
 	public PurchaseCourseKey() {
 	}
 
-	public PurchaseCourseKey(String openid, long courseId) {
+	public PurchaseCourseKey(String openid, String courseId) {
 		this.openid = openid;
 		this.courseId = courseId;
 	}
@@ -22,11 +22,11 @@ public class PurchaseCourseKey implements Serializable {
 		this.openid = openid;
 	}
 
-	public long getCourseId() {
+	public String getCourseId() {
 		return courseId;
 	}
 
-	public void setCourseId(long courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
 }

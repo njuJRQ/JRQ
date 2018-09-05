@@ -1,6 +1,8 @@
 package njurestaurant.njutakeout.blservice.purchase;
 
+import njurestaurant.njutakeout.exception.AlreadyExistException;
 import njurestaurant.njutakeout.exception.NotExistException;
+import njurestaurant.njutakeout.response.BoolResponse;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.purchase.PurchaseListResponse;
 import njurestaurant.njutakeout.response.purchase.PurchaseResponse;
@@ -16,7 +18,7 @@ public interface PurchaseBlService {
 	 * @param date 交易日期
 	 * @return 是否成功
 	 */
-	boolean addPurchase(String openid, String type, String detail, int price, String date) throws NotExistException;
+	BoolResponse addPurchase(String openid, String type, String detail, int price, String date);
 
 	/**
 	 * 根据订单号获取单个订单信息(User&Admin)

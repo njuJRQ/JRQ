@@ -42,7 +42,7 @@ public class UserDataServiceImpl implements UserDataService {
 		if(optionalUser.isPresent()) {
 			return optionalUser.get();
 		} else {
-			throw new NotExistException("User openid", openid);
+			throw new NotExistException("用户openid", openid);
 		}
 	}
 

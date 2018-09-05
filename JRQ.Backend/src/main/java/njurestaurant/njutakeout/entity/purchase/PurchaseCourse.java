@@ -12,12 +12,12 @@ public class PurchaseCourse {
 
 	@Id
 	@Column(name = "courseId")
-	private long courseId; //课程ID
+	private String courseId; //课程ID
 
 	public PurchaseCourse() {
 	}
 
-	public PurchaseCourse(String openid, long courseId) {
+	public PurchaseCourse(String openid, String courseId) {
 		this.openid = openid;
 		this.courseId = courseId;
 	}
@@ -30,11 +30,11 @@ public class PurchaseCourse {
 		this.openid = openid;
 	}
 
-	public long getCourseId() {
+	public String getCourseId() {
 		return courseId;
 	}
 
-	public void setCourseId(long courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
 }

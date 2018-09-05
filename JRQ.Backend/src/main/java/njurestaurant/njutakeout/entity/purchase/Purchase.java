@@ -16,10 +16,10 @@ public class Purchase {
 	private String openid; //用户微信openid
 
 	@Column
-	private String type; //订单类型："course", "level"
+	private String type; //订单类型："course", "level", "enterprise"
 
 	@Column
-	private String detail; //订单详情：课程ID，会员等级
+	private String detail; //订单详情：课程ID，会员等级，企业AdminId
 
 	@Column
 	private int price; //交易金额

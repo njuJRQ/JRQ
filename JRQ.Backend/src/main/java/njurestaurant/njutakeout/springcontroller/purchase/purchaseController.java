@@ -3,6 +3,7 @@ package njurestaurant.njutakeout.springcontroller.purchase;
 import io.swagger.annotations.*;
 import njurestaurant.njutakeout.blservice.purchase.PurchaseBlService;
 import njurestaurant.njutakeout.exception.NotExistException;
+import njurestaurant.njutakeout.response.BoolResponse;
 import njurestaurant.njutakeout.response.Response;
 import njurestaurant.njutakeout.response.WrongResponse;
 import njurestaurant.njutakeout.response.event.EventLoadResponse;
@@ -33,7 +34,7 @@ public class purchaseController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public boolean addPurchase(@RequestParam(name="openid")String openid, @RequestParam(name="type")String type,@RequestParam(name="detail")String detail,@RequestParam(name="price")int price,@RequestParam(name="date")String date) throws NotExistException {
+    public BoolResponse addPurchase(@RequestParam(name="openid")String openid, @RequestParam(name="type")String type, @RequestParam(name="detail")String detail, @RequestParam(name="price")int price, @RequestParam(name="date")String date) {
         return purchaseBlService.addPurchase(openid,type,detail,price,date);
     }
 

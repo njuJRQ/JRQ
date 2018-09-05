@@ -139,7 +139,12 @@ public class UserBlServiceImpl implements UserBlService {
 			return new UserResponse(new UserItem(user, enterpriseDataService));
 		} catch (NotExistException exception) {
 			int initCardLimit = levelDataService.getLevelByName("common").getCardLimit();
-			User user = new User(openid, username, "", new ArrayList<>(), "", "", "", "", "", "", "", 0, "", initCardLimit, "common", true);
+			String defaultLabel = "";
+			List<Classification> classifications = classificationDataService.getAllClassifications();
+			if (!classifications.isEmpty()) {
+				defaultLabel = classifications.get(0).getUserLabel();
+			}
+			User user = new User(openid, username, "", new ArrayList<>(), "", "", "", "", "", "", "", 0, defaultLabel, initCardLimit, "common", true);
 			userDataService.addUser(user);
 			return new UserResponse(new UserItem(user, enterpriseDataService));
 		}

@@ -1,5 +1,6 @@
 package njurestaurant.njutakeout.response.user;
 
+import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
 import njurestaurant.njutakeout.entity.user.User;
 
 import java.util.List;
@@ -20,9 +21,10 @@ public class UserItem {
 	private String label; //用户类别信息，可取值：融资租赁，商业保理，地产交易，金融牌照
 	private int cardLimit; //今天剩余查看别人名片的次数
 	private String levelName; //用户所属会员等级
+	private boolean isEnterprise; //是否为企业用户
 	private boolean valid;//是否冻结/启用，true代表启用
 
-	public UserItem(User user){
+	public UserItem(User user, EnterpriseDataService enterpriseDataService){
 		this.openid = user.getOpenid();
 		this.username = user.getUsername();
 		this.face = user.getFace();
@@ -38,6 +40,7 @@ public class UserItem {
 		this.label = user.getLabel();
 		this.cardLimit = user.getCardLimit();
 		this.levelName = user.getLevelName();
+		this.isEnterprise = enterpriseDataService.isUserEnterprise(user.getOpenid());
 		this.valid = user.isValid();
 	}
 
@@ -159,6 +162,14 @@ public class UserItem {
 
 	public void setLevelName(String levelName) {
 		this.levelName = levelName;
+	}
+
+	public boolean isEnterprise() {
+		return isEnterprise;
+	}
+
+	public void setEnterprise(boolean enterprise) {
+		isEnterprise = enterprise;
 	}
 
 	public boolean isValid() {

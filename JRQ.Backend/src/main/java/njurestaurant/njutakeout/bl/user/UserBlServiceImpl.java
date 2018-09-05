@@ -2,6 +2,7 @@ package njurestaurant.njutakeout.bl.user;
 
 import njurestaurant.njutakeout.blservice.user.UserBlService;
 import njurestaurant.njutakeout.dataservice.user.ClassificationDataService;
+import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
 import njurestaurant.njutakeout.dataservice.user.LevelDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
 import njurestaurant.njutakeout.entity.user.*;
@@ -22,12 +23,14 @@ public class UserBlServiceImpl implements UserBlService {
 	private final UserDataService userDataService;
 	private final ClassificationDataService classificationDataService;
 	private final LevelDataService levelDataService;
+	private final EnterpriseDataService enterpriseDataService;
 
 	@Autowired
-	public UserBlServiceImpl(UserDataService userDataService, ClassificationDataService classificationDataService, LevelDataService levelDataService) {
+	public UserBlServiceImpl(UserDataService userDataService, ClassificationDataService classificationDataService, LevelDataService levelDataService, EnterpriseDataService enterpriseDataService) {
 		this.userDataService = userDataService;
 		this.classificationDataService = classificationDataService;
 		this.levelDataService = levelDataService;
+		this.enterpriseDataService = enterpriseDataService;
 	}
 
 	@Override
@@ -39,7 +42,7 @@ public class UserBlServiceImpl implements UserBlService {
 
 	@Override
 	public UserResponse getUser(String openid) throws NotExistException {
-		return new UserResponse(new UserItem(userDataService.getUserByOpenid(openid)));
+		return new UserResponse(new UserItem(userDataService.getUserByOpenid(openid), enterpriseDataService));
 	}
 
 	@Override
@@ -47,7 +50,7 @@ public class UserBlServiceImpl implements UserBlService {
 		List<User> userList = userDataService.getAllUsers();
 		List<UserItem> userItemList = new ArrayList<>();
 		for(User user:userList) {
-			userItemList.add(new UserItem(user));
+			userItemList.add(new UserItem(user, enterpriseDataService));
 		}
 		return new UserListResponse(userItemList);
 	}
@@ -133,18 +136,18 @@ public class UserBlServiceImpl implements UserBlService {
 	public UserResponse loginMyUser(String openid, String username) throws NotExistException {
 		try {
 			User user = userDataService.getUserByOpenid(openid);
-			return new UserResponse(new UserItem(user));
+			return new UserResponse(new UserItem(user, enterpriseDataService));
 		} catch (NotExistException exception) {
 			int initCardLimit = levelDataService.getLevelByName("common").getCardLimit();
 			User user = new User(openid, username, "", new ArrayList<>(), "", "", "", "", "", "", "", 0, "", initCardLimit, "common", true);
 			userDataService.addUser(user);
-			return new UserResponse(new UserItem(user));
+			return new UserResponse(new UserItem(user, enterpriseDataService));
 		}
 	}
 
 	@Override
 	public UserResponse getMyUser(String openid) throws NotExistException {
-		return new UserResponse(new UserItem(userDataService.getUserByOpenid(openid)));
+		return new UserResponse(new UserItem(userDataService.getUserByOpenid(openid), enterpriseDataService));
 	}
 
 	@Override

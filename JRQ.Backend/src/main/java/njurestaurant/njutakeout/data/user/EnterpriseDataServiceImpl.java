@@ -20,6 +20,11 @@ public class EnterpriseDataServiceImpl implements EnterpriseDataService {
 	}
 
 	@Override
+	public boolean isUserEnterprise(String openid) {
+		return enterpriseDao.existsById(openid);
+	}
+
+	@Override
 	public void saveEnterprise(Enterprise enterprise) {
 		enterpriseDao.save(enterprise);
 	}

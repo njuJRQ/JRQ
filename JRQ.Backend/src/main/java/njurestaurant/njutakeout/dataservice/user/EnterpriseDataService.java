@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface EnterpriseDataService {
 
+	boolean isUserEnterprise(String openid);
+
 	void saveEnterprise(Enterprise enterprise);
 
 	void addEnterprise(Enterprise enterprise);

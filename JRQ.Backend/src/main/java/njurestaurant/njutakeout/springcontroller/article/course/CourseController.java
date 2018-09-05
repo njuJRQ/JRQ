@@ -175,6 +175,35 @@ public class CourseController {
         return new ResponseEntity<>(courseBlService.getCourse(id), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "用户根据课程ID获取课程信息", notes = "用户根据课程ID获取课程信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "用户openid", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "courseId", value = "课程ID", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getMyCourse", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getMyCourse(@RequestParam(name="openid")String openid,@RequestParam(name="courseId")String courseId) throws NotExistException {
+        return new ResponseEntity<>(courseBlService.getMyCourse(openid,courseId), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "用户获取所有课程信息列表", notes = "用户获取所有课程信息列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "用户openid", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getMyCourseList", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getMyCourseList(@RequestParam(name="openid")String openid){
+        return new ResponseEntity<>(courseBlService.getMyCourseList(openid), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "获取课程列表", notes = "获取课程列表")
     @RequestMapping(value = "/getCourseList", method = RequestMethod.GET)
     @ApiResponses(value = {

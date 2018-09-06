@@ -12,10 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,7 +56,7 @@ public class AdController {
                 inStream = face.getInputStream();
                 FileOutputStream fs = new FileOutputStream(fileName);
                 headPath = fileName;
-                byte[] buffer = new byte[200000000];
+                byte[] buffer = new byte[20000000];
                 while ((byteread = inStream.read(buffer)) != -1) {
                     bytesum += byteread;            //字节数 文件大小
                     fs.write(buffer, 0, byteread);
@@ -89,12 +86,27 @@ public class AdController {
     public ResponseEntity<Response> addAd(@RequestParam(name="link")String link) {
         File file = new File(headPath);
         String thePath="record/ad/image/"+headPath;
-        String path="JRQ.Backend/record/ad/image/"+headPath;
+        String path="record/ad/image/"+headPath;
         File tempfile=new File(path);
         if (tempfile.exists() && tempfile.isFile()) {
             tempfile.delete();
         }
-        file.renameTo(new File(path));
+        int bytesum = 0;
+        int byteread = 0;
+        try {
+            InputStream inStream =new FileInputStream(headPath);
+            FileOutputStream fs = new FileOutputStream(path);
+            byte[] buffer = new byte[20000000];
+            while ( (byteread = inStream.read(buffer)) != -1) {
+                bytesum += byteread;            //字节数 文件大小
+                fs.write(buffer, 0, byteread);
+            }
+            inStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return new ResponseEntity<>(adBlService.addAd(thePath,link), HttpStatus.OK);
     }
 

@@ -40,5 +40,5 @@ public interface PrivilegeBlService {
 	 * @param name 要删除的特权名称
 	 * @return 是否成功
 	 */
-	BoolResponse deleteUser(String name);
+	BoolResponse deletePrivilege(String name);
 }

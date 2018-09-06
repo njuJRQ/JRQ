@@ -57,7 +57,7 @@ public class PrivilegeBlServiceImpl implements PrivilegeBlService {
 	}
 
 	@Override
-	public BoolResponse deleteUser(String name) {
+	public BoolResponse deletePrivilege(String name) {
 		try {
 			privilegeDataService.deletePrivilegeByName(name);
 			return new BoolResponse(true, "特权"+name+"已删除");

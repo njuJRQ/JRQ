@@ -12,10 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.*;
 
 @RestController
@@ -77,7 +74,22 @@ public class FeedController {
             if (tempfile.exists() && tempfile.isFile()) {
                 tempfile.delete();
             }
-            file.renameTo(new File(path));
+            bytesum = 0;
+            byteread = 0;
+            try {
+                inStream =new FileInputStream(fileName);
+                FileOutputStream fs = new FileOutputStream(path);
+                byte[] buffer = new byte[20000000];
+                while ( (byteread = inStream.read(buffer)) != -1) {
+                    bytesum += byteread;            //字节数 文件大小
+                    fs.write(buffer, 0, byteread);
+                }
+                inStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             imagesPath.add(thePath);
 
         }

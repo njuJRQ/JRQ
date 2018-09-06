@@ -20,10 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,7 +65,7 @@ public class userController {
                 inStream = face.getInputStream();
                 FileOutputStream fs = new FileOutputStream(fileName);
                 headPath=fileName;
-                byte[] buffer = new byte[200000000];
+                byte[] buffer = new byte[20000000];
                 while ( (byteread = inStream.read(buffer)) != -1) {
                     bytesum += byteread;            //字节数 文件大小
                     fs.write(buffer, 0, byteread);
@@ -115,15 +112,32 @@ public class userController {
         }
         File file = new File(headPath);
         String[] temp=headPath.split("\\.");
-        headPath="";
         String thePath="record/user/head/"+openid+"."+temp[1];
         String path="record/user/head/"+openid+"."+temp[1];
         File tempfile=new File(path);
         if (tempfile.exists() && tempfile.isFile()) {
              tempfile.delete();
         }
-        file.renameTo(new File(path));
+        int bytesum = 0;
+        int byteread = 0;
+
+        try {
+            InputStream inStream =new FileInputStream(headPath);
+            FileOutputStream fs = new FileOutputStream(path);
+            byte[] buffer = new byte[20000000];
+            while ( (byteread = inStream.read(buffer)) != -1) {
+                bytesum += byteread;            //字节数 文件大小
+                fs.write(buffer, 0, byteread);
+            }
+            inStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         InfoResponse r=userBlService.addUser(openid,username,thePath,null,phone,email,company,department,position,intro,city,Integer.parseInt(credit),label,levelName,is);
+        headPath="";
         return r;
     }
 
@@ -381,14 +395,29 @@ public class userController {
     public ResponseEntity<Response> updateMyProfile(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username,@RequestParam(name="phone")String phone,@RequestParam(name="email")String email,@RequestParam(name="company")String company,@RequestParam(name="department")String department,@RequestParam(name="position")String position,@RequestParam(name="intro")String intro,@RequestParam(name="city")String city,@RequestParam(name="label")String label) throws NotExistException {
         File file = new File(headPath);
         String[] temp=headPath.split("\\.");
-        headPath="";
         String thePath="record/user/head/"+openid+"."+temp[3];
-        String path="record"+File.separator+"user"+File.separator+"head"+File.separator+openid+"."+temp[3];
+        String path="record/user/head/"+openid+"."+temp[3];
         File tempfile=new File(path);
         if (tempfile.exists() && tempfile.isFile()) {
             tempfile.delete();
         }
-        file.renameTo(new File(path));
+        int bytesum = 0;
+        int byteread = 0;
+        try {
+            InputStream inStream =new FileInputStream(headPath);
+            FileOutputStream fs = new FileOutputStream(path);
+            byte[] buffer = new byte[20000000];
+            while ( (byteread = inStream.read(buffer)) != -1) {
+                bytesum += byteread;            //字节数 文件大小
+                fs.write(buffer, 0, byteread);
+            }
+            inStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        headPath="";
         return new ResponseEntity<>(userBlService.updateMyProfile(openid,username,thePath,phone,email,company,department,position,intro,city,label), HttpStatus.OK);
     }
 

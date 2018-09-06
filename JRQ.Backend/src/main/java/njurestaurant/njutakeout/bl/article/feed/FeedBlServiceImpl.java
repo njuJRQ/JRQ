@@ -9,9 +9,7 @@ import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.AbstractItem;
 import njurestaurant.njutakeout.response.article.AbstractListResponse;
-import njurestaurant.njutakeout.response.article.feed.FeedItem;
-import njurestaurant.njutakeout.response.article.feed.FeedListResponse;
-import njurestaurant.njutakeout.response.article.feed.FeedResponse;
+import njurestaurant.njutakeout.response.article.feed.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +39,11 @@ public class FeedBlServiceImpl implements FeedBlService {
 	}
 
 	@Override
+	public FeedViewResponse getFeedView(String id) throws NotExistException {
+		return new FeedViewResponse(new FeedViewItem(feedDataService.getFeedById(id), userDataService));
+	}
+
+	@Override
 	public FeedListResponse getFeedList() {
 		List<Feed> feeds = feedDataService.getAllFeeds();
 		List<FeedItem> feedItems = new ArrayList<>();
@@ -48,6 +51,16 @@ public class FeedBlServiceImpl implements FeedBlService {
 			feedItems.add(new FeedItem(feed));
 		}
 		return new FeedListResponse(feedItems);
+	}
+
+	@Override
+	public FeedViewListResponse getFeedViewList() throws NotExistException {
+		List<Feed> feeds = feedDataService.getAllFeeds();
+		List<FeedViewItem> feedViewItems = new ArrayList<>();
+		for (Feed feed : feeds) {
+			feedViewItems.add(new FeedViewItem(feed, userDataService));
+		}
+		return new FeedViewListResponse(feedViewItems);
 	}
 
 	@Override

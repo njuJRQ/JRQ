@@ -5,7 +5,8 @@ import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.AbstractListResponse;
 import njurestaurant.njutakeout.response.article.feed.FeedListResponse;
 import njurestaurant.njutakeout.response.article.feed.FeedResponse;
-import org.springframework.stereotype.Service;
+import njurestaurant.njutakeout.response.article.feed.FeedViewListResponse;
+import njurestaurant.njutakeout.response.article.feed.FeedViewResponse;
 
 import java.util.List;
 
@@ -28,10 +29,23 @@ public interface FeedBlService {
 	FeedResponse getFeed(String id) throws NotExistException;
 
 	/**
+	 * 根据圈子文章ID获取含作者名字和头像的全文(User)
+	 * @param id 圈子文章ID
+	 * @return 圈子文章信息
+	 */
+	FeedViewResponse getFeedView(String id) throws NotExistException;
+
+	/**
 	 * 获取圈子全部文章信息(User)
-	 * @return 圈子文章信心
+	 * @return 圈子文章信息
 	 */
 	FeedListResponse getFeedList();
+
+	/**
+	 * 获取圈子全部含作者名字和头像的文章信息(User)
+	 * @return 圈子文章信息
+	 */
+	FeedViewListResponse getFeedViewList() throws NotExistException;
 
 	/**
 	 * 用户获取自己发布过的文章摘要(User)

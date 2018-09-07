@@ -13,10 +13,12 @@ function getAbstractList(kind, openid, that) {
     },
     method: 'GET',
     success: (res) => {
-      console.log(res.data)
-      that.setData({
-        articles: res.data.abstractList
+      /*console.log(res.data)*/
+      that.data.articles = res.data.abstractList
+      that.data.articles.forEach((article)=>{
+        article.images = article.images.map((image)=>app.globalData.picUrl+image)
       })
+      that.setData(that.data)
     }
   })
 }
@@ -70,9 +72,10 @@ function getMyCourse(openid, courseId, that, then) {
     },
     method: 'GET',
     success: (res) => {
-      that.setData({
-        course: res.data.course
-      })
+      /*console.log(res)*/
+      that.data.course = res.data.course
+      that.data.course.image = app.globalData.picUrl + that.data.course.image
+      that.setData(that.data)
       if(then) then()
     }
   })
@@ -138,9 +141,9 @@ function getAd(that) {
     },
     method: 'GET',
     success: (res) => {
-      that.setData({
-        ad: res.data.ad
-      })
+      that.data.ad = res.data.ad
+      that.data.ad.image = app.globalData.picUrl + that.data.ad.image
+      that.setData(that.data)
     }
   })
 }
@@ -165,12 +168,15 @@ function likePlus(openid, kind, articleId, context) {
   })
 }
 
-function purchaseCourse(courseId, openid, that) {
+function purchaseCourse(courseId, openid, price, date, that, then) {
   wx.request({
-    url: app.globalData.backendUrl + "purchaseCourse",
+    url: app.globalData.backendUrl + "addPurchase",
     data: {
-      courseId: courseId,
-      openid: openid
+      openid: openid,
+      type: 'course',
+      detail: courseId,
+      price: price,
+      date: date
     },
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
@@ -178,7 +184,20 @@ function purchaseCourse(courseId, openid, that) {
     },
     method: 'GET',
     success: (res) => {
-      //do nothing
+      console.log('购买课程结果：', res)
+      if (res.data == false){
+        wx.showModal({
+          content: '购买课程失败',
+          showCancel: false
+        })
+      }
+      else if(res.data == true){
+        wx.showModal({
+          content: '购买课程成功',
+          showCancel: false
+        })
+        if (then) then()
+      }
     }
   })
 }
@@ -195,9 +214,12 @@ function getPersonList(kind, that, then) {
     },
     method: 'GET',
     success: (res) => {
-      that.setData({
-        cards: res.data.persons
+      that.data.cards = res.data.persons
+      that.data.cards.forEach((card)=>{
+        card.face = app.globalData.picUrl + card.face
+        return card
       })
+      that.setData(that.data)
       if (then) then()
     }
   })
@@ -220,12 +242,9 @@ function getMyInfo(openid, that, then) {
     },
     method: 'GET',
     success: (res) => {
-      that.setData({
-        newMyInfo: res.data.user
-      })
-      that.setData({
-        myInfo: res.data.user
-      })
+      that.data.myInfo = res.data.user
+      that.data.myInfo.face = app.globalData.picUrl + that.data.myInfo.face
+      that.setData(that.data)
       if (then) then()
     }
   })
@@ -244,9 +263,9 @@ function getOtherBasicInfo(id, that) {
     method: 'GET',
     success: (res) => {
       /*console.log(res)*/
-      that.setData({
-        myInfo: res.data.person
-      })
+      that.data.myInfo = res.data.person
+      that.data.myInfo.face = app.globalData.picUrl + res.data.person.face
+      that.setData(that.data)
     }
   })
 }
@@ -328,6 +347,7 @@ function publishMyArticle(openid, kind, content, photos, that) {
     },
     method: 'GET',
     success: (res) => {
+      console.log(res)
       wx.showToast({
         title: '发布成功',
         icon: 'succes',
@@ -357,6 +377,7 @@ function modifyMyInfo(that) {
    */
   console.log(that.data.newMyInfo.face)
   wx.uploadFile({
+    //上传用户图片
     url: app.globalData.backendUrl + "uploadHead",
     filePath: that.data.newMyInfo.face,
     name: 'face',
@@ -464,9 +485,12 @@ function getMyHistoryAbstractList(openid, that) {
     },
     method: 'GET',
     success: (res) => {
-      that.setData({
-        myArticles: res.data.abstractList
+      that.data.myArticles = res.data.abstractList
+      that.data.myArticles.forEach((article) => { 
+        article.writerFace = app.globalData.picUrl + article.writerFace
+        return article
       })
+      that.setData(that.data)
     }
   })
 }

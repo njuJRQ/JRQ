@@ -33,7 +33,7 @@
     <view wx:for='{{articles}}'>
       <view class='article' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
         <view class='article-text'>
-          <text>{{item.text}}</text>
+          <text>{{item.title}}</text>
         </view>
         <view class='article-images row'>
           <image src='{{item.images[0]}}'></image>

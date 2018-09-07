@@ -56,6 +56,9 @@ Page({
     api.getAd(this) //展示广告
     api.getAbstractList('course', app.getOpenid(), this) //展示课程类文章
   },
+  onPullDownRefresh: function () {
+    this.onLoad()
+  },
   //点击广告跳转
   onAd: function() {
     wx.navigateTo({
@@ -102,7 +105,7 @@ Page({
   likePlus: function(event) {
     var id = event.currentTarget.dataset.id //获取当前文章id
     var article = this.getCurrentArticle(id) //获取当前文章
-    api.likePlus(article.kind, id, app.getOpenid(), {
+    api.likePlus(app.getOpenid(), article.kind, id, {
       article: article,
       that: this
     })

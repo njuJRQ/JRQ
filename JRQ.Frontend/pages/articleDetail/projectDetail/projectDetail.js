@@ -26,7 +26,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    //api.getProject(options.id, this)
+    api.getProject(options.id, this)
   },
   onDownload: function () {
     if (this.data.project.attachment)

@@ -73,8 +73,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this
     api.getClassificationList(this)
-    api.getMyInfo(app.getOpenid(), this)
+    api.getMyInfo(app.getOpenid(), this, ()=>{
+      that.data.newMyInfo = that.data.myInfo
+      that.setData(that.data)
+    })
   },
   onSave: function(){
     console.log('save')

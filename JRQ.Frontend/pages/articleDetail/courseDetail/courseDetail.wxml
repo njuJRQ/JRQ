@@ -5,7 +5,7 @@
     <image src='{{course.image}}'></image>
   </view>
   <view class='coursePrice column'>
-    <text style='color:black; font-size:1rem; font-weight:bold;'>{{course.name}}</text>
+    <text style='color:black; font-size:1rem; font-weight:bold;'>{{course.title}}</text>
     <text style='color:orange; font-size:0.8rem'>¥{{course.price}}</text>
   </view>
   <view class='courseIntro column'>

@@ -10,7 +10,7 @@ Page({
   data: {
     course: {
       id: 1, //编号
-      name: "《有效识别金融项目》课程。", //标题
+      title: "《有效识别金融项目》课程。", //标题
       image: '../../../default/default-pic.png', //图片
       writerName: '锄禾日当午', //作者名字
       date: '2018-1-1', //日期
@@ -25,21 +25,34 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    api.getMyCourse(app.getOpenid(), options.id, this)
+    var that = this
+    api.getMyCourse(app.getOpenid(), options.id, this, ()=>{
+      that.setData({
+        isOwnCourse: that.data.course.video != ""
+      })
+    })
   },
   //购买该课程
   onPurchase: function () {
     var that = this
-    wx.showModal({
-      title: '确认购买',
-      content: '确认以' + that.data.course.price + '的价格购买\r\n' + that.data.course.name +'\r\n吗？',
-      success: (res) => {
-        //TODO：该接口不安全
-        console.log('purchase course')
-        api.purchaseCourse(that.data.course.id, app.getOpenid(), that, ()=>{
-          api.getMyCourse(app.getOpenid(), options.id, this)
-        })
-      }
-    })
+    if (that.data.isOwnCourse) {
+      wx.showModal({
+        content: '您已购买过该课程',
+        showCancel: false
+      })
+    } else {
+      wx.showModal({
+        title: '确认购买',
+        content: '确认以' + that.data.course.price + '的价格购买\r\n' + that.data.course.title + '\r\n吗？',
+        success: (res) => {
+          api.purchaseCourse(that.data.course.id, app.getOpenid(), that.data.course.price, app.getDate(), that, () => {
+            api.getMyCourse(app.getOpenid(), that.data.course.id, this, () => {
+              that.data.isOwnCourse = true
+              that.setData(that.data)
+            })
+          })
+        }
+      })
+    }
   }
 })

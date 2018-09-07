@@ -15,7 +15,7 @@
     <view class='my-card column'>
       <view class='row v-center'>
         <view class='my-card-face'>
-          <image src='../../default/default-pic.png'></image>
+          <image src='{{myInfo.face}}'></image>
         </view>
         <view class='my-card-info column'>
           <view class='my-card-info-username row v-center'>

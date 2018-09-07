@@ -9,8 +9,12 @@ App({
   getOpenid: function () {
     return wx.getStorageSync("openid");
   },
-  getWechatUsername() {
+  getWechatUsername: function () {
     return wx.getStorageSync("wechatUsername");
+  },
+  getDate: function () {
+    var date = new Date()
+    return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
   },
   onShow: function () {
     var that = this;
@@ -87,6 +91,7 @@ App({
     secret: "67596e7ba8e837c29176f130490b752c", //小程序的 app secret
     //secret: "8a11779c7567ae184c50913df20a2f2e",
     backendUrl: "http://localhost:8080/",
+    picUrl: "http://localhost:8000/"
     //backendUrl: "https://www.sandc.xyz/",
   }
 });

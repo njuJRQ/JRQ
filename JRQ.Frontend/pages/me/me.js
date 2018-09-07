@@ -28,6 +28,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this
     api.getMyInfo(app.getOpenid(), this) //获取个人信息
   },
   onPullDownRefresh: function () {

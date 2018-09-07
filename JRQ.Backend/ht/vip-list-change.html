@@ -199,5 +199,11 @@
 
 
 </script>
+<script>
+    var storage = window.localStorage;
+    if(storage["has"]!="yes"){
+        window.location.href="login.html";
+    }
+</script>
 </body>
 </html>

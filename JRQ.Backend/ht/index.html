@@ -59,7 +59,7 @@
                 <ul class="am-dropdown-content">
                     <li id="username"><a target="right"><span class="am-icon-user"></span> 用户名</a></li>
 
-                    <li><a href="login.html"><span class="am-icon-power-off"></span> 退出</a></li>
+                    <li><a href="login.html" onclick="getout()"><span class="am-icon-power-off"></span> 退出</a></li>
                 </ul>
             </li>
             <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span
@@ -98,10 +98,6 @@
                         </li>
                         <li><a href="vip-add.html" target="right" class="am-cf"><span class="am-icon-signing"></span>
                             增加人员</a></li>
-                        <li><a href="setcard.html" target="right" class="am-cf"><span class="am-icon-signing"></span>
-                            名片查看权限</a></li>
-
-
                     </ul>
                 </li>
                 <li id="c3" class="admin-parent">
@@ -130,6 +126,9 @@
                         <li><a href="level.html" class="am-cf" target="right"><span class="am-icon-signing"></span>
                             会员信息设置</a>
                         </li>
+                        <li><a href="enterprise.html" class="am-cf" target="right"><span class="am-icon-signing"></span>
+                            企业用户价格设置</a>
+                        </li>
                     </ul>
                 </li>
                 <li id="c6" class="admin-parent">
@@ -153,7 +152,8 @@
                     </ul>
                 </li>
 
-                
+                <div>.</div>
+                <div>.</div>
 
 
             </ul>
@@ -297,6 +297,16 @@
         }
     )
 
+    function getout(){
+        var storage = window.localStorage;
+        storage["has"]="no";
+    }
+</script>
+<script>
+    var storage = window.localStorage;
+    if(storage["has"]!="yes"){
+        window.location.href="login.html";
+    }
 </script>
 </body>
 </html>

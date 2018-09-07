@@ -1,20 +1,13 @@
 var url=getUrl();
-var storage = window.localStorage;
-var id=storage["thisDocument"];
 $.ajax(
     {
-        url: url+"/getDocument",
+        url: url+"/getPrivilege",
         data: {
-            id:id
+            name:"enterprise"
         },
         async:false,
         success: function (data) {
-            document.getElementById("id").innerText=data.document.id;
-            document.getElementById("title").value=data.document.title;
-            document.getElementById("content").value=data.document.content;
-            document.getElementById("writerName").value=data.document.writerName;
-            document.getElementById("date").value=data.document.date;
-            document.getElementById("likeNum").value=data.document.likeNum;
+            document.getElementById("price").value=data.privilege.price;
         },
         error: function (xhr) {
             alert('动态页有问题噶！\n\n' + xhr.responseText);
@@ -22,7 +15,6 @@ $.ajax(
         traditional: true,
     }
 )
-
 function checkRate(input) {
     var re = /^[0-9]+.?[0-9]*$/; //判断字符串是否为数字 //判断正整数 /^[1-9]+[0-9]*]*$/
     var nubmer = document.getElementById(input).value;
@@ -35,22 +27,18 @@ function checkRate(input) {
     return true;
 }
 function changeFile(){
-    if(checkRate("likeNum")) {
+    if(checkRate("price")) {
         $.ajax(
             {
-                url: url + "/updateDocument",
+                url: url + "/updatePrivilege",
                 data: {
-                    id: id,
-                    title: $("#title").val(),
-                    content: $("#content").val(),
-                    writerName: $("#writerName").val(),
-                    date: $("#date").val(),
-                    likeNum: $("#likeNum").val()
+                    name: "enterprise",
+                    price: parseInt($("#price").val())
                 },
                 async: false,
                 success: function (data) {
                     alert("修改成功");
-                    window.location.href = "file.html";
+                    window.location.href = "enterprise.html";
                 },
                 error: function (xhr) {
                     alert('动态页有问题噶！\n\n' + xhr.responseText);

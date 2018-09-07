@@ -15,6 +15,14 @@ $.ajax(
             document.getElementById("name").value=data.admin.username;
             document.getElementById("password").value=data.admin.password;
             date=data.admin.date;
+            var limits=data.admin.limits;
+            for(var i=1;i<=14;i++){
+                for(var j=0;j<limits.length;j++){
+                    if(parseInt(limits[j])==i){
+                        document.getElementById("c"+i).checked=true;
+                    }
+                }
+            }
         },
         error: function (xhr) {
             alert('动态页有问题噶！\n\n' + xhr.responseText);

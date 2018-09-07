@@ -90,5 +90,11 @@
 <script src="assets/js/app.js"></script>
 <script src="assets/js/classification-add.js"></script>
 <script src="assets/js/getUrl.js"></script>
+<script>
+    var storage = window.localStorage;
+    if(storage["has"]!="yes"){
+        window.location.href="login.html";
+    }
+</script>
 </body>
 </html>

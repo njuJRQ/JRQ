@@ -73,6 +73,8 @@ public class PrivilegeController
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> updatePrivilege(@RequestParam(name="name")String name,@RequestParam(name="price")int price){
+        System.out.println(name);
+        System.out.println(price);
         return new ResponseEntity<>(privilegeBlService.updatePrivilege(name,price), HttpStatus.OK);
     }
 

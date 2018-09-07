@@ -50,6 +50,7 @@ public class PrivilegeBlServiceImpl implements PrivilegeBlService {
 		try {
 			privilege = privilegeDataService.getPrivilegeByName(name);
 			privilege.setPrice(price);
+			privilegeDataService.savePrivilege(privilege);
 			return new BoolResponse(true, "特权"+name+"更新成功，价格为"+price);
 		} catch (NotExistException e) {
 			return new BoolResponse(false, e.getMessage());

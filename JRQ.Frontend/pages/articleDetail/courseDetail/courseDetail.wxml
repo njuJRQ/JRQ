@@ -4,11 +4,16 @@
   <view class='head'>
     <image src='{{course.image}}'></image>
   </view>
-  <view class='coursePrice column'>
-    <text style='color:black; font-size:1rem; font-weight:bold;'>{{course.title}}</text>
-    <text style='color:orange; font-size:0.8rem'>¥{{course.price}}</text>
+  <view class='course-head row'>
+    <view class='coursePrice column' style='width:100%'>
+      <text style='color:black; font-size:1rem; font-weight:bold;'>{{course.title}}</text>
+      <text style='color:orange; font-size:0.8rem'>¥{{course.price}}</text>
+    </view>
+    <view class='v-center h-center' style='width:100px; border:1px solid black; margin:5px; border-radius:5px'>
+      <text style='color:black; font-size: 1rem; margin:3px'>课程</text>
+    </view>
   </view>
-  <view class='courseIntro column'>
+  <view class='course-intro column'>
     <text style='color:black; font-size:1rem; font-weight:bold;'>课程介绍</text>
     <view class='div-line'></view>
     <view class='detail column' style='font-size:0.8rem;'>
@@ -27,7 +32,7 @@
       </view>
     </view>
   </view>
-  <view class='courseButtons row'>
+  <view class='course-buttons row'>
     <view class='purchase' style='width:100%'>
       <button bindtap='onPurchase'>立即购买</button>
     </view>

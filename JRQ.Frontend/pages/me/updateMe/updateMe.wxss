@@ -1,0 +1,2 @@
+/* pages/me/updateMe/updateMe.wxss */
+@import '/style/common.wxss';

@@ -57,6 +57,11 @@
     </view>
   </view>
   <view style='width:100%;'>
+    <view class='send-my-card'>
+      <button bindtap='sendMyCard'>递给他名片</button>
+    </view>
+  </view>
+  <view style='width:100%;'>
     <view class='my-history'>
       <view class='my-history-title row v-center'>
         <view class='blue-block'></view>

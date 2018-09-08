@@ -25,17 +25,19 @@ function getAbstractList(kind, openid, that) {
 
 function getFeedList(that) {
   wx.request({
-    url: app.globalData.backendUrl + "getFeedList",
+    url: app.globalData.backendUrl + "getFeedViewList",
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
       'content-type': 'application/x-www-form-urlencoded'
     },
     method: 'GET',
     success: (res) => {
-      console.log(res.data)
-      that.setData({
-        articles: res.data.feeds
+      /*console.log(res.data)*/
+      that.data.articles = res.data.feedViews
+      that.data.articles.forEach((article)=>{
+        article.writerFace = app.globalData.picUrl + article.writerFace
       })
+      that.setData(that.data)
     }
   })
 }
@@ -75,6 +77,12 @@ function getMyCourse(openid, courseId, that, then) {
       /*console.log(res)*/
       that.data.course = res.data.course
       that.data.course.image = app.globalData.picUrl + that.data.course.image
+      if (!that.data.course.video == "") {
+        that.data.isOwnCourse = true
+        that.data.course.video = app.globalData.picUrl + that.data.course.video
+      }
+      else
+        that.data.isOwnCourse = false
       that.setData(that.data)
       if(then) then()
     }
@@ -185,16 +193,20 @@ function purchaseCourse(courseId, openid, price, date, that, then) {
     method: 'GET',
     success: (res) => {
       console.log('购买课程结果：', res)
-      if (res.data == false){
+      if (res.data.ok == false){
         wx.showModal({
-          content: '购买课程失败',
+          content: res.data.message,
           showCancel: false
         })
       }
-      else if(res.data == true){
+      else if(res.data.ok == true){
         wx.showModal({
           content: '购买课程成功',
           showCancel: false
+        })
+        getMyCourse(app.getOpenid(), that.data.course.id, that, () => {
+          that.data.isOwnCourse = true
+          that.setData(that.data)
         })
         if (then) then()
       }
@@ -244,6 +256,10 @@ function getMyInfo(openid, that, then) {
     success: (res) => {
       that.data.myInfo = res.data.user
       that.data.myInfo.face = app.globalData.picUrl + that.data.myInfo.face
+      if (that.data.myInfo.levelName == '998') that.data.myInfo.medals.push('/pages/me/img/gold.png')
+      else if (that.data.myInfo.levelName == '298') that.data.myInfo.medals.push('/pages/me/img/silver.png')
+      else if (that.data.myInfo.levelName === 'common') that.data.myInfo.medals.push('/pages/me/img/copper.png')
+      if (that.data.myInfo.isEnterprise) that.data.myInfo.medals.push('/pages/me/img/enterprise.png')
       that.setData(that.data)
       if (then) then()
     }
@@ -288,16 +304,15 @@ function getOtherInfo(myid, otherid, that, then) {
     },
     method: 'GET',
     success: (res) => {
-      console.log(res)
+      /*console.log(res)*/
       if (res.statusCode == 200) {
-        that.setData({
-          myInfo: res.data.card
-        })
+        that.data.myInfo = res.data.card
+        that.data.myInfo.face = app.globalData.picUrl + that.data.myInfo.face
+        that.setData(that.data)
         if (then) then()
       }
       else if (res.statusCode == 500) {
         wx.showModal({
-          title: res.data.error,
           content: res.data.message,
           showCancel: false
         })
@@ -462,8 +477,9 @@ function getMyPersonList(openid, kind, that) {
     },
     method: 'GET',
     success: (res) => {
+      console.log(res)
       that.setData({
-        cards: res.data.persons
+        cards: res.data.cards
       })
     }
   })
@@ -526,6 +542,71 @@ function getClassificationList(that) {
   })
 }
 
+function setMyUserAsEnterprise (openid) {
+  wx.request({
+    url: app.globalData.backendUrl + "setMyUserAsEnterprise",
+    data: {
+      openid: openid
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      wx.showModal({
+        title: res.data.ok.toString(),
+        content: res.data.message,
+        showCancel: false
+      })
+    }
+  })
+}
+
+function updateMe (openid, detail, price, date) {
+  wx.request({
+    url: app.globalData.backendUrl + "addPurchase",
+    data: {
+      openid: openid,
+      type: 'level',
+      detail: detail,
+      price: price,
+      date: date
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      wx.showToast({
+        title: res.data.message,
+      })
+    }
+  })
+}
+
+function sendMyCard(senderOpenid, receiverOpenid) {
+  wx.request({
+    url: app.globalData.backendUrl + "sendMyCard",
+    data: {
+      senderOpenid: senderOpenid,
+      receiverOpenid: receiverOpenid
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      console.log(res)
+      wx.showToast({
+        title: '发送名片成功',
+      })
+    }
+  })
+}
+
 module.exports = {
   getAbstractList: getAbstractList,
   getFeedList: getFeedList,
@@ -547,5 +628,8 @@ module.exports = {
   getMyPersonList: getMyPersonList,
   getMyHistoryAbstractList: getMyHistoryAbstractList,
   downloadFile: downloadFile,
-  getClassificationList: getClassificationList
+  getClassificationList: getClassificationList,
+  setMyUserAsEnterprise: setMyUserAsEnterprise,
+  updateMe: updateMe,
+  sendMyCard: sendMyCard
 }

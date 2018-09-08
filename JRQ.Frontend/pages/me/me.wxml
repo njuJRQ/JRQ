@@ -37,7 +37,7 @@
       </view>
     </view>
 
-    <button class='my-card-send' bindtap='onSendMe'>递名片</button>
+    <button class='my-card-send' bindtap='onSendMe'>我的名片夹</button>
 
     <view class='icons'>
       <view class='module column' bindtap='showCourses'>
@@ -91,7 +91,7 @@
       <view class='div-line'></view>
 
       <view class='more-item'>
-        <navigator class='row' url='' hover-class="none"  open-type='navigate'>
+        <navigator class='row' url='updateMe/updateMe' hover-class="none"  open-type='navigate'>
           <text>身份升级</text>
           <view class='v-center'>
             <view class='arrow'></view>

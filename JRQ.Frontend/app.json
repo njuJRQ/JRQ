@@ -12,7 +12,8 @@
     "pages/articleDetail/projectDetail/projectDetail",
     "pages/index/ad/ad",
     "pages/me/publishMyArticle/publishMyArticle",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/me/updateMe/updateMe"
   ],
   "window": {
     "backgroundTextStyle": "light",

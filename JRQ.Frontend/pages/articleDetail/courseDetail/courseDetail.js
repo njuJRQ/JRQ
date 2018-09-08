@@ -26,11 +26,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this
-    api.getMyCourse(app.getOpenid(), options.id, this, ()=>{
-      that.setData({
-        isOwnCourse: that.data.course.video != ""
-      })
-    })
+    api.getMyCourse(app.getOpenid(), options.id, this)
   },
   //购买该课程
   onPurchase: function () {
@@ -45,12 +41,7 @@ Page({
         title: '确认购买',
         content: '确认以' + that.data.course.price + '的价格购买\r\n' + that.data.course.title + '\r\n吗？',
         success: (res) => {
-          api.purchaseCourse(that.data.course.id, app.getOpenid(), that.data.course.price, app.getDate(), that, () => {
-            api.getMyCourse(app.getOpenid(), that.data.course.id, this, () => {
-              that.data.isOwnCourse = true
-              that.setData(that.data)
-            })
-          })
+          api.purchaseCourse(that.data.course.id, app.getOpenid(), that.data.course.price, app.getDate(), that)
         }
       })
     }

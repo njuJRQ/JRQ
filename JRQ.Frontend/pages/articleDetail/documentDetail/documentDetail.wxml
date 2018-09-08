@@ -3,8 +3,13 @@
   <view class='head-pic'>
     <image src='img/document.png'></image>
   </view>
-  <view class='document-title column'>
-    <text style='color:black; font-size:1rem; font-weight:bold;'>{{document.title}}</text>
+  <view class='document-head row'>
+    <view class='document-title column' style='width:100%'>
+      <text style='color:black; font-size:1rem; font-weight:bold;'>{{document.title}}</text>
+    </view>
+    <view class='v-center h-center' style='width:100px; border:1px solid black; margin:5px; border-radius:5px'>
+      <text style='color:black; font-size:1rem; margin:3px'>文档</text>
+    </view>
   </view>
   <view class='document-intro column'>
     <text style='color:black; font-size:1rem; font-weight:bold;'>文档详情</text>

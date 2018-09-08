@@ -33,7 +33,7 @@
 /*关于我的联系方式的属性*/
 .my-contact {
   background-color: #F5F5F5;
-  padding: 10px;
+  padding: 10px 0;
 }
 .my-contact button {
   height: 1.5rem;
@@ -45,6 +45,14 @@
   font-size: 0.5rem;
   color: #252D47;
   margin: 2px 0;
+}
+.send-my-card {
+  margin: 0 10px 10px 10px;
+}
+.send-my-card button {
+  font-size: 0.8rem;
+  background-color: #243264;
+  color: white;
 }
 /*关于历史发布的属性*/
 .blue-block {

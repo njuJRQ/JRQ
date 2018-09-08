@@ -1,0 +1,5 @@
+<!--pages/me/updateMe/updateMe.wxml-->
+<text>请点击升级选项进行身份升级</text>
+<button bindtap='updateTo298'>升级为298用户</button>
+<button bindtap='updateTo998'>升级为998用户</button>
+<button bindtap='updateToEnterprise'>升级为企业用户</button>

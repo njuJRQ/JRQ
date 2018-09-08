@@ -107,5 +107,15 @@ Page({
         })
       })
     }
+  },
+  sendMyCard: function () {
+    if (this.data.isGetOtherInfo) {
+      api.sendMyCard(app.getOpenid(), this.data.otherid)
+    } else {
+      wx.showModal({
+        content: '无需给自己发名片',
+        showCancel: false
+      })
+    }
   }
 })

@@ -7,11 +7,11 @@ import javax.persistence.*;
 @IdClass(PurchaseCourseKey.class)
 public class PurchaseCourse {
 	@Id
-	@Column(name = "openid")
+	@Column(name = "openid", length = 28)
 	private String openid; //用户微信ID
 
 	@Id
-	@Column(name = "courseId")
+	@Column(name = "courseId", length = 32)
 	private String courseId; //课程ID
 
 	public PurchaseCourse() {

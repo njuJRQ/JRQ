@@ -90,12 +90,14 @@
           </view>
         </view>
 
-        <view class='article-images row'>
-          <image src='{{item.images[0]}}'></image>
-          <image src='{{item.images[1]}}'></image>
-          <image src='{{item.images[2]}}'></image>
+        <view wx:if='{{item.images.length > 0}}'>
+          <view class='article-images row'>
+            <image src='{{item.images[0]}}'></image>
+            <image src='{{item.images[1]}}'></image>
+            <image src='{{item.images[2]}}'></image>
+          </view>
         </view>
-
+        
         <view class='article-share row'>
           <view class='v-center' bindtap='onShare'>
             <image src='img/share.png' style='width: 20px; height: 20px;'></image>

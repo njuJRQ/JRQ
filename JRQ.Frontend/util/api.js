@@ -1,4 +1,5 @@
 const app = getApp()
+var util = require('./util.js')
 
 function getAbstractList(kind, openid, that) {
   wx.request({
@@ -36,6 +37,7 @@ function getFeedList(that) {
       that.data.articles = res.data.feedViews
       that.data.articles.forEach((article)=>{
         article.writerFace = app.globalData.picUrl + article.writerFace
+        article.images = article.images.map((image) => { return app.globalData.picUrl + image})
       })
       that.setData(that.data)
     }
@@ -339,40 +341,56 @@ function checkMyReceivedCard(senderOpenid, receiverOpenid) {
   })
 }
 
+function uploadImageOneByOne (photos, index, length, then) {
+  wx.uploadFile({
+    url: app.globalData.backendUrl + "uploadImage",
+    filePath: photos[index],
+    name: 'image',
+    success: (res)=>{
+      index++
+      if(index == length) {
+        console.log(then)
+        then()
+        return
+      }
+      uploadImageOneByOne(photos, index, length, then)
+    }
+  })
+}
+
 function publishMyArticle(openid, kind, content, photos, that) {
-  //TODO
   /**
    * 方法：publishMyFeed
    * 参数：
    * 文本内容：content
    */
-  var date = new Date()
-  wx.request({
-    url: app.globalData.backendUrl + "publishMyFeed",
-    data: {
-      writerOpenid: openid,
-      kind: kind,
-      date: [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('-'),
-      content: content,
-      images: photos
-    },
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      console.log(res)
-      wx.showToast({
-        title: '发布成功',
-        icon: 'succes',
-        duration: 1000,
-        success: () => {
-          setTimeout(() => { wx.navigateBack() }, 1000)
-        },
-        mask: true
-      })
-    }
+  uploadImageOneByOne(photos, 0, photos.length, ()=>{
+    wx.request({
+      url: app.globalData.backendUrl + "publishMyFeed",
+      data: {
+        writerOpenid: openid,
+        kind: kind,
+        date: util.getTodayDate(),
+        content: content
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        console.log(res)
+        wx.showToast({
+          title: '发布成功',
+          icon: 'succes',
+          duration: 1000,
+          success: () => {
+            setTimeout(() => { wx.navigateBack() }, 1000)
+          },
+          mask: true
+        })
+      }
+    })
   })
 }
 
@@ -478,9 +496,11 @@ function getMyPersonList(openid, kind, that) {
     method: 'GET',
     success: (res) => {
       console.log(res)
-      that.setData({
-        cards: res.data.cards
+      that.data.cards = res.data.cards
+      that.data.cards.forEach((card)=>{
+        card.face = app.globalData.picUrl + card.face
       })
+      that.setData(that.data)
     }
   })
 }
@@ -554,8 +574,8 @@ function setMyUserAsEnterprise (openid) {
     },
     method: 'GET',
     success: (res) => {
+      console.log(res)
       wx.showModal({
-        title: res.data.ok.toString(),
         content: res.data.message,
         showCancel: false
       })

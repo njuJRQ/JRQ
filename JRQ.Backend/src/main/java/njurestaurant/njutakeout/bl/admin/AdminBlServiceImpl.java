@@ -52,6 +52,11 @@ public class AdminBlServiceImpl implements AdminBlService {
 	}
 
 	@Override
+	public AdminResponse getAdminByUsername(String username) throws NotExistException {
+		return new AdminResponse(new AdminItem(adminDataService.getAdminByUsername(username)));
+	}
+
+	@Override
 	public AdminListResponse getAdminList() {
 		List<Admin> adminList = adminDataService.getAllAdmins();
 		List<AdminItem> adminItemList = new ArrayList<>();

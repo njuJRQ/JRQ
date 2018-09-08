@@ -37,6 +37,13 @@ public interface AdminBlService {
 	AdminResponse getAdmin(String id) throws NotExistException;
 
 	/**
+	 * 根据管理员用户名获取管理员信息
+	 * @param username 管理员用户名
+	 * @return 管理员信息
+	 */
+	AdminResponse getAdminByUsername(String username) throws NotExistException;
+
+	/**
 	 * 获取管理员列表
 	 * @return 管理员列表
 	 */

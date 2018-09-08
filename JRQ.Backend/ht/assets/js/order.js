@@ -20,6 +20,15 @@ $.ajax(
         async:false,
         success: function (data) {
             for(var i=0;i<data.purchases.length;i++){
+                if(data.purchases[i].type=="level"){
+                    data.purchases[i].type="购买身份变更";
+                }
+                else if(data.purchases[i].type=="course"){
+                    data.purchases[i].type="购买课程";
+                }
+                else if(data.purchases[i].type=="enterprise"){
+                    data.purchases[i].type="购买企业会员";
+                }
                 list.push(data.purchases[i]);
             }
             document.getElementById("jilu").innerText="共"+(list.length)+"条记录";

@@ -34,7 +34,7 @@ public class FeedController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public void uploadHead(@RequestParam("image")MultipartFile image){
+    public void uploadImage(@RequestParam("image")MultipartFile image){
         Map<String,Object> map= new HashMap<String,Object>();
         if(image.isEmpty()){
             map.put( "result", "error");
@@ -66,7 +66,6 @@ public class FeedController {
                 e.printStackTrace();
             }
             String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
-            File file = new File(fileName);
             String[] temp=fileName.split("\\.");
             String thePath="record/feed/image/"+uuid+"."+temp[3];
             String path="record/feed/image/"+uuid+"."+temp[3];
@@ -91,7 +90,10 @@ public class FeedController {
                 e.printStackTrace();
             }
             imagesPath.add(thePath);
-
+            File file=new File(fileName);
+            if (file.exists() && file.isFile()) {
+                file.delete();
+            }
         }
     }
     @ApiOperation(value = "用户发布自己的圈子文章", notes = "用户发布自己的圈子文章")

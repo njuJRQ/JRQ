@@ -417,6 +417,9 @@ public class userController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if (file.exists() && file.isFile()) {
+            file.delete();
+        }
         headPath="";
         return new ResponseEntity<>(userBlService.updateMyProfile(openid,username,thePath,phone,email,company,department,position,intro,city,label), HttpStatus.OK);
     }

@@ -91,10 +91,10 @@ App({
     hasLogin: false,
     token: "",
     defaultPic: '../../default/default-pic.png',
-    appid: "wxe022b5baf52ae923", //小程序唯一标识
-    //appid: "wx2e1011ad046ddc3f",
-    secret: "67596e7ba8e837c29176f130490b752c", //小程序的 app secret
-    //secret: "8a11779c7567ae184c50913df20a2f2e",
+    //appid: "wxe022b5baf52ae923", //小程序唯一标识
+    appid: "wx2e1011ad046ddc3f",
+    //secret: "67596e7ba8e837c29176f130490b752c", //小程序的 app secret
+    secret: "8a11779c7567ae184c50913df20a2f2e",
     backendUrl: "http://localhost:8080/",
     picUrl: "http://localhost:8000/"
     //backendUrl: "https://www.sandc.xyz/",

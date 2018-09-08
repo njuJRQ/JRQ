@@ -107,6 +107,9 @@ public class AdController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if (file.exists() && file.isFile()) {
+            file.delete();
+        }
         return new ResponseEntity<>(adBlService.addAd(thePath,link), HttpStatus.OK);
     }
 

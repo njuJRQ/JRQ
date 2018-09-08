@@ -93,6 +93,9 @@ public class CourseController {
             }
             courseImage=thePath;
 
+            if (file.exists() && file.isFile()) {
+                file.delete();
+            }
         }
     }
 
@@ -162,7 +165,10 @@ public class CourseController {
                 e.printStackTrace();
             }
             courseVideo=thePath;
-
+            File file=new File(fileName);
+            if (file.exists() && file.isFile()) {
+                file.delete();
+            }
         }
     }
 

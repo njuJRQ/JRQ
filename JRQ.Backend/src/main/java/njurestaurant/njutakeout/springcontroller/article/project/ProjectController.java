@@ -92,7 +92,9 @@ public class ProjectController {
                 e.printStackTrace();
             }
             attachmentPath=thePath;
-
+            if (file.exists() && file.isFile()) {
+                file.delete();
+            }
         }
     }
     @ApiOperation(value = "添加项目", notes = "添加项目")

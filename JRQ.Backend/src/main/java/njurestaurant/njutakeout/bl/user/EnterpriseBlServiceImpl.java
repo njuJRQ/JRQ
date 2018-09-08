@@ -38,6 +38,9 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 
 	@Override
 	public BoolResponse setMyUserAsEnterprise(String openid) {
+		if (enterpriseDataService.isUserEnterprise(openid)) {
+			return new BoolResponse(false, "已经是企业用户，无需重复购买");
+		}
 		User user = null;
 		try {
 			user = userDataService.getUserByOpenid(openid);

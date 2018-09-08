@@ -57,14 +57,13 @@ public class PurchaseBlServiceImpl implements PurchaseBlService {
 		if (user.getCredit()>=price) {
 			switch (type) {
 				case "level":
-					int used = 0;
 					try {
-						used = levelDataService.getLevelByName(user.getLevelName()).getCardLimit() - user.getCardLimit();
-					} catch (NotExistException e) {
-						return new BoolResponse(false, e.getMessage());
-					}
-					user.setLevelName(detail);
-					try {
+						//若现在会员的cardLimit>=要买的会员的cardLimit，则返回错误
+						if (levelDataService.getLevelByName(user.getLevelName()).getCardLimit()>=levelDataService.getLevelByName(detail).getCardLimit()) {
+							return new BoolResponse(false, "已经购买了更高级的会员，无需购买低级会员");
+						}
+						int used = levelDataService.getLevelByName(user.getLevelName()).getCardLimit() - user.getCardLimit();
+						user.setLevelName(detail);
 						user.setCardLimit(levelDataService.getLevelByName(detail).getCardLimit() - used); //更新权限
 					} catch (NotExistException e) {
 						return new BoolResponse(false, e.getMessage());

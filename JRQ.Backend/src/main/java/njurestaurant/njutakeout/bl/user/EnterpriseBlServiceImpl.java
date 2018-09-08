@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -56,7 +57,8 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 			while (adminDataService.isAdminExistent(adminUsername)) {
 				adminUsername = UUID.randomUUID().toString();
 			}
-			String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").toString();
+			SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");//设置日期格式
+			String date=df.format(new Date());// new Date()为获取当前系统时间
 			adminDataService.addAdmin(new Admin(adminUsername, adminUsername, "3", date));
 			String adminId = null;
 			try {

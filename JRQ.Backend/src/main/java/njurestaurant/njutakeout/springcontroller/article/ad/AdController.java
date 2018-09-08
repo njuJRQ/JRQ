@@ -25,9 +25,9 @@ public class AdController {
         this.adBlService = adBlService;
     }
     private static String headPath="";
-    @ApiOperation(value = "获取用户头像", notes = "获取用户头像")
+    @ApiOperation(value = "获取广告图片", notes = "获取广告图片")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "face", value = "用户头像", required = true, dataType = "MultipartFile")
+            @ApiImplicitParam(name = "face", value = "广告图片", required = true, dataType = "MultipartFile")
     })
     @RequestMapping(value = "/uploadAd", method = RequestMethod.POST)
     @ApiResponses(value = {
@@ -157,6 +157,7 @@ public class AdController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> setCheckedAd(@RequestParam(name="id")String id) throws NotExistException {
+        System.out.println(id);
         return new ResponseEntity<>(adBlService.setCheckedAd(id), HttpStatus.OK);
     }
 

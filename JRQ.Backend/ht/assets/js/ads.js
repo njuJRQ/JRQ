@@ -266,4 +266,25 @@ function search(){
 
 }
 
+function setAsChecked(n){
+    var q=list[firstID+n];
+    $.ajax(
+        {
+            url: url+"/setCheckedAd",
+            data: {
+                id:q.id
+            },
+            async:false,
+            success: function (data) {
+                alert("选中编号为"+q.id+"作为首页广告！")
+                window.location.href="ads.html";
+            },
+            error: function (xhr) {
+                alert('动态页有问题噶！\n\n' + xhr.responseText);
+            },
+            traditional: true,
+        }
+    )
+}
+
 

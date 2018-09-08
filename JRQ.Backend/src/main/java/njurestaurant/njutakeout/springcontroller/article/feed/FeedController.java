@@ -126,6 +126,17 @@ public class FeedController {
         return new ResponseEntity<>(feedBlService.getFeed(id), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "获取圈子全部含作者名字和头像的文章信息", notes = "获取圈子全部含作者名字和头像的文章信息")
+    @RequestMapping(value = "/getFeedViewList", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getFeedViewList() throws NotExistException {
+        return new ResponseEntity<>(feedBlService.getFeedViewList(), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "获取圈子全部文章信息", notes = "获取圈子全部文章信息")
     @RequestMapping(value = "/getFeedList", method = RequestMethod.GET)
     @ApiResponses(value = {

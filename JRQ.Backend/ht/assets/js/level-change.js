@@ -5,7 +5,7 @@ var thisCardLimit=storage["thisLevelCardLimit"];
 var thisPrice=storage["thisLevelPrice"];
 
 var url=getUrl();
-document.getElementById("name").value=thisname;
+document.getElementById("name").innerText=thisname;
 document.getElementById("cardLimit").value=thisCardLimit;
 document.getElementById("price").value=thisPrice;
 function checkRate(input) {
@@ -20,7 +20,7 @@ function checkRate(input) {
     return true;
 }
 document.getElementById("ad").onclick=function() {
-    if(checkRate("cardLimit")&&checkRate(price)) {
+    if(checkRate("cardLimit")&&checkRate("price")) {
         var name = $("#name").val();
         var cardLimit = $("#cardLimit").val();
         var price = $("#price").val();
@@ -29,7 +29,7 @@ document.getElementById("ad").onclick=function() {
             {
                 url: url + "/updateLevel",
                 data: {
-                    name: name,
+                    name: document.getElementById("name").innerText,
                     cardLimit: cardLimit,
                     price: price
                 },

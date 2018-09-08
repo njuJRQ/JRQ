@@ -15,6 +15,9 @@ public class Enterprise {
 	@Column
 	private String adminId; //对应的管理员ID
 
+	public Enterprise() {
+	}
+
 	public Enterprise(String openid, String adminId) {
 		this.openid = openid;
 		this.adminId = adminId;

@@ -9,6 +9,7 @@ $("#page3").hide();
 $("#page4").hide();
 $("#page5").hide();
 var list=new Array();
+var tempList=new Array();
 var firstID=0;
 var theGroup=0;
 var url=getUrl();
@@ -30,6 +31,9 @@ $.ajax(
                     data.purchases[i].type="购买企业会员";
                 }
                 list.push(data.purchases[i]);
+            }
+            for(var i=0;i<list.length;i++){
+                tempList.push(list[i]);
             }
             document.getElementById("jilu").innerText="共"+(list.length)+"条记录";
             changepage(1);
@@ -319,5 +323,32 @@ function search(){
     }
 
 }
+
+$("#type").change(function(){
+        var obj2= document.getElementById("type"); //定位id
+        var index2 = obj2.selectedIndex; // 选中索引
+        var b = obj2.options[index2].text; // 选中文本
+        if(b=="全部"){
+            list=new Array();
+            for(var i=0;i<tempList.length;i++){
+                list.push(tempList[i]);
+            }
+            firstID=0;
+            theGroup=0;
+            changepage(1);
+        }
+        else{
+            list=new Array();
+            for(var i=0;i<tempList.length;i++){
+                if(tempList[i].type==b) {
+                    list.push(tempList[i]);
+                }
+            }
+            firstID=0;
+            theGroup=0;
+            changepage(1);
+        }
+    }
+)
 
 

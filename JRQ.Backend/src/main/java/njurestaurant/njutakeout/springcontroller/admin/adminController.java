@@ -74,6 +74,21 @@ public class adminController {
         return r;
     }
 
+    @ApiOperation(value = "获取管理员", notes = "获取管理员")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username", value = "管理员编号", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getAdminByUsername", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public AdminResponse getAdminByUsername(@RequestParam(name="username")String username) throws NotExistException {
+        AdminResponse r=adminBlService.getAdminByUsername(username);
+        return r;
+    }
+
     @ApiOperation(value = "修改管理员", notes = "修改管理员")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "管理员编号", required = true, dataType = "String"),

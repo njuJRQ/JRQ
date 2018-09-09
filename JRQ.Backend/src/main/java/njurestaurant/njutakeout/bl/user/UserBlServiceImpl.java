@@ -181,8 +181,14 @@ public class UserBlServiceImpl implements UserBlService {
 
 	@Override
 	public PersonListResponse getPersonListByCondition(String condition) {
-		//TODO: 添加查询条件
-		return null;
+		List<User> userList = userDataService.getAllUsers();
+		List<PersonItem> personItemList = new ArrayList<>();
+		for (User user:userList) {
+			if (user.getUsername().contains(condition) || user.getCompany().contains(condition)) {
+				personItemList.add(new PersonItem(user));
+			}
+		}
+		return new PersonListResponse(personItemList);
 	}
 
 	@Override

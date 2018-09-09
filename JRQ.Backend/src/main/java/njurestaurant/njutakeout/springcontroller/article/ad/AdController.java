@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 public class AdController {
@@ -85,8 +86,10 @@ public class AdController {
     @ResponseBody
     public ResponseEntity<Response> addAd(@RequestParam(name="link")String link) {
         File file = new File(headPath);
-        String thePath="record/ad/image/"+headPath;
-        String path="record/ad/image/"+headPath;
+        String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
+        String[] temp=headPath.split("\\.");
+        String thePath="record/ad/image/"+uuid+"."+temp[1];
+        String path="record/ad/image/"+uuid+"."+temp[1];
         File tempfile=new File(path);
         if (tempfile.exists() && tempfile.isFile()) {
             tempfile.delete();
@@ -110,6 +113,7 @@ public class AdController {
         if (file.exists() && file.isFile()) {
             file.delete();
         }
+        headPath="";
         return new ResponseEntity<>(adBlService.addAd(thePath,link), HttpStatus.OK);
     }
 
@@ -160,7 +164,6 @@ public class AdController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> setCheckedAd(@RequestParam(name="id")String id) throws NotExistException {
-        System.out.println(id);
         return new ResponseEntity<>(adBlService.setCheckedAd(id), HttpStatus.OK);
     }
 

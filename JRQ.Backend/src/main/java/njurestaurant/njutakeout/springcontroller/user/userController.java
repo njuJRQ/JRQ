@@ -135,7 +135,9 @@ public class userController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        if (file.exists() && file.isFile()) {
+            file.delete();
+        }
         InfoResponse r=userBlService.addUser(openid,username,thePath,null,phone,email,company,department,position,intro,city,Integer.parseInt(credit),label,levelName,is);
         headPath="";
         return r;

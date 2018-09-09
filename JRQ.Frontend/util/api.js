@@ -349,7 +349,6 @@ function uploadImageOneByOne (photos, index, length, then) {
     success: (res)=>{
       index++
       if(index == length) {
-        console.log(then)
         then()
         return
       }
@@ -524,7 +523,7 @@ function getMyHistoryAbstractList(openid, that) {
       that.data.myArticles = res.data.abstractList
       that.data.myArticles.forEach((article) => { 
         article.writerFace = app.globalData.picUrl + article.writerFace
-        return article
+        article.images = article.images.map((image) => app.globalData.picUrl+image)
       })
       that.setData(that.data)
     }
@@ -627,6 +626,26 @@ function sendMyCard(senderOpenid, receiverOpenid) {
   })
 }
 
+function getMyCredit (openid, that) {
+  wx.request({
+    url: app.globalData.backendUrl + "getMyUser",
+    data: {
+      openid: openid
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      /*console.log(res)*/
+      that.setData({
+        price: res.data.user.credit
+      })
+    }
+  })
+}
+
 module.exports = {
   getAbstractList: getAbstractList,
   getFeedList: getFeedList,
@@ -651,5 +670,6 @@ module.exports = {
   getClassificationList: getClassificationList,
   setMyUserAsEnterprise: setMyUserAsEnterprise,
   updateMe: updateMe,
-  sendMyCard: sendMyCard
+  sendMyCard: sendMyCard,
+  getMyCredit: getMyCredit
 }

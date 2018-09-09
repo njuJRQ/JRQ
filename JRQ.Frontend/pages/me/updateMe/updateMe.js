@@ -9,14 +9,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    price: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    api.getMyCredit(app.getOpenid(), this)
   },
   updateTo298: function () {
     wx.showModal({

@@ -3,3 +3,4 @@
 <button bindtap='updateTo298'>升级为298用户</button>
 <button bindtap='updateTo998'>升级为998用户</button>
 <button bindtap='updateToEnterprise'>升级为企业用户</button>
+<text>当前账户余额：{{price}}</text>

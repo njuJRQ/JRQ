@@ -56,7 +56,7 @@ public class AdBlServiceImpl implements AdBlService {
 	@Override
 	public InfoResponse setCheckedAd(String id) throws NotExistException {
 		//先检查该id是否存在，避免id不存在导致没有项checked为true
-		if (adDataService.isAdExistent(id)) {
+		if (!adDataService.isAdExistent(id)) {
 			throw new NotExistException("Ad ID", id);
 		} else {
 			List<Ad> ads = adDataService.getAllAds();

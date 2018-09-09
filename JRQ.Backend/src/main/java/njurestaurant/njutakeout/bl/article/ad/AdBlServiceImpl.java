@@ -64,7 +64,9 @@ public class AdBlServiceImpl implements AdBlService {
 				ad.setChecked(false);
 				adDataService.saveAd(ad);
 			}
-			adDataService.getAdById(id).setChecked(true);
+			Ad ad = adDataService.getAdById(id);
+			ad.setChecked(true);
+			adDataService.saveAd(ad);
 			return new InfoResponse();
 		}
 	}

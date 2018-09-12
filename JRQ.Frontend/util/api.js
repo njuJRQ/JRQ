@@ -468,9 +468,11 @@ function getPersonListByCondition(condition, that) {
     },
     method: 'GET',
     success: (res) => {
-      that.setData({
-        cards: res.data.persons
+      that.data.cards = res.data.persons
+      that.data.cards.forEach((card)=>{
+        card.face = app.globalData.picUrl + card.face
       })
+      that.setData(that.data)
     }
   })
 }

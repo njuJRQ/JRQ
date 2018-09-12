@@ -92,10 +92,11 @@ App({
     token: "",
     defaultPic: '../../default/default-pic.png',
     //appid: "wxe022b5baf52ae923", //小程序唯一标识
-    appid: "wx2e1011ad046ddc3f",//xulei
+    appid: "wxe022b5baf52ae923",//test
+    //appid: "wx2e1011ad046ddc3f",//xulei
     //appid: "wx917cbd6132554ae2",//used
-    //secret: "67596e7ba8e837c29176f130490b752c", //小程序的 app secret
-    secret: "8a11779c7567ae184c50913df20a2f2e",//xulei
+    secret: "67596e7ba8e837c29176f130490b752c", //小程序的 app secret
+    //secret: "8a11779c7567ae184c50913df20a2f2e",//xulei
     //secret: "55e365dcaf3d51b4159bf0e1017a4978",
     //used
     backendUrl: "http://localhost:8080/",
@@ -104,6 +105,6 @@ App({
     //used
     //picUrl: "http://localhost:8000/"
     picUrl: "http://localhost/libs/"//xulei
-    //backendUrl: "https://www.sandc.xyz/",
+  
   }
 });

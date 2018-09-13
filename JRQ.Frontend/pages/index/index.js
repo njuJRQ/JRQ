@@ -52,12 +52,12 @@ Page({
   },
   //事件处理函数
   //onLoad函数
-  onLoad: function() {
+  onShow: function() {
     api.getAd(this) //展示广告
     api.getAbstractList('course', app.getOpenid(), this) //展示课程类文章
   },
   onPullDownRefresh: function () {
-    this.onLoad()
+    this.onShow()
   },
   //点击广告跳转
   onAd: function() {

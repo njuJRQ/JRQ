@@ -52,13 +52,13 @@ Page({
   /**
    * 生命周期函数--监听页面加载a
    */
-  onLoad: function (options) {
+  onShow: function (options) {
   //展示圈子文章
     //api.getAbstractList('feed', app.getOpenid(), this)
     api.getFeedList(this)
   },
   onPullDownRefresh: function () {
-    this.onLoad()
+    this.onShow()
   },
   onShare: function () {
     console.log('on share')

@@ -445,6 +445,10 @@ function modifyMyInfo(that) {
             duration: 1000,
             mask: true
           })
+          setTimeout(() => {
+            console.log(wx.getStorageInfoSync())
+            wx.navigateBack()
+          }, 1000)
         }
       })
     }

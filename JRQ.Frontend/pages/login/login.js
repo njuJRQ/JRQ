@@ -20,6 +20,7 @@ Page({
   bindGetUserInfo: function (e) {
     console.log(e)
     wx.setStorageSync("wechatUsername", e.detail.userInfo.nickName);
+    //app.globalData.wechatUsername = e.detail.userInfo.nickName
     wx.request({
       url: app.globalData.backendUrl + "loginMyUser",
       header: {
@@ -32,6 +33,7 @@ Page({
       method: 'GET',
       success: (res) => {
         wx.setStorageSync("token", res.data.token);
+        //app.globalData.token = res.data.token
       }
     })
     wx.switchTab({

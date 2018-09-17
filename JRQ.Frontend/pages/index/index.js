@@ -53,33 +53,35 @@ Page({
   //事件处理函数
   //onLoad函数
   onShow: function() {
-    api.getAd(this) //展示广告
-    api.getAbstractList('course', app.getOpenid(), this) //展示课程类文章
+    api.getAd.call(this) //展示广告
+    api.getAbstractList.call(this, 'course', app.getOpenid()) //展示课程类文章
   },
-  onPullDownRefresh: function () {
-    this.onShow()
-  },
+
   //点击广告跳转
   onAd: function() {
     wx.navigateTo({
       url: 'ad/ad?url=' + this.data.ad.link
     })
   },
+
   //展示课程
   showCourses: function() {
     console.log('show courses')
-    api.getAbstractList('course', app.getOpenid(), this)
+    api.getAbstractList.call(this, 'course', app.getOpenid())
   },
+
   //展示文档
   showDocuments: function() {
     console.log('show documents');
-    api.getAbstractList('document', app.getOpenid(), this)
+    api.getAbstractList.call(this, 'document', app.getOpenid())
   },
+
   //展示项目
   showProjects: function() {
     console.log('show projects');
-    api.getAbstractList('project', app.getOpenid(), this)
+    api.getAbstractList.call(this, 'project', app.getOpenid())
   },
+
   //展示文章详情
   onTouchThisArticle: function(e) {
     var id = e.currentTarget.dataset.id //获取当前文章id
@@ -101,24 +103,14 @@ Page({
       url: url
     })
   },
+
   //点赞数加一
-  likePlus: function(event) {
-    var id = event.currentTarget.dataset.id //获取当前文章id
-    var article = this.getCurrentArticle(id) //获取当前文章
-    api.likePlus(app.getOpenid(), article.kind, id, {
-      article: article,
-      that: this
-    })
+  likePlus: function(e) {
+    var id = e.currentTarget.dataset.id //获取当前文章id
+    var kind = e.currentTarget.dataset.kind //获取当前文章kind
+    api.likePlus.call(this, app.getOpenid(), kind, id) //点赞+1
   },
-  //获取当前文章
-  getCurrentArticle: function(id) {
-    var that = null;
-    for (var i = 0; i < this.data.articles.length; i++) {
-      if (this.data.articles[i].id == id)
-        that = this.data.articles[i];
-    }
-    return that;
-  },
+  
   //广告图片加载失败
   errorAdImage: function () {
     this.setData({

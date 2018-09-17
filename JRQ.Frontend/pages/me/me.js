@@ -29,11 +29,9 @@ Page({
    */
   onShow: function (options) {
     var that = this
-    api.getMyInfo(app.getOpenid(), this) //获取个人信息
+    api.getMyInfo.call(this, app.getOpenid()) //获取个人信息
   },
-  onPullDownRefresh: function () {
-    this.onShow()
-  },
+  
   //发布信息
   onPublish: function () {
     console.log('publish')
@@ -41,6 +39,7 @@ Page({
       url: 'publishMyArticle/publishMyArticle',
     })
   },
+  
   //递名片
   onSendMe: function() {
     wx.navigateTo({

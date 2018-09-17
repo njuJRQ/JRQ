@@ -1,7 +1,8 @@
 const app = getApp()
 var util = require('./util.js')
 
-function getAbstractList(kind, openid, that) {
+function getAbstractList(kind, openid) {
+  var that = this
   wx.request({
     url: app.globalData.backendUrl + "getAbstractList",
     data: {
@@ -16,15 +17,26 @@ function getAbstractList(kind, openid, that) {
     success: (res) => {
       /*console.log(res.data)*/
       that.data.articles = res.data.abstractList
-      that.data.articles.forEach((article)=>{
-        article.images = article.images.map((image)=>app.globalData.picUrl+image)
+      that.data.articles.forEach((article) => {
+        article.images = article.images.map((image) => app.globalData.picUrl + image)
       })
       that.setData(that.data)
+    },
+    fail: (res) => {
+      wx.showModal({
+        title: '连接服务器失败',
+        content: res.errMsg,
+        showCancel: false,
+        success: (res) => {
+          that.onShow()
+        }
+      })
     }
   })
 }
 
-function getFeedList(that) {
+function getFeedList() {
+  var that = this
   wx.request({
     url: app.globalData.backendUrl + "getFeedViewList",
     header: {
@@ -35,9 +47,9 @@ function getFeedList(that) {
     success: (res) => {
       /*console.log(res.data)*/
       that.data.articles = res.data.feedViews
-      that.data.articles.forEach((article)=>{
+      that.data.articles.forEach((article) => {
         article.writerFace = app.globalData.picUrl + article.writerFace
-        article.images = article.images.map((image) => { return app.globalData.picUrl + image})
+        article.images = article.images.map((image) => { return app.globalData.picUrl + image })
       })
       that.setData(that.data)
     }
@@ -63,7 +75,8 @@ function getCourse(id, that) {
   })
 }
 
-function getMyCourse(openid, courseId, that, then) {
+function getMyCourse(openid, courseId, then) {
+  var that = this
   wx.request({
     url: app.globalData.backendUrl + "getMyCourse",
     data: {
@@ -86,7 +99,7 @@ function getMyCourse(openid, courseId, that, then) {
       else
         that.data.isOwnCourse = false
       that.setData(that.data)
-      if(then) then()
+      if (then) then()
     }
   })
 }
@@ -118,7 +131,8 @@ function getDocument(id, that) {
   })
 }
 
-function getProject(id, that) {
+function getProject(id) {
+  var that = this
   wx.request({
     url: app.globalData.backendUrl + "getProject",
     data: {
@@ -137,12 +151,13 @@ function getProject(id, that) {
   })
 }
 
-function getAd(that) {
+function getAd() {
   /**
    * 方法：getAd
    * 参数：
    * 无
    */
+  var that = this
   wx.request({
     url: app.globalData.backendUrl + "getCheckedAd",
     header: {
@@ -158,7 +173,8 @@ function getAd(that) {
   })
 }
 
-function likePlus(openid, kind, articleId, context) {
+function likePlus(openid, kind, articleId) {
+  var that = this
   wx.request({
     url: app.globalData.backendUrl + "likePlus",
     data: {
@@ -173,12 +189,13 @@ function likePlus(openid, kind, articleId, context) {
     method: 'GET',
     success: (res) => {
       console.log('likePlus ' + res.data.info)
-      context.that.onLoad()
+      that.onShow()
     }
   })
 }
 
-function purchaseCourse(courseId, openid, price, date, that, then) {
+function purchaseCourse(courseId, openid, price, date, then) {
+  var that = this
   wx.request({
     url: app.globalData.backendUrl + "addPurchase",
     data: {
@@ -195,13 +212,13 @@ function purchaseCourse(courseId, openid, price, date, that, then) {
     method: 'GET',
     success: (res) => {
       console.log('购买课程结果：', res)
-      if (res.data.ok == false){
+      if (res.data.ok == false) {
         wx.showModal({
           content: res.data.message,
           showCancel: false
         })
       }
-      else if(res.data.ok == true){
+      else if (res.data.ok == true) {
         wx.showModal({
           content: '购买课程成功',
           showCancel: false
@@ -216,7 +233,8 @@ function purchaseCourse(courseId, openid, price, date, that, then) {
   })
 }
 
-function getPersonList(kind, that, then) {
+function getPersonList(kind, then) {
+  var that = this
   wx.request({
     url: app.globalData.backendUrl + "getPersonList",
     data: {
@@ -229,7 +247,7 @@ function getPersonList(kind, that, then) {
     method: 'GET',
     success: (res) => {
       that.data.cards = res.data.persons
-      that.data.cards.forEach((card)=>{
+      that.data.cards.forEach((card) => {
         card.face = app.globalData.picUrl + card.face
         return card
       })
@@ -239,12 +257,13 @@ function getPersonList(kind, that, then) {
   })
 }
 
-function getMyInfo(openid, that, then) {
+function getMyInfo(openid, then) {
   /**
    * 方法：getUser
    * 参数：
    * 无
    */
+  var that = this
   wx.request({
     url: app.globalData.backendUrl + "getMyUser",
     data: {
@@ -268,7 +287,8 @@ function getMyInfo(openid, that, then) {
   })
 }
 
-function getOtherBasicInfo(id, that) {
+function getOtherBasicInfo(id) {
+  var that = this
   wx.request({
     url: app.globalData.backendUrl + "getPerson",
     data: {
@@ -288,12 +308,13 @@ function getOtherBasicInfo(id, that) {
   })
 }
 
-function getOtherInfo(myid, otherid, that, then) {
+function getOtherInfo(myid, otherid, then) {
   /**
    * 方法：getOtherCard
    * 参数：
    * 无
    */
+  var that = this
   wx.request({
     url: app.globalData.backendUrl + "getOtherCard",
     data: {
@@ -324,6 +345,7 @@ function getOtherInfo(myid, otherid, that, then) {
 }
 
 function checkMyReceivedCard(senderOpenid, receiverOpenid) {
+  var that = this
   wx.request({
     url: app.globalData.backendUrl + "checkMyReceivedCard",
     data: {
@@ -341,14 +363,14 @@ function checkMyReceivedCard(senderOpenid, receiverOpenid) {
   })
 }
 
-function uploadImageOneByOne (photos, index, length, then) {
+function uploadImageOneByOne(photos, index, length, then) {
   wx.uploadFile({
     url: app.globalData.backendUrl + "uploadImage",
     filePath: photos[index],
     name: 'image',
-    success: (res)=>{
+    success: (res) => {
       index++
-      if(index == length) {
+      if (index == length) {
         then()
         return
       }
@@ -357,13 +379,14 @@ function uploadImageOneByOne (photos, index, length, then) {
   })
 }
 
-function publishMyArticle(openid, kind, content, photos, that) {
+function publishMyArticle(openid, kind, content, photos) {
   /**
    * 方法：publishMyFeed
    * 参数：
    * 文本内容：content
    */
-  uploadImageOneByOne(photos, 0, photos.length, ()=>{
+  var that = this
+  uploadImageOneByOne(photos, 0, photos.length, () => {
     wx.request({
       url: app.globalData.backendUrl + "publishMyFeed",
       data: {
@@ -393,7 +416,7 @@ function publishMyArticle(openid, kind, content, photos, that) {
   })
 }
 
-function modifyMyInfo(that) {
+function modifyMyInfo() {
   /**
    * 方法：updateUser
    * 参数：
@@ -407,6 +430,7 @@ function modifyMyInfo(that) {
    * 职位：position
    * 个人简介：intro
    */
+  var that = this
   console.log(that.data.newMyInfo.face)
   wx.uploadFile({
     //上传用户图片
@@ -455,12 +479,13 @@ function modifyMyInfo(that) {
   })
 }
 
-function getPersonListByCondition(condition, that) {
+function getPersonListByCondition(condition) {
   /**
    * 方法：searchCards
    * 参数：
    * 搜索条件：condition
    */
+  var that = this
   wx.request({
     url: app.globalData.backendUrl + "getPersonListByCondition",
     data: {
@@ -473,7 +498,7 @@ function getPersonListByCondition(condition, that) {
     method: 'GET',
     success: (res) => {
       that.data.cards = res.data.persons
-      that.data.cards.forEach((card)=>{
+      that.data.cards.forEach((card) => {
         card.face = app.globalData.picUrl + card.face
       })
       that.setData(that.data)
@@ -481,13 +506,14 @@ function getPersonListByCondition(condition, that) {
   })
 }
 
-function getMyPersonList(openid, kind, that) {
+function getMyPersonList(openid, kind) {
   /**
    * 方法：getMyPersonList
    * 参数：
    * 用户openId：openId
    * 展示类别：kind
    */
+  var that = this
   wx.request({
     url: app.globalData.backendUrl + "getMyCardList",
     data: {
@@ -502,7 +528,7 @@ function getMyPersonList(openid, kind, that) {
     success: (res) => {
       console.log(res)
       that.data.cards = res.data.cards
-      that.data.cards.forEach((card)=>{
+      that.data.cards.forEach((card) => {
         card.face = app.globalData.picUrl + card.face
       })
       that.setData(that.data)
@@ -510,11 +536,12 @@ function getMyPersonList(openid, kind, that) {
   })
 }
 
-function getMyHistoryAbstractList(openid, that) {
+function getMyHistoryAbstractList(openid) {
   /**
    * 方法：getMyHistoryAbstractList
    * 参数：用户openId：openId
    */
+  var that = this
   wx.request({
     url: app.globalData.backendUrl + "getMyHistoryAbstractList",
     data: {
@@ -527,9 +554,9 @@ function getMyHistoryAbstractList(openid, that) {
     method: 'GET',
     success: (res) => {
       that.data.myArticles = res.data.abstractList
-      that.data.myArticles.forEach((article) => { 
+      that.data.myArticles.forEach((article) => {
         article.writerFace = app.globalData.picUrl + article.writerFace
-        article.images = article.images.map((image) => app.globalData.picUrl+image)
+        article.images = article.images.map((image) => app.globalData.picUrl + image)
       })
       that.setData(that.data)
     }
@@ -537,6 +564,7 @@ function getMyHistoryAbstractList(openid, that) {
 }
 
 function downloadFile(filepath) {
+  var that = this
   wx.downloadFile({
     url: filepath,
     header: {
@@ -551,7 +579,8 @@ function downloadFile(filepath) {
   })
 }
 
-function getClassificationList(that) {
+function getClassificationList() {
+  var that = this
   wx.request({
     url: app.globalData.backendUrl + "getClassificationList",
     header: {
@@ -567,7 +596,8 @@ function getClassificationList(that) {
   })
 }
 
-function setMyUserAsEnterprise (openid) {
+function setMyUserAsEnterprise(openid) {
+  var that = this
   wx.request({
     url: app.globalData.backendUrl + "setMyUserAsEnterprise",
     data: {
@@ -588,7 +618,7 @@ function setMyUserAsEnterprise (openid) {
   })
 }
 
-function updateMe (openid, detail, price, date) {
+function updateMe(openid, detail, price, date) {
   wx.request({
     url: app.globalData.backendUrl + "addPurchase",
     data: {
@@ -612,6 +642,7 @@ function updateMe (openid, detail, price, date) {
 }
 
 function sendMyCard(senderOpenid, receiverOpenid) {
+  var that = this
   wx.request({
     url: app.globalData.backendUrl + "sendMyCard",
     data: {
@@ -632,7 +663,8 @@ function sendMyCard(senderOpenid, receiverOpenid) {
   })
 }
 
-function getMyCredit (openid, that) {
+function getMyCredit(openid) {
+  var that = this
   wx.request({
     url: app.globalData.backendUrl + "getMyUser",
     data: {

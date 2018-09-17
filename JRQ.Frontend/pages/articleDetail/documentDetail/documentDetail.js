@@ -22,10 +22,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    try{
-      api.getDocument(options.id, this)
+    try {
+      api.getDocument.call(this, options.id)
     } catch (e) {
-      console.log('获取编号为'+options.id+'的文档失败')
+      console.log('获取编号为' + options.id + '的文档失败')
     }
   }
 })

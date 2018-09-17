@@ -12,7 +12,7 @@
   height: 35px;
 }
 .head text {
-  font-size: 15px;
+  font-size: 0.8rem;
 }
 .content {
   width: 100%;

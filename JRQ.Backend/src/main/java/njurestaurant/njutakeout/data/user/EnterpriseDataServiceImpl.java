@@ -45,6 +45,16 @@ public class EnterpriseDataServiceImpl implements EnterpriseDataService {
 	}
 
 	@Override
+	public Enterprise getEnterpriseByAdminId(String adminId) throws NotExistException {
+		Optional<Enterprise> optionalEnterprise = enterpriseDao.findEnterpriseByAdminId(adminId);
+		if (optionalEnterprise.isPresent()) {
+			return optionalEnterprise.get();
+		} else {
+			throw new NotExistException("Enterprise", adminId);
+		}
+	}
+
+	@Override
 	public List<Enterprise> getAllEnterprises() {
 		return enterpriseDao.findAll();
 	}

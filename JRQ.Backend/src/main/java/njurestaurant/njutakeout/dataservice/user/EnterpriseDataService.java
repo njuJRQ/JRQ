@@ -15,6 +15,8 @@ public interface EnterpriseDataService {
 
 	Enterprise getEnterpriseByOpenid(String openid) throws NotExistException;
 
+	Enterprise getEnterpriseByAdminId(String adminId) throws NotExistException;
+
 	List<Enterprise> getAllEnterprises();
 
 	void deleteEnterpriseByOpenid(String openid) throws NotExistException;

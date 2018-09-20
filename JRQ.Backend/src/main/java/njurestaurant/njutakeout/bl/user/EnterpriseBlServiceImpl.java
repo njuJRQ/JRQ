@@ -2,21 +2,29 @@ package njurestaurant.njutakeout.bl.user;
 
 import njurestaurant.njutakeout.blservice.user.EnterpriseBlService;
 import njurestaurant.njutakeout.dataservice.admin.AdminDataService;
+import njurestaurant.njutakeout.dataservice.article.CourseDataService;
+import njurestaurant.njutakeout.dataservice.article.DocumentDataService;
+import njurestaurant.njutakeout.dataservice.article.ProjectDataService;
 import njurestaurant.njutakeout.dataservice.purchase.PurchaseDataService;
 import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
 import njurestaurant.njutakeout.dataservice.user.PrivilegeDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
 import njurestaurant.njutakeout.entity.admin.Admin;
+import njurestaurant.njutakeout.entity.article.Course;
 import njurestaurant.njutakeout.entity.purchase.Purchase;
 import njurestaurant.njutakeout.entity.user.Enterprise;
 import njurestaurant.njutakeout.entity.user.User;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.BoolResponse;
+import njurestaurant.njutakeout.response.article.course.CourseItem;
+import njurestaurant.njutakeout.response.article.course.CourseListResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -26,14 +34,20 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 	private final PurchaseDataService purchaseDataService;
 	private final AdminDataService adminDataService;
 	private final PrivilegeDataService privilegeDataService;
+	private final CourseDataService courseDataService;
+	private final DocumentDataService documentDataService;
+	private final ProjectDataService projectDataService;
 
 	@Autowired
-	public EnterpriseBlServiceImpl(EnterpriseDataService enterpriseDataService, UserDataService userDataService, PurchaseDataService purchaseDataService, AdminDataService adminDataService, PrivilegeDataService privilegeDataService) {
+	public EnterpriseBlServiceImpl(EnterpriseDataService enterpriseDataService, UserDataService userDataService, PurchaseDataService purchaseDataService, AdminDataService adminDataService, PrivilegeDataService privilegeDataService, CourseDataService courseDataService, DocumentDataService documentDataService, ProjectDataService projectDataService) {
 		this.enterpriseDataService = enterpriseDataService;
 		this.userDataService = userDataService;
 		this.purchaseDataService = purchaseDataService;
 		this.adminDataService = adminDataService;
 		this.privilegeDataService = privilegeDataService;
+		this.courseDataService = courseDataService;
+		this.documentDataService = documentDataService;
+		this.projectDataService = projectDataService;
 	}
 
 	@Override
@@ -74,5 +88,17 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 			purchaseDataService.addPurchase(new Purchase(openid, "enterprise", adminId, price, date));
 			return new BoolResponse(true, "企业用户升级成功，用户名与密码均为"+adminUsername);
 		}
+	}
+
+	@Override
+	public CourseListResponse getMyPublishedCourseList(String adminId) throws NotExistException {
+		//TODO: 根据publishDataService获取自己的已发布列表
+//		Enterprise enterprise = enterpriseDataService.getEnterpriseByAdminId(adminId);
+//		List<Course> courses = courseDataService.getAllCourses();
+//		List<CourseItem> courseItems = new ArrayList<>();
+//		for(Course course:courses) {
+//			if(course.getWriterName())
+//		}
+		return null;
 	}
 }

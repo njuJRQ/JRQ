@@ -26,15 +26,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    api.getProject(options.id, this)
+    api.getProject.call(this, options.id)
   },
+  
   onDownload: function () {
     if (this.data.project.attachment)
-      api.downloadFile(this.data.project.attachment)
-    else
+      api.downloadFile.call(this, this.data.project.attachment)
+    else {
       wx.showModal({
         content: '该项目不存在附件',
         showCancel: false
       })
+    }
   }
 })

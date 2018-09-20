@@ -23,6 +23,7 @@ Page({
     },
     newMyInfo: {}
   },
+
   updateFace: function () {
     var that = this;
     wx.chooseImage({
@@ -38,30 +39,39 @@ Page({
       },
     })
   },
+
   updateName: function (e) {
     this.data.newMyInfo.name = e.detail.value;
   },
+
   updatePhone: function (e) {
     this.data.newMyInfo.phone = e.detail.value;
   },
+
   updateEmail: function (e) {
     this.data.newMyInfo.email = e.detail.value;
   },
+
   updateCity: function (e) {
     this.data.newMyInfo.city = e.detail.value;
   },
+
   updateCompany: function (e) {
     this.data.newMyInfo.company = e.detail.value;
   },
+
   updateDepartment: function (e) {
     this.data.newMyInfo.department = e.detail.value;
   },
+
   updatePosition: function (e) {
     this.data.newMyInfo.position = e.detail.value;
   },
+
   updateIntro: function (e) {
     this.data.newMyInfo.intro = e.detail.value;
   },
+
   bindLabelPickerChange: function (e) {
     //console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
@@ -69,19 +79,21 @@ Page({
     })
     this.data.newMyInfo.label = this.data.labelArray[this.data.labelIndex];
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onShow: function (options) {
     var that = this
-    api.getClassificationList(this)
-    api.getMyInfo(app.getOpenid(), this, ()=>{
+    api.getClassificationList.call(this)
+    api.getMyInfo.call(this, app.getOpenid(), ()=>{
       that.data.newMyInfo = that.data.myInfo
       that.setData(that.data)
     })
   },
+  
   onSave: function(){
     console.log('save')
-    api.modifyMyInfo(this)
+    api.modifyMyInfo.call(this)
   }
 })

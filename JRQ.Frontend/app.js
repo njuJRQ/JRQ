@@ -4,13 +4,16 @@ App({
     console.log('App Launch')
   },
   getToken: function () {
-    return wx.getStorageSync("token");
+    return wx.getStorageSync('token')
+    //return this.globalData.token
   },
   getOpenid: function () {
-    return wx.getStorageSync("openid");
+    return wx.getStorageSync('openid')
+    //return this.globalData.openid
   },
   getWechatUsername: function () {
-    return wx.getStorageSync("wechatUsername");
+    return wx.getStorageSync('wechatUsername')
+    //return this.globalData.wechatUsername
   },
   getDate: function () {
     var date = new Date()
@@ -41,16 +44,19 @@ App({
                   showCancel: false
                 })
               } else {
-                var openid = res.data.openid;
                 //console.log(res.data)
+                var openid = res.data.openid;
                 wx.setStorageSync("openid", openid);
+                //that.globalData.openid = openid
                 var sessionKey = res.data.session_key;
                 wx.setStorageSync("sessionKey", sessionKey);
+                //that.globalData.sessionKey = res.data.session_key
                 //获取个人微信号信息
                 wx.getUserInfo({
                   success: function (data) {
                     console.log('个人微信号信息', data)
                     wx.setStorageSync("wechatUsername", data.userInfo.nickName);
+                    //that.globalData.wechatUsername = data.userInfo.nickName
                     wx.request({
                       url: that.globalData.backendUrl + "loginMyUser",
                       header: {
@@ -58,10 +64,11 @@ App({
                       },
                       data: {
                         openid: openid,
-                        username: getApp().getWechatUsername()
+                        username: that.getWechatUsername()
                       },
                       method: 'GET',
                       success: (res) => {
+                        //that.globalData.token = res.data.token
                         wx.setStorageSync("token", res.data.token);
                       }
                     })
@@ -88,15 +95,24 @@ App({
     console.log('App Hide')
   },
   globalData: {
-    hasLogin: false,
+    openid: "",
+    sessionKey: "",
+    wechatUsername: "",
     token: "",
     defaultPic: '../../default/default-pic.png',
-    appid: "wxe022b5baf52ae923", //小程序唯一标识
-    //appid: "wx2e1011ad046ddc3f",
+    //appid: "wxe022b5baf52ae923", //小程序唯一标识
+    appid: "wxe022b5baf52ae923",//test
+    //appid: "wx2e1011ad046ddc3f",//xulei
+    //appid: "wx917cbd6132554ae2",//used
     secret: "67596e7ba8e837c29176f130490b752c", //小程序的 app secret
-    //secret: "8a11779c7567ae184c50913df20a2f2e",
+    //secret: "8a11779c7567ae184c50913df20a2f2e",//xulei
+    //secret: "55e365dcaf3d51b4159bf0e1017a4978",
+    //used
     backendUrl: "http://localhost:8080/",
-    picUrl: "http://localhost:8000/"
-    //backendUrl: "https://www.sandc.xyz/",
+    //backendUrl: "http://junrongcenter.com:8080/",//used
+    //picUrl: "http://junrongcenter.com/libs/"//used
+    picUrl: "http://localhost:8000/",
+    //picUrl: "http://localhost/libs/"//xulei
+  
   }
 });

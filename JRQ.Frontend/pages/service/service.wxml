@@ -50,7 +50,7 @@
             </view>
           </view>
         </view>
-        <view class='card-category {{item.categoryClass}} v-center h-center'>
+        <view class='card-category v-center h-center' style='background-color:{{item.bgColor}}'>
           <text>{{item.label}}</text>
         </view>
       </view>

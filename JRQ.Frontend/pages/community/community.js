@@ -52,33 +52,19 @@ Page({
   /**
    * 生命周期函数--监听页面加载a
    */
-  onLoad: function (options) {
+  onShow: function (options) {
   //展示圈子文章
     //api.getAbstractList('feed', app.getOpenid(), this)
-    api.getFeedList(this)
+    api.getFeedList.call(this)
   },
-  onPullDownRefresh: function () {
-    this.onLoad()
-  },
+
   onShare: function () {
     console.log('on share')
   },
+
   //点赞数加一
-  likePlus: function (event) {
-    var id = event.currentTarget.dataset.id //获取当前文章id
-    var article = this.getCurrentArticle(id) //获取当前文章
-    api.likePlus(app.getOpenid(), 'feed', id, {
-      article: article,
-      that: this
-    })
-  },
-  //获取当前文章
-  getCurrentArticle: function (id) {
-    var that = null;
-    for (var i = 0; i < this.data.articles.length; i++) {
-      if (this.data.articles[i].id == id)
-        that = this.data.articles[i];
-    }
-    return that;
+  likePlus: function (e) {
+    var id = e.currentTarget.dataset.id //获取当前feed的id
+    api.likePlus.call(this, app.getOpenid(), 'feed', id)
   }
 })

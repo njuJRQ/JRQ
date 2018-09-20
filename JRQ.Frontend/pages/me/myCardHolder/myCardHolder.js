@@ -61,39 +61,46 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onShow: function (options) {
     this.showCards('new');
   },
+
   updateSearchCondition (e) {
     this.data.searchCondition = e.detail.value;
   },
+
   //搜索触发函数
   onSearch: function() {
     console.log('on search')
-    api.getPersonListByCondition(this.data.searchCondition, this)
+    api.getPersonListByCondition.call(this, this.data.searchCondition)
   },
-  //展示我的某一类型的名片
-  showCards: function (kind) {
-    api.getMyPersonList(app.getOpenid(), kind, this)
-  },
+
   //展示新收到的名片
   showNewCards: function () {
     console.log('show new cards');
     this.showCards('new');
   },
+
   //展示我持有的名片
   showCurrentCards: function () {
     console.log('show current cards');
     this.showCards('current');
   },
+
   //展示拥有我名片的
   showWhoHasMyCard: function () {
     console.log('show who has my card');
     this.showCards('whoHasMyCard');
   },
+
+  //展示我的某一类型的名片
+  showCards: function (kind) {
+    api.getMyPersonList.call(this, app.getOpenid(), kind)
+  },
+  
   onClickThisCard: function (e) {
     var id = e.currentTarget.dataset.id
-    api.checkMyReceivedCard(app.getOpenid(), id) //设置当前的卡片为已读
+    api.checkMyReceivedCard.call(this, app.getOpenid(), id) //设置当前的卡片为已读
     wx.navigateTo({
       url: '../myHistory/myHistory?id='+id,
     })

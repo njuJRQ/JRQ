@@ -23,10 +23,7 @@ page {
 .course-intro > .detail > text {
   margin: 3px 0;
 }
-.course-intro video {
-  margin: 5px 0;
-}
-.course-intro > content {
+.course-video .content video {
   width: 100%;
 }
 .course-buttons {

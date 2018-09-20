@@ -20,16 +20,14 @@
       <text>课程作者：{{course.writerName}}</text>
       <text>课程发布日期：{{course.date}}</text>
       <text>课程点赞数：{{course.likeNum}}</text>
-      <view class='content column'>
-        <view class='h-center'>
-          <view wx:if='{{isOwnCourse}}'>
-            <video src='{{course.video}}'></video>
-          </view>
-          <view wx:else>
-            <text>请购买该课程后观看课程视频</text>
-          </view>
-        </view>
-      </view>
+    </view>
+  </view>
+  <view class='course-video'>
+    <view class='content' wx:if='{{isOwnCourse}}'>
+      <video src='{{course.video}}'></video>
+    </view>
+    <view wx:else>
+      <text>请购买该课程后观看课程视频</text>
     </view>
   </view>
   <view class='course-buttons row'>

@@ -26,8 +26,9 @@ Page({
    */
   onLoad: function (options) {
     var that = this
-    api.getMyCourse(app.getOpenid(), options.id, this)
+    api.getMyCourse.call(this, app.getOpenid(), options.id)
   },
+  
   //购买该课程
   onPurchase: function () {
     var that = this
@@ -41,7 +42,7 @@ Page({
         title: '确认购买',
         content: '确认以' + that.data.course.price + '的价格购买\r\n' + that.data.course.title + '\r\n吗？',
         success: (res) => {
-          api.purchaseCourse(that.data.course.id, app.getOpenid(), that.data.course.price, app.getDate(), that)
+          api.purchaseCourse.call(that, that.data.course.id, app.getOpenid(), that.data.course.price, app.getDate())
         }
       })
     }

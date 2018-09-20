@@ -78,39 +78,39 @@ Page({
       this.data.isGetOtherInfo = true
       this.data.isAlreadyGetOtherInfo = false
       this.data.otherid = options.id
-      api.getOtherBasicInfo(this.data.otherid, this) //获取除联系方式外的其他信息
-      api.getMyHistoryAbstractList(this.data.otherid, this) //获取文章历史记录
-    }
-    else {
+      api.getOtherBasicInfo.call(this, this.data.otherid) //获取除联系方式外的其他信息
+      api.getMyHistoryAbstractList.call(this, this.data.otherid) //获取文章历史记录
+    } else {
       var that = this
       this.data.isGetOtherInfo = false
-      api.getMyInfo(app.getOpenid(), this) //获取个人信息
-      api.getMyHistoryAbstractList(app.getOpenid(), this) //获取个人历史文章列表信息
+      api.getMyInfo.call(this, app.getOpenid()) //获取个人信息
+      api.getMyHistoryAbstractList.call(this, app.getOpenid()) //获取个人历史文章列表信息
     }
   },
+
   //点击查看联系方式
   isMyInfoVisiableToggle: function () {
     var that = this
     if (this.data.isGetOtherInfo) {
       if (!this.data.isAlreadyGetOtherInfo) {
-        api.getOtherInfo(app.getOpenid(), this.data.otherid, this, ()=>{
+        api.getOtherInfo.call(this, app.getOpenid(), this.data.otherid, () => {
           that.setData({
             isMyInfoVisiable: !that.data.isMyInfoVisiable,
           })
         })
       }
-    }
-    else {
-      api.getMyInfo(app.getOpenid(), this, ()=> {
+    } else {
+      api.getMyInfo.call(this, app.getOpenid(), () => {
         that.setData({
           isMyInfoVisiable: !that.data.isMyInfoVisiable,
         })
       })
     }
   },
+  
   sendMyCard: function () {
     if (this.data.isGetOtherInfo) {
-      api.sendMyCard(app.getOpenid(), this.data.otherid)
+      api.sendMyCard.call(this, app.getOpenid(), this.data.otherid)
     } else {
       wx.showModal({
         content: '无需给自己发名片',

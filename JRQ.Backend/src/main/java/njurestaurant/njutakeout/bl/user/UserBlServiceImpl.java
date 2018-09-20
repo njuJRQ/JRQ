@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class UserBlServiceImpl implements UserBlService {
@@ -70,9 +71,15 @@ public class UserBlServiceImpl implements UserBlService {
 		return new InfoResponse();
 	}
 
+	private static final String []colorPool = {"rgba(255, 161, 177, 0.699)",
+			"rgba(138, 138, 252, 0.767)",
+			"rgba(109, 156, 90, 0.726)",
+			"rgba(255, 58, 58, 0.678)"}; //业务标签的颜色值
+
 	@Override
 	public InfoResponse addClassification(String userLabel, String workClass) {
-		classificationDataService.addClassification(new Classification(userLabel, workClass));
+		classificationDataService.addClassification(
+				new Classification(userLabel, workClass, colorPool[new Random().nextInt(colorPool.length)]));
 		return new InfoResponse();
 	}
 
@@ -164,7 +171,7 @@ public class UserBlServiceImpl implements UserBlService {
 
 	@Override
 	public PersonResponse getPerson(String openid) throws NotExistException {
-		return new PersonResponse(new PersonItem(userDataService.getUserByOpenid(openid)));
+		return new PersonResponse(new PersonItem(userDataService.getUserByOpenid(openid), classificationDataService));
 	}
 
 	@Override
@@ -173,7 +180,7 @@ public class UserBlServiceImpl implements UserBlService {
 		List<PersonItem> personItemList = new ArrayList<>();
 		for(User user:userList) {
 			if(classificationDataService.getClassificationByUserLabel(user.getLabel()).getWorkClass().equals(workClass)) {
-				personItemList.add(new PersonItem(user));
+				personItemList.add(new PersonItem(user, classificationDataService));
 			}
 		}
 		return new PersonListResponse(personItemList);
@@ -185,7 +192,7 @@ public class UserBlServiceImpl implements UserBlService {
 		List<PersonItem> personItemList = new ArrayList<>();
 		for (User user:userList) {
 			if (user.getUsername().contains(condition) || user.getCompany().contains(condition)) {
-				personItemList.add(new PersonItem(user));
+				personItemList.add(new PersonItem(user, classificationDataService));
 			}
 		}
 		return new PersonListResponse(personItemList);

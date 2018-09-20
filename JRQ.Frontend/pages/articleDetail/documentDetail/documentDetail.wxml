@@ -15,8 +15,7 @@
     <text style='color:black; font-size:1rem; font-weight:bold;'>文档详情</text>
     <view class='div-line'></view>
     <view class='detail column' style='font-size:0.8rem;'>
-      <text>文档编号：{{document.id}}</text>
-      <text>文档内容：{{document.content}}</text>
+      <text>{{document.content}}</text>
     </view>
   </view>
 </view>

@@ -5,15 +5,12 @@ App({
   },
   getToken: function () {
     return wx.getStorageSync('token')
-    //return this.globalData.token
   },
   getOpenid: function () {
     return wx.getStorageSync('openid')
-    //return this.globalData.openid
   },
   getWechatUsername: function () {
     return wx.getStorageSync('wechatUsername')
-    //return this.globalData.wechatUsername
   },
   getDate: function () {
     var date = new Date()
@@ -47,16 +44,13 @@ App({
                 //console.log(res.data)
                 var openid = res.data.openid;
                 wx.setStorageSync("openid", openid);
-                //that.globalData.openid = openid
                 var sessionKey = res.data.session_key;
                 wx.setStorageSync("sessionKey", sessionKey);
-                //that.globalData.sessionKey = res.data.session_key
                 //获取个人微信号信息
                 wx.getUserInfo({
                   success: function (data) {
                     console.log('个人微信号信息', data)
                     wx.setStorageSync("wechatUsername", data.userInfo.nickName);
-                    //that.globalData.wechatUsername = data.userInfo.nickName
                     wx.request({
                       url: that.globalData.backendUrl + "loginMyUser",
                       header: {
@@ -68,8 +62,17 @@ App({
                       },
                       method: 'GET',
                       success: (res) => {
-                        //that.globalData.token = res.data.token
                         wx.setStorageSync("token", res.data.token);
+                      },
+                      fail: (res) => {
+                        wx.showModal({
+                          title: '连接服务器失败',
+                          content: res.errMsg,
+                          showCancel: false,
+                          success: (res) => {
+                            that.onShow()
+                          }
+                        })
                       }
                     })
                   },

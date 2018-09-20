@@ -1,6 +1,9 @@
 <!--pages/login/login.wxml-->
 <view class='container'>
-  <text>由于您是第一次登陆本小程序</text>
-  <text>请点击授权后登陆</text>
-  <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+  <view class='info'>
+    <text>由于您是第一次登陆本小程序,请点击授权后登陆</text>
+  </view>
+  <view class='login-btn'>
+    <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+  </view>
 </view>

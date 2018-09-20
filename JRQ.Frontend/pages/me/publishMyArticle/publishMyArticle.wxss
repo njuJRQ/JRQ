@@ -36,25 +36,22 @@ page {
 }
 
 .publisher-chooser {
-  margin: 10px;
+  margin: 10px 0;
 }
 
 .publisher-chooser-text {
   margin: 0 0 10px 0;
 }
 
-.publisher-chooser button {
-  width: 80px;
-  height: 30px;
-  font-size: 0.7rem;
-}
-
 .publisher-button {
-  margin: 40px 0 0 0;
+  margin: 20px 0 0 0;
+  width: 100%;
 }
 
 .publisher-button button {
   width: 90%;
+  height: 40px;
   background-color: #293A70;
   color: white;
+  font-size: 1rem;
 }

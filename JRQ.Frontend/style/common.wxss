@@ -1,6 +1,10 @@
 text {
   color: gray;
 }
+button {
+  background-color: rgb(0, 0, 120);
+  color: white;
+}
 .div-line{
   background: #E0E3DA;
   width: 100%;

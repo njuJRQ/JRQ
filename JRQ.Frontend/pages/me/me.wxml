@@ -20,7 +20,7 @@
         <view class='my-card-info column'>
           <view class='my-card-info-username row v-center'>
             <text>{{myInfo.username}}</text>
-            <view wx:for='{{myInfo.medals}}'>
+            <view wx:for='{{myInfo.medals}}' wx:key='*this'>
               <image src='{{item}}'></image>
             </view>
           </view>

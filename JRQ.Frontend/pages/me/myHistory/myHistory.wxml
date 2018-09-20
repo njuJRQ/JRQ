@@ -9,7 +9,7 @@
         <view class='my-card-info column'>
           <view class='my-card-info-username row v-center'>
             <text>{{myInfo.username}}</text>
-            <view wx:for='{{myInfo.medals}}'>
+            <view wx:for='{{myInfo.medals}}' wx:key='*this'>
               <image src='{{item}}'></image>
             </view>
           </view>
@@ -72,7 +72,7 @@
     </view>
   </view>
   <view style='width: 100%'>
-    <view wx:for='{{myArticles}}' style='padding: 0 10px;'>
+    <view wx:for='{{myArticles}}' wx:key='id' style='padding: 0 10px;'>
       <view class='article' bindtap='onClickThisArticle' data-id='{{item.id}}'>
 
         <view class='writer-info v-center'>

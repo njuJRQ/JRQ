@@ -30,8 +30,9 @@ Page({
   },
   
   onDownload: function () {
-    if (this.data.project.attachment)
+    if (this.data.project.attachment) {
       api.downloadFile.call(this, this.data.project.attachment)
+    }
     else {
       wx.showModal({
         content: '该项目不存在附件',

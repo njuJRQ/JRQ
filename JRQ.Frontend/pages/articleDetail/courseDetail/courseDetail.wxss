@@ -23,9 +23,16 @@ page {
 .course-intro > .detail > text {
   margin: 3px 0;
 }
+.course-video {
+  margin: 20px 0 0 0;
+  padding: 10px;
+  background-color: white;
+}
 .course-video .content video {
   width: 100%;
 }
 .course-buttons {
+  background-color: white;
+  padding: 10px 0 0 0;
   width: 100%;
 }

@@ -21,16 +21,6 @@ function getAbstractList(kind, openid) {
         article.images = article.images.map((image) => app.globalData.picUrl + image)
       })
       that.setData(that.data)
-    },
-    fail: (res) => {
-      wx.showModal({
-        title: '连接服务器失败',
-        content: res.errMsg,
-        showCancel: false,
-        success: (res) => {
-          that.onShow()
-        }
-      })
     }
   })
 }
@@ -56,7 +46,8 @@ function getFeedList() {
   })
 }
 
-function getCourse(id, that) {
+function getCourse(id) {
+  var that = this
   wx.request({
     url: app.globalData.backendUrl + "getCourse",
     data: {
@@ -104,7 +95,8 @@ function getMyCourse(openid, courseId, then) {
   })
 }
 
-function getDocument(id, that) {
+function getDocument(id) {
+  var that = this
   wx.request({
     url: app.globalData.backendUrl + "getDocument",
     data: {
@@ -358,7 +350,7 @@ function checkMyReceivedCard(senderOpenid, receiverOpenid) {
     },
     method: 'GET',
     success: (res) => {
-      //do nothing
+      console.log(res)
     }
   })
 }
@@ -612,7 +604,12 @@ function setMyUserAsEnterprise(openid) {
       console.log(res)
       wx.showModal({
         content: res.data.message,
-        showCancel: false
+        showCancel: false,
+        success: (r) => {
+          that.setData({
+            returnInfo: res.data.message
+          })
+        }
       })
     }
   })

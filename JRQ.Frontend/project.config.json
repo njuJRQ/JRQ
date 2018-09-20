@@ -38,7 +38,7 @@
 				{
 					"id": 0,
 					"name": "调试",
-					"pathName": "pages/me/updateMe/updateMe",
+					"pathName": "pages/me/publishMyArticle/publishMyArticle",
 					"query": ""
 				}
 			]

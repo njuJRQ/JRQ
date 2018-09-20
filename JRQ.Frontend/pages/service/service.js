@@ -90,45 +90,21 @@ Page({
   },
   
   showClass: function(kind) {
-    //var that = this
     api.getPersonList.call(this, kind)
-    /*
-    api.getPersonList(kind, this, ()=>{
-      that.addLabel()
-    })
-    */
   },
-  /*
-  addLabel: function() {
-    var categoryDict = {
-      融资租赁: { text: '融资租赁', class_: 'card-category-rzzl' },
-      商业保理: { text: '商业保理', class_: 'card-category-sybl' },
-      地产交易: { text: '地产交易', class_: 'card-category-dcjy' },
-      金融牌照: { text: '金融牌照', class_: 'card-category-jrpz' }
-    };
-    this.data.cards.forEach(function (card) {
-      card['categoryText'] = categoryDict[card.label].text;
-      card['categoryClass'] = categoryDict[card.label].class_;
-    });
-    this.setData(this.data)
-  },
-  */
   //展示资金类
   showCapitalClass: function(event) {
-    this.showClass('capital');
-    console.log('show capital class')
+    api.getPersonList.call(this, 'capital')
   },
 
   //展示股票类
   showStockClass: function() {
-    this.showClass('stock');
-    console.log('show stock class')
+    api.getPersonList.call(this, 'stock')
   },
 
   //展示并购类
   showMergeClass: function() {
-    this.showClass('merge');
-    console.log('show merge class')
+    api.getPersonList.call(this, 'merge')
   },
   
   onClickThisCard: function (e) {

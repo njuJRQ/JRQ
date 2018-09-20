@@ -19,13 +19,13 @@
   width: 90%;
 }
 .ad > image {
-  width: 100%;
+  width: 300px;
   height: 120px;
   margin: 3px;
 }
 /*关于文章的属性*/
 .article-images > image {
-  width: 33%;
+  width: 100px;
   height: 100px;
   margin: 2px;
 }

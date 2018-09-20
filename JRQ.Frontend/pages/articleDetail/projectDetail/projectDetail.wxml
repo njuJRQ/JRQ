@@ -23,12 +23,12 @@
       <text>业务标签：{{project.business}}</text>
       <text>项目详情：{{project.content}}</text>
       <text>项目资金：{{project.money}}</text>
-      <text>附件路径：{{project.attachment}}</text>
+      <text>是否存在附件：{{project.attachment?'是':'否'}}</text>
     </view>
   </view>
   <view class='courseButtons row'>
     <view class='download' style='width:100%'>
-      <button bindtap='onDownload'>下载附件</button>
+      <button bindtap='onDownload' disabled='{{!project.attachment}}'>下载附件</button>
     </view>
   </view>
 </view>

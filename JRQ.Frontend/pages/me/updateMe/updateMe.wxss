@@ -1,2 +1,38 @@
 /* pages/me/updateMe/updateMe.wxss */
 @import '/style/common.wxss';
+page {
+  background-color: #F0F0F0;
+}
+
+text {
+  color: #495A80;
+}
+
+.header {
+  height: 100px;
+}
+
+.buttons {
+  height: 200px;
+}
+
+.btn {
+  margin: 10px 0 0 0;
+}
+
+.btn-298 {
+  background-color: #9DD3FA;
+}
+
+.btn-998 {
+  background-color: #1F6FB5;
+  color: white;
+}
+
+.btn-enter {
+  background-color: #FCD692;
+}
+
+.footer {
+  height: 100px;
+}

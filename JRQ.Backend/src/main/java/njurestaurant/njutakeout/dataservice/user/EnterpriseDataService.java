@@ -9,6 +9,8 @@ public interface EnterpriseDataService {
 
 	boolean isUserEnterprise(String openid);
 
+	boolean isAdminEnterprise(String adminId);
+
 	void saveEnterprise(Enterprise enterprise);
 
 	void addEnterprise(Enterprise enterprise);

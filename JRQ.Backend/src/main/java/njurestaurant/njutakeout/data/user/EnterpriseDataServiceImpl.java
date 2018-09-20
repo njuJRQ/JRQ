@@ -25,6 +25,11 @@ public class EnterpriseDataServiceImpl implements EnterpriseDataService {
 	}
 
 	@Override
+	public boolean isAdminEnterprise(String adminId) {
+		return enterpriseDao.findEnterpriseByAdminId(adminId).isPresent();
+	}
+
+	@Override
 	public void saveEnterprise(Enterprise enterprise) {
 		enterpriseDao.save(enterprise);
 	}

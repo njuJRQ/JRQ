@@ -11,6 +11,8 @@ import njurestaurant.njutakeout.dataservice.user.PrivilegeDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
 import njurestaurant.njutakeout.entity.admin.Admin;
 import njurestaurant.njutakeout.entity.article.Course;
+import njurestaurant.njutakeout.entity.article.Document;
+import njurestaurant.njutakeout.entity.article.Project;
 import njurestaurant.njutakeout.entity.purchase.Purchase;
 import njurestaurant.njutakeout.entity.user.Enterprise;
 import njurestaurant.njutakeout.entity.user.User;
@@ -18,7 +20,9 @@ import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.BoolResponse;
 import njurestaurant.njutakeout.response.article.course.CourseItem;
 import njurestaurant.njutakeout.response.article.course.CourseListResponse;
+import njurestaurant.njutakeout.response.article.document.DocumentItem;
 import njurestaurant.njutakeout.response.article.document.DocumentListResponse;
+import njurestaurant.njutakeout.response.article.project.ProjectItem;
 import njurestaurant.njutakeout.response.article.project.ProjectListResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -93,24 +97,46 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 	}
 
 	@Override
+	public BoolResponse isAdminEnterprise(String adminId) {
+		return new BoolResponse(enterpriseDataService.isAdminEnterprise(adminId), "");
+	}
+
+	@Override
 	public CourseListResponse getMyPublishedCourseList(String adminId) throws NotExistException {
-		//TODO: 根据publishDataService获取自己的已发布列表
-//		Enterprise enterprise = enterpriseDataService.getEnterpriseByAdminId(adminId);
-//		List<Course> courses = courseDataService.getAllCourses();
-//		List<CourseItem> courseItems = new ArrayList<>();
-//		for(Course course:courses) {
-//			if(course.getWriterName())
-//		}
-		return null;
+		Admin admin = adminDataService.getAdminById(adminId);
+		List<Course> courses = courseDataService.getAllCourses();
+		List<CourseItem> courseItems = new ArrayList<>();
+		for(Course course:courses) {
+			if(admin.getUsername().equals(course.getWriterName())) {
+				courseItems.add(new CourseItem(course));
+			}
+		}
+		return new CourseListResponse(courseItems);
 	}
 
 	@Override
-	public DocumentListResponse getMyPublishedDocumentList(String adminId) {
-		return null;
+	public DocumentListResponse getMyPublishedDocumentList(String adminId) throws NotExistException {
+		Admin admin = adminDataService.getAdminById(adminId);
+		List<Document> documents = documentDataService.getAllDocuments();
+		List<DocumentItem> documentItems = new ArrayList<>();
+		for(Document document:documents) {
+			if(admin.getUsername().equals(document.getWriterName())) {
+				documentItems.add(new DocumentItem(document));
+			}
+		}
+		return new DocumentListResponse(documentItems);
 	}
 
 	@Override
-	public ProjectListResponse getMyPublishedProjectList(String adminId) {
-		return null;
+	public ProjectListResponse getMyPublishedProjectList(String adminId) throws NotExistException {
+		Admin admin = adminDataService.getAdminById(adminId);
+		List<Project> projects = projectDataService.getAllProjects();
+		List<ProjectItem> projectItems = new ArrayList<>();
+		for(Project project:projects) {
+			if(admin.getUsername().equals(project.getWriterName())) {
+				projectItems.add(new ProjectItem(project));
+			}
+		}
+		return new ProjectListResponse(projectItems);
 	}
 }

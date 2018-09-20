@@ -14,6 +14,8 @@ public interface EnterpriseBlService {
 	 */
 	BoolResponse setMyUserAsEnterprise(String openid);
 
+	BoolResponse isAdminEnterprise(String adminId);
+
 	/**
 	 * 企业用户管理员获取自己发布的课程列表
 	 * @param adminId 管理员ID
@@ -26,12 +28,12 @@ public interface EnterpriseBlService {
 	 * @param adminId 管理员ID
 	 * @return 文档列表
 	 */
-	DocumentListResponse getMyPublishedDocumentList(String adminId);
+	DocumentListResponse getMyPublishedDocumentList(String adminId) throws NotExistException;
 
 	/**
 	 * 企业用户管理员获取自己发布的项目列表
 	 * @param adminId 管理员ID
 	 * @return 项目列表
 	 */
-	ProjectListResponse getMyPublishedProjectList(String adminId);
+	ProjectListResponse getMyPublishedProjectList(String adminId) throws NotExistException;
 }

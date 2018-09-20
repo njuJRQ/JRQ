@@ -18,6 +18,8 @@ import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.BoolResponse;
 import njurestaurant.njutakeout.response.article.course.CourseItem;
 import njurestaurant.njutakeout.response.article.course.CourseListResponse;
+import njurestaurant.njutakeout.response.article.document.DocumentListResponse;
+import njurestaurant.njutakeout.response.article.project.ProjectListResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -99,6 +101,16 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 //		for(Course course:courses) {
 //			if(course.getWriterName())
 //		}
+		return null;
+	}
+
+	@Override
+	public DocumentListResponse getMyPublishedDocumentList(String adminId) {
+		return null;
+	}
+
+	@Override
+	public ProjectListResponse getMyPublishedProjectList(String adminId) {
 		return null;
 	}
 }

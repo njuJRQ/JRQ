@@ -10,9 +10,11 @@ public interface EnterpriseBlService {
 	/**
 	 * 用户升级自己为企业账户
 	 * @param openid 用户的微信openid
+	 * @param username 企业用户管理员的username（之后会作为文章的writerName）
+	 * @param password 企业用户管理员的密码
 	 * @return 成功则返回用户名密码信息；失败则返回错误信息
 	 */
-	BoolResponse setMyUserAsEnterprise(String openid);
+	BoolResponse setMyUserAsEnterprise(String openid, String username, String password);
 
 	BoolResponse isAdminEnterprise(String adminId);
 

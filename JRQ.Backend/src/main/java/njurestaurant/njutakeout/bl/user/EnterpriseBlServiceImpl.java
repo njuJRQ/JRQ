@@ -57,7 +57,7 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 	}
 
 	@Override
-	public BoolResponse setMyUserAsEnterprise(String openid) {
+	public BoolResponse setMyUserAsEnterprise(String openid, String username, String password) {
 		if (enterpriseDataService.isUserEnterprise(openid)) {
 			return new BoolResponse(false, "已经是企业用户，无需重复购买");
 		}
@@ -75,24 +75,17 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 		}
 		if (user.getCredit()<price) {
 			return new BoolResponse(false, "账户余额不足");
+		} else if (adminDataService.isAdminExistent(username)) {
+			return new BoolResponse(false, "用户名"+username+"已存在");
 		} else {
-			String adminUsername = UUID.randomUUID().toString();
-			while (adminDataService.isAdminExistent(adminUsername)) {
-				adminUsername = UUID.randomUUID().toString();
-			}
 			SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");//设置日期格式
 			String date=df.format(new Date());// new Date()为获取当前系统时间
-			adminDataService.addAdmin(new Admin(adminUsername, adminUsername, "3", date));
-			String adminId = null;
-			try {
-				adminId = adminDataService.getAdminByUsername(adminUsername).getId();
-			} catch (NotExistException e) {
-				return new BoolResponse(false, "系统内部错误："+e.getMessage());
-			}
-			enterpriseDataService.addEnterprise(new Enterprise(openid, adminUsername));
+			Admin admin = new Admin(username, password, "3", date);
+			adminDataService.addAdmin(admin); //此处新增Admin之后Admin的ID会自动生成
+			enterpriseDataService.addEnterprise(new Enterprise(openid, admin.getId()));
 			user.setCredit(user.getCredit()-price);
-			purchaseDataService.addPurchase(new Purchase(openid, "enterprise", adminId, price, date));
-			return new BoolResponse(true, "企业用户升级成功，用户名与密码均为"+adminUsername);
+			purchaseDataService.addPurchase(new Purchase(openid, "enterprise", admin.getId(), price, date));
+			return new BoolResponse(true, "企业用户升级成功，用户名为'"+username+"'，密码为'"+password+"'");
 		}
 	}
 

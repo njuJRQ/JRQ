@@ -12,6 +12,88 @@ var list=new Array();
 var firstID=0;
 var theGroup=0;
 var url=getUrl();
+var storage = window.localStorage;
+var name=storage["adminUsername"];
+var adminId="";
+$.ajax(
+    {
+        url: url+"/getAdminByUsername",
+        data: {
+            username:name
+        },
+        async:false,
+        success: function (data) {
+            adminId=data.admin.id;
+        },
+        error: function (xhr) {
+            alert('动态页有问题噶！\n\n' + xhr.responseText);
+        },
+        traditional: true,
+    }
+)
+
+$.ajax(
+    {
+        url: url+"/isAdminEnterprise",
+        data: {
+            adminId:adminId
+        },
+        async:false,
+        success: function (data) {
+
+            if(data){
+                $.ajax(
+                    {
+                        url: url+"/getMyPublishedCourseList",
+                        data: {
+                            adminId:adminId
+                        },
+                        async:false,
+                        success: function (data) {
+                            for(var i=0;i<data.courseList.length;i++){
+                                list.push(data.courseList[i]);
+                            }
+                            document.getElementById("jilu").innerText="共"+(list.length)+"条记录";
+                            changepage(1);
+                        },
+                        error: function (xhr) {
+                            alert('动态页有问题噶！\n\n' + xhr.responseText);
+                        },
+                        traditional: true,
+                    }
+                )
+            }
+            else{
+                $.ajax(
+                    {
+                        url: url+"/getCourseList",
+                        data: {
+                        },
+                        async:false,
+                        success: function (data) {
+                            for(var i=0;i<data.courseList.length;i++){
+                                list.push(data.courseList[i]);
+                            }
+                            document.getElementById("jilu").innerText="共"+(list.length)+"条记录";
+                            changepage(1);
+                        },
+                        error: function (xhr) {
+                            alert('动态页有问题噶！\n\n' + xhr.responseText);
+                        },
+                        traditional: true,
+                    }
+                )
+            }
+        },
+        error: function (xhr) {
+            alert('动态页有问题噶！\n\n' + xhr.responseText);
+        },
+        traditional: true,
+    }
+)
+
+
+
 $.ajax(
     {
         url: url+"/getCourseList",

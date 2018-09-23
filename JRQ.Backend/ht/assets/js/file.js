@@ -12,18 +12,19 @@ var list=new Array();
 var firstID=0;
 var theGroup=0;
 var url=getUrl();
+
+var storage = window.localStorage;
+var name=storage["adminUsername"];
+var adminId="";
 $.ajax(
     {
-        url: url+"/getDocumentList",
+        url: url+"/getAdminByUsername",
         data: {
+            username:name
         },
         async:false,
         success: function (data) {
-            for(var i=0;i<data.documents.length;i++){
-                list.push(data.documents[i]);
-            }
-            document.getElementById("jilu").innerText="共"+(list.length)+"条记录";
-            changepage(1);
+            adminId=data.admin.id;
         },
         error: function (xhr) {
             alert('动态页有问题噶！\n\n' + xhr.responseText);
@@ -31,6 +32,75 @@ $.ajax(
         traditional: true,
     }
 )
+
+$.ajax(
+    {
+        url: url+"/isAdminEnterprise",
+        data: {
+            adminId:adminId
+        },
+        async:false,
+        success: function (data) {
+
+            if(data){
+                $.ajax(
+                    {
+                        url: url+"/getMyPublishedDocumentList",
+                        data: {
+                            adminId:adminId
+                        },
+                        async:false,
+                        success: function (data) {
+                            $("#all").hide();
+                            $("#del").hide();
+                            $("#del1").hide();
+                            $("#del2").hide();
+                            $("#del3").hide();
+                            $("#del4").hide();
+                            $("#del5").hide();
+                            for(var i=0;i<data.documents.length;i++){
+                                list.push(data.documents[i]);
+                            }
+                            document.getElementById("jilu").innerText="共"+(list.length)+"条记录";
+                            changepage(1);
+                        },
+                        error: function (xhr) {
+                            alert('动态页有问题噶！\n\n' + xhr.responseText);
+                        },
+                        traditional: true,
+                    }
+                )
+            }
+            else{
+                $.ajax(
+                    {
+                        url: url+"/getDocumentList",
+                        data: {
+                        },
+                        async:false,
+                        success: function (data) {
+                            for(var i=0;i<data.documents.length;i++){
+                                list.push(data.documents[i]);
+                            }
+                            document.getElementById("jilu").innerText="共"+(list.length)+"条记录";
+                            changepage(1);
+                        },
+                        error: function (xhr) {
+                            alert('动态页有问题噶！\n\n' + xhr.responseText);
+                        },
+                        traditional: true,
+                    }
+                )
+            }
+        },
+        error: function (xhr) {
+            alert('动态页有问题噶！\n\n' + xhr.responseText);
+        },
+        traditional: true,
+    }
+)
+
+
 
 function setthisquestion(n){
     var q=list[firstID+n];

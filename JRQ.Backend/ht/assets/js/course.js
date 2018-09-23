@@ -71,6 +71,13 @@ $.ajax(
                         },
                         async:false,
                         success: function (data) {
+                            $("#all").hide();
+                            $("#del").hide();
+                            $("#del1").hide();
+                            $("#del2").hide();
+                            $("#del3").hide();
+                            $("#del4").hide();
+                            $("#del5").hide();
                             for(var i=0;i<data.courseList.length;i++){
                                 list.push(data.courseList[i]);
                             }
@@ -94,25 +101,6 @@ $.ajax(
 
 
 
-$.ajax(
-    {
-        url: url+"/getCourseList",
-        data: {
-        },
-        async:false,
-        success: function (data) {
-            for(var i=0;i<data.courseList.length;i++){
-                list.push(data.courseList[i]);
-            }
-            document.getElementById("jilu").innerText="共"+(list.length)+"条记录";
-            changepage(1);
-        },
-        error: function (xhr) {
-            alert('动态页有问题噶！\n\n' + xhr.responseText);
-        },
-        traditional: true,
-    }
-)
 
 function setthisquestion(n){
     var q=list[firstID+n];

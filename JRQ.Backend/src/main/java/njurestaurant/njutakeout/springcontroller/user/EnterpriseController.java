@@ -23,7 +23,9 @@ public class EnterpriseController {
 
     @ApiOperation(value = "用户升级自己为企业账户", notes = "用户升级自己为企业账户")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "openid", value = "用户的微信openid", required = true, dataType = "String")
+            @ApiImplicitParam(name = "openid", value = "用户的微信openid", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "username", value = "企业用户管理员的username", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "password", value = "企业用户管理员的密码", required = true, dataType = "String")
     })
     @RequestMapping(value = "/setMyUserAsEnterprise", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -31,8 +33,8 @@ public class EnterpriseController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> setMyUserAsEnterprise(@RequestParam(name="openid")String openid) {
-        return new ResponseEntity<>(enterpriseBlService.setMyUserAsEnterprise(openid), HttpStatus.OK);
+    public ResponseEntity<Response> setMyUserAsEnterprise(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username,@RequestParam(name="password")String password) {
+        return new ResponseEntity<>(enterpriseBlService.setMyUserAsEnterprise(openid,username,password), HttpStatus.OK);
     }
 
     @ApiOperation(value = "用户升级自己为企业账户", notes = "用户升级自己为企业账户")

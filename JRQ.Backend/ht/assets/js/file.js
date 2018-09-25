@@ -16,6 +16,7 @@ var url=getUrl();
 var storage = window.localStorage;
 var name=storage["adminUsername"];
 var adminId="";
+var isEnterprise=false;
 $.ajax(
     {
         url: url+"/getAdminByUsername",
@@ -42,7 +43,7 @@ $.ajax(
         async:false,
         success: function (data) {
 
-            if(data){
+            if(data.ok){
                 $.ajax(
                     {
                         url: url+"/getMyPublishedDocumentList",
@@ -51,13 +52,9 @@ $.ajax(
                         },
                         async:false,
                         success: function (data) {
-                            $("#all").hide();
+                            isEnterprise=true;
+                            $("#checkall").hide();
                             $("#del").hide();
-                            $("#del1").hide();
-                            $("#del2").hide();
-                            $("#del3").hide();
-                            $("#del4").hide();
-                            $("#del5").hide();
                             for(var i=0;i<data.documents.length;i++){
                                 list.push(data.documents[i]);
                             }
@@ -108,24 +105,27 @@ function setthisquestion(n){
     storage["thisDocument"]=q.id;
 }
 function deletequestion(n){
-    var q=list[firstID+n];
-    var url=getUrl();
-    $.ajax(
-        {
-            url: url+"/deleteDocument",
-            data: {
-                id:q.id
-            },
-            async:false,
-            success: function (data) {
-                window.location.href="file.html";
-            },
-            error: function (xhr) {
-                alert('动态页有问题噶！\n\n' + xhr.responseText);
-            },
-            traditional: true,
-        }
-    )
+    var r=confirm("确定删除么？");
+    if(r) {
+        var q = list[firstID + n];
+        var url = getUrl();
+        $.ajax(
+            {
+                url: url + "/deleteDocument",
+                data: {
+                    id: q.id
+                },
+                async: false,
+                success: function (data) {
+                    window.location.href = "file.html";
+                },
+                error: function (xhr) {
+                    alert('动态页有问题噶！\n\n' + xhr.responseText);
+                },
+                traditional: true,
+            }
+        )
+    }
 }
 
 
@@ -189,6 +189,13 @@ function changepage(page){
         document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
         document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].title;
         document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].date;
+        if(isEnterprise) {
+            $("#del1").hide();
+            $("#del2").hide();
+            $("#del3").hide();
+            $("#del4").hide();
+            $("#del5").hide();
+        }
         $("#your-alert-2").hide();
         $("#your-alert-3").hide();
         $("#your-alert-4").hide();
@@ -203,6 +210,13 @@ function changepage(page){
         document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].id;
         document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].title;
         document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].date;
+        if(isEnterprise) {
+            $("#del1").hide();
+            $("#del2").hide();
+            $("#del3").hide();
+            $("#del4").hide();
+            $("#del5").hide();
+        }
         $("#your-alert-3").hide();
         $("#your-alert-4").hide();
         $("#your-alert-5").hide();
@@ -220,6 +234,13 @@ function changepage(page){
         document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].id;;
         document.getElementById("name"+(firstID%5+3)).innerText=list[firstID+2].title;
         document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].date;
+        if(isEnterprise) {
+            $("#del1").hide();
+            $("#del2").hide();
+            $("#del3").hide();
+            $("#del4").hide();
+            $("#del5").hide();
+        }
         $("#your-alert-4").hide();
         $("#your-alert-5").hide();
     }
@@ -240,6 +261,13 @@ function changepage(page){
         document.getElementById("number"+(firstID%5+4)).innerText=list[firstID+3].id;;
         document.getElementById("name"+(firstID%5+4)).innerText=list[firstID+3].title;
         document.getElementById("date"+(firstID%5+4)).innerText=list[firstID+3].date;
+        if(isEnterprise) {
+            $("#del1").hide();
+            $("#del2").hide();
+            $("#del3").hide();
+            $("#del4").hide();
+            $("#del5").hide();
+        }
         $("#your-alert-5").hide();
     }
     else{
@@ -263,6 +291,13 @@ function changepage(page){
         document.getElementById("number"+(firstID%5+5)).innerText=list[firstID+4].id;;
         document.getElementById("name"+(firstID%5+5)).innerText=list[firstID+4].title;
         document.getElementById("date"+(firstID%5+5)).innerText=list[firstID+4].date;
+        if(isEnterprise) {
+            $("#del1").hide();
+            $("#del2").hide();
+            $("#del3").hide();
+            $("#del4").hide();
+            $("#del5").hide();
+        }
     }
 
 
@@ -288,23 +323,26 @@ function deletesingle(n){
     )
 }
 function delAll(){
-    if(document.getElementById("c1").checked){
-        deletesingle(1);
+    var r=confirm("确定删除么？");
+    if(r) {
+        if (document.getElementById("c1").checked) {
+            deletesingle(1);
+        }
+        if (document.getElementById("c2").checked) {
+            deletesingle(2);
+        }
+        if (document.getElementById("c3").checked) {
+            deletesingle(3);
+        }
+        if (document.getElementById("c4").checked) {
+            deletesingle(4);
+        }
+        if (document.getElementById("c5").checked) {
+            deletesingle(5);
+        }
+        alert("批量删除成功");
+        window.location.href = "file.html";
     }
-    if(document.getElementById("c2").checked){
-        deletesingle(2);
-    }
-    if(document.getElementById("c3").checked){
-        deletesingle(3);
-    }
-    if(document.getElementById("c4").checked){
-        deletesingle(4);
-    }
-    if(document.getElementById("c5").checked){
-        deletesingle(5);
-    }
-    alert("批量删除成功");
-    window.location.href="file.html";
 
 }
 

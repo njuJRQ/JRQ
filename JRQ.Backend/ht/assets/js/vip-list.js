@@ -38,25 +38,28 @@ function setthisquestion(n){
     storage["thisUser"]=q.openid;
 }
 function deletequestion(n){
-    var q=list[firstID+n];
-    var url=getUrl();
-    $.ajax(
-        {
-            url: url+"/deleteUser",
-            data: {
-                openid:q.openid
-            },
-            async:false,
-            success: function (data) {
-                alert("删除成功");
-                window.location.href="vip-list.html";
-            },
-            error: function (xhr) {
-                alert('动态页有问题噶！\n\n' + xhr.responseText);
-            },
-            traditional: true,
-        }
-    )
+    var r=confirm("确定删除么？");
+    if(r) {
+        var q = list[firstID + n];
+        var url = getUrl();
+        $.ajax(
+            {
+                url: url + "/deleteUser",
+                data: {
+                    openid: q.openid
+                },
+                async: false,
+                success: function (data) {
+                    alert("删除成功");
+                    window.location.href = "vip-list.html";
+                },
+                error: function (xhr) {
+                    alert('动态页有问题噶！\n\n' + xhr.responseText);
+                },
+                traditional: true,
+            }
+        )
+    }
 }
 
 

@@ -20,6 +20,12 @@ $.ajax(
         async:false,
         success: function (data) {
             for(var i=0;i<data.ads.length;i++){
+                if(data.ads[i].showPlace=="index"){
+                    data.ads[i].showPlace="首页";
+                }
+                else if(data.ads[i].showPlace=="service"){
+                    data.ads[i].showPlace="业务";
+                }
                 list.push(data.ads[i]);
             }
             document.getElementById("jilu").innerText="共"+(list.length)+"条记录";
@@ -122,6 +128,8 @@ function changepage(page){
         document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
         document.getElementById("name"+(firstID%5+1)).src="../"+list[firstID].image;
         document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].link;
+        document.getElementById("place"+(firstID%5+1)).innerText=list[firstID].showPlace;
+
         $("#your-alert-2").hide();
         $("#your-alert-3").hide();
         $("#your-alert-4").hide();
@@ -133,10 +141,12 @@ function changepage(page){
         document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
         document.getElementById("name"+(firstID%5+1)).src="../"+list[firstID].image;
         document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].link;
+        document.getElementById("place"+(firstID%5+1)).innerText=list[firstID].showPlace;
 
         document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].id;
         document.getElementById("name"+(firstID%5+2)).src="../"+list[firstID+1].image;
         document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].link;
+        document.getElementById("place"+(firstID%5+2)).innerText=list[firstID+1].showPlace;
         $("#your-alert-3").hide();
         $("#your-alert-4").hide();
         $("#your-alert-5").hide();
@@ -148,14 +158,17 @@ function changepage(page){
         document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
         document.getElementById("name"+(firstID%5+1)).src="../"+list[firstID].image;
         document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].link;
+        document.getElementById("place"+(firstID%5+1)).innerText=list[firstID].showPlace;
 
         document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].id;
         document.getElementById("name"+(firstID%5+2)).src="../"+list[firstID+1].image;
         document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].link;
+        document.getElementById("place"+(firstID%5+2)).innerText=list[firstID+1].showPlace;
 
         document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].id;
         document.getElementById("name"+(firstID%5+3)).src="../"+list[firstID+2].image;
         document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].link;
+        document.getElementById("place"+(firstID%5+3)).innerText=list[firstID+2].showPlace;
         $("#your-alert-4").hide();
         $("#your-alert-5").hide();
     }
@@ -167,18 +180,22 @@ function changepage(page){
         document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
         document.getElementById("name"+(firstID%5+1)).src="../"+list[firstID].image;
         document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].link;
+        document.getElementById("place"+(firstID%5+1)).innerText=list[firstID].showPlace;
 
         document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].id;
         document.getElementById("name"+(firstID%5+2)).src="../"+list[firstID+1].image;
         document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].link;
+        document.getElementById("place"+(firstID%5+2)).innerText=list[firstID+1].showPlace;
 
         document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].id;
         document.getElementById("name"+(firstID%5+3)).src="../"+list[firstID+2].image;
         document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].link;
+        document.getElementById("place"+(firstID%5+3)).innerText=list[firstID+2].showPlace;
 
         document.getElementById("number"+(firstID%5+4)).innerText=list[firstID+3].id;
         document.getElementById("name"+(firstID%5+4)).src="../"+list[firstID+3].image;
         document.getElementById("date"+(firstID%5+4)).innerText=list[firstID+3].link;
+        document.getElementById("place"+(firstID%5+4)).innerText=list[firstID+3].showPlace;
         $("#your-alert-5").hide();
     }
     else{
@@ -190,22 +207,27 @@ function changepage(page){
         document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
         document.getElementById("name"+(firstID%5+1)).src="../"+list[firstID].image;
         document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].link;
+        document.getElementById("place"+(firstID%5+1)).innerText=list[firstID].showPlace;
 
         document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].id;
         document.getElementById("name"+(firstID%5+2)).src="../"+list[firstID+1].image;
         document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].link;
+        document.getElementById("place"+(firstID%5+2)).innerText=list[firstID+1].showPlace;
 
         document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].id;
         document.getElementById("name"+(firstID%5+3)).src="../"+list[firstID+2].image;
         document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].link;
+        document.getElementById("place"+(firstID%5+3)).innerText=list[firstID+2].showPlace;
 
         document.getElementById("number"+(firstID%5+4)).innerText=list[firstID+3].id;
         document.getElementById("name"+(firstID%5+4)).src="../"+list[firstID+3].image;
         document.getElementById("date"+(firstID%5+4)).innerText=list[firstID+3].link;
+        document.getElementById("place"+(firstID%5+4)).innerText=list[firstID+3].showPlace;
 
         document.getElementById("number"+(firstID%5+5)).innerText=list[firstID+4].id;
         document.getElementById("name"+(firstID%5+5)).src="../"+list[firstID+4].image;
         document.getElementById("date"+(firstID%5+5)).innerText=list[firstID+4].link;
+        document.getElementById("place"+(firstID%5+5)).innerText=list[firstID+4].showPlace;
     }
 
 

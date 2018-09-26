@@ -196,4 +196,18 @@ public class FeedController {
         return new ResponseEntity<>(feedBlService.deleteMyFeed(id), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "根据圈子文章ID获取含作者名字和头像的全文", notes = "根据圈子文章ID获取含作者名字和头像的全文")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "圈子文章ID", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getFeedView", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getFeedView(@RequestParam(name="id")String id) throws NotExistException {
+        return new ResponseEntity<>(feedBlService.getFeedView(id), HttpStatus.OK);
+    }
+
 }

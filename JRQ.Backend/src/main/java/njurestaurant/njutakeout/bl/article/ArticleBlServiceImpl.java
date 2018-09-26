@@ -72,6 +72,27 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 	}
 
 	@Override
+	public AbstractListResponse getAbstractListByCondition(String condition) {
+		List<AbstractItem> abstractItems = new ArrayList<>();
+		for (Course course:courseDataService.getAllCourses()) {
+			if (course.getTitle().contains(condition)) {
+				abstractItems.add(new AbstractItem(course));
+			}
+		}
+		for (Document document:documentDataService.getAllDocuments()) {
+			if (document.getContent().contains(condition)) {
+				abstractItems.add(new AbstractItem(document));
+			}
+		}
+		for (Project project:projectDataService.getAllProjects()) {
+			if (project.getTitle().contains(condition)) {
+				abstractItems.add(new AbstractItem(project));
+			}
+		}
+		return new AbstractListResponse(abstractItems);
+	}
+
+	@Override
 	public ArticleResponse getArticle(String kind, String id) throws NotExistException {
 		ArticleItem articleItem;
 		switch (kind) {

@@ -18,6 +18,13 @@ public interface ArticleBlService {
 	AbstractListResponse getAbstractList(String kind, String openid) throws NotExistException;
 
 	/**
+	 * 根据条件搜索文章摘要列表：包括课程，项目，文档
+	 * @param condition 搜索条件，目前是根据文章标题进行搜索
+	 * @return 摘要列表
+	 */
+	AbstractListResponse getAbstractListByCondition(String condition);
+
+	/**
 	 * 获取文章详情(User&Admin)
 	 * @param kind 文章类型，可能值：course，document，project，feed分别对应课程，文档，项目，圈子
 	 * @param id 文章ID

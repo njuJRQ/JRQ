@@ -47,25 +47,28 @@ $.ajax(
 
 
 function deletequestion(n){
-    var q=list[firstID+n];
-    var url=getUrl();
-    $.ajax(
-        {
-            url: url+"/deletePurchase",
-            data: {
-                id:q.id
-            },
-            async:false,
-            success: function (data) {
-                alert("删除成功");
-                window.location.href="order.html";
-            },
-            error: function (xhr) {
-                alert('动态页有问题噶！\n\n' + xhr.responseText);
-            },
-            traditional: true,
-        }
-    )
+    var r=confirm("确定删除么？");
+    if(r) {
+        var q = list[firstID + n];
+        var url = getUrl();
+        $.ajax(
+            {
+                url: url + "/deletePurchase",
+                data: {
+                    id: q.id
+                },
+                async: false,
+                success: function (data) {
+                    alert("删除成功");
+                    window.location.href = "order.html";
+                },
+                error: function (xhr) {
+                    alert('动态页有问题噶！\n\n' + xhr.responseText);
+                },
+                traditional: true,
+            }
+        )
+    }
 }
 
 
@@ -283,23 +286,26 @@ function deletesingle(n){
     )
 }
 function delAll(){
-    if(document.getElementById("c1").checked){
-        deletesingle(1);
+    var r=confirm("确定删除么？");
+    if(r) {
+        if (document.getElementById("c1").checked) {
+            deletesingle(1);
+        }
+        if (document.getElementById("c2").checked) {
+            deletesingle(2);
+        }
+        if (document.getElementById("c3").checked) {
+            deletesingle(3);
+        }
+        if (document.getElementById("c4").checked) {
+            deletesingle(4);
+        }
+        if (document.getElementById("c5").checked) {
+            deletesingle(5);
+        }
+        alert("批量删除成功");
+        window.location.href = "order.html";
     }
-    if(document.getElementById("c2").checked){
-        deletesingle(2);
-    }
-    if(document.getElementById("c3").checked){
-        deletesingle(3);
-    }
-    if(document.getElementById("c4").checked){
-        deletesingle(4);
-    }
-    if(document.getElementById("c5").checked){
-        deletesingle(5);
-    }
-    alert("批量删除成功");
-    window.location.href="order.html";
 
 }
 

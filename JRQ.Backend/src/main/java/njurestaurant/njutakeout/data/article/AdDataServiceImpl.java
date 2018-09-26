@@ -45,8 +45,13 @@ public class AdDataServiceImpl implements AdDataService {
 	}
 
 	@Override
-	public List<Ad> getCheckedAds() {
-		return adDao.findAdsByChecked(true);
+	public List<Ad> getCheckedAds(String showPlace) {
+		return adDao.findAdsByCheckedAndShowPlace(true, showPlace);
+	}
+
+	@Override
+	public List<Ad> getShowPlaceAds(String showPlace) {
+		return adDao.findAdsByShowPlace(showPlace);
 	}
 
 	@Override

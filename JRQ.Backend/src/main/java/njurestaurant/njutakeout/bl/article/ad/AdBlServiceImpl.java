@@ -24,11 +24,11 @@ public class AdBlServiceImpl implements AdBlService {
 	}
 
 	@Override
-	public InfoResponse addAd(String image, String link) {
-		if (adDataService.getCheckedAds().isEmpty()) { //首页没有广告
-			adDataService.addAd(new Ad(image, link, true));
-		} else { //首页已有广告
-			adDataService.addAd(new Ad(image, link, false));
+	public InfoResponse addAd(String image, String link, String showPlace) {
+		if (adDataService.getCheckedAds(showPlace).isEmpty()) { //showPlace位置没有广告
+			adDataService.addAd(new Ad(image, link, true, showPlace));
+		} else { //showPlace位置已有广告
+			adDataService.addAd(new Ad(image, link, false, showPlace));
 		}
 		return new InfoResponse();
 	}
@@ -39,8 +39,8 @@ public class AdBlServiceImpl implements AdBlService {
 	}
 
 	@Override
-	public AdResponse getCheckedAd() {
-		return new AdResponse(new AdItem(adDataService.getCheckedAds().get(0)));
+	public AdResponse getCheckedAd(String showPlace) {
+		return new AdResponse(new AdItem(adDataService.getCheckedAds(showPlace).get(0)));
 	}
 
 	@Override
@@ -59,12 +59,12 @@ public class AdBlServiceImpl implements AdBlService {
 		if (!adDataService.isAdExistent(id)) {
 			throw new NotExistException("Ad ID", id);
 		} else {
-			List<Ad> ads = adDataService.getAllAds();
-			for(Ad ad:ads) {
-				ad.setChecked(false);
-				adDataService.saveAd(ad);
-			}
 			Ad ad = adDataService.getAdById(id);
+			List<Ad> ads = adDataService.getShowPlaceAds(ad.getShowPlace());
+			for(Ad a:ads) {
+				a.setChecked(false);
+				adDataService.saveAd(a);
+			}
 			ad.setChecked(true);
 			adDataService.saveAd(ad);
 			return new InfoResponse();
@@ -72,10 +72,11 @@ public class AdBlServiceImpl implements AdBlService {
 	}
 
 	@Override
-	public InfoResponse updateAd(String id, String image, String link) throws NotExistException {
+	public InfoResponse updateAd(String id, String image, String link, String showPlace) throws NotExistException {
 		Ad ad = adDataService.getAdById(id);
 		ad.setImage(image);
 		ad.setLink(link);
+		ad.setShowPlace(showPlace);
 		adDataService.saveAd(ad);
 		return new InfoResponse();
 	}

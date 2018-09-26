@@ -15,7 +15,9 @@ public interface AdDataService {
 
 	Ad getAdById(String id) throws NotExistException;
 
-	List<Ad> getCheckedAds();
+	List<Ad> getCheckedAds(String showPlace);
+
+	List<Ad> getShowPlaceAds(String showPlace);
 
 	List<Ad> getAllAds();
 

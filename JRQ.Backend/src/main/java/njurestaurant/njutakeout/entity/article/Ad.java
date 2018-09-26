@@ -21,13 +21,17 @@ public class Ad {
 	@Column
 	private boolean checked; //是否被选中在首页展示
 
+	@Column
+	private String showPlace; //展示的位置："index"（首页）, "service"（业务）
+
 	public Ad() {
 	}
 
-	public Ad(String image, String link, boolean checked) {
+	public Ad(String image, String link, boolean checked, String showPlace) {
 		this.image = image;
 		this.link = link;
 		this.checked = checked;
+		this.showPlace = showPlace;
 	}
 
 	public String getId() {
@@ -60,5 +64,13 @@ public class Ad {
 
 	public void setChecked(boolean checked) {
 		this.checked = checked;
+	}
+
+	public String getShowPlace() {
+		return showPlace;
+	}
+
+	public void setShowPlace(String showPlace) {
+		this.showPlace = showPlace;
 	}
 }

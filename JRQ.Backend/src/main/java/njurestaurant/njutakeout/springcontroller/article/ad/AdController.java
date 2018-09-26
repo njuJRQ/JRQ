@@ -76,7 +76,8 @@ public class AdController {
 
     @ApiOperation(value = "添加广告", notes = "添加广告")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "link", value = "广告导向的链接", required = true, dataType = "String")
+            @ApiImplicitParam(name = "link", value = "广告导向的链接", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "showPlace", value = "广告导向的链接", required = true, dataType = "String")
     })
     @RequestMapping(value = "/addAd", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -84,7 +85,7 @@ public class AdController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> addAd(@RequestParam(name="link")String link) {
+    public ResponseEntity<Response> addAd(@RequestParam(name="link")String link,@RequestParam(name="showPlace")String showPlace) {
         File file = new File(headPath);
         String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
         String[] temp=headPath.split("\\.");
@@ -114,7 +115,7 @@ public class AdController {
             file.delete();
         }
         headPath="";
-        return new ResponseEntity<>(adBlService.addAd(thePath,link), HttpStatus.OK);
+        return new ResponseEntity<>(adBlService.addAd(thePath,link,showPlace), HttpStatus.OK);
     }
 
     @ApiOperation(value = "根据广告ID获取广告", notes = "根据广告ID获取广告")
@@ -132,14 +133,17 @@ public class AdController {
     }
 
     @ApiOperation(value = "获取被选中在首页展示的广告", notes = "获取被选中在首页展示的广告")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "showPlace", value = "广告ID", required = true, dataType = "String")
+    })
     @RequestMapping(value = "/getCheckedAd", method = RequestMethod.GET)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> getCheckedAd() {
-        return new ResponseEntity<>(adBlService.getCheckedAd(), HttpStatus.OK);
+    public ResponseEntity<Response> getCheckedAd(@RequestParam(name="showPlace")String showPlace) {
+        return new ResponseEntity<>(adBlService.getCheckedAd(showPlace), HttpStatus.OK);
     }
 
     @ApiOperation(value = "获取所有广告信息", notes = "获取所有广告信息")
@@ -171,7 +175,8 @@ public class AdController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "广告ID", required = true, dataType = "String"),
             @ApiImplicitParam(name = "image", value = "广告图片URL", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "link", value = "广告导向的链接", required = true, dataType = "String")
+            @ApiImplicitParam(name = "link", value = "广告导向的链接", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "showPlace", value = "广告导向的链接", required = true, dataType = "String")
     })
     @RequestMapping(value = "/updateAd", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -179,8 +184,8 @@ public class AdController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> updateAd(@RequestParam(name="id")String id,@RequestParam(name="image")String image,@RequestParam(name="link")String link) throws NotExistException {
-        return new ResponseEntity<>(adBlService.updateAd(id,image,link), HttpStatus.OK);
+    public ResponseEntity<Response> updateAd(@RequestParam(name="id")String id,@RequestParam(name="image")String image,@RequestParam(name="link")String link,@RequestParam(name="showPlace")String showPlace) throws NotExistException {
+        return new ResponseEntity<>(adBlService.updateAd(id,image,link,showPlace), HttpStatus.OK);
     }
 
 

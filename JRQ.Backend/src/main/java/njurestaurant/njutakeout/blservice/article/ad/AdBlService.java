@@ -36,7 +36,7 @@ public interface AdBlService {
 	AdListResponse getAdList();
 
 	/**
-	 * 设置在首页展示的广告(Admin)
+	 * 设置在首页展示的广告(Admin)，根据id查找showPlace，根据showPlace选择
 	 * @param id 被选中的广告ID
 	 * @return 是否成功
 	 */

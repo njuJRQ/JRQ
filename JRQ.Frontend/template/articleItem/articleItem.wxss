@@ -1,0 +1,35 @@
+/*关于文章的属性*/
+.article-images > image {
+  width: 100px;
+  height: 100px;
+  margin: 2px;
+}
+.article-text {
+  font-size: 0.6rem;
+  margin: 5px 0 10px 0;
+}
+.article-info {
+  width: 100%;
+  justify-content: space-between;
+  font-size: 0.5rem;
+}
+.article-share {
+  margin: 5px 0;
+  justify-content: space-between;
+  font-size: 0.5rem;
+}
+/*关于文章作者的属性*/
+.writer-info {
+  margin: 3px 0 0 0;
+}
+.writer-info > image {
+  width: 25px;
+  height: 25px;
+  margin: 0 5px;
+  border-radius: 5px;
+}
+.like-info > image {
+  width: 15px;
+  height: 15px;
+  margin: 5px;
+}

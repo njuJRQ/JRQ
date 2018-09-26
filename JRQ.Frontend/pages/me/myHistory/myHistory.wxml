@@ -1,4 +1,6 @@
 <!--pages/myHistory/myHistory.wxml-->
+<import src='/template/articleItem/articleItem.wxml'/>
+
 <view class='container'>
   <view style='width: 100%;'>
     <view class='my-card column'>
@@ -73,6 +75,7 @@
   </view>
   <view style='width: 100%'>
     <view wx:for='{{myArticles}}' wx:key='id' style='padding: 0 10px;'>
+<!--
       <view class='article' bindtap='onClickThisArticle' data-id='{{item.id}}'>
 
         <view class='writer-info v-center'>
@@ -109,6 +112,9 @@
         <view class='div-line'></view>
 
       </view>
+-->
+    <template is='articleItem' data='{{item}}'></template>
+
     </view>
   </view>
 </view>

@@ -1,5 +1,10 @@
 <!--index.wxml-->
+<import src='/template/searchBar/searchBar.wxml'/>
+
 <view class="container">
+  <!--搜索框-->
+  <template is='searchBar' data='{{placeholder: "搜索文章"}}'></template>
+  <!--Banner-->
   <view class='head'>
     <view class='module column' bindtap='showCourses'>
       <view class='h-center'>
@@ -26,9 +31,11 @@
       </view>
     </view>
   </view>
+  <!--广告位-->
   <view class='ad h-center'>
-    <image src='{{ad.image}}' bindtap='onAd' binderror='errorAdImage'></image>
+    <image src='{{ad.image}}' bindtap='onAd'></image>
   </view>
+  <!--文章列表-->
   <view style='width: 90%;'>
     <view wx:for='{{articles}}' wx:key='id'>
       <view class='article' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
@@ -44,7 +51,7 @@
         </view>
         <view class='article-info row'>
           <view class='writer-info v-center'>
-            <image src='{{item.writerFace}}'></image>
+            <image src='{{item.writerFace ? item.writerFace : "/default/default-face.png"}}'></image>
             <text>{{item.writerName}}</text>
             <view class='dot'></view>
             <text>{{item.date}}</text>

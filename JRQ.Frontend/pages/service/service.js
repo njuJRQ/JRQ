@@ -86,12 +86,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onShow: function (options) {
-    this.showClass('capital');
+    this.showCapitalClass();
   },
   
-  showClass: function(kind) {
-    api.getPersonList.call(this, kind)
-  },
   //展示资金类
   showCapitalClass: function(event) {
     api.getPersonList.call(this, 'capital')
@@ -107,10 +104,21 @@ Page({
     api.getPersonList.call(this, 'merge')
   },
   
+  //点击当前文章触发函数
   onClickThisCard: function (e) {
     var id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: '../me/myHistory/myHistory?id=' + id,
     })
+  },
+
+  //更新搜索条件
+  updateSearchCondition: function (e) {
+    this.data.searchCondition = e.detail.value;
+  },
+
+  //搜索触发函数
+  onSearch: function () {
+    console.log('search service people: ' + this.data.searchCondition)
   }
 })

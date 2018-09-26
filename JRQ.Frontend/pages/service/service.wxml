@@ -1,5 +1,9 @@
 <!--pages/service/service.wxml-->
+<import src='/template/searchBar/searchBar.wxml'/>
+
 <view class='container'>
+  <!--搜索框-->
+  <template is='searchBar' data='{{placeholder: "搜索相关业务人员"}}'></template>
   <view class='head'>
     <view class='module column' bindtap='showCapitalClass'>
       <view class='h-center'>
@@ -25,6 +29,9 @@
         <text>并购类</text>
       </view>
     </view>
+  </view>
+  <view class='ad h-center'>
+    <image src='/default/default-pic.png' bindtap='onAd'></image>
   </view>
   <view class='content'>
 

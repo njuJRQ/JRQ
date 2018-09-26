@@ -1,9 +1,11 @@
 /* pages/service/service.wxss */
 @import '/style/common.wxss';
+@import '/template/searchBar/searchBar.wxss';
+
 /*本页面css属性*/
 /*关于头部导航栏的属性*/
 .head {
-  width: 60%;
+  width: 80%;
   display: flex;
   justify-content: space-around;
 }
@@ -13,6 +15,14 @@
 }
 .head text {
   font-size: 0.8rem;
+}
+.ad {
+  width: 90%;
+}
+.ad > image {
+  width: 300px;
+  height: 120px;
+  margin: 3px;
 }
 .content {
   width: 100%;

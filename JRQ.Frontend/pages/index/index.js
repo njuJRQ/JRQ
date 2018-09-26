@@ -48,42 +48,54 @@ Page({
     ad: {
       image: '../../default/default-pic.png',
       link: 'https://www.baidu.com'
-      }
+    },
+    currentKind: null
   },
   //事件处理函数
-  //onLoad函数
-  onShow: function() {
+  onLoad: function () {
+    this.setData({
+      currentKind: 'course'
+    })
+  },
+  //onShow函数
+  onShow: function () {
     api.getAd.call(this) //展示广告
-    api.getAbstractList.call(this, 'course', app.getOpenid()) //展示课程类文章
+    api.getAbstractList.call(this, this.data.currentKind, app.getOpenid()) //展示课程类文章
   },
 
   //点击广告跳转
-  onAd: function() {
+  onAd: function () {
     wx.navigateTo({
       url: 'ad/ad?url=' + this.data.ad.link
     })
   },
 
   //展示课程
-  showCourses: function() {
-    console.log('show courses')
+  showCourses: function () {
+    this.setData({
+      currentKind: 'course'
+    })
     api.getAbstractList.call(this, 'course', app.getOpenid())
   },
 
   //展示文档
-  showDocuments: function() {
-    console.log('show documents');
+  showDocuments: function () {
+    this.setData({
+      currentKind: 'document'
+    })
     api.getAbstractList.call(this, 'document', app.getOpenid())
   },
 
   //展示项目
-  showProjects: function() {
-    console.log('show projects');
+  showProjects: function () {
+    this.setData({
+      currentKind: 'project'
+    })
     api.getAbstractList.call(this, 'project', app.getOpenid())
   },
 
   //展示文章详情
-  onTouchThisArticle: function(e) {
+  onTouchThisArticle: function (e) {
     var id = e.currentTarget.dataset.id //获取当前文章id
     var kind = e.currentTarget.dataset.kind
     var url = '../articleDetail/'
@@ -105,19 +117,19 @@ Page({
   },
 
   //点赞数加一
-  likePlus: function(e) {
+  likePlus: function (e) {
     var id = e.currentTarget.dataset.id //获取当前文章id
     var kind = e.currentTarget.dataset.kind //获取当前文章kind
     api.likePlus.call(this, app.getOpenid(), kind, id) //点赞+1
   },
-  
-  //广告图片加载失败
-  errorAdImage: function () {
-    this.setData({
-      ad: {
-        image: app.globalData.defaultPic,
-        link: 'http://www.baidu.com'
-      }
-    })
+
+  //更新搜索条件
+  updateSearchCondition: function (e) {
+    this.data.searchCondition = e.detail.value;
+  },
+
+  //搜索触发函数
+  onSearch: function () {
+    console.log('search article: ' + this.data.searchCondition)
   }
 })

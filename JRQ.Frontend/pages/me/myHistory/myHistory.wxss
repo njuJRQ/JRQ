@@ -1,5 +1,7 @@
 /* pages/myHistory/myHistory.wxss */
 @import '/style/common.wxss';
+@import '/template/articleItem/articleItem.wxss';
+
 /*本页面css属性*/
 /*关于我的名片的属性*/
 .my-card {
@@ -64,38 +66,4 @@
 .my-history-title-word text {
   color: #243264;
   font-size: 0.9rem;
-}
-/*关于文章的属性*/
-.article-images > image {
-  width: 33%;
-  height: 100px;
-  margin: 2px;
-}
-.article-text {
-  font-size: 0.6rem;
-  margin: 5px 0 10px 0;
-}
-.article-info {
-  width: 100%;
-  justify-content: space-between;
-  font-size: 0.5rem;
-}
-.article-share {
-  margin: 5px 0;
-  justify-content: space-between;
-  font-size: 0.5rem;
-}
-/*关于作者的属性*/
-.writer-info {
-  margin: 3px 0 0 0;
-}
-.writer-info > image {
-  width: 25px;
-  height: 25px;
-  margin: 0 5px;
-}
-.like-info > image {
-  width: 15px;
-  height: 15px;
-  margin: 5px;
 }

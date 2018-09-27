@@ -1,6 +1,7 @@
 /**index.wxss**/
 @import '/style/common.wxss';
 @import '/template/searchBar/searchBar.wxss';
+@import '/template/adBar/adBar.wxss';
 
 /*本页面css属性*/
 /*关于头部导航栏的属性*/
@@ -16,15 +17,7 @@
 .head text {
   font-size: 0.8rem;
 }
-/*关于广告栏的属性*/
-.ad {
-  width: 90%;
-}
-.ad > image {
-  width: 300px;
-  height: 120px;
-  margin: 3px;
-}
+
 /*关于文章的属性*/
 .article-images > image {
   width: 100px;

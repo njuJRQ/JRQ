@@ -1,5 +1,6 @@
 <!--index.wxml-->
-<import src='/template/searchBar/searchBar.wxml'/>
+<import src='/template/searchBar/searchBar.wxml' />
+<import src='/template/adBar/adBar.wxml' />
 
 <view class="container">
   <!--搜索框-->
@@ -32,22 +33,16 @@
     </view>
   </view>
   <!--广告位-->
-  <view class='ad h-center'>
-    <image src='{{ad.image}}' bindtap='onAd'></image>
-  </view>
+  <template is='adBar' data='{{ad}}'></template>
   <!--文章列表-->
-  <view style='width: 90%;'>
+  <view style='width: 100%; padding: 0 10px'>
     <view wx:for='{{articles}}' wx:key='id'>
       <view class='article' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
         <view class='article-text'>
           <text>{{item.title}}</text>
         </view>
-        <view wx:if='{{item.images.length > 0}}'>
-          <view class='article-images row'>
-            <image src='{{item.images[0]}}'></image>
-            <image src='{{item.images[1]}}'></image>
-            <image src='{{item.images[2]}}'></image>
-          </view>
+        <view class='article-images'>
+          <image wx:for='{{item.images}}' wx:for-item='image' src='{{image}}'></image>
         </view>
         <view class='article-info row'>
           <view class='writer-info v-center'>

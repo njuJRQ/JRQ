@@ -21,9 +21,9 @@ page {
   font-size: 0.6rem;
 }
 /*关于名片的属性*/
-.card {
-  margin: 5px 0 0 0;
-  width: 85%;
+.cards {
+  padding: 0 10px 10px 10px;
+  width: 100%;
 }
 .one-card {
   margin: 10px 0 0 0;

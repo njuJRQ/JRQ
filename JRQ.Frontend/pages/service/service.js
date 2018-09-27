@@ -86,6 +86,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onShow: function (options) {
+    api.getAd.call(this, 'service')
     this.showCapitalClass();
   },
   
@@ -120,5 +121,13 @@ Page({
   //搜索触发函数
   onSearch: function () {
     console.log('search service people: ' + this.data.searchCondition)
-  }
+    api.getPersonListByCondition.call(this, this.data.searchCondition)
+  },
+
+  //点击广告跳转
+  onAd: function () {
+    wx.navigateTo({
+      url: 'ad/ad?url=' + this.data.ad.link
+    })
+  },
 })

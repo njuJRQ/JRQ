@@ -5,7 +5,7 @@
       <image src='/template/searchBar/img/search.png'></image>
     </view>
     <view class='search-input'>
-      <input placeholder='{{placeholder}}' bindinput='updateSearchCondition'></input>
+      <input placeholder='{{placeholder}}' bindinput='updateSearchCondition' bindconfirm='onSearch'></input>
     </view>
   </view>
 </template>

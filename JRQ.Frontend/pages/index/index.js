@@ -51,15 +51,17 @@ Page({
     },
     currentKind: null
   },
+  
   //事件处理函数
   onLoad: function () {
     this.setData({
       currentKind: 'course'
     })
   },
+
   //onShow函数
   onShow: function () {
-    api.getAd.call(this) //展示广告
+    api.getAd.call(this, 'index') //展示广告
     api.getAbstractList.call(this, this.data.currentKind, app.getOpenid()) //展示课程类文章
   },
 
@@ -131,5 +133,6 @@ Page({
   //搜索触发函数
   onSearch: function () {
     console.log('search article: ' + this.data.searchCondition)
+    api.getAbstractListByCondition.call(this, this.data.searchCondition)
   }
 })

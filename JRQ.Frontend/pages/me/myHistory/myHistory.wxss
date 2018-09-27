@@ -63,6 +63,9 @@
   margin: 0 5px 0 0;
   background-color: #243264;
 }
+.my-history-title {
+  margin: 0 0 10px 0;
+}
 .my-history-title-word text {
   color: #243264;
   font-size: 0.9rem;

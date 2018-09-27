@@ -5,8 +5,8 @@ page {
   background-color: #efefef;
 }
 .head {
-  margin: 10px 0;
-  width: 85%;
+  padding: 10px;
+  width: 100%;
 }
 /*关于发布栏的属性*/
 .publisher {
@@ -19,7 +19,7 @@ page {
 }
 .publisher-input {
   padding: 3px 0 3px 10px; 
-  width:92%;
+  width: 92%;
   font-size: 0.7rem;
 }
 .publisher-image {
@@ -83,7 +83,7 @@ page {
 }
 .my-card-send {
   margin: 10px 0 0 0;
-  width: 106%;
+  width: 100%;
   border-radius: 5px;
   background-color: rgb(0, 0, 120);
   color: white;

@@ -1,10 +1,12 @@
 <template name="articleItem">
+  <!--一篇文章-->
   <view class='article'>
+    <!--作者信息-->
     <view class='writer-info v-center'>
       <image src='{{item.writerFace}}'></image>
       <text style='font-size: 0.7rem;'>{{item.writerName}}</text>
     </view>
-
+    <!--文章详情-->
     <view class='article-info row'>
       <view class='article-text'>
         <text>{{item.content ? item.content : item.title}}</text>
@@ -14,15 +16,11 @@
         <image src='img/like.png'></image>
       </view>
     </view>
-
-    <view wx:if='{{item.images.length > 0}}'>
-      <view class='article-images row'>
-        <image src='{{item.images[0]}}'></image>
-        <image src='{{item.images[1]}}'></image>
-        <image src='{{item.images[2]}}'></image>
-      </view>
+    <!--文章图片-->
+    <view class='article-images'>
+      <image wx:for='{{item.images}}' wx:for-item='image' src='{{image}}'></image>
     </view>
-
+    <!--文章分享链接-->
     <view class='article-share row'>
       <view class='v-center' bindtap='onShare'>
         <image src='img/share.png' style='width: 20px; height: 20px;'></image>
@@ -30,8 +28,7 @@
       </view>
       <text class='v-center'>{{item.date}}</text>
     </view>
-
+    <!--分割线-->
     <view class='div-line'></view>
-
   </view>
 </template>

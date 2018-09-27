@@ -1,9 +1,11 @@
 <!--pages/service/service.wxml-->
 <import src='/template/searchBar/searchBar.wxml'/>
+<import src='/template/adBar/adBar.wxml'/>
 
 <view class='container'>
   <!--搜索框-->
   <template is='searchBar' data='{{placeholder: "搜索相关业务人员"}}'></template>
+  <!--Banner-->
   <view class='head'>
     <view class='module column' bindtap='showCapitalClass'>
       <view class='h-center'>
@@ -30,13 +32,11 @@
       </view>
     </view>
   </view>
-  <view class='ad h-center'>
-    <image src='/default/default-pic.png' bindtap='onAd'></image>
-  </view>
+  <!--广告位-->
+  <template is='adBar' data='{{ad}}'></template>
+  <!--业务人员列表-->
   <view class='content'>
-
     <view wx:for='{{cards}}' wx:key='openid'>
-
       <view class='card row' bindtap='onClickThisCard' data-id='{{item.openid}}'>
         <view class='card-main row'>
           <view class='card-face v-center'>
@@ -61,8 +61,6 @@
           <text>{{item.label}}</text>
         </view>
       </view>
-
     </view>
-
   </view>
 </view>

@@ -16,8 +16,8 @@
     </view>
   </view>
   <!--名片展示列表-->
-  <view class='card column v-center' wx:for='{{cards}}' wx:for-item='card' wx:key='openid'>
-    <view class='one-card column' bindtap='onClickThisCard' data-id='{{card.openid}}'>
+  <view class='cards column v-center'>
+    <view class='one-card column' bindtap='onClickThisCard' data-id='{{card.openid}}'  wx:for='{{cards}}' wx:for-item='card' wx:key='openid'>
       <view class='row v-center'>
         <view class='one-card-face'>
           <image src='{{card.face}}'></image>

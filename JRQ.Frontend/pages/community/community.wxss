@@ -3,3 +3,6 @@
 @import '/template/articleItem/articleItem.wxss';
 
 /*本页面css属性*/
+.container {
+  margin: 0 10px;
+}

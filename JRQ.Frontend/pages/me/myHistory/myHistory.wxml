@@ -1,5 +1,5 @@
 <!--pages/myHistory/myHistory.wxml-->
-<import src='/template/articleItem/articleItem.wxml'/>
+<import src='/template/articleItem/articleItem.wxml' />
 
 <view class='container'>
   <view style='width: 100%;'>
@@ -58,63 +58,18 @@
       </view>
     </view>
   </view>
-  <view style='width:100%;'>
+  <view style='width:100%; padding: 10px'>
     <view class='send-my-card'>
       <button bindtap='sendMyCard'>递给他名片</button>
     </view>
   </view>
   <view style='width:100%;'>
-    <view class='my-history'>
-      <view class='my-history-title row v-center'>
-        <view class='blue-block'></view>
-        <view class='my-history-title-word'>
-          <text class='v-center'>历史发布</text>
-        </view>
-      </view>
+    <view class='my-history-title row v-center'>
+      <view class='blue-block'></view>
+      <text class='my-history-title-word v-center'>历史发布</text>
     </view>
-  </view>
-  <view style='width: 100%'>
     <view wx:for='{{myArticles}}' wx:key='id' style='padding: 0 10px;'>
-<!--
-      <view class='article' bindtap='onClickThisArticle' data-id='{{item.id}}'>
-
-        <view class='writer-info v-center'>
-          <image src='{{item.writerFace}}'></image>
-          <text style='font-size: 0.7rem;'>{{item.writerName}}</text>
-        </view>
-
-        <view class='article-info row'>
-          <view class='article-text'>
-            <text>{{item.title}}</text>
-          </view>
-          <view class='like-info v-center'>
-            <text>{{item.likeNum}}</text>
-            <image src='img/like.png'></image>
-          </view>
-        </view>
-
-        <view wx:if='{{item.images.length > 0}}'>
-          <view class='article-images row'>
-            <image src='{{item.images[0]}}'></image>
-            <image src='{{item.images[1]}}'></image>
-            <image src='{{item.images[2]}}'></image>
-          </view>
-        </view>
-        
-        <view class='article-share row'>
-          <view class='v-center' bindtap='onShare'>
-            <image src='img/share.png' style='width: 20px; height: 20px;'></image>
-            <text>分享到朋友圈</text>
-          </view>
-          <text class='v-center'>{{item.date}}</text>
-        </view>
-
-        <view class='div-line'></view>
-
-      </view>
--->
-    <template is='articleItem' data='{{item}}'></template>
-
+      <template is='articleItem' data='{{item}}'></template>
     </view>
   </view>
 </view>

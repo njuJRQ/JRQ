@@ -1,0 +1,8 @@
+/*关于广告栏的属性*/
+.ad {
+  width: 100%;
+}
+.ad > image {
+  width: 350px;
+  height: 120px;
+}

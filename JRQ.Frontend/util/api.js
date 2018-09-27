@@ -25,6 +25,29 @@ function getAbstractList(kind, openid) {
   })
 }
 
+function getAbstractListByCondition(condition){
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "getAbstractListByCondition",
+    data: {
+      condition: condition
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      /*console.log(res.data)*/
+      that.data.articles = res.data.abstractList
+      that.data.articles.forEach((article) => {
+        article.images = article.images.map((image) => app.globalData.picUrl + image)
+      })
+      that.setData(that.data)
+    }
+  })
+}
+
 function getFeedList() {
   var that = this
   wx.request({
@@ -143,7 +166,7 @@ function getProject(id) {
   })
 }
 
-function getAd() {
+function getAd(showPlace) {
   /**
    * 方法：getAd
    * 参数：
@@ -152,6 +175,9 @@ function getAd() {
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "getCheckedAd",
+    data: {
+      showPlace: showPlace
+    },
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
       'content-type': 'application/x-www-form-urlencoded'
@@ -683,6 +709,7 @@ function getMyCredit(openid) {
 
 module.exports = {
   getAbstractList: getAbstractList,
+  getAbstractListByCondition: getAbstractListByCondition,
   getFeedList: getFeedList,
   getCourse: getCourse,
   getMyCourse: getMyCourse,

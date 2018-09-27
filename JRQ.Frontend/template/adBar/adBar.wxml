@@ -1,0 +1,5 @@
+<template name='adBar'>
+  <view class='ad h-center'>
+    <image src='{{ad.image}}' bindtap='onAd'></image>
+  </view>
+</template>

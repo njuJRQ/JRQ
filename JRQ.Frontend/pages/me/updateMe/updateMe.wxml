@@ -1,15 +1,11 @@
 <!--pages/me/updateMe/updateMe.wxml-->
 <view class='container'>
-  <view class='header v-center'>
-    <text>请点击升级选项进行身份升级</text>
-  </view>
-  <view class='buttons v-center column'>
-    <button class='btn btn-298' bindtap='updateTo298'>升级为298用户</button>
-    <button class='btn btn-998' bindtap='updateTo998'>升级为998用户</button>
-    <button class='btn btn-enter' bindtap='updateToEnterprise'>升级为企业用户</button>
-  </view>
-  <view class='footer v-center'>
-    <text>当前账户余额：{{price}}</text>
+  <!--身份升级-->
+  <view class="row-wrap">请点击升级选项进行身份升级（当前余额：{{price}}）</view>
+  <button class='btn-298' bindtap='updateTo298'>升级为298用户（价格：298）</button>
+  <button class='btn-998' bindtap='updateTo998'>升级为998用户（价格：998）</button>
+  <button class='btn-enter' bindtap='updateToEnterprise'>升级为企业用户</button>
+  <view class='notation'>
     <text>{{returnInfo}}</text>
   </view>
 </view>

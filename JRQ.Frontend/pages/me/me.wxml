@@ -98,6 +98,18 @@
           </view>
         </navigator>
       </view>
+
+      <view class='div-line'></view>
+
+      <view class='more-item'>
+        <navigator class='row' url='pay/pay' hover-class="none"  open-type='navigate'>
+          <text>金额充值</text>
+          <view class='v-center'>
+            <view class='arrow'></view>
+          </view>
+        </navigator>
+      </view>
+
     </view>
     <view class='setting'>
       <view class='more-item'>

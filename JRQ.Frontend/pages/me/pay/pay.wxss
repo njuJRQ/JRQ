@@ -1,14 +1,16 @@
-/* pages/me/updateMe/updateMe.wxss */
+/* pages/me/pay/pay.wxss */
 @import '/style/common.wxss';
+
 page {
-  background-color: #fff;
+  background-color: #F0F0F0;
 }
 .container {
-  background-color: #fff;
-  padding: 40rpx;
+  justify-content: initial;
 }
-text {
-  color: #000;
+.form-box{
+    width:100%;
+    background-color: #fff;
+    margin-top: 20rpx;
 }
 .row-wrap{
     width: 720rpx;
@@ -37,9 +39,12 @@ text {
 .row-wrap .right-box{
     margin-right: 30rpx; 
 }
-.btn-298,
-.btn-998,
-.btn-enter{
+.arrow-right{
+    width: 15rpx;
+    height: 24rpx;
+}
+.save-btn,
+.cancel-btn{
     width: 690rpx;
     height: 80rpx;
     line-height: 80rpx;
@@ -48,15 +53,7 @@ text {
     border-radius: 6rpx;
     box-sizing: border-box;
 }
-.btn-298 {
-  background-color: #9DD3FA;
-  color: #000;
-}
-.btn-998 {
-  background-color: #1F6FB5;
-  color: white;
-}
-.btn-enter {
-  background-color: #FCD692;
-  color: #000;
+.save-btn{
+    background-color: #e64340;
+    color:#fff;
 }

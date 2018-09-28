@@ -13,7 +13,8 @@
     "pages/index/ad/ad",
     "pages/me/publishMyArticle/publishMyArticle",
     "pages/login/login",
-    "pages/me/updateMe/updateMe"
+    "pages/me/updateMe/updateMe",
+    "pages/me/pay/pay"
   ],
   "window": {
     "backgroundTextStyle": "light",

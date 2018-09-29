@@ -34,6 +34,7 @@
   </view>
   <!--广告位-->
   <template is='adBar' data='{{ad}}'></template>
+  <view class='div-line'></view>
   <!--文章列表-->
   <view style='width: 100%; padding: 0 10px'>
     <view wx:for='{{articles}}' wx:key='id'>
@@ -41,9 +42,12 @@
         <view class='article-text'>
           <text>{{item.title}}</text>
         </view>
+        <image wx:if='{{item.images.length > 0}}' src='{{item.images[0]}}'></image>
+        <!--
         <view class='article-images'>
           <image wx:for='{{item.images}}' wx:for-item='image' src='{{image}}'></image>
         </view>
+        -->
         <view class='article-info row'>
           <view class='writer-info v-center'>
             <image src='{{item.writerFace ? item.writerFace : "/default/default-face.png"}}'></image>

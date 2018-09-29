@@ -38,7 +38,7 @@
     </view>
 
     <button class='my-card-send' bindtap='onSendMe'>我的名片夹</button>
-
+    <!--
     <view class='icons'>
       <view class='module column' bindtap='showCourses'>
         <view class='h-center'>
@@ -65,8 +65,9 @@
         </view>
       </view>
     </view>
+    -->
   </view>
-  <view style='width:100%'>
+  <view style='width:100%; margin: 10rpx 0 0 0;'>
     <view class='more'>
       <view class='more-item'>
         <navigator class='row' url='modifyMyCard/modifyMyCard' hover-class="none" open-type='navigate'>

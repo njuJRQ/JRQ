@@ -24,6 +24,11 @@
   height: 100px;
   margin: 2px;
 }
+.article image {
+  width: 100%;
+  max-height: 150px;
+  box-sizing: border-box;
+}
 .article-text {
   font-size: 14px;
   margin: 10px 0;

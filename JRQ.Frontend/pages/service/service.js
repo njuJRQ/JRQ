@@ -127,7 +127,7 @@ Page({
   //点击广告跳转
   onAd: function () {
     wx.navigateTo({
-      url: 'ad/ad?url=' + this.data.ad.link
+      url: '../ad/ad?url=' + this.data.ad.link
     })
   },
 })

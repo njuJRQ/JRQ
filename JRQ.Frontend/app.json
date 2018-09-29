@@ -10,7 +10,7 @@
     "pages/articleDetail/courseDetail/courseDetail",
     "pages/articleDetail/documentDetail/documentDetail",
     "pages/articleDetail/projectDetail/projectDetail",
-    "pages/index/ad/ad",
+    "pages/ad/ad",
     "pages/me/publishMyArticle/publishMyArticle",
     "pages/login/login",
     "pages/me/updateMe/updateMe",

@@ -33,6 +33,9 @@ Page({
       })
       return
     }
-    /*wxpay.wxpay(app, amount, 0, "/pages/my/index");*/
+    /*test*/
+    this.setData({
+      price: parseInt(this.data.price) + parseInt(amount)
+    })
   }
 })

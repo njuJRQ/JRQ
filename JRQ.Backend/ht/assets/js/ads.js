@@ -56,6 +56,7 @@ function deletequestion(n){
                 },
                 async: false,
                 success: function (data) {
+                    alert("删除成功");
                     window.location.href = "ads.html";
                 },
                 error: function (xhr) {
@@ -240,7 +241,7 @@ function deletesingle(n){
         {
             url: url+"/deleteAd",
             data: {
-                id:q.openid
+                id:q.id
             },
             async:false,
             success: function (data) {

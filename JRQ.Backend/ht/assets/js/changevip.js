@@ -87,6 +87,7 @@ $.ajax(
             document.getElementById("credit").value=data.user.credit;
             document.getElementById("tempLabel").innerText=data.user.label;
             document.getElementById("tempLevel").innerText=data.user.levelName;
+            document.getElementById("lastFace").src="../"+data.user.face;
             if(data.user.valid){
                 document.getElementById("tempis").innerText="启用";
             }
@@ -116,7 +117,7 @@ function adduser() {
                 success: function (data) {
                 },
                 error: function (xhr) {
-                    alert('动态页有问题噶！\n\n' + xhr.responseText);
+
                 },
                 traditional: true,
             }
@@ -168,6 +169,7 @@ function adduser() {
                             window.location.href = "vip-list.html";
                         },
                         error: function (xhr) {
+                            alert("请选择头像");
                             //alert('动态页有问题噶！\n\n' + xhr.responseText);
                         },
                         traditional: true,
@@ -180,6 +182,7 @@ function adduser() {
                 //alert(xhr.responseText);
                 // Handle upload error
                 // ...
+               alert("请选择头像");
             }
         });
     }

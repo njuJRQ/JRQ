@@ -1,24 +1,4 @@
 
-$.ajax(
-    {
-        url: url+"/getAd",
-        data: {
-
-        },
-        async:false,
-        success: function (data) {
-            for(var i=0;i<data.ads.length;i++){
-                list.push(data.ads[i]);
-            }
-            document.getElementById("jilu").innerText="共"+(list.length)+"条记录";
-            changepage(1);
-        },
-        error: function (xhr) {
-            alert('动态页有问题噶！\n\n' + xhr.responseText);
-        },
-        traditional: true,
-    }
-)
 
 function adduser() {
 

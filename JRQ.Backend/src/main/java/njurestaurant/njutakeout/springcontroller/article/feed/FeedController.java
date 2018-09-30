@@ -67,8 +67,15 @@ public class FeedController {
             }
             String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
             String[] temp=fileName.split("\\.");
-            String thePath="record/feed/image/"+uuid+"."+temp[3];
-            String path="record/feed/image/"+uuid+"."+temp[3];
+            String thePath="";
+            String path="";
+            if(temp.length>2) {
+                thePath = "record/feed/image/" + uuid + "." + temp[3];
+                path = "record/feed/image/" + uuid + "." + temp[3];
+            }else{
+                thePath = "record/feed/image/" + uuid + "." + temp[1];
+                path = "record/feed/image/" + uuid + "." + temp[1];
+            }
             File tempfile=new File(path);
             if (tempfile.exists() && tempfile.isFile()) {
                 tempfile.delete();

@@ -493,6 +493,42 @@ function modifyMyInfo() {
           }, 1000)
         }
       })
+    },
+    fail: (res) => {
+      wx.request({
+        //上传用户信息
+        url: app.globalData.backendUrl + "updateMyProfileWithoutFile",
+        data: {
+          openid: app.getOpenid(),
+          face: that.data.newMyInfo.face.replace(app.globalData.picUrl, ""),
+          username: that.data.newMyInfo.username,
+          phone: that.data.newMyInfo.phone,
+          email: that.data.newMyInfo.email,
+          city: that.data.newMyInfo.city,
+          company: that.data.newMyInfo.company,
+          department: that.data.newMyInfo.department,
+          position: that.data.newMyInfo.position,
+          intro: that.data.newMyInfo.intro,
+          label: that.data.newMyInfo.label
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          wx.showToast({
+            title: '修改成功',
+            icon: 'succes',
+            duration: 1000,
+            mask: true
+          })
+          setTimeout(() => {
+            console.log(wx.getStorageInfoSync())
+            wx.navigateBack()
+          }, 1000)
+        }
+      })
     }
   })
 }

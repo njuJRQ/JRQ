@@ -83,7 +83,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onShow: function (options) {
+  onLoad: function (options) {
     var that = this
     api.getClassificationList.call(this)
     api.getMyInfo.call(this, app.getOpenid(), ()=>{

@@ -12,16 +12,18 @@ var list=new Array();
 var firstID=0;
 var theGroup=0;
 var url=getUrl();
-
-var storage = window.localStorage;
-var name=storage["adminUsername"];
+function getUsername(){
+    var storage = window.localStorage;
+    var name=storage["adminUsername"];
+    return name;
+}
 var adminId="";
 var isEnterprise=false;
 $.ajax(
     {
         url: url+"/getAdminByUsername",
         data: {
-            username:name
+            username:getUsername()
         },
         async:false,
         success: function (data) {

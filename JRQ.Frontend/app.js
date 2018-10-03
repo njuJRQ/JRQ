@@ -113,7 +113,7 @@ App({
     //used
     //backendUrl: "http://localhost:8080/",
     backendUrl: "http://junrongcenter.com:8080/",//used
-    picUrl: "http://junrongcenter.com/"//used
+    picUrl: "http://www.junrongcenter.com/"//used
     //picUrl: "http://localhost:8000/",
     //picUrl: "http://localhost/libs/"//xulei
   

@@ -15,6 +15,8 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+
+
 @EnableTransactionManagement
 @SpringBootApplication
 @EnableJpaRepositories
@@ -55,4 +57,6 @@ public class MainApplication {
 //        connector.setRedirectPort(443);
 //        return connector;
 //    }
+
+
 }

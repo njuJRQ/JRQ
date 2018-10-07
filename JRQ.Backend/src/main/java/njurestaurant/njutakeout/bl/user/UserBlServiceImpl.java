@@ -6,13 +6,19 @@ import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
 import njurestaurant.njutakeout.dataservice.user.LevelDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
 import njurestaurant.njutakeout.entity.user.*;
+import njurestaurant.njutakeout.exception.CannotGetOpenIdAndSessionKeyException;
 import njurestaurant.njutakeout.exception.CardLimitUseUpException;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
+import njurestaurant.njutakeout.response.account.OpenIdAndSessionKeyResponse;
 import njurestaurant.njutakeout.response.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.*;
+import net.sf.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -154,6 +160,29 @@ public class UserBlServiceImpl implements UserBlService {
 			User user = new User(openid, username, "", new ArrayList<>(), "", "", "", "", "", "", "", 0, defaultLabel, initCardLimit, "common", true);
 			userDataService.addUser(user);
 			return new UserResponse(new UserItem(user, enterpriseDataService));
+		}
+	}
+
+	@Value(value = "${wechat.url}")
+	private String wechatUrl;
+
+	@Value(value = "${wechat.id}")
+	private String appId;
+
+	@Value(value = "${wechat.secret}")
+	private String appSecret;
+
+	@Override
+	public OpenIdAndSessionKeyResponse getOpenIdAndSessionKey(String jsCode) throws CannotGetOpenIdAndSessionKeyException {
+		RestTemplate client = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		HttpEntity<String> entity = new HttpEntity<String>("", headers);
+		ResponseEntity<String> response = client.exchange(wechatUrl + appId + "&secret=" + appSecret + "&js_code=" + jsCode + "&grant_type=authorization_code", HttpMethod.GET, entity, String.class);
+		if (response.getStatusCode() == HttpStatus.OK) {
+			return new OpenIdAndSessionKeyResponse((String) JSONObject.fromObject(response.getBody()).get("openid"), (String) JSONObject.fromObject(response.getBody()).get("session_key"));
+		} else {
+			throw new CannotGetOpenIdAndSessionKeyException();
 		}
 	}
 

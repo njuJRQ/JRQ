@@ -4,6 +4,7 @@ import io.swagger.annotations.*;
 import io.swagger.models.auth.In;
 import njurestaurant.njutakeout.blservice.admin.AdminBlService;
 import njurestaurant.njutakeout.blservice.user.UserBlService;
+import njurestaurant.njutakeout.exception.CannotGetOpenIdAndSessionKeyException;
 import njurestaurant.njutakeout.exception.CardLimitUseUpException;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
@@ -344,6 +345,21 @@ public class userController {
 
 
 
+
+
+    @ApiOperation(value = "小程序前端获取openid和session", notes = "小程序前端获取openid和session")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "jsCode", value = "微信小程序的jsCode", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getOpenIdAndSessionKey", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getOpenIdAndSessionKey(@RequestParam(name="jsCode")String jsCode) throws CannotGetOpenIdAndSessionKeyException {
+        return new ResponseEntity<>(userBlService.getOpenIdAndSessionKey(jsCode), HttpStatus.OK);
+    }
 
 
     @ApiOperation(value = "用户登录小程序", notes = "用户登录小程序")

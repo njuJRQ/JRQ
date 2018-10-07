@@ -112,8 +112,8 @@ App({
     secret: "55e365dcaf3d51b4159bf0e1017a4978",
     //used
     //backendUrl: "http://localhost:8080/",
-    backendUrl: "http://junrongcenter.com:8080/",//used
-    picUrl: "http://www.junrongcenter.com/"//used
+    backendUrl: "https://junrongcenter.com:3389/",//used
+    picUrl: "https://www.junrongcenter.com/"//used
     //picUrl: "http://localhost:8000/",
     //picUrl: "http://localhost/libs/"//xulei
   

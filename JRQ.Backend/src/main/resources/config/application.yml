@@ -1,10 +1,9 @@
 server:
-  port: 8080
+  port: 3389
   ssl:
     key-store: config/jrq.jks
     key-store-password: njujrq123
     key-store-type: JKS
-    keyAlias: tomcat
 logging:
   level:
     org.springframework:

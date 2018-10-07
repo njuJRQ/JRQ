@@ -42,8 +42,8 @@ spring:
 wechat:
   url: https://api.weixin.qq.com/sns/jscode2session?appid=
   order_url: https://api.mch.weixin.qq.com/pay/unifiedorder
-  id: wx8b0d0433876f8f70
-  secret: 62eb76d04c849fcc23b49a23acf720a1
+  id: wx917cbd6132554ae2
+  secret: 55e365dcaf3d51b4159bf0e1017a4978
   mch_id: 1511954771
   body: 冉阔餐饮-九餐厅
   device_info: WEB

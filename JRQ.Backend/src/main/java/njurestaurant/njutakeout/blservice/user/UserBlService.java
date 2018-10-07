@@ -1,9 +1,11 @@
 package njurestaurant.njutakeout.blservice.user;
 
 import njurestaurant.njutakeout.entity.user.Classification;
+import njurestaurant.njutakeout.exception.CannotGetOpenIdAndSessionKeyException;
 import njurestaurant.njutakeout.exception.CardLimitUseUpException;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
+import njurestaurant.njutakeout.response.account.OpenIdAndSessionKeyResponse;
 import njurestaurant.njutakeout.response.user.*;
 
 import java.util.List;
@@ -154,6 +156,14 @@ public interface UserBlService {
 	 * @return 用户个人信息
 	 */
 	UserResponse loginMyUser(String openid, String username) throws NotExistException;
+
+	/**
+	 * 小程序前端获取openid和session
+	 * @param jsCode 微信小程序的jsCode
+	 * @return openid和session信息
+	 * @throws CannotGetOpenIdAndSessionKeyException
+	 */
+	OpenIdAndSessionKeyResponse getOpenIdAndSessionKey(String jsCode) throws CannotGetOpenIdAndSessionKeyException;
 
 	/**
 	 * 用户获取自己的个人信息(User)

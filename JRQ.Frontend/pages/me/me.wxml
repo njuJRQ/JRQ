@@ -33,7 +33,7 @@
       </view>
       <view class='div-line'></view>
       <view class='my-card-intro'>
-        <text style='font-size: 0.5rem;'>个人简介：{{myInfo.intro}}</text>
+        <text>个人简介：{{myInfo.intro}}</text>
       </view>
     </view>
 

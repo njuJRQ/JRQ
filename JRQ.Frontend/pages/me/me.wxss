@@ -67,19 +67,22 @@ page {
   border-radius: 5px;
 }
 .my-card-info text {
-  font-size: 0.4rem;
+  font-size: 0.8rem;
 }
 .my-card-info-username {
   margin: 0 0 10px 0;
 }
 .my-card-info-username > text {
   margin: 0 10px 0 0;
-  font-size:0.8rem;
+  font-size: 0.8rem;
   color:#252D47;
 }
 .my-card-info-username image {
   width: 15px;
   height: 15px;
+}
+.my-card-intro {
+  font-size: 0.8rem;
 }
 .my-card-send {
   margin: 10px 0 0 0;

@@ -5,54 +5,55 @@
     <text class='face-text'>更换头像</text>
   </view>
   <view style='width: 100%;'>
-    <view class='info column'>
-      <text>姓名</text>
-      <input placeholder='{{myInfo.username}}' bindinput='updateName'></input>
-
+    <view class='infos column'>
+      <view class='info'>
+        <text class='info__key'>姓名</text>
+        <input class='info__value' placeholder='{{myInfo.username}}' bindinput='updateName'></input>
+      </view>
       <view class='div-line'></view>
-
-      <text>手机号</text>
-      <input placeholder='{{myInfo.phone}}' bindinput='updatePhone'></input>
-
+      <view class='info'>
+        <text class='info__key'>手机号</text>
+        <input class='info__value' placeholder='{{myInfo.phone}}' bindinput='updatePhone'></input>
+      </view>
       <view class='div-line'></view>
-
-      <text>Email</text>
-      <input placeholder='{{myInfo.email}}' bindinput='updateEmail'></input>
-
+      <view class='info'>
+        <text class='info__key'>Email</text>
+        <input class='info__value' placeholder='{{myInfo.email}}' bindinput='updateEmail'></input>
+      </view>
       <view class='div-line'></view>
-
-      <text>城市</text>
-      <input placeholder='{{myInfo.city}}' bindinput='updateCity'></input>
-
+      <view class='info'>
+        <text class='info__key'>城市</text>
+        <input class='info__value' placeholder='{{myInfo.city}}' bindinput='updateCity'></input>
+      </view>
       <view class='div-line'></view>
-
-      <text>任职公司</text>
-      <input placeholder='{{myInfo.company}}' bindinput='updateCompany'></input>
-
+      <view class='info'>
+        <text class='info__key'>任职公司</text>
+        <input class='info__value' placeholder='{{myInfo.company}}' bindinput='updateCompany'></input>
+      </view>
       <view class='div-line'></view>
-
-      <text>部门</text>
-      <input placeholder='{{myInfo.department}}' bindinput='updateDepartment'></input>
-
+      <view class='info'>
+        <text class='info__key'>部门</text>
+        <input class='info__value' placeholder='{{myInfo.department}}' bindinput='updateDepartment'></input>
+      </view>
       <view class='div-line'></view>
-
-      <text>职位</text>
-      <input placeholder='{{myInfo.position}}' bindinput='updatePosition'></input>
-
+      <view class='info'>
+        <text class='info__key'>职位</text>
+        <input class='info__value' placeholder='{{myInfo.position}}' bindinput='updatePosition'></input>
+      </view>
       <view class='div-line'></view>
-
-      <text>业务标签</text>
-      <picker bindchange="bindLabelPickerChange" value="{{labelIndex}}" range="{{labelArray}}">
-        <view class="picker">
-          {{labelArray[labelIndex]}}
-        </view>
-      </picker>
-
+      <view class='info'>
+        <text class='info__key'>业务标签</text>
+        <picker class='info__value' bindchange="bindLabelPickerChange" value="{{labelIndex}}" range="{{labelArray}}">
+          <view class="picker">
+            {{labelArray[labelIndex]}}
+          </view>
+        </picker>
+      </view>
       <view class='div-line'></view>
-
-      <text>个人简介:</text>
-      <textarea placeholder='{{myInfo.intro}}' style='height: 3rem;' bindinput='updateIntro'></textarea>
-
+      <view class='info'>
+        <text class='info__key'>个人简介:</text>
+        <textarea class='info__value info__textarea' auto-height="true" placeholder='{{myInfo.intro}}' bindinput='updateIntro'></textarea>
+      </view>
     </view>
   </view>
   <button class='save-btn' bindtap='onSave'>保存</button>

@@ -18,21 +18,24 @@ page {
   font-size: 0.6rem;
 }
 /*关于修改个人信息的属性*/
-.info {
+.infos {
   background-color: white;
   padding: 10px;
   font-size: 0.6rem;
 }
-.info > text {
-  font-size: 0.8rem;
-  color: black;
-}
-.info-item {
+.info {
   width: 100%;
   justify-content: space-between;
 }
-.info-item-placeholder {
-  text-align: right;
+.info__key {
+  font-size: 0.8rem;
+  color: black;
+}
+.info__value {
+  font-size: 0.8rem;
+}
+.info__textarea {
+  min-height: 100px;
 }
 /*关于保存按钮的属性*/
 .save-btn {

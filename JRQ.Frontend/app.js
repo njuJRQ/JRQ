@@ -20,19 +20,18 @@ App({
     var that = this;
     wx.login({
       success: function (res) {
-        //用户登录成功
+        var js_code = res.code
         wx.request({
-          url: 'https://api.weixin.qq.com/sns/jscode2session',
-          data: {
-            appid: that.globalData.appid,
-            secret: that.globalData.secret,
-            grant_type: 'authorization_code',
-            js_code: res.code
+          url: that.globalData.backendUrl + "getOpenId",
+          header: {
+            'content-type': 'application/x-www-form-urlencoded'
           },
-          method: 'GET',
+          data: {
+            "jsCode": js_code
+          },
+          method: 'POST',
           success: function (res) {
-            //成功从jscode2session请求到openid和session_key
-            console.log('jscode2session请求结果：', res)
+            //获得从后端获取认证信息
             if (res.statusCode == 200) {
               if (res.data.errcode) {
                 wx.showModal({
@@ -41,10 +40,10 @@ App({
                   showCancel: false
                 })
               } else {
-                //console.log(res.data)
-                var openid = res.data.openid;
+                console.log(res.data)
+                var openid = res.data.openId;
                 wx.setStorageSync("openid", openid);
-                var sessionKey = res.data.session_key;
+                var sessionKey = res.data.sessionKey;
                 wx.setStorageSync("sessionKey", sessionKey);
                 //获取个人微信号信息
                 wx.getUserInfo({
@@ -84,8 +83,14 @@ App({
                   }
                 });
               }
+            } else {
+              console.log(res)
+              wx.showModal({
+                content: res.data.status + ' ' + res.data.error,
+                showCancel: false
+              })
             }
-          },
+          }
         })
       },
       fail: function (res) {
@@ -109,8 +114,7 @@ App({
     appid: "wx917cbd6132554ae2",//used
     //secret: "67596e7ba8e837c29176f130490b752c", //小程序的 app secret
     //secret: "8a11779c7567ae184c50913df20a2f2e",//xulei
-    secret: "55e365dcaf3d51b4159bf0e1017a4978",
-    //used
+    secret: "55e365dcaf3d51b4159bf0e1017a4978",//used
     //backendUrl: "http://localhost:8080/",
     backendUrl: "https://junrongcenter.com:3389/",//used
     picUrl: "https://www.junrongcenter.com/"//used

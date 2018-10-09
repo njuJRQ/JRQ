@@ -2,12 +2,31 @@ package njurestaurant.njutakeout.blservice.purchase;
 
 import njurestaurant.njutakeout.exception.AlreadyExistException;
 import njurestaurant.njutakeout.exception.NotExistException;
+import njurestaurant.njutakeout.exception.SystemException;
 import njurestaurant.njutakeout.response.BoolResponse;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.purchase.PurchaseListResponse;
 import njurestaurant.njutakeout.response.purchase.PurchaseResponse;
+import njurestaurant.njutakeout.response.purchase.WxBuyCreditResponse;
+
+import javax.servlet.http.HttpServletRequest;
 
 public interface PurchaseBlService {
+
+	/**
+	 * 用户通过微信支付购买积分
+	 * @param openid 用户的openid
+	 * @param credit 用户要购买的积分数
+	 * @return 微信支付相关数据
+	 */
+	WxBuyCreditResponse buyMyCredit(String openid, int credit);
+
+	/**
+	 * 此接口用户接收微信支付后台的支付结果通知
+	 * @param httpServletRequest 与微信支付的连接
+	 * @return 返回给微信支付的参数
+	 */
+	String getWxPayResult(HttpServletRequest httpServletRequest);
 
 	/**
 	 * 用户下订单(User)

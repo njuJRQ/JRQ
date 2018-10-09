@@ -170,12 +170,17 @@ public class PurchaseBlServiceImpl implements PurchaseBlService {
 						if (sortedMap.get("result_code").equals("SUCCESS")) {
 							if (buyCredit.getStatus().equals("waiting")) {
 								buyCredit.setStatus("finished");
+								buyCreditDataService.saveBuyCredit(buyCredit);
+								User user = userDataService.getUserByOpenid(buyCredit.getOpenid());
+								user.setCredit(user.getCredit()+buyCredit.getCredit());
+								userDataService.saveUser(user);
 							} else {
 								System.err.println("订单状态已更新为finished！");
 							}
 						} else {
 							if (buyCredit.getStatus().equals("waiting")) {
 								buyCredit.setStatus("failed");
+								buyCreditDataService.saveBuyCredit(buyCredit);
 							} else {
 								System.err.println("订单状态已更新为failed！");
 							}

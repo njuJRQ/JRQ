@@ -1,5 +1,5 @@
-var address = "http://localhost:8080";
-//var address = "http://junrongcenter.com:8080";
+var address = "http://localhost:3389";
+//var address = "https://junrongcenter.com:3389";
 function getUrl() {
     return address;
 }

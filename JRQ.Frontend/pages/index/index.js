@@ -51,7 +51,7 @@ Page({
     },
     currentKind: null
   },
-  
+
   //事件处理函数
   onLoad: function () {
     this.setData({

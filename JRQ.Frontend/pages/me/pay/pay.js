@@ -34,8 +34,44 @@ Page({
       return
     }
     /*test*/
-    this.setData({
-      price: parseInt(this.data.price) + parseInt(amount)
+
+    wx.request({
+      url: app.globalData.backendUrl + "pay",
+      method: "PUT",
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/json'
+      },
+      data: {
+        openid: app.getOpenid(),
+        price: amount
+      },
+      success: (res) => {
+        if (res.statusCode == 200) {
+          var requestPaymentParams = res.data
+          wx.requestPayment({
+            timeStamp: requestPaymentParams.timeStamp,
+            nonceStr: requestPaymentParams.nonceStr,
+            package: requestPaymentParams.pakcage,
+            signType: requestPaymentParams.signType,
+            paySign: requestPaymentParams.paySign,
+            success: (res) => {
+              wx.showToast({
+                title: '充值成功',
+                icon: 'success',
+                duration: 1000
+              })
+              that.onLoad()
+            }
+          })
+        } else if (res.statusCode == 404) {
+          wx.showToast({
+            title: '充值失败',
+            icon: 'none',
+            duration: 1000
+          });
+        }
+      }
     })
   }
 })

@@ -180,6 +180,9 @@ public class UserBlServiceImpl implements UserBlService {
 		HttpEntity<String> entity = new HttpEntity<String>("", headers);
 		ResponseEntity<String> response = client.exchange(wechatUrl + appId + "&secret=" + appSecret + "&js_code=" + jsCode + "&grant_type=authorization_code", HttpMethod.GET, entity, String.class);
 		if (response.getStatusCode() == HttpStatus.OK) {
+			System.out.println("jsCode = [" + jsCode + "]");
+			System.out.println("hhhhhhh" + (String) JSONObject.fromObject(response.getBody()).get("openid"));
+			System.out.println(response);
 			return new OpenIdAndSessionKeyResponse((String) JSONObject.fromObject(response.getBody()).get("openid"), (String) JSONObject.fromObject(response.getBody()).get("session_key"));
 		} else {
 			throw new CannotGetOpenIdAndSessionKeyException();

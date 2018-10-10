@@ -33,7 +33,7 @@
     </view>
   </view>
   <!--广告位-->
-  <template is='adBar' data='{{ad}}'></template>
+  <template class='ad' is='adBar' data='{{ad}}'></template>
   <view class='div-line'></view>
   <!--文章列表-->
   <view style='width: 100%; padding: 0 10px'>

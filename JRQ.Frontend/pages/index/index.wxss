@@ -17,7 +17,9 @@
 .head text {
   font-size: 0.8rem;
 }
-
+.ad {
+  margin: 0 0 10px 0;
+}
 /*关于文章的属性*/
 .article-images > image {
   width: 100px;

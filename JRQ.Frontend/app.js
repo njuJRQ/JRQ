@@ -22,14 +22,14 @@ App({
       success: function (res) {
         var js_code = res.code
         wx.request({
-          url: that.globalData.backendUrl + "getOpenId",
+          url: that.globalData.backendUrl + "getOpenIdAndSessionKey",
           header: {
             'content-type': 'application/x-www-form-urlencoded'
           },
           data: {
             "jsCode": js_code
           },
-          method: 'POST',
+          method: 'GET',
           success: function (res) {
             //获得从后端获取认证信息
             if (res.statusCode == 200) {
@@ -40,7 +40,7 @@ App({
                   showCancel: false
                 })
               } else {
-                console.log(res.data)
+                console.log(res)
                 var openid = res.data.openId;
                 wx.setStorageSync("openid", openid);
                 var sessionKey = res.data.sessionKey;
@@ -48,7 +48,7 @@ App({
                 //获取个人微信号信息
                 wx.getUserInfo({
                   success: function (data) {
-                    console.log('个人微信号信息', data)
+                    /*console.log('个人微信号信息', data)*/
                     wx.setStorageSync("wechatUsername", data.userInfo.nickName);
                     wx.request({
                       url: that.globalData.backendUrl + "loginMyUser",
@@ -86,6 +86,7 @@ App({
             } else {
               console.log(res)
               wx.showModal({
+                title: '获取openid失败',
                 content: res.data.status + ' ' + res.data.error,
                 showCancel: false
               })
@@ -108,18 +109,22 @@ App({
     wechatUsername: "",
     token: "",
     defaultPic: '../../default/default-pic.png',
+
     //appid: "wxe022b5baf52ae923", //小程序唯一标识
+    //secret: "67596e7ba8e837c29176f130490b752c", //小程序的 app secret
+
     //appid: "wxe022b5baf52ae923",//test
     //appid: "wx2e1011ad046ddc3f",//xulei
-    appid: "wx917cbd6132554ae2",//used
-    //secret: "67596e7ba8e837c29176f130490b752c", //小程序的 app secret
+
     //secret: "8a11779c7567ae184c50913df20a2f2e",//xulei
+
+    appid: "wx917cbd6132554ae2",//used
     secret: "55e365dcaf3d51b4159bf0e1017a4978",//used
-    //backendUrl: "http://localhost:8080/",
+
+    //backendUrl: "http://localhost:3389/",
     backendUrl: "https://junrongcenter.com:3389/",//used
     picUrl: "https://www.junrongcenter.com/"//used
     //picUrl: "http://localhost:8000/",
     //picUrl: "http://localhost/libs/"//xulei
-  
   }
 });

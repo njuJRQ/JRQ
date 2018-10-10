@@ -2,9 +2,28 @@
 <view class='container'>
   <!--身份升级-->
   <view class="row-wrap">请点击升级选项进行身份升级（当前余额：{{price}}）</view>
-  <button class='btn-298' bindtap='updateTo298'>升级为298用户（价格：298）</button>
-  <button class='btn-998' bindtap='updateTo998'>升级为998用户（价格：998）</button>
-  <button class='btn-enter' bindtap='updateToEnterprise'>升级为企业用户</button>
+  <view class='div-line'></view>
+  <view class='updateWrapper'>
+    <image class='updateWrapper__image' src='img/silver.png'></image>
+    <view class='updateWrapper__capsule capsule'>
+      <view class='capsule__left capsule__left--bg-red'>¥ <big>298</big> / 365天</view>
+      <view class='capsule__right capsule__right--bg-red' bindtap='updateTo298'>立即购买</view>
+    </view>
+  </view>
+  <view class='updateWrapper'>
+    <image class='updateWrapper__image' src='img/gold.png'></image>
+    <view class='updateWrapper__capsule capsule'>
+      <view class='capsule__left capsule__left--bg-red'>¥ <big>998</big> / 365天</view>
+      <view class='capsule__right capsule__right--bg-red' bindtap='updateTo998'>立即购买</view>
+    </view>
+  </view>
+  <view class='updateWrapper'>
+    <image class='updateWrapper__image' src='img/enterprise.png'></image>
+    <view class='updateWrapper__capsule capsule'>
+      <view class='capsule__left capsule__left--bg-red'>¥ <big>免费</big> / 365天</view>
+      <view class='capsule__right capsule__right--bg-red' bindtap='updateToEnterprise'>立即认证</view>
+    </view>
+  </view>
   <view class='notation'>
     <text>{{returnInfo}}</text>
   </view>

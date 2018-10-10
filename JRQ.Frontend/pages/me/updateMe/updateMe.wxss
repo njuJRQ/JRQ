@@ -1,14 +1,8 @@
 /* pages/me/updateMe/updateMe.wxss */
 @import '/style/common.wxss';
-page {
-  background-color: #fff;
-}
-.container {
-  background-color: #fff;
-  padding: 40rpx;
-}
-text {
-  color: #000;
+big {
+  color: white;
+  font-size: 1rem;
 }
 .row-wrap{
     width: 720rpx;
@@ -37,6 +31,58 @@ text {
 .row-wrap .right-box{
     margin-right: 30rpx; 
 }
+.updateWrapper {
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+  background-color: #F0F0F0;
+  margin: 15px 0 0 0;
+  padding: 15px 0;
+}
+.updateWrapper__image {
+  margin: 0 auto;
+  height: 160px;
+  width: 350px;
+}
+.updateWrapper__capsule {
+  margin: 5px auto 0 auto;
+  height: 40px;
+  width: 350px;
+  overflow: auto;
+}
+.capsule__left {
+  display: inline-block;
+  width: 66%;
+  height: 100%;
+  vertical-align: top;
+  text-align: left;
+  line-height: 40px;
+  padding: 0 0 0 20px;
+  border-radius: 20px 0 0 20px;
+}
+.capsule__left--bg-red {
+  color: #FFF;
+  font-size: 0.8rem;
+  background-color: #D62F36;
+}
+.capsule__right {
+  display: inline-block;
+  height: 100%;
+  width: 33%;
+  margin: 0 0 0 1%;
+  vertical-align: top;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 0 20px 20px 0;
+}
+.capsule__right--bg-red {
+  color: #FFF;
+  font-size: 0.8rem;
+  background-color: #D62F36;
+}
+
+
+
 .btn-298,
 .btn-998,
 .btn-enter{

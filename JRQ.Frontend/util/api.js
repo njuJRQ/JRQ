@@ -25,7 +25,7 @@ function getAbstractList(kind, openid) {
   })
 }
 
-function getAbstractListByCondition(condition){
+function getAbstractListByCondition(condition) {
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "getAbstractListByCondition",
@@ -62,7 +62,9 @@ function getFeedList() {
       that.data.articles = res.data.feedViews
       that.data.articles.forEach((article) => {
         article.writerFace = app.globalData.picUrl + article.writerFace
-        article.images = article.images.map((image) => { return app.globalData.picUrl + image })
+        article.images = article.images.map((image) => {
+          return app.globalData.picUrl + image
+        })
       })
       that.setData(that.data)
     }
@@ -109,8 +111,7 @@ function getMyCourse(openid, courseId, then) {
       if (!that.data.course.video == "") {
         that.data.isOwnCourse = true
         that.data.course.video = app.globalData.picUrl + that.data.course.video
-      }
-      else
+      } else
         that.data.isOwnCourse = false
       that.setData(that.data)
       if (then) then()
@@ -135,11 +136,9 @@ function getDocument(id) {
         that.setData({
           document: res.data.document
         })
-      }
-      else if (res.statusCode == 500) {
+      } else if (res.statusCode == 500) {
         console.log(res.data.message)
-      }
-      else {
+      } else {
         console.log(res)
       }
     }
@@ -235,8 +234,7 @@ function purchaseCourse(courseId, openid, price, date, then) {
           content: res.data.message,
           showCancel: false
         })
-      }
-      else if (res.data.ok == true) {
+      } else if (res.data.ok == true) {
         wx.showModal({
           content: '购买课程成功',
           showCancel: false
@@ -295,10 +293,16 @@ function getMyInfo(openid, then) {
     success: (res) => {
       that.data.myInfo = res.data.user
       that.data.myInfo.face = app.globalData.picUrl + that.data.myInfo.face
-      if (that.data.myInfo.levelName == '998') that.data.myInfo.medals.push('/pages/me/img/gold.png')
-      else if (that.data.myInfo.levelName == '298') that.data.myInfo.medals.push('/pages/me/img/silver.png')
-      else if (that.data.myInfo.levelName === 'common') that.data.myInfo.medals.push('/pages/me/img/copper.png')
-      if (that.data.myInfo.isEnterprise) that.data.myInfo.medals.push('/pages/me/img/enterprise.png')
+      if (that.data.myInfo.levelName == '998') {
+        that.data.myInfo.medals.push('/pages/me/img/gold.png')
+      } else if (that.data.myInfo.levelName == '298') {
+        that.data.myInfo.medals.push('/pages/me/img/silver.png')
+      } else if (that.data.myInfo.levelName === 'common') {
+        that.data.myInfo.medals.push('/pages/me/img/copper.png')
+      }
+      if (that.data.myInfo.isEnterprise) {
+        that.data.myInfo.medals.push('/pages/me/img/enterprise.png')
+      }
       that.setData(that.data)
       if (then) then()
     }
@@ -351,8 +355,7 @@ function getOtherInfo(myid, otherid, then) {
         that.data.myInfo.face = app.globalData.picUrl + that.data.myInfo.face
         that.setData(that.data)
         if (then) then()
-      }
-      else if (res.statusCode == 500) {
+      } else if (res.statusCode == 500) {
         wx.showModal({
           content: res.data.message,
           showCancel: false
@@ -425,7 +428,9 @@ function publishMyArticle(openid, kind, content, photos) {
           icon: 'succes',
           duration: 1000,
           success: () => {
-            setTimeout(() => { wx.navigateBack() }, 1000)
+            setTimeout(() => {
+              wx.navigateBack()
+            }, 1000)
           },
           mask: true
         })
@@ -633,7 +638,7 @@ function downloadFile(filepath) {
   })
 }
 
-function getClassificationList() {
+function getClassificationList(then) {
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "getClassificationList",
@@ -646,6 +651,7 @@ function getClassificationList() {
       that.setData({
         labelArray: res.data.classifications.map((c) => c.userLabel)
       })
+      if (then) then()
     }
   })
 }

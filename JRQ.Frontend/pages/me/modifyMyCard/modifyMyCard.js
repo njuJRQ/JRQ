@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    labelArray: ['承兑汇票','股票质押','大宗减持','定增','短拆过桥','企业信用贷','供应链金融','商业保理','融资租赁','股权融资','并购重组','壳资源','基金产品','资产证券化','土地并购','自定义'],
+    labelArray: ['承兑汇票', '股票质押', '大宗减持', '定增', '短拆过桥', '企业信用贷', '供应链金融', '商业保理', '融资租赁', '股权融资', '并购重组', '壳资源', '基金产品', '资产证券化', '土地并购', '自定义'],
     labelIndex: 0,
     myInfo: {
       face: '../../../default/default-pic.png',
@@ -73,7 +73,6 @@ Page({
   },
 
   bindLabelPickerChange: function (e) {
-    //console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       labelIndex: e.detail.value
     })
@@ -85,15 +84,21 @@ Page({
    */
   onLoad: function (options) {
     var that = this
-    api.getClassificationList.call(this)
-    api.getMyInfo.call(this, app.getOpenid(), ()=>{
-      that.data.newMyInfo = that.data.myInfo
-      that.setData(that.data)
+    api.getClassificationList.call(this, () => {
+      api.getMyInfo.call(this, app.getOpenid(), () => {
+        /* 更新labelIndex */
+        const label = that.data.myInfo.label
+        const labelArray = that.data.labelArray
+        const index = labelArray.findIndex((l) => l == label)
+        that.data.labelIndex = index
+        /* 复制myInfo到newMyInfo中 */
+        that.data.newMyInfo = that.data.myInfo
+        that.setData(that.data)
+      })
     })
   },
-  
-  onSave: function(){
-    console.log('save')
+
+  onSave: function () {
     api.modifyMyInfo.call(this)
   }
 })

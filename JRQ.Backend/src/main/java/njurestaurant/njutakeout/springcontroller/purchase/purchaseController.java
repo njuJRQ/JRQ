@@ -12,12 +12,43 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 public class purchaseController {
     private final PurchaseBlService purchaseBlService;
     @Autowired
     public purchaseController(PurchaseBlService purchaseBlService) {
         this.purchaseBlService = purchaseBlService;
+    }
+
+    @ApiOperation(value = "用户通过微信支付购买积分", notes = "用户通过微信支付购买积分")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "用户自己的微信openid", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "credit", value = "用户要购买的积分数", required = true, dataType = "int")
+    })
+    @RequestMapping(value = "/buyMyCredit", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> buyMyCredit(@RequestParam(name="openid")String openid, @RequestParam(name="credit")int credit) {
+        return new ResponseEntity<>(purchaseBlService.buyMyCredit(openid,credit), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "此接口用户接收微信支付后台的支付结果通知", notes = "此接口用户接收微信支付后台的支付结果通知")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "httpServletRequest", value = "与微信支付的连接", required = true, dataType = "HttpServletRequest")
+    })
+    @RequestMapping(value = "/getWxPayResult", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public String getWxPayResult(@RequestParam(name="httpServletRequest")HttpServletRequest httpServletRequest) {
+        return purchaseBlService.getWxPayResult(httpServletRequest);
     }
 
     @ApiOperation(value = "用户下订单", notes = "用户下订单")

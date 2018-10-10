@@ -44,9 +44,9 @@ wechat:
   id: wx917cbd6132554ae2
   secret: 55e365dcaf3d51b4159bf0e1017a4978
   mch_id: 1511954771
-  body: 冉阔餐饮-九餐厅
+  body: 钧融圈
   device_info: WEB
-  notify_url: https://www.sandc.com
+  notify_url: https://junrongcenter.com:3389
   trade_type: JSAPI
-  api_key: Ccwk4VueI0EN3VMcFodm58XYsFSIRKHZ
+  api_key: junrongcenterxiaochengxu556677mm
   sign_type: MD5

@@ -57,3 +57,6 @@ page {
     background-color: #e64340;
     color:#fff;
 }
+.note {
+  font-size: 0.6rem;
+}

@@ -36,23 +36,24 @@ Page({
     /*test*/
 
     wx.request({
-      url: app.globalData.backendUrl + "pay",
-      method: "PUT",
+      url: app.globalData.backendUrl + "buyMyCredit",
+      method: "GET",
       header: {
         'Authorization': 'Bearer ' + app.getToken(),
         'content-type': 'application/json'
       },
       data: {
         openid: app.getOpenid(),
-        price: amount
+        credit: amount
       },
       success: (res) => {
         if (res.statusCode == 200) {
-          var requestPaymentParams = res.data
+          var requestPaymentParams = res.data.wxBuyCredit
+          console.log(requestPaymentParams)
           wx.requestPayment({
             timeStamp: requestPaymentParams.timeStamp,
             nonceStr: requestPaymentParams.nonceStr,
-            package: requestPaymentParams.pakcage,
+            package: requestPaymentParams.packageContent,
             signType: requestPaymentParams.signType,
             paySign: requestPaymentParams.paySign,
             success: (res) => {

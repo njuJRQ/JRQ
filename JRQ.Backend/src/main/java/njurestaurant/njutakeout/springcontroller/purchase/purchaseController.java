@@ -38,16 +38,13 @@ public class purchaseController {
     }
 
     @ApiOperation(value = "此接口用户接收微信支付后台的支付结果通知", notes = "此接口用户接收微信支付后台的支付结果通知")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "httpServletRequest", value = "与微信支付的连接", required = true, dataType = "HttpServletRequest")
-    })
-    @RequestMapping(value = "/getWxPayResult", method = RequestMethod.GET)
+    @RequestMapping(value = "/getWxPayResult", method = RequestMethod.POST)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public String getWxPayResult(@RequestParam(name="httpServletRequest")HttpServletRequest httpServletRequest) {
+    public String getWxPayResult(HttpServletRequest httpServletRequest) {
         return purchaseBlService.getWxPayResult(httpServletRequest);
     }
 

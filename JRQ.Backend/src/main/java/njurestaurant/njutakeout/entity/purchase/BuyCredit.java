@@ -41,6 +41,9 @@ public class BuyCredit {
 	@Column
 	private String finalTimeStamp; //最终时间戳，收到微信后台支付结果时的时间戳
 
+	public BuyCredit() {
+	}
+
 	public BuyCredit(String openid, int credit, int totalFee) {
 		this.openid = openid;
 		this.credit = credit;

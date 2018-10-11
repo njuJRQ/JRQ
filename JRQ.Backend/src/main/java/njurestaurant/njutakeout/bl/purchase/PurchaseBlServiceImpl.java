@@ -133,22 +133,25 @@ public class PurchaseBlServiceImpl implements PurchaseBlService {
 		buyCreditDataService.saveBuyCredit(buyCredit);
 
 		//自动取消超时订单
+		System.out.println("start waiting...");
 		new Timer().schedule(new TimerTask() {
 			@Override
 			public void run() {
+				System.out.println("scheduled to checking");
 				if (buyCredit.getStatus().equals("init") || buyCredit.getStatus().equals("waiting")) {
 					buyCredit.setStatus("cancelled");
 					buyCredit.setFinalTimeStamp(String.valueOf(System.currentTimeMillis()));
 					buyCreditDataService.saveBuyCredit(buyCredit);
 				}
 			}
-		}, 15*60*1000); //在15分钟后订单若仍为init或waiting则自动取消
+		}, 3*60*1000); //TODO:上线前把3改成15 在15分钟后订单若仍为init或waiting则自动取消
 
 		return new WxBuyCreditResponse(new WxBuyCreditItem(buyCredit.getId(), waitingTimeStamp, nonceStr, packageContent, signType, paySign));
 	}
 
 	@Override
 	public String getWxPayResult(HttpServletRequest request) {
+		System.out.println("Wx notification arrived");
 		try {
 			InputStream inStream = request.getInputStream();
 			int _buffer_size = 1024;

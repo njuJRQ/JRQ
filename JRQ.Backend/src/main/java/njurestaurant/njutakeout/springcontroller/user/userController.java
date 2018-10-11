@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 public class userController {
@@ -112,9 +113,10 @@ public class userController {
             is=false;
         }
         File file = new File(headPath);
+        String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
         String[] temp=headPath.split("\\.");
-        String thePath="record/user/head/"+openid+"."+temp[1];
-        String path="record/user/head/"+openid+"."+temp[1];
+        String thePath="record/user/head/"+uuid+"."+temp[1];
+        String path="record/user/head/"+uuid+"."+temp[1];
         File tempfile=new File(path);
         if (tempfile.exists() && tempfile.isFile()) {
              tempfile.delete();
@@ -412,16 +414,17 @@ public class userController {
     @ResponseBody
     public ResponseEntity<Response> updateMyProfile(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username,@RequestParam(name="phone")String phone,@RequestParam(name="email")String email,@RequestParam(name="company")String company,@RequestParam(name="department")String department,@RequestParam(name="position")String position,@RequestParam(name="intro")String intro,@RequestParam(name="city")String city,@RequestParam(name="label")String label) throws NotExistException {
         File file = new File(headPath);
+        String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
         String[] temp=headPath.split("\\.");
         String thePath="";
         String path="";
         if(temp.length>2) {
-            thePath = "record/user/head/" + openid + "." + temp[3];
-            path = "record/user/head/" + openid + "." + temp[3];
+            thePath = "record/user/head/" + uuid + "." + temp[3];
+            path = "record/user/head/" + uuid + "." + temp[3];
         }
         else{
-            thePath = "record/user/head/" + openid + "." + temp[1];
-            path = "record/user/head/" + openid + "." + temp[1];
+            thePath = "record/user/head/" + uuid + "." + temp[1];
+            path = "record/user/head/" + uuid + "." + temp[1];
         }
         File tempfile=new File(path);
         if (tempfile.exists() && tempfile.isFile()) {

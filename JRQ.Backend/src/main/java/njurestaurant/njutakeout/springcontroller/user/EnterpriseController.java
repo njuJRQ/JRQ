@@ -37,6 +37,34 @@ public class EnterpriseController {
         return new ResponseEntity<>(enterpriseBlService.setMyUserAsEnterprise(openid,username,password), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "用户获取自己是否为企业用户", notes = "用户获取自己是否为企业用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "用户的微信openid", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/isMyUserEnterprise", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> isMyUserEnterprise(@RequestParam(name="openid")String openid) {
+        return new ResponseEntity<>(enterpriseBlService.isMyUserEnterprise(openid), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "企业用户获取自己的管理员信息", notes = "企业用户获取自己的管理员信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "企业用户的openid", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getMyEnterpriseAdmin", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getMyEnterpriseAdmin(@RequestParam(name="openid")String openid) throws NotExistException {
+        return new ResponseEntity<>(enterpriseBlService.getMyEnterpriseAdmin(openid), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "用户升级自己为企业账户", notes = "用户升级自己为企业账户")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "adminId", value = "用户的微信openid", required = true, dataType = "String")

@@ -75,17 +75,20 @@ public class FeedBlServiceImpl implements FeedBlService {
 		}
 		Feed feed = feedDataService.getFeedById(id);
 		List<Feed> feeds = feedDataService.getFeedsByTimeStampBeforeOrderByTimeStampDescLimit10(feed.getTimeStamp());
-		List<Feed> sameStampFeeds = feedDataService.getFeedsByTimeStamp(feed.getTimeStamp()); //与feeds中最早的Feed时间戳相同的文章
-		for (Feed ssf:sameStampFeeds) {
-			boolean flag = false; //标记ssf是否在feeds中
-			for (Feed f:feeds){
-				if (ssf.getId().equals(f.getId())) {
-					flag = true;
-					break;
+		if (!feeds.isEmpty()) {
+			List<Feed> sameStampFeeds = feedDataService.getFeedsByTimeStamp(
+					feeds.get(feeds.size()-1).getTimeStamp()); //与feeds中最早的Feed时间戳相同的文章
+			for (Feed ssf:sameStampFeeds) {
+				boolean flag = false; //标记ssf是否在feeds中
+				for (Feed f:feeds){
+					if (ssf.getId().equals(f.getId())) {
+						flag = true;
+						break;
+					}
 				}
-			}
-			if (!flag) { //ssf不在feeds里面，加入进去
-				feeds.add(ssf);
+				if (!flag) { //ssf不在feeds里面，加入进去
+					feeds.add(ssf);
+				}
 			}
 		}
 

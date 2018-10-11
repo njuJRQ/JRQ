@@ -18,6 +18,8 @@ import njurestaurant.njutakeout.entity.user.Enterprise;
 import njurestaurant.njutakeout.entity.user.User;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.BoolResponse;
+import njurestaurant.njutakeout.response.admin.AdminItem;
+import njurestaurant.njutakeout.response.admin.AdminResponse;
 import njurestaurant.njutakeout.response.article.course.CourseItem;
 import njurestaurant.njutakeout.response.article.course.CourseListResponse;
 import njurestaurant.njutakeout.response.article.document.DocumentItem;
@@ -56,6 +58,8 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 		this.projectDataService = projectDataService;
 	}
 
+
+
 	@Override
 	public BoolResponse setMyUserAsEnterprise(String openid, String username, String password) {
 		if (enterpriseDataService.isUserEnterprise(openid)) {
@@ -86,6 +90,21 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 			user.setCredit(user.getCredit()-price);
 			purchaseDataService.addPurchase(new Purchase(openid, "enterprise", admin.getId(), price, date));
 			return new BoolResponse(true, "企业用户升级成功，用户名为'"+username+"'，密码为'"+password+"'");
+		}
+	}
+
+	@Override
+	public BoolResponse isMyUserEnterprise(String openid) {
+		return new BoolResponse(enterpriseDataService.isUserEnterprise(openid), "ok");
+	}
+
+	@Override
+	public AdminResponse getMyEnterpriseAdmin(String openid) throws NotExistException {
+		if(enterpriseDataService.isUserEnterprise(openid)) {
+			return new AdminResponse(new AdminItem(
+					adminDataService.getAdminById(enterpriseDataService.getEnterpriseByOpenid(openid).getAdminId())));
+		} else {
+			throw new NotExistException("Enterprise openid", openid);
 		}
 	}
 

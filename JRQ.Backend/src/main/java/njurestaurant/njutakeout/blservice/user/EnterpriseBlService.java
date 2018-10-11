@@ -2,6 +2,7 @@ package njurestaurant.njutakeout.blservice.user;
 
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.BoolResponse;
+import njurestaurant.njutakeout.response.admin.AdminResponse;
 import njurestaurant.njutakeout.response.article.course.CourseListResponse;
 import njurestaurant.njutakeout.response.article.document.DocumentListResponse;
 import njurestaurant.njutakeout.response.article.project.ProjectListResponse;
@@ -16,6 +17,25 @@ public interface EnterpriseBlService {
 	 */
 	BoolResponse setMyUserAsEnterprise(String openid, String username, String password);
 
+	/**
+	 * 用户获取自己是否为企业用户
+	 * @param openid 用户的openid
+	 * @return 是否为企业用户
+	 */
+	BoolResponse isMyUserEnterprise(String openid);
+
+	/**
+	 * 企业用户获取自己的管理员信息
+	 * @param openid 企业用户的openid
+	 * @return 管理员信息
+	 */
+	AdminResponse getMyEnterpriseAdmin(String openid) throws NotExistException;
+
+	/**
+	 * 检查管理员是否为企业用户
+	 * @param adminId 管理员ID
+	 * @return 是否为企业用户
+	 */
 	BoolResponse isAdminEnterprise(String adminId);
 
 	/**

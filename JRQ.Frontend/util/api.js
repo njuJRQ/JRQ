@@ -48,24 +48,29 @@ function getAbstractListByCondition(condition) {
   })
 }
 
-function getFeedList() {
+function getFeedList (id) {
   var that = this
   wx.request({
-    url: app.globalData.backendUrl + "getFeedViewList",
+    url: app.globalData.backendUrl + "getFeedViewListBefore",
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
       'content-type': 'application/x-www-form-urlencoded'
     },
+    data: {
+      id: id
+    },
     method: 'GET',
     success: (res) => {
       /*console.log(res.data)*/
-      that.data.articles = res.data.feedViews
+      that.data.articles.concat(res.data.feedViews)
       that.data.articles.forEach((article) => {
         article.writerFace = app.globalData.picUrl + article.writerFace
         article.images = article.images.map((image) => {
           return app.globalData.picUrl + image
         })
       })
+      var articles = that.data.articles
+      that.data.lastId = articles[articles.length - 1].id
       that.setData(that.data)
     }
   })
@@ -454,7 +459,6 @@ function modifyMyInfo() {
    * 个人简介：intro
    */
   var that = this
-  console.log(that.data.newMyInfo.face)
   wx.uploadFile({
     //上传用户图片
     url: app.globalData.backendUrl + "uploadHead",
@@ -493,7 +497,6 @@ function modifyMyInfo() {
             mask: true
           })
           setTimeout(() => {
-            console.log(wx.getStorageInfoSync())
             wx.navigateBack()
           }, 1000)
         }
@@ -529,7 +532,6 @@ function modifyMyInfo() {
             mask: true
           })
           setTimeout(() => {
-            console.log(wx.getStorageInfoSync())
             wx.navigateBack()
           }, 1000)
         }
@@ -710,6 +712,9 @@ function updateMe(openid, detail, price, date) {
 
 function sendMyCard(senderOpenid, receiverOpenid) {
   var that = this
+  wx.showLoading({
+    title: '正在发送名片',
+  })
   wx.request({
     url: app.globalData.backendUrl + "sendMyCard",
     data: {
@@ -723,6 +728,7 @@ function sendMyCard(senderOpenid, receiverOpenid) {
     method: 'GET',
     success: (res) => {
       console.log(res)
+      wx.hideLoading()
       wx.showToast({
         title: '发送名片成功',
       })
@@ -771,7 +777,7 @@ function isEnterprise(openid) {
   })
 }
 
-function getMyEnterpriseAdmin (openid) {
+function getMyEnterpriseAdmin(openid) {
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "getMyEnterpriseAdmin",

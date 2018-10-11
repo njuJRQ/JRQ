@@ -8,6 +8,7 @@ import njurestaurant.njutakeout.exception.DuplicateUsernameException;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.exception.WrongPasswordException;
 import njurestaurant.njutakeout.publicdatas.account.Role;
+import njurestaurant.njutakeout.response.BoolResponse;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.Response;
 import njurestaurant.njutakeout.response.WrongResponse;
@@ -27,6 +28,21 @@ public class adminController {
     @Autowired
     public adminController(AdminBlService adminBlService) {
         this.adminBlService = adminBlService;
+    }
+
+    @ApiOperation(value = "检查用户名username是否已经存在", notes = "检查用户名username是否已经存在")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/isAdminUsernameExistent", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public BoolResponse isAdminUsernameExistent(@RequestParam(name="username")String username) {
+        BoolResponse info=adminBlService.isAdminUsernameExistent(username);
+        return info;
     }
 
     @ApiOperation(value = "添加管理员", notes = "添加管理员")

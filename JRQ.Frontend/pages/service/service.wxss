@@ -52,8 +52,7 @@
   border-radius: 0 5px 5px 0;
 }
 .card-category text {
-  writing-mode: tb-rl;
-  font-size: 0.7rem;
+  width: 0.65rem;
+  font-size: 0.65rem;
   color: white;
-  letter-spacing:3px;
 }

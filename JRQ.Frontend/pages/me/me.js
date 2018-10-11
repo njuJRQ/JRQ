@@ -30,10 +30,13 @@ Page({
    */
   onShow: function (options) {
     var that = this
-    api.getMyInfo.call(this, app.getOpenid()) //获取个人信息
-    api.isEnterprise.call(this, app.getOpenid()) //检查是否为企业用户
+    //获取个人信息
+    api.getMyInfo.call(this, app.getOpenid(), () => {
+      //检查是否为企业用户
+      api.isEnterprise.call(that, app.getOpenid())
+    })
   },
-  
+
   //发布信息
   onPublish: function () {
     console.log('publish')
@@ -41,9 +44,9 @@ Page({
       url: 'publishMyArticle/publishMyArticle',
     })
   },
-  
+
   //递名片
-  onSendMe: function() {
+  onSendMe: function () {
     wx.navigateTo({
       url: 'myCardHolder/myCardHolder',
     })

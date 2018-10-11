@@ -106,8 +106,7 @@ public class FeedController {
     @ApiOperation(value = "用户发布自己的圈子文章", notes = "用户发布自己的圈子文章")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "content", value = "内容", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "writerOpenid", value = "作者id", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "date", value = "发布日期", required = true, dataType = "String")
+            @ApiImplicitParam(name = "writerOpenid", value = "作者id", required = true, dataType = "String")
     })
     @RequestMapping(value = "/publishMyFeed", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -115,8 +114,8 @@ public class FeedController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> publishMyFeed(@RequestParam(name="content")String content, @RequestParam(name="writerOpenid")String writerOpenid, @RequestParam(name="date")String date) {
-        ResponseEntity<Response> r= new ResponseEntity<>(feedBlService.publishMyFeed(content,imagesPath,writerOpenid,date), HttpStatus.OK);
+    public ResponseEntity<Response> publishMyFeed(@RequestParam(name="content")String content, @RequestParam(name="writerOpenid")String writerOpenid) {
+        ResponseEntity<Response> r= new ResponseEntity<>(feedBlService.publishMyFeed(content,imagesPath,writerOpenid), HttpStatus.OK);
         imagesPath.clear();
         return r;
     }
@@ -144,6 +143,20 @@ public class FeedController {
     @ResponseBody
     public ResponseEntity<Response> getFeedViewList() throws NotExistException {
         return new ResponseEntity<>(feedBlService.getFeedViewList(), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "获取某一篇圈子文章时间戳前的10篇文章", notes = "获取某一篇圈子文章时间戳前的10篇文章")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "圈子文章ID", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getFeedViewListBefore", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getFeedViewListBefore(@RequestParam(name="id")String id) throws NotExistException {
+        return new ResponseEntity<>(feedBlService.getFeedViewListBefore(id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "获取圈子全部文章信息", notes = "获取圈子全部文章信息")
@@ -174,8 +187,7 @@ public class FeedController {
     @ApiOperation(value = "用户更新自己发布的圈子文章信息", notes = "用户更新自己发布的圈子文章信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "圈子文章ID", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "content", value = "内容", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "date", value = "发布日期", required = true, dataType = "String")
+            @ApiImplicitParam(name = "content", value = "内容", required = true, dataType = "String")
     })
     @RequestMapping(value = "/updateMyFeed", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -183,8 +195,8 @@ public class FeedController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> updateMyFeed(@RequestParam(name="id")String id,@RequestParam(name="content")String content,@RequestParam(name="date")String date) throws NotExistException {
-        ResponseEntity<Response> r=new ResponseEntity<>(feedBlService.updateMyFeed(id,content,imagesPath,date), HttpStatus.OK);
+    public ResponseEntity<Response> updateMyFeed(@RequestParam(name="id")String id,@RequestParam(name="content")String content) throws NotExistException {
+        ResponseEntity<Response> r=new ResponseEntity<>(feedBlService.updateMyFeed(id,content,imagesPath), HttpStatus.OK);
         imagesPath.clear();
         return r;
     }

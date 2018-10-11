@@ -54,9 +54,13 @@ Page({
    * 生命周期函数--监听页面加载a
    */
   onShow: function (options) {
-  //展示圈子文章
-    //api.getAbstractList('feed', app.getOpenid(), this)
-    api.getFeedList.call(this)
+    //展示圈子文章
+    this.data.articles = []
+    api.getFeedList.call(this, "")
+  },
+
+  onReachBottom: function () {
+    api.getFeedList.call(this, this.data.lastId)
   },
 
   onShare: function () {

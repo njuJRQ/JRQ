@@ -100,14 +100,14 @@ Page({
 
   onSave: function () {
     /* 检查输入合法性 */
-    if (!(/^1[34578]\d{9}$/.test(this.data.newMyInfo.phone))) {
+    if (!(this.data.newMyInfo.phone === "" || /^1[34578]\d{9}$/.test(this.data.newMyInfo.phone))) {
       wx.showToast({
         title: '手机号码有误，请重填',
         icon: 'none'
       })
       return
     }
-    if (!(/^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/.test(this.data.newMyInfo.email))) {
+    if (!(this.data.newMyInfo.email === "" || /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/.test(this.data.newMyInfo.email))) {
       wx.showToast({
         title: '邮箱地址有误，请重填',
         icon: 'none'

@@ -3,7 +3,7 @@
   <view class='head column v-center'>
     <view class='publisher column'>
       <view class='publisher-text row' bindtap='onPublish'>
-        <view class='publisher-input'>
+        <view class='publisher-input v-center'>
           <text>发布业务合作、商业资讯或日常信息...</text>
         </view>
         <view class='publisher-image h-center v-center' bindtap='onUploadPhotos'>

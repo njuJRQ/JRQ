@@ -91,6 +91,16 @@ App({
                 showCancel: false
               })
             }
+          },
+          fail: function (res) {
+            wx.showModal({
+              title: '连接服务器失败',
+              content: res.errMsg,
+              showCancel: false,
+              success: (res) => {
+                that.onShow()
+              }
+            })
           }
         })
       },

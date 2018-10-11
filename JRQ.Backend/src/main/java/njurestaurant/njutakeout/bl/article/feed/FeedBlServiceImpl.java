@@ -65,6 +65,14 @@ public class FeedBlServiceImpl implements FeedBlService {
 
 	@Override
 	public FeedViewListResponse getFeedViewListBefore(String id) throws NotExistException {
+		if (id.equals("")) {
+			List<Feed> feeds = feedDataService.getTop10ByOrderByTimeStampDesc();
+			List<FeedViewItem> feedViewItems = new ArrayList<>();
+			for (Feed feed : feeds) {
+				feedViewItems.add(new FeedViewItem(feed, userDataService));
+			}
+			return new FeedViewListResponse(feedViewItems);
+		}
 		Feed feed = feedDataService.getFeedById(id);
 		List<Feed> feeds = feedDataService.getFeedsByTimeStampBeforeOrderByTimeStampDescLimit10(feed.getTimeStamp());
 		List<Feed> sameStampFeeds = feedDataService.getFeedsByTimeStamp(feed.getTimeStamp()); //与feeds中最早的Feed时间戳相同的文章

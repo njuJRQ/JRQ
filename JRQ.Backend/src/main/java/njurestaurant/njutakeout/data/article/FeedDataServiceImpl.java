@@ -61,6 +61,11 @@ public class FeedDataServiceImpl implements FeedDataService {
 		return feedDao.findFeedsByTimeStamp(timeStamp);
 	}
 
+	@Override
+	public List<Feed> getTop10ByOrderByTimeStampDesc() {
+		return feedDao.findTop10ByOrderByTimeStampDesc();
+	}
+
 //	private final static SessionFactory sessionFactory;
 //	static {
 //		//根据hibernate.cfg.utl得到一个SessionFactory

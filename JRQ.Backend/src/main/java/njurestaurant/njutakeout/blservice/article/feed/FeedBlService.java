@@ -47,6 +47,14 @@ public interface FeedBlService {
 	FeedViewListResponse getFeedViewList() throws NotExistException;
 
 	/**
+	 * 获取某一篇圈子文章时间戳前的10篇文章
+	 * 文章列表按照新旧排序，最新的在最前面，最旧的在最后面，如果有时间戳完全相同的，则不管10篇的限制，全部加入列表中
+	 * @param id 圈子文章ID
+	 * @return 圈子文章信息列表
+	 */
+	FeedViewListResponse getFeedViewListBefore(String id) throws NotExistException;
+
+	/**
 	 * 用户获取自己发布过的文章摘要(User)
 	 * @param openid 用户的微信openid
 	 * @return 文章摘要

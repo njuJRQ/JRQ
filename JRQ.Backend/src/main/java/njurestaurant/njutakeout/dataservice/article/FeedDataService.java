@@ -17,6 +17,10 @@ public interface FeedDataService {
 
 	List<Feed> getAllFeeds();
 
+	List<Feed> getFeedsByTimeStamp(long timeStamp);
+
+	List<Feed> getFeedsByTimeStampBeforeOrderByTimeStampDescLimit10(long timeStamp);
+
 	List<Feed> getFeedsByWriterOpenid(String writerOpenid);
 
 	void deleteFeedById(String id) throws NotExistException;

@@ -7,6 +7,7 @@ import njurestaurant.njutakeout.exception.AlreadyExistException;
 import njurestaurant.njutakeout.exception.DuplicateUsernameException;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.exception.WrongPasswordException;
+import njurestaurant.njutakeout.response.BoolResponse;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.admin.AdminItem;
 import njurestaurant.njutakeout.response.admin.AdminListResponse;
@@ -24,6 +25,11 @@ public class AdminBlServiceImpl implements AdminBlService {
 	@Autowired
 	public AdminBlServiceImpl(AdminDataService adminDataService) {
 		this.adminDataService = adminDataService;
+	}
+
+	@Override
+	public BoolResponse isAdminUsernameExistent(String username) {
+		return new BoolResponse(adminDataService.isAdminExistent(username), "ok");
 	}
 
 	@Override

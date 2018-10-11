@@ -70,8 +70,7 @@ public class PurchaseBlServiceImpl implements PurchaseBlService {
 
 	@Override
 	public WxBuyCreditResponse buyMyCredit(String openid, int credit) {
-		//TODO: 超时订单自动取消测试
-		BuyCredit buyCredit = new BuyCredit(openid, credit, credit); //TODO: 上线前要改为1个积分为1元，目前是1个积分0.01元
+		BuyCredit buyCredit = new BuyCredit(openid, credit, credit*100); //1个积分为1元（100分）
 		buyCreditDataService.addBuyCredit(buyCredit);
 
 		SortedMap<String, String> packageParams = new TreeMap<>();
@@ -144,7 +143,7 @@ public class PurchaseBlServiceImpl implements PurchaseBlService {
 					buyCreditDataService.saveBuyCredit(buyCredit);
 				}
 			}
-		}, 3*60*1000); //TODO:上线前把3改成15 在15分钟后订单若仍为init或waiting则自动取消
+		}, 15*60*1000); //在15分钟后订单若仍为init或waiting则自动取消
 
 		return new WxBuyCreditResponse(new WxBuyCreditItem(buyCredit.getId(), waitingTimeStamp, nonceStr, packageContent, signType, paySign));
 	}

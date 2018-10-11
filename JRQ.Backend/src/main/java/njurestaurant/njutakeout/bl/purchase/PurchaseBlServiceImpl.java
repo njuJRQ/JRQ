@@ -71,7 +71,7 @@ public class PurchaseBlServiceImpl implements PurchaseBlService {
 	@Override
 	public WxBuyCreditResponse buyMyCredit(String openid, int credit) {
 		//TODO: 超时订单自动取消测试
-		BuyCredit buyCredit = new BuyCredit(openid, credit, credit*100); //默认1个积分为1元
+		BuyCredit buyCredit = new BuyCredit(openid, credit, credit); //TODO: 上线前要改为1个积分为1元，目前是1个积分0.01元
 		buyCreditDataService.addBuyCredit(buyCredit);
 
 		SortedMap<String, String> packageParams = new TreeMap<>();

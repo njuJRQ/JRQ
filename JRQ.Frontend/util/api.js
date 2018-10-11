@@ -61,8 +61,8 @@ function getFeedList (id) {
     },
     method: 'GET',
     success: (res) => {
-      /*console.log(res.data)*/
-      that.data.articles.concat(res.data.feedViews)
+      console.log(res.data)
+      that.data.articles = that.data.articles.concat(res.data.feedViews)
       that.data.articles.forEach((article) => {
         article.writerFace = app.globalData.picUrl + article.writerFace
         article.images = article.images.map((image) => {

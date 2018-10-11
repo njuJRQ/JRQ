@@ -4,32 +4,28 @@ big {
   color: white;
   font-size: 1rem;
 }
-.row-wrap{
+.rowWrapper{
     width: 720rpx;
-    height: 88rpx;
     line-height: 88rpx;
     margin-left: 30rpx;
+    margin-bottom: 0;
     border-bottom: 1rpx solid #eee;
     display: flex;
     font-size: 28rpx;
     /*justify-content: space-between;*/
 }
-.row-wrap .label{
-    width: 160rpx;
-    color: #000
+.pay__note {
+  font-size: 0.6rem;
+  height: 30px;
+  line-height: 30px;
 }
-.row-wrap .label-right{
-    flex: 1;
-    height: 88rpx;
-    line-height: 88rpx;
-}
-.row-wrap .label-right input{
-    height: 100%;
-    font-size: 28rpx;
-    padding-right: 30rpx;
-}
-.row-wrap .right-box{
-    margin-right: 30rpx; 
+.pay__button {
+  bottom: 0;
+  height: 30px;
+  font-size: 0.6rem;
+  text-align: center;
+  background-color: #D62F36;
+  color: #FFF;
 }
 .updateWrapper {
   width: 100%;

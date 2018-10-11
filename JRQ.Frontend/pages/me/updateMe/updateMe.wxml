@@ -1,29 +1,39 @@
 <!--pages/me/updateMe/updateMe.wxml-->
 <view class='container'>
   <!--身份升级-->
-  <view class="row-wrap">请点击升级选项进行身份升级（当前余额：{{price}}）</view>
+  <view class="rowWrapper pay">
+    <text class='pay__note'>请点击升级选项进行身份升级（<text style='color:#000'>当前余额：{{price}}</text>）</text>
+    <button class='pay__button' bindtap='goToPay'>现在充值</button>
+  </view>
   <view class='div-line'></view>
   <view class='updateWrapper'>
     <image class='updateWrapper__image' src='img/silver.png'></image>
     <view class='updateWrapper__capsule capsule'>
-      <view class='capsule__left capsule__left--bg-red'>¥ <big>298</big> / 365天</view>
+      <view class='capsule__left capsule__left--bg-red'>¥
+        <big>298</big> / 365天</view>
       <view class='capsule__right capsule__right--bg-red' bindtap='updateTo298'>立即购买</view>
     </view>
   </view>
   <view class='updateWrapper'>
     <image class='updateWrapper__image' src='img/gold.png'></image>
     <view class='updateWrapper__capsule capsule'>
-      <view class='capsule__left capsule__left--bg-red'>¥ <big>998</big> / 365天</view>
+      <view class='capsule__left capsule__left--bg-red'>¥
+        <big>998</big> / 365天</view>
       <view class='capsule__right capsule__right--bg-red' bindtap='updateTo998'>立即购买</view>
     </view>
   </view>
   <view class='updateWrapper'>
     <image class='updateWrapper__image' src='img/enterprise.png'></image>
     <view class='updateWrapper__capsule capsule'>
-      <view class='capsule__left capsule__left--bg-red'>¥ <big>免费</big> / 365天</view>
+      <view class='capsule__left capsule__left--bg-red'>¥
+        <big>免费</big> / 365天</view>
       <view class='capsule__right capsule__right--bg-red' bindtap='updateToEnterprise'>立即认证</view>
     </view>
   </view>
+  <modal id="modal" hidden="{{isHideModalput}}" title="请设置您的企业用户名和密码" confirm-text="认证" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
+    <input bindinput='updateUsername' type='text' placeholder="用户名" auto-focus/>
+    <input bindinput='updatePassword' type='number' placeholder="密码" auto-focus/>
+  </modal>
   <view class='notation'>
     <text>{{returnInfo}}</text>
   </view>

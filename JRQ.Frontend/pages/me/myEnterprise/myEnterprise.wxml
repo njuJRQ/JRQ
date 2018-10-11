@@ -1,0 +1,10 @@
+<!--pages/me/myEnterprise.wxml-->
+<view>
+  <text>用户名：{{username}}</text>
+</view>
+<view>
+  <text>密码：{{password}}</text>
+</view>
+<view>
+  <text>认证日期：{{date}}</text>
+</view>

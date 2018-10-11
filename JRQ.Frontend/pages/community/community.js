@@ -2,6 +2,7 @@
 //获取应用实例
 const app = getApp();
 var api = require('../../util/api.js')
+import articleItem from '../../template/articleItem/articleItem'
 
 Page({
 
@@ -66,5 +67,9 @@ Page({
   likePlus: function (e) {
     var id = e.currentTarget.dataset.id //获取当前feed的id
     api.likePlus.call(this, app.getOpenid(), 'feed', id)
+  },
+
+  previewImg: function (e) {
+    articleItem.previewImg(e)
   }
 })

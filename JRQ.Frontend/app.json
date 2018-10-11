@@ -14,7 +14,8 @@
     "pages/me/publishMyArticle/publishMyArticle",
     "pages/login/login",
     "pages/me/updateMe/updateMe",
-    "pages/me/pay/pay"
+    "pages/me/pay/pay",
+    "pages/me/myEnterprise/myEnterprise"
   ],
   "window": {
     "backgroundTextStyle": "light",

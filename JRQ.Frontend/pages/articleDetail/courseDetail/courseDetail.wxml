@@ -2,7 +2,7 @@
 <!--课程类展示-->
 <view style='width:100%;'>
   <view class='head'>
-    <image src='{{course.image}}'></image>
+    <image mode='widthFix' src='{{course.image}}'></image>
   </view>
   <view class='course-head row'>
     <view class='coursePrice column' style='width:100%'>

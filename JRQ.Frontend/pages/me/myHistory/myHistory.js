@@ -1,6 +1,7 @@
 // pages/myHistory/myHistory.js
 const app = getApp()
 var api = require('../../../util/api.js')
+import articleItem from '../../../template/articleItem/articleItem'
 
 Page({
 
@@ -117,5 +118,9 @@ Page({
         showCancel: false
       })
     }
+  },
+
+  previewImg: function (e) {
+    articleItem.previewImg(e)
   }
 })

@@ -42,7 +42,7 @@
         <view class='article-text'>
           <text>{{item.title}}</text>
         </view>
-        <image wx:if='{{item.images.length > 0}}' src='{{item.images[0]}}'></image>
+        <image mode='widthFix' wx:if='{{item.images.length > 0}}' src='{{item.images[0]}}'></image>
         <!--
         <view class='article-images'>
           <image wx:for='{{item.images}}' wx:for-item='image' src='{{image}}'></image>

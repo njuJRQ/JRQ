@@ -656,12 +656,14 @@ function getClassificationList(then) {
   })
 }
 
-function setMyUserAsEnterprise(openid) {
+function setMyUserAsEnterprise(openid, username, password) {
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "setMyUserAsEnterprise",
     data: {
-      openid: openid
+      openid: openid,
+      username: username,
+      password: password
     },
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
@@ -749,6 +751,48 @@ function getMyCredit(openid) {
   })
 }
 
+function isEnterprise(openid) {
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "isMyUserEnterprise",
+    data: {
+      openid: openid
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      that.setData({
+        isEnterprise: res.data.ok
+      })
+    }
+  })
+}
+
+function getMyEnterpriseAdmin (openid) {
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "getMyEnterpriseAdmin",
+    data: {
+      openid: openid
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      that.setData({
+        username: res.data.admin.username,
+        password: res.data.admin.password,
+        date: res.data.admin.date
+      })
+    }
+  })
+}
+
 module.exports = {
   getAbstractList: getAbstractList,
   getAbstractListByCondition: getAbstractListByCondition,
@@ -775,5 +819,7 @@ module.exports = {
   setMyUserAsEnterprise: setMyUserAsEnterprise,
   updateMe: updateMe,
   sendMyCard: sendMyCard,
-  getMyCredit: getMyCredit
+  getMyCredit: getMyCredit,
+  isEnterprise: isEnterprise,
+  getMyEnterpriseAdmin: getMyEnterpriseAdmin
 }

@@ -18,7 +18,7 @@
     </view>
     <!--文章图片-->
     <view class='article-images'>
-      <image wx:for='{{item.images}}' wx:for-item='image' src='{{image}}'></image>
+      <image mode='aspectFill' bindtap='previewImg' data-list="{{item.images}}" data-src="{{image}}" wx:for='{{item.images}}' wx:for-item='image' src='{{image}}'></image>
     </view>
     <!--文章分享链接-->
     <view class='article-share row'>

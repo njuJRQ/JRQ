@@ -28,8 +28,8 @@ public class FeedBlServiceImpl implements FeedBlService {
 	}
 
 	@Override
-	public InfoResponse publishMyFeed(String content, List<String> images, String writerOpenid, String date) {
-		feedDataService.addFeed(new Feed(content, images, writerOpenid, date, 0));
+	public InfoResponse publishMyFeed(String content, List<String> images, String writerOpenid) {
+		feedDataService.addFeed(new Feed(content, images, writerOpenid, System.currentTimeMillis(), 0));
 		return new InfoResponse();
 	}
 
@@ -74,11 +74,11 @@ public class FeedBlServiceImpl implements FeedBlService {
 	}
 
 	@Override
-	public InfoResponse updateMyFeed(String id, String content, List<String> images, String date) throws NotExistException {
+	public InfoResponse updateMyFeed(String id, String content, List<String> images) throws NotExistException {
 		Feed feed = feedDataService.getFeedById(id);
 		feed.setContent(content);
 		feed.setImages(images);
-		feed.setDate(date);
+		feed.setTimeStamp(System.currentTimeMillis());
 		return new InfoResponse();
 	}
 

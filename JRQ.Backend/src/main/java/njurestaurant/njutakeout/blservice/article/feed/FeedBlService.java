@@ -16,10 +16,9 @@ public interface FeedBlService {
 	 * @param content 文章内容
 	 * @param images 文章图片
 	 * @param writerOpenid 作者微信openid
-	 * @param date 发布日期
 	 * @return 是否成功
 	 */
-	InfoResponse publishMyFeed(String content, List<String> images, String writerOpenid, String date);
+	InfoResponse publishMyFeed(String content, List<String> images, String writerOpenid);
 
 	/**
 	 * 根据圈子文章ID获取全文(User)
@@ -59,10 +58,9 @@ public interface FeedBlService {
 	 * @param id 圈子文章ID
 	 * @param content 新的文章内容
 	 * @param images 新的图片
-	 * @param date 新的发布日期
 	 * @return 是否成功
 	 */
-	InfoResponse updateMyFeed(String id, String content, List<String> images, String date) throws NotExistException;
+	InfoResponse updateMyFeed(String id, String content, List<String> images) throws NotExistException;
 
 	/**
 	 * 用户根据圈子文章ID删除自己的圈子文章(User)

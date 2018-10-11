@@ -3,6 +3,8 @@ package njurestaurant.njutakeout.entity.article;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -24,7 +26,7 @@ public class Feed {
 	private String writerOpenid; //作者微信openid
 
 	@Column
-	private String date; //文章发布日期，如"2018-1-1"
+	private long timeStamp; //文章发布日期，如"2018-1-1"
 
 	@Column
 	private long likeNum; //文章点赞数
@@ -32,11 +34,11 @@ public class Feed {
 	public Feed() {
 	}
 
-	public Feed(String content, List<String> images, String writerOpenid, String date, long likeNum) {
+	public Feed(String content, List<String> images, String writerOpenid, long timeStamp, long likeNum) {
 		this.content = content;
 		this.images = images;
 		this.writerOpenid = writerOpenid;
-		this.date = date;
+		this.timeStamp = timeStamp;
 		this.likeNum = likeNum;
 	}
 
@@ -73,11 +75,16 @@ public class Feed {
 	}
 
 	public String getDate() {
-		return date;
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		return simpleDateFormat.format(new Date(timeStamp));
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public long getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(long timeStamp) {
+		this.timeStamp = timeStamp;
 	}
 
 	public long getLikeNum() {

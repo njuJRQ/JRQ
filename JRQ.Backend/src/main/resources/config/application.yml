@@ -1,9 +1,9 @@
 server:
   port: 3389
-  #ssl:
-    #key-store: config/jrq.jks
-    #key-store-password: njujrq123
-    #key-store-type: JKS
+  ssl:
+    key-store: config/jrq.jks
+    key-store-password: njujrq123
+    key-store-type: JKS
 logging:
   level:
     org.springframework:
@@ -46,7 +46,7 @@ wechat:
   mch_id: 1515757801
   body: 钧融圈
   device_info: WEB
-  notify_url: https://junrongcenter.com:3389
+  notify_url: https://junrongcenter.com:3389/getWxPayResult
   trade_type: JSAPI
   api_key: junrongcenterxiaochengxu556677mm
   sign_type: MD5

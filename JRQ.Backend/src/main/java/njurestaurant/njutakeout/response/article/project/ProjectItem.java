@@ -16,7 +16,9 @@ public class ProjectItem {
 	private String attachment; //附件路径
 	private String date; //发布日期
 	private long likeNum; //点赞数
+	private boolean hasLiked; //用户是否已经点赞
 
+	//注意：管理员调用这个构造方法
 	public ProjectItem(Project project){
 		this.id = project.getId();
 		this.title = project.getTitle();
@@ -31,6 +33,24 @@ public class ProjectItem {
 		this.attachment = project.getAttachment();
 		this.date = project.getDate();
 		this.likeNum = project.getLikeNum();
+	}
+
+	//注意：用户调用这个构造方法
+	public ProjectItem(Project project, boolean hasLiked){
+		this.id = project.getId();
+		this.title = project.getTitle();
+		this.writerName = project.getWriterName();
+		this.identity = project.getIdentity();
+		this.phone = project.getPhone();
+		this.city = project.getCity();
+		this.industry = project.getIndustry();
+		this.business = project.getBusiness();
+		this.content = project.getContent();
+		this.money = project.getMoney();
+		this.attachment = project.getAttachment();
+		this.date = project.getDate();
+		this.likeNum = project.getLikeNum();
+		this.hasLiked = hasLiked;
 	}
 
 	public String getId() {
@@ -135,5 +155,13 @@ public class ProjectItem {
 
 	public void setLikeNum(long likeNum) {
 		this.likeNum = likeNum;
+	}
+
+	public boolean isHasLiked() {
+		return hasLiked;
+	}
+
+	public void setHasLiked(boolean hasLiked) {
+		this.hasLiked = hasLiked;
 	}
 }

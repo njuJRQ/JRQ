@@ -44,26 +44,30 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 			case "course":
 				List<Course> courses = courseDataService.getAllCourses();
 				for (Course course:courses) {
-					abstractItems.add(new AbstractItem(course));
+					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, course.getId());
+					abstractItems.add(new AbstractItem(course, hasLiked));
 				}
 				break;
 			case "document":
 				List<Document> documents = documentDataService.getAllDocuments();
 				for (Document document:documents) {
-					abstractItems.add(new AbstractItem(document));
+					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, document.getId());
+					abstractItems.add(new AbstractItem(document, hasLiked));
 				}
 				break;
 			case "project":
 				List<Project> projects = projectDataService.getAllProjects();
 				for (Project project:projects) {
-					abstractItems.add(new AbstractItem(project));
+					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, project.getId());
+					abstractItems.add(new AbstractItem(project, hasLiked));
 				}
 				break;
 			case "feed":
 				List<Feed> feeds = feedDataService.getAllFeeds();
 				for (Feed feed:feeds) {
+					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, feed.getId());
 					User user = userDataService.getUserByOpenid(feed.getWriterOpenid());
-					abstractItems.add(new AbstractItem(feed, userDataService));
+					abstractItems.add(new AbstractItem(feed, userDataService, hasLiked));
 				}
 				break;
 			default: ;
@@ -72,21 +76,24 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 	}
 
 	@Override
-	public AbstractListResponse getAbstractListByCondition(String condition) {
+	public AbstractListResponse getAbstractListByCondition(String openid, String condition) {
 		List<AbstractItem> abstractItems = new ArrayList<>();
 		for (Course course:courseDataService.getAllCourses()) {
 			if (course.getTitle().contains(condition)) {
-				abstractItems.add(new AbstractItem(course));
+				boolean hasLiked = likeDataService.isLikeExistent(openid, "course", course.getId());
+				abstractItems.add(new AbstractItem(course, hasLiked));
 			}
 		}
 		for (Document document:documentDataService.getAllDocuments()) {
 			if (document.getContent().contains(condition)) {
-				abstractItems.add(new AbstractItem(document));
+				boolean hasLiked = likeDataService.isLikeExistent(openid, "document", document.getId());
+				abstractItems.add(new AbstractItem(document, hasLiked));
 			}
 		}
 		for (Project project:projectDataService.getAllProjects()) {
 			if (project.getTitle().contains(condition)) {
-				abstractItems.add(new AbstractItem(project));
+				boolean hasLiked = likeDataService.isLikeExistent(openid, "project", project.getId());
+				abstractItems.add(new AbstractItem(project, hasLiked));
 			}
 		}
 		return new AbstractListResponse(abstractItems);

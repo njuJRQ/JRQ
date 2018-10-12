@@ -20,6 +20,7 @@ public class AbstractItem {
 	private String date; //文章发布日期，如“2018-1-1”
 	private long likeNum; //文章点赞数
 	private String kind; //文章类型，可能值：course，document，project
+	private boolean hasLiked; //用户是否已经点赞
 
 	public AbstractItem(){
 	}
@@ -35,7 +36,7 @@ public class AbstractItem {
 		this.kind = kind;
 	}
 
-	public AbstractItem(Course course) {
+	public AbstractItem(Course course, boolean hasLiked) {
 		this.id = course.getId();
 		this.title = course.getTitle();
 		this.images = Collections.singletonList(course.getImage());
@@ -44,9 +45,10 @@ public class AbstractItem {
 		this.date = course.getDate();
 		this.likeNum = course.getLikeNum();
 		this.kind = "course";
+		this.hasLiked = hasLiked;
 	}
 
-	public AbstractItem(Document document) {
+	public AbstractItem(Document document, boolean hasLiked) {
 		this.id = document.getId();
 		this.title = document.getTitle();
 		this.images = Collections.emptyList();
@@ -55,9 +57,10 @@ public class AbstractItem {
 		this.date = document.getDate();
 		this.likeNum = document.getLikeNum();
 		this.kind = "document";
+		this.hasLiked = hasLiked;
 	}
 
-	public AbstractItem(Project project) {
+	public AbstractItem(Project project, boolean hasLiked) {
 		this.id = project.getId();
 		this.title = project.getTitle();
 		this.images = Collections.emptyList();
@@ -66,9 +69,10 @@ public class AbstractItem {
 		this.date = project.getDate();
 		this.likeNum = project.getLikeNum();
 		this.kind = "project";
+		this.hasLiked = hasLiked;
 	}
 
-	public AbstractItem(Feed feed, UserDataService userDataService) throws NotExistException {
+	public AbstractItem(Feed feed, UserDataService userDataService, boolean hasLiked) throws NotExistException {
 		this.id = feed.getId();
 		this.title = feed.getContent();
 		this.images = feed.getImages();
@@ -78,6 +82,7 @@ public class AbstractItem {
 		this.date = feed.getDate();
 		this.likeNum = feed.getLikeNum();
 		this.kind = "feed";
+		this.hasLiked = hasLiked;
 	}
 
 	public String getId() {

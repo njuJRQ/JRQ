@@ -2,6 +2,7 @@ package njurestaurant.njutakeout.bl.article.document;
 
 import njurestaurant.njutakeout.blservice.article.document.DocumentBlService;
 import njurestaurant.njutakeout.dataservice.article.DocumentDataService;
+import njurestaurant.njutakeout.dataservice.article.LikeDataService;
 import njurestaurant.njutakeout.entity.article.Document;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
@@ -17,10 +18,12 @@ import java.util.List;
 @Service
 public class DocumentBlServiceImpl implements DocumentBlService {
 	private final DocumentDataService documentDataService;
+	private final LikeDataService likeDataService;
 
 	@Autowired
-	public DocumentBlServiceImpl(DocumentDataService documentDataService) {
+	public DocumentBlServiceImpl(DocumentDataService documentDataService, LikeDataService likeDataService) {
 		this.documentDataService = documentDataService;
+		this.likeDataService = likeDataService;
 	}
 
 	@Override
@@ -60,5 +63,22 @@ public class DocumentBlServiceImpl implements DocumentBlService {
 	public InfoResponse deleteDocument(String id) throws NotExistException {
 		documentDataService.deleteDocumentById(id);
 		return new InfoResponse();
+	}
+
+	@Override
+	public DocumentResponse getMyDocument(String openid, String documentId) throws NotExistException {
+		boolean hasLiked = likeDataService.isLikeExistent(openid, "document", documentId);
+		return new DocumentResponse(new DocumentItem(documentDataService.getDocumentById(documentId), hasLiked));
+	}
+
+	@Override
+	public DocumentListResponse getMyDocumentList(String openid) {
+		List<Document> documents = documentDataService.getAllDocuments();
+		List<DocumentItem> documentItems = new ArrayList<>();
+		for(Document document:documents) {
+			boolean hasLiked = likeDataService.isLikeExistent(openid, "document", document.getId());
+			documentItems.add(new DocumentItem(document, hasLiked));
+		}
+		return new DocumentListResponse(documentItems);
 	}
 }

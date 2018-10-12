@@ -15,7 +15,7 @@ public interface PrivilegeBlService {
 	BoolResponse addPrivilege(String name, int price);
 
 	/**
-	 * 根据特权名称获取特权信息(Admin)
+	 * 根据特权名称获取特权信息(Admin&User)
 	 * @param name 特权名称
 	 * @return 特权信息
 	 */

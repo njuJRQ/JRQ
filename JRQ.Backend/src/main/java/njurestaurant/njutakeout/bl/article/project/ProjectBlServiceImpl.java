@@ -1,6 +1,7 @@
 package njurestaurant.njutakeout.bl.article.project;
 
 import njurestaurant.njutakeout.blservice.article.project.ProjectBlService;
+import njurestaurant.njutakeout.dataservice.article.LikeDataService;
 import njurestaurant.njutakeout.dataservice.article.ProjectDataService;
 import njurestaurant.njutakeout.entity.article.Project;
 import njurestaurant.njutakeout.exception.NotExistException;
@@ -17,10 +18,12 @@ import java.util.List;
 @Service
 public class ProjectBlServiceImpl implements ProjectBlService {
 	private final ProjectDataService projectDataService;
+	private final LikeDataService likeDataService;
 
 	@Autowired
-	public ProjectBlServiceImpl(ProjectDataService projectDataService) {
+	public ProjectBlServiceImpl(ProjectDataService projectDataService, LikeDataService likeDataService) {
 		this.projectDataService = projectDataService;
+		this.likeDataService = likeDataService;
 	}
 
 	@Override
@@ -66,5 +69,22 @@ public class ProjectBlServiceImpl implements ProjectBlService {
 	public InfoResponse deleteProject(String id) throws NotExistException {
 		projectDataService.deleteProjectById(id);
 		return new InfoResponse();
+	}
+
+	@Override
+	public ProjectResponse getMyProject(String openid, String projectId) throws NotExistException {
+		boolean hasLiked = likeDataService.isLikeExistent(openid, "project", projectId);
+		return new ProjectResponse(new ProjectItem(projectDataService.getProjectById(projectId), hasLiked));
+	}
+
+	@Override
+	public ProjectListResponse getMyProjectList(String openid) {
+		List<Project> projects = projectDataService.getAllProjects();
+		List<ProjectItem> projectItems = new ArrayList<>();
+		for(Project project:projects) {
+			boolean hasLiked = likeDataService.isLikeExistent(openid, "project", project.getId());
+			projectItems.add(new ProjectItem(project, hasLiked));
+		}
+		return new ProjectListResponse(projectItems);
 	}
 }

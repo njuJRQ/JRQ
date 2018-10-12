@@ -1,13 +1,13 @@
 package njurestaurant.njutakeout.bl.user;
 
 import njurestaurant.njutakeout.blservice.user.UserBlService;
+import njurestaurant.njutakeout.data.dao.user.SendCardDao;
 import njurestaurant.njutakeout.dataservice.user.ClassificationDataService;
 import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
 import njurestaurant.njutakeout.dataservice.user.LevelDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
 import njurestaurant.njutakeout.entity.user.*;
 import njurestaurant.njutakeout.exception.CannotGetOpenIdAndSessionKeyException;
-import njurestaurant.njutakeout.exception.CardLimitUseUpException;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.account.OpenIdAndSessionKeyResponse;
@@ -22,7 +22,6 @@ import net.sf.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -31,13 +30,15 @@ public class UserBlServiceImpl implements UserBlService {
 	private final ClassificationDataService classificationDataService;
 	private final LevelDataService levelDataService;
 	private final EnterpriseDataService enterpriseDataService;
+	private final SendCardDao sendCardDao;
 
 	@Autowired
-	public UserBlServiceImpl(UserDataService userDataService, ClassificationDataService classificationDataService, LevelDataService levelDataService, EnterpriseDataService enterpriseDataService) {
+	public UserBlServiceImpl(UserDataService userDataService, ClassificationDataService classificationDataService, LevelDataService levelDataService, EnterpriseDataService enterpriseDataService, SendCardDao sendCardDao) {
 		this.userDataService = userDataService;
 		this.classificationDataService = classificationDataService;
 		this.levelDataService = levelDataService;
 		this.enterpriseDataService = enterpriseDataService;
+		this.sendCardDao = sendCardDao;
 	}
 
 	@Override
@@ -275,7 +276,8 @@ public class UserBlServiceImpl implements UserBlService {
 	@Override
 	public CardResponse getOtherCard(String userOpenid, String otherOpenid) throws NotExistException {
 		User other = userDataService.getUserByOpenid(otherOpenid);
-		if (userOpenid.equals(otherOpenid)) {
+		if (userOpenid.equals(otherOpenid) || sendCardDao.existsById(new SendCardKey(otherOpenid, userOpenid))) {
+			//查看自己的和名片夹里的联系方式不消耗次数
 			return new CardResponse(new CardItem(other));
 		}
 		User user = userDataService.getUserByOpenid(userOpenid);

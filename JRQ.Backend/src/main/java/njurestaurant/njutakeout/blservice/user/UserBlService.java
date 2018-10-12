@@ -4,6 +4,7 @@ import njurestaurant.njutakeout.entity.user.Classification;
 import njurestaurant.njutakeout.exception.CannotGetOpenIdAndSessionKeyException;
 import njurestaurant.njutakeout.exception.CardLimitUseUpException;
 import njurestaurant.njutakeout.exception.NotExistException;
+import njurestaurant.njutakeout.response.BoolResponse;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.account.OpenIdAndSessionKeyResponse;
 import njurestaurant.njutakeout.response.user.*;
@@ -233,6 +234,16 @@ public interface UserBlService {
 	 * @return 是否成功
 	 */
 	InfoResponse checkMyReceivedCard(String senderOpenid, String receiverOpenid) throws NotExistException;
+
+	/**
+	 * 用户是否可以直接查看别人的名片，而不需要消耗查看次数
+	 * other为用户自己或在用户收到的名片里时返回true
+	 * 注意：这里的实现应当与getOtherCard里面的实现保持一致
+	 * @param userOpenid 用户的微信openid
+	 * @param otherOpenid 要查看的别人的微信openid
+	 * @return 是否可以
+	 */
+	BoolResponse isOtherCardAccessible(String userOpenid, String otherOpenid);
 
 	/**
 	 * 用户查看别人的名片，每天次数有限制(User)

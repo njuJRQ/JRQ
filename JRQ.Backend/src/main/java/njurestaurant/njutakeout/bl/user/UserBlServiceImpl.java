@@ -9,6 +9,7 @@ import njurestaurant.njutakeout.dataservice.user.UserDataService;
 import njurestaurant.njutakeout.entity.user.*;
 import njurestaurant.njutakeout.exception.CannotGetOpenIdAndSessionKeyException;
 import njurestaurant.njutakeout.exception.NotExistException;
+import njurestaurant.njutakeout.response.BoolResponse;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.account.OpenIdAndSessionKeyResponse;
 import njurestaurant.njutakeout.response.user.*;
@@ -271,6 +272,11 @@ public class UserBlServiceImpl implements UserBlService {
 	public InfoResponse checkMyReceivedCard(String senderOpenid, String receiverOpenid) throws NotExistException {
 		userDataService.checkSendCard(new SendCardKey(senderOpenid, receiverOpenid));
 		return new InfoResponse();
+	}
+
+	@Override
+	public BoolResponse isOtherCardAccessible(String userOpenid, String otherOpenid) {
+		return new BoolResponse(userOpenid.equals(otherOpenid) || sendCardDao.existsById(new SendCardKey(otherOpenid, userOpenid)), "ok");
 	}
 
 	@Override

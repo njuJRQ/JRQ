@@ -3,6 +3,9 @@ var util = require('./util.js')
 
 function getAbstractList(kind, openid) {
   var that = this
+  wx.showLoading({
+    title: '载入中',
+  })
   wx.request({
     url: app.globalData.backendUrl + "getAbstractList",
     data: {
@@ -15,6 +18,7 @@ function getAbstractList(kind, openid) {
     },
     method: 'GET',
     success: (res) => {
+      wx.hideLoading()
       /*console.log(res.data)*/
       that.data.articles = res.data.abstractList
       that.data.articles.forEach((article) => {
@@ -61,6 +65,9 @@ function getAbstractListByCondition(openid, condition) {
 
 function getFeedList(openid, id) {
   var that = this
+  wx.showLoading({
+    title: '载入中',
+  })
   wx.request({
     url: app.globalData.backendUrl + "getFeedViewListBefore",
     header: {
@@ -73,7 +80,8 @@ function getFeedList(openid, id) {
     },
     method: 'GET',
     success: (res) => {
-      console.log(res.data)
+      wx.hideLoading()
+      /*console.log(res.data)*/
       res.data.feedViews.forEach((article) => {
         article.writerFace = app.globalData.picUrl + article.writerFace
         article.images = article.images.map((image) => {
@@ -275,6 +283,9 @@ function purchaseCourse(courseId, openid, price, date, then) {
 
 function getPersonList(kind, then) {
   var that = this
+  wx.showLoading({
+    title: '载入中',
+  })
   wx.request({
     url: app.globalData.backendUrl + "getPersonList",
     data: {
@@ -286,6 +297,7 @@ function getPersonList(kind, then) {
     },
     method: 'GET',
     success: (res) => {
+      wx.hideLoading()
       that.data.cards = res.data.persons
       that.data.cards.forEach((card) => {
         card.face = app.globalData.picUrl + card.face
@@ -304,6 +316,9 @@ function getMyInfo(openid, then) {
    * 无
    */
   var that = this
+  wx.showLoading({
+    title: '载入中',
+  })
   wx.request({
     url: app.globalData.backendUrl + "getMyUser",
     data: {
@@ -315,6 +330,7 @@ function getMyInfo(openid, then) {
     },
     method: 'GET',
     success: (res) => {
+      wx.hideLoading()
       that.data.myInfo = res.data.user
       that.data.myInfo.face = app.globalData.picUrl + that.data.myInfo.face
       if (that.data.myInfo.levelName == '998') {
@@ -919,10 +935,10 @@ function getPrivilegeList() {
   })
 }
 
-function isOtherCardAccessiable (userOpenid, otherOpenid, reject) {
+function isOtherCardAccessible (userOpenid, otherOpenid, reject) {
   var that = this
   wx.request({
-    url: app.globalData.backendUrl + "isOtherCardAccessiable",
+    url: app.globalData.backendUrl + "isOtherCardAccessible",
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
       'content-type': 'application/x-www-form-urlencoded'
@@ -938,7 +954,7 @@ function isOtherCardAccessiable (userOpenid, otherOpenid, reject) {
           that.setData({
             isMyInfoVisiable: !that.data.isMyInfoVisiable,
           })
-          api.getMyCardLimits.call(that, app.getOpenid())
+          getMyCardLimits.call(that, app.getOpenid())
           that.data.isAlreadyGetOtherInfo = true
         })
       } else {
@@ -980,5 +996,5 @@ module.exports = {
   getMyCardLimits: getMyCardLimits,
   getLevelList: getLevelList,
   getPrivilegeList: getPrivilegeList,
-  isOtherCardAccessiable: isOtherCardAccessiable
+  isOtherCardAccessible: isOtherCardAccessible
 }

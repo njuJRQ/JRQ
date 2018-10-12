@@ -80,7 +80,8 @@ Page({
         label: '商业保理',
         bgColor: 'rgba(138, 138, 252, 0.767)'
       }],
-      searchCondition: null
+      searchCondition: null,
+      kind: 'capital'
   },
 
   /**
@@ -98,12 +99,18 @@ Page({
     this.setData({
       searchCondition: null
     })
-    //this.showCapitalClass();
+    switch(this.data.kind) {
+      case 'capital': this.showCapitalClass(); break;
+      case 'stock': this.showStockClass(); break;
+      case 'merge': this.showMergeClass(); break;
+      default: break;
+    }
   },
   
   //展示资金类
   showCapitalClass: function(event) {
     this.setData({
+      kind: 'capital',
       searchCondition: null
     })
     api.getPersonList.call(this, 'capital')
@@ -112,6 +119,7 @@ Page({
   //展示股票类
   showStockClass: function () {
     this.setData({
+      kind: 'stock',
       searchCondition: null
     })
     api.getPersonList.call(this, 'stock')
@@ -120,6 +128,7 @@ Page({
   //展示并购类
   showMergeClass: function () {
     this.setData({
+      kind: 'merge',
       searchCondition: null
     })
     api.getPersonList.call(this, 'merge')

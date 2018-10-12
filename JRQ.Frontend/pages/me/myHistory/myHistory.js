@@ -98,7 +98,7 @@ Page({
       
       if (!this.data.isAlreadyGetOtherInfo) {        //还没有获取当前用户信息
         //向服务器发送请求询问是否已有权限获取详细信息，如果已有权限则直接获取
-        api.isOtherCardAccessiable.call(this, app.getOpenid(), this.data.otherid, () => {
+        api.isOtherCardAccessible.call(this, app.getOpenid(), this.data.otherid, () => {
           //服务器返回没有权限获取详细信息，小程序向用户发起询问
           wx.showModal({
             title: '是否确认查看用户信息?',
@@ -122,7 +122,7 @@ Page({
           isMyInfoVisiable: !that.data.isMyInfoVisiable,
         })
       }
-      
+
     } else {                               //获取自己信息
       api.getMyInfo.call(this, app.getOpenid(), () => {
         that.setData({

@@ -147,6 +147,7 @@ public class FeedController {
 
     @ApiOperation(value = "获取某一篇圈子文章时间戳前的10篇文章", notes = "获取某一篇圈子文章时间戳前的10篇文章")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "圈子文章ID", required = true, dataType = "String"),
             @ApiImplicitParam(name = "id", value = "圈子文章ID", required = true, dataType = "String")
     })
     @RequestMapping(value = "/getFeedViewListBefore", method = RequestMethod.GET)
@@ -155,8 +156,8 @@ public class FeedController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> getFeedViewListBefore(@RequestParam(name="id")String id) throws NotExistException {
-        return new ResponseEntity<>(feedBlService.getFeedViewListBefore(id), HttpStatus.OK);
+    public ResponseEntity<Response> getFeedViewListBefore(@RequestParam(name="openid")String openid,@RequestParam(name="id")String id) throws NotExistException {
+        return new ResponseEntity<>(feedBlService.getFeedViewListBefore(openid,id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "获取圈子全部文章信息", notes = "获取圈子全部文章信息")

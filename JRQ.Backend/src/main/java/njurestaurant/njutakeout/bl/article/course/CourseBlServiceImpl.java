@@ -3,6 +3,7 @@ package njurestaurant.njutakeout.bl.article.course;
 import njurestaurant.njutakeout.blservice.article.course.CourseBlService;
 import njurestaurant.njutakeout.dataservice.admin.AdminDataService;
 import njurestaurant.njutakeout.dataservice.article.CourseDataService;
+import njurestaurant.njutakeout.dataservice.article.LikeDataService;
 import njurestaurant.njutakeout.dataservice.purchase.PurchaseCourseDataService;
 import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
 import njurestaurant.njutakeout.entity.article.Course;
@@ -25,13 +26,15 @@ public class CourseBlServiceImpl implements CourseBlService {
 	private final PurchaseCourseDataService purchaseCourseDataService;
 	private final EnterpriseDataService enterpriseDataService;
 	private final AdminDataService adminDataService;
+	private final LikeDataService likeDataService;
 
 	@Autowired
-	public CourseBlServiceImpl(CourseDataService courseDataService, PurchaseCourseDataService purchaseCourseDataService, EnterpriseDataService enterpriseDataService, AdminDataService adminDataService) {
+	public CourseBlServiceImpl(CourseDataService courseDataService, PurchaseCourseDataService purchaseCourseDataService, EnterpriseDataService enterpriseDataService, AdminDataService adminDataService, LikeDataService likeDataService) {
 		this.courseDataService = courseDataService;
 		this.purchaseCourseDataService = purchaseCourseDataService;
 		this.enterpriseDataService = enterpriseDataService;
 		this.adminDataService = adminDataService;
+		this.likeDataService = likeDataService;
 	}
 
 	@Override
@@ -42,7 +45,7 @@ public class CourseBlServiceImpl implements CourseBlService {
 
 	@Override
 	public CourseResponse getCourse(String id) throws NotExistException {
-		return new CourseResponse(new CourseItem(courseDataService.getCourseById(id), true));
+		return new CourseResponse(new CourseItem(courseDataService.getCourseById(id)));
 	}
 
 	@Override
@@ -50,7 +53,7 @@ public class CourseBlServiceImpl implements CourseBlService {
 		List<Course> courses = courseDataService.getAllCourses();
 		List<CourseItem> courseItems = new ArrayList<>();
 		for (Course course:courses) {
-			courseItems.add(new CourseItem(course, true));
+			courseItems.add(new CourseItem(course));
 		}
 		return new CourseListResponse(courseItems);
 	}
@@ -87,7 +90,8 @@ public class CourseBlServiceImpl implements CourseBlService {
 				hasBought = true;
 			}
 		}
-		return new CourseResponse(new CourseItem(course, hasBought));
+		boolean hasLiked = likeDataService.isLikeExistent(openid, "course", course.getId());
+		return new CourseResponse(new CourseItem(course, hasBought, hasLiked));
 	}
 
 	@Override
@@ -104,7 +108,8 @@ public class CourseBlServiceImpl implements CourseBlService {
 					hasBought = true;
 				}
 			}
-			CourseItem courseItem = new CourseItem(course, hasBought);
+			boolean hasLiked = likeDataService.isLikeExistent(openid, "course", course.getId());
+			CourseItem courseItem = new CourseItem(course, hasBought, hasLiked);
 			courseItems.add(courseItem);
 		}
 		return new CourseListResponse(courseItems);

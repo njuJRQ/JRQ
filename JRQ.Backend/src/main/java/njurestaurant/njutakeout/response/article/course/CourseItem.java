@@ -12,9 +12,24 @@ public class CourseItem {
 	private String video;
 	private int price;
 	private boolean hasBought; //用户是否已经购买（管理员获取页面不应显示这个属性）
+	private boolean hasLiked; //用户是否已经点赞
 
-	//注意：管理员获取课程时应当把hasBought设置成true
-	public CourseItem(Course course, boolean hasBought){
+	//注意：管理员使用这个构造方法
+	public CourseItem(Course course){
+		this.id = course.getId();
+		this.title = course.getTitle();
+		this.image = course.getImage();
+		this.writerName = course.getWriterName();
+		this.date = course.getDate();
+		this.likeNum = course.getLikeNum();
+		this.video = course.getVideo();
+		this.price = course.getPrice();
+		this.hasBought = true; //后台管理员只要能获取到这个Course，那么一定是有权限查看，就hasBought为true
+		this.hasLiked = false; //后台管理员不应显示这一项
+	}
+
+	//注意：用户使用这个构造方法
+	public CourseItem(Course course, boolean hasBought, boolean hasLiked){
 		this.id = course.getId();
 		this.title = course.getTitle();
 		this.image = course.getImage();
@@ -28,6 +43,7 @@ public class CourseItem {
 		}
 		this.price = course.getPrice();
 		this.hasBought = hasBought;
+		this.hasLiked = hasLiked;
 	}
 
 	public String getId() {
@@ -100,5 +116,13 @@ public class CourseItem {
 
 	public void setHasBought(boolean hasBought) {
 		this.hasBought = hasBought;
+	}
+
+	public boolean isHasLiked() {
+		return hasLiked;
+	}
+
+	public void setHasLiked(boolean hasLiked) {
+		this.hasLiked = hasLiked;
 	}
 }

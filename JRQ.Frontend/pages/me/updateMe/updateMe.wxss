@@ -9,7 +9,6 @@ big {
     line-height: 88rpx;
     margin-left: 30rpx;
     margin-bottom: 0;
-    border-bottom: 1rpx solid #eee;
     display: flex;
     font-size: 28rpx;
     /*justify-content: space-between;*/
@@ -24,6 +23,7 @@ big {
   height: 30px;
   font-size: 0.6rem;
   text-align: center;
+  line-height: 30px;
   background-color: #D62F36;
   color: #FFF;
 }

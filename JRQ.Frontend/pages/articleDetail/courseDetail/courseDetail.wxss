@@ -32,7 +32,6 @@ page {
   width: 100%;
 }
 .course-buttons {
-  background-color: white;
-  padding: 10px 0 0 0;
+  padding: 20px 10px 60px 10px;
   width: 100%;
 }

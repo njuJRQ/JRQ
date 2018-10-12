@@ -3,7 +3,7 @@
   <!--身份升级-->
   <view class="rowWrapper pay">
     <text class='pay__note'>请点击升级选项进行身份升级（<text style='color:#000'>当前余额：{{price}}</text>）</text>
-    <button class='pay__button' bindtap='goToPay'>现在充值</button>
+    <button class='pay__button' bindtap='goToPay'>立即充值</button>
   </view>
   <view class='div-line'></view>
   <view class='updateWrapper'>

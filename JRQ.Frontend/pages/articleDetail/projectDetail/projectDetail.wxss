@@ -32,3 +32,6 @@ page {
 .project-intro > content{
   width: 100%;
 }
+.download {
+  padding: 20px 10px 60px 10px;
+}

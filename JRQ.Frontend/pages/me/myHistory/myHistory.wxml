@@ -49,10 +49,10 @@
         </view>
         <view class='v-center'>
           <view wx:if='{{isMyInfoVisiable}}'>
-            <button class='v-center' bindtap='isMyInfoVisiableToggle'>隐藏联系方式</button>
+            <button class='myInfoVisible-button v-center h-center' bindtap='isMyInfoVisiableToggle'>隐藏联系方式</button>
           </view>
           <view wx:else>
-            <button class='v-center' bindtap='isMyInfoVisiableToggle'>查看联系方式({{cardLimits}})</button>
+            <button class='myInfoVisible-button v-center h-center' bindtap='isMyInfoVisiableToggle'>查看联系方式({{cardLimits}})</button>
           </view>
         </view>
       </view>
@@ -71,5 +71,6 @@
     <view wx:for='{{myArticles}}' wx:key='id' style='padding: 0 10px;'>
       <template is='articleItem' data='{{item}}'></template>
     </view>
+    <text class='h-center' style='font-size: 0.8rem' wx:if='{{myArticles.length === 0}}'>该用户没有历史文章发布</text>
   </view>
 </view>

@@ -98,7 +98,7 @@ Page({
     this.setData({
       searchCondition: null
     })
-    this.showCapitalClass();
+    //this.showCapitalClass();
   },
   
   //展示资金类

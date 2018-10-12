@@ -18,7 +18,7 @@
   border-radius: 5px;
 }
 .my-card-info text {
-  font-size: 0.4rem;
+  font-size: 0.75rem;
 }
 .my-card-info-username {
   margin: 0 0 10px 0;
@@ -31,6 +31,12 @@
 .my-card-info-username image {
   width: 15px;
   height: 15px;
+}
+.myInfoVisible-button {
+  width: 100px;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 /*关于我的联系方式的属性*/
 .my-contact {

@@ -95,28 +95,34 @@ Page({
   isMyInfoVisiableToggle: function () {
     var that = this
     if (this.data.isGetOtherInfo) {        //获取别的用户信息
+      
       if (!this.data.isAlreadyGetOtherInfo) {        //还没有获取当前用户信息
-        //未获取他人详细信息
-        wx.showModal({
-          title: '是否确认查看用户信息?',
-          content: '查看用户信息会消耗1次当天查看次数，您剩余查看次数为：' + that.data.cardLimits + '次',
-          success: (res) => {
-            if(res.confirm) {
-              api.getOtherInfo.call(this, app.getOpenid(), this.data.otherid, () => {
-                that.setData({
-                  isMyInfoVisiable: !that.data.isMyInfoVisiable,
+        //向服务器发送请求询问是否已有权限获取详细信息，如果已有权限则直接获取
+        api.isOtherCardAccessiable.call(this, app.getOpenid(), this.data.otherid, () => {
+          //服务器返回没有权限获取详细信息，小程序向用户发起询问
+          wx.showModal({
+            title: '是否确认查看用户信息?',
+            content: '查看用户信息会消耗1次当天查看次数，您剩余查看次数为：' + that.data.cardLimits + '次',
+            success: (res) => {
+              if (res.confirm) {
+                //向服务器发送请求消耗查看次数来查看当前用户信息
+                api.getOtherInfo.call(that, app.getOpenid(), that.data.otherid, () => {
+                  that.setData({
+                    isMyInfoVisiable: !that.data.isMyInfoVisiable,
+                  })
+                  api.getMyCardLimits.call(that, app.getOpenid())
+                  that.data.isAlreadyGetOtherInfo = true
                 })
-                api.getMyCardLimits.call(this, app.getOpenid())
-                that.data.isAlreadyGetOtherInfo = true
-              })
+              }
             }
-          }
+          })
         })
       } else {                              //已经获取当前用户信息
         that.setData({
           isMyInfoVisiable: !that.data.isMyInfoVisiable,
         })
       }
+      
     } else {                               //获取自己信息
       api.getMyInfo.call(this, app.getOpenid(), () => {
         that.setData({
@@ -125,7 +131,7 @@ Page({
       })
     }
   },
-  
+
   sendMyCard: function () {
     if (this.data.isGetOtherInfo) {
       api.sendMyCard.call(this, app.getOpenid(), this.data.otherid)

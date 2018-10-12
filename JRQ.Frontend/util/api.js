@@ -224,7 +224,7 @@ function likePlus(openid, kind, articleId, article) {
     },
     method: 'GET',
     success: (res) => {
-      if (article.hasLiked){
+      if (article.hasLiked) {
         article.likeNum--;
       } else {
         article.likeNum++;
@@ -375,15 +375,17 @@ function getOtherInfo(myid, otherid, then) {
     success: (res) => {
       /*console.log(res)*/
       if (res.statusCode == 200) {
-        that.data.myInfo = res.data.card
-        that.data.myInfo.face = app.globalData.picUrl + that.data.myInfo.face
-        that.setData(that.data)
-        if (then) then()
-      } else if (res.statusCode == 500) {
-        wx.showModal({
-          content: res.data.message,
-          showCancel: false
-        })
+        if (JSON.stringify(res.data) != '{}') {
+          that.data.myInfo = res.data.card
+          that.data.myInfo.face = app.globalData.picUrl + that.data.myInfo.face
+          that.setData(that.data)
+          if (then) then()
+        } else {
+          wx.showToast({
+            title: '今日查看次数不足',
+            icon: 'none'
+          })
+        }
       }
     }
   })
@@ -670,6 +672,9 @@ function getMyHistoryAbstractList(openid) {
 
 function downloadFile(filepath, then) {
   var that = this
+  wx.showLoading({
+    title: '下载中',
+  })
   wx.downloadFile({
     url: app.globalData.picUrl + filepath,
     header: {
@@ -677,6 +682,7 @@ function downloadFile(filepath, then) {
       'content-type': 'application/x-www-form-urlencoded'
     },
     success: (res) => {
+      wx.hideLoading()
       wx.saveFile({
         tempFilePath: res.tempFilePath,
         success: (res) => {
@@ -892,7 +898,7 @@ function getLevelList () {
   })
 }
 
-function getPrivilegeList () {
+function getPrivilegeList() {
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "getPrivilegeList",
@@ -909,6 +915,35 @@ function getPrivilegeList () {
         }
       })
       that.setData(that.data)
+    }
+  })
+}
+
+function isOtherCardAccessiable (userOpenid, otherOpenid, reject) {
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "isOtherCardAccessiable",
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    data: {
+      userOpenid: userOpenid,
+      otherOpenid: otherOpenid
+    },
+    method: 'GET',
+    success: (res) => {
+      if(res.data.ok) {
+        getOtherInfo.call(that, app.getOpenid(), that.data.otherid, () => {
+          that.setData({
+            isMyInfoVisiable: !that.data.isMyInfoVisiable,
+          })
+          api.getMyCardLimits.call(that, app.getOpenid())
+          that.data.isAlreadyGetOtherInfo = true
+        })
+      } else {
+        reject()
+      }
     }
   })
 }
@@ -944,5 +979,6 @@ module.exports = {
   getMyEnterpriseAdmin: getMyEnterpriseAdmin,
   getMyCardLimits: getMyCardLimits,
   getLevelList: getLevelList,
-  getPrivilegeList: getPrivilegeList
+  getPrivilegeList: getPrivilegeList,
+  isOtherCardAccessiable: isOtherCardAccessiable
 }

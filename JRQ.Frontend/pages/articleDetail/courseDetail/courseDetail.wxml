@@ -34,7 +34,8 @@
   </view>
   <view class='course-buttons row'>
     <view class='purchase' style='width:100%'>
-      <button bindtap='onPurchase' disabled='{{isOwnCourse}}'>立即购买</button>
+      <button wx:if='{{!isOwnCourse}}' bindtap='onPurchase'>立即购买</button>
+      <button wx:else bindtap='onPurchase' disabled>已购买</button>
     </view>
   </view>
 </view>

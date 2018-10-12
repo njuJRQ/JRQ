@@ -111,7 +111,11 @@ page {
   font-size: 0.8rem;
 }
 .more-item {
+  height: 30px;
   justify-content: space-between;
+}
+.more-item > navigator {
+  width: 100%;
 }
 .arrow {
     content: " ";

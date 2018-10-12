@@ -69,7 +69,7 @@
   </view>
   <view style='width:100%; margin: 10rpx 0 0 0;'>
     <view class='more'>
-      <view class='more-item'>
+      <view class='more-item v-center'>
         <navigator class='row' url='modifyMyCard/modifyMyCard' hover-class="none" open-type='navigate'>
           <text>我的基本信息</text>
           <view class='v-center'>
@@ -80,7 +80,7 @@
 
       <view class='div-line'></view>
 
-      <view class='more-item'>
+      <view class='more-item v-center'>
         <navigator class='row' url='myHistory/myHistory' hover-class="none" open-type='navigate'>
           <text>我的发布</text>
           <view class='v-center'>
@@ -91,7 +91,7 @@
 
       <view wx:if='{{isEnterprise}}'>
         <view class='div-line'></view>
-        <view class='more-item'>
+        <view class='more-item v-center'>
           <navigator class='row' url='myEnterprise/myEnterprise' hover-class="none" open-type='navigate'>
             <text>我的企业账户</text>
             <view class='v-center'>
@@ -103,7 +103,7 @@
 
       <view class='div-line'></view>
 
-      <view class='more-item'>
+      <view class='more-item v-center'>
         <navigator class='row' url='updateMe/updateMe' hover-class="none" open-type='navigate'>
           <text>身份升级</text>
           <view class='v-center'>
@@ -116,7 +116,7 @@
 
       <view class='div-line'></view>
 
-      <view class='more-item'>
+      <view class='more-item v-center'>
         <navigator class='row' url='pay/pay' hover-class="none" open-type='navigate'>
           <text>金额充值</text>
           <view class='v-center'>
@@ -124,8 +124,8 @@
           </view>
         </navigator>
       </view>
-
     </view>
+    <!--
     <view class='setting'>
       <view class='more-item'>
         <navigator class='row' url='' hover-class="none" open-type='navigate'>
@@ -136,5 +136,6 @@
         </navigator>
       </view>
     </view>
+    -->
   </view>
 </view>

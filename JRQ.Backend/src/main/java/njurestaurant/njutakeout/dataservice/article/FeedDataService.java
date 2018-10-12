@@ -19,10 +19,9 @@ public interface FeedDataService {
 
 	List<Feed> getFeedsByTimeStamp(long timeStamp);
 
-
 	List<Feed> getTop10ByOrderByTimeStampDesc();
 
-	List<Feed> getFeedsByTimeStampBeforeOrderByTimeStampDescLimit10(long timeStamp);
+	List<Feed> getTop10ByTimeStampBeforeOrderByTimeStampDesc(long timeStamp);
 
 	List<Feed> getFeedsByWriterOpenid(String writerOpenid);
 

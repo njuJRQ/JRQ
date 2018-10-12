@@ -12,6 +12,7 @@ public interface FeedDao extends JpaRepository<Feed, String> {
 	List<Feed> findFeedsByTimeStamp(long timeStamp);
 	List<Feed> findTop10ByOrderByTimeStampDesc();
 	List<Feed> findFeedsByTimeStampBeforeOrderByTimeStampDesc(long timeStamp);
+	List<Feed> findTop10ByTimeStampBeforeOrderByTimeStampDesc(long timeStamp);
 //	@Query("select f from Feed f where f.timeStamp < ?1 order by f.timeStamp desc")
 //	List<Feed> findFeedsByTimeStampBeforeOrderByTimeStampDesc(long timeStamp, Pageable pageable);
 }

@@ -73,11 +73,12 @@ public class FeedDataServiceImpl implements FeedDataService {
 //	}
 
 	@Override
-	public List<Feed> getFeedsByTimeStampBeforeOrderByTimeStampDescLimit10(long timeStamp) {
+	public List<Feed> getTop10ByTimeStampBeforeOrderByTimeStampDesc(long timeStamp) {
 //		Session session = sessionFactory.getCurrentSession();
 //		Query<Feed> query = session.createQuery("select f from Feed f where f.timeStamp<=1", Feed.class);
-		List<Feed> feeds = feedDao.findFeedsByTimeStampBeforeOrderByTimeStampDesc(timeStamp);
-		return feeds.subList(0, Math.min(feeds.size(), 10));
+//		List<Feed> feeds = feedDao.findFeedsByTimeStampBeforeOrderByTimeStampDesc(timeStamp);
+//		return feeds.subList(0, Math.min(feeds.size(), 10));
+		return feedDao.findTop10ByTimeStampBeforeOrderByTimeStampDesc(timeStamp);
 	}
 
 	@Override

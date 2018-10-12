@@ -74,7 +74,7 @@ public class FeedBlServiceImpl implements FeedBlService {
 			return new FeedViewListResponse(feedViewItems);
 		}
 		Feed feed = feedDataService.getFeedById(id);
-		List<Feed> feeds = feedDataService.getFeedsByTimeStampBeforeOrderByTimeStampDescLimit10(feed.getTimeStamp());
+		List<Feed> feeds = feedDataService.getTop10ByTimeStampBeforeOrderByTimeStampDesc(feed.getTimeStamp());
 		if (!feeds.isEmpty()) {
 			List<Feed> sameStampFeeds = feedDataService.getFeedsByTimeStamp(
 					feeds.get(feeds.size()-1).getTimeStamp()); //与feeds中最早的Feed时间戳相同的文章

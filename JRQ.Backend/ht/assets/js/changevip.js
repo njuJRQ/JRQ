@@ -1,5 +1,6 @@
 var list=new Array();
 var url=getUrl();
+var face="";
 $.ajax(
     {
         url: url+"/getLevelList",
@@ -88,6 +89,7 @@ $.ajax(
             document.getElementById("tempLabel").innerText=data.user.label;
             document.getElementById("tempLevel").innerText=data.user.levelName;
             document.getElementById("lastFace").src="../"+data.user.face;
+            face=data.user.face;
             if(data.user.valid){
                 document.getElementById("tempis").innerText="启用";
             }
@@ -145,36 +147,69 @@ function adduser() {
             cache: false,
             async: false,
             success: function () {
-                $.ajax(
-                    {
-                        url: url + "/addUser",
-                        data: {
-                            openid: document.getElementById("openid").innerText,
-                            username: $("#username").val(),
-                            phone: $("#phone").val(),
-                            email: $("#email").val(),
-                            company: $("#company").val(),
-                            department: $("#department").val(),
-                            position: $("#position").val(),
-                            intro: $("#intro").val(),
-                            city: $("#city").val(),
-                            credit: $("#credit").val(),
-                            label: label,
-                            levelName: levelName,
-                            valid: valid
-                        },
-                        async: false,
-                        success: function (data) {
-                            alert("修改成功");
-                            window.location.href = "vip-list.html";
-                        },
-                        error: function (xhr) {
-                            alert("请选择头像");
-                            //alert('动态页有问题噶！\n\n' + xhr.responseText);
-                        },
-                        traditional: true,
-                    }
-                )
+                if(document.getElementById("face").value.length!=0) {
+                    $.ajax(
+                        {
+                            url: url + "/addUser",
+                            data: {
+                                openid: document.getElementById("openid").innerText,
+                                username: $("#username").val(),
+                                phone: $("#phone").val(),
+                                email: $("#email").val(),
+                                company: $("#company").val(),
+                                department: $("#department").val(),
+                                position: $("#position").val(),
+                                intro: $("#intro").val(),
+                                city: $("#city").val(),
+                                credit: $("#credit").val(),
+                                label: label,
+                                levelName: levelName,
+                                valid: valid
+                            },
+                            async: false,
+                            success: function (data) {
+                                alert("修改成功");
+                                window.location.href = "vip-list.html";
+                            },
+                            error: function (xhr) {
+                                //alert('动态页有问题噶！\n\n' + xhr.responseText);
+                            },
+                            traditional: true,
+                        }
+                    )
+                }
+                else{
+                    $.ajax(
+                        {
+                            url: url + "/addUserWithoutFace",
+                            data: {
+                                openid: document.getElementById("openid").innerText,
+                                username: $("#username").val(),
+                                face:face,
+                                phone: $("#phone").val(),
+                                email: $("#email").val(),
+                                company: $("#company").val(),
+                                department: $("#department").val(),
+                                position: $("#position").val(),
+                                intro: $("#intro").val(),
+                                city: $("#city").val(),
+                                credit: $("#credit").val(),
+                                label: label,
+                                levelName: levelName,
+                                valid: valid
+                            },
+                            async: false,
+                            success: function (data) {
+                                alert("修改成功");
+                                window.location.href = "vip-list.html";
+                            },
+                            error: function (xhr) {
+                                //alert('动态页有问题噶！\n\n' + xhr.responseText);
+                            },
+                            traditional: true,
+                        }
+                    )
+                }
                 // Handle upload success
                 // ...
             },
@@ -182,7 +217,7 @@ function adduser() {
                 //alert(xhr.responseText);
                 // Handle upload error
                 // ...
-               alert("请选择头像");
+
             }
         });
     }

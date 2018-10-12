@@ -40,7 +40,7 @@ page {
 /*关于保存按钮的属性*/
 .save-btn {
   background-color: #293A70;
-  margin: 40px 0 0 0;
+  margin: 40px 0 200px 0;
   width: 90%;
   color: white;
 }

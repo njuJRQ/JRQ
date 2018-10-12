@@ -24,13 +24,13 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     var that = this
     api.getMyCourse.call(this, app.getOpenid(), options.id)
   },
 
   //购买该课程
-  onPurchase: function() {
+  onPurchase: function () {
     var that = this
     if (that.data.isOwnCourse) {
       wx.showModal({
@@ -43,7 +43,10 @@ Page({
         content: '确认以' + that.data.course.price + '的价格购买\r\n' + that.data.course.title + '\r\n吗？',
         success: (res) => {
           if (res.confirm) {
-            api.purchaseCourse.call(that, that.data.course.id, app.getOpenid(), that.data.course.price, app.getDate())
+            console.log(that.data.course.id)
+            api.purchaseCourse.call(that, that.data.course.id, app.getOpenid(), that.data.course.price, app.getDate(), () => {
+              that.onLoad({ id: that.data.course.id })
+            })
           }
         }
       })

@@ -281,6 +281,7 @@ public class UserBlServiceImpl implements UserBlService {
 		User user = userDataService.getUserByOpenid(userOpenid);
 		if (user.getCardLimit() > 0) {
 			user.setCardLimit(user.getCardLimit() - 1);
+			userDataService.saveUser(user);
 			return new CardResponse(new CardItem(other));
 		} else {
 			return new CardResponse(); //剩余次数用尽，返回空对象

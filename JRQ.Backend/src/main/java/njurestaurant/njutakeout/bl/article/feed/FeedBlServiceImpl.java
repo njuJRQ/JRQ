@@ -2,9 +2,9 @@ package njurestaurant.njutakeout.bl.article.feed;
 
 import njurestaurant.njutakeout.blservice.article.feed.FeedBlService;
 import njurestaurant.njutakeout.dataservice.article.FeedDataService;
+import njurestaurant.njutakeout.dataservice.article.LikeDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
 import njurestaurant.njutakeout.entity.article.Feed;
-import njurestaurant.njutakeout.entity.user.User;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.AbstractItem;
@@ -20,11 +20,13 @@ import java.util.List;
 public class FeedBlServiceImpl implements FeedBlService {
 	private final FeedDataService feedDataService;
 	private final UserDataService userDataService;
+	private final LikeDataService likeDataService;
 
 	@Autowired
-	public FeedBlServiceImpl(FeedDataService feedDataService, UserDataService userDataService) {
+	public FeedBlServiceImpl(FeedDataService feedDataService, UserDataService userDataService, LikeDataService likeDataService) {
 		this.feedDataService = feedDataService;
 		this.userDataService = userDataService;
+		this.likeDataService = likeDataService;
 	}
 
 	@Override
@@ -104,7 +106,8 @@ public class FeedBlServiceImpl implements FeedBlService {
 		List<Feed> feeds = feedDataService.getFeedsByWriterOpenid(openid);
 		List<AbstractItem> abstractItems = new ArrayList<>();
 		for (Feed feed:feeds) {
-			abstractItems.add(new AbstractItem(feed, userDataService));
+			boolean hasLiked = likeDataService.isLikeExistent(openid, "feed", feed.getId());
+			abstractItems.add(new AbstractItem(feed, userDataService, hasLiked));
 		}
 		return new AbstractListResponse(abstractItems);
 	}

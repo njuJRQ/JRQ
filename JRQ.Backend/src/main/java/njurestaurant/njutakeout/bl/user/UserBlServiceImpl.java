@@ -273,7 +273,7 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
-	public CardResponse getOtherCard(String userOpenid, String otherOpenid) throws NotExistException, CardLimitUseUpException {
+	public CardResponse getOtherCard(String userOpenid, String otherOpenid) throws NotExistException {
 		User other = userDataService.getUserByOpenid(otherOpenid);
 		if (userOpenid.equals(otherOpenid)) {
 			return new CardResponse(new CardItem(other));
@@ -283,7 +283,7 @@ public class UserBlServiceImpl implements UserBlService {
 			user.setCardLimit(user.getCardLimit() - 1);
 			return new CardResponse(new CardItem(other));
 		} else {
-			throw new CardLimitUseUpException();
+			return new CardResponse(); //剩余次数用尽，返回空对象
 		}
 	}
 

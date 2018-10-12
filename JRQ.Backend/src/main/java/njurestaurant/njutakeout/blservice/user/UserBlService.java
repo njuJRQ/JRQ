@@ -240,6 +240,6 @@ public interface UserBlService {
 	 * @param otherOpenid 要查看的用户的openid
 	 * @return 别人的名片
 	 */
-	CardResponse getOtherCard(String userOpenid, String otherOpenid) throws NotExistException, CardLimitUseUpException;
+	CardResponse getOtherCard(String userOpenid, String otherOpenid) throws NotExistException;
 
 }

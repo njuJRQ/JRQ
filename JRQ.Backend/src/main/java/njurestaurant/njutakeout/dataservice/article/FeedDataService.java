@@ -17,11 +17,11 @@ public interface FeedDataService {
 
 	List<Feed> getAllFeeds();
 
-	List<Feed> getFeedsByTimeStamp(long timeStamp);
+	List<Feed> getFeedsByWriterOpenidInAndTimeStamp(List<String> friendOpenids, long timeStamp);
 
-	List<Feed> getTop10ByOrderByTimeStampDesc();
+	List<Feed> getTop10ByWriterOpenidInOrderByTimeStampDesc(List<String> friendOpenids);
 
-	List<Feed> getTop10ByTimeStampBeforeOrderByTimeStampDesc(long timeStamp);
+	List<Feed> getTop10ByWriterOpenidInAndTimeStampBeforeOrderByTimeStampDesc(List<String> friendOpenids, long timeStamp);
 
 	List<Feed> getFeedsByWriterOpenid(String writerOpenid);
 

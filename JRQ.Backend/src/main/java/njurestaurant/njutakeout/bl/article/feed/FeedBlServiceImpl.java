@@ -1,10 +1,12 @@
 package njurestaurant.njutakeout.bl.article.feed;
 
 import njurestaurant.njutakeout.blservice.article.feed.FeedBlService;
+import njurestaurant.njutakeout.data.dao.user.SendCardDao;
 import njurestaurant.njutakeout.dataservice.article.FeedDataService;
 import njurestaurant.njutakeout.dataservice.article.LikeDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
 import njurestaurant.njutakeout.entity.article.Feed;
+import njurestaurant.njutakeout.entity.user.SendCard;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.AbstractItem;
@@ -21,12 +23,14 @@ public class FeedBlServiceImpl implements FeedBlService {
 	private final FeedDataService feedDataService;
 	private final UserDataService userDataService;
 	private final LikeDataService likeDataService;
+	private final SendCardDao sendCardDao;
 
 	@Autowired
-	public FeedBlServiceImpl(FeedDataService feedDataService, UserDataService userDataService, LikeDataService likeDataService) {
+	public FeedBlServiceImpl(FeedDataService feedDataService, UserDataService userDataService, LikeDataService likeDataService, SendCardDao sendCardDao) {
 		this.feedDataService = feedDataService;
 		this.userDataService = userDataService;
 		this.likeDataService = likeDataService;
+		this.sendCardDao = sendCardDao;
 	}
 
 	@Override
@@ -42,7 +46,7 @@ public class FeedBlServiceImpl implements FeedBlService {
 
 	@Override
 	public FeedViewResponse getFeedView(String id) throws NotExistException {
-		return new FeedViewResponse(new FeedViewItem(feedDataService.getFeedById(id), userDataService));
+		return new FeedViewResponse(new FeedViewItem(feedDataService.getFeedById(id), userDataService, false));
 	}
 
 	@Override
@@ -60,26 +64,34 @@ public class FeedBlServiceImpl implements FeedBlService {
 		List<Feed> feeds = feedDataService.getAllFeeds();
 		List<FeedViewItem> feedViewItems = new ArrayList<>();
 		for (Feed feed : feeds) {
-			feedViewItems.add(new FeedViewItem(feed, userDataService));
+			feedViewItems.add(new FeedViewItem(feed, userDataService, false));
 		}
 		return new FeedViewListResponse(feedViewItems);
 	}
 
 	@Override
-	public FeedViewListResponse getFeedViewListBefore(String id) throws NotExistException {
+	public FeedViewListResponse getFeedViewListBefore(String openid, String id) throws NotExistException {
+		List<SendCard> sendCards = sendCardDao.findAllByReceiverOpenid(openid); //找到用户拥有的所有名片的openid
+		List<String> friendOpenids = new ArrayList<>();
+		for(SendCard sendCard:sendCards) {
+			friendOpenids.add(sendCard.getSenderOpenid());
+		}
+
 		if (id.equals("")) {
-			List<Feed> feeds = feedDataService.getTop10ByOrderByTimeStampDesc();
+			List<Feed> feeds = feedDataService.getTop10ByWriterOpenidInOrderByTimeStampDesc(friendOpenids);
 			List<FeedViewItem> feedViewItems = new ArrayList<>();
 			for (Feed feed : feeds) {
-				feedViewItems.add(new FeedViewItem(feed, userDataService));
+				boolean hasLiked = likeDataService.isLikeExistent(openid, "feed", feed.getId());
+				feedViewItems.add(new FeedViewItem(feed, userDataService, hasLiked));
 			}
 			return new FeedViewListResponse(feedViewItems);
 		}
+
 		Feed feed = feedDataService.getFeedById(id);
-		List<Feed> feeds = feedDataService.getTop10ByTimeStampBeforeOrderByTimeStampDesc(feed.getTimeStamp());
+		List<Feed> feeds = feedDataService.getTop10ByWriterOpenidInAndTimeStampBeforeOrderByTimeStampDesc(friendOpenids, feed.getTimeStamp());
 		if (!feeds.isEmpty()) {
-			List<Feed> sameStampFeeds = feedDataService.getFeedsByTimeStamp(
-					feeds.get(feeds.size()-1).getTimeStamp()); //与feeds中最早的Feed时间戳相同的文章
+			List<Feed> sameStampFeeds = feedDataService.getFeedsByWriterOpenidInAndTimeStamp(
+					friendOpenids, feeds.get(feeds.size()-1).getTimeStamp()); //与feeds中最早的Feed时间戳相同的文章
 			for (Feed ssf:sameStampFeeds) {
 				boolean flag = false; //标记ssf是否在feeds中
 				for (Feed f:feeds){
@@ -96,7 +108,8 @@ public class FeedBlServiceImpl implements FeedBlService {
 
 		List<FeedViewItem> feedViewItems = new ArrayList<>();
 		for(Feed f:feeds) {
-			feedViewItems.add(new FeedViewItem(f, userDataService));
+			boolean hasLiked = likeDataService.isLikeExistent(openid, "feed", feed.getId());
+			feedViewItems.add(new FeedViewItem(f, userDataService, hasLiked));
 		}
 		return new FeedViewListResponse(feedViewItems);
 	}

@@ -40,7 +40,7 @@ public interface FeedBlService {
 	 */
 	FeedListResponse getFeedList();
 
-	/**
+	/**此API已弃用
 	 * 获取圈子全部含作者名字和头像的文章信息(User)
 	 * @return 圈子文章信息
 	 */
@@ -52,7 +52,7 @@ public interface FeedBlService {
 	 * @param id 圈子文章ID
 	 * @return 圈子文章信息列表
 	 */
-	FeedViewListResponse getFeedViewListBefore(String id) throws NotExistException;
+	FeedViewListResponse getFeedViewListBefore(String openid, String id) throws NotExistException;
 
 	/**
 	 * 用户获取自己发布过的文章摘要(User)

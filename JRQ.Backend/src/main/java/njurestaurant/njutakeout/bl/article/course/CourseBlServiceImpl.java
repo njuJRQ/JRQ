@@ -7,6 +7,7 @@ import njurestaurant.njutakeout.dataservice.purchase.PurchaseDataService;
 import njurestaurant.njutakeout.entity.article.Course;
 import njurestaurant.njutakeout.entity.purchase.Purchase;
 import njurestaurant.njutakeout.entity.purchase.PurchaseCourse;
+import njurestaurant.njutakeout.entity.purchase.PurchaseCourseKey;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.course.CourseItem;
@@ -37,7 +38,7 @@ public class CourseBlServiceImpl implements CourseBlService {
 
 	@Override
 	public CourseResponse getCourse(String id) throws NotExistException {
-		return new CourseResponse(new CourseItem(courseDataService.getCourseById(id)));
+		return new CourseResponse(new CourseItem(courseDataService.getCourseById(id), true));
 	}
 
 	@Override
@@ -45,7 +46,7 @@ public class CourseBlServiceImpl implements CourseBlService {
 		List<Course> courses = courseDataService.getAllCourses();
 		List<CourseItem> courseItems = new ArrayList<>();
 		for (Course course:courses) {
-			courseItems.add(new CourseItem(course));
+			courseItems.add(new CourseItem(course, true));
 		}
 		return new CourseListResponse(courseItems);
 	}
@@ -73,16 +74,9 @@ public class CourseBlServiceImpl implements CourseBlService {
 	@Override
 	public CourseResponse getMyCourse(String openid, String courseId) throws NotExistException {
 		Course course = courseDataService.getCourseById(courseId);
-		CourseItem courseItem = new CourseItem(course);
-		courseItem.setVideo("");
-		List<PurchaseCourse> purchaseCourses = purchaseCourseDataService.getPurchaseCourseByOpenid(openid);
-		for (PurchaseCourse purchaseCourse:purchaseCourses) {
-			if (purchaseCourse.getCourseId().equals(courseId)) {
-				courseItem.setVideo(course.getVideo());
-				return new CourseResponse(courseItem);
-			}
-		}
-		return new CourseResponse(courseItem);
+		boolean hasBought = purchaseCourseDataService.isPurchaseCourseExistent(
+				new PurchaseCourseKey(openid, course.getId()));
+		return new CourseResponse(new CourseItem(course, hasBought));
 	}
 
 	@Override
@@ -90,8 +84,9 @@ public class CourseBlServiceImpl implements CourseBlService {
 		List<Course> courses = courseDataService.getAllCourses();
 		List<CourseItem> courseItems = new ArrayList<>();
 		for (Course course:courses) {
-			CourseItem courseItem = new CourseItem(course);
-			courseItem.setVideo("");
+			boolean hasBought = purchaseCourseDataService.isPurchaseCourseExistent(
+					new PurchaseCourseKey(openid, course.getId()));
+			CourseItem courseItem = new CourseItem(course, hasBought);
 			courseItems.add(courseItem);
 		}
 		return new CourseListResponse(courseItems);

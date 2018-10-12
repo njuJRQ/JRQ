@@ -120,7 +120,7 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 		List<CourseItem> courseItems = new ArrayList<>();
 		for(Course course:courses) {
 			if(admin.getUsername().equals(course.getWriterName())) {
-				courseItems.add(new CourseItem(course));
+				courseItems.add(new CourseItem(course, true));
 			}
 		}
 		return new CourseListResponse(courseItems);

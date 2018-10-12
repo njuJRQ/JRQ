@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface PurchaseCourseDataService {
 
+	boolean isPurchaseCourseExistent(PurchaseCourseKey purchaseCourseKey);
+
 	void addPurchaseCourse(PurchaseCourse purchaseCourse) throws AlreadyExistException;
 
 	PurchaseCourse getPurchaseCourseByKey(PurchaseCourseKey purchaseCourseKey) throws NotExistException;

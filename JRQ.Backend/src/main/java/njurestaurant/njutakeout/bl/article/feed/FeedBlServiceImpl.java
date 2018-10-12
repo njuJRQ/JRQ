@@ -76,6 +76,7 @@ public class FeedBlServiceImpl implements FeedBlService {
 		for(SendCard sendCard:sendCards) {
 			friendOpenids.add(sendCard.getSenderOpenid());
 		}
+		friendOpenids.add(openid); //把自己的openid加上
 
 		if (id.equals("")) {
 			List<Feed> feeds = feedDataService.getTop10ByWriterOpenidInOrderByTimeStampDesc(friendOpenids);

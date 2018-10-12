@@ -122,7 +122,8 @@ Page({
   likePlus: function (e) {
     var id = e.currentTarget.dataset.id //获取当前文章id
     var kind = e.currentTarget.dataset.kind //获取当前文章kind
-    api.likePlus.call(this, app.getOpenid(), kind, id) //点赞+1
+    var article = this.data.articles.filter((article) => article.id===id)[0]
+    api.likePlus.call(this, app.getOpenid(), kind, id, article) //点赞+1
   },
 
   //更新搜索条件

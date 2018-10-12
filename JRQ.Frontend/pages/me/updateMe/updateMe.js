@@ -10,6 +10,9 @@ Page({
    */
   data: {
     price: 0,
+    price298: 298,
+    price998: 998,
+    priceEnterprise: '免费',
     isHideModalput: true,
     username: '',
     password: ''
@@ -20,6 +23,8 @@ Page({
    */
   onShow: function (options) {
     api.getMyCredit.call(this, app.getOpenid())
+    api.getLevelList.call(this)
+    api.getPrivilegeList.call(this)
   },
 
   updateTo298: function () {

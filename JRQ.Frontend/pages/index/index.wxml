@@ -57,7 +57,8 @@
           </view>
           <view class='like-info v-center' catchtap='likePlus' data-kind='{{item.kind}}' data-id='{{item.id}}'>
             <text>{{item.likeNum}}</text>
-            <image src='img/like.png'></image>
+            <image wx:if='{{item.hasLiked}}' src='img/like.png'></image>
+            <image wx:else src='img/unlike.png'></image>
           </view>
         </view>
         <view class='div-line'></view>

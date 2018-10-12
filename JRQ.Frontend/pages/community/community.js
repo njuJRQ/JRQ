@@ -70,7 +70,8 @@ Page({
   //点赞数加一
   likePlus: function (e) {
     var id = e.currentTarget.dataset.id //获取当前feed的id
-    api.likePlus.call(this, app.getOpenid(), 'feed', id)
+    var article = this.data.articles.filter((article)=>article.id===id)[0]
+    api.likePlus.call(this, app.getOpenid(), 'feed', id, article)
   },
 
   previewImg: function (e) {

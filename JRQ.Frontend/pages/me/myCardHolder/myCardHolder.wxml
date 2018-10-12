@@ -6,13 +6,16 @@
   <template is='searchBar' data='{{placeholder: "搜索姓名、公司名称"}}'></template>
   <view class='navbar row'>
     <view bindtap='showNewCards'>
-      <text>新收到</text>
+      <text wx:if='{{kind==="new"}}' style='color:#000; font-weight:bold'>新收到的</text>
+      <text wx:else>新收到的</text>
     </view>
     <view bindtap='showCurrentCards'>
-      <text>我持有的</text>
+      <text wx:if='{{kind==="current"}}' style='color:#000; font-weight:bold'>我持有的</text>
+      <text wx:else>我持有的</text>
     </view>
     <view bindtap='showWhoHasMyCard'>
-      <text>拥有我名片的</text>
+      <text wx:if='{{kind==="whoHasMyCard"}}' style='color:#000; font-weight:bold'>拥有我名片的</text>
+      <text wx:else>拥有我名片的</text>
     </view>
   </view>
   <!--名片展示列表-->

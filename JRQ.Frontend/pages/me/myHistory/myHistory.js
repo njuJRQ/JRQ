@@ -94,18 +94,30 @@ Page({
   //点击查看联系方式
   isMyInfoVisiableToggle: function () {
     var that = this
-    if (this.data.isGetOtherInfo) {
-      if (!this.data.isAlreadyGetOtherInfo) {
+    if (this.data.isGetOtherInfo) {        //获取别的用户信息
+      if (!this.data.isAlreadyGetOtherInfo) {        //还没有获取当前用户信息
         //未获取他人详细信息
-        api.getOtherInfo.call(this, app.getOpenid(), this.data.otherid, () => {
-          that.setData({
-            isMyInfoVisiable: !that.data.isMyInfoVisiable,
-          })
-          api.getMyCardLimits.call(this, app.getOpenid())
+        wx.showModal({
+          title: '是否确认查看用户信息?',
+          content: '查看用户信息会消耗1次当天查看次数，您剩余查看次数为：' + that.data.cardLimits + '次',
+          success: (res) => {
+            if(res.confirm) {
+              api.getOtherInfo.call(this, app.getOpenid(), this.data.otherid, () => {
+                that.setData({
+                  isMyInfoVisiable: !that.data.isMyInfoVisiable,
+                })
+                api.getMyCardLimits.call(this, app.getOpenid())
+                that.data.isAlreadyGetOtherInfo = true
+              })
+            }
+          }
+        })
+      } else {                              //已经获取当前用户信息
+        that.setData({
+          isMyInfoVisiable: !that.data.isMyInfoVisiable,
         })
       }
-    } else {
-      //获取自己信息
+    } else {                               //获取自己信息
       api.getMyInfo.call(this, app.getOpenid(), () => {
         that.setData({
           isMyInfoVisiable: !that.data.isMyInfoVisiable,

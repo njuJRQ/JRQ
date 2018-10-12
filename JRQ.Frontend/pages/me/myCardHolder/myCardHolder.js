@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    kind: 'new',
     cards: [
       {
         openid: 1,
@@ -77,16 +78,25 @@ Page({
 
   //展示新收到的名片
   showNewCards: function () {
+    this.setData({
+      kind: 'new'
+    })
     api.getMyPersonList.call(this, app.getOpenid(), 'new')
   },
 
   //展示我持有的名片
   showCurrentCards: function () {
+    this.setData({
+      kind: 'current'
+    })
     api.getMyPersonList.call(this, app.getOpenid(), 'current')
   },
 
   //展示拥有我名片的
   showWhoHasMyCard: function () {
+    this.setData({
+      kind: 'whoHasMyCard'
+    })
     api.getMyPersonList.call(this, app.getOpenid(), 'whoHasMyCard')
   },
 

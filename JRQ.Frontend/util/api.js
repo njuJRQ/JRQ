@@ -197,7 +197,7 @@ function getAd(showPlace) {
   })
 }
 
-function likePlus(openid, kind, articleId) {
+function likePlus(openid, kind, articleId, article) {
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "likePlus",
@@ -212,8 +212,13 @@ function likePlus(openid, kind, articleId) {
     },
     method: 'GET',
     success: (res) => {
-      console.log('likePlus ' + res.data.info)
-      that.onShow()
+      if (article.hasLiked){
+        article.likeNum--;
+      } else {
+        article.likeNum++;
+      }
+      article.hasLiked = !article.hasLiked
+      that.setData(that.data)
     }
   })
 }
@@ -842,6 +847,49 @@ function getMyCardLimits (openid) {
   })
 }
 
+function getLevelList () {
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "getLevelList",
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      res.data.levels.forEach((level) => {
+        switch (level.name) {
+          case "298": that.data.price298 = level.price; break;
+          case "998": that.data.price998 = level.price; break;
+          default: break;
+        }
+      })
+      that.setData(that.data)
+    }
+  })
+}
+
+function getPrivilegeList () {
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "getPrivilegeList",
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      res.data.privileges.forEach((privilege) => {
+        switch (privilege.name) {
+          case "enterprise": that.data.priceEnterprise = privilege.price === 0 ? '免费' : privilege.price; break;
+          default: break;
+        }
+      })
+      that.setData(that.data)
+    }
+  })
+}
+
 module.exports = {
   getAbstractList: getAbstractList,
   getAbstractListByCondition: getAbstractListByCondition,
@@ -871,5 +919,7 @@ module.exports = {
   getMyCredit: getMyCredit,
   isEnterprise: isEnterprise,
   getMyEnterpriseAdmin: getMyEnterpriseAdmin,
-  getMyCardLimits: getMyCardLimits
+  getMyCardLimits: getMyCardLimits,
+  getLevelList: getLevelList,
+  getPrivilegeList: getPrivilegeList
 }

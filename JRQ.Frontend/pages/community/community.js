@@ -56,11 +56,11 @@ Page({
   onShow: function (options) {
     //展示圈子文章
     this.data.articles = []
-    api.getFeedList.call(this, "")
+    api.getFeedList.call(this, app.getOpenid(), "")
   },
 
   onReachBottom: function () {
-    api.getFeedList.call(this, this.data.lastId)
+    api.getFeedList.call(this, app.getOpenid(), this.data.lastId)
   },
 
   onShare: function () {

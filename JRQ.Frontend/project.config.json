@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 4,
 			"list": [
 				{
 					"id": 0,
@@ -50,7 +50,19 @@
 				{
 					"id": -1,
 					"name": "modifyMyCard",
-					"pathName": "pages/me/modifyMyCard/modifyMyCard"
+					"pathName": "pages/me/modifyMyCard/modifyMyCard",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "service",
+					"pathName": "pages/service/service",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "myCardHolder",
+					"pathName": "pages/me/myCardHolder/myCardHolder"
 				}
 			]
 		}

@@ -79,29 +79,49 @@ Page({
         intro: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
         label: '商业保理',
         bgColor: 'rgba(138, 138, 252, 0.767)'
-      }]
+      }],
+      searchCondition: null
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onShow: function (options) {
+  onLoad: function (options) {
+    this.setData({
+      searchCondition: null
+    })
     api.getAd.call(this, 'service')
+    this.showCapitalClass();
+  },
+
+  onShow: function (options) {
+    this.setData({
+      searchCondition: null
+    })
     this.showCapitalClass();
   },
   
   //展示资金类
   showCapitalClass: function(event) {
+    this.setData({
+      searchCondition: null
+    })
     api.getPersonList.call(this, 'capital')
   },
 
   //展示股票类
-  showStockClass: function() {
+  showStockClass: function () {
+    this.setData({
+      searchCondition: null
+    })
     api.getPersonList.call(this, 'stock')
   },
 
   //展示并购类
-  showMergeClass: function() {
+  showMergeClass: function () {
+    this.setData({
+      searchCondition: null
+    })
     api.getPersonList.call(this, 'merge')
   },
   
@@ -121,7 +141,7 @@ Page({
   //搜索触发函数
   onSearch: function () {
     console.log('search service people: ' + this.data.searchCondition)
-    api.getPersonListByCondition.call(this, this.data.searchCondition)
+    api.getPersonListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
   },
 
   //点击广告跳转

@@ -25,11 +25,15 @@ function getAbstractList(kind, openid) {
   })
 }
 
-function getAbstractListByCondition(condition) {
+function getAbstractListByCondition(openid, condition) {
   var that = this
+  wx.showLoading({
+    title: '搜索中',
+  })
   wx.request({
     url: app.globalData.backendUrl + "getAbstractListByCondition",
     data: {
+      openid: openid,
       condition: condition
     },
     header: {
@@ -39,16 +43,23 @@ function getAbstractListByCondition(condition) {
     method: 'GET',
     success: (res) => {
       /*console.log(res.data)*/
+      wx.hideLoading()
       that.data.articles = res.data.abstractList
       that.data.articles.forEach((article) => {
         article.images = article.images.map((image) => app.globalData.picUrl + image)
       })
       that.setData(that.data)
+      if (!that.data.articles.length) {
+        wx.showToast({
+          title: '无搜索结果',
+          icon: 'none'
+        })
+      }
     }
   })
 }
 
-function getFeedList(id) {
+function getFeedList(openid, id) {
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "getFeedViewListBefore",
@@ -57,6 +68,7 @@ function getFeedList(id) {
       'content-type': 'application/x-www-form-urlencoded'
     },
     data: {
+      openid: openid,
       id: id
     },
     method: 'GET',
@@ -561,16 +573,20 @@ function modifyMyInfo() {
   })
 }
 
-function getPersonListByCondition(condition) {
+function getPersonListByCondition(openid, condition) {
   /**
    * 方法：searchCards
    * 参数：
    * 搜索条件：condition
    */
   var that = this
+  wx.showLoading({
+    title: '搜索中',
+  })
   wx.request({
     url: app.globalData.backendUrl + "getPersonListByCondition",
     data: {
+      openid: openid,
       condition: that.data.searchCondition
     },
     header: {
@@ -579,11 +595,18 @@ function getPersonListByCondition(condition) {
     },
     method: 'GET',
     success: (res) => {
+      wx.hideLoading()
       that.data.cards = res.data.persons
       that.data.cards.forEach((card) => {
         card.face = app.globalData.picUrl + card.face
       })
       that.setData(that.data)
+      if (!that.data.cards.length) {
+        wx.showToast({
+          title: '无搜索结果',
+          icon: 'none'
+        })
+      }
     }
   })
 }

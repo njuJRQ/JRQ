@@ -4,7 +4,7 @@
 
 <view class="container">
   <!--搜索框-->
-  <template is='searchBar' data='{{placeholder: "搜索文章"}}'></template>
+  <template is='searchBar' data='{{placeholder: "搜索文章", searchCondition: searchCondition}}'></template>
   <!--Banner-->
   <view class='head'>
     <view class='module column' bindtap='showCourses'>
@@ -37,6 +37,7 @@
   <view class='div-line'></view>
   <!--文章列表-->
   <view style='width: 100%; padding: 0 10px'>
+    <text style='font-size:0.6rem' wx:if='{{searchCondition || searchCondition===""}}'>以下是“{{searchCondition}}”的搜索结果：</text>
     <view wx:for='{{articles}}' wx:key='id'>
       <view class='article' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
         <view class='article-text'>

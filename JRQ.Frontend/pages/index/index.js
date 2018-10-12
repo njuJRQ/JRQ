@@ -49,18 +49,23 @@ Page({
       image: '../../default/default-pic.png',
       link: 'https://www.baidu.com'
     },
-    currentKind: null
+    currentKind: null,
+    searchCondition: null
   },
 
   //事件处理函数
   onLoad: function () {
     this.setData({
-      currentKind: 'course'
+      currentKind: 'course',
+      searchCondition: null
     })
   },
 
   //onShow函数
   onShow: function () {
+    this.setData({
+      searchCondition: null
+    })
     api.getAd.call(this, 'index') //展示广告
     api.getAbstractList.call(this, this.data.currentKind, app.getOpenid()) //展示课程类文章
   },
@@ -75,7 +80,8 @@ Page({
   //展示课程
   showCourses: function () {
     this.setData({
-      currentKind: 'course'
+      currentKind: 'course',
+      searchCondition: null
     })
     api.getAbstractList.call(this, 'course', app.getOpenid())
   },
@@ -83,7 +89,8 @@ Page({
   //展示文档
   showDocuments: function () {
     this.setData({
-      currentKind: 'document'
+      currentKind: 'document',
+      searchCondition: null
     })
     api.getAbstractList.call(this, 'document', app.getOpenid())
   },
@@ -91,7 +98,8 @@ Page({
   //展示项目
   showProjects: function () {
     this.setData({
-      currentKind: 'project'
+      currentKind: 'project',
+      searchCondition: null
     })
     api.getAbstractList.call(this, 'project', app.getOpenid())
   },
@@ -134,6 +142,6 @@ Page({
   //搜索触发函数
   onSearch: function () {
     console.log('search article: ' + this.data.searchCondition)
-    api.getAbstractListByCondition.call(this, this.data.searchCondition)
+    api.getAbstractListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
   }
 })

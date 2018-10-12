@@ -3,7 +3,7 @@
 
 <view class='container'>
   <!--搜索框-->
-  <template is='searchBar' data='{{placeholder: "搜索姓名、公司名称"}}'></template>
+  <template is='searchBar' data='{{placeholder: "搜索姓名、公司名称", searchCondition: searchCondition}}'></template>
   <view class='navbar row'>
     <view bindtap='showNewCards'>
       <text wx:if='{{kind==="new"}}' style='color:#000; font-weight:bold'>新收到的</text>
@@ -20,6 +20,7 @@
   </view>
   <!--名片展示列表-->
   <view class='cards column v-center'>
+    <text wx:if='{{searchCondition || searchCondition===""}}'>以下是“{{searchCondition}}”的搜索结果：</text>
     <view class='one-card column' bindtap='onClickThisCard' data-id='{{card.openid}}'  wx:for='{{cards}}' wx:for-item='card' wx:key='openid'>
       <view class='row v-center'>
         <view class='one-card-face'>

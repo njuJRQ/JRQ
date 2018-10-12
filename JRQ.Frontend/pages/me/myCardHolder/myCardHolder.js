@@ -56,7 +56,8 @@ Page({
         position: 'IT初级经理',
         intro: '我要在代码的世界里飞翔。'
       }
-    ]
+    ],
+    searchCondition: null
   },
 
   /**
@@ -73,13 +74,14 @@ Page({
 
   //搜索触发函数
   onSearch: function () {
-    api.getPersonListByCondition.call(this, this.data.searchCondition)
+    api.getPersonListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
   },
 
   //展示新收到的名片
   showNewCards: function () {
     this.setData({
-      kind: 'new'
+      kind: 'new',
+      searchCondition: null
     })
     api.getMyPersonList.call(this, app.getOpenid(), 'new')
   },
@@ -87,7 +89,8 @@ Page({
   //展示我持有的名片
   showCurrentCards: function () {
     this.setData({
-      kind: 'current'
+      kind: 'current',
+      searchCondition: null
     })
     api.getMyPersonList.call(this, app.getOpenid(), 'current')
   },
@@ -95,7 +98,8 @@ Page({
   //展示拥有我名片的
   showWhoHasMyCard: function () {
     this.setData({
-      kind: 'whoHasMyCard'
+      kind: 'whoHasMyCard',
+      searchCondition: null
     })
     api.getMyPersonList.call(this, app.getOpenid(), 'whoHasMyCard')
   },

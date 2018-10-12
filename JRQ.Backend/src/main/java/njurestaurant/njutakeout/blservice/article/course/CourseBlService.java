@@ -67,5 +67,5 @@ public interface CourseBlService {
 	 * @param openid 用户openid
 	 * @return 去掉video信息的课程列表
 	 */
-	CourseListResponse getMyCourseList(String openid);
+	CourseListResponse getMyCourseList(String openid) throws NotExistException;
 }

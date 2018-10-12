@@ -1,13 +1,13 @@
 package njurestaurant.njutakeout.bl.article.course;
 
 import njurestaurant.njutakeout.blservice.article.course.CourseBlService;
+import njurestaurant.njutakeout.dataservice.admin.AdminDataService;
 import njurestaurant.njutakeout.dataservice.article.CourseDataService;
 import njurestaurant.njutakeout.dataservice.purchase.PurchaseCourseDataService;
-import njurestaurant.njutakeout.dataservice.purchase.PurchaseDataService;
+import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
 import njurestaurant.njutakeout.entity.article.Course;
-import njurestaurant.njutakeout.entity.purchase.Purchase;
-import njurestaurant.njutakeout.entity.purchase.PurchaseCourse;
 import njurestaurant.njutakeout.entity.purchase.PurchaseCourseKey;
+import njurestaurant.njutakeout.entity.user.Enterprise;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.course.CourseItem;
@@ -23,11 +23,15 @@ import java.util.List;
 public class CourseBlServiceImpl implements CourseBlService {
 	private final CourseDataService courseDataService;
 	private final PurchaseCourseDataService purchaseCourseDataService;
+	private final EnterpriseDataService enterpriseDataService;
+	private final AdminDataService adminDataService;
 
 	@Autowired
-	public CourseBlServiceImpl(CourseDataService courseDataService, PurchaseCourseDataService purchaseCourseDataService) {
+	public CourseBlServiceImpl(CourseDataService courseDataService, PurchaseCourseDataService purchaseCourseDataService, EnterpriseDataService enterpriseDataService, AdminDataService adminDataService) {
 		this.courseDataService = courseDataService;
 		this.purchaseCourseDataService = purchaseCourseDataService;
+		this.enterpriseDataService = enterpriseDataService;
+		this.adminDataService = adminDataService;
 	}
 
 	@Override
@@ -75,17 +79,31 @@ public class CourseBlServiceImpl implements CourseBlService {
 	public CourseResponse getMyCourse(String openid, String courseId) throws NotExistException {
 		Course course = courseDataService.getCourseById(courseId);
 		boolean hasBought = purchaseCourseDataService.isPurchaseCourseExistent(
-				new PurchaseCourseKey(openid, course.getId()));
+				new PurchaseCourseKey(openid, course.getId())); //用户是否已购买
+		if (enterpriseDataService.isUserEnterprise(openid)) { //用户获取自己发布的课程
+			Enterprise enterprise = enterpriseDataService.getEnterpriseByOpenid(openid);
+			if (course.getWriterName().equals(
+					adminDataService.getAdminById(enterprise.getAdminId()).getUsername())) {
+				hasBought = true;
+			}
+		}
 		return new CourseResponse(new CourseItem(course, hasBought));
 	}
 
 	@Override
-	public CourseListResponse getMyCourseList(String openid) {
+	public CourseListResponse getMyCourseList(String openid) throws NotExistException {
 		List<Course> courses = courseDataService.getAllCourses();
 		List<CourseItem> courseItems = new ArrayList<>();
 		for (Course course:courses) {
 			boolean hasBought = purchaseCourseDataService.isPurchaseCourseExistent(
-					new PurchaseCourseKey(openid, course.getId()));
+					new PurchaseCourseKey(openid, course.getId())); //用户是否已购买
+			if (enterpriseDataService.isUserEnterprise(openid)) { //用户获取自己发布的课程
+				Enterprise enterprise = enterpriseDataService.getEnterpriseByOpenid(openid);
+				if (course.getWriterName().equals(
+						adminDataService.getAdminById(enterprise.getAdminId()).getUsername())) {
+					hasBought = true;
+				}
+			}
 			CourseItem courseItem = new CourseItem(course, hasBought);
 			courseItems.add(courseItem);
 		}

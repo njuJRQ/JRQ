@@ -601,6 +601,21 @@ public class userController {
             @ApiImplicitParam(name = "userOpenid", value = "用户自己的微信openid", required = true, dataType = "String"),
             @ApiImplicitParam(name = "otherOpenid", value = "要查看的用户的openid", required = true, dataType = "String")
     })
+    @RequestMapping(value = "/isOtherCardAccessible", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> isOtherCardAccessible(@RequestParam(name="userOpenid")String userOpenid,@RequestParam(name="otherOpenid")String otherOpenid) throws NotExistException, CardLimitUseUpException {
+        return new ResponseEntity<>(userBlService.isOtherCardAccessible(userOpenid,otherOpenid), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "用户查看别人的名片，每天次数有限制", notes = "用户查看别人的名片，每天次数有限制")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userOpenid", value = "用户自己的微信openid", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "otherOpenid", value = "要查看的用户的openid", required = true, dataType = "String")
+    })
     @RequestMapping(value = "/getOtherCard", method = RequestMethod.GET)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),

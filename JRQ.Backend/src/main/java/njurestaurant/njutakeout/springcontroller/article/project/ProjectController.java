@@ -186,4 +186,34 @@ public class ProjectController {
     public ResponseEntity<Response> deleteProject(@RequestParam(name="id")String id) throws NotExistException {
         return new ResponseEntity<>(projectBlService.deleteProject(id), HttpStatus.OK);
     }
+
+    @ApiOperation(value = "用户查看特定项目", notes = "用户查看特定项目")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "用户的openid", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "projectId", value = "项目ID", required = true, dataType = "String")
+
+    })
+    @RequestMapping(value = "/getMyProject", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getMyProject(@RequestParam(name="openid")String openid,@RequestParam(name="projectId")String projectId) throws NotExistException {
+        return new ResponseEntity<>(projectBlService.getMyProject(openid,projectId), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "用户查看项目列表", notes = "用户查看项目列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "用户的openid", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getMyProjectList", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getMyProjectList(@RequestParam(name="openid")String openid) throws NotExistException {
+        return new ResponseEntity<>(projectBlService.getMyProjectList(openid), HttpStatus.OK);
+    }
 }

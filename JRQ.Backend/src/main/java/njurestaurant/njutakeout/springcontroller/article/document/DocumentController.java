@@ -93,4 +93,34 @@ public class DocumentController {
     public ResponseEntity<Response> deleteDocument(@RequestParam(name="id")String id) throws NotExistException {
         return new ResponseEntity<>(documentBlService.deleteDocument(id), HttpStatus.OK);
     }
+
+    @ApiOperation(value = "根据文档ID删除文档", notes = "根据文档ID删除文档")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "用户的openid", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "documentId", value = "文档ID", required = true, dataType = "String")
+
+    })
+    @RequestMapping(value = "/getMyDocument", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getMyDocument(@RequestParam(name="openid")String openid,@RequestParam(name="documentId")String documentId) throws NotExistException {
+        return new ResponseEntity<>(documentBlService.getMyDocument(openid,documentId), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "根据文档ID删除文档", notes = "根据文档ID删除文档")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "用户的openid", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getMyDocumentList", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getMyDocumentList(@RequestParam(name="openid")String openid) {
+        return new ResponseEntity<>(documentBlService.getMyDocumentList(openid), HttpStatus.OK);
+    }
 }

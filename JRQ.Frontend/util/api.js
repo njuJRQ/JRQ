@@ -48,7 +48,7 @@ function getAbstractListByCondition(condition) {
   })
 }
 
-function getFeedList (id) {
+function getFeedList(id) {
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "getFeedViewListBefore",
@@ -390,6 +390,11 @@ function checkMyReceivedCard(senderOpenid, receiverOpenid) {
 }
 
 function uploadImageOneByOne(photos, index, length, then) {
+  console.log(photos)
+  if (!photos.length) {
+    then()
+    return
+  }
   wx.uploadFile({
     url: app.globalData.backendUrl + "uploadImage",
     filePath: photos[index],
@@ -412,6 +417,9 @@ function publishMyArticle(openid, kind, content, photos) {
    * 文本内容：content
    */
   var that = this
+  wx.showLoading({
+    title: '发布圈子中',
+  })
   uploadImageOneByOne(photos, 0, photos.length, () => {
     wx.request({
       url: app.globalData.backendUrl + "publishMyFeed",
@@ -428,6 +436,7 @@ function publishMyArticle(openid, kind, content, photos) {
       method: 'GET',
       success: (res) => {
         console.log(res)
+        wx.hideLoading()
         wx.showToast({
           title: '发布成功',
           icon: 'succes',
@@ -459,6 +468,9 @@ function modifyMyInfo() {
    * 个人简介：intro
    */
   var that = this
+  wx.showLoading({
+    title: '上传中',
+  })
   wx.uploadFile({
     //上传用户图片
     url: app.globalData.backendUrl + "uploadHead",
@@ -490,6 +502,7 @@ function modifyMyInfo() {
         },
         method: 'GET',
         success: (res) => {
+          wx.hideLoading()
           wx.showToast({
             title: '修改成功',
             icon: 'succes',
@@ -525,6 +538,7 @@ function modifyMyInfo() {
         },
         method: 'GET',
         success: (res) => {
+          wx.hideLoading()
           wx.showToast({
             title: '修改成功',
             icon: 'succes',

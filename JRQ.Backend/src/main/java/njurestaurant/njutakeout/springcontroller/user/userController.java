@@ -146,6 +146,38 @@ public class userController {
         return r;
     }
 
+    @ApiOperation(value = "增加用户", notes = "增加用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "用户编号", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "face", value = "头像", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "phone", value = "用户手机", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "email", value = "用户邮箱", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "company", value = "用户公司", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "department", value = "用户部门", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "position", value = "用户职位", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "intro", value = "用户简介", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "city", value = "用户城市", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "credit", value = "余额", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "label", value = "用户标签", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "levelName", value = "用户等级", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "valid", value = "是否启用", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/addUserWithoutFace", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public InfoResponse addUserWithoutFace(@RequestParam(name="openid")String openid, @RequestParam(name="username")String username, @RequestParam(name="face")String face,@RequestParam(name="phone")String phone, @RequestParam(name="email")String email, @RequestParam(name="company")String company, @RequestParam(name="department")String department, @RequestParam(name="position")String position, @RequestParam(name="intro")String intro, @RequestParam(name="city")String city, @RequestParam(name="credit")String credit, @RequestParam(name="label")String label, @RequestParam(name="levelName")String levelName, @RequestParam(name="valid")String valid) throws NotExistException {
+        boolean is=true;
+        if(valid=="冻结"){
+            is=false;
+        }
+        InfoResponse r=userBlService.addUser(openid,username,face,null,phone,email,company,department,position,intro,city,Integer.parseInt(credit),label,levelName,is);
+        return r;
+    }
+
     @ApiOperation(value = "获取用户列表", notes = "获取用户列表")
     @RequestMapping(value = "/getUserList", method = RequestMethod.GET)
     @ApiResponses(value = {

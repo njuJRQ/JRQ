@@ -110,15 +110,16 @@ function getMyCourse(openid, courseId, then) {
     },
     method: 'GET',
     success: (res) => {
-      console.log(res)
+      /*console.log(res)*/
       that.data.course = res.data.course
       that.data.course.image = app.globalData.picUrl + that.data.course.image
       //判断是否购买了课程
-      if (!that.data.course.video == "") {
+      if (that.data.course.hasBought) {
         that.data.isOwnCourse = true
         that.data.course.video = app.globalData.picUrl + that.data.course.video
-      } else
+      } else {
         that.data.isOwnCourse = false
+      }
       that.setData(that.data)
       if (then) then()
     }

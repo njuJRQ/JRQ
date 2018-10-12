@@ -24,8 +24,10 @@
     <!--文章分享链接-->
     <view class='article-share row'>
       <view class='v-center' bindtap='onShare'>
+        <!--
         <image src='img/share.png' style='width: 20px; height: 20px;'></image>
         <text>分享到朋友圈</text>
+        -->
       </view>
       <text class='v-center'>{{item.date}}</text>
     </view>

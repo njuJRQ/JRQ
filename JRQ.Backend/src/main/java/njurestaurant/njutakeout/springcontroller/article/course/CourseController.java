@@ -232,7 +232,7 @@ public class CourseController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> getMyCourseList(@RequestParam(name="openid")String openid){
+    public ResponseEntity<Response> getMyCourseList(@RequestParam(name="openid")String openid) throws NotExistException {
         return new ResponseEntity<>(courseBlService.getMyCourseList(openid), HttpStatus.OK);
     }
 

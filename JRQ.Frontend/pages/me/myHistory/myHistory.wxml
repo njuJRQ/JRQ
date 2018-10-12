@@ -52,7 +52,7 @@
             <button class='v-center' bindtap='isMyInfoVisiableToggle'>隐藏联系方式</button>
           </view>
           <view wx:else>
-            <button class='v-center' bindtap='isMyInfoVisiableToggle'>查看联系方式</button>
+            <button class='v-center' bindtap='isMyInfoVisiableToggle'>查看联系方式({{cardLimits}})</button>
           </view>
         </view>
       </view>

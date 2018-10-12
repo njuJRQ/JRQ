@@ -31,8 +31,8 @@
     </view>
   </view>
   <modal id="modal" hidden="{{isHideModalput}}" title="请设置您的企业用户名和密码" confirm-text="认证" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
-    <input bindinput='updateUsername' type='text' placeholder="用户名" auto-focus/>
-    <input bindinput='updatePassword' type='number' placeholder="密码" auto-focus/>
+    <input bindinput='updateUsername' type='text' placeholder="用户名"/>
+    <input bindinput='updatePassword' type='text' placeholder="密码"/>
   </modal>
   <view class='notation'>
     <text>{{returnInfo}}</text>

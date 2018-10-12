@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    cardLimits: 0,
     myInfo: {
       username: 'USERNAME',
       medals: [
@@ -87,6 +88,7 @@ Page({
       api.getMyInfo.call(this, app.getOpenid()) //获取个人信息
       api.getMyHistoryAbstractList.call(this, app.getOpenid()) //获取个人历史文章列表信息
     }
+    api.getMyCardLimits.call(this, app.getOpenid())
   },
 
   //点击查看联系方式
@@ -94,13 +96,16 @@ Page({
     var that = this
     if (this.data.isGetOtherInfo) {
       if (!this.data.isAlreadyGetOtherInfo) {
+        //未获取他人详细信息
         api.getOtherInfo.call(this, app.getOpenid(), this.data.otherid, () => {
           that.setData({
             isMyInfoVisiable: !that.data.isMyInfoVisiable,
           })
+          api.getMyCardLimits.call(this, app.getOpenid())
         })
       }
     } else {
+      //获取自己信息
       api.getMyInfo.call(this, app.getOpenid(), () => {
         that.setData({
           isMyInfoVisiable: !that.data.isMyInfoVisiable,

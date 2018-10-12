@@ -19,7 +19,8 @@ Page({
       content: '这是一个很牛逼的项目', //项目详情
       money: 2333, //项目资金
       attachment: 'http://www.baidu.com/test.zip' //附件路径
-    }
+    },
+    isDownLoadAttachment: false
   },
 
   /**
@@ -28,15 +29,38 @@ Page({
   onLoad: function (options) {
     api.getProject.call(this, options.id)
   },
-  
+
   onDownload: function () {
+    var that = this
     if (this.data.project.attachment) {
-      api.downloadFile.call(this, this.data.project.attachment)
+      api.downloadFile.call(this, this.data.project.attachment, () => {
+        that.setData({
+          isDownLoadAttachment: true
+        })
+      })
+
     }
     else {
       wx.showModal({
         content: '该项目不存在附件',
         showCancel: false
+      })
+    }
+  },
+
+  onOpen: function () {
+    var that = this
+    console.log(that.data.savedFilePath)
+    if (/.*?(gif|png|jpg|jpeg)/.test(that.data.savedFilePath)) {
+      //图片
+      wx.previewImage({
+        urls: [that.data.savedFilePath],
+      })
+    }
+    else {
+      //文档
+      wx.openDocument({
+        filePath: that.data.savedFilePath
       })
     }
   }

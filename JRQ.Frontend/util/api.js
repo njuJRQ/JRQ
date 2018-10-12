@@ -110,9 +110,10 @@ function getMyCourse(openid, courseId, then) {
     },
     method: 'GET',
     success: (res) => {
-      /*console.log(res)*/
+      console.log(res)
       that.data.course = res.data.course
       that.data.course.image = app.globalData.picUrl + that.data.course.image
+      //判断是否购买了课程
       if (!that.data.course.video == "") {
         that.data.isOwnCourse = true
         that.data.course.video = app.globalData.picUrl + that.data.course.video
@@ -638,17 +639,23 @@ function getMyHistoryAbstractList(openid) {
   })
 }
 
-function downloadFile(filepath) {
+function downloadFile(filepath, then) {
   var that = this
   wx.downloadFile({
-    url: filepath,
+    url: app.globalData.picUrl + filepath,
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
       'content-type': 'application/x-www-form-urlencoded'
     },
     success: (res) => {
       wx.saveFile({
-        tempFilePath: res.tempFilePath
+        tempFilePath: res.tempFilePath,
+        success: (res) => {
+          that.setData({
+            savedFilePath: res.savedFilePath
+          })
+          if (then) then()
+        }
       })
     }
   })
@@ -813,6 +820,27 @@ function getMyEnterpriseAdmin(openid) {
   })
 }
 
+function getMyCardLimits (openid) {
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "getMyUser",
+    data: {
+      openid: openid
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      console.log(res)
+      that.setData({
+        cardLimits: res.data.user.cardLimit
+      })
+    }
+  })
+}
+
 module.exports = {
   getAbstractList: getAbstractList,
   getAbstractListByCondition: getAbstractListByCondition,
@@ -841,5 +869,6 @@ module.exports = {
   sendMyCard: sendMyCard,
   getMyCredit: getMyCredit,
   isEnterprise: isEnterprise,
-  getMyEnterpriseAdmin: getMyEnterpriseAdmin
+  getMyEnterpriseAdmin: getMyEnterpriseAdmin,
+  getMyCardLimits: getMyCardLimits
 }

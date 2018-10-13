@@ -151,12 +151,13 @@ public interface UserBlService {
 
 
 	/**
-	 * 用户登录小程序，若账号不存在则新建一个，否则不处理(User)
+	 * 用户登录小程序，若账号不存在则新建一个（初始用户名与头像都与微信一致），否则不处理(User)
 	 * @param openid 用户的微信openid
 	 * @param username 初始用户名
+	 * @param faceWxUrl 用户微信头像的URL
 	 * @return 用户个人信息
 	 */
-	UserResponse loginMyUser(String openid, String username) throws NotExistException;
+	UserResponse loginMyUser(String openid, String username, String faceWxUrl) throws NotExistException;
 
 	/**
 	 * 小程序前端获取openid和session

@@ -21,9 +21,13 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.http.*;
 import net.sf.json.JSONObject;
 
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 @Service
 public class UserBlServiceImpl implements UserBlService {
@@ -148,7 +152,7 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
-	public UserResponse loginMyUser(String openid, String username) throws NotExistException {
+	public UserResponse loginMyUser(String openid, String username, String faceWxUrl) throws NotExistException {
 		try {
 			User user = userDataService.getUserByOpenid(openid);
 			return new UserResponse(new UserItem(user, enterpriseDataService));
@@ -159,7 +163,30 @@ public class UserBlServiceImpl implements UserBlService {
 			if (!classifications.isEmpty()) {
 				defaultLabel = classifications.get(0).getUserLabel();
 			}
-			User user = new User(openid, username, "", new ArrayList<>(), "", "", "", "", "", "", "", 0, defaultLabel, initCardLimit, "common", true);
+
+			//设置初始头像为微信头像
+			String faceLocalUrl = "record/user/head/"+UUID.randomUUID();
+			try {
+				URL url = new URL(faceWxUrl);
+				DataInputStream dataInputStream = new DataInputStream(url.openStream());
+
+				FileOutputStream fileOutputStream = new FileOutputStream(new File(faceLocalUrl));
+				ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+				byte[] buffer = new byte[1024];
+				int length;
+
+				while ((length = dataInputStream.read(buffer)) > 0) {
+					output.write(buffer, 0, length);
+				}
+				fileOutputStream.write(output.toByteArray());
+				dataInputStream.close();
+				fileOutputStream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			User user = new User(openid, username, faceLocalUrl, new ArrayList<>(), "", "", "", "", "", "", "", 0, defaultLabel, initCardLimit, "common", true);
 			userDataService.addUser(user);
 			return new UserResponse(new UserItem(user, enterpriseDataService));
 		}
@@ -179,7 +206,7 @@ public class UserBlServiceImpl implements UserBlService {
 		RestTemplate client = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-		HttpEntity<String> entity = new HttpEntity<String>("", headers);
+		HttpEntity<String> entity = new HttpEntity<>("", headers);
 		ResponseEntity<String> response = client.exchange(wechatUrl + appId + "&secret=" + appSecret + "&js_code=" + jsCode + "&grant_type=authorization_code", HttpMethod.GET, entity, String.class);
 		if (response.getStatusCode() == HttpStatus.OK) {
 			System.out.println("jsCode = [" + jsCode + "]");

@@ -173,16 +173,17 @@ public class FeedController {
 
     @ApiOperation(value = "用户获取自己发布过的文章摘要", notes = "用户获取自己发布过的文章摘要")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "openid", value = "用户的微信openid", required = true, dataType = "String")
+            @ApiImplicitParam(name = "myOpenid", value = "用户的微信openid", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "otherOpenid", value = "要查看的人的微信openid", required = true, dataType = "String")
     })
-    @RequestMapping(value = "/getMyHistoryAbstractList", method = RequestMethod.GET)
+    @RequestMapping(value = "/getUserHistoryAbstractList", method = RequestMethod.GET)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> getMyHistoryAbstractList(@RequestParam(name="openid")String openid) throws NotExistException {
-        return new ResponseEntity<>(feedBlService.getMyHistoryAbstractList(openid), HttpStatus.OK);
+    public ResponseEntity<Response> getUserHistoryAbstractList(@RequestParam(name="myOpenid")String myOpenid,@RequestParam(name="otherOpenid")String otherOpenid) throws NotExistException {
+        return new ResponseEntity<>(feedBlService.getUserHistoryAbstractList(myOpenid,otherOpenid), HttpStatus.OK);
     }
 
     @ApiOperation(value = "用户更新自己发布的圈子文章信息", notes = "用户更新自己发布的圈子文章信息")

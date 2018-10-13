@@ -15,8 +15,7 @@ import njurestaurant.njutakeout.response.article.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ArticleBlServiceImpl implements ArticleBlService {
@@ -76,7 +75,7 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 	}
 
 	@Override
-	public AbstractListResponse getAbstractListBefore(String kind, String openid, String articleId) throws NotExistException {
+	public AbstractListResponse getAbstractListBefore(String kind, String openid, String articleId, String articleType) throws NotExistException {
 		List<AbstractItem> abstractItems = new ArrayList<>();
 		switch (kind) {
 			case "course":
@@ -100,12 +99,54 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 					abstractItems.add(new AbstractItem(project, hasLiked));
 				}
 				break;
-			case "feed":
-				List<Feed> feeds = feedDataService.getAllFeeds();
-				for (Feed feed:feeds) {
-					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, feed.getId());
-					User user = userDataService.getUserByOpenid(feed.getWriterOpenid());
-					abstractItems.add(new AbstractItem(feed, userDataService, hasLiked));
+			case "all":
+				long timeStamp = -1;
+				switch (articleType) {
+					case "course": timeStamp = courseDataService.getCourseById(articleId).getTimeStamp(); break;
+					case "document": timeStamp = documentDataService.getDocumentById(articleId).getTimeStamp(); break;
+					case "project": timeStamp = projectDataService.getProjectById(articleId).getTimeStamp(); break;
+					default: ;
+				}
+
+				List<Course> coursesPart = courseDataService.getMyCourseListBeforeTimeStamp(openid, timeStamp);
+				List<Object> articles = new ArrayList<>(coursesPart);
+				List<Long> articleTimeStamps = new ArrayList<>();
+				coursesPart.forEach(c->articleTimeStamps.add(c.getTimeStamp()));
+
+				List<Document> documentsPart = documentDataService.getMyDocumentListBeforeTimeStamp(openid, timeStamp);
+				articles.addAll(documentsPart);
+				documentsPart.forEach(d->articleTimeStamps.add(d.getTimeStamp()));
+
+				List<Project> projectsPart = projectDataService.getMyProjectListBeforeTimeStamp(openid, timeStamp);
+				articles.addAll(projectsPart);
+				projectsPart.forEach(p->articleTimeStamps.add(p.getTimeStamp()));
+
+				Map<Object, Integer> articleMap = new HashMap<>(); //文章->索引
+				for(int i=0;i<articles.size();i++){
+					articleMap.put(articles.get(i), i);
+				}
+				//按照相应的时间戳大小进行排序，从大到小
+				articles.sort(Comparator.comparingLong(a -> articleTimeStamps.get(articleMap.get(a))).reversed());
+
+				//将文章放入AbstractItems中
+				for(Object a:articles) {
+					boolean hasLiked = false;
+					switch (a.getClass().getName()) {
+						case "Course":
+							hasLiked = likeDataService.isLikeExistent(openid, "course", ((Course)a).getId());
+							abstractItems.add(new AbstractItem((Course) a, hasLiked));
+							break;
+						case "Document":
+							hasLiked = likeDataService.isLikeExistent(openid, "document", ((Document)a).getId());
+							abstractItems.add(new AbstractItem((Document) a, hasLiked));
+							break;
+						case "Project":
+							hasLiked = likeDataService.isLikeExistent(openid, "project", ((Project)a).getId());
+							abstractItems.add(new AbstractItem((Project) a, hasLiked));
+							break;
+						default:
+							throw new NotExistException("Article class", a.getClass().getName());
+					}
 				}
 				break;
 			default: ;

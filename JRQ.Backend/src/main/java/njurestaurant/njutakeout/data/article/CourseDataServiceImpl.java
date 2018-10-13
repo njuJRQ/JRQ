@@ -60,12 +60,17 @@ public class CourseDataServiceImpl implements CourseDataService {
 
 	@Override
 	public List<Course> getMyCourseListBefore(String openid, String id) throws NotExistException {
+		return getMyCourseListBeforeTimeStamp(openid,
+				id.equals("")?-1:getCourseById(id).getTimeStamp());
+	}
+
+	@Override
+	public List<Course> getMyCourseListBeforeTimeStamp(String openid, long timeStamp) throws NotExistException {
 		List<Course> courses = null;
-		if (id.equals("")) {
+		if (timeStamp<0) {
 			courses = courseDao.findTop10ByOrderByTimeStampDesc();
 		} else {
-			Course course = getCourseById(id);
-			courses = courseDao.findTop10ByTimeStampBeforeOrderByTimeStampDesc(course.getTimeStamp());
+			courses = courseDao.findTop10ByTimeStampBeforeOrderByTimeStampDesc(timeStamp);
 		}
 
 		if (!courses.isEmpty()) {

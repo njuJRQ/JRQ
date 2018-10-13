@@ -26,4 +26,12 @@ public interface DocumentDataService {
 	 * @return 文档列表
 	 */
 	public List<Document> getMyDocumentListBefore(String openid, String id) throws NotExistException;
+
+	/**
+	 * 用户获取特定时间戳前的10篇文档，从新到旧排序（不包括这篇文档）
+	 * @param openid 用户微信openid
+	 * @param timeStamp 特定时间戳
+	 * @return 文档列表
+	 */
+	public List<Document> getMyDocumentListBeforeTimeStamp(String openid, long timeStamp) throws NotExistException;
 }

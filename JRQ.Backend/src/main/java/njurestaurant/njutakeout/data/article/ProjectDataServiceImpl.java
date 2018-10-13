@@ -60,12 +60,17 @@ public class ProjectDataServiceImpl implements ProjectDataService {
 
 	@Override
 	public List<Project> getMyProjectListBefore(String openid, String id) throws NotExistException {
+		return getMyProjectListBeforeTimeStamp(openid,
+				id.equals("")?-1:getProjectById(id).getTimeStamp());
+	}
+
+	@Override
+	public List<Project> getMyProjectListBeforeTimeStamp(String openid, long timeStamp) throws NotExistException {
 		List<Project> projects = null;
-		if (id.equals("")) {
+		if (timeStamp<0) {
 			projects = projectDao.findTop10ByOrderByTimeStampDesc();
 		} else {
-			Project project = getProjectById(id);
-			projects = projectDao.findTop10ByTimeStampBeforeOrderByTimeStampDesc(project.getTimeStamp());
+			projects = projectDao.findTop10ByTimeStampBeforeOrderByTimeStampDesc(timeStamp);
 		}
 
 		if (!projects.isEmpty()) {

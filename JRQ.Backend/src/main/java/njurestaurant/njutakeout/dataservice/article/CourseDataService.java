@@ -26,4 +26,12 @@ public interface CourseDataService {
 	 * @return 课程列表
 	 */
 	List<Course> getMyCourseListBefore(String openid, String id) throws NotExistException;
+
+	/**
+	 * 用户获取特定时间戳前的10篇课程，从新到旧排序（不包括这篇课程）
+	 * @param openid 用户微信openid
+	 * @param timeStamp 特定时间戳
+	 * @return 课程列表
+	 */
+	List<Course> getMyCourseListBeforeTimeStamp(String openid, long timeStamp) throws NotExistException;
 }

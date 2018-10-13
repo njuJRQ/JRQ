@@ -60,12 +60,17 @@ public class DocumentDataServiceImpl implements DocumentDataService {
 
 	@Override
 	public List<Document> getMyDocumentListBefore(String openid, String id) throws NotExistException {
+		return getMyDocumentListBeforeTimeStamp(openid,
+				id.equals("")?-1:getDocumentById(id).getTimeStamp());
+	}
+
+	@Override
+	public List<Document> getMyDocumentListBeforeTimeStamp(String openid, long timeStamp) throws NotExistException {
 		List<Document> documents = null;
-		if (id.equals("")) {
+		if (timeStamp<0) {
 			documents = documentDao.findTop10ByOrderByTimeStampDesc();
 		} else {
-			Document document = getDocumentById(id);
-			documents = documentDao.findTop10ByTimeStampBeforeOrderByTimeStampDesc(document.getTimeStamp());
+			documents = documentDao.findTop10ByTimeStampBeforeOrderByTimeStampDesc(timeStamp);
 		}
 
 		if (!documents.isEmpty()) {

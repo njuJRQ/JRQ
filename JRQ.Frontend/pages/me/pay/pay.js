@@ -48,21 +48,28 @@ Page({
       },
       success: (res) => {
         if (res.statusCode == 200) {
-          var requestPaymentParams = res.data.wxBuyCredit
-          console.log(requestPaymentParams)
-          wx.requestPayment({
-            timeStamp: requestPaymentParams.timeStamp,
-            nonceStr: requestPaymentParams.nonceStr,
-            package: requestPaymentParams.packageContent,
-            signType: requestPaymentParams.signType,
-            paySign: requestPaymentParams.paySign,
-            success: (res) => {
-              wx.showToast({
-                title: '充值成功',
-                icon: 'success',
-                duration: 1000
+          wx.showModal({
+            title: '请在15分钟内支付完成',
+            content: '',
+            showCancel: false,
+            success: () => {
+              var requestPaymentParams = res.data.wxBuyCredit
+              console.log(requestPaymentParams)
+              wx.requestPayment({
+                timeStamp: requestPaymentParams.timeStamp,
+                nonceStr: requestPaymentParams.nonceStr,
+                package: requestPaymentParams.packageContent,
+                signType: requestPaymentParams.signType,
+                paySign: requestPaymentParams.paySign,
+                success: (res) => {
+                  wx.showToast({
+                    title: '充值成功',
+                    icon: 'success',
+                    duration: 1000
+                  })
+                  that.onLoad()
+                }
               })
-              that.onLoad()
             }
           })
         } else if (res.statusCode == 404) {

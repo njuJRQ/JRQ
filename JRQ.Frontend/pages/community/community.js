@@ -55,7 +55,9 @@ Page({
    */
   onShow: function (options) {
     //展示圈子文章
-    this.data.articles = []
+    this.setData({
+      articles: []
+    })
     api.getFeedList.call(this, app.getOpenid(), "")
   },
 

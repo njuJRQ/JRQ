@@ -7,6 +7,14 @@
   <template is='searchBar' data='{{placeholder: "搜索文章", searchCondition: searchCondition}}'></template>
   <!--Banner-->
   <view class='head'>
+    <view class='module column' bindtap='showAll'>
+      <view class='h-center'>
+        <image src='img/all.png'></image>
+      </view>
+      <view class='h-center'>
+        <text>全部</text>
+      </view>
+    </view>
     <view class='module column' bindtap='showCourses'>
       <view class='h-center'>
         <image src='img/course.png'></image>

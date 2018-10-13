@@ -11,7 +11,8 @@
     <view class='updateWrapper__capsule capsule'>
       <view class='capsule__left capsule__left--bg-red'>¥
         <big>{{price298}}</big> / 365天</view>
-      <view class='capsule__right capsule__right--bg-red' bindtap='updateTo298'>立即购买</view>
+      <view wx:if='{{!is298}}' class='capsule__right capsule__right--bg-red' bindtap='updateTo298'>立即购买</view>
+      <view wx:else class='capsule__right capsule__right--bg-gray'>已购买</view>
     </view>
   </view>
   <view class='updateWrapper'>
@@ -19,22 +20,23 @@
     <view class='updateWrapper__capsule capsule'>
       <view class='capsule__left capsule__left--bg-red'>¥
         <big>{{price998}}</big> / 365天</view>
-      <view class='capsule__right capsule__right--bg-red' bindtap='updateTo998'>立即购买</view>
+      <view wx:if='{{!is998}}' class='capsule__right capsule__right--bg-red' bindtap='updateTo998'>立即购买</view>
+      <view wx:else class='capsule__right capsule__right--bg-gray'>已购买</view>
     </view>
   </view>
   <view class='updateWrapper'>
     <image class='updateWrapper__image' src='img/enterprise.png'></image>
     <view class='updateWrapper__capsule capsule'>
-      <view class='capsule__left capsule__left--bg-red'>¥
-        <big>{{priceEnterprise}}</big> / 365天</view>
-      <view class='capsule__right capsule__right--bg-red' bindtap='updateToEnterprise'>立即认证</view>
+      <view class='capsule__left capsule__left--bg-red'>¥<big>{{priceEnterprise}}</big> / 365天</view>
+      <view wx:if='{{!isEnterprise}}' class='capsule__right capsule__right--bg-red' bindtap='updateToEnterprise'>立即认证</view>
+      <view wx:else class='capsule__right capsule__right--bg-gray'>已认证</view>
     </view>
   </view>
-  <modal id="modal" hidden="{{isHideModalput}}" title="请设置您的企业用户名和密码" confirm-text="认证" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
+  <modal class="modal" hidden="{{isHideModalput}}" title="请设置您的企业用户名和密码" confirm-text="认证" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
     <input bindinput='updateUsername' type='text' placeholder="用户名"/>
     <input bindinput='updatePassword' type='text' placeholder="密码"/>
+    <view class='modal__notation' wx:if='{{isAdminUsernameExistent}}'>
+      <text class='modal__notation--color-red'>用户名已存在</text>
+    </view>
   </modal>
-  <view class='notation'>
-    <text>{{returnInfo}}</text>
-  </view>
 </view>

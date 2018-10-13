@@ -1,16 +1,18 @@
 const app = getApp()
 var util = require('./util.js')
 
-function getAbstractList(kind, openid) {
+function getAbstractList(kind, openid, lastId, lastIdType) {
   var that = this
   wx.showLoading({
     title: '载入中',
   })
   wx.request({
-    url: app.globalData.backendUrl + "getAbstractList",
+    url: app.globalData.backendUrl + "getAbstractListBefore",
     data: {
       kind: kind,
-      openid: openid
+      openid: openid,
+      articleId: lastId,
+      articleType: lastIdType
     },
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
@@ -19,11 +21,23 @@ function getAbstractList(kind, openid) {
     method: 'GET',
     success: (res) => {
       wx.hideLoading()
-      /*console.log(res.data)*/
-      that.data.articles = res.data.abstractList
-      that.data.articles.forEach((article) => {
+      if (res.data.status == 500) {
+        wx.showToast({
+          title: '获取文章列表失败',
+          icon: 'none'
+        })
+        return
+      }
+      var articles = res.data.abstractList
+      if (articles.length <= 0) {
+        return
+      }
+      articles.forEach((article) => {
         article.images = article.images.map((image) => app.globalData.picUrl + image)
       })
+      that.data.articles = that.data.articles.concat(articles)
+      that.data.lastId = articles[articles.length - 1].id
+      that.data.lastIdType = articles[articles.length - 1].kind
       that.setData(that.data)
     }
   })
@@ -118,6 +132,9 @@ function getCourse(id) {
 
 function getMyCourse(openid, courseId, then) {
   var that = this
+  wx.showLoading({
+    title: '加载中',
+  })
   wx.request({
     url: app.globalData.backendUrl + "getMyCourse",
     data: {
@@ -130,6 +147,7 @@ function getMyCourse(openid, courseId, then) {
     },
     method: 'GET',
     success: (res) => {
+      wx.hideLoading()
       /*console.log(res)*/
       that.data.course = res.data.course
       that.data.course.image = app.globalData.picUrl + that.data.course.image
@@ -824,7 +842,10 @@ function getMyCredit(openid) {
     success: (res) => {
       /*console.log(res)*/
       that.setData({
-        price: res.data.user.credit
+        price: res.data.user.credit,
+        isEnterprise: res.data.user.isEnterprise,
+        is298: res.data.user.levelName === "298",
+        is998: res.data.user.levelName === "998"
       })
     }
   })
@@ -965,6 +986,54 @@ function isOtherCardAccessible (userOpenid, otherOpenid, reject) {
   })
 }
 
+function getMyCourseListBefore(openid, lastCourseId) {
+  var that = this
+  wx.showLoading({
+    title: '载入中',
+  })
+  wx.request({
+    url: app.globalData.backendUrl + "getMyCourseListBefore",
+    data: {
+      openid: openid,
+      id: lastCourseId
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      wx.hideLoading()
+      /*console.log(res.data)*/
+      res.data.courseList.forEach((article) => {
+        article.image = app.globalData.picUrl + article.image
+      })
+      that.data.articles = that.data.articles.concat(res.data.courseList)
+      var articles = that.data.articles
+      that.data.lastId = articles[articles.length - 1].id
+      that.setData(that.data)
+    }
+  })
+}
+
+function isAdminUsernameExistent (username, then) {
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "isAdminUsernameExistent",
+    data: {
+      username: username
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      then(res.data.ok)
+    }
+  })
+}
+
 module.exports = {
   getAbstractList: getAbstractList,
   getAbstractListByCondition: getAbstractListByCondition,
@@ -997,5 +1066,7 @@ module.exports = {
   getMyCardLimits: getMyCardLimits,
   getLevelList: getLevelList,
   getPrivilegeList: getPrivilegeList,
-  isOtherCardAccessible: isOtherCardAccessible
+  isOtherCardAccessible: isOtherCardAccessible,
+  getMyCourseListBefore: getMyCourseListBefore,
+  isAdminUsernameExistent: isAdminUsernameExistent
 }

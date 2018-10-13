@@ -15,7 +15,9 @@ Page({
     priceEnterprise: '免费',
     isHideModalput: true,
     username: '',
-    password: ''
+    password: '',
+    isAdminUsernameExistent: false,
+    isEnterprise: false
   },
 
   /**
@@ -80,6 +82,12 @@ Page({
     
   updateUsername: function (e) {
     this.data.username = e.detail.value;
+    var that = this
+    api.isAdminUsernameExistent.call(this, this.data.username, (isAdminUsernameExistent) => {
+      that.setData({
+        isAdminUsernameExistent: isAdminUsernameExistent
+      })
+    })
   },
 
   updatePassword: function (e) {

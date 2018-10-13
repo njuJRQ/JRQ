@@ -50,15 +50,19 @@ Page({
       link: 'https://www.baidu.com'
     },
     currentKind: null,
-    searchCondition: null
+    searchCondition: null,
+    lastId: "",
+    lastIdType: ""
   },
 
   //事件处理函数
   onLoad: function () {
     this.setData({
       currentKind: 'course',
-      searchCondition: null
+      searchCondition: null,
+      articles: []
     })
+    this.showAll()
   },
 
   //onShow函数
@@ -67,7 +71,7 @@ Page({
       searchCondition: null
     })
     api.getAd.call(this, 'index') //展示广告
-    api.getAbstractList.call(this, this.data.currentKind, app.getOpenid()) //展示课程类文章
+    //this.showAll()
   },
 
   //点击广告跳转
@@ -77,31 +81,52 @@ Page({
     })
   },
 
+  showAll: function () {
+    this.setData({
+      currentKind: 'all',
+      searchCondition: null,
+      articles: [],
+      lastId: "",
+      lastIdType: ""
+    })
+    api.getAbstractList.call(this, 'all', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+  },
+
   //展示课程
   showCourses: function () {
     this.setData({
       currentKind: 'course',
-      searchCondition: null
+      searchCondition: null,
+      articles: [],
+      lastId: "",
+      lastIdType: ""
     })
-    api.getAbstractList.call(this, 'course', app.getOpenid())
+    api.getAbstractList.call(this, 'course', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+    //api.getMyCourseListBefore.call(this, app.getOpenid(), this.data.lastId)
   },
 
   //展示文档
   showDocuments: function () {
     this.setData({
       currentKind: 'document',
-      searchCondition: null
+      searchCondition: null, 
+      articles: [],
+      lastId: "",
+      lastIdType: ""
     })
-    api.getAbstractList.call(this, 'document', app.getOpenid())
+    api.getAbstractList.call(this, 'document', app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
 
   //展示项目
   showProjects: function () {
     this.setData({
       currentKind: 'project',
-      searchCondition: null
+      searchCondition: null,
+      articles: [],
+      lastId: "",
+      lastIdType: ""
     })
-    api.getAbstractList.call(this, 'project', app.getOpenid())
+    api.getAbstractList.call(this, 'project', app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
 
   //展示文章详情
@@ -143,5 +168,17 @@ Page({
   onSearch: function () {
     console.log('search article: ' + this.data.searchCondition)
     api.getAbstractListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
-  }
+  },
+
+  onReachBottom: function () {
+    api.getAbstractList.call(this, this.data.currentKind, app.getOpenid(), this.data.lastId, this.data.lastIdType)
+    /*
+    switch (this.data.currentKind) {
+      case 'all': break;
+      case 'course': api.getMyCourseListBefore.call(this, app.getOpenid(), this.data.lastId); break;
+      case 'document': break;
+      case 'project': break;
+      default: break;
+    }*/
+  },
 })

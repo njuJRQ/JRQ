@@ -76,29 +76,18 @@ big {
   font-size: 0.8rem;
   background-color: #D62F36;
 }
-
-
-
-.btn-298,
-.btn-998,
-.btn-enter{
-    width: 690rpx;
-    height: 80rpx;
-    line-height: 80rpx;
-    text-align: center;
-    margin-top:30rpx; 
-    border-radius: 6rpx;
-    box-sizing: border-box;
+.capsule__right--bg-gray {
+  color: #FFF;
+  font-size: 0.8rem;
+  background-color: gray;
 }
-.btn-298 {
-  background-color: #9DD3FA;
-  color: #000;
+.modal {
+  height: 100px;
 }
-.btn-998 {
-  background-color: #1F6FB5;
-  color: white;
+.modal__notation {
+  text-align: center;
 }
-.btn-enter {
-  background-color: #FCD692;
-  color: #000;
+.modal__notation--color-red {
+  font-size: 0.6rem;
+  color: red;
 }

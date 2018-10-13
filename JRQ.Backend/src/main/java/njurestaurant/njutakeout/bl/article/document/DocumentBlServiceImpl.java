@@ -81,4 +81,38 @@ public class DocumentBlServiceImpl implements DocumentBlService {
 		}
 		return new DocumentListResponse(documentItems);
 	}
+
+	@Override
+	public DocumentListResponse getMyDocumentListBefore(String openid, String id) throws NotExistException {
+		List<Document> documents = null;
+		if (id.equals("")) {
+			documents = documentDataService.getTop10ByOrderByTimeStampDesc();
+		} else {
+			Document document = documentDataService.getDocumentById(id);
+			documents = documentDataService.getTop10ByTimeStampBeforeOrderByTimeStampDesc(document.getTimeStamp());
+		}
+
+		if (!documents.isEmpty()) {
+			List<Document> sameStampDocuments = documentDataService.getDocumentsByTimeStamp(documents.get(documents.size()-1).getTimeStamp());
+			for(Document ssd:sameStampDocuments) {
+				boolean flag = false; //标记ssd是否在documents中
+				for(Document d:documents){
+					if(ssd.getId().equals(d.getId())){
+						flag = true;
+						break;
+					}
+				}
+				if(!flag){ //ssd不在documents里面，加入进去
+					documents.add(ssd);
+				}
+			}
+		}
+
+		List<DocumentItem> documentItems = new ArrayList<>();
+		for(Document document:documents){
+			boolean hasLiked = likeDataService.isLikeExistent(openid, "document", document.getId());
+			documentItems.add(new DocumentItem(document, hasLiked));
+		}
+		return new DocumentListResponse(documentItems);
+	}
 }

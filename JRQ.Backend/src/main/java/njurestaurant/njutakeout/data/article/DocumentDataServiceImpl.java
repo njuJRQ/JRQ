@@ -57,4 +57,19 @@ public class DocumentDataServiceImpl implements DocumentDataService {
 			throw new NotExistException("Document ID", id);
 		}
 	}
+
+	@Override
+	public List<Document> getDocumentsByTimeStamp(long timeStamp) {
+		return documentDao.findDocumentsByTimeStamp(timeStamp);
+	}
+
+	@Override
+	public List<Document> getTop10ByOrderByTimeStampDesc() {
+		return documentDao.findTop10ByOrderByTimeStampDesc();
+	}
+
+	@Override
+	public List<Document> getTop10ByTimeStampBeforeOrderByTimeStampDesc(long timeStamp) {
+		return documentDao.findTop10ByTimeStampBeforeOrderByTimeStampDesc(timeStamp);
+	}
 }

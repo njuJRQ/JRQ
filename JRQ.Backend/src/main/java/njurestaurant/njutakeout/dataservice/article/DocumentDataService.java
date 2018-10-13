@@ -18,4 +18,10 @@ public interface DocumentDataService {
 	List<Document> getAllDocuments();
 
 	void deleteDocumentById(String id) throws NotExistException;
+
+	List<Document> getDocumentsByTimeStamp(long timeStamp);
+
+	List<Document> getTop10ByOrderByTimeStampDesc();
+
+	List<Document> getTop10ByTimeStampBeforeOrderByTimeStampDesc(long timeStamp);
 }

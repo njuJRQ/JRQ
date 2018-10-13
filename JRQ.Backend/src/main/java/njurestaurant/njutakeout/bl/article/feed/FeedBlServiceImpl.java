@@ -78,18 +78,14 @@ public class FeedBlServiceImpl implements FeedBlService {
 		}
 		friendOpenids.add(openid); //把自己的openid加上
 
+		List<Feed> feeds = null;
 		if (id.equals("")) {
-			List<Feed> feeds = feedDataService.getTop10ByWriterOpenidInOrderByTimeStampDesc(friendOpenids);
-			List<FeedViewItem> feedViewItems = new ArrayList<>();
-			for (Feed feed : feeds) {
-				boolean hasLiked = likeDataService.isLikeExistent(openid, "feed", feed.getId());
-				feedViewItems.add(new FeedViewItem(feed, userDataService, hasLiked));
-			}
-			return new FeedViewListResponse(feedViewItems);
+			feeds = feedDataService.getTop10ByWriterOpenidInOrderByTimeStampDesc(friendOpenids);
+		} else {
+			Feed feed = feedDataService.getFeedById(id);
+			feeds = feedDataService.getTop10ByWriterOpenidInAndTimeStampBeforeOrderByTimeStampDesc(friendOpenids, feed.getTimeStamp());
 		}
 
-		Feed feed = feedDataService.getFeedById(id);
-		List<Feed> feeds = feedDataService.getTop10ByWriterOpenidInAndTimeStampBeforeOrderByTimeStampDesc(friendOpenids, feed.getTimeStamp());
 		if (!feeds.isEmpty()) {
 			List<Feed> sameStampFeeds = feedDataService.getFeedsByWriterOpenidInAndTimeStamp(
 					friendOpenids, feeds.get(feeds.size()-1).getTimeStamp()); //与feeds中最早的Feed时间戳相同的文章
@@ -108,9 +104,9 @@ public class FeedBlServiceImpl implements FeedBlService {
 		}
 
 		List<FeedViewItem> feedViewItems = new ArrayList<>();
-		for(Feed f:feeds) {
+		for(Feed feed:feeds) {
 			boolean hasLiked = likeDataService.isLikeExistent(openid, "feed", feed.getId());
-			feedViewItems.add(new FeedViewItem(f, userDataService, hasLiked));
+			feedViewItems.add(new FeedViewItem(feed, userDataService, hasLiked));
 		}
 		return new FeedViewListResponse(feedViewItems);
 	}

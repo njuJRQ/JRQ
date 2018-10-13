@@ -18,4 +18,10 @@ public interface CourseDataService {
 	List<Course> getAllCourses();
 
 	void deleteCourseById(String id) throws NotExistException;
+
+	List<Course> getCoursesByTimeStamp(long timeStamp);
+
+	List<Course> getTop10ByOrderByTimeStampDesc();
+
+	List<Course> getTop10ByTimeStampBeforeOrderByTimeStampDesc(long timeStamp);
 }

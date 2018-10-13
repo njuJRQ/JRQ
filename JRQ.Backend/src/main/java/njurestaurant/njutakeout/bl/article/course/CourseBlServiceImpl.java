@@ -99,19 +99,59 @@ public class CourseBlServiceImpl implements CourseBlService {
 		List<Course> courses = courseDataService.getAllCourses();
 		List<CourseItem> courseItems = new ArrayList<>();
 		for (Course course:courses) {
-			boolean hasBought = purchaseCourseDataService.isPurchaseCourseExistent(
-					new PurchaseCourseKey(openid, course.getId())); //用户是否已购买
-			if (enterpriseDataService.isUserEnterprise(openid)) { //用户获取自己发布的课程
-				Enterprise enterprise = enterpriseDataService.getEnterpriseByOpenid(openid);
-				if (course.getWriterName().equals(
-						adminDataService.getAdminById(enterprise.getAdminId()).getUsername())) {
-					hasBought = true;
-				}
-			}
+			boolean hasBought = hasUserBoughtCourse(openid, course);
 			boolean hasLiked = likeDataService.isLikeExistent(openid, "course", course.getId());
 			CourseItem courseItem = new CourseItem(course, hasBought, hasLiked);
 			courseItems.add(courseItem);
 		}
 		return new CourseListResponse(courseItems);
+	}
+
+	@Override
+	public CourseListResponse getMyCourseListBefore(String openid, String id) throws NotExistException {
+		List<Course> courses = null;
+		if (id.equals("")) {
+			courses = courseDataService.getTop10ByOrderByTimeStampDesc();
+		} else {
+			Course course = courseDataService.getCourseById(id);
+			courses = courseDataService.getTop10ByTimeStampBeforeOrderByTimeStampDesc(course.getTimeStamp());
+		}
+
+		if (!courses.isEmpty()) {
+			List<Course> sameStampCourses = courseDataService.getCoursesByTimeStamp(courses.get(courses.size()-1).getTimeStamp());
+			for(Course ssc:sameStampCourses) {
+				boolean flag = false; //标记ssc是否在courses中
+				for(Course c:courses){
+					if(ssc.getId().equals(c.getId())){
+						flag = true;
+						break;
+					}
+				}
+				if(!flag){ //ssc不在courses里面，加入进去
+					courses.add(ssc);
+				}
+			}
+		}
+
+		List<CourseItem> courseItems = new ArrayList<>();
+		for(Course course:courses){
+			boolean hasBought = hasUserBoughtCourse(openid, course);
+			boolean hasLiked = likeDataService.isLikeExistent(openid, "course", course.getId());
+			courseItems.add(new CourseItem(course, hasBought, hasLiked));
+		}
+		return new CourseListResponse(courseItems);
+	}
+
+	private boolean hasUserBoughtCourse(String openid, Course course) throws NotExistException {
+		boolean hasBought = purchaseCourseDataService.isPurchaseCourseExistent(
+				new PurchaseCourseKey(openid, course.getId())); //用户是否已购买
+		if (enterpriseDataService.isUserEnterprise(openid)) { //用户获取自己发布的课程
+			Enterprise enterprise = enterpriseDataService.getEnterpriseByOpenid(openid);
+			if (course.getWriterName().equals(
+					adminDataService.getAdminById(enterprise.getAdminId()).getUsername())) {
+				hasBought = true;
+			}
+		}
+		return hasBought;
 	}
 }

@@ -57,4 +57,19 @@ public class CourseDataServiceImpl implements CourseDataService {
 			throw new NotExistException("Course ID", id);
 		}
 	}
+
+	@Override
+	public List<Course> getCoursesByTimeStamp(long timeStamp) {
+		return courseDao.findCoursesByTimeStamp(timeStamp);
+	}
+
+	@Override
+	public List<Course> getTop10ByOrderByTimeStampDesc() {
+		return courseDao.findTop10ByOrderByTimeStampDesc();
+	}
+
+	@Override
+	public List<Course> getTop10ByTimeStampBeforeOrderByTimeStampDesc(long timeStamp) {
+		return courseDao.findTop10ByTimeStampBeforeOrderByTimeStampDesc(timeStamp);
+	}
 }

@@ -53,7 +53,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载a
    */
-  onShow: function (options) {
+  onLoad: function (options) {
     //展示圈子文章
     this.setData({
       articles: []

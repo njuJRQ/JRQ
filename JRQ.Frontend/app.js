@@ -40,7 +40,7 @@ App({
                   showCancel: false
                 })
               } else {
-                console.log(res)
+                /*console.log(res)*/
                 var openid = res.data.openId;
                 wx.setStorageSync("openid", openid);
                 var sessionKey = res.data.sessionKey;
@@ -48,8 +48,9 @@ App({
                 //获取个人微信号信息
                 wx.getUserInfo({
                   success: function (data) {
-                    /*console.log('个人微信号信息', data)*/
+                    console.info('个人微信号信息', data)
                     wx.setStorageSync("wechatUsername", data.userInfo.nickName);
+                    wx.setStorageSync("wechatFaceUrl", data.userInfo.avatarUrl)
                     wx.request({
                       url: that.globalData.backendUrl + "loginMyUser",
                       header: {
@@ -57,7 +58,8 @@ App({
                       },
                       data: {
                         openid: openid,
-                        username: that.getWechatUsername()
+                        username: that.getWechatUsername(),
+                        faceUrl: wx.getStorageInfoSync("wechatFaceUrl")
                       },
                       method: 'GET',
                       success: (res) => {

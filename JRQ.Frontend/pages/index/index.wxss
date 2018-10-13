@@ -20,6 +20,9 @@
 .ad {
   margin: 0 0 10px 0;
 }
+.module:active {
+  background-color: #F0F0F0;
+}
 /*关于文章的属性*/
 .article-images > image {
   width: 100px;

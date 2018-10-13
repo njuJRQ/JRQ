@@ -33,7 +33,7 @@ public class DocumentController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> addDocument(@RequestParam(name="title")String title, @RequestParam(name="content")String content, @RequestParam(name="writerName")String writerName, @RequestParam(name="date")String date) {
-        return new ResponseEntity<>(documentBlService.addDocument(title,content,writerName,date,0), HttpStatus.OK);
+        return new ResponseEntity<>(documentBlService.addDocument(title,content,writerName,0), HttpStatus.OK);
     }
 
     @ApiOperation(value = "根据文档ID获取文档", notes = "根据文档ID获取文档")
@@ -77,7 +77,7 @@ public class DocumentController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> updateDocument(@RequestParam(name="id")String id,@RequestParam(name="title")String title, @RequestParam(name="content")String content, @RequestParam(name="writerName")String writerName, @RequestParam(name="date")String date, @RequestParam(name="likeNum")String likeNum) throws NotExistException {
-        return new ResponseEntity<>(documentBlService.updateDocument(id,title,content,writerName,date,Long.parseLong(likeNum)), HttpStatus.OK);
+        return new ResponseEntity<>(documentBlService.updateDocument(id,title,content,writerName,Long.parseLong(likeNum)), HttpStatus.OK);
     }
 
     @ApiOperation(value = "根据文档ID删除文档", notes = "根据文档ID删除文档")
@@ -122,5 +122,20 @@ public class DocumentController {
     @ResponseBody
     public ResponseEntity<Response> getMyDocumentList(@RequestParam(name="openid")String openid) {
         return new ResponseEntity<>(documentBlService.getMyDocumentList(openid), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "获取某一篇文档文章时间戳前的10篇文章", notes = "获取某一篇文档文章时间戳前的10篇文章")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "用户的openid", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "id", value = "用户的openid", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getMyDocumentListBefore", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getMyDocumentListBefore(@RequestParam(name="openid")String openid,@RequestParam(name="id")String id) throws NotExistException {
+        return new ResponseEntity<>(documentBlService.getMyDocumentListBefore(openid,id), HttpStatus.OK);
     }
 }

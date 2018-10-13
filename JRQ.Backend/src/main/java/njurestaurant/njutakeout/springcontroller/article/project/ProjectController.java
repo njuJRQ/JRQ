@@ -117,7 +117,7 @@ public class ProjectController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> addProject(@RequestParam(name="title")String title, @RequestParam(name="writerName")String writerName, @RequestParam(name="identity")String identity, @RequestParam(name="phone")String phone, @RequestParam(name="city")String city, @RequestParam(name="industry")String industry, @RequestParam(name="business")String business, @RequestParam(name="content")String content, @RequestParam(name="money")int money, @RequestParam(name="date")String date) {
-        ResponseEntity<Response> r = new ResponseEntity<>(projectBlService.addProject(title,writerName,identity,phone,city,industry,business,content,money,attachmentPath,date), HttpStatus.OK);
+        ResponseEntity<Response> r = new ResponseEntity<>(projectBlService.addProject(title,writerName,identity,phone,city,industry,business,content,money,attachmentPath), HttpStatus.OK);
         attachmentPath="";
         return r;
     }
@@ -168,7 +168,7 @@ public class ProjectController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> updateProject(@RequestParam(name="id")String id,@RequestParam(name="title")String title, @RequestParam(name="writerName")String writerName, @RequestParam(name="identity")String identity, @RequestParam(name="phone")String phone, @RequestParam(name="city")String city, @RequestParam(name="industry")String industry, @RequestParam(name="business")String business, @RequestParam(name="content")String content, @RequestParam(name="money")int money, @RequestParam(name="date")String date) throws NotExistException {
-        ResponseEntity<Response> r=new ResponseEntity<>(projectBlService.updateProject(id,title,writerName,identity,phone,city,industry,business,content,money,attachmentPath,date), HttpStatus.OK);
+        ResponseEntity<Response> r=new ResponseEntity<>(projectBlService.updateProject(id,title,writerName,identity,phone,city,industry,business,content,money,attachmentPath), HttpStatus.OK);
         attachmentPath="";
         return r;
     }
@@ -215,5 +215,20 @@ public class ProjectController {
     @ResponseBody
     public ResponseEntity<Response> getMyProjectList(@RequestParam(name="openid")String openid) throws NotExistException {
         return new ResponseEntity<>(projectBlService.getMyProjectList(openid), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "获取某一篇项目文章时间戳前的10篇文章", notes = "获取某一篇项目文章时间戳前的10篇文章")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "用户的openid", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "id", value = "项目文章ID", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getMyProjectListBefore", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getMyProjectListBefore(@RequestParam(name="openid")String openid,@RequestParam(name="id")String id) throws NotExistException {
+        return new ResponseEntity<>(projectBlService.getMyProjectListBefore(openid,id), HttpStatus.OK);
     }
 }

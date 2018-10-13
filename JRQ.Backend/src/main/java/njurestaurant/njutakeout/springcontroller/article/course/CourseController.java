@@ -187,7 +187,7 @@ public class CourseController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> addCourse(@RequestParam(name="title")String title, @RequestParam(name="writerName")String writerName, @RequestParam(name="date")String date, @RequestParam(name="price")int price) {
-        ResponseEntity<Response> r=new ResponseEntity<>(courseBlService.addCourse(title,courseImage,writerName,date,0,courseVideo,price), HttpStatus.OK);
+        ResponseEntity<Response> r=new ResponseEntity<>(courseBlService.addCourse(title,courseImage,writerName,0,courseVideo,price), HttpStatus.OK);
         courseImage="";
         courseVideo="";
         return r;
@@ -264,7 +264,7 @@ public class CourseController {
     @ResponseBody
     public ResponseEntity<Response> updateCourse(@RequestParam(name="id")String id, @RequestParam(name="title")String title, @RequestParam(name="writerName")String writerName, @RequestParam(name="date")String date, @RequestParam(name="likeNum")long likeNum, @RequestParam(name="price")int price) throws NotExistException {
 
-        ResponseEntity<Response> r= new ResponseEntity<>(courseBlService.updateCourse(id,title,courseImage,writerName,date,likeNum,courseVideo,price), HttpStatus.OK);
+        ResponseEntity<Response> r= new ResponseEntity<>(courseBlService.updateCourse(id,title,courseImage,writerName,likeNum,courseVideo,price), HttpStatus.OK);
         courseImage="";
         courseVideo="";
         return r;
@@ -283,6 +283,21 @@ public class CourseController {
     @ResponseBody
     public ResponseEntity<Response> deleteCourse(@RequestParam(name="id")String id) throws NotExistException {
         return new ResponseEntity<>(courseBlService.deleteCourse(id), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "获取某一篇课程文章时间戳前的10篇文章", notes = "获取某一篇课程文章时间戳前的10篇文章")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "课程ID", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "id", value = "课程ID", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getMyCourseListBefore", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getMyCourseListBefore(@RequestParam(name="openid")String openid,@RequestParam(name="id")String id) throws NotExistException {
+        return new ResponseEntity<>(courseBlService.getMyCourseListBefore(openid,id), HttpStatus.OK);
     }
 
 

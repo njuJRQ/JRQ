@@ -81,4 +81,21 @@ public class ArticleController {
     public ResponseEntity<Response> getAbstractListByCondition(@RequestParam(name="openid")String openid,@RequestParam(name="condition")String condition)  {
         return new ResponseEntity<>(articleBlService.getAbstractListByCondition(openid,condition), HttpStatus.OK);
     }
+
+    @ApiOperation(value = "获取摘要列表：仅包括首页不包括圈子，一次加载10条(User)", notes = "获取摘要列表：仅包括首页不包括圈子，一次加载10条(User)")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "kind", value = "文章类型", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "openid", value = "用户openid", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "articleId", value = "文章ID", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "articleType", value = "参数中文章ID的文章类型", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getAbstractListBefore", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getAbstractListBefore(@RequestParam(name="kind")String kind,@RequestParam(name="openid")String openid,@RequestParam(name="articleId")String articleId,@RequestParam(name="articleType")String articleType) throws NotExistException {
+        return new ResponseEntity<>(articleBlService.getAbstractListBefore(kind,openid,articleId,articleType), HttpStatus.OK);
+    }
 }

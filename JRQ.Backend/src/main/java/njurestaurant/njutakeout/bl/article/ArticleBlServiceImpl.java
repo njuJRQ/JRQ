@@ -131,21 +131,17 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 				//将文章放入AbstractItems中
 				for(Object a:articles) {
 					boolean hasLiked = false;
-					switch (a.getClass().getName()) {
-						case "Course":
-							hasLiked = likeDataService.isLikeExistent(openid, "course", ((Course)a).getId());
-							abstractItems.add(new AbstractItem((Course) a, hasLiked));
-							break;
-						case "Document":
-							hasLiked = likeDataService.isLikeExistent(openid, "document", ((Document)a).getId());
-							abstractItems.add(new AbstractItem((Document) a, hasLiked));
-							break;
-						case "Project":
-							hasLiked = likeDataService.isLikeExistent(openid, "project", ((Project)a).getId());
-							abstractItems.add(new AbstractItem((Project) a, hasLiked));
-							break;
-						default:
-							throw new NotExistException("Article class", a.getClass().getName());
+					if (a.getClass()==Course.class) {
+						hasLiked = likeDataService.isLikeExistent(openid, "course", ((Course)a).getId());
+						abstractItems.add(new AbstractItem((Course) a, hasLiked));
+					} else if (a.getClass()==Document.class) {
+						hasLiked = likeDataService.isLikeExistent(openid, "document", ((Document)a).getId());
+						abstractItems.add(new AbstractItem((Document) a, hasLiked));
+					} else if (a.getClass()==Project.class) {
+						hasLiked = likeDataService.isLikeExistent(openid, "project", ((Project)a).getId());
+						abstractItems.add(new AbstractItem((Project) a, hasLiked));
+					} else {
+						throw new NotExistException("Article class", a.getClass().getName());
 					}
 				}
 				break;

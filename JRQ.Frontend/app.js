@@ -59,7 +59,7 @@ App({
                       data: {
                         openid: openid,
                         username: that.getWechatUsername(),
-                        faceUrl: wx.getStorageInfoSync("wechatFaceUrl")
+                        faceWxUrl: wx.getStorageSync("wechatFaceUrl")
                       },
                       method: 'GET',
                       success: (res) => {

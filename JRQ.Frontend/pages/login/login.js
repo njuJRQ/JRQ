@@ -20,7 +20,7 @@ Page({
   bindGetUserInfo: function (e) {
     console.log(e)
     wx.setStorageSync("wechatUsername", e.detail.userInfo.nickName);
-    //app.globalData.wechatUsername = e.detail.userInfo.nickName
+    wx.setStorageSync("wechatFaceUrl", e.detail.userInfo.avatarUrl);
     wx.request({
       url: app.globalData.backendUrl + "loginMyUser",
       header: {
@@ -28,7 +28,8 @@ Page({
       },
       data: {
         openid: getApp().getOpenid(),
-        username: getApp().getWechatUsername()
+        username: getApp().getWechatUsername(),
+        faceWxUrl: wx.getStorageSync('wechatFaceUrl')
       },
       method: 'GET',
       success: (res) => {

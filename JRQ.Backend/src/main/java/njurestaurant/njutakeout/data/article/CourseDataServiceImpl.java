@@ -59,17 +59,30 @@ public class CourseDataServiceImpl implements CourseDataService {
 	}
 
 	@Override
-	public List<Course> getCoursesByTimeStamp(long timeStamp) {
-		return courseDao.findCoursesByTimeStamp(timeStamp);
-	}
+	public List<Course> getMyCourseListBefore(String openid, String id) throws NotExistException {
+		List<Course> courses = null;
+		if (id.equals("")) {
+			courses = courseDao.findTop10ByOrderByTimeStampDesc();
+		} else {
+			Course course = getCourseById(id);
+			courses = courseDao.findTop10ByTimeStampBeforeOrderByTimeStampDesc(course.getTimeStamp());
+		}
 
-	@Override
-	public List<Course> getTop10ByOrderByTimeStampDesc() {
-		return courseDao.findTop10ByOrderByTimeStampDesc();
-	}
-
-	@Override
-	public List<Course> getTop10ByTimeStampBeforeOrderByTimeStampDesc(long timeStamp) {
-		return courseDao.findTop10ByTimeStampBeforeOrderByTimeStampDesc(timeStamp);
+		if (!courses.isEmpty()) {
+			List<Course> sameStampCourses = courseDao.findCoursesByTimeStamp(courses.get(courses.size()-1).getTimeStamp());
+			for(Course ssc:sameStampCourses) {
+				boolean flag = false; //标记ssc是否在courses中
+				for(Course c:courses){
+					if(ssc.getId().equals(c.getId())){
+						flag = true;
+						break;
+					}
+				}
+				if(!flag){ //ssc不在courses里面，加入进去
+					courses.add(ssc);
+				}
+			}
+		}
+		return courses;
 	}
 }

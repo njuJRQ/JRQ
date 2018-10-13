@@ -109,30 +109,7 @@ public class CourseBlServiceImpl implements CourseBlService {
 
 	@Override
 	public CourseListResponse getMyCourseListBefore(String openid, String id) throws NotExistException {
-		List<Course> courses = null;
-		if (id.equals("")) {
-			courses = courseDataService.getTop10ByOrderByTimeStampDesc();
-		} else {
-			Course course = courseDataService.getCourseById(id);
-			courses = courseDataService.getTop10ByTimeStampBeforeOrderByTimeStampDesc(course.getTimeStamp());
-		}
-
-		if (!courses.isEmpty()) {
-			List<Course> sameStampCourses = courseDataService.getCoursesByTimeStamp(courses.get(courses.size()-1).getTimeStamp());
-			for(Course ssc:sameStampCourses) {
-				boolean flag = false; //标记ssc是否在courses中
-				for(Course c:courses){
-					if(ssc.getId().equals(c.getId())){
-						flag = true;
-						break;
-					}
-				}
-				if(!flag){ //ssc不在courses里面，加入进去
-					courses.add(ssc);
-				}
-			}
-		}
-
+		List<Course> courses = courseDataService.getMyCourseListBefore(openid, id);
 		List<CourseItem> courseItems = new ArrayList<>();
 		for(Course course:courses){
 			boolean hasBought = hasUserBoughtCourse(openid, course);

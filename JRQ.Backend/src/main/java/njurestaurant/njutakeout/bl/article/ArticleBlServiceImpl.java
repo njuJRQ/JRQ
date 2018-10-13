@@ -80,7 +80,7 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 		List<AbstractItem> abstractItems = new ArrayList<>();
 		switch (kind) {
 			case "course":
-				List<Course> courses = courseDataService.getAllCourses();
+				List<Course> courses = courseDataService.getMyCourseListBefore(openid, articleId);
 				for (Course course:courses) {
 					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, course.getId());
 					abstractItems.add(new AbstractItem(course, hasLiked));

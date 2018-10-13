@@ -55,11 +55,12 @@ public interface FeedBlService {
 	FeedViewListResponse getFeedViewListBefore(String openid, String id) throws NotExistException;
 
 	/**
-	 * 用户获取自己发布过的文章摘要(User)
-	 * @param openid 用户的微信openid
+	 * 用户获取别人历史发布的文章摘要(User)
+	 * @param myOpenid 用户的微信openid
+	 * @param otherOpenid 要查看的人的微信openid
 	 * @return 文章摘要
 	 */
-	AbstractListResponse getMyHistoryAbstractList(String openid) throws NotExistException;
+	AbstractListResponse getUserHistoryAbstractList(String myOpenid, String otherOpenid) throws NotExistException;
 
 	/**
 	 * 用户更新自己发布的圈子文章信息(User)

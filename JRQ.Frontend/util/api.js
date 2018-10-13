@@ -45,6 +45,9 @@ function getAbstractList(kind, openid, lastId, lastIdType) {
 
 function getAbstractListByCondition(openid, condition) {
   var that = this
+  if (condition == "") {
+    condition = null
+  }
   wx.showLoading({
     title: '搜索中',
   })
@@ -148,7 +151,7 @@ function getMyCourse(openid, courseId, then) {
     method: 'GET',
     success: (res) => {
       wx.hideLoading()
-      /*console.log(res)*/
+      console.log('getMyCourse', res)
       that.data.course = res.data.course
       that.data.course.image = app.globalData.picUrl + that.data.course.image
       //判断是否购买了课程
@@ -289,7 +292,7 @@ function purchaseCourse(courseId, openid, price, date, then) {
           content: '购买课程成功',
           showCancel: false
         })
-        getMyCourse(app.getOpenid(), that.data.course.id, that, () => {
+        getMyCourse.call(that, app.getOpenid(), that.data.course.id, () => {
           that.data.isOwnCourse = true
           that.setData(that.data)
         })
@@ -616,6 +619,9 @@ function getPersonListByCondition(openid, condition) {
    * 搜索条件：condition
    */
   var that = this
+  if (condition == "") {
+    condition = null
+  }
   wx.showLoading({
     title: '搜索中',
   })
@@ -623,7 +629,7 @@ function getPersonListByCondition(openid, condition) {
     url: app.globalData.backendUrl + "getPersonListByCondition",
     data: {
       openid: openid,
-      condition: that.data.searchCondition
+      condition: condition
     },
     header: {
       'Authorization': 'Bearer ' + app.getToken(),

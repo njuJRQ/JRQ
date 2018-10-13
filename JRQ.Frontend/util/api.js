@@ -659,16 +659,17 @@ function getMyPersonList(openid, kind) {
   })
 }
 
-function getMyHistoryAbstractList(openid) {
+function getUserHistoryAbstractList(myOpenid, otherOpenid) {
   /**
-   * 方法：getMyHistoryAbstractList
+   * 方法：getUserHistoryAbstractList
    * 参数：用户openId：openId
    */
   var that = this
   wx.request({
-    url: app.globalData.backendUrl + "getMyHistoryAbstractList",
+    url: app.globalData.backendUrl + "getUserHistoryAbstractList",
     data: {
-      openid: openid
+      myOpenid: myOpenid,
+      otherOpenid: otherOpenid
     },
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
@@ -984,7 +985,7 @@ module.exports = {
   modifyMyInfo: modifyMyInfo,
   getPersonListByCondition: getPersonListByCondition,
   getMyPersonList: getMyPersonList,
-  getMyHistoryAbstractList: getMyHistoryAbstractList,
+  getUserHistoryAbstractList: getUserHistoryAbstractList,
   downloadFile: downloadFile,
   getClassificationList: getClassificationList,
   setMyUserAsEnterprise: setMyUserAsEnterprise,

@@ -81,12 +81,12 @@ Page({
       this.data.isAlreadyGetOtherInfo = false
       this.data.otherid = options.id
       api.getOtherBasicInfo.call(this, this.data.otherid) //获取除联系方式外的其他信息
-      api.getMyHistoryAbstractList.call(this, this.data.otherid) //获取文章历史记录
+      api.getUserHistoryAbstractList.call(this, app.getOpenid(), this.data.otherid) //获取文章历史记录
     } else {
       var that = this
       this.data.isGetOtherInfo = false
       api.getMyInfo.call(this, app.getOpenid()) //获取个人信息
-      api.getMyHistoryAbstractList.call(this, app.getOpenid()) //获取个人历史文章列表信息
+      api.getUserHistoryAbstractList.call(this, app.getOpenid(), app.getOpenid()) //获取个人历史文章列表信息
     }
     api.getMyCardLimits.call(this, app.getOpenid())
   },

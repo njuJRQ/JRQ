@@ -399,7 +399,8 @@ public class userController {
     @ApiOperation(value = "用户登录小程序", notes = "用户登录小程序")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "openid", value = "编号", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "username", value = "名称", required = true, dataType = "String")
+            @ApiImplicitParam(name = "username", value = "名称", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "faceWxUrl", value = "用户微信头像的URL", required = true, dataType = "String")
     })
     @RequestMapping(value = "/loginMyUser", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -407,8 +408,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> loginMyUser(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username) throws NotExistException {
-        return new ResponseEntity<>(userBlService.loginMyUser(openid,username), HttpStatus.OK);
+    public ResponseEntity<Response> loginMyUser(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username,@RequestParam(name="faceWxUrl")String faceWxUrl) throws NotExistException {
+        return new ResponseEntity<>(userBlService.loginMyUser(openid,username,faceWxUrl), HttpStatus.OK);
     }
 
     @ApiOperation(value = "用户获取自己的个人信息", notes = "用户获取自己的个人信息")

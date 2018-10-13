@@ -38,8 +38,8 @@ public class CourseBlServiceImpl implements CourseBlService {
 	}
 
 	@Override
-	public InfoResponse addCourse(String title, String image, String writerName, String date, long likeNum, String video, int price) {
-		courseDataService.addCourse(new Course(title, image, writerName, date, likeNum, video, price));
+	public InfoResponse addCourse(String title, String image, String writerName, long likeNum, String video, int price) {
+		courseDataService.addCourse(new Course(title, image, writerName, System.currentTimeMillis(), likeNum, video, price));
 		return new InfoResponse();
 	}
 
@@ -59,12 +59,12 @@ public class CourseBlServiceImpl implements CourseBlService {
 	}
 
 	@Override
-	public InfoResponse updateCourse(String id, String title, String image, String writerName, String date, long likeNum, String video, int price) throws NotExistException {
+	public InfoResponse updateCourse(String id, String title, String image, String writerName, long likeNum, String video, int price) throws NotExistException {
 		Course course = courseDataService.getCourseById(id);
 		course.setTitle(title);
 		course.setImage(image);
 		course.setWriterName(writerName);
-		course.setDate(date);
+		course.setTimeStamp(System.currentTimeMillis());
 		course.setLikeNum(likeNum);
 		course.setVideo(video);
 		course.setPrice(price);

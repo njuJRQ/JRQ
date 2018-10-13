@@ -12,13 +12,12 @@ public interface CourseBlService {
 	 * @param title 课程标题
 	 * @param image 图片路径
 	 * @param writerName 作者名字
-	 * @param date 发布日期
 	 * @param likeNum 点赞数
 	 * @param video 视频路径
 	 * @param price 课程价格
 	 * @return 是否成功添加
 	 */
-	InfoResponse addCourse(String title, String image, String writerName, String date, long likeNum, String video, int price);
+	InfoResponse addCourse(String title, String image, String writerName, long likeNum, String video, int price);
 
 	/**
 	 * 根据课程ID获取课程内容(Admin)
@@ -39,13 +38,12 @@ public interface CourseBlService {
 	 * @param title 课程标题
 	 * @param image 图片路径
 	 * @param writerName 作者名字
-	 * @param date 发布日期
 	 * @param likeNum 点赞数
 	 * @param video 视频路径
 	 * @param price 课程价格
 	 * @return 是否成功
 	 */
-	InfoResponse updateCourse(String id, String title, String image, String writerName, String date, long likeNum, String video, int price) throws NotExistException;
+	InfoResponse updateCourse(String id, String title, String image, String writerName, long likeNum, String video, int price) throws NotExistException;
 
 	/**
 	 * 根据课程ID删除课程(Admin)

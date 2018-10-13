@@ -3,6 +3,8 @@ package njurestaurant.njutakeout.entity.article;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 @Table
@@ -43,7 +45,7 @@ public class Project {
 	private String attachment; //附件路径
 
 	@Column
-	private String date; //发布日期
+	private long timeStamp; //最近一次更新的时间戳
 
 	@Column
 	private long likeNum; //点赞数
@@ -51,7 +53,7 @@ public class Project {
 	public Project(){
 	}
 
-	public Project(String title, String writerName, String identity, String phone, String city, String industry, String business, String content, int money, String attachment, String date, long likeNum) {
+	public Project(String title, String writerName, String identity, String phone, String city, String industry, String business, String content, int money, String attachment, long timeStamp, long likeNum) {
 		this.title = title;
 		this.writerName = writerName;
 		this.identity = identity;
@@ -62,7 +64,7 @@ public class Project {
 		this.content = content;
 		this.money = money;
 		this.attachment = attachment;
-		this.date = date;
+		this.timeStamp = timeStamp;
 		this.likeNum = likeNum;
 	}
 
@@ -155,11 +157,16 @@ public class Project {
 	}
 
 	public String getDate() {
-		return date;
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		return simpleDateFormat.format(new Date(timeStamp));
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public long getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(long timeStamp) {
+		this.timeStamp = timeStamp;
 	}
 
 	public long getLikeNum() {

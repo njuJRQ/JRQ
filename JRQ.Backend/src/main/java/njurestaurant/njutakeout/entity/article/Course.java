@@ -3,44 +3,46 @@ package njurestaurant.njutakeout.entity.article;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
-@Table(name = "course")
+@Table
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class Course {
 	@Id
 	@GeneratedValue(generator = "jpa-uuid")
 	private String id;
 
-	@Column(name = "title")
+	@Column
 	private String title;
 
-	@Column(name = "image")
+	@Column
 	private String image;
 
-	@Column(name = "writerName")
+	@Column
 	private String writerName;
 
-	@Column(name = "date")
-	private String date;
+	@Column
+	private long timeStamp; //最近一次更新的时间戳
 
-	@Column(name = "likeNum")
+	@Column
 	private long likeNum;
 
-	@Column(name = "video")
+	@Column
 	private String video;
 
-	@Column(name = "price")
+	@Column
 	private int price;
 
 	public Course(){
 	}
 
-	public Course(String title, String image, String writerName, String date, long likeNum, String video, int price) {
+	public Course(String title, String image, String writerName, long timeStamp, long likeNum, String video, int price) {
 		this.title = title;
 		this.image = image;
 		this.writerName = writerName;
-		this.date = date;
+		this.timeStamp = timeStamp;
 		this.likeNum = likeNum;
 		this.video = video;
 		this.price = price;
@@ -79,11 +81,8 @@ public class Course {
 	}
 
 	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		return simpleDateFormat.format(new Date(timeStamp));
 	}
 
 	public long getLikeNum() {
@@ -108,5 +107,13 @@ public class Course {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public long getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(long timeStamp) {
+		this.timeStamp = timeStamp;
 	}
 }

@@ -18,4 +18,12 @@ public interface ProjectDataService {
 	List<Project> getAllProjects();
 
 	void deleteProjectById(String id) throws NotExistException;
+
+	/**
+	 * 用户获取特定项目前的10篇项目，从新到旧排序（不包括这篇项目）
+	 * @param openid 用户微信openid
+	 * @param id 特定项目ID
+	 * @return 项目列表
+	 */
+	List<Project> getMyProjectListBefore(String openid, String id) throws NotExistException;
 }

@@ -87,4 +87,15 @@ public class ProjectBlServiceImpl implements ProjectBlService {
 		}
 		return new ProjectListResponse(projectItems);
 	}
+
+	@Override
+	public ProjectListResponse getMyProjectListBefore(String openid, String id) throws NotExistException {
+		List<Project> projects = projectDataService.getMyProjectListBefore(openid, id);
+		List<ProjectItem> projectItems = new ArrayList<>();
+		for(Project project:projects){
+			boolean hasLiked = likeDataService.isLikeExistent(openid, "project", project.getId());
+			projectItems.add(new ProjectItem(project, hasLiked));
+		}
+		return new ProjectListResponse(projectItems);
+	}
 }

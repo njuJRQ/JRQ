@@ -57,4 +57,32 @@ public class ProjectDataServiceImpl implements ProjectDataService {
 			throw new NotExistException("Project ID", id);
 		}
 	}
+
+	@Override
+	public List<Project> getMyProjectListBefore(String openid, String id) throws NotExistException {
+		List<Project> projects = null;
+		if (id.equals("")) {
+			projects = projectDao.findTop10ByOrderByTimeStampDesc();
+		} else {
+			Project project = getProjectById(id);
+			projects = projectDao.findTop10ByTimeStampBeforeOrderByTimeStampDesc(project.getTimeStamp());
+		}
+
+		if (!projects.isEmpty()) {
+			List<Project> sameStampProjects = projectDao.findProjectsByTimeStamp(projects.get(projects.size()-1).getTimeStamp());
+			for(Project ssp:sameStampProjects) {
+				boolean flag = false; //标记ssp是否在projects中
+				for(Project p:projects){
+					if(ssp.getId().equals(p.getId())){
+						flag = true;
+						break;
+					}
+				}
+				if(!flag){ //ssp不在projects里面，加入进去
+					projects.add(ssp);
+				}
+			}
+		}
+		return projects;
+	}
 }

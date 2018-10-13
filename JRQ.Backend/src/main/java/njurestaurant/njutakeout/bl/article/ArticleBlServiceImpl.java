@@ -94,7 +94,7 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 				}
 				break;
 			case "project":
-				List<Project> projects = projectDataService.getAllProjects();
+				List<Project> projects = projectDataService.getMyProjectListBefore(openid, articleId);
 				for (Project project:projects) {
 					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, project.getId());
 					abstractItems.add(new AbstractItem(project, hasLiked));

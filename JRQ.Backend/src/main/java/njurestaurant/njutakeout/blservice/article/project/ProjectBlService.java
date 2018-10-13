@@ -74,4 +74,13 @@ public interface ProjectBlService {
 	 * @return 项目详细信息的列表（包括是否点赞）
 	 */
 	ProjectListResponse getMyProjectList(String openid);
+
+	/**
+	 * 获取某一篇项目文章时间戳前的10篇文章
+	 * 文章列表按照新旧排序，最新的在最前面，最旧的在最后面，如果有时间戳完全相同的，则不管10篇的限制，全部加入列表中
+	 * @param openid 用户的微信openid
+	 * @param id 项目文章ID
+	 * @return 项目文章信息列表
+	 */
+	ProjectListResponse getMyProjectListBefore(String openid, String id) throws NotExistException;
 }

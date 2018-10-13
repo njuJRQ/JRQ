@@ -76,6 +76,44 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 	}
 
 	@Override
+	public AbstractListResponse getAbstractListBefore(String kind, String openid, String articleId) throws NotExistException {
+		List<AbstractItem> abstractItems = new ArrayList<>();
+		switch (kind) {
+			case "course":
+				List<Course> courses = courseDataService.getAllCourses();
+				for (Course course:courses) {
+					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, course.getId());
+					abstractItems.add(new AbstractItem(course, hasLiked));
+				}
+				break;
+			case "document":
+				List<Document> documents = documentDataService.getMyDocumentListBefore(openid, articleId);
+				for (Document document:documents) {
+					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, document.getId());
+					abstractItems.add(new AbstractItem(document, hasLiked));
+				}
+				break;
+			case "project":
+				List<Project> projects = projectDataService.getAllProjects();
+				for (Project project:projects) {
+					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, project.getId());
+					abstractItems.add(new AbstractItem(project, hasLiked));
+				}
+				break;
+			case "feed":
+				List<Feed> feeds = feedDataService.getAllFeeds();
+				for (Feed feed:feeds) {
+					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, feed.getId());
+					User user = userDataService.getUserByOpenid(feed.getWriterOpenid());
+					abstractItems.add(new AbstractItem(feed, userDataService, hasLiked));
+				}
+				break;
+			default: ;
+		}
+		return new AbstractListResponse(abstractItems);
+	}
+
+	@Override
 	public AbstractListResponse getAbstractListByCondition(String openid, String condition) {
 		List<AbstractItem> abstractItems = new ArrayList<>();
 		for (Course course:courseDataService.getAllCourses()) {

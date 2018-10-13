@@ -59,17 +59,30 @@ public class DocumentDataServiceImpl implements DocumentDataService {
 	}
 
 	@Override
-	public List<Document> getDocumentsByTimeStamp(long timeStamp) {
-		return documentDao.findDocumentsByTimeStamp(timeStamp);
-	}
+	public List<Document> getMyDocumentListBefore(String openid, String id) throws NotExistException {
+		List<Document> documents = null;
+		if (id.equals("")) {
+			documents = documentDao.findTop10ByOrderByTimeStampDesc();
+		} else {
+			Document document = getDocumentById(id);
+			documents = documentDao.findTop10ByTimeStampBeforeOrderByTimeStampDesc(document.getTimeStamp());
+		}
 
-	@Override
-	public List<Document> getTop10ByOrderByTimeStampDesc() {
-		return documentDao.findTop10ByOrderByTimeStampDesc();
-	}
-
-	@Override
-	public List<Document> getTop10ByTimeStampBeforeOrderByTimeStampDesc(long timeStamp) {
-		return documentDao.findTop10ByTimeStampBeforeOrderByTimeStampDesc(timeStamp);
+		if (!documents.isEmpty()) {
+			List<Document> sameStampDocuments = documentDao.findDocumentsByTimeStamp(documents.get(documents.size()-1).getTimeStamp());
+			for(Document ssd:sameStampDocuments) {
+				boolean flag = false; //标记ssd是否在documents中
+				for(Document d:documents){
+					if(ssd.getId().equals(d.getId())){
+						flag = true;
+						break;
+					}
+				}
+				if(!flag){ //ssd不在documents里面，加入进去
+					documents.add(ssd);
+				}
+			}
+		}
+		return documents;
 	}
 }

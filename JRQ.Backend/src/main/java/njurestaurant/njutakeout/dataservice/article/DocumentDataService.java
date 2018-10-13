@@ -19,9 +19,11 @@ public interface DocumentDataService {
 
 	void deleteDocumentById(String id) throws NotExistException;
 
-	List<Document> getDocumentsByTimeStamp(long timeStamp);
-
-	List<Document> getTop10ByOrderByTimeStampDesc();
-
-	List<Document> getTop10ByTimeStampBeforeOrderByTimeStampDesc(long timeStamp);
+	/**
+	 * 用户获取特定文档前的10篇文档，从新到旧排序（不包括这篇文档）
+	 * @param openid 用户微信openid
+	 * @param id 特定文档ID
+	 * @return 文档列表
+	 */
+	public List<Document> getMyDocumentListBefore(String openid, String id) throws NotExistException;
 }

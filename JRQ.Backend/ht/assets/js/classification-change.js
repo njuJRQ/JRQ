@@ -13,7 +13,7 @@ $.ajax(
 
             document.getElementById("userLabel").value=data.classification.userLabel;
             if(data.classification.workClass=="capital"){
-                document.getElementById("workClass").value="金融类";
+                document.getElementById("workClass").value="资金类";
             }
             else if(data.classification.workClass=="stock"){
                 document.getElementById("workClass").value="股票类";
@@ -33,7 +33,7 @@ document.getElementById("ad").onclick=function() {
     var obj1= document.getElementById("workClass"); //定位id
     var index1 = obj1.selectedIndex; // 选中索引
     var workClass = obj1.options[index1].text; // 选中文本
-    if(workClass=="金融类"){
+    if(workClass=="资金类"){
         workClass="capital";
     }
     else if(workClass=="股票类"){

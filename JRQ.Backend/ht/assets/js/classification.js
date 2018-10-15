@@ -22,7 +22,7 @@ $.ajax(
         success: function (data) {
             for(var i=0;i<data.classifications.length;i++){
                 if(data.classifications[i].workClass=="capital"){
-                    data.classifications[i].workClass="金融类";
+                    data.classifications[i].workClass="资金类";
                 }
                 else if(data.classifications[i].workClass=="stock"){
                     data.classifications[i].workClass="股票类";

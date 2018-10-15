@@ -132,7 +132,7 @@ Page({
     }
   },
 
-  sendMyCard: function () {
+  onSendMyCard: function () {
     if (this.data.isGetOtherInfo) {
       api.sendMyCard.call(this, app.getOpenid(), this.data.otherid)
     } else {

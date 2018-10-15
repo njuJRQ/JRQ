@@ -60,7 +60,7 @@
   </view>
   <view style='width:100%; padding: 10px'>
     <view class='send-my-card'>
-      <button bindtap='sendMyCard'>递给他名片</button>
+      <button bindtap='onSendMyCard'>递给他名片</button>
     </view>
   </view>
   <view style='width:100%;'>

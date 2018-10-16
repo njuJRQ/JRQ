@@ -51,7 +51,5 @@ page {
 .publisher-button button {
   width: 90%;
   height: 40px;
-  background-color: #293A70;
-  color: white;
   font-size: 1rem;
 }

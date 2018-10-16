@@ -1,7 +1,7 @@
 <!--pages/myCardHolder/myCardHolder.wxml-->
 <import src='/template/searchBar/searchBar.wxml'/>
 
-<view class='container'>
+<view class='container container--color-gray'>
   <!--搜索框-->
   <template is='searchBar' data='{{placeholder: "搜索姓名、公司名称", searchCondition: searchCondition}}'></template>
   <view class='navbar row'>

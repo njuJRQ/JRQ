@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 9,
 			"list": [
 				{
 					"id": 0,
@@ -62,7 +62,37 @@
 				{
 					"id": -1,
 					"name": "myCardHolder",
-					"pathName": "pages/me/myCardHolder/myCardHolder"
+					"pathName": "pages/me/myCardHolder/myCardHolder",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "me",
+					"pathName": "pages/me/me",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "createPost",
+					"pathName": "pages/me/createPost/createPost",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "login",
+					"pathName": "pages/login/login",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "myHistory",
+					"pathName": "pages/me/myHistory/myHistory",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "myEnterprise",
+					"pathName": "pages/me/myEnterprise/myEnterprise"
 				}
 			]
 		}

@@ -2,7 +2,7 @@
 <import src='/template/searchBar/searchBar.wxml' />
 <import src='/template/adBar/adBar.wxml' />
 
-<view class="container">
+<view class="container container--color-white">
   <!--搜索框-->
   <template is='searchBar' data='{{placeholder: "搜索文章", searchCondition: searchCondition}}'></template>
   <!--Banner-->

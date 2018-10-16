@@ -1,1 +1,27 @@
 /* pages/me/myEnterprise.wxss */
+@import '/style/common.wxss';
+
+.container {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  justify-content: left;
+}
+
+.wrapper {
+  width: 100%;
+  margin: 10px 0 0 0;
+  padding: 15px;
+  background-color: #FFF;
+}
+
+.wrapper__key {
+  display: inline-block;
+  width: 100px;
+  color: #000;
+}
+
+.button {
+  width: 90%;
+  margin: 20px 0 0 0;
+}

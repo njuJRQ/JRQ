@@ -89,7 +89,8 @@ Page({
         /* 更新labelIndex */
         const label = that.data.myInfo.label
         const labelArray = that.data.labelArray
-        const index = labelArray.findIndex((l) => l == label)
+        var index = labelArray.findIndex((l) => l == label)
+        if (index === -1) index = 0
         that.data.labelIndex = index
         /* 复制myInfo到newMyInfo中 */
         that.data.newMyInfo = that.data.myInfo

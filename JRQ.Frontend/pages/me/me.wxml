@@ -1,43 +1,49 @@
 <!--pages/me/me.wxml-->
-<view class='container column'>
-  <view class='head column v-center'>
-    <view class='publisher column'>
-      <view class='publisher-text row' bindtap='onPublish'>
-        <view class='publisher-input v-center'>
-          <text>发布业务合作、商业资讯或日常信息...</text>
-        </view>
-        <view class='publisher-image h-center v-center' bindtap='onUploadPhotos'>
-          <image src='img/camera.png'></image>
-        </view>
-      </view>
+<view class='container container--color-gray'>
+  <view class='header column v-center'>
+
+    <view class='publisher' bindtap='onPublish'>
+      <text class='publisher__text'>发布业务合作、商业资讯或日常信息...</text>
+      <image class='publisher__camera' src=' img/camera.png'></image>
     </view>
 
-    <view class='my-card column'>
-      <view class='row v-center'>
-        <view class='my-card-face'>
-          <image src='{{myInfo.face}}'></image>
-        </view>
-        <view class='my-card-info column'>
-          <view class='my-card-info-username row v-center'>
-            <text>{{myInfo.username}}</text>
-            <view wx:for='{{myInfo.medals}}' wx:key='*this'>
-              <image src='{{item}}'></image>
+    <navigator class='card' url='myHistory/myHistory' hover-class="none" open-type='navigate'>
+      <view class='card__main'>
+        <image class='card__face' src='{{myInfo.face}}'></image>
+        <view class='card__info'>
+          <view class='card__detail card__detail--wrapper'>
+            <text class='card__name'>{{myInfo.username}}</text>
+            <view class='card__medal' wx:for='{{myInfo.medals}}' wx:key='*this'>
+              <image class='card__medal' src='{{item}}'></image>
             </view>
           </view>
-          <text>手机号: {{myInfo.phone}}</text>
-          <text>Email: {{myInfo.email}}</text>
-          <text>任职公司: {{myInfo.company}}</text>
-          <text>部门: {{myInfo.department}}</text>
-          <text>职位: {{myInfo.position}}</text>
+          <text class='card__detail'>手机号: {{myInfo.phone}}</text>
+          <text class='card__detail'>Email: {{myInfo.email}}</text>
+          <text class='card__detail'>任职公司: {{myInfo.company}}</text>
+          <text class='card__detail'>部门: {{myInfo.department}}</text>
+          <text class='card__detail'>职位: {{myInfo.position}}</text>
         </view>
       </view>
       <view class='div-line'></view>
-      <view class='my-card-intro'>
+      <view class='card__intro'>
         <text>个人简介：{{myInfo.intro}}</text>
       </view>
+    </navigator>
+
+    <button class='jrq__button card__sendButton' bindtap='showModal'>分享我的名片</button>
+
+    <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+    <view animation="{{animationData}}" class="commodity_attr_box modal" wx:if="{{showModalStatus}}">
+      <button class='modal__button modal__left' open-type='share'>
+        <image class='modal__image' src='img/wechat.png'></image>
+        <text class='modal__text'>分享给好友</text>
+      </button>
+      <button class='modal__button modal__right' bindtap='drawPost'>
+        <image class='modal__image' src='img/post.png'></image>
+        <text class='modal__text'>生成海报</text>
+      </button>
     </view>
 
-    <button class='my-card-send' open-type='share'>分享我的名片</button>
     <!--
     <view class='icons'>
       <view class='module column' bindtap='showCourses'>
@@ -66,87 +72,43 @@
       </view>
     </view>
     -->
+
   </view>
-  <view style='width:100%; margin: 10rpx 0 0 0;'>
-    <view class='more'>
-      
-      <view class='more-item v-center'>
-        <navigator class='row' url='modifyMyCard/modifyMyCard' hover-class="none" open-type='navigate'>
-          <text>我的基本信息</text>
-          <view class='v-center'>
-            <view class='arrow'></view>
-          </view>
-        </navigator>
-      </view>
+
+  <!--选项面板-->
+  <view class='panel'>
+    <view class='panel__more'>
+      <navigator class='navigator' url='modifyMyCard/modifyMyCard' hover-class="none" open-type='navigate'>
+        <text class='navigator__text'>我的基本信息</text>
+        <image class='navigator__arrow' src='img/arrow.png'></image>
+      </navigator>
       <view class='div-line'></view>
-
-      <view class='more-item v-center'>
-        <navigator class='row' url='myCardHolder/myCardHolder' hover-class="none" open-type='navigate'>
-          <text>我的名片夹</text>
-          <view class='v-center'>
-            <view class='arrow'></view>
-          </view>
-        </navigator>
-      </view>
-
+      <navigator class='navigator' url='myCardHolder/myCardHolder' hover-class="none" open-type='navigate'>
+        <text class='navigator__text'>我的名片夹</text>
+        <image class='navigator__arrow' src='img/arrow.png'></image>
+      </navigator>
       <view class='div-line'></view>
-
-      <view class='more-item v-center'>
-        <navigator class='row' url='myHistory/myHistory' hover-class="none" open-type='navigate'>
-          <text>我的发布</text>
-          <view class='v-center'>
-            <view class='arrow'></view>
-          </view>
-        </navigator>
-      </view>
-
-      <view wx:if='{{isEnterprise}}'>
-        <view class='div-line'></view>
-        <view class='more-item v-center'>
-          <navigator class='row' url='myEnterprise/myEnterprise' hover-class="none" open-type='navigate'>
-            <text>我的企业账户</text>
-            <view class='v-center'>
-              <view class='arrow'></view>
-            </view>
-          </navigator>
-        </view>
-      </view>
-
+      <navigator class='navigator' url='myHistory/myHistory' hover-class="none" open-type='navigate'>
+        <text class='navigator__text'>我的发布</text>
+        <image class='navigator__arrow' src='img/arrow.png'></image>
+      </navigator>
       <view class='div-line'></view>
-
-      <view class='more-item v-center'>
-        <navigator class='row' url='updateMe/updateMe' hover-class="none" open-type='navigate'>
-          <text>身份升级</text>
-          <view class='v-center'>
-            <view class='arrow'></view>
-          </view>
-        </navigator>
-      </view>
-
-
-
+      <navigator class='navigator' url='updateMe/updateMe' hover-class="none" open-type='navigate'>
+        <text class='navigator__text'>身份升级</text>
+        <image class='navigator__arrow' src='img/arrow.png'></image>
+      </navigator>
       <view class='div-line'></view>
-
-      <view class='more-item v-center'>
-        <navigator class='row' url='pay/pay' hover-class="none" open-type='navigate'>
-          <text>金额充值</text>
-          <view class='v-center'>
-            <view class='arrow'></view>
-          </view>
-        </navigator>
-      </view>
+      <navigator class='navigator' url='pay/pay' hover-class="none" open-type='navigate'>
+        <text class='navigator__text'>金额充值</text>
+        <image class='navigator__arrow' src='img/arrow.png'></image>
+      </navigator>
     </view>
-    <!--
-    <view class='setting'>
-      <view class='more-item'>
-        <navigator class='row' url='' hover-class="none" open-type='navigate'>
-          <text>设置</text>
-          <view class='v-center'>
-            <view class='arrow'></view>
-          </view>
-        </navigator>
-      </view>
+
+    <view class='panel__setting' wx:if='{{isEnterprise}}'>
+      <navigator class='navigator' url='myEnterprise/myEnterprise' hover-class="none" open-type='navigate'>
+        <text class='navigator__text'>我的企业账户</text>
+        <image class='navigator__arrow' src='img/arrow.png'></image>
+      </navigator>
     </view>
-    -->
   </view>
 </view>

@@ -1,5 +1,5 @@
 <!--pages/me/publishMyArticle/publishMyArticle.wxml-->
-<view class='container'>
+<view class='container container--color-gray'>
   <view class='publisher'>
     <view class='publisher-input'>
       <textarea placeholder='关于所发内容的信息，如课程或项目描述、或文档下载地址。' bindinput='bindInputValue'></textarea>
@@ -26,7 +26,7 @@
       </view>
       -->
       <view class='publisher-button'>
-        <button class='v-center h-center' bindtap='onPublish'>发布圈子</button>
+        <button class='jrq__button v-center h-center' bindtap='onPublish'>发布圈子</button>
       </view>
     </view>
   </view>

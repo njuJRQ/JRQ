@@ -32,6 +32,9 @@
   width: 15px;
   height: 15px;
 }
+.my-card-intro {
+  font-size: 0.8rem;
+}
 .myInfoVisible-button {
   width: 100px;
   margin: 0;
@@ -42,12 +45,11 @@
 .my-contact {
   background-color: #F5F5F5;
   padding: 10px 0;
+  margin: 10px 0 0 0;
 }
 .my-contact button {
   height: 1.5rem;
   font-size: 0.5rem;
-  color: white;
-  background-color: #243264;
 }
 .my-contact-info text {
   font-size: 0.5rem;
@@ -59,8 +61,6 @@
 }
 .send-my-card button {
   font-size: 0.8rem;
-  background-color: #243264;
-  color: white;
 }
 /*关于历史发布的属性*/
 .blue-block {

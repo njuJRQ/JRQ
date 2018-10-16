@@ -1,7 +1,7 @@
 <!--pages/myHistory/myHistory.wxml-->
 <import src='/template/articleItem/articleItem.wxml' />
 
-<view class='container'>
+<view class='container container--color-white'>
   <view style='width: 100%;'>
     <view class='my-card column'>
       <view class='row v-center'>
@@ -22,7 +22,7 @@
       </view>
       <view class='div-line'></view>
       <view class='my-card-intro'>
-        <text style='font-size: 0.5rem;'>个人简介：{{myInfo.intro}} </text>
+        <text>个人简介：{{myInfo.intro}} </text>
       </view>
       <view class='my-contact row'>
         <view class='my-contact-info column' style='width: 70%;'>
@@ -49,10 +49,10 @@
         </view>
         <view class='v-center'>
           <view wx:if='{{isMyInfoVisiable}}'>
-            <button class='myInfoVisible-button v-center h-center' bindtap='isMyInfoVisiableToggle'>隐藏联系方式</button>
+            <button class='jrq__button myInfoVisible-button v-center h-center' bindtap='isMyInfoVisiableToggle'>隐藏联系方式</button>
           </view>
           <view wx:else>
-            <button class='myInfoVisible-button v-center h-center' bindtap='isMyInfoVisiableToggle'>查看联系方式({{cardLimits}})</button>
+            <button class='jrq__button myInfoVisible-button v-center h-center' bindtap='isMyInfoVisiableToggle'>查看联系方式({{cardLimits}})</button>
           </view>
         </view>
       </view>
@@ -60,7 +60,7 @@
   </view>
   <view style='width:100%; padding: 10px'>
     <view class='send-my-card'>
-      <button bindtap='onSendMyCard'>递给他名片</button>
+      <button class='jrq__button' bindtap='onSendMyCard'>递给他名片</button>
     </view>
   </view>
   <view style='width:100%;'>

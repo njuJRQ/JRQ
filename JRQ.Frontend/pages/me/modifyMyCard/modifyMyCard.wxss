@@ -15,13 +15,13 @@ page {
 .face-text {
   text-align: center;
   margin: 10px 0;
-  font-size: 0.6rem;
+  font-size: 0.8rem;
 }
 /*关于修改个人信息的属性*/
 .infos {
   background-color: white;
   padding: 10px;
-  font-size: 0.6rem;
+  font-size: 0.8rem;
 }
 .info {
   width: 100%;
@@ -32,15 +32,13 @@ page {
   color: black;
 }
 .info__value {
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 .info__textarea {
   min-height: 100px;
 }
 /*关于保存按钮的属性*/
 .save-btn {
-  background-color: #293A70;
   margin: 40px 0 200px 0;
   width: 90%;
-  color: white;
 }

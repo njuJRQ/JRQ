@@ -29,10 +29,10 @@
   <view class='courseButtons row'>
     <view class='download' style='width:100%'>
       <view wx:if='{{!isDownLoadAttachment}}'>
-        <button bindtap='onDownload' disabled='{{!project.attachment}}'>下载附件</button>
+        <button class='jrq__button' bindtap='onDownload' disabled='{{!project.attachment}}'>下载附件</button>
       </view>
       <view wx:else>
-        <button bindtap='onOpen'>打开附件</button>
+        <button class='jrq__button' bindtap='onOpen'>打开附件</button>
       </view>
     </view>
   </view>

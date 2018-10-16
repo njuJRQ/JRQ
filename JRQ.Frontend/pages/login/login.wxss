@@ -5,16 +5,16 @@ page {
   background-color: #F0F0F0;
 }
 
+.container {
+  width: 100%;
+  padding: 0 20px;
+}
+
 .info {
+  display: block;
   margin: 40px;
 }
 
 .login-btn {
-  width: 90%;
-}
-
-.login-btn > button {
-  background-color: #3283B0;
-  color: white;
   width: 100%;
 }

@@ -15,7 +15,8 @@
     "pages/login/login",
     "pages/me/updateMe/updateMe",
     "pages/me/pay/pay",
-    "pages/me/myEnterprise/myEnterprise"
+    "pages/me/myEnterprise/myEnterprise",
+    "pages/me/createPost/createPost"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -4,9 +4,9 @@ view {
 text {
   color: gray;
 }
-button {
-  background-color: rgb(0, 0, 120);
-  color: white;
+button.jrq__button {
+  background-color: #243264;
+  color: #FFF;
 }
 .dot {
   width: 3px;
@@ -22,9 +22,15 @@ button {
   margin: 5px 0;
 }
 .container {
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
   border: 0;
+}
+.container--color-gray {
+  background-color: #efefef;
+}
+.container--color-white {
+  background-color: #FFF;
 }
 .module {
   margin: 10px;

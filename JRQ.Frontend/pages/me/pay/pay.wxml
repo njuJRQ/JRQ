@@ -1,5 +1,5 @@
 <!--pages/me/pay/pay.wxml-->
-<view class='container'>
+<view class='container container--color-gray'>
   <!--金额充值-->
   <form bindsubmit="bindSave">
     <view class="form-box">

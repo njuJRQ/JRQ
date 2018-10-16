@@ -1,8 +1,8 @@
 <!--pages/modifyMyCard/modifyMyCard.wxml-->
-<view class='container'>
+<view class='container container--color-gray'>
   <view class='face h-center column' bindtap='updateFace'>
     <image src='{{myInfo.face}}'></image>
-    <text class='face-text'>更换头像</text>
+    <text class='face-text'>点击更换头像</text>
   </view>
   <view style='width: 100%;'>
     <view class='infos column'>
@@ -56,5 +56,5 @@
       </view>
     </view>
   </view>
-  <button class='save-btn' bindtap='onSave'>保存</button>
+  <button class='jrq__button save-btn' bindtap='onSave'>保存</button>
 </view>

@@ -34,7 +34,6 @@ Page({
       method: 'GET',
       success: (res) => {
         wx.setStorageSync("token", res.data.token);
-        //app.globalData.token = res.data.token
       }
     })
     wx.switchTab({

@@ -1,10 +1,18 @@
 <!--pages/me/myEnterprise.wxml-->
-<view>
-  <text>用户名：{{username}}</text>
-</view>
-<view>
-  <text>密码：{{password}}</text>
-</view>
-<view>
-  <text>认证日期：{{date}}</text>
+<view class='container container--color-gray'>
+  <view class='wrapper'>
+    <text class='wrapper__key'>用户名：</text>
+    <text class='wrapper__value'>{{username}}</text>
+  </view>
+  <view class='wrapper'>
+    <text class='wrapper__key'>密码：</text>
+    <text class='wrapper__value'>{{password}}</text>
+  </view>
+  <view class='wrapper'>
+    <text class='wrapper__key'>认证日期：</text>
+    <text class='wrapper__value'>{{date}}</text>
+  </view>
+  <navigator class='button' open-type='navigateBack'>
+    <button class='jrq__button'>返回</button>
+  </navigator>
 </view>

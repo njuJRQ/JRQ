@@ -45,15 +45,9 @@ Page({
     })
   },
 
-  //递名片
-  /*
-  onSendMe: function () {
-    wx.navigateTo({
-      url: 'myCardHolder/myCardHolder',
-    })
-  }
-  */
+  // 分享小程序
   onShareAppMessage: function () {
+    this.hideModal()
     var that = this;
     var userId = app.getOpenid();
     return {
@@ -63,5 +57,55 @@ Page({
         console.log("转发成功" + res);
       }
     }
+  },
+
+  drawPost: function () {
+    this.hideModal()
+    wx.navigateTo({
+      url: 'createPost/createPost',
+    })
+  },
+
+  // 显示遮罩层
+  showModal: function () {
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+      showModalStatus: true
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export()
+      })
+    }.bind(this), 200)
+  },
+
+  // 隐藏遮罩层
+  hideModal: function () {
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export(),
+        showModalStatus: false
+      })
+    }.bind(this), 200)
   }
+
 })

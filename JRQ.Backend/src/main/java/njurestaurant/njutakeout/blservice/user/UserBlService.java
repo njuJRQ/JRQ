@@ -155,9 +155,9 @@ public interface UserBlService {
 	 * @param openid 用户的微信openid
 	 * @param username 初始用户名
 	 * @param faceWxUrl 用户微信头像的URL
-	 * @return 用户个人信息
+	 * @return 用户个人信息与token
 	 */
-	UserResponse loginMyUser(String openid, String username, String faceWxUrl) throws NotExistException;
+	UserLoginResponse loginMyUser(String openid, String username, String faceWxUrl) throws NotExistException;
 
 	/**
 	 * 小程序前端获取openid和session

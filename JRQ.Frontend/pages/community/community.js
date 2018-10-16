@@ -61,6 +61,13 @@ Page({
     api.getFeedList.call(this, app.getOpenid(), "")
   },
 
+  onShow: function () {
+    this.setData({
+      articles: []
+    })
+    api.getFeedList.call(this, app.getOpenid(), "")
+  },
+
   onReachBottom: function () {
     api.getFeedList.call(this, app.getOpenid(), this.data.lastId)
   },

@@ -13,6 +13,9 @@ import njurestaurant.njutakeout.response.BoolResponse;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.account.OpenIdAndSessionKeyResponse;
 import njurestaurant.njutakeout.response.user.*;
+import njurestaurant.njutakeout.security.jwt.JwtService;
+import njurestaurant.njutakeout.security.jwt.JwtUser;
+import njurestaurant.njutakeout.security.jwt.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -22,7 +25,6 @@ import org.springframework.http.*;
 import net.sf.json.JSONObject;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,14 +38,18 @@ public class UserBlServiceImpl implements UserBlService {
 	private final LevelDataService levelDataService;
 	private final EnterpriseDataService enterpriseDataService;
 	private final SendCardDao sendCardDao;
+	private final JwtUserDetailsService jwtUserDetailsService;
+	private final JwtService jwtService;
 
 	@Autowired
-	public UserBlServiceImpl(UserDataService userDataService, ClassificationDataService classificationDataService, LevelDataService levelDataService, EnterpriseDataService enterpriseDataService, SendCardDao sendCardDao) {
+	public UserBlServiceImpl(UserDataService userDataService, ClassificationDataService classificationDataService, LevelDataService levelDataService, EnterpriseDataService enterpriseDataService, SendCardDao sendCardDao, JwtUserDetailsService jwtUserDetailsService, JwtService jwtService) {
 		this.userDataService = userDataService;
 		this.classificationDataService = classificationDataService;
 		this.levelDataService = levelDataService;
 		this.enterpriseDataService = enterpriseDataService;
 		this.sendCardDao = sendCardDao;
+		this.jwtUserDetailsService = jwtUserDetailsService;
+		this.jwtService = jwtService;
 	}
 
 	@Override
@@ -151,11 +157,13 @@ public class UserBlServiceImpl implements UserBlService {
 		return new InfoResponse();
 	}
 
+	private final static long EXPIRATION = 604800;
+
 	@Override
-	public UserResponse loginMyUser(String openid, String username, String faceWxUrl) throws NotExistException {
+	public UserLoginResponse loginMyUser(String openid, String username, String faceWxUrl) throws NotExistException {
+		User user = null;
 		try {
-			User user = userDataService.getUserByOpenid(openid);
-			return new UserResponse(new UserItem(user, enterpriseDataService));
+			user = userDataService.getUserByOpenid(openid);
 		} catch (NotExistException exception) {
 			int initCardLimit = levelDataService.getLevelByName("common").getCardLimit();
 			String defaultLabel = "";
@@ -186,10 +194,13 @@ public class UserBlServiceImpl implements UserBlService {
 				e.printStackTrace();
 			}
 
-			User user = new User(openid, username, faceLocalUrl, new ArrayList<>(), "", "", "", "", "", "", "", 0, defaultLabel, initCardLimit, "common", true);
+			user = new User(openid, username, faceLocalUrl, new ArrayList<>(), "", "", "", "", "", "", "", 0, defaultLabel, initCardLimit, "common", true);
 			userDataService.addUser(user);
-			return new UserResponse(new UserItem(user, enterpriseDataService));
 		}
+
+		JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(openid);
+		String token = jwtService.generateToken(jwtUser, EXPIRATION);
+		return new UserLoginResponse(token, new UserItem(user, enterpriseDataService));
 	}
 
 	@Value(value = "${wechat.url}")

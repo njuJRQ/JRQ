@@ -46,9 +46,22 @@ Page({
   },
 
   //递名片
+  /*
   onSendMe: function () {
     wx.navigateTo({
       url: 'myCardHolder/myCardHolder',
     })
+  }
+  */
+  onShareAppMessage: function () {
+    var that = this;
+    var userId = app.getOpenid();
+    return {
+      title: '我的钧融圈名片分享',
+      path: '/pages/me/myHistory/myHistory?id=' + userId,
+      success: function (res) {
+        console.log("转发成功" + res);
+      }
+    }
   }
 })

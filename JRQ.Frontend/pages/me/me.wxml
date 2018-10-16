@@ -37,7 +37,7 @@
       </view>
     </view>
 
-    <button class='my-card-send' bindtap='onSendMe'>我的名片夹</button>
+    <button class='my-card-send' open-type='share'>分享我的名片</button>
     <!--
     <view class='icons'>
       <view class='module column' bindtap='showCourses'>
@@ -69,9 +69,20 @@
   </view>
   <view style='width:100%; margin: 10rpx 0 0 0;'>
     <view class='more'>
+      
       <view class='more-item v-center'>
         <navigator class='row' url='modifyMyCard/modifyMyCard' hover-class="none" open-type='navigate'>
           <text>我的基本信息</text>
+          <view class='v-center'>
+            <view class='arrow'></view>
+          </view>
+        </navigator>
+      </view>
+      <view class='div-line'></view>
+
+      <view class='more-item v-center'>
+        <navigator class='row' url='myCardHolder/myCardHolder' hover-class="none" open-type='navigate'>
+          <text>我的名片夹</text>
           <view class='v-center'>
             <view class='arrow'></view>
           </view>

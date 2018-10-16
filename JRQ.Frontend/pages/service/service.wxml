@@ -37,6 +37,7 @@
   <!--业务人员列表-->
   <view class='content'>
     <text style='font-size: 0.6rem' wx:if='{{searchCondition || searchCondition===""}}'>以下是“{{searchCondition}}”的搜索结果：</text>
+    <view wx:if='{{cards.length != 0}}' >
     <view wx:for='{{cards}}' wx:key='openid'>
       <view class='card row' bindtap='onClickThisCard' data-id='{{item.openid}}'>
         <view class='card-main row'>
@@ -62,6 +63,10 @@
           <text>{{item.label}}</text>
         </view>
       </view>
+    </view>
+    </view>
+    <view wx:else style='margin: 20px 0 0 0'>
+      <text>暂无相关业务人员</text>
     </view>
   </view>
 </view>

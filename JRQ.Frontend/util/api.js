@@ -98,7 +98,8 @@ function getFeedList(openid, id) {
     method: 'GET',
     success: (res) => {
       wx.hideLoading()
-      /*console.log(res.data)*/
+      console.log(res)
+      if (res.statusCode == 200) {
       res.data.feedViews.forEach((article) => {
         article.writerFace = app.globalData.picUrl + article.writerFace
         article.images = article.images.map((image) => {
@@ -109,6 +110,20 @@ function getFeedList(openid, id) {
       var articles = that.data.articles
       that.data.lastId = articles[articles.length - 1].id
       that.setData(that.data)
+      } else if (res.statusCode == 500) {
+        wx.showModal({
+          title: res.data.error,
+          content: res.data.message,
+          showCancel: false
+        })
+      }
+    },
+    fail: (res) => {
+      wx.hideLoading()
+      wx.showToast({
+        title: '服务器未连接',
+        icon: 'none'
+      })
     }
   })
 }

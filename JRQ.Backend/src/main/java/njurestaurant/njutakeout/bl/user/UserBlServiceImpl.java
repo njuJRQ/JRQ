@@ -264,10 +264,10 @@ public class UserBlServiceImpl implements UserBlService {
 		ResponseEntity<byte[]> wxQrCodeResponse = client.exchange(wxQrCodeUrl, HttpMethod.POST, wxQrCodeRequest, byte[].class);
 		if (wxQrCodeResponse.getStatusCode() == HttpStatus.OK) {
 			byte[] image = wxQrCodeResponse.getBody();
-			return new QrCodeResponse(true, (String)JSONObject.fromObject(wxQrCodeResponse.getBody()).get("errmsg"), image);
+			return new QrCodeResponse(true, "ok", image);
 		} else {
 			System.err.println(wxQrCodeResponse);
-			return new QrCodeResponse(false, (String)JSONObject.fromObject(wxQrCodeResponse.getBody()).get("errmsg"), new byte[]{});
+			return new QrCodeResponse(false, "二维码获取失败", new byte[]{});
 		}
 	}
 

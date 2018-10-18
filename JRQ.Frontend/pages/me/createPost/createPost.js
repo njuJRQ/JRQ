@@ -24,10 +24,12 @@ Page({
         src: that.data.myInfo.face,
         success: (res) => {
           wx.hideLoading()
-          that.setData({
-            faceTempUrl: res.path
+          api.getWxQrCode.call(that, () => {
+            that.setData({
+              faceTempUrl: res.path
+            })
+            that.drawPost()
           })
-          that.drawPost()
         }
       })
     })

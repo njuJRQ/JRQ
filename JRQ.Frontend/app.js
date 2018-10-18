@@ -12,6 +12,9 @@ App({
   getWechatUsername: function () {
     return wx.getStorageSync('wechatUsername')
   },
+  getWechatFaceUrl: function () {
+    return wx.getStorageSync('wechatFaceUrl')
+  },
   getDate: function () {
     var date = new Date()
     return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
@@ -45,6 +48,8 @@ App({
                 wx.setStorageSync("openid", openid);
                 var sessionKey = res.data.sessionKey;
                 wx.setStorageSync("sessionKey", sessionKey);
+                var token = res.data.token;
+                wx.setStorageSync("token", token);
                 //获取个人微信号信息
                 wx.getUserInfo({
                   success: function (data) {
@@ -54,16 +59,25 @@ App({
                     wx.request({
                       url: that.globalData.backendUrl + "loginMyUser",
                       header: {
+                        'Authorization': 'Bearer ' + that.getToken(),
                         'content-type': 'application/x-www-form-urlencoded'
                       },
                       data: {
-                        openid: openid,
+                        openid: that.getOpenid(),
                         username: that.getWechatUsername(),
-                        faceWxUrl: wx.getStorageSync("wechatFaceUrl")
+                        faceWxUrl: that.getWechatFaceUrl()
                       },
                       method: 'GET',
                       success: (res) => {
-                        wx.setStorageSync("token", res.data.token);
+                        if (res.statusCode == 200){
+                          //wx.setStorageSync("token", res.data.token);
+                        } else {
+                          wx.showModal({
+                            title: '登录失败',
+                            content: '获取token失败',
+                            showCancel: false
+                          })
+                        }
                       },
                       fail: (res) => {
                         wx.showModal({

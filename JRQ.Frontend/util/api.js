@@ -1055,6 +1055,32 @@ function isAdminUsernameExistent (username, then) {
   })
 }
 
+function getWxQrCode(then) {
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "getWxQrCode",
+    data: {
+      scene: 'id=' + app.getOpenid(),
+      page: 'pages/me/myHistory/myHistory',
+      width: 200,
+      autoColor: true,
+      lineColorR: 0,
+      lineColorG: 0,
+      lineColorB: 0,
+      isHyaline: true
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      console.log(res)
+      if (then) then()
+    }
+  })
+}
+
 module.exports = {
   getAbstractList: getAbstractList,
   getAbstractListByCondition: getAbstractListByCondition,
@@ -1089,5 +1115,6 @@ module.exports = {
   getPrivilegeList: getPrivilegeList,
   isOtherCardAccessible: isOtherCardAccessible,
   getMyCourseListBefore: getMyCourseListBefore,
-  isAdminUsernameExistent: isAdminUsernameExistent
+  isAdminUsernameExistent: isAdminUsernameExistent,
+  getWxQrCode: getWxQrCode
 }

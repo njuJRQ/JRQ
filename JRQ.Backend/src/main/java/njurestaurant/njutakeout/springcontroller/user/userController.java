@@ -412,6 +412,27 @@ public class userController {
         return new ResponseEntity<>(userBlService.loginMyUser(openid,username,faceWxUrl), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "小程序前端获取微信小程序的二维码", notes = "小程序前端获取微信小程序的二维码")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "scene", value = "参数，对应微信API的scene", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "page", value = "跳转的页面，对应微信API的page", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "width", value = "维码的宽度，对应微信API的width", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "autoColor", value = "是否自动配置线条颜色，对应微信API的auto_color", required = true, dataType = "boolean"),
+            @ApiImplicitParam(name = "lineColorR", value = "当autoColor为false时有效，对应微信API的line_color中的r", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "lineColorG", value = "当autoColor为false时有效，对应微信API的line_color中的g", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "lineColorB", value = "当autoColor为false时有效，对应微信API的line_color中的b", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "isHyaline", value = "是否需要透明底色，对应微信API的is_hyaline", required = true, dataType = "boolean")
+    })
+    @RequestMapping(value = "/getWxQrCode", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getWxQrCode(@RequestParam(name="scene")String scene,@RequestParam(name="page")String page,@RequestParam(name="width")int width,@RequestParam(name="autoColor")boolean autoColor,@RequestParam(name="lineColorR")String lineColorR,@RequestParam(name="lineColorG")String lineColorG,@RequestParam(name="lineColorB")String lineColorB,@RequestParam(name="isHyaline")boolean isHyaline) throws NotExistException {
+        return new ResponseEntity<>(userBlService.getWxQrCode(scene,page,width,autoColor,lineColorR,lineColorG,lineColorB,isHyaline), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "用户获取自己的个人信息", notes = "用户获取自己的个人信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "openid", value = "编号", required = true, dataType = "String")

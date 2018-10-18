@@ -61,11 +61,8 @@ Page({
     api.getFeedList.call(this, app.getOpenid(), "")
   },
 
-  onShow: function () {
-    this.setData({
-      articles: []
-    })
-    api.getFeedList.call(this, app.getOpenid(), "")
+  onPullDownRefresh: function () {
+    this.onLoad()
   },
 
   onReachBottom: function () {

@@ -39,6 +39,7 @@ document.getElementById("ad").onclick=function() {
                     limits:limits,
                     date:date
                 },
+
                 success: function (data) {
                     alert("添加成功");
                     window.location.href = "admin-list.html";

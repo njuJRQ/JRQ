@@ -197,7 +197,7 @@ public class UserBlServiceImpl implements UserBlService {
 			userDataService.addUser(user);
 		}
 
-		JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(openid);
+		JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(username);
 		String token = jwtService.generateToken(jwtUser, EXPIRATION);
 		return new UserLoginResponse(token, new UserItem(user, enterpriseDataService));
 	}

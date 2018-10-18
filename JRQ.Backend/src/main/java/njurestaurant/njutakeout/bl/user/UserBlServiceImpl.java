@@ -192,14 +192,12 @@ public class UserBlServiceImpl implements UserBlService {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
 			user = new User(openid, username, faceLocalUrl, new ArrayList<>(), "", "", "", "", "", "", "", 0, defaultLabel, initCardLimit, "common", true);
 			userDataService.addUser(user);
 		}
 
-		JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(username);
-		String token = jwtService.generateToken(jwtUser, EXPIRATION);
-		return new UserLoginResponse(token, new UserItem(user, enterpriseDataService));
+
+		return new UserLoginResponse( new UserItem(user, enterpriseDataService));
 	}
 
 	@Value(value = "${wechat.url}")
@@ -222,7 +220,18 @@ public class UserBlServiceImpl implements UserBlService {
 			System.out.println("jsCode = [" + jsCode + "]");
 			System.out.println("hhhhhhh" + (String) JSONObject.fromObject(response.getBody()).get("openid"));
 			System.out.println(response);
-			return new OpenIdAndSessionKeyResponse((String) JSONObject.fromObject(response.getBody()).get("openid"), (String) JSONObject.fromObject(response.getBody()).get("session_key"));
+			String openid=(String) JSONObject.fromObject(response.getBody()).get("openid");
+            User user=null;
+			try {
+				user = userDataService.getUserByOpenid(openid);
+			} catch (NotExistException e) {
+				e.printStackTrace();
+			}
+			String username=user.getUsername();
+			//JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(username);
+			//String token = jwtService.generateToken(jwtUser, EXPIRATION);
+			String token="";
+			return new OpenIdAndSessionKeyResponse(openid, (String) JSONObject.fromObject(response.getBody()).get("session_key"),token);
 		} else {
 			throw new CannotGetOpenIdAndSessionKeyException();
 		}

@@ -8,8 +8,7 @@ public class UserLoginResponse extends LoginResponse {
 	public UserLoginResponse() {
 	}
 
-	public UserLoginResponse(String token, UserItem user) {
-		super(token);
+	public UserLoginResponse( UserItem user) {
 		this.user = user;
 	}
 

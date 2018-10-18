@@ -7,8 +7,8 @@ server:
 logging:
   level:
     org.springframework:
-      data: REALESE
-      security: REALESE
+      data: DEBUG
+      security: DEBUG
 jwt:
   claimKey:
     username: "username"

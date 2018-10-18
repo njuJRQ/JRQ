@@ -20,16 +20,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.*;
 import net.sf.json.JSONObject;
 
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UserBlServiceImpl implements UserBlService {
@@ -226,6 +225,49 @@ public class UserBlServiceImpl implements UserBlService {
 			return new OpenIdAndSessionKeyResponse((String) JSONObject.fromObject(response.getBody()).get("openid"), (String) JSONObject.fromObject(response.getBody()).get("session_key"));
 		} else {
 			throw new CannotGetOpenIdAndSessionKeyException();
+		}
+	}
+
+	@Override
+	public QrCodeResponse getWxQrCode(String scene, String page, int width, boolean autoColor, String lineColorR, String lineColorG, String lineColorB, boolean isHyaline) {
+		RestTemplate client = new RestTemplate();
+
+		//获取accessToken
+		String accessToken = null;
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		HttpEntity<String> entity = new HttpEntity<>("", headers);
+		ResponseEntity<String> response = client.exchange(
+				"https://api.weixin.qq.com/cgi-bin/token?" + "&grant_type=client_credential&appid="+ appId + "&secret=" + appSecret, HttpMethod.GET, entity, String.class);
+		if (response.getStatusCode() == HttpStatus.OK) {
+			accessToken = (String)JSONObject.fromObject(response.getBody()).get("access_token");
+		} else {
+			System.err.println(response);
+			return new QrCodeResponse(false, "access_token获取失败("+response+")", new byte[]{});
+		}
+
+		//根据accessToken获取二维码图片
+		String wxQrCodeUrl = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token="+accessToken;
+		Map<String,Object> wxQrCodeParams = new HashMap<>();
+		wxQrCodeParams.put("scene", scene);
+		wxQrCodeParams.put("page", page);
+		wxQrCodeParams.put("width", width);
+		wxQrCodeParams.put("auto_color", autoColor);
+		Map<String,Object> lineColor = new HashMap<>();
+		lineColor.put("r", lineColorR);
+		lineColor.put("g", lineColorG);
+		lineColor.put("b", lineColorB);
+		wxQrCodeParams.put("line_color", lineColor);
+		wxQrCodeParams.put("is_hyaline", isHyaline);
+		MultiValueMap<String, String> wxQrCodeHeaders = new LinkedMultiValueMap<>();
+		HttpEntity wxQrCodeRequest = new HttpEntity(wxQrCodeParams, wxQrCodeHeaders);
+		ResponseEntity<byte[]> wxQrCodeResponse = client.exchange(wxQrCodeUrl, HttpMethod.POST, wxQrCodeRequest, byte[].class);
+		if (wxQrCodeResponse.getStatusCode() == HttpStatus.OK) {
+			byte[] image = wxQrCodeResponse.getBody();
+			return new QrCodeResponse(true, (String)JSONObject.fromObject(wxQrCodeResponse.getBody()).get("errmsg"), image);
+		} else {
+			System.err.println(wxQrCodeResponse);
+			return new QrCodeResponse(false, (String)JSONObject.fromObject(wxQrCodeResponse.getBody()).get("errmsg"), new byte[]{});
 		}
 	}
 

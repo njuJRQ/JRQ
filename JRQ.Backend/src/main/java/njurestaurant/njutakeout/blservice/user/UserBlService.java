@@ -168,6 +168,20 @@ public interface UserBlService {
 	OpenIdAndSessionKeyResponse getOpenIdAndSessionKey(String jsCode) throws CannotGetOpenIdAndSessionKeyException;
 
 	/**
+	 * 小程序前端获取微信小程序的二维码
+	 * @param scene 参数，对应微信API的scene
+	 * @param page 跳转的页面，对应微信API的page
+	 * @param width 二维码的宽度，对应微信API的width
+	 * @param autoColor 是否自动配置线条颜色，对应微信API的auto_color
+	 * @param lineColorR 当autoColor为false时有效，对应微信API的line_color中的r
+	 * @param lineColorG 当autoColor为false时有效，对应微信API的line_color中的g
+	 * @param lineColorB 当autoColor为false时有效，对应微信API的line_color中的b
+	 * @param isHyaline 是否需要透明底色，对应微信API的is_hyaline
+	 * @return Base64编码的图片
+	 */
+	QrCodeResponse getWxQrCode(String scene, String page, int width, boolean autoColor, String lineColorR, String lineColorG, String lineColorB, boolean isHyaline);
+
+	/**
 	 * 用户获取自己的个人信息(User)
 	 * @param openid 用户的微信openid
 	 * @return 用户个人信息

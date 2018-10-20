@@ -2,73 +2,42 @@
 <import src='/template/articleItem/articleItem.wxml' />
 
 <view class='container container--color-white'>
-  <view style='width: 100%;'>
-    <view class='my-card column'>
-      <view class='row v-center'>
-        <view class='my-card-face'>
-          <image src='{{myInfo.face}}'></image>
+  <view class='header' style='width: 100%;'>
+    <view class='card'>
+      <image class='card__face' src='{{myInfo.face}}'></image>
+      <view class='card__info column'>
+        <view class='card__username row v-center'>
+          <text>{{myInfo.username}}</text>
+          <image class='card__medal' wx:for='{{myInfo.medals}}' wx:key='*this' src='{{item}}'></image>
         </view>
-        <view class='my-card-info column'>
-          <view class='my-card-info-username row v-center'>
-            <text>{{myInfo.username}}</text>
-            <view wx:for='{{myInfo.medals}}' wx:key='*this'>
-              <image src='{{item}}'></image>
-            </view>
-          </view>
-          <text>公司: {{myInfo.company}}</text>
-          <text>部门: {{myInfo.department}}</text>
-          <text>职位: {{myInfo.position}}</text>
-        </view>
+        <text class='card__text'>公司: {{myInfo.company}}</text>
+        <text class='card__text'>部门: {{myInfo.department}}</text>
+        <text class='card__text'>职位: {{myInfo.position}}</text>
       </view>
       <view class='div-line'></view>
-      <view class='my-card-intro'>
-        <text>个人简介：{{myInfo.intro}} </text>
-      </view>
-      <view class='my-contact row'>
-        <view class='my-contact-info column' style='width: 70%;'>
-          <view wx:if='{{isMyInfoVisiable}}'>
-            <text style='font-size: 0.8rem;'>{{myInfo.phone}}</text>
-          </view>
-          <view wx:else>
-            <text style='font-size: 0.8rem;'>{{encreptInfo.phone}}</text>
-          </view>
-          <!-- 显示微信号
-          <view wx:if='{{isMyInfoVisiable}}'>
-            <text>微信号：{{wechatId}}</text>
-          </view>
-          <view wx:else>
-            <text>微信号：{{encreptInfo.wechatId}}</text>
-          </view>
-          -->
-          <view wx:if='{{isMyInfoVisiable}}'>
-            <text>邮箱: {{myInfo.email}}</text>
-          </view>
-          <view wx:else>
-            <text>邮箱：{{encreptInfo.email}}</text>
-          </view>
+      <text class='card__intro'>个人简介：{{myInfo.intro}}</text>
+      <view class='contact'>
+        <view class='contact__info'>
+          <text class='contact__item' wx:if='{{isMyInfoVisiable}}'>{{myInfo.phone}}</text>
+          <text class='contact__item' wx:else>{{encreptInfo.phone}}</text>
+          <text class='contact__item' wx:if='{{isMyInfoVisiable}}'>邮箱: {{myInfo.email}}</text>
+          <text class='contact__item' wx:else>邮箱：{{encreptInfo.email}}</text>
         </view>
-        <view class='v-center'>
-          <view wx:if='{{isMyInfoVisiable}}'>
-            <button class='jrq__button myInfoVisible-button v-center h-center' bindtap='isMyInfoVisiableToggle'>隐藏联系方式</button>
-          </view>
-          <view wx:else>
-            <button class='jrq__button myInfoVisible-button v-center h-center' bindtap='isMyInfoVisiableToggle'>查看联系方式({{cardLimits}})</button>
-          </view>
+        <view class='myInfoVisible-button-wrapper'>
+        <button wx:if='{{isMyInfoVisiable}}' class='jrq__button myInfoVisible-button' bindtap='isMyInfoVisiableToggle'>隐藏联系方式</button>
+        <button wx:else class='jrq__button myInfoVisible-button' bindtap='isMyInfoVisiableToggle'>查看联系方式({{cardLimits}})</button>
         </view>
       </view>
     </view>
+    <button class='jrq__button cardButton' bindtap='onSendMyCard'>递给他名片</button>
+    <button class='jrq__button cardButton cardButton--style-backToIndex' bindtap='onBackToIndex'>回到首页</button>
   </view>
-  <view style='width:100%; padding: 10px'>
-    <view class='send-my-card'>
-      <button class='jrq__button' bindtap='onSendMyCard'>递给他名片</button>
-    </view>
-  </view>
-  <view style='width:100%;'>
-    <view class='my-history-title row v-center'>
+  <view class='history'>
+    <view class='history__title'>
       <view class='blue-block'></view>
-      <text class='my-history-title-word v-center'>历史发布</text>
+      <text class='history__titleText'>历史发布</text>
     </view>
-    <view wx:for='{{myArticles}}' wx:key='id' style='padding: 0 10px;'>
+    <view wx:for='{{myArticles}}' wx:key='id' style='margin: 10px 5px;'>
       <template is='articleItem' data='{{item}}'></template>
     </view>
     <text class='h-center' style='font-size: 0.8rem' wx:if='{{myArticles.length === 0}}'>该用户没有历史文章发布</text>

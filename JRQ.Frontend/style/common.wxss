@@ -4,7 +4,7 @@ view {
 text {
   color: gray;
 }
-button.jrq__button {
+.jrq__button {
   background-color: #243264;
   color: #FFF;
 }

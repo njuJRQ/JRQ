@@ -143,6 +143,12 @@ Page({
     }
   },
 
+  onBackToIndex: function () {
+    wx.switchTab({
+      url: '/pages/index/index',
+    })
+  },
+
   previewImg: function (e) {
     articleItem.previewImg(e)
   }

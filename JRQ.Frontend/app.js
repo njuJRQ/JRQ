@@ -34,7 +34,7 @@ App({
           },
           method: 'GET',
           success: function (res) {
-            //获得从后端获取认证信息
+            //从后端获取认证信息
             if (res.statusCode == 200) {
               if (res.data.errcode) {
                 wx.showModal({

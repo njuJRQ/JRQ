@@ -8,7 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    faceTempUrl: ""
+    faceTempUrl: "", // 用户头像url
+    qrcode: "", // 二维码字节流
   },
 
   /**
@@ -24,9 +25,11 @@ Page({
         src: that.data.myInfo.face,
         success: (res) => {
           wx.hideLoading()
-          api.getWxQrCode.call(that, () => {
+          var faceTempUrl = res.path
+          api.getWxQrCode.call(that, (image) => {
             that.setData({
-              faceTempUrl: res.path
+              faceTempUrl: faceTempUrl,
+              qrcode: image.base64
             })
             that.drawPost()
           })
@@ -57,23 +60,26 @@ Page({
     ctx.fillText("金融人的新名片", leftMargin, 820)
     // 小程序码
     const qrImgSize = 200
-    ctx.drawImage('img/qrcode.png', 360, 650, qrImgSize, qrImgSize)
+    ctx.drawImage(this.data.qrcode, 360, 650, qrImgSize, qrImgSize)
     ctx.stroke()
     wx.showLoading({
       title: '加载中',
     })
-    ctx.draw(false, () => {
-      wx.canvasToTempFilePath({
-        canvasId: 'shareCanvas',
-        success: (res) => {
-          wx.hideLoading()
-          const path = res.tempFilePath
-          that.setData({
-            imageTempUrl: path
-          })
-        }
+    setTimeout(() => {
+      ctx.draw(false, () => {
+        wx.canvasToTempFilePath({
+          canvasId: 'shareCanvas',
+          success: (res) => {
+            wx.hideLoading()
+            const path = res.tempFilePath
+            that.setData({
+              imageTempUrl: path
+            })
+          }
+        })
       })
-    })
+    }, 100)
+    
   },
 
   onSave: function () {

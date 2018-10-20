@@ -1058,6 +1058,7 @@ function isAdminUsernameExistent (username, then) {
 function getWxQrCode(then) {
   var that = this
   wx.request({
+    /*url: app.globalData.backendUrl + "getWxQrCode?scene=id=" + app.getOpenid() + '&page=pages/me/myHistory/myHistory&width=200&autoColor=true&lineColorR=0&lineColorG=0&lineColorB=0&isHyaline=true',*/
     url: app.globalData.backendUrl + "getWxQrCode",
     data: {
       scene: 'id=' + app.getOpenid(),
@@ -1075,8 +1076,20 @@ function getWxQrCode(then) {
     },
     method: 'GET',
     success: (res) => {
-      console.log(res)
-      if (then) then()
+      if (res.statusCode == 200) {
+        var base64 = "image/png;base64," + wx.arrayBufferToBase64(res.data.image)
+        wx.getImageInfo({
+          src: base64,
+          success: (res) => {
+            console.log(res)
+          },
+          fail: (res) => {
+            console.log(res)
+          }
+        })
+        //var base64 = wx.arrayBufferToBase64(res.data.image)
+        //if (then) then({ base64: "data:image/png;base64," + base64})
+      }
     }
   })
 }

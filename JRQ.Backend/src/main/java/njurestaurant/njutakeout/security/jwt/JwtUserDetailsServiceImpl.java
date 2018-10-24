@@ -45,7 +45,8 @@ public class JwtUserDetailsServiceImpl implements JwtUserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> optionalUser = userDao.findById(username); //用户的username为openid
         if (optionalUser.isPresent()) {
-            return new JwtUser(optionalUser.get().getUsername(), "", Collections.singletonList(JwtRole.USER));
+            System.out.println("isPresent");
+            return new JwtUser(optionalUser.get().getOpenid(), "", Collections.singletonList(JwtRole.USER));
         } else {
             List<Admin> admins = adminDao.findAdminByUsername(username);
             if (!admins.isEmpty()) {

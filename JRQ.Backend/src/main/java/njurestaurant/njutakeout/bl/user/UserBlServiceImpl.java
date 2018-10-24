@@ -228,9 +228,10 @@ public class UserBlServiceImpl implements UserBlService {
 				e.printStackTrace();
 			}
 			String username=user.getUsername();
-			//JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(username);
-			//String token = jwtService.generateToken(jwtUser, EXPIRATION);
+			JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(username);
 			String token="";
+			token = jwtService.generateToken(jwtUser, EXPIRATION);
+
 			return new OpenIdAndSessionKeyResponse(openid, (String) JSONObject.fromObject(response.getBody()).get("session_key"),token);
 		} else {
 			throw new CannotGetOpenIdAndSessionKeyException();

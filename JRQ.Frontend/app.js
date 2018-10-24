@@ -21,6 +21,7 @@ App({
   },
   onShow: function () {
     var that = this;
+    //微信登录
     wx.login({
       success: function (res) {
         var js_code = res.code
@@ -36,13 +37,7 @@ App({
           success: function (res) {
             //从后端获取认证信息
             if (res.statusCode == 200) {
-              if (res.data.errcode) {
-                wx.showModal({
-                  title: '获取openid失败',
-                  content: '请检查appid和secret',
-                  showCancel: false
-                })
-              } else {
+              if (!res.data.errcode) {
                 /*console.log(res)*/
                 var openid = res.data.openId;
                 wx.setStorageSync("openid", openid);
@@ -69,8 +64,8 @@ App({
                       },
                       method: 'GET',
                       success: (res) => {
-                        if (res.statusCode == 200){
-                          //wx.setStorageSync("token", res.data.token);
+                        if (res.statusCode == 200) {
+                          //登录成功，显示小程序主页
                         } else {
                           wx.showModal({
                             title: '登录失败',
@@ -98,6 +93,12 @@ App({
                     })
                   }
                 });
+              } else {
+                wx.showModal({
+                  title: '获取openid失败',
+                  content: '请检查appid和secret',
+                  showCancel: false
+                })
               }
             } else {
               console.log(res)

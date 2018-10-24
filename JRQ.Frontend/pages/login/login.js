@@ -33,7 +33,7 @@ Page({
       },
       method: 'GET',
       success: (res) => {
-        wx.setStorageSync("token", res.data.token);
+        //登录成功，显示小程序主页
       }
     })
     wx.switchTab({

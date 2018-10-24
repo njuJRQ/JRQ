@@ -150,7 +150,7 @@ public class adminController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public boolean loginAdmin(@RequestParam(name="username")String username,@RequestParam(name="password")String password) {
+    public String loginAdmin(@RequestParam(name="username")String username,@RequestParam(name="password")String password) {
           return adminBlService.loginAdmin(username,password);
     }
 

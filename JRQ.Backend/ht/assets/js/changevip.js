@@ -4,6 +4,10 @@ var face="";
 $.ajax(
     {
         url: url+"/getLevelList",
+        headers :{
+            'Authorization': 'Bearer ' + getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         data: {
         },
         async:false,
@@ -26,6 +30,10 @@ list=new Array();
 $.ajax(
     {
         url: url+"/getClassificationList",
+        headers :{
+            'Authorization': 'Bearer ' + getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         data: {
         },
         async:false,
@@ -71,6 +79,10 @@ var id=storage["thisUser"];
 $.ajax(
     {
         url: url+"/getUser",
+        headers :{
+            'Authorization': 'Bearer ' + getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         data: {
             openid:id
         },
@@ -112,6 +124,10 @@ function adduser() {
         $.ajax(
             {
                 url: url + "/deleteUser",
+                headers :{
+                    'Authorization': 'Bearer ' + getToken(),
+                    'content-type': 'application/x-www-form-urlencoded'
+                },
                 data: {
                     id: document.getElementById("openid").innerText
                 },
@@ -139,6 +155,10 @@ function adduser() {
         var label = obj3.options[index3].text; // 选中文本
         $.ajax({
             url: url + "/uploadHead",
+            headers :{
+                'Authorization': 'Bearer ' + getToken(),
+                'content-type': 'application/x-www-form-urlencoded'
+            },
             type: "POST",
             data: fd,
             enctype: 'multipart/form-data',
@@ -151,6 +171,10 @@ function adduser() {
                     $.ajax(
                         {
                             url: url + "/addUser",
+                            headers :{
+                                'Authorization': 'Bearer ' + getToken(),
+                                'content-type': 'application/x-www-form-urlencoded'
+                            },
                             data: {
                                 openid: document.getElementById("openid").innerText,
                                 username: $("#username").val(),
@@ -182,6 +206,10 @@ function adduser() {
                     $.ajax(
                         {
                             url: url + "/addUserWithoutFace",
+                            headers :{
+                                'Authorization': 'Bearer ' + getToken(),
+                                'content-type': 'application/x-www-form-urlencoded'
+                            },
                             data: {
                                 openid: document.getElementById("openid").innerText,
                                 username: $("#username").val(),

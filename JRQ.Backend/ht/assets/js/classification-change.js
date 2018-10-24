@@ -5,6 +5,10 @@ var url=getUrl();
 $.ajax(
     {
         url: url+"/getClassification",
+        headers :{
+            'Authorization': 'Bearer ' + getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         data: {
             userLabel:id
         },
@@ -46,6 +50,10 @@ document.getElementById("ad").onclick=function() {
     $.ajax(
         {
             url: url+"/updateClassification",
+            headers :{
+                'Authorization': 'Bearer ' + getToken(),
+                'content-type': 'application/x-www-form-urlencoded'
+            },
             data: {
                 userLabel:userLabel,
                 workClass:workClass

@@ -227,8 +227,8 @@ public class UserBlServiceImpl implements UserBlService {
 			} catch (NotExistException e) {
 				e.printStackTrace();
 			}
-			String username=user.getUsername();
-			JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(username);
+
+			JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(openid);
 			String token="";
 			token = jwtService.generateToken(jwtUser, EXPIRATION);
 

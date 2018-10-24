@@ -83,12 +83,17 @@
                     username:username,
                     password:password
                 },
+                header: {
+                    'content-type': 'application/x-www-form-urlencoded'
+                },
                 success: function (data) {
-                    if(data) {
+                    if(data!=null&&data!="") {
                         alert("登录成功");
                         var storage = window.localStorage;
                         storage["adminUsername"]=username;
                         storage["has"]="yes";
+                        storage["token"]=data;
+                        alert(storage["token"])
                         window.location.href = "index.html";
                     }
                     else{

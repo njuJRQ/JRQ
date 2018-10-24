@@ -22,6 +22,10 @@ var isEnterprise=false;
 $.ajax(
     {
         url: url+"/getAdminByUsername",
+        headers :{
+            'Authorization': 'Bearer ' + getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         data: {
             username:getUsername()
         },
@@ -39,6 +43,10 @@ $.ajax(
 $.ajax(
     {
         url: url+"/isAdminEnterprise",
+        headers :{
+            'Authorization': 'Bearer ' + getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         data: {
             adminId:adminId
         },
@@ -49,6 +57,10 @@ $.ajax(
                 $.ajax(
                     {
                         url: url+"/getMyPublishedDocumentList",
+                        headers :{
+                            'Authorization': 'Bearer ' + getToken(),
+                            'content-type': 'application/x-www-form-urlencoded'
+                        },
                         data: {
                             adminId:adminId
                         },
@@ -74,6 +86,10 @@ $.ajax(
                 $.ajax(
                     {
                         url: url+"/getDocumentList",
+                        headers :{
+                            'Authorization': 'Bearer ' + getToken(),
+                            'content-type': 'application/x-www-form-urlencoded'
+                        },
                         data: {
                         },
                         async:false,
@@ -114,6 +130,10 @@ function deletequestion(n){
         $.ajax(
             {
                 url: url + "/deleteDocument",
+                headers :{
+                    'Authorization': 'Bearer ' + getToken(),
+                    'content-type': 'application/x-www-form-urlencoded'
+                },
                 data: {
                     id: q.id
                 },
@@ -311,6 +331,10 @@ function deletesingle(n){
     $.ajax(
         {
             url: url+"/deleteDocument",
+            headers :{
+                'Authorization': 'Bearer ' + getToken(),
+                'content-type': 'application/x-www-form-urlencoded'
+            },
             data: {
                 id:q.id
             },

@@ -16,6 +16,10 @@ var url=getUrl();
 $.ajax(
     {
         url: url+"/getLevelList",
+        headers :{
+            'Authorization': 'Bearer ' + getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         data: {
         },
         async:false,
@@ -47,6 +51,10 @@ function deletequestion(n){
         $.ajax(
             {
                 url: url + "/deleteLevel",
+                headers :{
+                    'Authorization': 'Bearer ' + getToken(),
+                    'content-type': 'application/x-www-form-urlencoded'
+                },
                 data: {
                     name: name
                 },
@@ -210,6 +218,10 @@ function deletesingle(n){
     $.ajax(
         {
             url: url+"/deleteLevel",
+            headers :{
+                'Authorization': 'Bearer ' + getToken(),
+                'content-type': 'application/x-www-form-urlencoded'
+            },
             data: {
                 name:name
             },

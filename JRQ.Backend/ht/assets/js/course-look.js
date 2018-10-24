@@ -5,6 +5,10 @@ var video;
 $.ajax(
     {
         url: url+"/getCourse",
+        headers :{
+            'Authorization': 'Bearer ' + getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         data: {
             id:id
         },

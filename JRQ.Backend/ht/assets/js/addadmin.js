@@ -33,6 +33,10 @@ document.getElementById("ad").onclick=function() {
         $.ajax(
             {
                 url: url+"/addadmin",
+                headers :{
+                    'Authorization': 'Bearer ' + getToken(),
+                    'content-type': 'application/x-www-form-urlencoded'
+                },
                 data: {
                     username:name,
                     password:pass,

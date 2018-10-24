@@ -8,6 +8,10 @@ var limits="";
 $.ajax(
     {
         url: url+"/getAdminByUsername",
+        headers :{
+            'Authorization': 'Bearer ' + getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         data: {
             username:username
         },
@@ -33,6 +37,10 @@ document.getElementById("ad").onclick=function() {
     $.ajax(
         {
             url: url+"/updateAdmin",
+            headers :{
+                'Authorization': 'Bearer ' + getToken(),
+                'content-type': 'application/x-www-form-urlencoded'
+            },
             data: {
                 id:id,
                 username:name,

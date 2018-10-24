@@ -15,7 +15,12 @@ var theGroup=0;
 var url=getUrl();
 $.ajax(
     {
+        method: 'GET',
         url: url+"/getAdminList",
+        headers :{
+            'Authorization': 'Bearer ' + getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         data: {
         },
         async:false,
@@ -45,6 +50,10 @@ function deletequestion(n){
         $.ajax(
             {
                 url: url + "/deleteAdmin",
+                headers :{
+                    'Authorization': 'Bearer ' + getToken(),
+                    'content-type': 'application/x-www-form-urlencoded'
+                },
                 data: {
                     id: q.id
                 },
@@ -207,6 +216,10 @@ function deletesingle(n){
     $.ajax(
         {
             url: url+"/deleteAdmin",
+            headers :{
+                'Authorization': 'Bearer ' + getToken(),
+                'content-type': 'application/x-www-form-urlencoded'
+            },
             data: {
                 id:q.id
             },

@@ -15,6 +15,10 @@ var url=getUrl();
 $.ajax(
     {
         url: url+"/getAdList",
+        headers :{
+            'Authorization': 'Bearer ' + getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         data: {
         },
         async:false,
@@ -51,6 +55,10 @@ function deletequestion(n){
         $.ajax(
             {
                 url: url + "/deleteAd",
+                headers :{
+                    'Authorization': 'Bearer ' + getToken(),
+                    'content-type': 'application/x-www-form-urlencoded'
+                },
                 data: {
                     id: q.id
                 },
@@ -240,6 +248,10 @@ function deletesingle(n){
     $.ajax(
         {
             url: url+"/deleteAd",
+            headers :{
+                'Authorization': 'Bearer ' + getToken(),
+                'content-type': 'application/x-www-form-urlencoded'
+            },
             data: {
                 id:q.id
             },
@@ -300,6 +312,10 @@ function setAsChecked(n){
     $.ajax(
         {
             url: url+"/setCheckedAd",
+            headers :{
+                'Authorization': 'Bearer ' + getToken(),
+                'content-type': 'application/x-www-form-urlencoded'
+            },
             data: {
                 id:q.id
             },

@@ -4,6 +4,10 @@ var id=storage["thisDocument"];
 $.ajax(
     {
         url: url+"/getDocument",
+        headers :{
+            'Authorization': 'Bearer ' + getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         data: {
             id:id
         },

@@ -6,6 +6,10 @@ var url=getUrl();
 $.ajax(
     {
         url: url+"/getAdmin",
+        headers :{
+            'Authorization': 'Bearer ' + getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         data: {
             id:id
         },
@@ -59,6 +63,10 @@ document.getElementById("ad").onclick=function() {
     $.ajax(
         {
             url: url+"/updateAdmin",
+            headers :{
+                'Authorization': 'Bearer ' + getToken(),
+                'content-type': 'application/x-www-form-urlencoded'
+            },
             data: {
                 id:id,
                 username:name,

@@ -18,6 +18,10 @@ $.ajax(
         url: url+"/getPurchaseList",
         data: {
         },
+        headers :{
+            'Authorization': 'Bearer ' + getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         async:false,
         success: function (data) {
             for(var i=0;i<data.purchases.length;i++){
@@ -54,6 +58,10 @@ function deletequestion(n){
         $.ajax(
             {
                 url: url + "/deletePurchase",
+                headers :{
+                    'Authorization': 'Bearer ' + getToken(),
+                    'content-type': 'application/x-www-form-urlencoded'
+                },
                 data: {
                     id: q.id
                 },
@@ -272,6 +280,10 @@ function deletesingle(n){
     $.ajax(
         {
             url: url+"/deletePurchase",
+            headers :{
+                'Authorization': 'Bearer ' + getToken(),
+                'content-type': 'application/x-www-form-urlencoded'
+            },
             data: {
                 id:q.id
             },

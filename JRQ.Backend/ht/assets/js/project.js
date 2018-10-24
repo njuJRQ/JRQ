@@ -23,6 +23,10 @@ var isEnterprise=false;
 $.ajax(
     {
         url: url+"/getAdminByUsername",
+        headers :{
+            'Authorization': 'Bearer ' + getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         data: {
             username:getUsername()
         },
@@ -40,6 +44,10 @@ $.ajax(
 $.ajax(
     {
         url: url+"/isAdminEnterprise",
+        headers :{
+            'Authorization': 'Bearer ' + getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         data: {
             adminId:adminId
         },
@@ -50,6 +58,10 @@ $.ajax(
                 $.ajax(
                     {
                         url: url+"/getMyPublishedProjectList",
+                        headers :{
+                            'Authorization': 'Bearer ' + getToken(),
+                            'content-type': 'application/x-www-form-urlencoded'
+                        },
                         data: {
                             adminId:adminId
                         },
@@ -75,6 +87,10 @@ $.ajax(
                 $.ajax(
                     {
                         url: url+"/getProjectList",
+                        headers :{
+                            'Authorization': 'Bearer ' + getToken(),
+                            'content-type': 'application/x-www-form-urlencoded'
+                        },
                         data: {
 
                         },
@@ -116,6 +132,10 @@ function deletequestion(n){
         $.ajax(
             {
                 url: url + "/deleteProject",
+                headers :{
+                    'Authorization': 'Bearer ' + getToken(),
+                    'content-type': 'application/x-www-form-urlencoded'
+                },
                 data: {
                     id: q.id
                 },
@@ -314,6 +334,10 @@ function deletesingle(n){
     $.ajax(
         {
             url: url+"/deleteProject",
+            headers :{
+                'Authorization': 'Bearer ' + getToken(),
+                'content-type': 'application/x-www-form-urlencoded'
+            },
             data: {
                 id:q.id
             },

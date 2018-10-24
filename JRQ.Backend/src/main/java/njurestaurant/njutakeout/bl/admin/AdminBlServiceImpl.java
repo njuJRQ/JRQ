@@ -1,30 +1,37 @@
 package njurestaurant.njutakeout.bl.admin;
 
+
 import njurestaurant.njutakeout.blservice.admin.AdminBlService;
 import njurestaurant.njutakeout.dataservice.admin.AdminDataService;
 import njurestaurant.njutakeout.entity.admin.Admin;
-import njurestaurant.njutakeout.exception.AlreadyExistException;
 import njurestaurant.njutakeout.exception.DuplicateUsernameException;
 import njurestaurant.njutakeout.exception.NotExistException;
-import njurestaurant.njutakeout.exception.WrongPasswordException;
 import njurestaurant.njutakeout.response.BoolResponse;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.admin.AdminItem;
 import njurestaurant.njutakeout.response.admin.AdminListResponse;
 import njurestaurant.njutakeout.response.admin.AdminResponse;
+import njurestaurant.njutakeout.security.jwt.JwtService;
+import njurestaurant.njutakeout.security.jwt.JwtUser;
+import njurestaurant.njutakeout.security.jwt.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Service
 public class AdminBlServiceImpl implements AdminBlService {
 	private final AdminDataService adminDataService;
-
+	private final JwtUserDetailsService jwtUserDetailsService;
+	private final JwtService jwtService;
+	private final static long EXPIRATION = 604800;
 	@Autowired
-	public AdminBlServiceImpl(AdminDataService adminDataService) {
+	public AdminBlServiceImpl(AdminDataService adminDataService, JwtUserDetailsService jwtUserDetailsService, JwtService jwtService) {
 		this.adminDataService = adminDataService;
+		this.jwtUserDetailsService = jwtUserDetailsService;
+		this.jwtService = jwtService;
 	}
 
 	@Override
@@ -33,12 +40,19 @@ public class AdminBlServiceImpl implements AdminBlService {
 	}
 
 	@Override
-	public boolean loginAdmin(String username, String password) {
+	public String loginAdmin(String username, String password) {
 		try {
-			return adminDataService.isAdminExistent(username)
-					&& adminDataService.getAdminByUsername(username).getPassword().equals(password);
+			JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(username);
+			String token="";
+			token = jwtService.generateToken(jwtUser, EXPIRATION);
+			if(adminDataService.isAdminExistent(username)
+					&& adminDataService.getAdminByUsername(username).getPassword().equals(password)){
+				return token;
+			}
+
+			return null;
 		} catch (NotExistException exception) {
-			return false;
+			return null;
 		}
 	}
 

@@ -15,6 +15,10 @@ var url=getUrl();
 $.ajax(
     {
         url: url+"/getUserList",
+        headers :{
+            'Authorization': 'Bearer ' + getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         data: {
         },
         async:false,
@@ -45,6 +49,10 @@ function deletequestion(n){
         $.ajax(
             {
                 url: url + "/deleteUser",
+                headers :{
+                    'Authorization': 'Bearer ' + getToken(),
+                    'content-type': 'application/x-www-form-urlencoded'
+                },
                 data: {
                     openid: q.openid
                 },
@@ -208,6 +216,10 @@ function deletesingle(n){
     $.ajax(
         {
             url: url+"/deleteUser",
+            headers :{
+                'Authorization': 'Bearer ' + getToken(),
+                'content-type': 'application/x-www-form-urlencoded'
+            },
             data: {
                 id:q.id
             },

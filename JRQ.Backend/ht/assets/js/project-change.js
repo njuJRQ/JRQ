@@ -9,6 +9,10 @@ var path;
 $.ajax(
     {
         url: url+"/getProject",
+        headers :{
+            'Authorization': 'Bearer ' + getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         data: {
             id:id
         },
@@ -79,6 +83,10 @@ function adduser() {
         var date = myDate.toLocaleDateString();
         $.ajax({
             url: url + "/uploadAttachment",
+            headers :{
+                'Authorization': 'Bearer ' + getToken(),
+                'content-type': 'application/x-www-form-urlencoded'
+            },
             type: "POST",
             data: fd,
             enctype: 'multipart/form-data',
@@ -90,6 +98,10 @@ function adduser() {
                 $.ajax(
                     {
                         url: url + "/updateProject",
+                        headers :{
+                            'Authorization': 'Bearer ' + getToken(),
+                            'content-type': 'application/x-www-form-urlencoded'
+                        },
                         data: {
                             id: document.getElementById("id").innerText,
                             title: $("#title").val(),

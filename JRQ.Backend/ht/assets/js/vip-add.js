@@ -3,6 +3,10 @@ var url=getUrl();
 $.ajax(
     {
         url: url+"/getLevelList",
+        headers :{
+            'Authorization': 'Bearer ' + getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         data: {
         },
         async:false,
@@ -25,6 +29,10 @@ list=new Array();
 $.ajax(
     {
         url: url+"/getClassificationList",
+        headers :{
+            'Authorization': 'Bearer ' + getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         data: {
         },
         async:false,
@@ -82,6 +90,10 @@ function adduser() {
         var label = obj3.options[index3].text; // 选中文本
         $.ajax({
             url: url + "/uploadHead",
+            headers :{
+                'Authorization': 'Bearer ' + getToken(),
+                'content-type': 'application/x-www-form-urlencoded'
+            },
             type: "POST",
             data: fd,
             enctype: 'multipart/form-data',
@@ -93,6 +105,10 @@ function adduser() {
                 $.ajax(
                     {
                         url: url + "/addUser",
+                        headers :{
+                            'Authorization': 'Bearer ' + getToken(),
+                            'content-type': 'application/x-www-form-urlencoded'
+                        },
                         data: {
                             openid: $("#openid").val(),
                             username: $("#username").val(),

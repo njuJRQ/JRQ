@@ -5,6 +5,10 @@ var path;
 $.ajax(
     {
         url: url+"/getProject",
+        headers :{
+            'Authorization': 'Bearer ' + getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         data: {
             id:id
         },

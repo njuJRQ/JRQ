@@ -18,6 +18,10 @@ document.getElementById("ad").onclick=function() {
         $.ajax(
             {
                 url: url + "/addLevel",
+                headers :{
+                    'Authorization': 'Bearer ' + getToken(),
+                    'content-type': 'application/x-www-form-urlencoded'
+                },
                 data: {
                     name: name,
                     cardLimit: cardLimit,

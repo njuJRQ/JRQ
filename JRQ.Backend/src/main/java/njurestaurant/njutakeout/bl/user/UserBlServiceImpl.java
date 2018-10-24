@@ -228,9 +228,10 @@ public class UserBlServiceImpl implements UserBlService {
 				e.printStackTrace();
 			}
 			String username=user.getUsername();
-			//JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(username);
-			//String token = jwtService.generateToken(jwtUser, EXPIRATION);
+			JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(username);
 			String token="";
+			token = jwtService.generateToken(jwtUser, EXPIRATION);
+
 			return new OpenIdAndSessionKeyResponse(openid, (String) JSONObject.fromObject(response.getBody()).get("session_key"),token);
 		} else {
 			throw new CannotGetOpenIdAndSessionKeyException();
@@ -273,11 +274,17 @@ public class UserBlServiceImpl implements UserBlService {
 		ResponseEntity<byte[]> wxQrCodeResponse = client.exchange(wxQrCodeUrl, HttpMethod.POST, wxQrCodeRequest, byte[].class);
 		if (wxQrCodeResponse.getStatusCode() == HttpStatus.OK) {
 			byte[] image = wxQrCodeResponse.getBody();
-			String imagePath = "record/qrcode/"+UUID.randomUUID();
+			final String dirPath = "record/user/qrcode/";
+			File dirFile = new File(dirPath);
+			if (!dirFile.exists() && !dirFile.mkdirs()) {
+				return new QrCodeResponse(false, "二维码存储目录创建失败", "");
+			}
+			String imagePath = null;
 			try {
+				imagePath = dirPath+UUID.randomUUID();
 				File imageFile = new File(imagePath);
 				while (!imageFile.createNewFile()) { //若文件已存在，则换个名字
-					imagePath = "record/qrcode/"+UUID.randomUUID();
+					imagePath = dirPath+UUID.randomUUID();
 					imageFile = new File(imagePath);
 				}
 				InputStream inputStream = new ByteArrayInputStream(image);

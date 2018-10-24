@@ -406,7 +406,7 @@ function getOtherBasicInfo(id) {
   })
 }
 
-function getOtherInfo(myid, otherid, then) {
+function getOtherInfo(myid, otherid, resolve, reject) {
   /**
    * 方法：getOtherCard
    * 参数：
@@ -431,12 +431,10 @@ function getOtherInfo(myid, otherid, then) {
           that.data.myInfo = res.data.card
           that.data.myInfo.face = app.globalData.picUrl + that.data.myInfo.face
           that.setData(that.data)
-          if (then) then()
+          if (resolve) resolve()
         } else {
-          wx.showToast({
-            title: '今日查看次数不足',
-            icon: 'none'
-          })
+          // 查看次数不足
+          if (reject) reject()
         }
       }
     }
@@ -1077,18 +1075,15 @@ function getWxQrCode(then) {
     method: 'GET',
     success: (res) => {
       if (res.statusCode == 200) {
-        var base64 = "image/png;base64," + wx.arrayBufferToBase64(res.data.image)
-        wx.getImageInfo({
-          src: base64,
-          success: (res) => {
-            console.log(res)
-          },
-          fail: (res) => {
-            console.log(res)
-          }
-        })
-        //var base64 = wx.arrayBufferToBase64(res.data.image)
-        //if (then) then({ base64: "data:image/png;base64," + base64})
+        console.log(res)
+        if (res.data.ok) {
+          wx.getImageInfo({
+            src: app.globalData.picUrl + res.data.imagePath,
+            success: (res) => {
+              if (then) then({ imagePath: res.path})
+            }
+          })
+        }
       }
     }
   })

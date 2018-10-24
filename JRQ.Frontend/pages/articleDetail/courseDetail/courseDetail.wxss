@@ -20,6 +20,15 @@ page {
   padding: 10px;
   background-color: white;
 }
+.updateButton {
+  display: inline;
+  margin: 0 10px;
+  padding: 3px;
+  font-size: 0.6rem;
+  color: #FFF;
+  background-color: #D62F36;
+  border-radius: 5px;
+}
 .course-intro > .detail > text {
   margin: 3px 0;
 }

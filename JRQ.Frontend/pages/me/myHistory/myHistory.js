@@ -102,7 +102,7 @@ Page({
           //服务器返回没有权限获取详细信息，小程序向用户发起询问
           wx.showModal({
             title: '是否确认查看用户信息?',
-            content: '查看用户信息会消耗1次当天查看次数，您剩余查看次数为：' + that.data.cardLimits + '次',
+            content: '普通会员查看一次需要付费5块，银牌会员每天可查看5次，金牌会员每天10次。您剩余查看次数为：' + that.data.cardLimits + '次',
             success: (res) => {
               if (res.confirm) {
                 //向服务器发送请求消耗查看次数来查看当前用户信息
@@ -112,6 +112,12 @@ Page({
                   })
                   api.getMyCardLimits.call(that, app.getOpenid())
                   that.data.isAlreadyGetOtherInfo = true
+                }, () => {
+                  // 查看次数不足
+                  wx.showToast({
+                    title: '今日查看次数不足',
+                    icon: 'none'
+                  })
                 })
               }
             }

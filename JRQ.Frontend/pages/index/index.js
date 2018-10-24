@@ -52,7 +52,8 @@ Page({
     currentKind: null,
     searchCondition: null,
     lastId: "",
-    lastIdType: ""
+    lastIdType: "",
+    modalHidden: false
   },
 
   //事件处理函数
@@ -181,4 +182,19 @@ Page({
       default: break;
     }*/
   },
+
+  modalConfirm: function () {
+    this.setData({
+      modalHidden: true
+    })
+    wx.navigateTo({
+      url: '/pages/me/updateMe/updateMe',
+    })
+  },
+
+  modalCancel: function () {
+    this.setData({
+      modalHidden: true
+    })
+  }
 })

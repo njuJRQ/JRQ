@@ -23,6 +23,9 @@
 .module:active {
   background-color: #F0F0F0;
 }
+.modal__image {
+  width: 100%;
+}
 /*关于文章的属性*/
 .article-images > image {
   width: 100px;

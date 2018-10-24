@@ -26,10 +26,11 @@ Page({
         success: (res) => {
           wx.hideLoading()
           var faceTempUrl = res.path
-          api.getWxQrCode.call(that, (image) => {
+          api.getWxQrCode.call(that, (res) => {
+            console.log(res.imagePath)
             that.setData({
               faceTempUrl: faceTempUrl,
-              qrcode: image.base64
+              qrcode: res.imagePath
             })
             that.drawPost()
           })

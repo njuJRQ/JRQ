@@ -5,15 +5,15 @@ import njurestaurant.njutakeout.response.Response;
 public class QrCodeResponse extends Response {
 	private boolean ok; //是否成功
 	private String message; //相关信息
-	private byte[] image; //二维码图片
+	private String imagePath; //二维码图片路径
 
 	public QrCodeResponse() {
 	}
 
-	public QrCodeResponse(boolean ok, String message, byte[] image) {
+	public QrCodeResponse(boolean ok, String message, String imagePath) {
 		this.ok = ok;
 		this.message = message;
-		this.image = image;
+		this.imagePath = imagePath;
 	}
 
 	public boolean isOk() {
@@ -32,11 +32,11 @@ public class QrCodeResponse extends Response {
 		this.message = message;
 	}
 
-	public byte[] getImage() {
-		return image;
+	public String getImagePath() {
+		return imagePath;
 	}
 
-	public void setImage(byte[] image) {
-		this.image = image;
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 }

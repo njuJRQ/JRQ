@@ -252,7 +252,7 @@ public class UserBlServiceImpl implements UserBlService {
 			accessToken = (String)JSONObject.fromObject(response.getBody()).get("access_token");
 		} else {
 			System.err.println(response);
-			return new QrCodeResponse(false, "access_token获取失败("+response+")", new byte[]{});
+			return new QrCodeResponse(false, "access_token获取失败("+response+")", "");
 		}
 
 		//根据accessToken获取二维码图片
@@ -273,10 +273,42 @@ public class UserBlServiceImpl implements UserBlService {
 		ResponseEntity<byte[]> wxQrCodeResponse = client.exchange(wxQrCodeUrl, HttpMethod.POST, wxQrCodeRequest, byte[].class);
 		if (wxQrCodeResponse.getStatusCode() == HttpStatus.OK) {
 			byte[] image = wxQrCodeResponse.getBody();
-			return new QrCodeResponse(true, "ok", image);
+			String imagePath = "record/qrcode/"+UUID.randomUUID();
+			try {
+				File imageFile = new File(imagePath);
+				while (!imageFile.createNewFile()) { //若文件已存在，则换个名字
+					imagePath = "record/qrcode/"+UUID.randomUUID();
+					imageFile = new File(imagePath);
+				}
+				InputStream inputStream = new ByteArrayInputStream(image);
+				OutputStream outputStream = new FileOutputStream(imageFile);
+				int len = 0;
+				byte[] buf = new byte[1024];
+				while ((len=inputStream.read(buf, 0, 1024)) != -1) {
+					outputStream.write(buf, 0, len);
+				}
+				outputStream.flush();
+
+				//1分钟后删除此图片
+				final File finalImageFile = new File(imagePath);
+				new Timer().schedule(new TimerTask() {
+					@Override
+					public void run() {
+						if (!finalImageFile.delete()) {
+							System.err.println(finalImageFile.getName()+"文件删除失败");
+						}
+					}
+				}, 60 * 1000);
+
+				return new QrCodeResponse(true, "ok", imagePath);
+			} catch (IOException e) {
+				System.err.println("二维码图片保存时出现错误！");
+				e.printStackTrace();
+				return new QrCodeResponse(false, "二维码保存失败", "");
+			}
 		} else {
 			System.err.println(wxQrCodeResponse);
-			return new QrCodeResponse(false, "二维码获取失败", new byte[]{});
+			return new QrCodeResponse(false, "二维码获取失败", "");
 		}
 	}
 

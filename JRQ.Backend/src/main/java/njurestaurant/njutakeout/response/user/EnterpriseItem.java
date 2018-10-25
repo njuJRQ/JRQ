@@ -1,61 +1,39 @@
-package njurestaurant.njutakeout.entity.user;
+package njurestaurant.njutakeout.response.user;
 
-import org.hibernate.annotations.GenericGenerator;
+import njurestaurant.njutakeout.entity.user.Enterprise;
 
-import javax.persistence.*;
-
-@Entity
-@Table
-@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class Enterprise {
-
-	@Id
-	@Column
-	@GeneratedValue(generator = "jpa-uuid")
+public class EnterpriseItem {
 	private String id; //企业ID
 
-	@Column
 	private String name; //企业名称
 
-	@Column
 	private String description; //企业简介
 
-	@Column
 	private String licenseUrl; //营业执照URL
 
-	@Column
 	private String openid; //用户微信编号
 
-	@Column
 	private String adminId; //对应的管理员ID
 
-	/**
-	 * 审核状态
-	 * "submitted"：已提交申请，等待管理员审核
-	 * "verified"：已通过申请，具有企业用户身份
-	 * "rejected"：申请被拒绝（此状态下的记录将会在用户收到消息后被删除）
-	 * "disqualified"：原先是企业管理员，但被取消了资格（此状态下的记录将会在用户收到消息后被删除）
-	 */
-	@Column
-	private String status;
+	private String status; //审核状态
 
-	@Column
 	private long commitTimestamp; //用户提交的时间戳
 
-	@Column
-	private long verifyTimestamp; //后台审核的时间戳（审核结果可能是"verified"，"rejected"，"disqualified"）
+	private long verifyTimestamp; //后台审核的时间戳
 
-	public Enterprise() {
+	public EnterpriseItem() {
 	}
 
-	public Enterprise(String name, String description, String licenseUrl, String openid, String adminId, String status, long commitTimestamp) {
-		this.name = name;
-		this.description = description;
-		this.licenseUrl = licenseUrl;
-		this.openid = openid;
-		this.adminId = adminId;
-		this.status = status;
-		this.commitTimestamp = commitTimestamp;
+	public EnterpriseItem(Enterprise enterprise) {
+		this.id = enterprise.getId();
+		this.name = enterprise.getName();
+		this.description = enterprise.getDescription();
+		this.licenseUrl = enterprise.getLicenseUrl();
+		this.openid = enterprise.getOpenid();
+		this.adminId = enterprise.getAdminId();
+		this.status = enterprise.getStatus();
+		this.commitTimestamp = enterprise.getCommitTimestamp();
+		this.verifyTimestamp = enterprise.getCommitTimestamp();
 	}
 
 	public String getId() {

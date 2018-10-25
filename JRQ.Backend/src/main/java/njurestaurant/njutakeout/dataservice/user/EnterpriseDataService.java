@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface EnterpriseDataService {
 
+	boolean isEnterpriseExistent(String id);
+
 	boolean isUserEnterprise(String openid);
 
 	boolean isAdminEnterprise(String adminId);
@@ -15,11 +17,13 @@ public interface EnterpriseDataService {
 
 	void addEnterprise(Enterprise enterprise);
 
+	Enterprise getEnterpriseById(String id) throws NotExistException;
+
 	Enterprise getEnterpriseByOpenid(String openid) throws NotExistException;
 
 	Enterprise getEnterpriseByAdminId(String adminId) throws NotExistException;
 
 	List<Enterprise> getAllEnterprises();
 
-	void deleteEnterpriseByOpenid(String openid) throws NotExistException;
+	void deleteEnterpriseById(String id) throws NotExistException;
 }

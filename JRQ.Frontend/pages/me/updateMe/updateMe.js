@@ -14,10 +14,15 @@ Page({
     price998: 998,
     priceEnterprise: '免费',
     isHideModalput: true,
-    username: '',
-    password: '',
+    username: "",
+    password: "",
+    enterpriseName: "",
+    description: "",
     isAdminUsernameExistent: false,
-    isEnterprise: false
+    isEnterpriseDescriptionNotEnough: false,
+    isEnterprise: false,
+    licenseTempUrl: "",
+    returnInfo: ""
   },
 
   /**
@@ -68,18 +73,88 @@ Page({
 
   //取消按钮
   cancel: function () {
+    console.log('cancel')
     this.setData({
       isHideModalput: true
     });
   },
   //确认
   confirm: function () {
-    this.setData({
-      isHideModalput: true
-    })
-    api.setMyUserAsEnterprise.call(this, app.getOpenid(), this.data.username, this.data.password)
+    console.log('confirm')
+    if (this.isValid()) {
+      this.setData({
+        isHideModalput: true
+      })
+      api.setMyUserAsEnterprise.call(this,
+        this.data.enterpriseName,
+        this.data.description,
+        this.data.licenseTempUrl,
+        app.getOpenid(),
+        this.data.username,
+        this.data.password,
+        (res) => {
+          wx.showModal({
+            content: res.data.message,
+            showCancel: false,
+          })
+        }
+      )
+    }
   },
-    
+
+  isValid: function () {
+    if (this.data.username == "") {
+      wx.showToast({
+        title: '用户名不得为空，请重填',
+        icon: 'none'
+      })
+      return false
+    }
+    if (this.data.password == "") {
+      wx.showToast({
+        title: '密码不得为空，请重填',
+        icon: 'none'
+      })
+      return false
+    }
+    if (this.data.enterpriseName == "") {
+      wx.showToast({
+        title: '企业名称不得为空，请重填',
+        icon: 'none'
+      })
+      return false
+    }
+    if (this.data.description == "") {
+      wx.showToast({
+        title: '企业描述不得为空，请重填',
+        icon: 'none'
+      })
+      return false
+    }
+    if (this.data.licenseTempUrl == "") {
+      wx.showToast({
+        title: '未上传企业经营许可证，请上传',
+        icon: 'none'
+      })
+      return false
+    }
+    if (this.data.isAdminUsernameExistent) {
+      wx.showToast({
+        title: '用户名已存在，请重填',
+        icon: 'none'
+      })
+      return false
+    }
+    if (this.data.isEnterpriseDescriptionNotEnough) {
+      wx.showToast({
+        title: '企业描述不满30字，请重填',
+        icon: 'none'
+      })
+      return false
+    }
+    return true
+  },
+
   updateUsername: function (e) {
     this.data.username = e.detail.value;
     var that = this
@@ -92,6 +167,28 @@ Page({
 
   updatePassword: function (e) {
     this.data.password = e.detail.value;
+  },
+
+  uploadLicense: function (e) {
+    var that = this
+    wx.chooseImage({
+      success: function (res) {
+        that.setData({
+          licenseTempUrl: res.tempFilePaths[0]
+        })
+      },
+    })
+  },
+
+  updateEnterpriseName: function (e) {
+    this.data.enterpriseName = e.detail.value;
+  },
+
+  updateEnterpriseDescription: function (e) {
+    this.data.description = e.detail.value;
+    this.setData({
+      isEnterpriseDescriptionNotEnough: this.data.description.length < 30
+    })
   },
 
   goToPay: function () {

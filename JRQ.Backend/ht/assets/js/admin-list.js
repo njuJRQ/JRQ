@@ -17,9 +17,9 @@ $.ajax(
     {
         method: 'GET',
         url: url+"/getAdminList",
+        dataType: 'json',
         headers :{
-            'Authorization': 'Bearer ' + getToken(),
-            'content-type': 'application/x-www-form-urlencoded'
+            'Authorization': 'Bearer ' + getToken()
         },
         data: {
         },

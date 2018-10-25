@@ -59,6 +59,7 @@ Page({
     }
   },
 
+  // 绘制海报
   drawPost: function () {
     this.hideModal()
     wx.navigateTo({

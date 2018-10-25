@@ -48,7 +48,7 @@ App({
                 //获取个人微信号信息
                 wx.getUserInfo({
                   success: function (data) {
-                    console.info('个人微信号信息', data)
+                    /*console.info('个人微信号信息', data)*/
                     wx.setStorageSync("wechatUsername", data.userInfo.nickName);
                     wx.setStorageSync("wechatFaceUrl", data.userInfo.avatarUrl)
                     wx.request({

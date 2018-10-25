@@ -38,17 +38,26 @@ Page({
         showCancel: false
       })
     } else {
-      wx.showModal({
-        title: '确认购买',
-        content: '确认以' + that.data.course.price + '的价格购买\r\n' + that.data.course.title + '\r\n吗？',
-        success: (res) => {
-          if (res.confirm) {
-            console.log(that.data.course.id)
-            api.purchaseCourse.call(that, that.data.course.id, app.getOpenid(), that.data.course.price, app.getDate(), () => {
-              that.onLoad({ id: that.data.course.id })
-            })
-          }
+      api.getMyUser.call(that, app.getOpenid(), (res) => {
+        var price = that.data.course.price
+        switch (res.levelName) {
+          case "common": break;
+          case "298": price = Math.ceil(price / 2); break;
+          case "998": price = 0; break;
+          default: break;
         }
+        wx.showModal({
+          title: '确认购买',
+          content: '确认以' + price + '的价格购买\r\n' + that.data.course.title + '\r\n吗？',
+          success: (res) => {
+            if (res.confirm) {
+              console.log(that.data.course.id)
+              api.purchaseCourse.call(that, that.data.course.id, app.getOpenid(), that.data.course.price, app.getDate(), () => {
+                that.onLoad({ id: that.data.course.id })
+              })
+            }
+          }
+        })
       })
     }
   }

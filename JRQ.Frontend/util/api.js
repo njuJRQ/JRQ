@@ -768,29 +768,31 @@ function getClassificationList(then) {
   })
 }
 
-function setMyUserAsEnterprise(openid, username, password) {
+function setMyUserAsEnterprise(enterpriseName, description, licenseUrl, openid, username, password, then) {
   var that = this
-  wx.request({
-    url: app.globalData.backendUrl + "setMyUserAsEnterprise",
-    data: {
-      openid: openid,
-      username: username,
-      password: password
-    },
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
+  wx.uploadFile({
+    url: app.globalData.backendUrl + "uploadLicense",
+    filePath: licenseUrl,
+    name: 'license',
     success: (res) => {
+      // 上传license成功
       console.log(res)
-      wx.showModal({
-        content: res.data.message,
-        showCancel: false,
-        success: (r) => {
-          that.setData({
-            returnInfo: res.data.message
-          })
+      wx.request({
+        url: app.globalData.backendUrl + "setMyUserAsEnterprise",
+        data: {
+          enterpriseName: enterpriseName,
+          description: description,
+          openid: openid,
+          username: username,
+          password: password
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          if (then) then(res)
         }
       })
     }
@@ -866,6 +868,26 @@ function getMyCredit(openid) {
         is298: res.data.user.levelName === "298",
         is998: res.data.user.levelName === "998"
       })
+    }
+  })
+}
+
+function getMyUser(openid, then) {
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "getMyUser",
+    data: {
+      openid: openid
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      if(res.statusCode == 200){
+        then(res.data.user)
+      }
     }
   })
 }
@@ -1116,6 +1138,7 @@ module.exports = {
   updateMe: updateMe,
   sendMyCard: sendMyCard,
   getMyCredit: getMyCredit,
+  getMyUser: getMyUser,
   isEnterprise: isEnterprise,
   getMyEnterpriseAdmin: getMyEnterpriseAdmin,
   getMyCardLimits: getMyCardLimits,

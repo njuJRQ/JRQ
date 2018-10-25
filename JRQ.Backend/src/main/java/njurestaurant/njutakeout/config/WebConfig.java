@@ -27,6 +27,7 @@ public class WebConfig implements WebMvcConfigurer {
      *
      * @param registry
      */
+    /*
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("swagger-ui.html")
@@ -37,5 +38,5 @@ public class WebConfig implements WebMvcConfigurer {
 
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("file:" + PathUtil.getStaticPath());
-    }
+    }*/
 }

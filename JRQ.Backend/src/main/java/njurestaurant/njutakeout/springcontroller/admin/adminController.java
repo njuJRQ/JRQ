@@ -21,6 +21,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 public class adminController {
     private final AdminBlService adminBlService;
@@ -70,7 +73,9 @@ public class adminController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public AdminListResponse getAdminList(){
+    public AdminListResponse getAdminList(HttpServletRequest httpServletRequest,HttpServletResponse response){
+        System.out.println("admin:"+httpServletRequest.getHeader("Authorization"));
+        response.setHeader("Access-Control-Allow-Origin", "*");
         AdminListResponse r=adminBlService.getAdminList();
         return r;
     }

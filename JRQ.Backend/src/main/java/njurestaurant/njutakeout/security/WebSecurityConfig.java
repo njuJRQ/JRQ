@@ -1,5 +1,6 @@
 package njurestaurant.njutakeout.security;
 
+import njurestaurant.njutakeout.config.filter.CorsFilter;
 import njurestaurant.njutakeout.config.filter.JwtAuthenticationTokenFilter;
 import njurestaurant.njutakeout.security.jwt.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new JwtAuthenticationTokenFilter();
     }
 
+
     // 装载BCrypt密码编码器
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -75,8 +77,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 禁用缓存
         httpSecurity.headers().cacheControl();
 
+        //httpSecurity.addFilter(new CorsFilter());
         // 添加JWT filter
         httpSecurity
                 .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+
     }
 }

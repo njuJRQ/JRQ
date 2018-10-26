@@ -1,8 +1,10 @@
 package njurestaurant.njutakeout.response.user;
 
+import njurestaurant.njutakeout.response.Response;
+
 import java.util.List;
 
-public class EnterpriseListResponse {
+public class EnterpriseListResponse extends Response{
 	private List<EnterpriseItem> enterprises;
 
 	public EnterpriseListResponse(List<EnterpriseItem> enterprises) {

@@ -51,7 +51,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         System.out.println("url:"+request.getRequestURI());
         System.out.println("authheader:"+authHeader);
         if(url.equals("/getOpenIdAndSessionKey")||url.equals("/loginAdmin")){
-            chain.doFilter(request, response);
+            //chain.doFilter(request, response);
         }
         else{
             if (authHeader != null && authHeader.startsWith(tokenHead)) {
@@ -68,14 +68,13 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                                 request));
                         SecurityContextHolder.getContext().setAuthentication(authentication);
                         System.out.println("yes");
-                        chain.doFilter(request, response);
+                        //chain.doFilter(request, response);
                     }
                 }
 
             }
         }
         chain.doFilter(request, response);
-
 
 
 

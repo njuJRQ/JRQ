@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface EnterpriseDao extends JpaRepository<Enterprise, String> {
 	Optional<Enterprise> findEnterpriseByAdminId(String adminId);
+	Optional<Enterprise> findEnterpriseByOpenid(String openid);
 }

@@ -20,13 +20,20 @@ public class EnterpriseDataServiceImpl implements EnterpriseDataService {
 	}
 
 	@Override
+	public boolean isEnterpriseExistent(String id) {
+		return enterpriseDao.existsById(id);
+	}
+
+	@Override
 	public boolean isUserEnterprise(String openid) {
-		return enterpriseDao.existsById(openid);
+		Optional<Enterprise> optionalEnterprise = enterpriseDao.findEnterpriseByOpenid(openid);
+		return optionalEnterprise.isPresent() && optionalEnterprise.get().getStatus().equals("verified");
 	}
 
 	@Override
 	public boolean isAdminEnterprise(String adminId) {
-		return enterpriseDao.findEnterpriseByAdminId(adminId).isPresent();
+		Optional<Enterprise> optionalEnterprise = enterpriseDao.findEnterpriseByAdminId(adminId);
+		return optionalEnterprise.isPresent() && optionalEnterprise.get().getStatus().equals("verified");
 	}
 
 	@Override
@@ -40,8 +47,18 @@ public class EnterpriseDataServiceImpl implements EnterpriseDataService {
 	}
 
 	@Override
+	public Enterprise getEnterpriseById(String id) throws NotExistException {
+		Optional<Enterprise> optionalEnterprise = enterpriseDao.findById(id);
+		if (optionalEnterprise.isPresent()) {
+			return optionalEnterprise.get();
+		} else {
+			throw new NotExistException("Enterprise Id", id);
+		}
+	}
+
+	@Override
 	public Enterprise getEnterpriseByOpenid(String openid) throws NotExistException {
-		Optional<Enterprise> optionalEnterprise = enterpriseDao.findById(openid);
+		Optional<Enterprise> optionalEnterprise = enterpriseDao.findEnterpriseByOpenid(openid);
 		if (optionalEnterprise.isPresent()) {
 			return optionalEnterprise.get();
 		} else {
@@ -55,7 +72,7 @@ public class EnterpriseDataServiceImpl implements EnterpriseDataService {
 		if (optionalEnterprise.isPresent()) {
 			return optionalEnterprise.get();
 		} else {
-			throw new NotExistException("Enterprise", adminId);
+			throw new NotExistException("Enterprise AdminId", adminId);
 		}
 	}
 
@@ -65,11 +82,11 @@ public class EnterpriseDataServiceImpl implements EnterpriseDataService {
 	}
 
 	@Override
-	public void deleteEnterpriseByOpenid(String openid) throws NotExistException {
-		if (enterpriseDao.existsById(openid)) {
-			enterpriseDao.deleteById(openid);
+	public void deleteEnterpriseById(String id) throws NotExistException {
+		if (enterpriseDao.existsById(id)) {
+			enterpriseDao.deleteById(id);
 		} else {
-			throw new NotExistException("Enterprise User openid", openid);
+			throw new NotExistException("Enterprise Id", id);
 		}
 	}
 }

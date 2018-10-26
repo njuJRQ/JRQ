@@ -29,9 +29,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onShow: function (options) {
+    var that = this
     api.getMyCredit.call(this, app.getOpenid())
-    api.getLevelList.call(this)
-    api.getPrivilegeList.call(this)
+    api.getLevelList.call(this, (levels) => {
+      levels.forEach((level) => {
+        switch (level.name) {
+          case "298": that.data.price298 = level.price; break;
+          case "998": that.data.price998 = level.price; break;
+          default: break;
+        }
+      })
+      that.setData(that.data)
+    })
+    api.getPrivilegeList.call(this, (privileges) => {
+      privileges.forEach((privilege) => {
+        switch (privilege.name) {
+          case "enterprise": that.data.priceEnterprise = privilege.price === 0 ? '免费' : privilege.price; break;
+          default: break;
+        }
+      })
+      that.setData(that.data)
+    })
   },
 
   updateTo298: function () {

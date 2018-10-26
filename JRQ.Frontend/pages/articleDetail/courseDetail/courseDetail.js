@@ -26,6 +26,17 @@ Page({
    */
   onLoad: function (options) {
     var that = this
+    api.getLevelList.call(this, (levels) => {
+      levels.forEach((level) => {
+        console.log(level)
+        switch (level.name) {
+          case "298": that.data.discount298 = level.courseDiscountedRatio; break;
+          case "998": that.data.discount998 = level.courseDiscountedRatio; break;
+          default: break;
+        }
+      })
+      that.setData(that.data)
+    })
     api.getMyCourse.call(this, app.getOpenid(), options.id)
   },
 

@@ -50,9 +50,9 @@ Page({
             })
           default: break;
         }
-        that.setData({
-          admin: res
-        })
+        that.data.admin = res
+        that.data.admin.licenseUrl = app.globalData.picUrl + that.data.admin.licenseUrl
+        that.setData(that.data)
       }
     })
   }

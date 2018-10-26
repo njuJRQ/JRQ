@@ -1,13 +1,6 @@
 /* pages/me/myEnterprise.wxss */
 @import '/style/common.wxss';
 
-.container {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  justify-content: left;
-}
-
 .wrapper {
   width: 100%;
   margin: 10px 0 0 0;
@@ -17,11 +10,16 @@
 
 .wrapper__key {
   display: inline-block;
-  width: 100px;
+  width: 120px;
   color: #000;
+}
+
+.wrapper__license {
+  margin: 10px 0 0 0;
+  width: 100%;
 }
 
 .button {
   width: 90%;
-  margin: 20px 0 0 0;
+  margin: 20px 0;
 }

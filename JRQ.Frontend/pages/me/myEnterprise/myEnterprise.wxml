@@ -21,6 +21,10 @@
     <text class='wrapper__value'>{{admin.description}}</text>
   </view>
   <view class='wrapper'>
+    <text class='wrapper__key'>企业许可证：</text>
+    <image class='wrapper__license' mode='widthFix' src='{{admin.licenseUrl}}'></image>
+  </view>
+  <view class='wrapper'>
     <text class='wrapper__key'>提交时间：</text>
     <text class='wrapper__value'>{{admin.submitTime}}</text>
   </view>

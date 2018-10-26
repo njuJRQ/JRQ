@@ -33,43 +33,47 @@ Page({
       wechatId: '****',
       email: '******'
     },
-    myArticles: [{
-      id: 1,
-      text: '《有效识别金融项目》课程。',
-      images: [
-        '../../../default/default-pic.png',
-        '../../../default/default-pic.png',
-        '../../../default/default-pic.png'
-      ],
-      writerFace: '../../../default/default-icon.png',
-      writerName: 'USERNAME',
-      date: '2020-01-01',
-      likeNum: 8965
-    }, {
-      id: 2,
-      text: '《有效识别金融项目》课程。',
-      images: [
-        '../../../default/default-pic.png',
-        '../../../default/default-pic.png',
-        '../../../default/default-pic.png'
-      ],
-      writerFace: '../../../default/default-icon.png',
-      writerName: 'USERNAME',
-      date: '2020-01-01',
-      likeNum: 8965
-    }, {
-      id: 3,
-      text: '《有效识别金融项目》课程。',
-      images: [
-        '../../../default/default-pic.png',
-        '../../../default/default-pic.png',
-        '../../../default/default-pic.png'
-      ],
-      writerFace: '../../../default/default-icon.png',
-      writerName: 'USERNAME',
-      date: '2020-01-01',
-      likeNum: 8965
-    }]
+    myArticles: [
+      {
+        id: 1,
+        text: '《有效识别金融项目》课程。',
+        images: [
+          '../../../default/default-pic.png',
+          '../../../default/default-pic.png',
+          '../../../default/default-pic.png'
+        ],
+        writerFace: '../../../default/default-icon.png',
+        writerName: 'USERNAME',
+        date: '2020-01-01',
+        likeNum: 8965
+      },
+      {
+        id: 2,
+        text: '《有效识别金融项目》课程。',
+        images: [
+          '../../../default/default-pic.png',
+          '../../../default/default-pic.png',
+          '../../../default/default-pic.png'
+        ],
+        writerFace: '../../../default/default-icon.png',
+        writerName: 'USERNAME',
+        date: '2020-01-01',
+        likeNum: 8965
+      },
+      {
+        id: 3,
+        text: '《有效识别金融项目》课程。',
+        images: [
+          '../../../default/default-pic.png',
+          '../../../default/default-pic.png',
+          '../../../default/default-pic.png'
+        ],
+        writerFace: '../../../default/default-icon.png',
+        writerName: 'USERNAME',
+        date: '2020-01-01',
+        likeNum: 8965
+      }
+    ]
   },
 
   /**
@@ -96,52 +100,62 @@ Page({
   isMyInfoVisiableToggle: function () {
     var that = this
     if (this.data.isGetOtherInfo) {        //获取别的用户信息
-
       if (!this.data.isAlreadyGetOtherInfo) {        //还没有获取当前用户信息
         //向服务器发送请求询问是否已有权限获取详细信息，如果已有权限则直接获取
-        api.isOtherCardAccessible.call(this, app.getOpenid(), this.data.otherid, () => {
-          //服务器返回没有权限获取详细信息，小程序向用户发起询问
-          if (that.data.cardLimits > 0) {    //用户查看次数足够
-            wx.showModal({
-              title: '是否确认查看用户信息?',
-              content: '您剩余查看次数为：' + that.data.cardLimits + '次',
-              success: (res) => {
-                if (res.confirm) {
-                  //向服务器发送请求查看当前用户信息
-                  api.getOtherInfo.call(that, app.getOpenid(), that.data.otherid, () => {       //服务器返回成功
-                    that.setData({
-                      isMyInfoVisiable: !that.data.isMyInfoVisiable,
-                    })
-                    api.getMyCardLimits.call(that, app.getOpenid())
-                    that.data.isAlreadyGetOtherInfo = true
-                  })
-                }
-              }
+        api.isOtherCardAccessible.call(this, app.getOpenid(), this.data.otherid, (res) => {
+          if (res) {
+            //服务器返回可成功获取详细信息的权限，直接获取详细信息
+            api.getOtherInfo.call(that, app.getOpenid(), that.data.otherid, () => {
+              that.setData({
+                isMyInfoVisiable: !that.data.isMyInfoVisiable,
+              })
+              api.getMyCardLimits.call(that, app.getOpenid())
+              that.data.isAlreadyGetOtherInfo = true
             })
-          }
-          else {                             //用户查看次数不足
-            wx.showModal({
-              title: '今日查看次数不足',
-              content: '是否消耗5个钧融币查看？',
-              success: (res) => {
-                if (res.confirm) {
-                  //向服务器发送请求查看当前用户信息
-                  api.getOtherInfo.call(that, app.getOpenid(), that.data.otherid, () => {       //服务器返回成功
-                    that.setData({
-                      isMyInfoVisiable: !that.data.isMyInfoVisiable,
+          } else {
+            //服务器返回没有权限获取详细信息，小程序向用户发起询问
+            if (that.data.cardLimits > 0) {    //用户查看次数足够
+              wx.showModal({
+                title: '是否确认查看用户信息?',
+                content: '您剩余查看次数为：' + that.data.cardLimits + '次',
+                success: (res) => {
+                  if (res.confirm) {
+                    //向服务器发送请求查看当前用户信息
+                    api.getOtherInfo.call(that, app.getOpenid(), that.data.otherid, () => {       //服务器返回成功
+                      that.setData({
+                        isMyInfoVisiable: !that.data.isMyInfoVisiable,
+                      })
+                      api.getMyCardLimits.call(that, app.getOpenid())
+                      that.data.isAlreadyGetOtherInfo = true
                     })
-                    api.getMyCardLimits.call(that, app.getOpenid())
-                    that.data.isAlreadyGetOtherInfo = true
-                  }, () => {                         //服务器返回失败
-                    wx.showModal({
-                      title: '获取用户信息失败',
-                      content: '查看次数和金额都不足',
-                      showCancel: false
-                    })
-                  })
+                  }
                 }
-              }
-            })
+              })
+            }
+            else {                             //用户查看次数不足
+              wx.showModal({
+                title: '今日查看次数不足',
+                content: '是否消耗5个钧融币查看？',
+                success: (res) => {
+                  if (res.confirm) {
+                    //向服务器发送请求查看当前用户信息
+                    api.getOtherInfo.call(that, app.getOpenid(), that.data.otherid, () => {       //服务器返回成功
+                      that.setData({
+                        isMyInfoVisiable: !that.data.isMyInfoVisiable,
+                      })
+                      api.getMyCardLimits.call(that, app.getOpenid())
+                      that.data.isAlreadyGetOtherInfo = true
+                    }, () => {                         //服务器返回失败
+                      wx.showModal({
+                        title: '获取用户信息失败',
+                        content: '查看次数和金额都不足',
+                        showCancel: false
+                      })
+                    })
+                  }
+                }
+              })
+            }
           }
         })
       }

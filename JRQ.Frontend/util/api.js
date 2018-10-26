@@ -166,7 +166,7 @@ function getMyCourse(openid, courseId, then) {
     method: 'GET',
     success: (res) => {
       wx.hideLoading()
-      console.log('getMyCourse', res)
+      /*console.log('getMyCourse', res)*/
       that.data.course = res.data.course
       that.data.course.image = app.globalData.picUrl + that.data.course.image
       //判断是否购买了课程
@@ -955,7 +955,7 @@ function getMyCardLimits (openid) {
   })
 }
 
-function getLevelList () {
+function getLevelList (then) {
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "getLevelList",
@@ -965,19 +965,14 @@ function getLevelList () {
     },
     method: 'GET',
     success: (res) => {
-      res.data.levels.forEach((level) => {
-        switch (level.name) {
-          case "298": that.data.price298 = level.price; break;
-          case "998": that.data.price998 = level.price; break;
-          default: break;
-        }
-      })
-      that.setData(that.data)
+      if(res.statusCode == 200) {
+        if (then) then(res.data.levels)
+      }
     }
   })
 }
 
-function getPrivilegeList() {
+function getPrivilegeList(then) {
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "getPrivilegeList",
@@ -987,18 +982,14 @@ function getPrivilegeList() {
     },
     method: 'GET',
     success: (res) => {
-      res.data.privileges.forEach((privilege) => {
-        switch (privilege.name) {
-          case "enterprise": that.data.priceEnterprise = privilege.price === 0 ? '免费' : privilege.price; break;
-          default: break;
-        }
-      })
-      that.setData(that.data)
+      if(res.statusCode == 200) {
+        if (then) then(res.data.privileges)
+      }
     }
   })
 }
 
-function isOtherCardAccessible (userOpenid, otherOpenid, reject) {
+function isOtherCardAccessible (userOpenid, otherOpenid, then) {
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "isOtherCardAccessible",
@@ -1012,16 +1003,8 @@ function isOtherCardAccessible (userOpenid, otherOpenid, reject) {
     },
     method: 'GET',
     success: (res) => {
-      if(res.data.ok) {
-        getOtherInfo.call(that, app.getOpenid(), that.data.otherid, () => {
-          that.setData({
-            isMyInfoVisiable: !that.data.isMyInfoVisiable,
-          })
-          getMyCardLimits.call(that, app.getOpenid())
-          that.data.isAlreadyGetOtherInfo = true
-        })
-      } else {
-        reject()
+      if (res.statusCode == 200) {
+        if (then) then(res.data.ok)
       }
     }
   })

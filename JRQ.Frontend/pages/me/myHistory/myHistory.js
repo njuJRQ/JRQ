@@ -82,7 +82,8 @@ Page({
       this.data.otherid = options.id
       api.getOtherBasicInfo.call(this, this.data.otherid) //获取除联系方式外的其他信息
       api.getUserHistoryAbstractList.call(this, app.getOpenid(), this.data.otherid) //获取文章历史记录
-    } else {
+    }
+    else {
       var that = this
       this.data.isGetOtherInfo = false
       api.getMyInfo.call(this, app.getOpenid()) //获取个人信息
@@ -95,41 +96,63 @@ Page({
   isMyInfoVisiableToggle: function () {
     var that = this
     if (this.data.isGetOtherInfo) {        //获取别的用户信息
-      
+
       if (!this.data.isAlreadyGetOtherInfo) {        //还没有获取当前用户信息
         //向服务器发送请求询问是否已有权限获取详细信息，如果已有权限则直接获取
         api.isOtherCardAccessible.call(this, app.getOpenid(), this.data.otherid, () => {
           //服务器返回没有权限获取详细信息，小程序向用户发起询问
-          wx.showModal({
-            title: '是否确认查看用户信息?',
-            content: '普通会员查看一次需要付费5块，银牌会员每天可查看5次，金牌会员每天10次。您剩余查看次数为：' + that.data.cardLimits + '次',
-            success: (res) => {
-              if (res.confirm) {
-                //向服务器发送请求消耗查看次数来查看当前用户信息
-                api.getOtherInfo.call(that, app.getOpenid(), that.data.otherid, () => {
-                  that.setData({
-                    isMyInfoVisiable: !that.data.isMyInfoVisiable,
+          if (that.data.cardLimits > 0) {    //用户查看次数足够
+            wx.showModal({
+              title: '是否确认查看用户信息?',
+              content: '您剩余查看次数为：' + that.data.cardLimits + '次',
+              success: (res) => {
+                if (res.confirm) {
+                  //向服务器发送请求查看当前用户信息
+                  api.getOtherInfo.call(that, app.getOpenid(), that.data.otherid, () => {       //服务器返回成功
+                    that.setData({
+                      isMyInfoVisiable: !that.data.isMyInfoVisiable,
+                    })
+                    api.getMyCardLimits.call(that, app.getOpenid())
+                    that.data.isAlreadyGetOtherInfo = true
                   })
-                  api.getMyCardLimits.call(that, app.getOpenid())
-                  that.data.isAlreadyGetOtherInfo = true
-                }, () => {
-                  // 查看次数不足
-                  wx.showToast({
-                    title: '今日查看次数不足',
-                    icon: 'none'
-                  })
-                })
+                }
               }
-            }
-          })
+            })
+          }
+          else {                             //用户查看次数不足
+            wx.showModal({
+              title: '今日查看次数不足',
+              content: '是否消耗5个钧融币查看？',
+              success: (res) => {
+                if (res.confirm) {
+                  //向服务器发送请求查看当前用户信息
+                  api.getOtherInfo.call(that, app.getOpenid(), that.data.otherid, () => {       //服务器返回成功
+                    that.setData({
+                      isMyInfoVisiable: !that.data.isMyInfoVisiable,
+                    })
+                    api.getMyCardLimits.call(that, app.getOpenid())
+                    that.data.isAlreadyGetOtherInfo = true
+                  }, () => {                         //服务器返回失败
+                    wx.showModal({
+                      title: '获取用户信息失败',
+                      content: '查看次数和金额都不足',
+                      showCancel: false
+                    })
+                  })
+                }
+              }
+            })
+          }
         })
-      } else {                              //已经获取当前用户信息
+      }
+      else {                              //已经获取当前用户信息
         that.setData({
           isMyInfoVisiable: !that.data.isMyInfoVisiable,
         })
       }
 
-    } else {                               //获取自己信息
+    }
+    else {                               //获取自己信息
       api.getMyInfo.call(this, app.getOpenid(), () => {
         that.setData({
           isMyInfoVisiable: !that.data.isMyInfoVisiable,
@@ -141,7 +164,8 @@ Page({
   onSendMyCard: function () {
     if (this.data.isGetOtherInfo) {
       api.sendMyCard.call(this, app.getOpenid(), this.data.otherid)
-    } else {
+    }
+    else {
       wx.showModal({
         content: '无需给自己发名片',
         showCancel: false

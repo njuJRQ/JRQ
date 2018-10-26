@@ -104,7 +104,7 @@
       </navigator>
     </view>
 
-    <view class='panel__setting' wx:if='{{isEnterprise}}'>
+    <view class='panel__setting'>
       <navigator class='navigator' url='myEnterprise/myEnterprise' hover-class="none" open-type='navigate'>
         <text class='navigator__text'>我的企业账户</text>
         <image class='navigator__arrow' src='img/arrow.png'></image>

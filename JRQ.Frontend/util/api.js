@@ -98,7 +98,7 @@ function getFeedList(openid, id) {
     method: 'GET',
     success: (res) => {
       wx.hideLoading()
-      console.log(res)
+      /*console.log(res)*/
       if (res.statusCode == 200) {
       res.data.feedViews.forEach((article) => {
         article.writerFace = app.globalData.picUrl + article.writerFace
@@ -433,7 +433,7 @@ function getOtherInfo(myid, otherid, resolve, reject) {
           that.setData(that.data)
           if (resolve) resolve()
         } else {
-          // 查看次数不足
+          // 次数和金额都不足
           if (reject) reject()
         }
       }
@@ -947,7 +947,7 @@ function getMyCardLimits (openid) {
     },
     method: 'GET',
     success: (res) => {
-      console.log(res)
+      /*console.log(res)*/
       that.setData({
         cardLimits: res.data.user.cardLimit
       })
@@ -1078,7 +1078,6 @@ function isAdminUsernameExistent (username, then) {
 function getWxQrCode(then) {
   var that = this
   wx.request({
-    /*url: app.globalData.backendUrl + "getWxQrCode?scene=id=" + app.getOpenid() + '&page=pages/me/myHistory/myHistory&width=200&autoColor=true&lineColorR=0&lineColorG=0&lineColorB=0&isHyaline=true',*/
     url: app.globalData.backendUrl + "getWxQrCode",
     data: {
       scene: 'id=' + app.getOpenid(),
@@ -1106,6 +1105,26 @@ function getWxQrCode(then) {
             }
           })
         }
+      }
+    }
+  })
+}
+
+function getMySubmittedEnterprise (openid, then) {
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "getMySubmittedEnterprise",
+    data: {
+      openid: openid
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      if (res.statusCode == 200) {
+        if (then) then(res.data.enterprise)
       }
     }
   })
@@ -1147,5 +1166,6 @@ module.exports = {
   isOtherCardAccessible: isOtherCardAccessible,
   getMyCourseListBefore: getMyCourseListBefore,
   isAdminUsernameExistent: isAdminUsernameExistent,
-  getWxQrCode: getWxQrCode
+  getWxQrCode: getWxQrCode,
+  getMySubmittedEnterprise: getMySubmittedEnterprise
 }

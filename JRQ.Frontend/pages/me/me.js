@@ -21,8 +21,7 @@ Page({
       department: 'IT技术部',
       position: 'IT初级经理',
       intro: '我要在代码的世界里飞翔。'
-    },
-    isEnterprise: false
+    }
   },
 
   /**
@@ -31,10 +30,7 @@ Page({
   onShow: function (options) {
     var that = this
     //获取个人信息
-    api.getMyInfo.call(this, app.getOpenid(), () => {
-      //检查是否为企业用户
-      api.isEnterprise.call(that, app.getOpenid())
-    })
+    api.getMyInfo.call(this, app.getOpenid())
   },
 
   //发布信息

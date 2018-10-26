@@ -27,7 +27,13 @@ public class Enterprise {
 	private String openid; //用户微信编号
 
 	@Column
-	private String adminId; //对应的管理员ID
+	private String adminId; //对应的管理员ID，管理员审核之前为""
+
+	@Column
+	private String adminUsername; //提交时设置的管理员username
+
+	@Column
+	private String adminPassword; //提交时设置的管理员password
 
 	/**
 	 * 审核状态
@@ -48,12 +54,14 @@ public class Enterprise {
 	public Enterprise() {
 	}
 
-	public Enterprise(String name, String description, String licenseUrl, String openid, String adminId, String status, long submitTimestamp) {
+	public Enterprise(String name, String description, String licenseUrl, String openid, String adminId, String adminUsername, String adminPassword, String status, long submitTimestamp) {
 		this.name = name;
 		this.description = description;
 		this.licenseUrl = licenseUrl;
 		this.openid = openid;
 		this.adminId = adminId;
+		this.adminUsername = adminUsername;
+		this.adminPassword = adminPassword;
 		this.status = status;
 		this.submitTimestamp = submitTimestamp;
 	}
@@ -128,5 +136,21 @@ public class Enterprise {
 
 	public void setVerifyTimestamp(long verifyTimestamp) {
 		this.verifyTimestamp = verifyTimestamp;
+	}
+
+	public String getAdminUsername() {
+		return adminUsername;
+	}
+
+	public void setAdminUsername(String adminUsername) {
+		this.adminUsername = adminUsername;
+	}
+
+	public String getAdminPassword() {
+		return adminPassword;
+	}
+
+	public void setAdminPassword(String adminPassword) {
+		this.adminPassword = adminPassword;
 	}
 }

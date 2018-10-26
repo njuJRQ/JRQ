@@ -1,6 +1,13 @@
 package njurestaurant.njutakeout.response.user;
 
+import njurestaurant.njutakeout.dataservice.admin.AdminDataService;
+import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
+import njurestaurant.njutakeout.entity.admin.Admin;
 import njurestaurant.njutakeout.entity.user.Enterprise;
+import njurestaurant.njutakeout.exception.NotExistException;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class EnterpriseItem {
 	private String id; //企业ID
@@ -15,25 +22,43 @@ public class EnterpriseItem {
 
 	private String adminId; //对应的管理员ID
 
+	private String adminUsername; //对应的管理员用户名
+
+	private String adminPassword; //对应的管理员密码
+
 	private String status; //审核状态
 
-	private long submitTimestamp; //用户提交的时间戳
+	private String submitTime; //用户提交的时间
 
-	private long verifyTimestamp; //后台审核的时间戳
+	private String verifyTime; //后台审核的时间
 
 	public EnterpriseItem() {
 	}
 
-	public EnterpriseItem(Enterprise enterprise) {
+	public EnterpriseItem(Enterprise enterprise, AdminDataService adminDataService) {
 		this.id = enterprise.getId();
 		this.name = enterprise.getName();
 		this.description = enterprise.getDescription();
 		this.licenseUrl = enterprise.getLicenseUrl();
 		this.openid = enterprise.getOpenid();
 		this.adminId = enterprise.getAdminId();
+		if (enterprise.getId()!=null && !enterprise.getId().equals("")) { //首先查看是否在admin列表中
+			try {
+				Admin admin = adminDataService.getAdminById(enterprise.getAdminId());
+				this.adminUsername = admin.getUsername();
+				this.adminPassword = admin.getPassword();
+			} catch (NotExistException e) {
+				this.adminUsername = enterprise.getAdminUsername();
+				this.adminPassword = enterprise.getAdminPassword();
+			}
+		} else {
+			this.adminUsername = enterprise.getAdminUsername();
+			this.adminPassword = enterprise.getAdminPassword();
+		}
 		this.status = enterprise.getStatus();
-		this.submitTimestamp = enterprise.getSubmitTimestamp();
-		this.verifyTimestamp = enterprise.getVerifyTimestamp();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		this.submitTime = simpleDateFormat.format(new Date(enterprise.getSubmitTimestamp()));
+		this.verifyTime = simpleDateFormat.format(new Date(enterprise.getVerifyTimestamp()));
 	}
 
 	public String getId() {
@@ -92,19 +117,35 @@ public class EnterpriseItem {
 		this.status = status;
 	}
 
-	public long getSubmitTimestamp() {
-		return submitTimestamp;
+	public String getAdminUsername() {
+		return adminUsername;
 	}
 
-	public void setSubmitTimestamp(long submitTimestamp) {
-		this.submitTimestamp = submitTimestamp;
+	public void setAdminUsername(String adminUsername) {
+		this.adminUsername = adminUsername;
 	}
 
-	public long getVerifyTimestamp() {
-		return verifyTimestamp;
+	public String getAdminPassword() {
+		return adminPassword;
 	}
 
-	public void setVerifyTimestamp(long verifyTimestamp) {
-		this.verifyTimestamp = verifyTimestamp;
+	public void setAdminPassword(String adminPassword) {
+		this.adminPassword = adminPassword;
+	}
+
+	public String getSubmitTime() {
+		return submitTime;
+	}
+
+	public void setSubmitTime(String submitTime) {
+		this.submitTime = submitTime;
+	}
+
+	public String getVerifyTime() {
+		return verifyTime;
+	}
+
+	public void setVerifyTime(String verifyTime) {
+		this.verifyTime = verifyTime;
 	}
 }

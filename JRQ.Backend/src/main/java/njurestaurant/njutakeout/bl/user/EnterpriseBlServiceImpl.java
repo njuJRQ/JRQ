@@ -34,7 +34,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class EnterpriseBlServiceImpl implements EnterpriseBlService {
@@ -57,7 +56,7 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 
 	@Override
 	public EnterpriseResponse getEnterpriseById(String id) throws NotExistException {
-		return new EnterpriseResponse(new EnterpriseItem(enterpriseDataService.getEnterpriseById(id)));
+		return new EnterpriseResponse(new EnterpriseItem(enterpriseDataService.getEnterpriseById(id), adminDataService));
 	}
 
 	@Override
@@ -65,7 +64,7 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 		List<Enterprise> enterprises = enterpriseDataService.getAllEnterprises();
 		List<EnterpriseItem> enterpriseItems = new ArrayList<>();
 		for(Enterprise enterprise:enterprises){
-			enterpriseItems.add(new EnterpriseItem(enterprise));
+			enterpriseItems.add(new EnterpriseItem(enterprise, adminDataService));
 		}
 		return new EnterpriseListResponse(enterpriseItems);
 	}
@@ -75,6 +74,11 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 		Enterprise enterprise = enterpriseDataService.getEnterpriseById(id);
 		enterprise.setStatus("verified");
 		enterprise.setVerifyTimestamp(System.currentTimeMillis());
+		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");//设置日期格式
+		String date=df.format(new Date());// new Date()为获取当前系统时间
+		Admin admin = new Admin(enterprise.getAdminUsername(), enterprise.getAdminPassword(), "3", date);
+		adminDataService.addAdmin(admin); //此处新增Admin之后Admin的ID会自动生成
+		enterprise.setAdminId(admin.getId());
 		enterpriseDataService.saveEnterprise(enterprise);
 		return new BoolResponse(true, "企业用户 "+enterprise.getName()+" 已通过审核");
 	}
@@ -90,6 +94,7 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 			case "verified":
 				enterprise.setStatus("disqualified");
 				enterpriseDataService.saveEnterprise(enterprise);
+				adminDataService.deleteAdminById(enterprise.getAdminId());
 				return new InfoResponse();
 			default:
 				return new InfoResponse("企业用户" + id + "状态已为" + enterprise.getStatus());
@@ -111,11 +116,8 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 		if (adminDataService.isAdminExistent(username)) {
 			return new BoolResponse(false, "用户名"+username+"已存在");
 		} else {
-			SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");//设置日期格式
-			String date=df.format(new Date());// new Date()为获取当前系统时间
-			Admin admin = new Admin(username, password, "3", date);
-			adminDataService.addAdmin(admin); //此处新增Admin之后Admin的ID会自动生成
-			enterpriseDataService.addEnterprise(new Enterprise(enterpriseName, description, licenseUrl, openid, admin.getId(), "submitted", System.currentTimeMillis()));
+			//刚提交申请时，adminId为""，Admin表中没有相关信息
+			enterpriseDataService.addEnterprise(new Enterprise(enterpriseName, description, licenseUrl, openid, "", username, password, "submitted", System.currentTimeMillis()));
 			return new BoolResponse(true, "企业用户申请已提交，用户名为'"+username+"'，密码为'"+password+"'");
 		}
 	}
@@ -134,7 +136,7 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 			return new EnterpriseResponse(new EnterpriseItem());
 		}
 
-		EnterpriseItem enterpriseItem = new EnterpriseItem(enterprise);
+		EnterpriseItem enterpriseItem = new EnterpriseItem(enterprise, adminDataService);
 		if(enterprise.getStatus().equals("rejected") || enterprise.getStatus().equals("disqualified")) {
 			enterpriseDataService.deleteEnterpriseById(enterprise.getId());
 		}

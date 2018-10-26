@@ -120,9 +120,11 @@ public interface UserBlService {
 	 * @param name 会员等级名称
 	 * @param cardLimit 每天能看的名片数
 	 * @param price 价格
+	 * @param courseDiscountedRatio 该会员级别购买课程时的折扣率，价格是原价的courseDiscountedRatio倍
+	 * @param checkCardPrice 查看名片联系方式次数用完以后再查看联系方式需要花多少钱
 	 * @return 是否成功
 	 */
-	InfoResponse addLevel(String name, int cardLimit, int price);
+	InfoResponse addLevel(String name, int cardLimit, int price, double courseDiscountedRatio, int checkCardPrice);
 
 	/**
 	 * 获取所有会员等级信息(User&Admin)
@@ -163,7 +165,6 @@ public interface UserBlService {
 	 * 小程序前端获取openid和session
 	 * @param jsCode 微信小程序的jsCode
 	 * @return openid和session信息
-	 * @throws CannotGetOpenIdAndSessionKeyException
 	 */
 	OpenIdAndSessionKeyResponse getOpenIdAndSessionKey(String jsCode) throws CannotGetOpenIdAndSessionKeyException;
 

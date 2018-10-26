@@ -129,8 +129,8 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
-	public InfoResponse addLevel(String name, int cardLimit, int price) {
-		levelDataService.addLevel(new Level(name, cardLimit, price));
+	public InfoResponse addLevel(String name, int cardLimit, int price, double courseDiscountedRatio, int checkCardPrice) {
+		levelDataService.addLevel(new Level(name, cardLimit, price, courseDiscountedRatio, checkCardPrice));
 		return new InfoResponse();
 	}
 
@@ -419,8 +419,13 @@ public class UserBlServiceImpl implements UserBlService {
 			user.setCardLimit(user.getCardLimit() - 1);
 			userDataService.saveUser(user);
 			return new CardResponse(new CardItem(other));
+		} else if (user.getCredit() >= levelDataService.getLevelByName(user.getLevelName()).getCheckCardPrice() ) {
+			//次数已用尽，若余额足够，使用余额购买
+			user.setCredit(user.getCredit()-levelDataService.getLevelByName(user.getLevelName()).getCheckCardPrice());
+			userDataService.saveUser(user);
+			return new CardResponse((new CardItem(other)));
 		} else {
-			return new CardResponse(); //剩余次数用尽，返回空对象
+			return new CardResponse(); //剩余次数用尽且余额不足，返回空对象
 		}
 	}
 

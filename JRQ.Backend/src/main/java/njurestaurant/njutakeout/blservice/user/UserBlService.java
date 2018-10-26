@@ -137,9 +137,11 @@ public interface UserBlService {
 	 * @param name 会员等级名称
 	 * @param cardLimit 新的每天能看的名片数
 	 * @param price 新的价格
+	 * @param courseDiscountedRatio 该会员级别购买课程时的折扣率，价格是原价的courseDiscountedRatio倍
+	 * @param checkCardPrice 查看名片联系方式次数用完以后再查看联系方式需要花多少钱
 	 * @return 是否成功
 	 */
-	InfoResponse updateLevel(String name, int cardLimit, int price) throws NotExistException;
+	InfoResponse updateLevel(String name, int cardLimit, int price, double courseDiscountedRatio, int checkCardPrice) throws NotExistException;
 
 	/**
 	 * 删除某会员等级(Admin)

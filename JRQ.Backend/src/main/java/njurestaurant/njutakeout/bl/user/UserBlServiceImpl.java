@@ -145,8 +145,8 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
-	public InfoResponse updateLevel(String name, int cardLimit, int price) throws NotExistException {
-		levelDataService.updateLevelByName(name, cardLimit, price);
+	public InfoResponse updateLevel(String name, int cardLimit, int price, double courseDiscountedRatio, int checkCardPrice) throws NotExistException {
+		levelDataService.updateLevelByName(name, cardLimit, price, courseDiscountedRatio, checkCardPrice);
 		return new InfoResponse();
 	}
 

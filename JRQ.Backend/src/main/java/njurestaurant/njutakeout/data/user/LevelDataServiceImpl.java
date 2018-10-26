@@ -40,12 +40,14 @@ public class LevelDataServiceImpl implements LevelDataService {
 	}
 
 	@Override
-	public void updateLevelByName(String name, int cardLimit, int price) throws NotExistException {
+	public void updateLevelByName(String name, int cardLimit, int price, double courseDiscountedRatio, int checkCardPrice) throws NotExistException {
 		Optional<Level> optionalLevel = levelDao.findById(name);
 		if (optionalLevel.isPresent()) {
 			Level level = optionalLevel.get();
 			level.setPrice(price);
 			level.setCardLimit(cardLimit);
+			level.setCourseDiscountedRatio(courseDiscountedRatio);
+			level.setCheckCardPrice(checkCardPrice);
 			levelDao.save(level);
 		} else {
 			throw new NotExistException("Level name", name);

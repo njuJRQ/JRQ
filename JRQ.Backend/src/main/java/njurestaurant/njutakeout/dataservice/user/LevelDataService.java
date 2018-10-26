@@ -13,7 +13,7 @@ public interface LevelDataService {
 
 	List<Level> getAllLevels();
 
-	void updateLevelByName(String name, int cardLimit, int price) throws NotExistException;
+	void updateLevelByName(String name, int cardLimit, int price, double courseDiscountedRatio, int checkCardPrice) throws NotExistException;
 
 	void deleteLevelByName(String name) throws NotExistException;
 }

@@ -102,6 +102,10 @@ public class EnterpriseController {
                 e.printStackTrace();
             }
             licensePath=thePath;
+            File file=new File(fileName);
+            if (file.exists() && file.isFile()) {
+                file.delete();
+            }
         }
     }
 

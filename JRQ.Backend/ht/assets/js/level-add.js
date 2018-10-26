@@ -10,10 +10,12 @@ function checkRate(input) {
     return true;
 }
 document.getElementById("ad").onclick=function() {
-    if(checkRate("cardLimit")&&checkRate("price")) {
+    if(checkRate("cardLimit")&&checkRate("price")&&checkRate("courseDiscountedRatio")&&checkRate("checkCardPrice")) {
         var name = $("#name").val();
         var cardLimit = $("#cardLimit").val();
         var price = $("#price").val();
+        var courseDiscountedRatio=$("#courseDiscountedRatio").val();
+        var checkCardPrice=$("#checkCardPrice").val();
         var url = getUrl();
         $.ajax(
             {
@@ -25,7 +27,9 @@ document.getElementById("ad").onclick=function() {
                 data: {
                     name: name,
                     cardLimit: cardLimit,
-                    price: price
+                    price: price,
+                    courseDiscountedRatio:courseDiscountedRatio,
+                    checkCardPrice:checkCardPrice
                 },
                 success: function (data) {
                     alert("添加成功");

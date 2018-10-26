@@ -352,7 +352,9 @@ public class userController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "name", value = "名称", required = true, dataType = "String"),
             @ApiImplicitParam(name = "cardLimit", value = "名片限制", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "price", value = "价格", required = true, dataType = "String")
+            @ApiImplicitParam(name = "price", value = "价格", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "courseDiscountedRatio", value = "该会员级别购买课程时的折扣率，价格是原价的courseDiscountedRatio倍", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "checkCardPrice", value = "查看名片联系方式次数用完以后再查看联系方式需要花多少钱", required = true, dataType = "String")
     })
     @RequestMapping(value = "/updateLevel", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -360,8 +362,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public InfoResponse updateLevel(@RequestParam(name="name")String name,@RequestParam(name="cardLimit")String cardLimit,@RequestParam(name="price")String price) throws NotExistException {
-        return userBlService.updateLevel(name,Integer.parseInt(cardLimit), Integer.parseInt(price));
+    public InfoResponse updateLevel(@RequestParam(name="name")String name,@RequestParam(name="cardLimit")String cardLimit,@RequestParam(name="price")String price,@RequestParam(name="courseDiscountedRatio")String courseDiscountedRatio,@RequestParam(name="checkCardPrice")String checkCardPrice) throws NotExistException {
+        return userBlService.updateLevel(name,Integer.parseInt(cardLimit), Integer.parseInt(price),Double.parseDouble(courseDiscountedRatio),Integer.parseInt(checkCardPrice));
     }
 
     @ApiOperation(value = "更新会员等级信息", notes = "更新会员等级信息")

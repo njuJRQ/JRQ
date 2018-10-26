@@ -38,9 +38,11 @@
                     <select id="type">
                         <option>全部</option>
                         <option>审核通过</option>
-                        <option>未审核</option>
+                        <option>已通过审核</option>
+                        <option>审核不通过</option>
+                        <option>身份被取消</option>
                     </select>
-                    <span>根据是否审核通过检索</span>
+                    <span>根据审核状态检索</span>
                 </div>
             </div>
             <div class="am-u-sm-12 am-u-md-3">
@@ -63,7 +65,7 @@
                         <th><input type="checkbox" name="id[]"/></th>
                         <th>机构id</th>
                         <th>机构名称</th>
-                        <th>是否审核通过</th>
+                        <th>状态</th>
                         <th class="table-set">操作</th>
                     </tr>
                         <tr id="your-alert-1">
@@ -75,7 +77,7 @@
                                 <div class="am-btn-toolbar">
                                     <div class="am-btn-group am-btn-group-xs">
                                         <a href="enterprise-look.html" onclick="setthisquestion(0)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-eye"></span>  查看详情</a>
-                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close1" onclick="deletequestion(0)"><span class="am-icon-trash-o"></span>删除</button>
+                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close1" onclick="deletequestion(0)"><span class="am-icon-trash-o"></span>删除/驳回</button>
 
                                     </div>
                                 </div>
@@ -91,7 +93,7 @@
                                     <div class="am-btn-group am-btn-group-xs">
                                         <a href="enterprise-look.html" onclick="setthisquestion(1)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-eye"></span>  查看详情</a>
 
-                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close2" onclick="deletequestion(1)"><span class="am-icon-trash-o"></span>删除</button>
+                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close2" onclick="deletequestion(1)"><span class="am-icon-trash-o"></span>删除/驳回</button>
 
                                     </div>
                                 </div>
@@ -107,7 +109,7 @@
                                     <div class="am-btn-group am-btn-group-xs">
                                         <a href="enterprise-look.html" onclick="setthisquestion(2)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-eye"></span>  查看详情</a>
 
-                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close3" onclick="deletequestion(2)"><span class="am-icon-trash-o"></span>删除</button>
+                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close3" onclick="deletequestion(2)"><span class="am-icon-trash-o"></span>删除/驳回</button>
 
                                     </div>
                                 </div>
@@ -122,7 +124,7 @@
                                 <div class="am-btn-toolbar">
                                     <div class="am-btn-group am-btn-group-xs">
                                         <a href="enterprise-look.html" onclick="setthisquestion(3)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-eye"></span>  查看详情</a>
-                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close4" onclick="deletequestion(3)"><span class="am-icon-trash-o"></span>删除</button>
+                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close4" onclick="deletequestion(3)"><span class="am-icon-trash-o"></span>删除/驳回</button>
 
                                     </div>
                                 </div>
@@ -138,7 +140,7 @@
                                     <div class="am-btn-group am-btn-group-xs">
                                         <a href="enterprise-look.html" onclick="setthisquestion(4)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-eye"></span>  查看详情</a>
 
-                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close5" onclick="deletequestion(4)"><span class="am-icon-trash-o"></span>删除</button>
+                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close5" onclick="deletequestion(4)"><span class="am-icon-trash-o"></span>删除/驳回</button>
 
                                     </div>
                                 </div>

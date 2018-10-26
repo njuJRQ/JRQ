@@ -15,7 +15,7 @@ var theGroup=0;
 var url=getUrl();
 $.ajax(
     {
-        url: url+"/getPurchaseList",
+        url: url+"/getAllEnterprises",
         headers :{
             'Authorization': 'Bearer ' + getToken(),
             'content-type': 'application/x-www-form-urlencoded'
@@ -24,17 +24,20 @@ $.ajax(
         },
         async:false,
         success: function (data) {
-            for(var i=0;i<data.purchases.length;i++){
-                if(data.purchases[i].type=="level"){
-                    data.purchases[i].type="购买身份变更";
+            for(var i=0;i<data.enterprises.length;i++){
+                if(data.enterprises[i].status=="submitted"){
+                    data.enterprises[i].status="待审核";
                 }
-                else if(data.purchases[i].type=="course"){
-                    data.purchases[i].type="购买课程";
+                else if(data.enterprises[i].status=="verified"){
+                    data.enterprises[i].status="已通过审核";
                 }
-                else if(data.purchases[i].type=="enterprise"){
-                    data.purchases[i].type="购买企业会员";
+                else if(data.enterprise.status=="rejected"){
+                    document.getElementById("status").innerText="审核不通过";
                 }
-                list.push(data.purchases[i]);
+                else if(data.enterprise.status=="disqualified"){
+                    document.getElementById("status").innerText="身份被取消";
+                }
+                list.push(data.enterprises[i]);
             }
             for(var i=0;i<list.length;i++){
                 tempList.push(list[i]);
@@ -50,14 +53,20 @@ $.ajax(
 )
 
 
+function setthisquestion(n){
+    var q=list[firstID+n];
+    var storage = window.localStorage;
+    storage["thisEnterprise"]=q.id;
+}
+
 function deletequestion(n){
-    var r=confirm("确定删除么？");
+    var r=confirm("确定删除/驳回么？");
     if(r) {
         var q = list[firstID + n];
         var url = getUrl();
         $.ajax(
             {
-                url: url + "/deletePurchase",
+                url: url + "/deleteEnterpriseById",
                 headers :{
                     'Authorization': 'Bearer ' + getToken(),
                     'content-type': 'application/x-www-form-urlencoded'
@@ -67,8 +76,8 @@ function deletequestion(n){
                 },
                 async: false,
                 success: function (data) {
-                    alert("删除成功");
-                    window.location.href = "order.html";
+                    alert("删除/驳回成功");
+                    window.location.href = "enterpriseList.html";
                 },
                 error: function (xhr) {
                     alert('动态页有问题噶！\n\n' + xhr.responseText);
@@ -138,11 +147,8 @@ function changepage(page){
     else if(list.length<(firstID+2)){
         $("#your-alert-1").show();
         document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
-        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].openid;
-        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].type;
-        document.getElementById("detail"+(firstID%5+1)).innerText=list[firstID].detail;
-        document.getElementById("price"+(firstID%5+1)).innerText=list[firstID].price;
-        document.getElementById("d"+(firstID%5+1)).innerText=list[firstID].date;
+        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].name;
+        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].status;
         $("#your-alert-2").hide();
         $("#your-alert-3").hide();
         $("#your-alert-4").hide();
@@ -152,18 +158,12 @@ function changepage(page){
         $("#your-alert-1").show();
         $("#your-alert-2").show();
         document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
-        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].openid;
-        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].type;
-        document.getElementById("detail"+(firstID%5+1)).innerText=list[firstID].detail;
-        document.getElementById("price"+(firstID%5+1)).innerText=list[firstID].price;
-        document.getElementById("d"+(firstID%5+1)).innerText=list[firstID].date;
+        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].name;
+        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].status;
 
         document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].id;
-        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].openid;
-        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].type;
-        document.getElementById("detail"+(firstID%5+2)).innerText=list[firstID+1].detail;
-        document.getElementById("price"+(firstID%5+2)).innerText=list[firstID+1].price;
-        document.getElementById("d"+(firstID%5+2)).innerText=list[firstID+1].date;
+        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].name;
+        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].status;
         $("#your-alert-3").hide();
         $("#your-alert-4").hide();
         $("#your-alert-5").hide();
@@ -173,25 +173,16 @@ function changepage(page){
         $("#your-alert-2").show();
         $("#your-alert-3").show();
         document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
-        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].openid;
-        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].type;
-        document.getElementById("detail"+(firstID%5+1)).innerText=list[firstID].detail;
-        document.getElementById("price"+(firstID%5+1)).innerText=list[firstID].price;
-        document.getElementById("d"+(firstID%5+1)).innerText=list[firstID].date;
+        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].name;
+        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].status;
 
         document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].id;
-        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].openid;
-        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].type;
-        document.getElementById("detail"+(firstID%5+2)).innerText=list[firstID+1].detail;
-        document.getElementById("price"+(firstID%5+2)).innerText=list[firstID+1].price;
-        document.getElementById("d"+(firstID%5+2)).innerText=list[firstID+1].date;
+        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].name;
+        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].status;
 
         document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].id;;
-        document.getElementById("name"+(firstID%5+3)).innerText=list[firstID+2].openid;
-        document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].type;
-        document.getElementById("detail"+(firstID%5+3)).innerText=list[firstID+2].detail;;
-        document.getElementById("price"+(firstID%5+3)).innerText=list[firstID+2].price;
-        document.getElementById("d"+(firstID%5+3)).innerText=list[firstID+2].date;
+        document.getElementById("name"+(firstID%5+3)).innerText=list[firstID+2].name;
+        document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].status;
         $("#your-alert-4").hide();
         $("#your-alert-5").hide();
     }
@@ -201,32 +192,20 @@ function changepage(page){
         $("#your-alert-3").show();
         $("#your-alert-4").show();
         document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
-        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].openid;
-        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].type;
-        document.getElementById("detail"+(firstID%5+1)).innerText=list[firstID].detail;
-        document.getElementById("price"+(firstID%5+1)).innerText=list[firstID].price;
-        document.getElementById("d"+(firstID%5+1)).innerText=list[firstID].date;
+        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].name;
+        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].status;
 
         document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].id;
-        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].openid;
-        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].type;
-        document.getElementById("detail"+(firstID%5+2)).innerText=list[firstID+1].detail;
-        document.getElementById("price"+(firstID%5+2)).innerText=list[firstID+1].price;
-        document.getElementById("d"+(firstID%5+2)).innerText=list[firstID+1].date;
+        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].name;
+        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].status;
 
         document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].id;;
-        document.getElementById("name"+(firstID%5+3)).innerText=list[firstID+2].openid;
-        document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].type;
-        document.getElementById("detail"+(firstID%5+3)).innerText=list[firstID+2].detail;;
-        document.getElementById("price"+(firstID%5+3)).innerText=list[firstID+2].price;
-        document.getElementById("d"+(firstID%5+3)).innerText=list[firstID+2].date;
+        document.getElementById("name"+(firstID%5+3)).innerText=list[firstID+2].name;
+        document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].status;
 
         document.getElementById("number"+(firstID%5+4)).innerText=list[firstID+3].id;;
-        document.getElementById("name"+(firstID%5+4)).innerText=list[firstID+3].openid;
-        document.getElementById("date"+(firstID%5+4)).innerText=list[firstID+3].type;
-        document.getElementById("detail"+(firstID%5+4)).innerText=list[firstID+3].detail;;
-        document.getElementById("price"+(firstID%5+4)).innerText=list[firstID+3].price;
-        document.getElementById("d"+(firstID%5+4)).innerText=list[firstID+3].date;
+        document.getElementById("name"+(firstID%5+4)).innerText=list[firstID+3].name;
+        document.getElementById("date"+(firstID%5+4)).innerText=list[firstID+3].status;
         $("#your-alert-5").hide();
     }
     else{
@@ -236,39 +215,25 @@ function changepage(page){
         $("#your-alert-4").show();
         $("#your-alert-5").show();
         document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
-        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].openid;
-        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].type;
-        document.getElementById("detail"+(firstID%5+1)).innerText=list[firstID].detail;
-        document.getElementById("price"+(firstID%5+1)).innerText=list[firstID].price;
-        document.getElementById("d"+(firstID%5+1)).innerText=list[firstID].date;
+        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].name;
+        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].status;
 
         document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].id;
-        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].openid;
-        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].type;
-        document.getElementById("detail"+(firstID%5+2)).innerText=list[firstID+1].detail;
-        document.getElementById("price"+(firstID%5+2)).innerText=list[firstID+1].price;
-        document.getElementById("d"+(firstID%5+2)).innerText=list[firstID+1].date;
+        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].name;
+        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].status;
 
         document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].id;;
-        document.getElementById("name"+(firstID%5+3)).innerText=list[firstID+2].openid;
-        document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].type;
-        document.getElementById("detail"+(firstID%5+3)).innerText=list[firstID+2].detail;;
-        document.getElementById("price"+(firstID%5+3)).innerText=list[firstID+2].price;
-        document.getElementById("d"+(firstID%5+3)).innerText=list[firstID+2].date;
+        document.getElementById("name"+(firstID%5+3)).innerText=list[firstID+2].name;
+        document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].status;
 
         document.getElementById("number"+(firstID%5+4)).innerText=list[firstID+3].id;;
-        document.getElementById("name"+(firstID%5+4)).innerText=list[firstID+3].openid;
-        document.getElementById("date"+(firstID%5+4)).innerText=list[firstID+3].type;
-        document.getElementById("detail"+(firstID%5+4)).innerText=list[firstID+3].detail;;
-        document.getElementById("price"+(firstID%5+4)).innerText=list[firstID+3].price;
-        document.getElementById("d"+(firstID%5+4)).innerText=list[firstID+3].date;
+        document.getElementById("name"+(firstID%5+4)).innerText=list[firstID+3].name;
+        document.getElementById("date"+(firstID%5+4)).innerText=list[firstID+3].status;
 
         document.getElementById("number"+(firstID%5+5)).innerText=list[firstID+4].id;;
-        document.getElementById("name"+(firstID%5+5)).innerText=list[firstID+4].openid;
-        document.getElementById("date"+(firstID%5+5)).innerText=list[firstID+4].type;
-        document.getElementById("detail"+(firstID%5+5)).innerText=list[firstID+4].detail;;
-        document.getElementById("price"+(firstID%5+5)).innerText=list[firstID+4].price;
-        document.getElementById("d"+(firstID%5+5)).innerText=list[firstID+4].date;
+        document.getElementById("name"+(firstID%5+5)).innerText=list[firstID+4].name;
+        document.getElementById("date"+(firstID%5+5)).innerText=list[firstID+4].status;
+
     }
 
 
@@ -279,7 +244,7 @@ function deletesingle(n){
     var url=getUrl();
     $.ajax(
         {
-            url: url+"/deletePurchase",
+            url: url+"/deleteEnterpriseById",
             headers :{
                 'Authorization': 'Bearer ' + getToken(),
                 'content-type': 'application/x-www-form-urlencoded'
@@ -298,7 +263,7 @@ function deletesingle(n){
     )
 }
 function delAll(){
-    var r=confirm("确定删除么？");
+    var r=confirm("确定删除/驳回么？");
     if(r) {
         if (document.getElementById("c1").checked) {
             deletesingle(1);
@@ -315,8 +280,8 @@ function delAll(){
         if (document.getElementById("c5").checked) {
             deletesingle(5);
         }
-        alert("批量删除成功");
-        window.location.href = "order.html";
+        alert("批量删除/驳回成功");
+        window.location.href = "enterpriseList.html";
     }
 
 }
@@ -327,11 +292,8 @@ function search(){
         if(list[i].id==text){
             $("#your-alert-1").show();
             document.getElementById("number"+(firstID%5+1)).innerText=list[i].id;
-            document.getElementById("name"+(firstID%5+1)).innerText=list[i].openid;
-            document.getElementById("date"+(firstID%5+1)).innerText=list[i].type;
-            document.getElementById("detail"+(firstID%5+1)).innerText=list[i].detail;
-            document.getElementById("price"+(firstID%5+1)).innerText=list[i].price;
-            document.getElementById("d"+(firstID%5+1)).innerText=list[i].date;
+            document.getElementById("name"+(firstID%5+1)).innerText=list[i].name;
+            document.getElementById("date"+(firstID%5+1)).innerText=list[i].status;
             $("#your-alert-2").hide();
             $("#your-alert-3").hide();
             $("#your-alert-4").hide();
@@ -358,7 +320,7 @@ $("#type").change(function(){
         else{
             list=new Array();
             for(var i=0;i<tempList.length;i++){
-                if(tempList[i].type==b) {
+                if(tempList[i].status==b) {
                     list.push(tempList[i]);
                 }
             }

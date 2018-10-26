@@ -1,36 +1,36 @@
 var url=getUrl();
 var storage = window.localStorage;
-var openid=storage["thisEnterprise"];
+var id=storage["thisEnterprise"];
 $.ajax(
     {
-        url: url+"/getUser",
+        url: url+"/getEnterpriseById",
         headers :{
             'Authorization': 'Bearer ' + getToken(),
             'content-type': 'application/x-www-form-urlencoded'
         },
         data: {
-            openid:openid
+            id:id
         },
         async:false,
         success: function (data) {
-            document.getElementById("number").innerText=data.user.openid;
-            document.getElementById("username").innerText=data.user.username;
-            document.getElementById("head").src="../"+data.user.face;
-            document.getElementById("phone").innerText=data.user.phone;
-            document.getElementById("email").innerText=data.user.email;
-            document.getElementById("company").innerText=data.user.company;
-            document.getElementById("department").innerText=data.user.department;
-            document.getElementById("position").innerText=data.user.position;
-            document.getElementById("intro").innerText=data.user.intro;
-            document.getElementById("city").innerText=data.user.city;
-            document.getElementById("credit").innerText=data.user.credit;
-            document.getElementById("label").innerText=data.user.label;
-            document.getElementById("levelName").innerText=data.user.levelName;
-            if(data.user.valid){
-                document.getElementById("valid").innerText="启用";
+            document.getElementById("number").innerText=data.enterprise.id;
+            document.getElementById("name").innerText=data.enterprise.name;
+            document.getElementById("intro").innerText=data.enterprise.description;
+            document.getElementById("adminName").innerText=data.enterprise.adminUsername;
+            document.getElementById("adminPassword").innerText=data.enterprise.adminPassword;
+            document.getElementById("openid").innerText=data.enterprise.openid;
+            document.getElementById("license").src="../"+data.enterprise.licenseUrl;
+            if(data.enterprise.status=="submitted"){
+                document.getElementById("status").innerText="待审核";
             }
-            else{
-                document.getElementById("valid").innerText="禁用";
+            else if(data.enterprise.status=="verified"){
+                document.getElementById("status").innerText="已通过审核";
+            }
+            else if(data.enterprise.status=="rejected"){
+                document.getElementById("status").innerText="审核不通过";
+            }
+            else if(data.enterprise.status=="disqualified"){
+                document.getElementById("status").innerText="身份被取消";
             }
 
         },
@@ -40,3 +40,34 @@ $.ajax(
         traditional: true,
     }
 )
+
+function agree(){
+    $.ajax(
+        {
+            url: url+"/verifyEnterpriseById",
+            headers :{
+                'Authorization': 'Bearer ' + getToken(),
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+            data: {
+                id:id
+            },
+            async:false,
+            success: function (data) {
+                alert("设置成功！");
+                window.location.href="enterpriseList.html";
+
+            },
+            error: function (xhr) {
+                alert('动态页有问题噶！\n\n' + xhr.responseText);
+            },
+            traditional: true,
+        }
+    )
+}
+
+function getBack(){
+    window.location.href="enterpriseList.html";
+}
+
+

@@ -17,7 +17,7 @@ public class EnterpriseItem {
 
 	private String status; //审核状态
 
-	private long commitTimestamp; //用户提交的时间戳
+	private long submitTimestamp; //用户提交的时间戳
 
 	private long verifyTimestamp; //后台审核的时间戳
 
@@ -32,8 +32,8 @@ public class EnterpriseItem {
 		this.openid = enterprise.getOpenid();
 		this.adminId = enterprise.getAdminId();
 		this.status = enterprise.getStatus();
-		this.commitTimestamp = enterprise.getCommitTimestamp();
-		this.verifyTimestamp = enterprise.getCommitTimestamp();
+		this.submitTimestamp = enterprise.getSubmitTimestamp();
+		this.verifyTimestamp = enterprise.getVerifyTimestamp();
 	}
 
 	public String getId() {
@@ -92,12 +92,12 @@ public class EnterpriseItem {
 		this.status = status;
 	}
 
-	public long getCommitTimestamp() {
-		return commitTimestamp;
+	public long getSubmitTimestamp() {
+		return submitTimestamp;
 	}
 
-	public void setCommitTimestamp(long commitTimestamp) {
-		this.commitTimestamp = commitTimestamp;
+	public void setSubmitTimestamp(long submitTimestamp) {
+		this.submitTimestamp = submitTimestamp;
 	}
 
 	public long getVerifyTimestamp() {

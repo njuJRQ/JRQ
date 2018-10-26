@@ -40,7 +40,7 @@ public class Enterprise {
 	private String status;
 
 	@Column
-	private long commitTimestamp; //用户提交的时间戳
+	private long submitTimestamp; //用户提交的时间戳
 
 	@Column
 	private long verifyTimestamp; //后台审核的时间戳（审核结果可能是"verified"，"rejected"，"disqualified"）
@@ -48,14 +48,14 @@ public class Enterprise {
 	public Enterprise() {
 	}
 
-	public Enterprise(String name, String description, String licenseUrl, String openid, String adminId, String status, long commitTimestamp) {
+	public Enterprise(String name, String description, String licenseUrl, String openid, String adminId, String status, long submitTimestamp) {
 		this.name = name;
 		this.description = description;
 		this.licenseUrl = licenseUrl;
 		this.openid = openid;
 		this.adminId = adminId;
 		this.status = status;
-		this.commitTimestamp = commitTimestamp;
+		this.submitTimestamp = submitTimestamp;
 	}
 
 	public String getId() {
@@ -114,12 +114,12 @@ public class Enterprise {
 		this.status = status;
 	}
 
-	public long getCommitTimestamp() {
-		return commitTimestamp;
+	public long getSubmitTimestamp() {
+		return submitTimestamp;
 	}
 
-	public void setCommitTimestamp(long commitTimestamp) {
-		this.commitTimestamp = commitTimestamp;
+	public void setSubmitTimestamp(long submitTimestamp) {
+		this.submitTimestamp = submitTimestamp;
 	}
 
 	public long getVerifyTimestamp() {

@@ -103,7 +103,6 @@ Page({
       lastIdType: ""
     })
     api.getAbstractList.call(this, 'course', app.getOpenid(), this.data.lastId, this.data.lastIdType)
-    //api.getMyCourseListBefore.call(this, app.getOpenid(), this.data.lastId)
   },
 
   //展示文档
@@ -173,14 +172,6 @@ Page({
 
   onReachBottom: function () {
     api.getAbstractList.call(this, this.data.currentKind, app.getOpenid(), this.data.lastId, this.data.lastIdType)
-    /*
-    switch (this.data.currentKind) {
-      case 'all': break;
-      case 'course': api.getMyCourseListBefore.call(this, app.getOpenid(), this.data.lastId); break;
-      case 'document': break;
-      case 'project': break;
-      default: break;
-    }*/
   },
 
   modalConfirm: function () {

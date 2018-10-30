@@ -44,7 +44,7 @@
   <template class='ad' is='adBar' data='{{ad}}'></template>
   <view class='div-line'></view>
   <modal hidden="{{modalHidden}}" bindcancel='modalCancel' bindconfirm='modalConfirm'>
-    <image class='modal__image' mode='widthFix' src='/default/default-pic.png'></image>
+    <image class='modal__image' mode='widthFix' src='img/join.jpg'></image>
   </modal>
   <!--文章列表-->
   <view style='width: 100%; padding: 0 10px'>

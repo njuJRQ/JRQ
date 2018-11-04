@@ -1,6 +1,7 @@
 package njurestaurant.njutakeout.data.user;
 
 import njurestaurant.njutakeout.data.dao.user.EnterpriseDao;
+import njurestaurant.njutakeout.dataservice.admin.AdminDataService;
 import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
 import njurestaurant.njutakeout.entity.user.Enterprise;
 import njurestaurant.njutakeout.exception.NotExistException;
@@ -13,15 +14,21 @@ import java.util.Optional;
 @Service
 public class EnterpriseDataServiceImpl implements EnterpriseDataService {
 	private final EnterpriseDao enterpriseDao;
+	private final AdminDataService adminDataService; //DataService中封装了相关数据连锁删除
 
 	@Autowired
-	public EnterpriseDataServiceImpl(EnterpriseDao enterpriseDao) {
+	public EnterpriseDataServiceImpl(EnterpriseDao enterpriseDao, AdminDataService adminDataService) {
 		this.enterpriseDao = enterpriseDao;
+		this.adminDataService = adminDataService;
 	}
 
 	@Override
 	public boolean isEnterpriseExistent(String id) {
 		return enterpriseDao.existsById(id);
+	}
+
+	public boolean isUserInEnterprise(String openid) {
+		return enterpriseDao.findEnterpriseByOpenid(openid).isPresent();
 	}
 
 	@Override
@@ -83,7 +90,12 @@ public class EnterpriseDataServiceImpl implements EnterpriseDataService {
 
 	@Override
 	public void deleteEnterpriseById(String id) throws NotExistException {
-		if (enterpriseDao.existsById(id)) {
+		Optional<Enterprise> optionalEnterprise = enterpriseDao.findById(id);
+		if (optionalEnterprise.isPresent()) {
+			Enterprise enterprise = optionalEnterprise.get();
+			if (!enterprise.getAdminId().equals("")) { // 若此企业用户的管理员账号已分配，则删除对应管理员账号
+				adminDataService.deleteAdminById(enterprise.getAdminId());
+			}
 			enterpriseDao.deleteById(id);
 		} else {
 			throw new NotExistException("Enterprise Id", id);

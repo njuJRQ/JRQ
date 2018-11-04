@@ -9,4 +9,5 @@ public interface CourseDao extends JpaRepository<Course, String> {
 	List<Course> findCoursesByTimeStamp(long timeStamp);
 	List<Course> findTop10ByOrderByTimeStampDesc();
 	List<Course> findTop10ByTimeStampBeforeOrderByTimeStampDesc(long timeStamp);
+	void deleteCoursesByWriterName(String writerName);
 }

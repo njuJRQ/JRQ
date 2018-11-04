@@ -12,4 +12,5 @@ public interface FeedDao extends JpaRepository<Feed, String> {
 	List<Feed> findFeedsByWriterOpenidInAndTimeStamp(List<String> friendOpenids, long timeStamp);
 	List<Feed> findTop10ByWriterOpenidInOrderByTimeStampDesc(List<String> friendOpenids);
 	List<Feed> findTop10ByWriterOpenidInAndTimeStampBeforeOrderByTimeStampDesc(List<String> friendOpenids, long timeStamp);
+	void deleteFeedsByWriterOpenid(String writerOpenid);
 }

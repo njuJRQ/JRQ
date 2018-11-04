@@ -1,16 +1,20 @@
 package njurestaurant.njutakeout.data.user;
 
+import njurestaurant.njutakeout.data.dao.article.FeedDao;
 import njurestaurant.njutakeout.data.dao.user.SendCardDao;
 import njurestaurant.njutakeout.data.dao.user.UserDao;
+import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
+import njurestaurant.njutakeout.entity.article.Feed;
+import njurestaurant.njutakeout.entity.user.Enterprise;
 import njurestaurant.njutakeout.entity.user.SendCard;
 import njurestaurant.njutakeout.entity.user.SendCardKey;
 import njurestaurant.njutakeout.entity.user.User;
 import njurestaurant.njutakeout.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
+
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,11 +22,15 @@ import java.util.Optional;
 public class UserDataServiceImpl implements UserDataService {
 	private final UserDao userDao;
 	private final SendCardDao sendCardDao;
+	private final FeedDao feedDao;
+	private final EnterpriseDataService enterpriseDataService; //DataService中封装了相关数据连锁删除
 
 	@Autowired
-	public UserDataServiceImpl(UserDao userDao, SendCardDao sendCardDao) {
+	public UserDataServiceImpl(UserDao userDao, SendCardDao sendCardDao, FeedDao feedDao, EnterpriseDataService enterpriseDataService) {
 		this.userDao = userDao;
 		this.sendCardDao = sendCardDao;
+		this.feedDao = feedDao;
+		this.enterpriseDataService = enterpriseDataService;
 	}
 
 	@Override
@@ -78,7 +86,35 @@ public class UserDataServiceImpl implements UserDataService {
 
 	@Override
 	public void deleteUserByOpenid(String openid) throws NotExistException {
-		if (userDao.existsById(openid)) {
+		Optional<User> optionalUser = userDao.findById(openid);
+		if (optionalUser.isPresent()) {
+			sendCardDao.deleteSendCardsByReceiverOpenid(openid);  //删除此人接收名片的记录
+			sendCardDao.deleteSendCardsBySenderOpenid(openid);  //删除此人送给别人名片的记录
+			// 删除此人发过的圈子中所有图片
+			List<Feed> feeds = feedDao.findFeedsByWriterOpenid(openid);
+			for (Feed feed:feeds) {
+				for (String image:feed.getImages()) {
+					File file = new File(image);
+					if (!file.delete()) {
+						System.err.println("图片"+image+"删除失败！");
+					}
+				}
+			}
+			feedDao.deleteFeedsByWriterOpenid(openid);  //删除此人发过的圈子内容
+
+			//若此人在Enterprise表中，需要删除该项
+			try {
+				Enterprise enterprise = enterpriseDataService.getEnterpriseByOpenid(openid);
+				enterpriseDataService.deleteEnterpriseById(enterprise.getId());
+			} catch (NotExistException e) {
+				//若此人不在Enterprise表中，什么也不需要做
+			}
+
+			//删除此人头像
+			User user = optionalUser.get();
+			if (!new File(user.getFace()).delete()) {
+				System.err.println("头像文件"+user.getFace()+"删除失败！");
+			}
 			userDao.deleteById(openid);
 		} else {
 			throw new NotExistException("User openid", openid);

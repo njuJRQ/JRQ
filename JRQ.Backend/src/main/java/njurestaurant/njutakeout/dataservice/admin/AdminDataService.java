@@ -20,5 +20,6 @@ public interface AdminDataService {
 
 	void updateAdminById(String id, String username, String password, String limits, String date) throws NotExistException;
 
+	//注意：删除Admin时统一使用deleteAdminById（封装了相关数据连锁删除）
 	void deleteAdminById(String id) throws NotExistException;
 }

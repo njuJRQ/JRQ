@@ -6,6 +6,7 @@ public class DocumentItem {
 	private String id;//编号
 	private String title;//标题
 	private String content; //内容
+	private String attachment; //附件路径
 	private String writerName;//作者名字
 	private String date;//日期
 	private long likeNum;//点赞数
@@ -16,6 +17,7 @@ public class DocumentItem {
 		this.id = document.getId();
 		this.title = document.getTitle();
 		this.content = document.getContent();
+		this.attachment = document.getAttachment();
 		this.writerName = document.getWriterName();
 		this.date = document.getDate();
 		this.likeNum = document.getLikeNum();
@@ -26,6 +28,7 @@ public class DocumentItem {
 		this.id = document.getId();
 		this.title = document.getTitle();
 		this.content = document.getContent();
+		this.attachment = document.getAttachment();
 		this.writerName = document.getWriterName();
 		this.date = document.getDate();
 		this.likeNum = document.getLikeNum();
@@ -86,5 +89,13 @@ public class DocumentItem {
 
 	public void setHasLiked(boolean hasLiked) {
 		this.hasLiked = hasLiked;
+	}
+
+	public String getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(String attachment) {
+		this.attachment = attachment;
 	}
 }

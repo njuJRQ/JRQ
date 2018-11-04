@@ -21,6 +21,9 @@ public class Document {
 	private String content; //内容
 
 	@Column
+	private String attachment; //附件路径
+
+	@Column
 	private String writerName;//作者名字
 
 	@Column
@@ -32,9 +35,10 @@ public class Document {
 	public Document(){
 	}
 
-	public Document(String title, String content, String writerName, long timeStamp, long likeNum) {
+	public Document(String title, String content, String attachment, String writerName, long timeStamp, long likeNum) {
 		this.title = title;
 		this.content = content;
+		this.attachment = attachment;
 		this.writerName = writerName;
 		this.timeStamp = timeStamp;
 		this.likeNum = likeNum;
@@ -91,5 +95,13 @@ public class Document {
 
 	public void setLikeNum(long likeNum) {
 		this.likeNum = likeNum;
+	}
+
+	public String getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(String attachment) {
+		this.attachment = attachment;
 	}
 }

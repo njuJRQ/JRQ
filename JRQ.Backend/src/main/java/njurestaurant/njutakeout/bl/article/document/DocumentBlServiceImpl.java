@@ -27,8 +27,8 @@ public class DocumentBlServiceImpl implements DocumentBlService {
 	}
 
 	@Override
-	public InfoResponse addDocument(String title, String content, String writerName, long likeNum) {
-		documentDataService.addDocument(new Document(title, content, writerName, System.currentTimeMillis(), likeNum));
+	public InfoResponse addDocument(String title, String content, String attachment, String writerName, long likeNum) {
+		documentDataService.addDocument(new Document(title, content, attachment, writerName, System.currentTimeMillis(), likeNum));
 		return new InfoResponse();
 	}
 
@@ -48,10 +48,11 @@ public class DocumentBlServiceImpl implements DocumentBlService {
 	}
 
 	@Override
-	public InfoResponse updateDocument(String id, String title, String content, String writerName, long likeNum) throws NotExistException {
+	public InfoResponse updateDocument(String id, String title, String content, String attachment, String writerName, long likeNum) throws NotExistException {
 		Document document = documentDataService.getDocumentById(id);
 		document.setTitle(title);
 		document.setContent(content);
+		document.setAttachment(attachment);
 		document.setWriterName(writerName);
 		document.setTimeStamp(System.currentTimeMillis());
 		document.setLikeNum(likeNum);

@@ -26,4 +26,6 @@ public interface FeedDataService {
 	List<Feed> getFeedsByWriterOpenid(String writerOpenid);
 
 	void deleteFeedById(String id) throws NotExistException;
+
+	void deleteFeedsByWriterOpenid(String openid);
 }

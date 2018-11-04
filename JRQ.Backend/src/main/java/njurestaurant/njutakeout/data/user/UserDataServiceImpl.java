@@ -1,8 +1,8 @@
 package njurestaurant.njutakeout.data.user;
 
-import njurestaurant.njutakeout.data.dao.article.FeedDao;
 import njurestaurant.njutakeout.data.dao.user.SendCardDao;
 import njurestaurant.njutakeout.data.dao.user.UserDao;
+import njurestaurant.njutakeout.dataservice.article.FeedDataService;
 import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
 import njurestaurant.njutakeout.entity.article.Feed;
@@ -22,14 +22,14 @@ import java.util.Optional;
 public class UserDataServiceImpl implements UserDataService {
 	private final UserDao userDao;
 	private final SendCardDao sendCardDao;
-	private final FeedDao feedDao;
+	private final FeedDataService feedDataService;
 	private final EnterpriseDataService enterpriseDataService; //DataService中封装了相关数据连锁删除
 
 	@Autowired
-	public UserDataServiceImpl(UserDao userDao, SendCardDao sendCardDao, FeedDao feedDao, EnterpriseDataService enterpriseDataService) {
+	public UserDataServiceImpl(UserDao userDao, SendCardDao sendCardDao, FeedDataService feedDataService, EnterpriseDataService enterpriseDataService) {
 		this.userDao = userDao;
 		this.sendCardDao = sendCardDao;
-		this.feedDao = feedDao;
+		this.feedDataService = feedDataService;
 		this.enterpriseDataService = enterpriseDataService;
 	}
 
@@ -90,17 +90,7 @@ public class UserDataServiceImpl implements UserDataService {
 		if (optionalUser.isPresent()) {
 			sendCardDao.deleteSendCardsByReceiverOpenid(openid);  //删除此人接收名片的记录
 			sendCardDao.deleteSendCardsBySenderOpenid(openid);  //删除此人送给别人名片的记录
-			// 删除此人发过的圈子中所有图片
-			List<Feed> feeds = feedDao.findFeedsByWriterOpenid(openid);
-			for (Feed feed:feeds) {
-				for (String image:feed.getImages()) {
-					File file = new File(image);
-					if (!file.delete()) {
-						System.err.println("图片"+image+"删除失败！");
-					}
-				}
-			}
-			feedDao.deleteFeedsByWriterOpenid(openid);  //删除此人发过的圈子内容
+			feedDataService.deleteFeedsByWriterOpenid(openid);  //删除此人发过的圈子内容
 
 			//若此人在Enterprise表中，需要删除该项
 			try {

@@ -19,6 +19,8 @@ public interface ProjectDataService {
 
 	void deleteProjectById(String id) throws NotExistException;
 
+	void deleteProjectsByWriterName(String writerName);
+
 	/**
 	 * 用户获取特定项目前的10篇项目，从新到旧排序（不包括这篇项目）
 	 * @param openid 用户微信openid

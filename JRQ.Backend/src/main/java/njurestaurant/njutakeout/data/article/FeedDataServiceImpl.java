@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,10 +79,30 @@ public class FeedDataServiceImpl implements FeedDataService {
 
 	@Override
 	public void deleteFeedById(String id) throws NotExistException {
-		if (feedDao.existsById(id)) {
-			feedDao.deleteById(id);
+		Optional<Feed> optionalFeed = feedDao.findById(id);
+		if (optionalFeed.isPresent()) {
+			Feed feed = optionalFeed.get();
+			for (String image:feed.getImages()) {
+				if(! new File(image).delete()) {
+					System.err.println("圈子文章图片"+image+"删除失败");
+				}
+			}
+			feedDao.delete(feed);
 		} else {
 			throw new NotExistException("Feed ID", id);
+		}
+	}
+
+	@Override
+	public void deleteFeedsByWriterOpenid(String openid) {
+		List<Feed> feeds = feedDao.findFeedsByWriterOpenid(openid);
+		for (Feed feed:feeds) {
+			for (String image:feed.getImages()) {
+				if(! new File(image).delete()) {
+					System.err.println("圈子文章图片"+image+"删除失败");
+				}
+			}
+			feedDao.delete(feed);
 		}
 	}
 }

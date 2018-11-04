@@ -7,6 +7,7 @@ import njurestaurant.njutakeout.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,10 +52,32 @@ public class CourseDataServiceImpl implements CourseDataService {
 
 	@Override
 	public void deleteCourseById(String id) throws NotExistException {
-		if (courseDao.existsById(id)) {
-			courseDao.deleteById(id);
+		Optional<Course> optionalCourse = courseDao.findById(id);
+		if (optionalCourse.isPresent()) {
+			Course course = optionalCourse.get();
+			if (! new File(course.getImage()).delete()) {
+				System.err.println("课程图片"+course.getImage()+"删除失败");
+			}
+			if (! new File(course.getVideo()).delete()) {
+				System.err.println("课程视频"+course.getVideo()+"删除失败");
+			}
+			courseDao.delete(course);
 		} else {
 			throw new NotExistException("Course ID", id);
+		}
+	}
+
+	@Override
+	public void deleteCoursesByWriterName(String writerName) {
+		List<Course> courses = courseDao.findCoursesByWriterName(writerName);
+		for (Course course:courses) {
+			if (! new File(course.getImage()).delete()) {
+				System.err.println("课程图片"+course.getImage()+"删除失败");
+			}
+			if (! new File(course.getVideo()).delete()) {
+				System.err.println("课程视频"+course.getVideo()+"删除失败");
+			}
+			courseDao.delete(course);
 		}
 	}
 

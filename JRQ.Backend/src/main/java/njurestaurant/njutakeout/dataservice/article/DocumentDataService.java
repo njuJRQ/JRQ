@@ -19,6 +19,8 @@ public interface DocumentDataService {
 
 	void deleteDocumentById(String id) throws NotExistException;
 
+	void deleteDocumentsByWriterName(String writerName);
+
 	/**
 	 * 用户获取特定文档前的10篇文档，从新到旧排序（不包括这篇文档）
 	 * @param openid 用户微信openid

@@ -19,6 +19,8 @@ public interface CourseDataService {
 
 	void deleteCourseById(String id) throws NotExistException;
 
+	void deleteCoursesByWriterName(String writerName);
+
 	/**
 	 * 用户获取特定课程前的10篇课程，从新到旧排序（不包括这篇课程）
 	 * @param openid 用户微信openid

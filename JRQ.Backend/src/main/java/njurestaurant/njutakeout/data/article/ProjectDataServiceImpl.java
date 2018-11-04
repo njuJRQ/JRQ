@@ -7,6 +7,7 @@ import njurestaurant.njutakeout.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,10 +52,26 @@ public class ProjectDataServiceImpl implements ProjectDataService {
 
 	@Override
 	public void deleteProjectById(String id) throws NotExistException {
-		if (projectDao.existsById(id)) {
-			projectDao.deleteById(id);
+		Optional<Project> optionalProject = projectDao.findById(id);
+		if (optionalProject.isPresent()) {
+			Project project = optionalProject.get();
+			if (! new File(project.getAttachment()).delete()) {
+				System.err.println("项目附件"+project.getAttachment()+"删除失败");
+			}
+			projectDao.delete(project);
 		} else {
 			throw new NotExistException("Project ID", id);
+		}
+	}
+
+	@Override
+	public void deleteProjectsByWriterName(String writerName) {
+		List<Project> projects = projectDao.findProjectsByWriterName(writerName);
+		for (Project project:projects) {
+			if (! new File(project.getAttachment()).delete()) {
+				System.err.println("项目附件"+project.getAttachment()+"删除失败");
+			}
+			projectDao.delete(project);
 		}
 	}
 

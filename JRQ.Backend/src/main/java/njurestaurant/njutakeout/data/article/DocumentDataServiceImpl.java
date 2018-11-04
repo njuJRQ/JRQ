@@ -7,6 +7,7 @@ import njurestaurant.njutakeout.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,10 +52,26 @@ public class DocumentDataServiceImpl implements DocumentDataService {
 
 	@Override
 	public void deleteDocumentById(String id) throws NotExistException {
-		if (documentDao.existsById(id)) {
-			documentDao.deleteById(id);
+		Optional<Document> optionalDocument = documentDao.findById(id);
+		if (optionalDocument.isPresent()) {
+			Document document = optionalDocument.get();
+			if (! new File(document.getAttachment()).delete()) {
+				System.err.println("文档附件"+document.getAttachment()+"删除失败");
+			}
+			documentDao.delete(document);
 		} else {
 			throw new NotExistException("Document ID", id);
+		}
+	}
+
+	@Override
+	public void deleteDocumentsByWriterName(String writerName) {
+		List<Document> documents = documentDao.findDocumentsByWriterName(writerName);
+		for (Document document:documents) {
+			if (! new File(document.getAttachment()).delete()) {
+				System.err.println("文档附件"+document.getAttachment()+"删除失败");
+			}
+			documentDao.delete(document);
 		}
 	}
 

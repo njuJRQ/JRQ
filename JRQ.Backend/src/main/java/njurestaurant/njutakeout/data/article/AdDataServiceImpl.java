@@ -7,6 +7,7 @@ import njurestaurant.njutakeout.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,8 +62,13 @@ public class AdDataServiceImpl implements AdDataService {
 
 	@Override
 	public void deleteAdById(String id) throws NotExistException {
-		if (adDao.existsById(id)) {
-			adDao.deleteById(id);
+		Optional<Ad> optionalAd = adDao.findById(id);
+		if (optionalAd.isPresent()) {
+			Ad ad = optionalAd.get();
+			if (! new File(ad.getImage()).delete()) {
+				System.err.println("广告图片"+ad.getImage()+"删除失败");
+			}
+			adDao.delete(ad);
 		} else {
 			throw new NotExistException("Ad ID", id);
 		}

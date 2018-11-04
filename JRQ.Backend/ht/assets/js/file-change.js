@@ -1,6 +1,7 @@
 var url=getUrl();
 var storage = window.localStorage;
 var id=storage["thisDocument"];
+var path;
 $.ajax(
     {
         url: url+"/getDocument",
@@ -19,6 +20,7 @@ $.ajax(
             document.getElementById("writerName").value=data.document.writerName;
             document.getElementById("date").value=data.document.date;
             document.getElementById("likeNum").value=data.document.likeNum;
+            path="../"+data.document.attachment;
         },
         error: function (xhr) {
             alert('动态页有问题噶！\n\n' + xhr.responseText);
@@ -40,31 +42,54 @@ function checkRate(input) {
 }
 function changeFile(){
     if(checkRate("likeNum")) {
-        $.ajax(
-            {
-                url: url + "/updateDocument",
-                headers :{
-                    'Authorization': 'Bearer ' + getToken(),
-                    'content-type': 'application/x-www-form-urlencoded'
-                },
-                data: {
-                    id: id,
-                    title: $("#title").val(),
-                    content: $("#content").val(),
-                    writerName: $("#writerName").val(),
-                    date: $("#date").val(),
-                    likeNum: $("#likeNum").val()
-                },
-                async: false,
-                success: function (data) {
-                    alert("修改成功");
-                    window.location.href = "file.html";
-                },
-                error: function (xhr) {
-                    alert('动态页有问题噶！\n\n' + xhr.responseText);
-                },
-                traditional: true,
+        var fd = new FormData($("#upload-file-form")[0]);
+        $.ajax({
+            url: url + "/uploadDocument",
+            headers: {
+                'Authorization': 'Bearer ' + getToken(),
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+            type: "POST",
+            data: fd,
+            enctype: 'multipart/form-data',
+            processData: false,
+            contentType: false,
+            cache: false,
+            async: false,
+            success: function () {
+                $.ajax(
+                    {
+                        url: url + "/updateDocument",
+                        headers :{
+                            'Authorization': 'Bearer ' + getToken(),
+                            'content-type': 'application/x-www-form-urlencoded'
+                        },
+                        data: {
+                            id: id,
+                            title: $("#title").val(),
+                            content: $("#content").val(),
+                            writerName: $("#writerName").val(),
+                            date: $("#date").val(),
+                            likeNum: $("#likeNum").val()
+                        },
+                        async: false,
+                        success: function (data) {
+                            alert("修改成功");
+                            window.location.href = "file.html";
+                        },
+                        error: function (xhr) {
+                            alert('动态页有问题噶！\n\n' + xhr.responseText);
+                        },
+                        traditional: true,
+                    }
+                )
+            },
+            error: function (xhr) {
+                //alert(xhr.responseText);
+                // Handle upload error
+                // ...
             }
-        )
+        });
+
     }
 }

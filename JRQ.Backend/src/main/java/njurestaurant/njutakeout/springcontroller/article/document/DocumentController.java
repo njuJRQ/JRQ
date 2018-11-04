@@ -10,6 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 @RestController
 public class DocumentController {
@@ -18,6 +24,81 @@ public class DocumentController {
     public DocumentController(DocumentBlService documentBlService) {
         this.documentBlService = documentBlService;
     }
+    private static String attachmentPath="";
+
+    @ApiOperation(value = "获取附件", notes = "获取附件")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "attachment", value = "附件路径", required = true, dataType = "MultipartFile")
+    })
+    @RequestMapping(value = "/uploadDocument", method = RequestMethod.POST)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public void uploadDocument(@RequestParam("attachment")MultipartFile attachment){
+        Map<String,Object> map= new HashMap<String,Object>();
+        if(attachment.isEmpty()){
+            map.put( "result", "error");
+            map.put( "msg", "上传文件不能为空" );
+        } else {
+
+            // 获取文件名
+            String fileName = attachment.getOriginalFilename();
+            // 获取文件后缀
+
+            // 用uuid作为文件名，防止生成的临时文件重复
+            // MultipartFile to File
+            //你的业务逻辑
+            int bytesum = 0;
+            int byteread = 0;
+            InputStream inStream = null;    //读入原文件
+            try {
+                inStream = attachment.getInputStream();
+                FileOutputStream fs = new FileOutputStream(fileName);
+                byte[] buffer = new byte[200000000];
+                while ( (byteread = inStream.read(buffer)) != -1) {
+                    bytesum += byteread;            //字节数 文件大小
+                    fs.write(buffer, 0, byteread);
+                }
+                inStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
+            File file = new File(fileName);
+            String[] temp=fileName.split("\\.");
+            String thePath="record/document/"+uuid+"."+temp[1];
+            String path="record/document/"+uuid+"."+temp[1];
+            File tempfile=new File(path);
+            if (tempfile.exists() && tempfile.isFile()) {
+                tempfile.delete();
+            }
+            bytesum = 0;
+            byteread = 0;
+            try {
+                inStream =new FileInputStream(fileName);
+                FileOutputStream fs = new FileOutputStream(path);
+                byte[] buffer = new byte[20000000];
+                while ( (byteread = inStream.read(buffer)) != -1) {
+                    bytesum += byteread;            //字节数 文件大小
+                    fs.write(buffer, 0, byteread);
+                }
+                inStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            attachmentPath=thePath;
+            if (file.exists() && file.isFile()) {
+                file.delete();
+            }
+        }
+    }
+
 
     @ApiOperation(value = "添加文档", notes = "添加文档")
     @ApiImplicitParams({
@@ -33,7 +114,9 @@ public class DocumentController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> addDocument(@RequestParam(name="title")String title, @RequestParam(name="content")String content, @RequestParam(name="writerName")String writerName, @RequestParam(name="date")String date) {
-        return new ResponseEntity<>(documentBlService.addDocument(title,content,writerName,0), HttpStatus.OK);
+        ResponseEntity<Response> r=new ResponseEntity<>(documentBlService.addDocument(title,content,attachmentPath,writerName,0), HttpStatus.OK);
+        attachmentPath="";
+        return r;
     }
 
     @ApiOperation(value = "根据文档ID获取文档", notes = "根据文档ID获取文档")
@@ -77,7 +160,9 @@ public class DocumentController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> updateDocument(@RequestParam(name="id")String id,@RequestParam(name="title")String title, @RequestParam(name="content")String content, @RequestParam(name="writerName")String writerName, @RequestParam(name="date")String date, @RequestParam(name="likeNum")String likeNum) throws NotExistException {
-        return new ResponseEntity<>(documentBlService.updateDocument(id,title,content,writerName,Long.parseLong(likeNum)), HttpStatus.OK);
+        ResponseEntity<Response> r= new ResponseEntity<>(documentBlService.updateDocument(id,title,content,attachmentPath,writerName,Long.parseLong(likeNum)), HttpStatus.OK);
+        attachmentPath="";
+        return r;
     }
 
     @ApiOperation(value = "根据文档ID删除文档", notes = "根据文档ID删除文档")

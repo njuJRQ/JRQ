@@ -25,6 +25,27 @@ $.ajax(
         async:false,
         success: function (data) {
             for(var i=0;i<data.purchases.length;i++){
+
+                    $.ajax(
+                        {
+                            url: url+"/getUser",
+                            headers :{
+                                'Authorization': 'Bearer ' + getToken(),
+                                'content-type': 'application/x-www-form-urlencoded'
+                            },
+                            data: {
+                                openid:data.purchases[i].openid
+                            },
+                            async:false,
+                            success: function (d) {
+                                data.purchases[i].openid=d.user.username;
+                            },
+                            error: function (xhr) {
+                                alert('动态页有问题噶！\n\n' + xhr.responseText);
+                            },
+                            traditional: true,
+                        }
+                    )
                 if(data.purchases[i].type=="level"){
                     data.purchases[i].type="购买身份变更";
                 }

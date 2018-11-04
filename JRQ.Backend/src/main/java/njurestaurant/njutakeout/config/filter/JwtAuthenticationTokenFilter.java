@@ -41,15 +41,15 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain chain) throws ServletException, IOException {
 
-        System.out.println("request:"+request);
-        System.out.println("response:"+response);
+//        System.out.println("request:"+request);
+//        System.out.println("response:"+response);
         String authHeader = request.getHeader(this.tokenHeader);
-        System.out.println("headers:"+request.getHeaders("Authorization"));
-        System.out.println("Authorizationheader:"+request.getHeader("Authorization"));
-        System.out.println("contentheader:"+request.getHeader("content-type"));
+//        System.out.println("headers:"+request.getHeaders("Authorization"));
+//        System.out.println("Authorizationheader:"+request.getHeader("Authorization"));
+//        System.out.println("contentheader:"+request.getHeader("content-type"));
         String url=request.getRequestURI();
-        System.out.println("url:"+request.getRequestURI());
-        System.out.println("authheader:"+authHeader);
+//        System.out.println("url:"+request.getRequestURI());
+//        System.out.println("authheader:"+authHeader);
         if(url.equals("/getOpenIdAndSessionKey")||url.equals("/loginAdmin")){
             //chain.doFilter(request, response);
         }

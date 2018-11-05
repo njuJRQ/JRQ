@@ -46,13 +46,33 @@ function deletequestion(n){
         var url = getUrl();
         $.ajax(
             {
-                url: url + "/deleteAdmin",
+                url: url + "/isAdminInEnterprise",
                 data: {
-                    id: q.id
+                    adminId: q.id
                 },
                 async: false,
                 success: function (data) {
-                    window.location.href = "admin-list.html";
+                    if(data.ok){
+                        $.ajax(
+                            {
+                                url: url + "/deleteAdmin",
+                                data: {
+                                    id: q.id
+                                },
+                                async: false,
+                                success: function (data) {
+                                    window.location.href = "admin-list.html";
+                                },
+                                error: function (xhr) {
+                                    alert('动态页有问题噶！\n\n' + xhr.responseText);
+                                },
+                                traditional: true,
+                            }
+                        )
+                    }
+                    else{
+                        alert("该管理员为企业用户，请直接删除企业！");
+                    }
                 },
                 error: function (xhr) {
                     alert('动态页有问题噶！\n\n' + xhr.responseText);
@@ -60,6 +80,7 @@ function deletequestion(n){
                 traditional: true,
             }
         )
+
     }
 }
 
@@ -208,16 +229,33 @@ function deletesingle(n){
     var url=getUrl();
     $.ajax(
         {
-            url: url+"/deleteAdmin",
-            headers :{
-                'Authorization': 'Bearer ' + getToken(),
-                'content-type': 'application/x-www-form-urlencoded'
-            },
+            url: url + "/isAdminInEnterprise",
             data: {
-                id:q.id
+                id: q.id
             },
-            async:false,
+            async: false,
             success: function (data) {
+                if(data.ok){
+                    $.ajax(
+                        {
+                            url: url + "/deleteAdmin",
+                            data: {
+                                adminId: q.id
+                            },
+                            async: false,
+                            success: function (data) {
+                                window.location.href = "admin-list.html";
+                            },
+                            error: function (xhr) {
+                                alert('动态页有问题噶！\n\n' + xhr.responseText);
+                            },
+                            traditional: true,
+                        }
+                    )
+                }
+                else{
+                    alert("该管理员为企业用户，请直接删除企业！");
+                }
             },
             error: function (xhr) {
                 alert('动态页有问题噶！\n\n' + xhr.responseText);

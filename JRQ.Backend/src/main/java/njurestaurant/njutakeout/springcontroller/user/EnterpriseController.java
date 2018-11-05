@@ -236,6 +236,20 @@ public class EnterpriseController {
         return new ResponseEntity<>(enterpriseBlService.isAdminEnterprise(adminId), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "用户升级自己为企业账户", notes = "用户升级自己为企业账户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "adminId", value = "用户的微信openid", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/isAdminInEnterprise", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> isAdminInEnterprise(@RequestParam(name="adminId")String adminId) {
+        return new ResponseEntity<>(enterpriseBlService.isAdminInEnterprise(adminId), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "企业用户管理员获取自己发布的课程列表", notes = "企业用户管理员获取自己发布的课程列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "adminId", value = "管理员ID", required = true, dataType = "String")

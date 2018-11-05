@@ -139,8 +139,8 @@ public class adminController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public InfoResponse deleteAdmin(@RequestParam(name="id")String id) throws NotExistException {
-        InfoResponse r=adminBlService.deleteAdmin(id);
+    public BoolResponse deleteAdmin(@RequestParam(name="id")String id) throws NotExistException {
+        BoolResponse r=adminBlService.deleteAdmin(id);
         return r;
     }
 

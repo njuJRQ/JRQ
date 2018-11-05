@@ -121,25 +121,6 @@ $.ajax(
 function adduser() {
     if(checkRate("credit")) {
         var url = getUrl();
-        $.ajax(
-            {
-                url: url + "/deleteUser",
-                headers :{
-                    'Authorization': 'Bearer ' + getToken(),
-                    'content-type': 'application/x-www-form-urlencoded'
-                },
-                data: {
-                    id: document.getElementById("openid").innerText
-                },
-                async: false,
-                success: function (data) {
-                },
-                error: function (xhr) {
-
-                },
-                traditional: true,
-            }
-        )
         var fd = new FormData($("#upload-file-form")[0]);
 
         var obj1 = document.getElementById("is"); //定位id
@@ -166,7 +147,7 @@ function adduser() {
                 if(document.getElementById("face").value.length!=0) {
                     $.ajax(
                         {
-                            url: url + "/addUser",
+                            url: url + "/updateUser",
                             data: {
                                 openid: document.getElementById("openid").innerText,
                                 username: $("#username").val(),
@@ -198,10 +179,6 @@ function adduser() {
                     $.ajax(
                         {
                             url: url + "/addUserWithoutFace",
-                            headers :{
-                                'Authorization': 'Bearer ' + getToken(),
-                                'content-type': 'application/x-www-form-urlencoded'
-                            },
                             data: {
                                 openid: document.getElementById("openid").innerText,
                                 username: $("#username").val(),

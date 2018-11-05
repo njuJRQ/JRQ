@@ -174,7 +174,7 @@ public class userController {
         if(valid=="冻结"){
             is=false;
         }
-        InfoResponse r=userBlService.addUser(openid,username,face,null,phone,email,company,department,position,intro,city,Integer.parseInt(credit),label,levelName,is);
+        InfoResponse r=userBlService.updateUser(openid,username,face,null,phone,email,company,department,position,intro,city,Integer.parseInt(credit),label,levelName,is);
         return r;
     }
 
@@ -209,7 +209,6 @@ public class userController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "openid", value = "用户编号", required = true, dataType = "String"),
             @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "face", value = "用户头像", required = true, dataType = "String"),
             @ApiImplicitParam(name = "phone", value = "用户手机", required = true, dataType = "String"),
             @ApiImplicitParam(name = "email", value = "用户邮箱", required = true, dataType = "String"),
             @ApiImplicitParam(name = "company", value = "用户公司", required = true, dataType = "String"),
@@ -220,7 +219,7 @@ public class userController {
             @ApiImplicitParam(name = "credit", value = "余额", required = true, dataType = "String"),
             @ApiImplicitParam(name = "label", value = "用户标签", required = true, dataType = "String"),
             @ApiImplicitParam(name = "levelName", value = "用户等级", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "valid", value = "是否启用", required = true, dataType = "boolean")
+            @ApiImplicitParam(name = "valid", value = "是否启用", required = true, dataType = "String")
     })
     @RequestMapping(value = "/updateUser", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -228,8 +227,42 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public InfoResponse updateUser(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username,@RequestParam(name="face")String face,@RequestParam(name="phone")String phone,@RequestParam(name="email")String email,@RequestParam(name="company")String company,@RequestParam(name="department")String department,@RequestParam(name="position")String position,@RequestParam(name="intro")String intro,@RequestParam(name="city")String city,@RequestParam(name="credit")String credit,@RequestParam(name="label")String label,@RequestParam(name="levelName")String levelName,@RequestParam(name="valid")boolean valid) throws NotExistException {
-        InfoResponse r=userBlService.updateUser(openid,username,face,null,phone,email,company,department,position,intro,city,Integer.parseInt(credit),label,levelName,valid);
+    public InfoResponse updateUser(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username,@RequestParam(name="face")String face,@RequestParam(name="phone")String phone,@RequestParam(name="email")String email,@RequestParam(name="company")String company,@RequestParam(name="department")String department,@RequestParam(name="position")String position,@RequestParam(name="intro")String intro,@RequestParam(name="city")String city,@RequestParam(name="credit")String credit,@RequestParam(name="label")String label,@RequestParam(name="levelName")String levelName,@RequestParam(name="valid")String valid) throws NotExistException {
+        boolean is=true;
+        if(valid=="冻结"){
+            is=false;
+        }
+        File file = new File(headPath);
+        String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
+        String[] temp=headPath.split("\\.");
+        String thePath="record/user/head/"+uuid+"."+temp[1];
+        String path="record/user/head/"+uuid+"."+temp[1];
+        File tempfile=new File(path);
+        if (tempfile.exists() && tempfile.isFile()) {
+            tempfile.delete();
+        }
+        int bytesum = 0;
+        int byteread = 0;
+
+        try {
+            InputStream inStream =new FileInputStream(headPath);
+            FileOutputStream fs = new FileOutputStream(path);
+            byte[] buffer = new byte[20000000];
+            while ( (byteread = inStream.read(buffer)) != -1) {
+                bytesum += byteread;            //字节数 文件大小
+                fs.write(buffer, 0, byteread);
+            }
+            inStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (file.exists() && file.isFile()) {
+            file.delete();
+        }
+        InfoResponse r=userBlService.updateUser(openid,username,thePath,null,phone,email,company,department,position,intro,city,Integer.parseInt(credit),label,levelName,is);
+        headPath="";
         return r;
     }
 

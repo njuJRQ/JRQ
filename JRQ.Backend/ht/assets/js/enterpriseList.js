@@ -27,11 +27,11 @@ $.ajax(
                 else if(data.enterprises[i].status=="verified"){
                     data.enterprises[i].status="已通过审核";
                 }
-                else if(data.enterprise.status=="rejected"){
-                    document.getElementById("status").innerText="审核不通过";
+                else if(data.enterprises[i].status=="rejected"){
+                    data.enterprises[i].status="审核不通过";
                 }
-                else if(data.enterprise.status=="disqualified"){
-                    document.getElementById("status").innerText="身份被取消";
+                else if(data.enterprises[i].status=="disqualified"){
+                    data.enterprises[i].status="身份被取消";
                 }
                 list.push(data.enterprises[i]);
             }

@@ -58,7 +58,11 @@ public class EnterpriseItem {
 		this.status = enterprise.getStatus();
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		this.submitTime = simpleDateFormat.format(new Date(enterprise.getSubmitTimestamp()));
-		this.verifyTime = simpleDateFormat.format(new Date(enterprise.getVerifyTimestamp()));
+		if (this.status.equals("verified")) {
+			this.verifyTime = simpleDateFormat.format(new Date(enterprise.getVerifyTimestamp()));
+		} else {
+			this.verifyTime = "无相关信息";
+		}
 	}
 
 	public String getId() {

@@ -16,10 +16,6 @@ var url=getUrl();
 $.ajax(
     {
         url: url+"/getClassificationList",
-        headers :{
-            'Authorization': 'Bearer ' + getToken(),
-            'content-type': 'application/x-www-form-urlencoded'
-        },
         data: {
         },
         async:false,
@@ -58,10 +54,6 @@ function deletequestion(n){
         $.ajax(
             {
                 url: url + "/deleteClassification",
-                headers :{
-                    'Authorization': 'Bearer ' + getToken(),
-                    'content-type': 'application/x-www-form-urlencoded'
-                },
                 data: {
                     userLabel: q.userLabel
                 },
@@ -220,10 +212,6 @@ function deletesingle(n){
     $.ajax(
         {
             url: url+"/deleteClassification",
-            headers :{
-                'Authorization': 'Bearer ' + getToken(),
-                'content-type': 'application/x-www-form-urlencoded'
-            },
             data: {
                 userLabel:q.userLabel
             },

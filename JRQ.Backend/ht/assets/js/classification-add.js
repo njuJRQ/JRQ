@@ -16,10 +16,6 @@ document.getElementById("ad").onclick=function() {
         $.ajax(
             {
                 url: url+"/addClassification",
-                headers :{
-                    'Authorization': 'Bearer ' + getToken(),
-                    'content-type': 'application/x-www-form-urlencoded'
-                },
                 data: {
                     userLabel:userLabel,
                     workClass:workClass

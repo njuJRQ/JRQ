@@ -4,10 +4,6 @@ var id=storage["thisEnterprise"];
 $.ajax(
     {
         url: url+"/getEnterpriseById",
-        headers :{
-            'Authorization': 'Bearer ' + getToken(),
-            'content-type': 'application/x-www-form-urlencoded'
-        },
         data: {
             id:id
         },
@@ -45,10 +41,6 @@ function agree(){
     $.ajax(
         {
             url: url+"/verifyEnterpriseById",
-            headers :{
-                'Authorization': 'Bearer ' + getToken(),
-                'content-type': 'application/x-www-form-urlencoded'
-            },
             data: {
                 id:id
             },

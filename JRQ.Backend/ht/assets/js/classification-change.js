@@ -5,10 +5,6 @@ var url=getUrl();
 $.ajax(
     {
         url: url+"/getClassification",
-        headers :{
-            'Authorization': 'Bearer ' + getToken(),
-            'content-type': 'application/x-www-form-urlencoded'
-        },
         data: {
             userLabel:id
         },

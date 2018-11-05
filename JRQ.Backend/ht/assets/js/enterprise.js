@@ -2,10 +2,6 @@ var url=getUrl();
 $.ajax(
     {
         url: url+"/getPrivilege",
-        headers :{
-            'Authorization': 'Bearer ' + getToken(),
-            'content-type': 'application/x-www-form-urlencoded'
-        },
         data: {
             name:"enterprise"
         },
@@ -35,10 +31,6 @@ function changeFile(){
         $.ajax(
             {
                 url: url + "/updatePrivilege",
-                headers :{
-                    'Authorization': 'Bearer ' + getToken(),
-                    'content-type': 'application/x-www-form-urlencoded'
-                },
                 data: {
                     name: "enterprise",
                     price: parseInt($("#price").val())

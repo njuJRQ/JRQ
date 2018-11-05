@@ -33,10 +33,6 @@ document.getElementById("ad").onclick=function() {
         $.ajax(
             {
                 url: url + "/updateLevel",
-                headers :{
-                    'Authorization': 'Bearer ' + getToken(),
-                    'content-type': 'application/x-www-form-urlencoded'
-                },
                 data: {
                     name: document.getElementById("name").innerText,
                     cardLimit: cardLimit,

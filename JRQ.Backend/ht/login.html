@@ -84,17 +84,17 @@
                     password:password
                 },
                 success: function (data) {
-                    if(data!=null&&data!="") {
+                    //if(data!=null&&data!="") {
                         alert("登录成功");
                         var storage = window.localStorage;
                         storage["adminUsername"]=username;
                         storage["has"]="yes";
                         storage["token"]=data;
                         window.location.href = "index.html";
-                    }
-                    else{
-                        alert("用户名不存在或密码错误");
-                    }
+                    // }
+                    // else{
+                    //     alert("用户名不存在或密码错误");
+                    //}
                 },
                 error: function (xhr) {
                     alert('动态页有问题噶！\n\n' + xhr.responseText);

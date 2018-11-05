@@ -46,10 +46,6 @@ function adduser() {
         var fd2 = new FormData($("#upload-video-form")[0]);
         $.ajax({
             url: url + "/courseImage",
-            headers :{
-                'Authorization': 'Bearer ' + getToken(),
-                'content-type': 'application/x-www-form-urlencoded'
-            },
             type: "POST",
             data: fd,
             enctype: 'multipart/form-data',
@@ -60,10 +56,6 @@ function adduser() {
             success: function () {
                 $.ajax({
                     url: url + "/courseVideo",
-                    headers :{
-                        'Authorization': 'Bearer ' + getToken(),
-                        'content-type': 'application/x-www-form-urlencoded'
-                    },
                     type: "POST",
                     data: fd2,
                     enctype: 'multipart/form-data',

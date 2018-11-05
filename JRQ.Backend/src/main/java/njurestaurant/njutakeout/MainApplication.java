@@ -32,36 +32,4 @@ public class MainApplication {
         SpringApplication.run(MainApplication.class, args);
     }
 
-
-    @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.basePackage(getClass().getPackage().getName()))
-                .paths(PathSelectors.any())
-                .build();
-    }
-
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("NJUTakeOut API")
-                .termsOfServiceUrl("")
-                .contact(new Contact("Surevil", "https://github.com/zhanglingzhe0820", "445073309@qq.com"))
-                .version("1.0")
-                .build();
-    }
-
-
-//    @Bean
-//    public Connector httpConnector() {
-//        Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
-//        connector.setScheme("http");
-//        connector.setPort(80);
-//        connector.setSecure(false);
-//        connector.setRedirectPort(443);
-//        return connector;
-//    }
-
-
 }

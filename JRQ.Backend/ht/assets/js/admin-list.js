@@ -18,9 +18,6 @@ $.ajax(
         method: 'GET',
         url: url+"/getAdminList",
         dataType: 'json',
-        headers :{
-            'Authorization': 'Bearer ' + getToken()
-        },
         data: {
         },
         async:false,
@@ -50,10 +47,6 @@ function deletequestion(n){
         $.ajax(
             {
                 url: url + "/deleteAdmin",
-                headers :{
-                    'Authorization': 'Bearer ' + getToken(),
-                    'content-type': 'application/x-www-form-urlencoded'
-                },
                 data: {
                     id: q.id
                 },

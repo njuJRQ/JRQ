@@ -61,10 +61,6 @@ function adduser() {
     }
     $.ajax({
         url: url + "/uploadAd",
-        headers :{
-            'Authorization': 'Bearer ' + getToken(),
-            'content-type': 'application/x-www-form-urlencoded'
-        },
         type: "POST",
         data: fd,
         enctype: 'multipart/form-data',
@@ -76,10 +72,6 @@ function adduser() {
             $.ajax(
                 {
                     url: url + "/addAd",
-                    headers :{
-                        'Authorization': 'Bearer ' + getToken(),
-                        'content-type': 'application/x-www-form-urlencoded'
-                    },
                     data: {
                         link:$("#link").val(),
                         showPlace:showPlace

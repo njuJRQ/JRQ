@@ -4,10 +4,6 @@ var openid=storage["thisUser"];
 $.ajax(
     {
         url: url+"/getUser",
-        headers :{
-            'Authorization': 'Bearer ' + getToken(),
-            'content-type': 'application/x-www-form-urlencoded'
-        },
         data: {
             openid:openid
         },

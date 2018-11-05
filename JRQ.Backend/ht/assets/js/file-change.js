@@ -45,10 +45,6 @@ function changeFile(){
         var fd = new FormData($("#upload-file-form")[0]);
         $.ajax({
             url: url + "/uploadDocument",
-            headers: {
-                'Authorization': 'Bearer ' + getToken(),
-                'content-type': 'application/x-www-form-urlencoded'
-            },
             type: "POST",
             data: fd,
             enctype: 'multipart/form-data',
@@ -60,10 +56,6 @@ function changeFile(){
                 $.ajax(
                     {
                         url: url + "/updateDocument",
-                        headers :{
-                            'Authorization': 'Bearer ' + getToken(),
-                            'content-type': 'application/x-www-form-urlencoded'
-                        },
                         data: {
                             id: id,
                             title: $("#title").val(),

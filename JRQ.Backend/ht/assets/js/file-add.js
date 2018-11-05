@@ -8,10 +8,6 @@ function adduser() {
     var date = myDate.toLocaleDateString();
     $.ajax({
         url: url + "/uploadDocument",
-        headers: {
-            'Authorization': 'Bearer ' + getToken(),
-            'content-type': 'application/x-www-form-urlencoded'
-        },
         type: "POST",
         data: fd,
         enctype: 'multipart/form-data',
@@ -23,10 +19,6 @@ function adduser() {
             $.ajax(
                 {
                     url: url + "/addDocument",
-                    headers: {
-                        'Authorization': 'Bearer ' + getToken(),
-                        'content-type': 'application/x-www-form-urlencoded'
-                    },
                     data: {
                         title: $("#title").val(),
                         content: $("#content").val(),

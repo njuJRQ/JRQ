@@ -73,5 +73,5 @@ public interface AdminBlService {
 	 * @param id 管理员ID
 	 * @return 是否成功
 	 */
-	InfoResponse deleteAdmin(String id) throws NotExistException;
+	BoolResponse deleteAdmin(String id) throws NotExistException;
 }

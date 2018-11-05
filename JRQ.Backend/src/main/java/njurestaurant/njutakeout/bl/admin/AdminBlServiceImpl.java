@@ -3,6 +3,7 @@ package njurestaurant.njutakeout.bl.admin;
 
 import njurestaurant.njutakeout.blservice.admin.AdminBlService;
 import njurestaurant.njutakeout.dataservice.admin.AdminDataService;
+import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
 import njurestaurant.njutakeout.entity.admin.Admin;
 import njurestaurant.njutakeout.exception.DuplicateUsernameException;
 import njurestaurant.njutakeout.exception.NotExistException;
@@ -25,12 +26,14 @@ import java.util.List;
 public class AdminBlServiceImpl implements AdminBlService {
 	private final AdminDataService adminDataService;
 	private final JwtUserDetailsService jwtUserDetailsService;
+	private final EnterpriseDataService enterpriseDataService;
 	private final JwtService jwtService;
 	private final static long EXPIRATION = 604800;
 	@Autowired
-	public AdminBlServiceImpl(AdminDataService adminDataService, JwtUserDetailsService jwtUserDetailsService, JwtService jwtService) {
+	public AdminBlServiceImpl(AdminDataService adminDataService, JwtUserDetailsService jwtUserDetailsService, EnterpriseDataService enterpriseDataService, JwtService jwtService) {
 		this.adminDataService = adminDataService;
 		this.jwtUserDetailsService = jwtUserDetailsService;
+		this.enterpriseDataService = enterpriseDataService;
 		this.jwtService = jwtService;
 	}
 
@@ -93,8 +96,11 @@ public class AdminBlServiceImpl implements AdminBlService {
 	}
 
 	@Override
-	public InfoResponse deleteAdmin(String id) throws NotExistException {
+	public BoolResponse deleteAdmin(String id) throws NotExistException {
+		if (enterpriseDataService.isAdminInEnterprise(id)) { //企业管理员不能直接被删除，否则会在删除企业时出错
+			return new BoolResponse(false, "企业管理员不能直接删除。若要删除企业管理员，请删除企业账号");
+		}
 		adminDataService.deleteAdminById(id);
-		return new InfoResponse();
+		return new BoolResponse(true, "");
 	}
 }

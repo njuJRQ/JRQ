@@ -34,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EnterpriseBlServiceImpl implements EnterpriseBlService {
@@ -116,6 +117,16 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 		if (adminDataService.isAdminExistent(username)) {
 			return new BoolResponse(false, "用户名"+username+"已存在");
 		} else {
+			try {
+				Enterprise enterprise = enterpriseDataService.getEnterpriseByOpenid(openid);
+				//在Enterprise表中，就删除
+				//这里不用Cascade是因为有可能要被删除的行为disqualified，其Admin已经被删除了，再删除就会重复删除而出错
+				//若状态为rejected或submitted，则同样不需要删除Admin
+				//verified则将会在方法开头被阻止，故不会出现在这里
+				enterpriseDataService.deleteEnterpriseById(enterprise.getId());
+			} catch (NotExistException e) {
+				//不在Enterprise表中，不需要做任何事情
+			}
 			//刚提交申请时，adminId为""，Admin表中没有相关信息
 			enterpriseDataService.addEnterprise(new Enterprise(enterpriseName, description, licenseUrl, openid, "", username, password, "submitted", System.currentTimeMillis()));
 			return new BoolResponse(true, "企业用户申请已提交，用户名为'"+username+"'，密码为'"+password+"'");

@@ -8,6 +8,7 @@ import njurestaurant.njutakeout.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,7 +98,11 @@ public class EnterpriseDataServiceImpl implements EnterpriseDataService {
 	public void deleteEnterpriseById(String id) throws NotExistException {
 		Optional<Enterprise> optionalEnterprise = enterpriseDao.findById(id);
 		if(optionalEnterprise.isPresent()) {
-			enterpriseDao.delete(optionalEnterprise.get());
+			Enterprise enterprise = optionalEnterprise.get();
+			if (! new File(enterprise.getLicenseUrl()).delete()) {
+				System.err.println("企业营业执照文件"+enterprise.getLicenseUrl()+"删除失败");
+			}
+			enterpriseDao.delete(enterprise);
 		} else {
 			throw new NotExistException("Enterprise Id", id);
 		}
@@ -108,10 +113,13 @@ public class EnterpriseDataServiceImpl implements EnterpriseDataService {
 		Optional<Enterprise> optionalEnterprise = enterpriseDao.findById(id);
 		if (optionalEnterprise.isPresent()) {
 			Enterprise enterprise = optionalEnterprise.get();
+			if (! new File(enterprise.getLicenseUrl()).delete()) {
+				System.err.println("企业营业执照文件"+enterprise.getLicenseUrl()+"删除失败");
+			}
 			if (!enterprise.getAdminId().equals("")) { // 若此企业用户的管理员账号已分配，则删除对应管理员账号
 				adminDataService.deleteAdminById(enterprise.getAdminId());
 			}
-			enterpriseDao.deleteById(id);
+			enterpriseDao.delete(enterprise);
 		} else {
 			throw new NotExistException("Enterprise Id", id);
 		}

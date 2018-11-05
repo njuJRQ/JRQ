@@ -1,10 +1,13 @@
 package njurestaurant.njutakeout.data.user;
 
+import njurestaurant.njutakeout.data.dao.admin.AdminDao;
+import njurestaurant.njutakeout.data.dao.user.EnterpriseDao;
 import njurestaurant.njutakeout.data.dao.user.SendCardDao;
 import njurestaurant.njutakeout.data.dao.user.UserDao;
 import njurestaurant.njutakeout.dataservice.article.FeedDataService;
 import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
+import njurestaurant.njutakeout.entity.admin.Admin;
 import njurestaurant.njutakeout.entity.article.Feed;
 import njurestaurant.njutakeout.entity.user.Enterprise;
 import njurestaurant.njutakeout.entity.user.SendCard;
@@ -95,7 +98,7 @@ public class UserDataServiceImpl implements UserDataService {
 			//若此人在Enterprise表中，需要删除该项
 			try {
 				Enterprise enterprise = enterpriseDataService.getEnterpriseByOpenid(openid);
-				enterpriseDataService.deleteEnterpriseById(enterprise.getId());
+				enterpriseDataService.deleteEnterpriseByIdCascade(enterprise.getId()); //连环删除Admin的相关数据
 			} catch (NotExistException e) {
 				//若此人不在Enterprise表中，什么也不需要做
 			}

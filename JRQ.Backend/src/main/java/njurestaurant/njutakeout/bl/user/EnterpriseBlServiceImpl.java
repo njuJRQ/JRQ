@@ -138,7 +138,7 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 
 		EnterpriseItem enterpriseItem = new EnterpriseItem(enterprise, adminDataService);
 		if(enterprise.getStatus().equals("rejected") || enterprise.getStatus().equals("disqualified")) {
-			enterpriseDataService.deleteEnterpriseById(enterprise.getId());
+			enterpriseDataService.deleteEnterpriseById(enterprise.getId()); //由于之前Admin已经被删除了，所以这里只需要删除单个表项
 		}
 		return new EnterpriseResponse(enterpriseItem);
 	}
@@ -156,6 +156,11 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 	@Override
 	public BoolResponse isAdminEnterprise(String adminId) {
 		return new BoolResponse(enterpriseDataService.isAdminEnterprise(adminId), "");
+	}
+
+	@Override
+	public BoolResponse isAdminInEnterprise(String adminId) {
+		return new BoolResponse(enterpriseDataService.isAdminInEnterprise(adminId), "");
 	}
 
 	@Override

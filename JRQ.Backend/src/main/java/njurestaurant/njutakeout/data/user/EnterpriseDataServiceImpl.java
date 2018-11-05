@@ -38,6 +38,11 @@ public class EnterpriseDataServiceImpl implements EnterpriseDataService {
 	}
 
 	@Override
+	public boolean isAdminInEnterprise(String adminId) {
+		return enterpriseDao.findEnterpriseByAdminId(adminId).isPresent();
+	}
+
+	@Override
 	public boolean isAdminEnterprise(String adminId) {
 		Optional<Enterprise> optionalEnterprise = enterpriseDao.findEnterpriseByAdminId(adminId);
 		return optionalEnterprise.isPresent() && optionalEnterprise.get().getStatus().equals("verified");
@@ -90,6 +95,16 @@ public class EnterpriseDataServiceImpl implements EnterpriseDataService {
 
 	@Override
 	public void deleteEnterpriseById(String id) throws NotExistException {
+		Optional<Enterprise> optionalEnterprise = enterpriseDao.findById(id);
+		if(optionalEnterprise.isPresent()) {
+			enterpriseDao.delete(optionalEnterprise.get());
+		} else {
+			throw new NotExistException("Enterprise Id", id);
+		}
+	}
+
+	@Override
+	public void deleteEnterpriseByIdCascade(String id) throws NotExistException {
 		Optional<Enterprise> optionalEnterprise = enterpriseDao.findById(id);
 		if (optionalEnterprise.isPresent()) {
 			Enterprise enterprise = optionalEnterprise.get();

@@ -85,6 +85,13 @@ public interface EnterpriseBlService {
 	BoolResponse isAdminEnterprise(String adminId);
 
 	/**
+	 * 检查管理员是否在企业表中（其对应的企业表状态可能为disqualified）
+	 * @param adminId 管理员ID
+	 * @return 是否为企业用户
+	 */
+	BoolResponse isAdminInEnterprise(String adminId);
+
+	/**
 	 * 企业用户管理员获取自己发布的课程列表
 	 * @param adminId 管理员ID
 	 * @return 课程列表

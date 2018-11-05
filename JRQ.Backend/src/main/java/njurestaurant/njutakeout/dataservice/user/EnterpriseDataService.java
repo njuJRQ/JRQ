@@ -13,6 +13,8 @@ public interface EnterpriseDataService {
 
 	boolean isUserEnterprise(String openid);
 
+	boolean isAdminInEnterprise(String adminId);
+
 	boolean isAdminEnterprise(String adminId);
 
 	void saveEnterprise(Enterprise enterprise);
@@ -27,6 +29,9 @@ public interface EnterpriseDataService {
 
 	List<Enterprise> getAllEnterprises();
 
-	//注意：删除Enterprise时统一使用deleteEnterpriseById（封装了相关数据连锁删除）
+	//只删除单个Enterprise表项（因为之前Admin就已经被删掉了）
 	void deleteEnterpriseById(String id) throws NotExistException;
+
+	//删除Enterprise表项时将Admin相关数据全部删除
+	void deleteEnterpriseByIdCascade(String id) throws NotExistException;
 }

@@ -29,7 +29,8 @@
     <view class='updateWrapper__capsule capsule'>
       <view class='capsule__left capsule__left--bg-red'>¥
         <big>{{priceEnterprise}}</big> / 365天</view>
-      <view wx:if='{{!isEnterprise}}' class='capsule__right capsule__right--bg-red' bindtap='updateToEnterprise'>立即认证</view>
+      <view wx:if='{{!isEnterprise && !isEnterprisePending}}' class='capsule__right capsule__right--bg-red' bindtap='updateToEnterprise'>立即认证</view>
+      <view wx:elif='{{isEnterprisePending}}' class='capsule__right capsule__right--bg-gray'>认证中</view>
       <view wx:else class='capsule__right capsule__right--bg-gray'>已认证</view>
     </view>
   </view>

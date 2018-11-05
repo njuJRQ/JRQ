@@ -21,6 +21,7 @@ Page({
     isAdminUsernameExistent: false,
     isEnterpriseDescriptionNotEnough: false,
     isEnterprise: false,
+    isEnterprisePending: false,
     licenseTempUrl: "",
     returnInfo: ""
   },
@@ -31,6 +32,13 @@ Page({
   onShow: function (options) {
     var that = this
     api.getMyCredit.call(this, app.getOpenid())
+    api.getMySubmittedEnterprise.call(this, app.getOpenid(), (res) => {
+      if (res.status == "submitted") {
+        that.setData({
+          isEnterprisePending: true
+        })
+      }
+    })
     api.getLevelList.call(this, (levels) => {
       levels.forEach((level) => {
         switch (level.name) {
@@ -59,6 +67,7 @@ Page({
       success: (res) => {
         if (res.confirm)
           api.updateMe.call(this, app.getOpenid(), '298', 298, util.getTodayDate())
+          that.onShow()
       }
     })
   },

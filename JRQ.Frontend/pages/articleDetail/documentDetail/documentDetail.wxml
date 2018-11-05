@@ -18,4 +18,12 @@
       <text>{{document.content}}</text>
     </view>
   </view>
+  <view class='download' style='margin: 20px'>
+      <view wx:if='{{!isDownLoadAttachment}}'>
+        <button class='jrq__button' bindtap='onDownload' disabled='{{!document.attachment}}'>下载文档</button>
+      </view>
+      <view wx:else>
+        <button class='jrq__button' bindtap='onOpen'>打开文档</button>
+      </view>
+    </view>
 </view>

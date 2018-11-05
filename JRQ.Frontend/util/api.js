@@ -196,6 +196,7 @@ function getDocument(id) {
     method: 'GET',
     success: (res) => {
       if (res.statusCode == 200) {
+        console.log(res.data)
         that.setData({
           document: res.data.document
         })

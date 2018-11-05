@@ -27,5 +27,48 @@ Page({
     } catch (e) {
       console.log('获取编号为' + options.id + '的文档失败')
     }
+  },
+
+  onDownload: function () {
+    var that = this
+    if (this.data.document.attachment) {
+      api.getMyUser.call(this, app.getOpenid(), (res) => {
+        if (res.levelName == "common") {
+          wx.showModal({
+            title: '您的权限为普通用户，无法下载',
+            content: '即将跳转到升级账户页面',
+            success: (res) => {
+              if(res.confirm) {
+                wx.navigateTo({
+                  url: '/pages/me/updateMe/updateMe',
+                })
+              }
+            }
+          })
+          
+        }
+        else {
+          api.downloadFile.call(this, this.data.document.attachment, () => {
+            that.setData({
+              isDownLoadAttachment: true
+            })
+          })
+        }
+      })
+    }
+    else {
+      wx.showModal({
+        content: '该项目不存在附件',
+        showCancel: false
+      })
+    }
+  },
+
+  onOpen: function () {
+    var that = this
+    wx.openDocument({
+      filePath: that.data.savedFilePath,
+    })
   }
+
 })

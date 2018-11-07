@@ -1,6 +1,7 @@
 package njurestaurant.njutakeout.bl.article;
 
 import njurestaurant.njutakeout.blservice.article.ArticleBlService;
+import njurestaurant.njutakeout.dataservice.admin.AdminDataService;
 import njurestaurant.njutakeout.dataservice.article.*;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
 import njurestaurant.njutakeout.entity.article.Course;
@@ -25,15 +26,17 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 	private final FeedDataService feedDataService;
 	private final UserDataService userDataService;
 	private final LikeDataService likeDataService;
+	private final AdminDataService adminDataService;
 
 	@Autowired
-	public ArticleBlServiceImpl(CourseDataService courseDataService, DocumentDataService documentDataService, ProjectDataService projectDataService, FeedDataService feedDataService, UserDataService userDataService, LikeDataService likeDataService) {
+	public ArticleBlServiceImpl(CourseDataService courseDataService, DocumentDataService documentDataService, ProjectDataService projectDataService, FeedDataService feedDataService, UserDataService userDataService, LikeDataService likeDataService, AdminDataService adminDataService) {
 		this.courseDataService = courseDataService;
 		this.documentDataService = documentDataService;
 		this.projectDataService = projectDataService;
 		this.feedDataService = feedDataService;
 		this.userDataService = userDataService;
 		this.likeDataService = likeDataService;
+		this.adminDataService = adminDataService;
 	}
 
 	@Override
@@ -44,21 +47,21 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 				List<Course> courses = courseDataService.getAllCourses();
 				for (Course course:courses) {
 					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, course.getId());
-					abstractItems.add(new AbstractItem(course, hasLiked));
+					abstractItems.add(new AbstractItem(course, adminDataService, hasLiked));
 				}
 				break;
 			case "document":
 				List<Document> documents = documentDataService.getAllDocuments();
 				for (Document document:documents) {
 					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, document.getId());
-					abstractItems.add(new AbstractItem(document, hasLiked));
+					abstractItems.add(new AbstractItem(document, adminDataService, hasLiked));
 				}
 				break;
 			case "project":
 				List<Project> projects = projectDataService.getAllProjects();
 				for (Project project:projects) {
 					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, project.getId());
-					abstractItems.add(new AbstractItem(project, hasLiked));
+					abstractItems.add(new AbstractItem(project, adminDataService, hasLiked));
 				}
 				break;
 			case "feed":
@@ -82,21 +85,21 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 				List<Course> courses = courseDataService.getMyCourseListBefore(openid, articleId);
 				for (Course course:courses) {
 					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, course.getId());
-					abstractItems.add(new AbstractItem(course, hasLiked));
+					abstractItems.add(new AbstractItem(course, adminDataService, hasLiked));
 				}
 				break;
 			case "document":
 				List<Document> documents = documentDataService.getMyDocumentListBefore(openid, articleId);
 				for (Document document:documents) {
 					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, document.getId());
-					abstractItems.add(new AbstractItem(document, hasLiked));
+					abstractItems.add(new AbstractItem(document, adminDataService, hasLiked));
 				}
 				break;
 			case "project":
 				List<Project> projects = projectDataService.getMyProjectListBefore(openid, articleId);
 				for (Project project:projects) {
 					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, project.getId());
-					abstractItems.add(new AbstractItem(project, hasLiked));
+					abstractItems.add(new AbstractItem(project, adminDataService, hasLiked));
 				}
 				break;
 			case "all":
@@ -133,13 +136,13 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 					boolean hasLiked = false;
 					if (a.getClass()==Course.class) {
 						hasLiked = likeDataService.isLikeExistent(openid, "course", ((Course)a).getId());
-						abstractItems.add(new AbstractItem((Course) a, hasLiked));
+						abstractItems.add(new AbstractItem((Course) a, adminDataService, hasLiked));
 					} else if (a.getClass()==Document.class) {
 						hasLiked = likeDataService.isLikeExistent(openid, "document", ((Document)a).getId());
-						abstractItems.add(new AbstractItem((Document) a, hasLiked));
+						abstractItems.add(new AbstractItem((Document) a, adminDataService, hasLiked));
 					} else if (a.getClass()==Project.class) {
 						hasLiked = likeDataService.isLikeExistent(openid, "project", ((Project)a).getId());
-						abstractItems.add(new AbstractItem((Project) a, hasLiked));
+						abstractItems.add(new AbstractItem((Project) a, adminDataService, hasLiked));
 					} else {
 						throw new NotExistException("Article class", a.getClass().getName());
 					}
@@ -156,19 +159,19 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 		for (Course course:courseDataService.getAllCourses()) {
 			if (course.getTitle().contains(condition)) {
 				boolean hasLiked = likeDataService.isLikeExistent(openid, "course", course.getId());
-				abstractItems.add(new AbstractItem(course, hasLiked));
+				abstractItems.add(new AbstractItem(course, adminDataService, hasLiked));
 			}
 		}
 		for (Document document:documentDataService.getAllDocuments()) {
 			if (document.getContent().contains(condition)) {
 				boolean hasLiked = likeDataService.isLikeExistent(openid, "document", document.getId());
-				abstractItems.add(new AbstractItem(document, hasLiked));
+				abstractItems.add(new AbstractItem(document, adminDataService, hasLiked));
 			}
 		}
 		for (Project project:projectDataService.getAllProjects()) {
 			if (project.getTitle().contains(condition)) {
 				boolean hasLiked = likeDataService.isLikeExistent(openid, "project", project.getId());
-				abstractItems.add(new AbstractItem(project, hasLiked));
+				abstractItems.add(new AbstractItem(project, adminDataService, hasLiked));
 			}
 		}
 		return new AbstractListResponse(abstractItems);

@@ -60,9 +60,9 @@ public class AdminBlServiceImpl implements AdminBlService {
 	}
 
 	@Override
-	public InfoResponse addAdmin(String username, String password, String limits, String date) throws DuplicateUsernameException {
+	public InfoResponse addAdmin(String username, String password, String limits, String date, String face) throws DuplicateUsernameException {
 		if (!adminDataService.isAdminExistent(username)) {
-			adminDataService.addAdmin(new Admin(username, password, limits, date));
+			adminDataService.addAdmin(new Admin(username, password, limits, date, face));
 			return new InfoResponse();
 		} else {
 			throw new DuplicateUsernameException(username);
@@ -90,8 +90,8 @@ public class AdminBlServiceImpl implements AdminBlService {
 	}
 
 	@Override
-	public InfoResponse updateAdmin(String id, String username, String password, String limits, String date) throws NotExistException {
-		adminDataService.updateAdminById(id, username, password, limits, date);
+	public InfoResponse updateAdmin(String id, String username, String password, String limits, String date, String face) throws NotExistException {
+		adminDataService.updateAdminById(id, username, password, limits, date, face);
 		return new InfoResponse();
 	}
 

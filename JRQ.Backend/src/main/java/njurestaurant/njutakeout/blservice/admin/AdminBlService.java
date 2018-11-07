@@ -33,9 +33,10 @@ public interface AdminBlService {
 	 * @param password 密码
 	 * @param limits 权限
 	 * @param date 创建时间
+	 * @param face 管理员头像
 	 * @return 是否成功
 	 */
-	InfoResponse addAdmin(String username, String password, String limits, String date) throws DuplicateUsernameException;
+	InfoResponse addAdmin(String username, String password, String limits, String date, String face) throws DuplicateUsernameException;
 
 	/**
 	 * 获取管理员信息
@@ -66,7 +67,7 @@ public interface AdminBlService {
 	 * @param date 创建日期
 	 * @return 是否成功
 	 */
-	InfoResponse updateAdmin(String id, String username, String password, String limits, String date) throws NotExistException;
+	InfoResponse updateAdmin(String id, String username, String password, String limits, String date, String face) throws NotExistException;
 
 	/**
 	 * 根据管理员ID删除管理员

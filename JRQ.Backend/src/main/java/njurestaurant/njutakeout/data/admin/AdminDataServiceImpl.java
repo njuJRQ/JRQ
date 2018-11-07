@@ -63,7 +63,7 @@ public class AdminDataServiceImpl implements AdminDataService {
 	}
 
 	@Override
-	public void updateAdminById(String id, String username, String password, String limits, String date) throws NotExistException {
+	public void updateAdminById(String id, String username, String password, String limits, String date, String face) throws NotExistException {
 		Optional<Admin> optionalAdmin = adminDao.findById(id);
 		if(optionalAdmin.isPresent()) {
 			Admin admin = optionalAdmin.get();
@@ -71,6 +71,7 @@ public class AdminDataServiceImpl implements AdminDataService {
 			admin.setPassword(password);
 			admin.setLimits(limits);
 			admin.setDate(date);
+			admin.setFace(face);
 			adminDao.save(admin);
 		} else {
 			throw new NotExistException("Admin ID", id);

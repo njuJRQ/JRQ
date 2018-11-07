@@ -1,5 +1,6 @@
 package njurestaurant.njutakeout.response.article;
 
+import njurestaurant.njutakeout.dataservice.admin.AdminDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
 import njurestaurant.njutakeout.entity.article.Course;
 import njurestaurant.njutakeout.entity.article.Document;
@@ -36,11 +37,15 @@ public class AbstractItem {
 		this.kind = kind;
 	}
 
-	public AbstractItem(Course course, boolean hasLiked) {
+	public AbstractItem(Course course, AdminDataService adminDataService, boolean hasLiked) {
 		this.id = course.getId();
 		this.title = course.getTitle();
 		this.images = Collections.singletonList(course.getImage());
-		this.writerFace = "";
+		try {
+			this.writerFace = adminDataService.getAdminByUsername(course.getWriterName()).getFace();
+		} catch (NotExistException e) {
+			this.writerFace = "";
+		}
 		this.writerName = course.getWriterName();
 		this.date = course.getDate();
 		this.likeNum = course.getLikeNum();
@@ -48,11 +53,15 @@ public class AbstractItem {
 		this.hasLiked = hasLiked;
 	}
 
-	public AbstractItem(Document document, boolean hasLiked) {
+	public AbstractItem(Document document, AdminDataService adminDataService, boolean hasLiked) {
 		this.id = document.getId();
 		this.title = document.getTitle();
 		this.images = Collections.emptyList();
-		this.writerFace = "";
+		try {
+			this.writerFace = adminDataService.getAdminByUsername(document.getWriterName()).getFace();
+		} catch (NotExistException e) {
+			this.writerFace = "";
+		}
 		this.writerName = document.getWriterName();
 		this.date = document.getDate();
 		this.likeNum = document.getLikeNum();
@@ -60,11 +69,15 @@ public class AbstractItem {
 		this.hasLiked = hasLiked;
 	}
 
-	public AbstractItem(Project project, boolean hasLiked) {
+	public AbstractItem(Project project, AdminDataService adminDataService, boolean hasLiked) {
 		this.id = project.getId();
 		this.title = project.getTitle();
 		this.images = Collections.emptyList();
-		this.writerFace = "";
+		try {
+			this.writerFace = adminDataService.getAdminByUsername(project.getWriterName()).getFace();
+		} catch (NotExistException e) {
+			this.writerFace = "";
+		}
 		this.writerName = project.getWriterName();
 		this.date = project.getDate();
 		this.likeNum = project.getLikeNum();

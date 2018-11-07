@@ -1,6 +1,7 @@
 package njurestaurant.njutakeout.blservice.article.feed;
 
 import njurestaurant.njutakeout.exception.NotExistException;
+import njurestaurant.njutakeout.response.BoolResponse;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.AbstractListResponse;
 import njurestaurant.njutakeout.response.article.feed.FeedListResponse;
@@ -21,11 +22,33 @@ public interface FeedBlService {
 	InfoResponse publishMyFeed(String content, List<String> images, String writerOpenid);
 
 	/**
-	 * 根据圈子文章ID获取全文(User)
+	 * 根据圈子文章ID获取全文(User&Admin)
 	 * @param id 圈子文章ID
 	 * @return 圈子文章信息
 	 */
 	FeedResponse getFeed(String id) throws NotExistException;
+
+	/**
+	 * 获取圈子全部文章信息(User&Admin)
+	 * @return 圈子文章信息
+	 */
+	FeedListResponse getFeedList();
+
+	/**
+	 * 管理员更新圈子文章内容(Admin)
+	 * @param id  圈子ID
+	 * @param content  圈子文本
+	 * @param images  圈子图片
+	 * @return 是否修改成功
+	 */
+	InfoResponse updateFeed(String id, String content, List<String> images) throws NotExistException;
+
+	/**
+	 *管理员根据圈子ID删除圈子文章(Admin)
+	 * @param id 圈子ID
+	 * @return 是否成功
+	 */
+	InfoResponse deleteFeed(String id) throws NotExistException;
 
 	/**
 	 * 根据圈子文章ID获取含作者名字和头像的全文(User)
@@ -33,12 +56,6 @@ public interface FeedBlService {
 	 * @return 圈子文章信息
 	 */
 	FeedViewResponse getFeedView(String id) throws NotExistException;
-
-	/**
-	 * 获取圈子全部文章信息(User)
-	 * @return 圈子文章信息
-	 */
-	FeedListResponse getFeedList();
 
 	/**此API已弃用
 	 * 获取圈子全部含作者名字和头像的文章信息(User)

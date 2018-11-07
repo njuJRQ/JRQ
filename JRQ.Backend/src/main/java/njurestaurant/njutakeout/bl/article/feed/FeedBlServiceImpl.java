@@ -8,6 +8,7 @@ import njurestaurant.njutakeout.dataservice.user.UserDataService;
 import njurestaurant.njutakeout.entity.article.Feed;
 import njurestaurant.njutakeout.entity.user.SendCard;
 import njurestaurant.njutakeout.exception.NotExistException;
+import njurestaurant.njutakeout.response.BoolResponse;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.AbstractItem;
 import njurestaurant.njutakeout.response.article.AbstractListResponse;
@@ -45,11 +46,6 @@ public class FeedBlServiceImpl implements FeedBlService {
 	}
 
 	@Override
-	public FeedViewResponse getFeedView(String id) throws NotExistException {
-		return new FeedViewResponse(new FeedViewItem(feedDataService.getFeedById(id), userDataService, false));
-	}
-
-	@Override
 	public FeedListResponse getFeedList() {
 		List<Feed> feeds = feedDataService.getAllFeeds();
 		List<FeedItem> feedItems = new ArrayList<>();
@@ -57,6 +53,26 @@ public class FeedBlServiceImpl implements FeedBlService {
 			feedItems.add(new FeedItem(feed));
 		}
 		return new FeedListResponse(feedItems);
+	}
+
+	@Override
+	public InfoResponse updateFeed(String id, String content, List<String> images) throws NotExistException {
+		Feed feed = feedDataService.getFeedById(id);
+		feed.setContent(content);
+		feed.setImages(images);
+		feed.setTimeStamp(System.currentTimeMillis());
+		return new InfoResponse();
+	}
+
+	@Override
+	public InfoResponse deleteFeed(String id) throws NotExistException {
+		feedDataService.deleteFeedById(id);
+		return new InfoResponse();
+	}
+
+	@Override
+	public FeedViewResponse getFeedView(String id) throws NotExistException {
+		return new FeedViewResponse(new FeedViewItem(feedDataService.getFeedById(id), userDataService, false));
 	}
 
 	@Override

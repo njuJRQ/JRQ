@@ -1,8 +1,10 @@
 package njurestaurant.njutakeout.data.user;
 
 import njurestaurant.njutakeout.data.dao.user.ClassificationDao;
+import njurestaurant.njutakeout.data.dao.user.ClassificationDescriptionDao;
 import njurestaurant.njutakeout.dataservice.user.ClassificationDataService;
 import njurestaurant.njutakeout.entity.user.Classification;
+import njurestaurant.njutakeout.entity.user.ClassificationDescription;
 import njurestaurant.njutakeout.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +15,12 @@ import java.util.Optional;
 @Service
 public class ClassificationDataServiceImpl implements ClassificationDataService {
 	private final ClassificationDao classificationDao;
+	private final ClassificationDescriptionDao classificationDescriptionDao;
 
 	@Autowired
-	public ClassificationDataServiceImpl(ClassificationDao classificationDao) {
+	public ClassificationDataServiceImpl(ClassificationDao classificationDao, ClassificationDescriptionDao classificationDescriptionDao) {
 		this.classificationDao = classificationDao;
+		this.classificationDescriptionDao = classificationDescriptionDao;
 	}
 
 	@Override
@@ -59,4 +63,26 @@ public class ClassificationDataServiceImpl implements ClassificationDataService 
 			throw new NotExistException("Classification", userLabel);
 		}
 	}
+
+	@Override
+	public List<ClassificationDescription> getAllClassificationDescriptions() {
+		return classificationDescriptionDao.findAll();
+	}
+
+	@Override
+	public ClassificationDescription getClassificationDescriptionByWorkClass(String workClass) throws NotExistException {
+		Optional<ClassificationDescription> optionalClassificationDescription =  classificationDescriptionDao.findClassificationDescriptionByWorkClass(workClass);
+		if (optionalClassificationDescription.isPresent()) {
+			return optionalClassificationDescription.get();
+		} else {
+			throw new NotExistException("ClassificationDescription workClass", workClass);
+		}
+	}
+
+	@Override
+	public void saveClassificationDescription(ClassificationDescription classificationDescription) {
+		classificationDescriptionDao.save(classificationDescription);
+	}
+
+
 }

@@ -1,6 +1,7 @@
 package njurestaurant.njutakeout.blservice.user;
 
 import njurestaurant.njutakeout.entity.user.Classification;
+import njurestaurant.njutakeout.entity.user.ClassificationDescription;
 import njurestaurant.njutakeout.exception.CannotGetOpenIdAndSessionKeyException;
 import njurestaurant.njutakeout.exception.CardLimitUseUpException;
 import njurestaurant.njutakeout.exception.NotExistException;
@@ -114,6 +115,20 @@ public interface UserBlService {
 	 * @return 是否成功
 	 */
 	InfoResponse deleteClassification(String userLabel) throws NotExistException;
+
+	/**
+	 * 获取类别对应的中文描述
+	 * @return 类别-中文描述表
+	 */
+	ClassificationDescriptionListResponse getClassificationDescriptionList();
+
+	/**
+	 * 修改特定类别的中文描述
+	 * @param workClass 要修改的类别
+	 * @param description 新的中文描述
+	 * @return 是否操作成功
+	 */
+	BoolResponse updateClassificationDescription(String workClass, String description);
 
 	/**
 	 * 添加会员等级信息(Admin)

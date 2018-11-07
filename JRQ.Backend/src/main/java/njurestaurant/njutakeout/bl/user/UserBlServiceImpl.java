@@ -129,6 +129,29 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
+	public ClassificationDescriptionListResponse getClassificationDescriptionList() {
+		List<ClassificationDescription> classificationDescriptions = classificationDataService.getAllClassificationDescriptions();
+		List<ClassificationDescriptionItem> classificationDescriptionItems = new ArrayList<>();
+		for (ClassificationDescription classificationDescription:classificationDescriptions) {
+			classificationDescriptionItems.add(new ClassificationDescriptionItem(classificationDescription));
+		}
+		return new ClassificationDescriptionListResponse(classificationDescriptionItems);
+	}
+
+	@Override
+	public BoolResponse updateClassificationDescription(String workClass, String description) {
+		ClassificationDescription classificationDescription = null;
+		try {
+			classificationDescription = classificationDataService.getClassificationDescriptionByWorkClass(workClass);
+			classificationDescription.setDescription(description);
+			classificationDataService.saveClassificationDescription(classificationDescription);
+			return new BoolResponse(true, "修改成功");
+		} catch (NotExistException e) {
+			return new BoolResponse(false, e.getMessage());
+		}
+	}
+
+	@Override
 	public InfoResponse addLevel(String name, int cardLimit, int price, double courseDiscountedRatio, int checkCardPrice) {
 		levelDataService.addLevel(new Level(name, cardLimit, price, courseDiscountedRatio, checkCardPrice));
 		return new InfoResponse();

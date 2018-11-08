@@ -4,10 +4,6 @@ var id=storage["thisAd"];
 $.ajax(
     {
         url: url+"/getAd",
-        headers :{
-            'Authorization': 'Bearer ' + getToken(),
-            'content-type': 'application/x-www-form-urlencoded'
-        },
         data: {
             id:id
         },
@@ -21,6 +17,9 @@ $.ajax(
             else if(data.ad.showPlace=="service"){
                 document.getElementById("showPlace").value="业务";
             }
+            else if(data.ad.showPlace=="jump"){
+                document.getElementById("showPlace").value="弹窗";
+            }
         },
         error: function (xhr) {
             alert('动态页有问题噶！\n\n' + xhr.responseText);
@@ -33,10 +32,6 @@ function adduser() {
     $.ajax(
         {
             url: url+"/deleteAd",
-            headers :{
-                'Authorization': 'Bearer ' + getToken(),
-                'content-type': 'application/x-www-form-urlencoded'
-            },
             data: {
                 id:id
             },
@@ -58,6 +53,9 @@ function adduser() {
     }
     else if(showPlace=="业务"){
         showPlace="service";
+    }
+    else if(showPlace=="弹窗"){
+        showPlace="jump";
     }
     $.ajax({
         url: url + "/uploadAd",

@@ -1,3 +1,30 @@
+var imageList="";
+function fileSelected() {
+    var fd = new FormData($("#upload-file-form")[0]);
+    var url = getUrl();
+    $.ajax({
+        url: url + "/uploadAdmin",
+        type: "POST",
+        data: fd,
+        enctype: 'multipart/form-data',
+        processData: false,
+        contentType: false,
+        cache: false,
+        async: false,
+        success: function (data) {
+            imageList=data;
+            document.getElementById("imageList").innerText="";
+            $("#imageList").append("<img src='"+"../"+imageList+"' style=\"width: 10rem;height: 10rem;\">")
+        },
+        error: function (xhr) {
+            alert("上传图片失败！")
+            // Handle upload error
+            // ...
+        }
+    });
+
+}
+
 document.getElementById("ad").onclick=function() {
     if($("#password").val()!=$("#passwordagain").val()){
         alert("请保证密码一致！")
@@ -37,7 +64,8 @@ document.getElementById("ad").onclick=function() {
                     username:name,
                     password:pass,
                     limits:limits,
-                    date:date
+                    date:date,
+                    face:imageList
                 },
 
                 success: function (data) {

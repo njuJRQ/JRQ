@@ -12,6 +12,10 @@ function adduser() {
     else if(showPlace=="业务"){
         showPlace="service";
     }
+    else if(showPlace=="弹窗"){
+        showPlace="jump";
+    }
+
     var url = getUrl();
     $.ajax({
         url: url + "/uploadAd",

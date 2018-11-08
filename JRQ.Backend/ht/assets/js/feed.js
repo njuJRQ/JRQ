@@ -14,13 +14,29 @@ var theGroup=0;
 var url=getUrl();
 $.ajax(
     {
-        url: url+"/getUserList",
+        url: url+"/getFeedList",
         data: {
         },
         async:false,
         success: function (data) {
-            for(var i=0;i<data.users.length;i++){
-                list.push(data.users[i]);
+            for(var i=0;i<data.feeds.length;i++){
+                $.ajax(
+                    {
+                        url: url+"/getUser",
+                        data: {
+                            openid:data.feeds[i].writerOpenid
+                        },
+                        async:false,
+                        success: function (d) {
+                            data.feeds[i].writerOpenid=d.user.username;
+                        },
+                        error: function (xhr) {
+                            alert('动态页有问题噶！\n\n' + xhr.responseText);
+                        },
+                        traditional: true,
+                    }
+                )
+                list.push(data.feeds[i]);
             }
             document.getElementById("jilu").innerText="共"+(list.length)+"条记录";
             changepage(1);
@@ -35,7 +51,7 @@ $.ajax(
 function setthisquestion(n){
     var q=list[firstID+n];
     var storage = window.localStorage;
-    storage["thisUser"]=q.openid;
+    storage["thisFeed"]=q.id;
 }
 function deletequestion(n){
     var r=confirm("确定删除么？");
@@ -44,14 +60,14 @@ function deletequestion(n){
         var url = getUrl();
         $.ajax(
             {
-                url: url + "/deleteUser",
+                url: url + "/deleteFeed",
                 data: {
-                    openid: q.openid
+                    id: q.id
                 },
                 async: false,
                 success: function (data) {
                     alert("删除成功");
-                    window.location.href = "vip-list.html";
+                    window.location.href = "feed.html";
                 },
                 error: function (xhr) {
                     alert('动态页有问题噶！\n\n' + xhr.responseText);
@@ -120,9 +136,9 @@ function changepage(page){
     }
     else if(list.length<(firstID+2)){
         $("#your-alert-1").show();
-        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].openid;
-        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].username;
-        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].levelName;
+        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
+        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].writerOpenid;
+        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].date;
         $("#your-alert-2").hide();
         $("#your-alert-3").hide();
         $("#your-alert-4").hide();
@@ -131,12 +147,12 @@ function changepage(page){
     else if(list.length<(firstID+3)){
         $("#your-alert-1").show();
         $("#your-alert-2").show();
-        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].openid;
-        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].username;
-        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].levelName;
-        document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].openid;
-        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].username;
-        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].levelName;
+        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
+        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].writerOpenid;
+        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].date;
+        document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].id;
+        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].writerOpenid;
+        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].date;
         $("#your-alert-3").hide();
         $("#your-alert-4").hide();
         $("#your-alert-5").hide();
@@ -145,15 +161,15 @@ function changepage(page){
         $("#your-alert-1").show();
         $("#your-alert-2").show();
         $("#your-alert-3").show();
-        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].openid;
-        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].username;
-        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].levelName;
-        document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].openid;
-        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].username;
-        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].levelName;
-        document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].openid;;
-        document.getElementById("name"+(firstID%5+3)).innerText=list[firstID+2].username;
-        document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].levelName;
+        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
+        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].writerOpenid;
+        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].date;
+        document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].id;
+        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].writerOpenid;
+        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].date;
+        document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].id;;
+        document.getElementById("name"+(firstID%5+3)).innerText=list[firstID+2].writerOpenid;
+        document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].date;
         $("#your-alert-4").hide();
         $("#your-alert-5").hide();
     }
@@ -162,18 +178,18 @@ function changepage(page){
         $("#your-alert-2").show();
         $("#your-alert-3").show();
         $("#your-alert-4").show();
-        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].openid;
-        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].username;
-        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].levelName;
-        document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].openid;
-        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].username;
-        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].levelName;
-        document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].openid;;
-        document.getElementById("name"+(firstID%5+3)).innerText=list[firstID+2].username;
-        document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].levelName;
-        document.getElementById("number"+(firstID%5+4)).innerText=list[firstID+3].openid;;
-        document.getElementById("name"+(firstID%5+4)).innerText=list[firstID+3].username;
-        document.getElementById("date"+(firstID%5+4)).innerText=list[firstID+3].levelName;
+        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
+        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].writerOpenid;
+        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].date;
+        document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].id;
+        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].writerOpenid;
+        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].date;
+        document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].id;;
+        document.getElementById("name"+(firstID%5+3)).innerText=list[firstID+2].writerOpenid;
+        document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].date;
+        document.getElementById("number"+(firstID%5+4)).innerText=list[firstID+3].id;;
+        document.getElementById("name"+(firstID%5+4)).innerText=list[firstID+3].writerOpenid;
+        document.getElementById("date"+(firstID%5+4)).innerText=list[firstID+3].date;
         $("#your-alert-5").hide();
     }
     else{
@@ -182,21 +198,21 @@ function changepage(page){
         $("#your-alert-3").show();
         $("#your-alert-4").show();
         $("#your-alert-5").show();
-        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].openid;
-        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].username;
-        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].levelName;
-        document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].openid;
-        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].username;
-        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].levelName;
-        document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].openid;;
-        document.getElementById("name"+(firstID%5+3)).innerText=list[firstID+2].username;
-        document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].levelName;
-        document.getElementById("number"+(firstID%5+4)).innerText=list[firstID+3].openid;;
-        document.getElementById("name"+(firstID%5+4)).innerText=list[firstID+3].username;
-        document.getElementById("date"+(firstID%5+4)).innerText=list[firstID+3].levelName;
-        document.getElementById("number"+(firstID%5+5)).innerText=list[firstID+4].openid;;
-        document.getElementById("name"+(firstID%5+5)).innerText=list[firstID+4].username;
-        document.getElementById("date"+(firstID%5+5)).innerText=list[firstID+4].levelName;
+        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
+        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].writerOpenid;
+        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].date;
+        document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].id;
+        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].writerOpenid;
+        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].date;
+        document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].id;
+        document.getElementById("name"+(firstID%5+3)).innerText=list[firstID+2].writerOpenid;
+        document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].date;
+        document.getElementById("number"+(firstID%5+4)).innerText=list[firstID+3].id;
+        document.getElementById("name"+(firstID%5+4)).innerText=list[firstID+3].writerOpenid;
+        document.getElementById("date"+(firstID%5+4)).innerText=list[firstID+3].date;
+        document.getElementById("number"+(firstID%5+5)).innerText=list[firstID+4].id;
+        document.getElementById("name"+(firstID%5+5)).innerText=list[firstID+4].writerOpenid;
+        document.getElementById("date"+(firstID%5+5)).innerText=list[firstID+4].date;
     }
 
 
@@ -207,9 +223,9 @@ function deletesingle(n){
     var url=getUrl();
     $.ajax(
         {
-            url: url+"/deleteUser",
+            url: url+"/deleteFeed",
             data: {
-                openid:q.openid
+                id:q.id
             },
             async:false,
             success: function (data) {
@@ -238,18 +254,18 @@ function delAll(){
         deletesingle(5);
     }
     alert("批量删除成功");
-    window.location.href="vip-list.html";
+    window.location.href="feed.html";
 
 }
 
 function search(){
     var text=$("#con").val();
     for(var i=0;i<list.length;i++){
-        if(list[i].openid==text){
+        if(list[i].id==text){
             $("#your-alert-1").show();
-            document.getElementById("number"+(firstID%5+1)).innerText=list[i].openid;
-            document.getElementById("name"+(firstID%5+1)).innerText=list[i].username;
-            document.getElementById("date"+(firstID%5+1)).innerText=list[i].levelName;
+            document.getElementById("number"+(firstID%5+1)).innerText=list[i].id;
+            document.getElementById("name"+(firstID%5+1)).innerText=list[i].writerOpenid;
+            document.getElementById("date"+(firstID%5+1)).innerText=list[i].date;
             $("#your-alert-2").hide();
             $("#your-alert-3").hide();
             $("#your-alert-4").hide();

@@ -8,13 +8,14 @@ public class AdminItem {
 	private String password; //密码
 	private String limits; //权限
 	private String date; //创建时间
-
+    private String face;
 	public AdminItem(Admin admin) {
 		this.id = admin.getId();
 		this.username = admin.getUsername();
 		this.password = admin.getPassword();
 		this.limits = admin.getLimits();
 		this.date = admin.getDate();
+		this.face=admin.getFace();
 	}
 
 	public String getId() {
@@ -55,5 +56,13 @@ public class AdminItem {
 
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+	public String getFace() {
+		return face;
+	}
+
+	public void setFace(String face) {
+		this.face = face;
 	}
 }

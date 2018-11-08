@@ -26,6 +26,9 @@ $.ajax(
                 else if(data.ads[i].showPlace=="service"){
                     data.ads[i].showPlace="业务";
                 }
+                else if(data.ads[i].showPlace=="jump"){
+                    data.ads[i].showPlace="弹窗";
+                }
                 list.push(data.ads[i]);
             }
             document.getElementById("jilu").innerText="共"+(list.length)+"条记录";
@@ -305,7 +308,14 @@ function setAsChecked(n){
             },
             async:false,
             success: function (data) {
-                alert("选中编号为"+q.id+"作为首页广告！")
+                if(q.showPlace=="index") {
+                    alert("选中编号为" + q.id + "作为首页广告！")
+                }
+                else if(q.showPlace=="service") {
+                    alert("选中编号为" + q.id + "作为业务广告！")
+                }else if(q.showPlace=="jump") {
+                    alert("选中编号为" + q.id + "作为弹窗广告！")
+                }
                 window.location.href="ads.html";
             },
             error: function (xhr) {

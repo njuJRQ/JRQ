@@ -2,11 +2,7 @@
 <html class="no-js fixed-layout">
 <head>
     <meta charset="utf-8">
-
-
-
-
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Amaze UI Admin index Examples</title>
     <meta name="description" content="这是一个 index 页面">
     <meta name="keywords" content="index">
@@ -33,7 +29,7 @@
     <div class="admin-content-body">
         <div class="am-cf am-padding am-padding-bottom-0">
             <div class="am-fl am-cf">
-                <strong class="am-text-primary am-text-lg">圈子管理</strong> /
+                <strong class="am-text-primary am-text-lg">大类管理</strong> /
 
             </div>
         </div>
@@ -42,49 +38,36 @@
 
         <div class="am-tabs am-margin" data-am-tabs>
             <ul class="am-tabs-nav am-nav am-nav-tabs">
-                <li class="am-active"><a href="#tab1">添加圈子</a></li>
+                <li class="am-active"><a href="#tab1">业务三大类</a></li>
 
             </ul>
 
             <div class="am-tabs-bd">
 
                 <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">微信openid</div>
                         <div class="am-u-sm-8 am-u-md-10">
-                            <input id="writerOpenid" name="writerOpenid" type="text" value="">
+                            <input id="capital" type="text" value="">
                         </div>
                     </div>
 
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">内容</div>
                         <div class="am-u-sm-8 am-u-md-10">
-                            <textarea id="content" name="content"></textarea>
+                            <input id="stock" type="text" value="">
                         </div>
                     </div>
 
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">图片</div>
                         <div class="am-u-sm-8 am-u-md-10">
-                            <div id="imageList">
-                            </div>
-                            <p><img style="width: 5rem;height: 5rem" src="assets/i/add.png" onclick="fileSelect();"></p>
-                            <form id="upload-file-form" enctype="multipart/form-data" style="width:auto;">
-                                <input type="file" name="image" id="image" onchange="fileSelected();" style="display:none;">
-                            </form>
-                            <span><button onclick="clearImage()">重新上传</button></span>
+                            <input id="merge" type="text" value="">
                         </div>
                     </div>
-
-
-
-
-
 
                 </div>
             </div>
             <div class="am-margin">
-                <button id="addbutton" onclick="addUser()" type="button" class="am-btn am-btn-primary am-btn-xs"style="background-color: #22cc77; margin-left: 20%;margin-bottom: 20%;">确定</button>
+                <button onclick="changeFile()" type="button" class="am-btn am-btn-primary am-btn-xs"style="background-color: #22cc77; margin-left: 20%;margin-bottom: 20%;">修改</button>
             </div>
 
         </div>
@@ -116,7 +99,7 @@
 <!--<![endif]-->
 <script src="assets/js/amazeui.min.js"></script>
 <script src="assets/js/app.js"></script>
-<script src="assets/js/feed-add.js"></script>
+<script src="assets/js/bigClass.js"></script>
 <script type="text/javascript">
 
 

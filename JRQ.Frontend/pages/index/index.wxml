@@ -45,7 +45,7 @@
   <view class='div-line'></view>
   <view class="b1" hidden="{{flag}}">
     <view class="b2">
-      <image src='img/join.jpg' bindtap="touchMask"></image>
+      <image src="{{jumpAd}}" bindtap="touchMask"></image>
     </view>
     <view class="t_w">
       <cover-view class="t_image" bindtap="closeMask">

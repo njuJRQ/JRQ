@@ -230,7 +230,7 @@ function getProject(id) {
   })
 }
 
-function getAd(showPlace) {
+function getAd(showPlace, then) {
   /**
    * 方法：getAd
    * 参数：
@@ -248,9 +248,15 @@ function getAd(showPlace) {
     },
     method: 'GET',
     success: (res) => {
+      if (res.statusCode == 200) {
+        res.data.ad.image = app.globalData.picUrl + res.data.ad.image
+        if (then) then(res.data)
+      }
+      /*
       that.data.ad = res.data.ad
       that.data.ad.image = app.globalData.picUrl + that.data.ad.image
       that.setData(that.data)
+      */
     }
   })
 }

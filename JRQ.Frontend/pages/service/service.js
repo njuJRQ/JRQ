@@ -109,7 +109,11 @@ Page({
     this.setData({
       searchCondition: null
     })
-    api.getAd.call(this, 'service')
+    api.getAd.call(this, 'service', (res) => {
+      this.setData({
+        ad: res.ad
+      })
+    })
     this.showCapitalClass();
   },
 

@@ -5,6 +5,7 @@ var api = require('../../util/api.js')
 
 Page({
   data: {
+    /*
     articles: [{
       id: 1,
       text: '《有效识别金融项目》课程。',
@@ -45,6 +46,8 @@ Page({
       likeNum: 8888,
       kind: 'project'
     }],
+    */
+    articles: [],
     ad: {
       image: '../../default/default-pic.png',
       link: 'https://www.baidu.com'
@@ -64,6 +67,11 @@ Page({
       articles: []
     })
     this.showAll()
+    api.getAd.call(this, 'index', (res) => {
+      this.setData({
+        ad: res.ad
+      })
+    })
   },
 
   //onShow函数
@@ -71,8 +79,6 @@ Page({
     this.setData({
       searchCondition: null
     })
-    api.getAd.call(this, 'index') //展示广告
-    //this.showAll()
   },
 
   //点击广告跳转
@@ -91,6 +97,12 @@ Page({
       lastIdType: ""
     })
     api.getAbstractList.call(this, 'all', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+    api.getAd.call(this, 'jump', (res) => {
+      console.log(res)
+      this.setData({
+        jumpAd: res.ad.image
+      })
+    })
   },
 
   //展示课程

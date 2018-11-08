@@ -144,4 +144,9 @@ public class UserDataServiceImpl implements UserDataService {
 		}
 	}
 
+	@Override
+	public boolean existsByLabel(String userLabel) {
+		return userDao.existsByLabel(userLabel);
+	}
+
 }

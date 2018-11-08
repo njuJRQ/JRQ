@@ -29,4 +29,6 @@ public interface UserDataService {
 	List<SendCard> getReceivesByOpenid(String openid);
 
 	void checkSendCard(SendCardKey sendCardKey) throws NotExistException;
+
+	boolean existsByLabel(String userLabel);
 }

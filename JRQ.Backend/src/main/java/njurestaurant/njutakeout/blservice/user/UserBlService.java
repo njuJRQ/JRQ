@@ -114,7 +114,7 @@ public interface UserBlService {
 	 * @param userLabel 用户标签
 	 * @return 是否成功
 	 */
-	InfoResponse deleteClassification(String userLabel) throws NotExistException;
+	BoolResponse deleteClassification(String userLabel) throws NotExistException;
 
 	/**
 	 * 获取类别对应的中文描述

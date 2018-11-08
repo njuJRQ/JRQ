@@ -123,9 +123,13 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
-	public InfoResponse deleteClassification(String userLabel) throws NotExistException {
-		classificationDataService.deleteClassificationByUserLabel(userLabel);
-		return new InfoResponse();
+	public BoolResponse deleteClassification(String userLabel) throws NotExistException {
+		if (userDataService.existsByLabel(userLabel)) {
+			return new BoolResponse(false, "存在用户的标签为"+userLabel+"，不能删除");
+		} else {
+			classificationDataService.deleteClassificationByUserLabel(userLabel);
+			return new BoolResponse(true, "用户标签"+userLabel+"删除成功");
+		}
 	}
 
 	@Override

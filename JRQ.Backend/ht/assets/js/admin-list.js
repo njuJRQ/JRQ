@@ -53,6 +53,10 @@ function deletequestion(n){
                 async: false,
                 success: function (data) {
                     if(data.ok){
+                        alert("该管理员为企业用户，请直接删除企业！");
+
+                    }
+                    else{
                         $.ajax(
                             {
                                 url: url + "/deleteAdmin",
@@ -69,9 +73,6 @@ function deletequestion(n){
                                 traditional: true,
                             }
                         )
-                    }
-                    else{
-                        alert("该管理员为企业用户，请直接删除企业！");
                     }
                 },
                 error: function (xhr) {
@@ -231,16 +232,20 @@ function deletesingle(n){
         {
             url: url + "/isAdminInEnterprise",
             data: {
-                id: q.id
+                adminId: q.id
             },
             async: false,
             success: function (data) {
                 if(data.ok){
+                    alert("该管理员为企业用户，请直接删除企业！");
+
+                }
+                else{
                     $.ajax(
                         {
                             url: url + "/deleteAdmin",
                             data: {
-                                adminId: q.id
+                                id: q.id
                             },
                             async: false,
                             success: function (data) {
@@ -252,9 +257,6 @@ function deletesingle(n){
                             traditional: true,
                         }
                     )
-                }
-                else{
-                    alert("该管理员为企业用户，请直接删除企业！");
                 }
             },
             error: function (xhr) {

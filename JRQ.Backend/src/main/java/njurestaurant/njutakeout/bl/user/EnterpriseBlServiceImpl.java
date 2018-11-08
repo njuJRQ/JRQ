@@ -77,7 +77,7 @@ public class EnterpriseBlServiceImpl implements EnterpriseBlService {
 		enterprise.setVerifyTimestamp(System.currentTimeMillis());
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");//设置日期格式
 		String date=df.format(new Date());// new Date()为获取当前系统时间
-		Admin admin = new Admin(enterprise.getAdminUsername(), enterprise.getAdminPassword(), "3", date);
+		Admin admin = new Admin(enterprise.getAdminUsername(), enterprise.getAdminPassword(), "3", date,null);
 		adminDataService.addAdmin(admin); //此处新增Admin之后Admin的ID会自动生成
 		enterprise.setAdminId(admin.getId());
 		enterpriseDataService.saveEnterprise(enterprise);

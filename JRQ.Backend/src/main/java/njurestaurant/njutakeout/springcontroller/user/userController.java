@@ -352,6 +352,32 @@ public class userController {
         return userBlService.deleteClassification(userLabel);
     }
 
+    @ApiOperation(value = "删除标签", notes = "删除标签")
+    @RequestMapping(value = "/getClassificationDescriptionList", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getClassificationDescriptionList()  {
+        return new ResponseEntity<>(userBlService.getClassificationDescriptionList(),HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "删除标签", notes = "删除标签")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "workClass", value = "标签名", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "description", value = "标签名", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/updateClassificationDescription", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> updateClassificationDescription(@RequestParam(name="workClass")String workClass,@RequestParam(name="description")String description) throws NotExistException {
+        return new ResponseEntity<>(userBlService.updateClassificationDescription(workClass,description),HttpStatus.OK);
+    }
+
     @ApiOperation(value = "添加会员等级信息", notes = "添加会员等级信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "name", value = "名称", required = true, dataType = "String"),

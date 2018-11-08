@@ -4,10 +4,6 @@ var face="";
 $.ajax(
     {
         url: url+"/getLevelList",
-        headers :{
-            'Authorization': 'Bearer ' + getToken(),
-            'content-type': 'application/x-www-form-urlencoded'
-        },
         data: {
         },
         async:false,
@@ -79,10 +75,6 @@ var id=storage["thisUser"];
 $.ajax(
     {
         url: url+"/getUser",
-        headers :{
-            'Authorization': 'Bearer ' + getToken(),
-            'content-type': 'application/x-www-form-urlencoded'
-        },
         data: {
             openid:id
         },

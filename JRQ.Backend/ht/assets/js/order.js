@@ -18,10 +18,6 @@ $.ajax(
         url: url+"/getPurchaseList",
         data: {
         },
-        headers :{
-            'Authorization': 'Bearer ' + getToken(),
-            'content-type': 'application/x-www-form-urlencoded'
-        },
         async:false,
         success: function (data) {
             for(var i=0;i<data.purchases.length;i++){

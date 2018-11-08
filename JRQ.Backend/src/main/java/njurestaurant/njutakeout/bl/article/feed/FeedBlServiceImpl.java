@@ -61,6 +61,7 @@ public class FeedBlServiceImpl implements FeedBlService {
 		feed.setContent(content);
 		feed.setImages(images);
 		feed.setTimeStamp(System.currentTimeMillis());
+		feedDataService.saveFeed(feed);
 		return new InfoResponse();
 	}
 

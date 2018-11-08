@@ -26,10 +26,6 @@ list=new Array();
 $.ajax(
     {
         url: url+"/getClassificationList",
-        headers :{
-            'Authorization': 'Bearer ' + getToken(),
-            'content-type': 'application/x-www-form-urlencoded'
-        },
         data: {
         },
         async:false,

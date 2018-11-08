@@ -20,15 +20,44 @@ $.ajax(
         },
         async:false,
         success: function (data) {
+            var x1="";
+            var x2="";
+            var x3="";
+            $.ajax(
+                {
+                    url: url+"/getClassificationDescriptionList",
+                    data: {
+                    },
+                    async:false,
+                    success: function (data) {
+                        for(var i=0;i<3;i++){
+                            if(data.classificationDescriptionItems[i].workClass=="capital"){
+                                x1=data.classificationDescriptionItems.description;
+                            }
+                            else if(data.classificationDescriptionItems[i].workClass=="stock"){
+                                x2=data.classificationDescriptionItems.description;
+                            }
+                            else if(data.classificationDescriptionItems[i].workClass=="merge"){
+                                x3=data.classificationDescriptionItems.description;
+                            }
+                        }
+
+                    },
+                    error: function (xhr) {
+                        alert('动态页有问题噶！\n\n' + xhr.responseText);
+                    },
+                    traditional: true,
+                }
+            )
             for(var i=0;i<data.classifications.length;i++){
                 if(data.classifications[i].workClass=="capital"){
-                    data.classifications[i].workClass="资金类";
+                    data.classifications[i].workClass=x1;
                 }
                 else if(data.classifications[i].workClass=="stock"){
-                    data.classifications[i].workClass="股票类";
+                    data.classifications[i].workClass=x2;
                 }
                 else if(data.classifications[i].workClass=="merge"){
-                    data.classifications[i].workClass="并购类";
+                    data.classifications[i].workClass=x3;
                 }
                 list.push(data.classifications[i]);
             }
@@ -59,7 +88,14 @@ function deletequestion(n){
                 },
                 async: false,
                 success: function (data) {
-                    window.location.href = "classification.html";
+                    if(data.ok) {
+                        alert("删除成功");
+                        window.location.href = "classification.html";
+                    }
+                    else{
+                        alert("不可删除！因为已有用户持有该标签！");
+                        window.location.href = "classification.html";
+                    }
                 },
                 error: function (xhr) {
                     alert('动态页有问题噶！\n\n' + xhr.responseText);

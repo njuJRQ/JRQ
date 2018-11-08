@@ -7,6 +7,7 @@ import njurestaurant.njutakeout.blservice.user.UserBlService;
 import njurestaurant.njutakeout.exception.CannotGetOpenIdAndSessionKeyException;
 import njurestaurant.njutakeout.exception.CardLimitUseUpException;
 import njurestaurant.njutakeout.exception.NotExistException;
+import njurestaurant.njutakeout.response.BoolResponse;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.Response;
 import njurestaurant.njutakeout.response.WrongResponse;
@@ -348,7 +349,7 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public InfoResponse deleteClassification(@RequestParam(name="userLabel")String userLabel) throws NotExistException {
+    public BoolResponse deleteClassification(@RequestParam(name="userLabel")String userLabel) throws NotExistException {
         return userBlService.deleteClassification(userLabel);
     }
 

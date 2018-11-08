@@ -190,6 +190,23 @@ public class FeedController {
         return r;
     }
 
+    @ApiOperation(value = "用户发布自己的圈子文章", notes = "用户发布自己的圈子文章")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "content", value = "内容", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "images", value = "图片", required = true, dataType = "List<String>"),
+            @ApiImplicitParam(name = "writerOpenid", value = "作者id", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/addFeed", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> addFeed(@RequestParam(name="content")String content, @RequestParam(name="images")List<String> images,@RequestParam(name="writerOpenid")String writerOpenid) {
+        ResponseEntity<Response> r= new ResponseEntity<>(feedBlService.publishMyFeed(content,images,writerOpenid), HttpStatus.OK);
+        return r;
+    }
+
     @ApiOperation(value = "根据圈子文章ID获取全文", notes = "根据圈子文章ID获取全文")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "圈子文章ID", required = true, dataType = "String")

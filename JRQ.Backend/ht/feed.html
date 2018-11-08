@@ -27,7 +27,7 @@
 <div class="admin-content">
     <div class="admin-content-body">
         <div class="am-cf am-padding am-padding-bottom-0">
-            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">人员管理</strong> / <small></small></div>
+            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">圈子管理</strong> / <small></small></div>
         </div>
 
         <hr>
@@ -38,7 +38,7 @@
                     <div class="am-btn-group am-btn-group-xs">
                         <button type="button" id="checkall"class="am-btn am-btn-default"><span class="icon-check"></span> 全选</button>
                         <button type="button" class="am-btn am-btn-default" onclick="delAll()"><span class="am-icon-trash-o"></span> 删除</button>
-                        <button type="button" class="am-btn am-btn-default">   <a href="vip-add.html"><span class="am-icon-plus"></span> 添加用户</a></button>
+                        <button type="button" class="am-btn am-btn-default">   <a href="feed-add.html"><span class="am-icon-plus"></span> 添加圈子</a></button>
 
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                 <div class="am-input-group am-input-group-sm">
                     <input id="con" type="text" class="am-form-field">
                     <span class="am-input-group-btn">
-            <button class="am-btn am-btn-default" type="button" onclick="search()">根据openid搜索</button>
+            <button class="am-btn am-btn-default" type="button" onclick="search()">根据圈子id搜索</button>
           </span>
                 </div>
             </div>
@@ -78,9 +78,9 @@
 
                         </thead><tr>
                         <th><input type="checkbox" name="id[]"/></th>
-                        <th>openID</th>
-                        <th>用户名</th>
-                        <th>用户类型</th>
+                        <th>圈子ID</th>
+                        <th>发布人微信名</th>
+                        <th>发布时间</th>
                         <th class="table-set">操作</th>
                     </tr>
                         <tr id="your-alert-1">
@@ -91,8 +91,8 @@
                             <td>
                                 <div class="am-btn-toolbar">
                                     <div class="am-btn-group am-btn-group-xs">
-                                        <a href="vip-list-eye.html" onclick="setthisquestion(0)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-eye"></span>  查看详情</a>
-                                        <a href="vip-list-change.html" onclick="setthisquestion(0)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
+                                        <a href="feed-look.html" onclick="setthisquestion(0)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-eye"></span>  查看详情</a>
+                                        <a href="feed-change.html" onclick="setthisquestion(0)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
                                         <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close1" onclick="deletequestion(0)"><span class="am-icon-trash-o"></span>删除</button>
 
                                     </div>
@@ -107,8 +107,8 @@
                             <td>
                                 <div class="am-btn-toolbar">
                                     <div class="am-btn-group am-btn-group-xs">
-                                        <a href="vip-list-eye.html" onclick="setthisquestion(1)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-eye"></span>  查看详情</a>
-                                        <a href="vip-list-change.html" onclick="setthisquestion(1)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
+                                        <a href="feed-look.html" onclick="setthisquestion(1)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-eye"></span>  查看详情</a>
+                                        <a href="feed-change.html" onclick="setthisquestion(1)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
 
                                         <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close2" onclick="deletequestion(1)"><span class="am-icon-trash-o"></span>删除</button>
 
@@ -124,8 +124,8 @@
                             <td>
                                 <div class="am-btn-toolbar">
                                     <div class="am-btn-group am-btn-group-xs">
-                                        <a href="vip-list-eye.html" onclick="setthisquestion(2)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-eye"></span>  查看详情</a>
-                                        <a href="vip-list-change.html" onclick="setthisquestion(2)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
+                                        <a href="feed-look.html" onclick="setthisquestion(2)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-eye"></span>  查看详情</a>
+                                        <a href="feed-change.html" onclick="setthisquestion(2)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
 
                                         <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close3" onclick="deletequestion(2)"><span class="am-icon-trash-o"></span>删除</button>
 
@@ -141,8 +141,8 @@
                             <td>
                                 <div class="am-btn-toolbar">
                                     <div class="am-btn-group am-btn-group-xs">
-                                        <a href="vip-list-eye.html" onclick="setthisquestion(3)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-eye"></span>  查看详情</a>
-                                        <a href="vip-list-change.html" onclick="setthisquestion(3)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
+                                        <a href="feed-look.html" onclick="setthisquestion(3)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-eye"></span>  查看详情</a>
+                                        <a href="feed-change.html" onclick="setthisquestion(3)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
 
                                         <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close4" onclick="deletequestion(3)"><span class="am-icon-trash-o"></span>删除</button>
 
@@ -158,8 +158,8 @@
                             <td>
                                 <div class="am-btn-toolbar">
                                     <div class="am-btn-group am-btn-group-xs">
-                                        <a href="vip-list-eye.html" onclick="setthisquestion(4)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-eye"></span>  查看详情</a>
-                                        <a href="vip-list-change.html" onclick="setthisquestion(4)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
+                                        <a href="feed-look.html" onclick="setthisquestion(4)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-eye"></span>  查看详情</a>
+                                        <a href="feed-change.html" onclick="setthisquestion(4)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
 
                                         <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close5" onclick="deletequestion(4)"><span class="am-icon-trash-o"></span>删除</button>
 

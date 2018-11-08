@@ -34,6 +34,7 @@ function getAbstractList(kind, openid, lastId, lastIdType) {
       }
       articles.forEach((article) => {
         article.images = article.images.map((image) => app.globalData.picUrl + image)
+        article.writerFace = app.globalData.picUrl + article.writerFace
       })
       that.data.articles = that.data.articles.concat(articles)
       that.data.lastId = articles[articles.length - 1].id
@@ -1114,6 +1115,23 @@ function getMySubmittedEnterprise (openid, then) {
   })
 }
 
+function getClassificationDescriptionList (then) {
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "getClassificationDescriptionList",
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      if (res.statusCode == 200) {
+        if (then) then(res.data)
+      }
+    }
+  })
+}
+
 module.exports = {
   getAbstractList: getAbstractList,
   getAbstractListByCondition: getAbstractListByCondition,
@@ -1151,5 +1169,6 @@ module.exports = {
   getMyCourseListBefore: getMyCourseListBefore,
   isAdminUsernameExistent: isAdminUsernameExistent,
   getWxQrCode: getWxQrCode,
-  getMySubmittedEnterprise: getMySubmittedEnterprise
+  getMySubmittedEnterprise: getMySubmittedEnterprise,
+  getClassificationDescriptionList: getClassificationDescriptionList
 }

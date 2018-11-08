@@ -12,7 +12,7 @@
         <image src='img/capital.png'></image>
       </view>
       <view class='h-center'>
-        <text>资金类</text>
+        <text>{{capitalClassDesc}}</text>
       </view>
     </view>
     <view class='module column' bindtap='showStockClass'>
@@ -20,7 +20,7 @@
         <image src='img/stock.png'></image>
       </view>
       <view class='h-center'>
-        <text>股票类</text>
+        <text>{{stockClassDesc}}</text>
       </view>
     </view>
     <view class='module column' bindtap='showMergeClass'>
@@ -28,7 +28,7 @@
         <image src='img/merge.png'></image>
       </view>
       <view class='h-center'>
-        <text>并购类</text>
+        <text>{{mergeClassDesc}}</text>
       </view>
     </view>
   </view>

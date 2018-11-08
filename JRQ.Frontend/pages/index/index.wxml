@@ -43,9 +43,16 @@
   <!--广告位-->
   <template class='ad' is='adBar' data='{{ad}}'></template>
   <view class='div-line'></view>
-  <modal hidden="{{modalHidden}}" bindcancel='modalCancel' bindconfirm='modalConfirm'>
-    <image class='modal__image' mode='widthFix' src='img/join.jpg'></image>
-  </modal>
+  <view class="b1" hidden="{{flag}}">
+    <view class="b2">
+      <image src='img/join.jpg' bindtap="touchMask"></image>
+    </view>
+    <view class="t_w">
+      <cover-view class="t_image" bindtap="closeMask">
+        <cover-image src="img/close.png"></cover-image>
+      </cover-view>
+    </view>
+  </view>
   <!--文章列表-->
   <view style='width: 100%; padding: 0 10px'>
     <text style='font-size:0.6rem' wx:if='{{searchCondition || searchCondition===""}}'>以下是“{{searchCondition}}”的搜索结果：</text>

@@ -53,7 +53,7 @@ Page({
     searchCondition: null,
     lastId: "",
     lastIdType: "",
-    modalHidden: false
+    flag: false
   },
 
   //事件处理函数
@@ -173,19 +173,15 @@ Page({
   onReachBottom: function () {
     api.getAbstractList.call(this, this.data.currentKind, app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
-
-  modalConfirm: function () {
-    this.setData({
-      modalHidden: true
-    })
+  showMask: function () {
+    this.setData({ flag: false })
+  },
+  closeMask: function () {
+    this.setData({ flag: true })
+  },
+  touchMask: function () {
     wx.navigateTo({
       url: '/pages/me/updateMe/updateMe',
-    })
-  },
-
-  modalCancel: function () {
-    this.setData({
-      modalHidden: true
     })
   }
 })

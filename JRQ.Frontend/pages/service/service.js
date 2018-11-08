@@ -9,6 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    cards: [],
+    /*
     cards: [{
       openid: 1,
       face: '../../default/default-pic.png',
@@ -80,14 +82,30 @@ Page({
         label: '商业保理',
         bgColor: 'rgba(138, 138, 252, 0.767)'
       }],
+      */
       searchCondition: null,
-      kind: 'capital'
+      kind: 'capital',
+      capitalClassDesc: "",
+      stockClassDesc: "",
+      mergeClassDesc: ""
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this
+    api.getClassificationDescriptionList.call(this, (res) => {
+      res.classificationDescriptionItems.forEach((item) => {
+        switch (item.workClass) {
+          case "stock": that.data.stockClassDesc = item.description; break;
+          case "merge": that.data.mergeClassDesc = item.description; break;
+          case "capital": that.data.capitalClassDesc = item.description; break;
+          default: break;
+        }
+      })
+      that.setData(that.data)
+    })
     this.setData({
       searchCondition: null
     })

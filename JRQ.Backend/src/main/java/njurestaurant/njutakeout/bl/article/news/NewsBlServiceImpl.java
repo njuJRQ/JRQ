@@ -47,7 +47,7 @@ public class NewsBlServiceImpl implements NewsBlService {
 		for (News news:newsList) {
 			switch (news.getSource()) {
 				case "财经快讯":
-					Optional<CJKXNews> optionalCJKXNews = newsDataService.findCJKXNewsById(news.getId());
+					Optional<CJKXNews> optionalCJKXNews = newsDataService.findCJKXNewsById(news.getSourceId());
 					optionalCJKXNews.ifPresent(cjkxNews -> newsItems.add(new NewsItem(news.getId(), news.getSource(), cjkxNews)));
 					break;
 				default:

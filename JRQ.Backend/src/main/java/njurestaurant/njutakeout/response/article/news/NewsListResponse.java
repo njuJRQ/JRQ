@@ -1,8 +1,10 @@
 package njurestaurant.njutakeout.response.article.news;
 
+import njurestaurant.njutakeout.response.Response;
+
 import java.util.List;
 
-public class NewsListResponse {
+public class NewsListResponse extends Response{
 	private List<NewsItem> news;
 
 	public NewsListResponse(){

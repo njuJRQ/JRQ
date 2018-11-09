@@ -248,16 +248,16 @@ public class UserBlServiceImpl implements UserBlService {
 			System.out.println("hhhhhhh" + (String) JSONObject.fromObject(response.getBody()).get("openid"));
 			System.out.println(response);
 			String openid=(String) JSONObject.fromObject(response.getBody()).get("openid");
-            User user=null;
-			try {
-				user = userDataService.getUserByOpenid(openid);
-			} catch (NotExistException e) {
-				e.printStackTrace();
-			}
+//            User user=null;
+//			try {
+//				user = userDataService.getUserByOpenid(openid);
+//			} catch (NotExistException e) {
+//				e.printStackTrace();
+//			}
 
-			JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(openid);
+			//JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(openid);
 			String token="";
-			token = jwtService.generateToken(jwtUser, EXPIRATION);
+			//token = jwtService.generateToken(jwtUser, EXPIRATION);
 
 			return new OpenIdAndSessionKeyResponse(openid, (String) JSONObject.fromObject(response.getBody()).get("session_key"),token);
 		} else {

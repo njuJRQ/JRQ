@@ -42,7 +42,6 @@ function fileSelected() {
         cache: false,
         async: false,
         success: function (data) {
-            alert(data)
             imageList.push(data);
             $("#imageList").append("<img src='"+"../"+imageList[imageList.length-1]+"' style=\"width: 10rem;height: 10rem;\">")
         },
@@ -74,7 +73,6 @@ function addUser(){
     if(imageList.length==0){
         imageList.push("");
     }
-    alert(imageList[0])
     $.ajax(
         {
             url: url + "/updateFeed",

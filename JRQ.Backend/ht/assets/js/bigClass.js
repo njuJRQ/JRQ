@@ -8,13 +8,13 @@ $.ajax(
         success: function (data) {
             for(var i=0;i<3;i++){
                 if(data.classificationDescriptionItems[i].workClass=="capital"){
-                    document.getElementById("capital").value=data.classificationDescriptionItems.description;
+                    document.getElementById("capital").value=data.classificationDescriptionItems[i].description;
                 }
                 else if(data.classificationDescriptionItems[i].workClass=="stock"){
-                    document.getElementById("stock").value=data.classificationDescriptionItems.description;
+                    document.getElementById("stock").value=data.classificationDescriptionItems[i].description;
                 }
                 else if(data.classificationDescriptionItems[i].workClass=="merge"){
-                    document.getElementById("merge").value=data.classificationDescriptionItems.description;
+                    document.getElementById("merge").value=data.classificationDescriptionItems[i].description;
                 }
             }
 

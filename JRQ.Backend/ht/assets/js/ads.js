@@ -308,12 +308,12 @@ function setAsChecked(n){
             },
             async:false,
             success: function (data) {
-                if(q.showPlace=="index") {
+                if(q.showPlace=="首页") {
                     alert("选中编号为" + q.id + "作为首页广告！")
                 }
-                else if(q.showPlace=="service") {
+                else if(q.showPlace=="业务") {
                     alert("选中编号为" + q.id + "作为业务广告！")
-                }else if(q.showPlace=="jump") {
+                }else if(q.showPlace=="弹窗") {
                     alert("选中编号为" + q.id + "作为弹窗广告！")
                 }
                 window.location.href="ads.html";

@@ -153,8 +153,10 @@
                     <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav-7">
                         <li><a href="classification.html" class="am-cf" target="right"><span class="am-icon-signing"></span> 标签列表</a>
                         </li>
-
+                        <li><a href="bigClass.html" class="am-cf" target="right"><span class="am-icon-signing"></span> 业务三大类</a>
+                        </li>
                     </ul>
+
                 </li>
 
                 <div>.</div>
@@ -268,10 +270,6 @@
         {
             url: url+"/getAdminList",
             data: {
-            },
-            headers :{
-                'Authorization': 'Bearer ' + getToken(),
-                'content-type': 'application/x-www-form-urlencoded'
             },
             async:false,
             success: function (data) {

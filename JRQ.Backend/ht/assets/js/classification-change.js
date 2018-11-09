@@ -14,13 +14,13 @@ $.ajax(
         success: function (data) {
             for(var i=0;i<3;i++){
                 if(data.classificationDescriptionItems[i].workClass=="capital"){
-                    x1=data.classificationDescriptionItems.description;
+                    x1=data.classificationDescriptionItems[i].description;
                 }
                 else if(data.classificationDescriptionItems[i].workClass=="stock"){
-                    x2=data.classificationDescriptionItems.description;
+                    x2=data.classificationDescriptionItems[i].description;
                 }
                 else if(data.classificationDescriptionItems[i].workClass=="merge"){
-                    x3=data.classificationDescriptionItems.description;
+                    x3=data.classificationDescriptionItems[i].description;
                 }
             }
 

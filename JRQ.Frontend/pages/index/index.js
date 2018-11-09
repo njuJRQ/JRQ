@@ -98,7 +98,7 @@ Page({
     })
     api.getAbstractList.call(this, 'all', app.getOpenid(), this.data.lastId, this.data.lastIdType)
     api.getAd.call(this, 'jump', (res) => {
-      console.log(res)
+      /*console.log(res)*/
       this.setData({
         jumpAd: res.ad.image
       })

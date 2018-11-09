@@ -197,7 +197,7 @@ function getDocument(id) {
     method: 'GET',
     success: (res) => {
       if (res.statusCode == 200) {
-        console.log(res.data)
+        /*console.log(res.data)*/
         that.setData({
           document: res.data.document
         })
@@ -1138,6 +1138,27 @@ function getClassificationDescriptionList (then) {
   })
 }
 
+function getNewsListBefore (newsId, then) {
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "getNewsListBefore",
+    data: {
+      type: "user",
+      newsId: newsId
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      if (res.statusCode == 200) {
+        if (then) then(res.data)
+      }
+    }
+  })
+}
+
 module.exports = {
   getAbstractList: getAbstractList,
   getAbstractListByCondition: getAbstractListByCondition,
@@ -1176,5 +1197,6 @@ module.exports = {
   isAdminUsernameExistent: isAdminUsernameExistent,
   getWxQrCode: getWxQrCode,
   getMySubmittedEnterprise: getMySubmittedEnterprise,
-  getClassificationDescriptionList: getClassificationDescriptionList
+  getClassificationDescriptionList: getClassificationDescriptionList,
+  getNewsListBefore: getNewsListBefore
 }

@@ -96,4 +96,25 @@ public class NewsDataServiceImpl implements NewsDataService {
 
 		return newsList;
 	}
+
+	@Override
+	public void saveCJKXNews(CJKXNews cjkxNews) {
+		cjkxNewsDao.save(cjkxNews);
+	}
+
+	@Override
+	public void saveNews(News news) {
+		newsDao.save(news);
+	}
+
+	@Override
+	public void deleteCJKXNews(CJKXNews cjkxNews) {
+		cjkxNewsDao.delete(cjkxNews);
+	}
+
+	@Override
+	public void deleteNews(News news) {
+		newsDao.delete(news);
+	}
+
 }

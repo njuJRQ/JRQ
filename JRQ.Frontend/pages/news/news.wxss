@@ -1,0 +1,38 @@
+/* pages/news/news.wxss */
+@import '/style/common.wxss';
+
+.newsWrapper {
+  margin: 15px;
+}
+
+.newsItem__title {
+  display: block;
+  color: #000;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.newsItem__content {
+  margin: 10px 0 0 0;
+  display: block;
+  color: gray;
+  font-size: 0.8rem;
+}
+
+.newsItem__info {
+  margin: 10px 0 0 0;
+  display: flex;
+  align-items: center;
+}
+
+.newsItem__infoImage {
+  width: 30px;
+  height: 30px;
+  margin: 0 10px 0 0;
+}
+
+.newsItem__infoText {
+  color: #000;
+  font-size: 0.6rem;
+  margin: 0 5px 0 0;
+}

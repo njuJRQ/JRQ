@@ -16,7 +16,8 @@
     "pages/me/updateMe/updateMe",
     "pages/me/pay/pay",
     "pages/me/myEnterprise/myEnterprise",
-    "pages/me/createPost/createPost"
+    "pages/me/createPost/createPost",
+    "pages/news/news"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -33,6 +34,12 @@
         "text": "首页",
         "iconPath": "img/index.png",
         "selectedIconPath": "img/index-choose.png"
+      },
+      {
+        "pagePath": "pages/news/news",
+        "text": "咨询",
+        "iconPath": "img/news.png",
+        "selectedIconPath": "img/news-choose.png"
       },
       {
         "pagePath": "pages/service/service",

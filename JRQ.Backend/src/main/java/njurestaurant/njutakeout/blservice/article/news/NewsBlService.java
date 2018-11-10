@@ -2,8 +2,17 @@ package njurestaurant.njutakeout.blservice.article.news;
 
 import njurestaurant.njutakeout.response.BoolResponse;
 import njurestaurant.njutakeout.response.article.news.NewsListResponse;
+import njurestaurant.njutakeout.response.article.news.NewsResponse;
 
 public interface NewsBlService {
+
+	/**
+	 * 根据全局新闻ID获取新闻，不存在则返回空
+	 * @param newsId 全局新闻ID
+	 * @return 新闻内容
+	 */
+	NewsResponse getNews(String newsId);
+
 	/**
 	 * 获取某条新闻前的新闻列表。为用户返回最新的10条，为管理员返回最新的50条
 	 * @param type 请求方名称，可取值"user","admin"

@@ -9,6 +9,7 @@ import njurestaurant.njutakeout.entity.article.News;
 import njurestaurant.njutakeout.response.BoolResponse;
 import njurestaurant.njutakeout.response.article.news.NewsItem;
 import njurestaurant.njutakeout.response.article.news.NewsListResponse;
+import njurestaurant.njutakeout.response.article.news.NewsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -28,6 +29,24 @@ public class NewsBlServiceImpl implements NewsBlService {
 	@Autowired
 	public NewsBlServiceImpl(NewsDataService newsDataService) {
 		this.newsDataService = newsDataService;
+	}
+
+	@Override
+	public NewsResponse getNews(String newsId) {
+		Optional<News> optionalNews = newsDataService.findNewsById(newsId);
+		if (optionalNews.isPresent()) {
+			News news = optionalNews.get();
+			switch (news.getSource()) {
+				case "财经快讯":
+					Optional<CJKXNews> optionalCJKXNews = newsDataService.findCJKXNewsById(news.getSourceId());
+					if (optionalCJKXNews.isPresent()) {
+						return new NewsResponse(new NewsItem(news.getId(), news.getSource(), optionalCJKXNews.get()));
+					}
+					break;
+				default:
+			}
+		}
+		return new NewsResponse();
 	}
 
 	@Override

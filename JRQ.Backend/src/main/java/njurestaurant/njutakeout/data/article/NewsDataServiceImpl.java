@@ -31,8 +31,10 @@ public class NewsDataServiceImpl implements NewsDataService {
 		long timestamp = 0; //时间戳精确到毫秒
 		try {
 			timestamp = sdf.parse(cjkxNews.getTime()).getTime();
-			newsDao.save(new News("财经快讯", cjkxNews.getId(), timestamp));
-			cjkxNewsDao.save(cjkxNews);
+			if (!cjkxNewsDao.existsById(cjkxNews.getId())) { //若此财经快讯已存在于CJKXNews表中，则不重复添加
+				newsDao.save(new News("财经快讯", cjkxNews.getId(), timestamp));
+			}
+			cjkxNewsDao.save(cjkxNews); //若已存在于CJKXNews表中，重复添加可以更新旧的数据
 		} catch (ParseException e) {
 			System.err.println("时间格式错误！");
 			e.printStackTrace();

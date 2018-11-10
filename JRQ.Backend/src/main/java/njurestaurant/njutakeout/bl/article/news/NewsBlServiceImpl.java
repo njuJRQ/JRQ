@@ -141,6 +141,14 @@ public class NewsBlServiceImpl implements NewsBlService {
 				String content = (String) obj.get("Content");
 				String level = (String) obj.get("Level");
 				String type = (String) obj.get("Type");
+				switch (type) {
+					case "0": type = "环球"; break;
+					case "1": type = "A股"; break;
+					case "2": type = "行业"; break;
+					case "3": type = "数据"; break;
+					case "4": type = "央行"; break;
+					default:
+				}
 				String keywords = (String) obj.get("Keywords");
 				newsDataService.addCJKXNews(new CJKXNews(id, time, content, level, type, keywords));
 			}

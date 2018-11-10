@@ -37,7 +37,7 @@
       },
       {
         "pagePath": "pages/news/news",
-        "text": "咨询",
+        "text": "资讯",
         "iconPath": "img/news.png",
         "selectedIconPath": "img/news-choose.png"
       },

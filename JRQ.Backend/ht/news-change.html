@@ -45,58 +45,53 @@
                 <div class="am-tab-panel am-fade am-in am-active" id="tab1">
 
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">管理员名称</div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">新闻id</div>
                         <div class="am-u-sm-8 am-u-md-10">
-                            <input id="name" type="text" value="" style="width: 300px;">
+                            <div id="newsId" class="am-u-sm-8 am-u-md-10"></div>
                         </div>
                     </div>
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">密码</div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">新闻来源</div>
                         <div class="am-u-sm-8 am-u-md-10">
-                            <input id="password" type="password" value="" style="width: 200px;">
+                            <div id="source" class="am-u-sm-8 am-u-md-10"></div>
                         </div>
                     </div>
-                    <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">管理员权限</div>
-                        <div class="am-u-sm-8 am-u-md-10">
-                            <span>
-                            	<input id="c1" type="checkbox" />权限管理
-                            </span>
-                            <span style="margin-left: 15px;">
-                            	<input id="c2" type="checkbox" />用户管理
-                            </span>
-                            <span style="margin-left: 15px;">
-                            	<input id="c3" type="checkbox" />内容管理
-                            </span>
-                            <span style="margin-left: 15px;">
-                            	<input id="c8" type="checkbox" />资讯管理
-                            </span>
-                            <span style="margin-left: 15px;">
-                            	<input id="c4" type="checkbox" />支付订单管理
-                            </span>
-                            <span style="margin-left: 15px;">
-                            	<input id="c5" type="checkbox" />会员管理
-                            </span>
-                            <span style="margin-left: 15px;">
-                            	<input id="c6" type="checkbox" />广告管理
-                            </span>
-                            <span style="margin-left: 15px;">
-                            	<input id="c7" type="checkbox" />用户标签管理
-                            </span>
-                        </div>
-                    </div>
-                    <form id="upload-file-form">
-                        <div class="am-g am-margin-top">
-                            <div class="am-u-sm-4 am-u-md-2 am-text-right">管理员头像</div>
-                            <div class="am-u-sm-8 am-u-md-10">
-                                <input type="file" name="image" id="image" onchange="fileSelected()"><br>
-                                <p>（最佳头像尺寸：80*80px）</p>
-                                <div id="imageList">
-                                </div>
-                            </div>
 
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">发布时间</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <div id="time" class="am-u-sm-8 am-u-md-10"></div>
                         </div>
-                    </form>
+                    </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">内容</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <textarea id="content" style="width: 700px;height: 200px;"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">重要性</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <div id="level" class="am-u-sm-8 am-u-md-10"></div>
+                        </div>
+                    </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">资讯类型</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <div id="type" class="am-u-sm-8 am-u-md-10"></div>
+                        </div>
+                    </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">关键字</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <div id="keywords" class="am-u-sm-8 am-u-md-10"></div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

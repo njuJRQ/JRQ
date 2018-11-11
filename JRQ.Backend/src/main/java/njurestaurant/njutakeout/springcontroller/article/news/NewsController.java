@@ -51,7 +51,7 @@ public class NewsController {
         return new ResponseEntity<>(newsBlService.updateNews(newsId,time,content), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "获取摘要列表：包括首页和圈子", notes = "获取摘要列表：包括首页和圈子")
+    @ApiOperation(value = "删除某条新闻", notes = "删除某条新闻")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "newsId", value = "参照新闻的id（News表中的ID，而非特定新闻表的ID）。ID为\"\"则返回当前最新的新闻", required = true, dataType = "String")
     })
@@ -63,5 +63,30 @@ public class NewsController {
     @ResponseBody
     public ResponseEntity<Response> deleteNews(@RequestParam(name="newsId")String newsId) {
         return new ResponseEntity<>(newsBlService.deleteNews(newsId), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "根据全局新闻ID获取新闻", notes = "根据全局新闻ID获取新闻")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "newsId", value = "参照新闻的id（News表中的ID，而非特定新闻表的ID）。ID为\"\"则返回当前最新的新闻", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getNews", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getNews(@RequestParam(name="newsId")String newsId) {
+        return new ResponseEntity<>(newsBlService.getNews(newsId), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "获取当前数据库中总新闻条数", notes = "获取当前数据库中总新闻条数")
+    @RequestMapping(value = "/getNewsNumber", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getNewsNumber() {
+        return new ResponseEntity<>(newsBlService.getNewsNumber(), HttpStatus.OK);
     }
 }

@@ -30,11 +30,9 @@ $.ajax(
         },
         async:false,
         success: function (data) {
-            alert(data.news.length)
             for(var i=0;i<data.news.length;i++){
                 list.push(data.news[i]);
             }
-            document.getElementById("jilu").innerText="共"+(list.length)+"条记录";
             changepage(1);
         },
         error: function (xhr) {
@@ -43,6 +41,25 @@ $.ajax(
         traditional: true,
     }
 )
+$.ajax(
+    {
+        method: 'GET',
+        url: url+"/getNewsNumber",
+        dataType: 'json',
+        data: {
+        },
+        async:false,
+        success: function (data) {
+            document.getElementById("jilu").innerText="共"+(data.number)+"条记录";
+        },
+        error: function (xhr) {
+            alert('动态页有问题噶！\n\n' + xhr.responseText);
+        },
+        traditional: true,
+    }
+)
+
+
 function setthisquestion(n){
     var q=list[firstID+n];
     var storage = window.localStorage;
@@ -112,7 +129,6 @@ function changegroup(to){
         theGroup=theGroup+1;
 
     }
-    alert(theGroup)
     document.getElementById("page1").innerText=theGroup*5+1;
     document.getElementById("page2").innerText=theGroup*5+2;
     document.getElementById("page3").innerText=theGroup*5+3;
@@ -129,8 +145,6 @@ function changepage(page){
     $("#page4").show();
     $("#page5").show();
     firstID=(theGroup*5+page-1)*10;
-    alert(firstID)
-    alert(list.length)
     if(list.length<(theGroup*50+41)){
         $("#page5").hide();
         if(list.length<(theGroup*50+31)){

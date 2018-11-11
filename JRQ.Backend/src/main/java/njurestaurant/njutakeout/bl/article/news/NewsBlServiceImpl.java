@@ -54,14 +54,14 @@ public class NewsBlServiceImpl implements NewsBlService {
 		//获取要返回的新闻列表
 		List<News> newsList = null;
 		if (newsId.equals("")) {
-			newsList = newsDataService.getNewsListBeforeTimestamp("user", -1);
+			newsList = newsDataService.getNewsListBeforeTimestamp(type, -1);
 		} else {
 			Optional<News> optionalNews = newsDataService.findNewsById(newsId);
 			if (!optionalNews.isPresent()) {
 				return new NewsListResponse();
 			}
 			News news = optionalNews.get();
-			newsList = newsDataService.getNewsListBeforeTimestamp("user", news.getTimestamp());
+			newsList = newsDataService.getNewsListBeforeTimestamp(type, news.getTimestamp());
 		}
 
 		//根据newsList获取真正的新闻内容列表

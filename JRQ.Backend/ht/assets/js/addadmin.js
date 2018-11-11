@@ -56,6 +56,9 @@ document.getElementById("ad").onclick=function() {
         if (document.getElementById("c7").checked) {
             limits = limits + "7" + "...";
         }
+        if (document.getElementById("c8").checked) {
+            limits = limits + "8" + "...";
+        }
         var url=getUrl();
         $.ajax(
             {

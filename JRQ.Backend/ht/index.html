@@ -109,6 +109,15 @@
 
 
                 </li>
+                <li id="c8" class="admin-parent">
+                    <a class="am-cf" data-am-collapse="{target: '#collapse-nav-11'}"><span class="am-icon-file"></span>
+                        资讯管理<span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav-11">
+                        <li><a href="news.html" class="am-cf" target="right"><span class="am-icon-signing"></span>资讯列表</a></li>
+                    </ul>
+
+
+                </li>
                 <li id="c4" class="admin-parent">
                     <a class="am-cf" data-am-collapse="{target: '#collapse-nav-8'}"><span class="am-icon-file"></span>
                         支付订单管理<span class="am-icon-angle-right am-fr am-margin-right"></span></a>
@@ -283,8 +292,8 @@
                         $("#c5").hide();
                         $("#c6").hide();
                         $("#c7").hide();
-
-                        for(var i=1;i<=14;i++){
+                        ¥("#c8").hide();
+                        for(var i=1;i<=8;i++){
                             for(var j=0;j<limits.length;j++){
                                 if(parseInt(limits[j])==i){
                                     $("#c"+i).show();

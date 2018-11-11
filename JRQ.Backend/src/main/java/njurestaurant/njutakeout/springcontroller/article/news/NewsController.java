@@ -34,4 +34,34 @@ public class NewsController {
     public ResponseEntity<Response> getNewsListBefore(@RequestParam(name="type")String type, @RequestParam(name="newsId")String newsId) throws NotExistException {
         return new ResponseEntity<>(newsBlService.getNewsListBefore(type,newsId), HttpStatus.OK);
     }
+
+    @ApiOperation(value = "获取摘要列表：包括首页和圈子", notes = "获取摘要列表：包括首页和圈子")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "newsId", value = "新闻的全局ID", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "time", value = "新的新闻时间", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "content", value = "新的新闻内容", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/updateNews", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> updateNews(@RequestParam(name="newsId")String newsId, @RequestParam(name="time")String time, @RequestParam(name="content")String content) throws NotExistException {
+        return new ResponseEntity<>(newsBlService.updateNews(newsId,time,content), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "获取摘要列表：包括首页和圈子", notes = "获取摘要列表：包括首页和圈子")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "newsId", value = "参照新闻的id（News表中的ID，而非特定新闻表的ID）。ID为\"\"则返回当前最新的新闻", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/deleteNews", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> deleteNews(@RequestParam(name="newsId")String newsId) {
+        return new ResponseEntity<>(newsBlService.deleteNews(newsId), HttpStatus.OK);
+    }
 }

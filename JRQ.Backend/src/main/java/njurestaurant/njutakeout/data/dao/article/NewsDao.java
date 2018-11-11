@@ -12,4 +12,5 @@ public interface NewsDao extends JpaRepository<News, String> {
 	List<News> findTop50ByOrderByTimestampDesc();
 	List<News> findTop10ByTimestampBeforeOrderByTimestampDesc(long timestamp);
 	List<News> findTop50ByTimestampBeforeOrderByTimestampDesc(long timestamp);
+	int countNewsBy();
 }

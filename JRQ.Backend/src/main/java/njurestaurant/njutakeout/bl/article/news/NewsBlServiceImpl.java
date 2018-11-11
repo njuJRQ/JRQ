@@ -7,6 +7,7 @@ import njurestaurant.njutakeout.dataservice.article.NewsDataService;
 import njurestaurant.njutakeout.entity.article.CJKXNews;
 import njurestaurant.njutakeout.entity.article.News;
 import njurestaurant.njutakeout.response.BoolResponse;
+import njurestaurant.njutakeout.response.IntResponse;
 import njurestaurant.njutakeout.response.article.news.NewsItem;
 import njurestaurant.njutakeout.response.article.news.NewsListResponse;
 import njurestaurant.njutakeout.response.article.news.NewsResponse;
@@ -47,6 +48,11 @@ public class NewsBlServiceImpl implements NewsBlService {
 			}
 		}
 		return new NewsResponse();
+	}
+
+	@Override
+	public IntResponse getNewsNumber() {
+		return new IntResponse(true, newsDataService.getNewsNumber(), "");
 	}
 
 	@Override

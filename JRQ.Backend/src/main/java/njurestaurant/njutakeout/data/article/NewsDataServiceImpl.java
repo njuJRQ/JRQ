@@ -119,4 +119,9 @@ public class NewsDataServiceImpl implements NewsDataService {
 		newsDao.delete(news);
 	}
 
+	@Override
+	public int getNewsNumber() {
+		return newsDao.countNewsBy();
+	}
+
 }

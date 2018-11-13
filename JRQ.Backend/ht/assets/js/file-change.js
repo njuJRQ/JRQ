@@ -2,13 +2,10 @@ var url=getUrl();
 var storage = window.localStorage;
 var id=storage["thisDocument"];
 var path;
+var attachment="";
 $.ajax(
     {
         url: url+"/getDocument",
-        headers :{
-            'Authorization': 'Bearer ' + getToken(),
-            'content-type': 'application/x-www-form-urlencoded'
-        },
         data: {
             id:id
         },
@@ -21,6 +18,7 @@ $.ajax(
             document.getElementById("date").value=data.document.date;
             document.getElementById("likeNum").value=data.document.likeNum;
             path="../"+data.document.attachment;
+            attachment=data.document.attachment;
         },
         error: function (xhr) {
             alert('动态页有问题噶！\n\n' + xhr.responseText);
@@ -43,6 +41,7 @@ function checkRate(input) {
 function changeFile(){
     if(checkRate("likeNum")) {
         var fd = new FormData($("#upload-file-form")[0]);
+
         $.ajax({
             url: url + "/uploadDocument",
             type: "POST",
@@ -52,29 +51,10 @@ function changeFile(){
             contentType: false,
             cache: false,
             async: false,
-            success: function () {
-                $.ajax(
-                    {
-                        url: url + "/updateDocument",
-                        data: {
-                            id: id,
-                            title: $("#title").val(),
-                            content: $("#content").val(),
-                            writerName: $("#writerName").val(),
-                            date: $("#date").val(),
-                            likeNum: $("#likeNum").val()
-                        },
-                        async: false,
-                        success: function (data) {
-                            alert("修改成功");
-                            window.location.href = "file.html";
-                        },
-                        error: function (xhr) {
-                            alert('动态页有问题噶！\n\n' + xhr.responseText);
-                        },
-                        traditional: true,
-                    }
-                )
+            success: function (data) {
+                if(data!="") {
+                    attachment = data;
+                }
             },
             error: function (xhr) {
                 //alert(xhr.responseText);
@@ -82,6 +62,30 @@ function changeFile(){
                 // ...
             }
         });
+
+        $.ajax(
+            {
+                url: url + "/updateDocument",
+                data: {
+                    id: id,
+                    title: $("#title").val(),
+                    content: $("#content").val(),
+                    attachment:attachment,
+                    writerName: $("#writerName").val(),
+                    date: $("#date").val(),
+                    likeNum: $("#likeNum").val()
+                },
+                async: false,
+                success: function (data) {
+                    alert("修改成功");
+                    window.location.href = "file.html";
+                },
+                error: function (xhr) {
+                    alert('动态页有问题噶！\n\n' + xhr.responseText);
+                },
+                traditional: true,
+            }
+        )
 
     }
 }

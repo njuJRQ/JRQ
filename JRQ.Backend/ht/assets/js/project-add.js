@@ -44,6 +44,7 @@ function adduser() {
         var id = storage["adminUsername"];
         var myDate = new Date();
         var date = myDate.toLocaleDateString();
+        var attachment="";
         $.ajax({
             url: url + "/uploadAttachment",
             type: "POST",
@@ -53,33 +54,10 @@ function adduser() {
             contentType: false,
             cache: false,
             async: false,
-            success: function () {
-                $.ajax(
-                    {
-                        url: url + "/addProject",
-                        data: {
-                            title: $("#title").val(),
-                            writerName: id,
-                            identity: $("#identity").val(),
-                            phone: $("#phone").val(),
-                            city: $("#city").val(),
-                            industry: industry,
-                            business: business,
-                            content: $("#content").val(),
-                            money: $("#money").val(),
-                            date: date
-                        },
-                        async: false,
-                        success: function (data) {
-                            alert("添加成功");
-                            window.location.href = "project.html";
-                        },
-                        error: function (xhr) {
-                            //alert('动态页有问题噶！\n\n' + xhr.responseText);
-                        },
-                        traditional: true,
-                    }
-                )
+            success: function (data) {
+                if(data!="") {
+                    attachment = data;
+                }
                 // Handle upload success
                 // ...
             },
@@ -89,5 +67,33 @@ function adduser() {
                 // ...
             }
         });
+
+        $.ajax(
+            {
+                url: url + "/addProject",
+                data: {
+                    title: $("#title").val(),
+                    writerName: id,
+                    identity: $("#identity").val(),
+                    phone: $("#phone").val(),
+                    city: $("#city").val(),
+                    industry: industry,
+                    business: business,
+                    content: $("#content").val(),
+                    money: $("#money").val(),
+                    date: date,
+                    attachment:attachment
+                },
+                async: false,
+                success: function (data) {
+                    alert("添加成功");
+                    window.location.href = "project.html";
+                },
+                error: function (xhr) {
+                    //alert('动态页有问题噶！\n\n' + xhr.responseText);
+                },
+                traditional: true,
+            }
+        )
     }
 }

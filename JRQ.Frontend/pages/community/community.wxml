@@ -2,7 +2,18 @@
 <import src='/template/articleItem/articleItem.wxml' />
 
 <view class='container container--color-white'>
-  <view wx:for='{{articles}}' wx:key='id' style='width: 100%;'>
-    <template is='articleItem' data='{{item}}'></template>
+  <view class='publisherWrapper'>
+    <view class='publisher' bindtap='onPublish'>
+      <text class='publisher__text'>发布业务合作、商业资讯或日常信息...</text>
+      <image class='publisher__camera' src=' img/camera.png'></image>
+    </view>
+  </view>
+  <view wx:if='{{articles.length > 0}}' style='width: 100%; padding: 0 5px;'>
+    <view wx:for='{{articles}}' wx:key='id' style='width: 100%; padding: 5px 0;'>
+      <template is='articleItem' data='{{item}}'></template>
+    </view>
+  </view>
+  <view wx:else>
+    <text>您的圈子还没有朋友文章发布哦，赶快去增加新的朋友吧</text>
   </view>
 </view>

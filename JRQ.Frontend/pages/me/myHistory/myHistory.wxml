@@ -29,7 +29,9 @@
         </view>
       </view>
     </view>
-    <button class='jrq__button cardButton' bindtap='onSendMyCard'>递给他名片</button>
+    <form report-submit='true'>
+      <button class='jrq__button cardButton' bindtap='onSendMyCard'>递给他名片</button>
+    </form>
     <button class='jrq__button cardButton cardButton--style-backToIndex' bindtap='onBackToIndex'>回到首页</button>
   </view>
   <view class='history'>

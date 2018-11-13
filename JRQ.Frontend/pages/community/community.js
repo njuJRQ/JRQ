@@ -82,5 +82,11 @@ Page({
 
   previewImg: function (e) {
     articleItem.previewImg(e)
+  },
+
+  onPublish: function () {
+    wx.navigateTo({
+      url: '../me/publishMyArticle/publishMyArticle',
+    })
   }
 })

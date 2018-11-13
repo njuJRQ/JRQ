@@ -3,6 +3,30 @@
 @import '/template/articleItem/articleItem.wxss';
 
 /*本页面css属性*/
-.container {
-  margin: 0 10px;
+
+.publisherWrapper {
+  width: 100%;
+  background-color: #efefef;
+  padding: 10px;
+}
+
+.publisher {
+  box-sizing: border-box;
+  padding: 5px 10px 5px 10px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px rgba(0, 0, 0, 0.103) solid;
+  border-radius: 5px;
+}
+
+.publisher__text {
+  padding: 3px 0 3px 10px;
+  font-size: 0.7rem;
+}
+
+.publisher__camera {
+  width: 20px;
+  height: 20px;
 }

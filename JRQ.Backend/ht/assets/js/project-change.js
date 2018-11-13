@@ -6,6 +6,7 @@ var url=getUrl();
 var storage = window.localStorage;
 var id=storage["thisProject"];
 var path;
+var attachment="";
 $.ajax(
     {
         url: url+"/getProject",
@@ -30,6 +31,7 @@ $.ajax(
             document.getElementById("money").value=data.project.money;
             document.getElementById("date").value=data.project.date;
             path="../"+data.project.attachment;
+            attachment=data.project.attachment;
         },
         error: function (xhr) {
             alert('动态页有问题噶！\n\n' + xhr.responseText);
@@ -90,34 +92,10 @@ function adduser() {
             contentType: false,
             cache: false,
             async: false,
-            success: function () {
-                $.ajax(
-                    {
-                        url: url + "/updateProject",
-                        data: {
-                            id: document.getElementById("id").innerText,
-                            title: $("#title").val(),
-                            writerName: $("#writerName").val(),
-                            identity: $("#identity").val(),
-                            phone: $("#phone").val(),
-                            city: $("#city").val(),
-                            industry: industry,
-                            business: business,
-                            content: $("#content").val(),
-                            money: $("#money").val(),
-                            date: $("#date").val()
-                        },
-                        async: false,
-                        success: function (data) {
-                            alert("修改成功");
-                            window.location.href = "project.html";
-                        },
-                        error: function (xhr) {
-                            //alert('动态页有问题噶！\n\n' + xhr.responseText);
-                        },
-                        traditional: true,
-                    }
-                )
+            success: function (data) {
+                if(data!="") {
+                    attachment = data;
+                }
                 // Handle upload success
                 // ...
             },
@@ -127,5 +105,34 @@ function adduser() {
                 // ...
             }
         });
+
+        $.ajax(
+            {
+                url: url + "/updateProject",
+                data: {
+                    id: document.getElementById("id").innerText,
+                    title: $("#title").val(),
+                    writerName: $("#writerName").val(),
+                    identity: $("#identity").val(),
+                    phone: $("#phone").val(),
+                    city: $("#city").val(),
+                    industry: industry,
+                    business: business,
+                    content: $("#content").val(),
+                    money: $("#money").val(),
+                    date: $("#date").val(),
+                    attachment:attachment
+                },
+                async: false,
+                success: function (data) {
+                    alert("修改成功");
+                    window.location.href = "project.html";
+                },
+                error: function (xhr) {
+                    //alert('动态页有问题噶！\n\n' + xhr.responseText);
+                },
+                traditional: true,
+            }
+        )
     }
 }

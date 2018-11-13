@@ -18,6 +18,8 @@ function adduser() {
         var id = storage["adminUsername"];
         var myDate = new Date();
         var date = myDate.toLocaleDateString();
+        var image="";
+        var video="";
         $.ajax({
             url: url + "/courseImage",
             type: "POST",
@@ -27,53 +29,57 @@ function adduser() {
             contentType: false,
             cache: false,
             async: false,
-            success: function () {
-                $.ajax({
-                    url: url + "/courseVideo",
-                    type: "POST",
-                    data: fd2,
-                    enctype: 'multipart/form-data',
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                    async: false,
-                    success: function () {
+            success: function (data) {
+                if(data!="") {
+                    image = data;
+                }
+            },
+            error: function (xhr) {
 
-                        $.ajax(
-                            {
-                                url: url + "/addCourse",
-                                headers :{
-                                    'Authorization': 'Bearer ' + getToken(),
-                                    'content-type': 'application/x-www-form-urlencoded'
-                                },
-                                data: {
-                                    title: $("#title").val(),
-                                    writerName: id,
-                                    date: date,
-                                    price: parseInt($("#price").val())
-                                },
-                                async: false,
-                                success: function (data) {
-                                    alert("添加成功");
-                                    window.location.href = "course.html";
-                                },
-                                error: function (xhr) {
-                                    //alert('动态页有问题噶！\n\n' + xhr.responseText);
-                                },
-                                traditional: true,
-                            }
-                        )
+            }
+        });
 
-                    },
-                    error: function (xhr) {
-
-                    }
-                });
+        $.ajax({
+            url: url + "/courseVideo",
+            type: "POST",
+            data: fd2,
+            enctype: 'multipart/form-data',
+            processData: false,
+            contentType: false,
+            cache: false,
+            async: false,
+            success: function (data) {
+                if(data!="") {
+                    video = data;
+                }
 
             },
             error: function (xhr) {
 
             }
         });
+
+        $.ajax(
+            {
+                url: url + "/addCourse",
+                data: {
+                    title: $("#title").val(),
+                    writerName: id,
+                    date: date,
+                    price: parseInt($("#price").val()),
+                    image:image,
+                    video:video
+                },
+                async: false,
+                success: function (data) {
+                    alert("添加成功");
+                    window.location.href = "course.html";
+                },
+                error: function (xhr) {
+                    //alert('动态页有问题噶！\n\n' + xhr.responseText);
+                },
+                traditional: true,
+            }
+        )
     }
 }

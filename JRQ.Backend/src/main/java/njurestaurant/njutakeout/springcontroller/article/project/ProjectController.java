@@ -23,7 +23,6 @@ public class ProjectController {
         this.projectBlService = projectBlService;
     }
 
-    private static String attachmentPath="";
 
     @ApiOperation(value = "获取附件", notes = "获取附件")
     @ApiImplicitParams({
@@ -35,11 +34,12 @@ public class ProjectController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public void uploadAttachment(@RequestParam("attachment")MultipartFile attachment){
+    public String uploadAttachment(@RequestParam("attachment")MultipartFile attachment){
         Map<String,Object> map= new HashMap<String,Object>();
         if(attachment.isEmpty()){
             map.put( "result", "error");
             map.put( "msg", "上传文件不能为空" );
+            return null;
         } else {
 
             // 获取文件名
@@ -91,10 +91,11 @@ public class ProjectController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            attachmentPath=thePath;
+
             if (file.exists() && file.isFile()) {
                 file.delete();
             }
+            return thePath;
         }
     }
     @ApiOperation(value = "添加项目", notes = "添加项目")
@@ -108,7 +109,8 @@ public class ProjectController {
             @ApiImplicitParam(name = "business", value = "业务标签", required = true, dataType = "String"),
             @ApiImplicitParam(name = "content", value = "项目详情", required = true, dataType = "String"),
             @ApiImplicitParam(name = "money", value = "项目资金", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "date", value = "发布日期", required = true, dataType = "String")
+            @ApiImplicitParam(name = "date", value = "发布日期", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "attachment", value = "attachment", required = true, dataType = "String")
     })
     @RequestMapping(value = "/addProject", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -116,9 +118,8 @@ public class ProjectController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> addProject(@RequestParam(name="title")String title, @RequestParam(name="writerName")String writerName, @RequestParam(name="identity")String identity, @RequestParam(name="phone")String phone, @RequestParam(name="city")String city, @RequestParam(name="industry")String industry, @RequestParam(name="business")String business, @RequestParam(name="content")String content, @RequestParam(name="money")int money, @RequestParam(name="date")String date) {
-        ResponseEntity<Response> r = new ResponseEntity<>(projectBlService.addProject(title,writerName,identity,phone,city,industry,business,content,money,attachmentPath), HttpStatus.OK);
-        attachmentPath="";
+    public ResponseEntity<Response> addProject(@RequestParam(name="title")String title, @RequestParam(name="writerName")String writerName, @RequestParam(name="identity")String identity, @RequestParam(name="phone")String phone, @RequestParam(name="city")String city, @RequestParam(name="industry")String industry, @RequestParam(name="business")String business, @RequestParam(name="content")String content, @RequestParam(name="money")int money, @RequestParam(name="date")String date,@RequestParam(name="attachment")String attachment) {
+        ResponseEntity<Response> r = new ResponseEntity<>(projectBlService.addProject(title,writerName,identity,phone,city,industry,business,content,money,attachment), HttpStatus.OK);
         return r;
     }
 
@@ -159,7 +160,8 @@ public class ProjectController {
             @ApiImplicitParam(name = "business", value = "业务标签", required = true, dataType = "String"),
             @ApiImplicitParam(name = "content", value = "项目详情", required = true, dataType = "String"),
             @ApiImplicitParam(name = "money", value = "项目资金", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "date", value = "发布日期", required = true, dataType = "String")
+            @ApiImplicitParam(name = "date", value = "发布日期", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "attachment", value = "attachment", required = true, dataType = "String")
     })
     @RequestMapping(value = "/updateProject", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -167,9 +169,8 @@ public class ProjectController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> updateProject(@RequestParam(name="id")String id,@RequestParam(name="title")String title, @RequestParam(name="writerName")String writerName, @RequestParam(name="identity")String identity, @RequestParam(name="phone")String phone, @RequestParam(name="city")String city, @RequestParam(name="industry")String industry, @RequestParam(name="business")String business, @RequestParam(name="content")String content, @RequestParam(name="money")int money, @RequestParam(name="date")String date) throws NotExistException {
-        ResponseEntity<Response> r=new ResponseEntity<>(projectBlService.updateProject(id,title,writerName,identity,phone,city,industry,business,content,money,attachmentPath), HttpStatus.OK);
-        attachmentPath="";
+    public ResponseEntity<Response> updateProject(@RequestParam(name="id")String id,@RequestParam(name="title")String title, @RequestParam(name="writerName")String writerName, @RequestParam(name="identity")String identity, @RequestParam(name="phone")String phone, @RequestParam(name="city")String city, @RequestParam(name="industry")String industry, @RequestParam(name="business")String business, @RequestParam(name="content")String content, @RequestParam(name="money")int money, @RequestParam(name="date")String date,@RequestParam(name="attachment")String attachment) throws NotExistException {
+        ResponseEntity<Response> r=new ResponseEntity<>(projectBlService.updateProject(id,title,writerName,identity,phone,city,industry,business,content,money,attachment), HttpStatus.OK);
         return r;
     }
 

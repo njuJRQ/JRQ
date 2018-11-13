@@ -24,7 +24,6 @@ public class DocumentController {
     public DocumentController(DocumentBlService documentBlService) {
         this.documentBlService = documentBlService;
     }
-    private static String attachmentPath="";
 
     @ApiOperation(value = "获取附件", notes = "获取附件")
     @ApiImplicitParams({
@@ -36,11 +35,12 @@ public class DocumentController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public void uploadDocument(@RequestParam("attachment")MultipartFile attachment){
+    public String uploadDocument(@RequestParam("attachment")MultipartFile attachment){
         Map<String,Object> map= new HashMap<String,Object>();
         if(attachment.isEmpty()){
             map.put( "result", "error");
             map.put( "msg", "上传文件不能为空" );
+            return null;
         } else {
 
             // 获取文件名
@@ -92,11 +92,12 @@ public class DocumentController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            attachmentPath=thePath;
             if (file.exists() && file.isFile()) {
                 file.delete();
             }
+            return thePath;
         }
+
     }
 
 
@@ -104,6 +105,7 @@ public class DocumentController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "title", value = "文档标题", required = true, dataType = "String"),
             @ApiImplicitParam(name = "content", value = "文档内容", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "attachment", value = "附件路径", required = true, dataType = "String"),
             @ApiImplicitParam(name = "writerName", value = "作者名字", required = true, dataType = "String"),
             @ApiImplicitParam(name = "date", value = "发布日期", required = true, dataType = "String")
     })
@@ -113,9 +115,8 @@ public class DocumentController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> addDocument(@RequestParam(name="title")String title, @RequestParam(name="content")String content, @RequestParam(name="writerName")String writerName, @RequestParam(name="date")String date) {
-        ResponseEntity<Response> r=new ResponseEntity<>(documentBlService.addDocument(title,content,attachmentPath,writerName,0), HttpStatus.OK);
-        attachmentPath="";
+    public ResponseEntity<Response> addDocument(@RequestParam(name="title")String title, @RequestParam(name="content")String content, @RequestParam(name="attachment")String attachment,@RequestParam(name="writerName")String writerName, @RequestParam(name="date")String date) {
+        ResponseEntity<Response> r=new ResponseEntity<>(documentBlService.addDocument(title,content,attachment,writerName,0), HttpStatus.OK);
         return r;
     }
 
@@ -149,6 +150,7 @@ public class DocumentController {
             @ApiImplicitParam(name = "id", value = "课程id", required = true, dataType = "String"),
             @ApiImplicitParam(name = "title", value = "课程标题", required = true, dataType = "String"),
             @ApiImplicitParam(name = "content", value = "图片路径", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "attachment", value = "附件路径", required = true, dataType = "String"),
             @ApiImplicitParam(name = "writerName", value = "作者名字", required = true, dataType = "String"),
             @ApiImplicitParam(name = "date", value = "发布日期", required = true, dataType = "String"),
             @ApiImplicitParam(name = "likeNum", value = "点赞数", required = true, dataType = "String")
@@ -159,9 +161,8 @@ public class DocumentController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> updateDocument(@RequestParam(name="id")String id,@RequestParam(name="title")String title, @RequestParam(name="content")String content, @RequestParam(name="writerName")String writerName, @RequestParam(name="date")String date, @RequestParam(name="likeNum")String likeNum) throws NotExistException {
-        ResponseEntity<Response> r= new ResponseEntity<>(documentBlService.updateDocument(id,title,content,attachmentPath,writerName,Long.parseLong(likeNum)), HttpStatus.OK);
-        attachmentPath="";
+    public ResponseEntity<Response> updateDocument(@RequestParam(name="id")String id,@RequestParam(name="title")String title, @RequestParam(name="content")String content,@RequestParam(name="attachment")String attachment, @RequestParam(name="writerName")String writerName, @RequestParam(name="date")String date, @RequestParam(name="likeNum")String likeNum) throws NotExistException {
+        ResponseEntity<Response> r= new ResponseEntity<>(documentBlService.updateDocument(id,title,content,attachment,writerName,Long.parseLong(likeNum)), HttpStatus.OK);
         return r;
     }
 

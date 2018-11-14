@@ -1,3 +1,4 @@
+$("#loader").hide();
 var url=getUrl();
 var storage = window.localStorage;
 var id=storage["thisDocument"];
@@ -40,6 +41,7 @@ function checkRate(input) {
 }
 function changeFile(){
     if(checkRate("likeNum")) {
+        $("#loader").show();
         var fd = new FormData($("#upload-file-form")[0]);
 
         $.ajax({
@@ -50,42 +52,44 @@ function changeFile(){
             processData: false,
             contentType: false,
             cache: false,
-            async: false,
             success: function (data) {
                 if(data!="") {
                     attachment = data;
                 }
+                $("#loader").hide();
+                $.ajax(
+                    {
+                        url: url + "/updateDocument",
+                        data: {
+                            id: id,
+                            title: $("#title").val(),
+                            content: $("#content").val(),
+                            attachment:attachment,
+                            writerName: $("#writerName").val(),
+                            date: $("#date").val(),
+                            likeNum: $("#likeNum").val()
+                        },
+                        async: false,
+                        success: function (data) {
+                            alert("修改成功");
+                            window.location.href = "file.html";
+                        },
+                        error: function (xhr) {
+                            alert('动态页有问题噶！\n\n' + xhr.responseText);
+                        },
+                        traditional: true,
+                    }
+                )
             },
             error: function (xhr) {
+                $("#loader").hide();
                 //alert(xhr.responseText);
                 // Handle upload error
                 // ...
             }
         });
 
-        $.ajax(
-            {
-                url: url + "/updateDocument",
-                data: {
-                    id: id,
-                    title: $("#title").val(),
-                    content: $("#content").val(),
-                    attachment:attachment,
-                    writerName: $("#writerName").val(),
-                    date: $("#date").val(),
-                    likeNum: $("#likeNum").val()
-                },
-                async: false,
-                success: function (data) {
-                    alert("修改成功");
-                    window.location.href = "file.html";
-                },
-                error: function (xhr) {
-                    alert('动态页有问题噶！\n\n' + xhr.responseText);
-                },
-                traditional: true,
-            }
-        )
+
 
     }
 }

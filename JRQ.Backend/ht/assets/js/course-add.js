@@ -1,3 +1,4 @@
+$("#loader").hide();
 function checkRate(input) {
     var re = /^[0-9]+.?[0-9]*$/; //判断字符串是否为数字 //判断正整数 /^[1-9]+[0-9]*]*$/
     var nubmer = document.getElementById(input).value;
@@ -11,6 +12,7 @@ function checkRate(input) {
 }
 function adduser() {
     if(checkRate("price")) {
+        $("#loader").show();
         var fd = new FormData($("#upload-file-form")[0]);
         var url = getUrl();
         var fd2 = new FormData($("#upload-video-form")[0]);
@@ -28,58 +30,58 @@ function adduser() {
             processData: false,
             contentType: false,
             cache: false,
-            async: false,
             success: function (data) {
                 if(data!="") {
                     image = data;
                 }
+                $.ajax({
+                    url: url + "/courseVideo",
+                    type: "POST",
+                    data: fd2,
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    success: function (data) {
+                        $("#loader").hide();
+                        if(data!="") {
+                            video = data;
+                        }
+                        $.ajax(
+                            {
+                                url: url + "/addCourse",
+                                data: {
+                                    title: $("#title").val(),
+                                    writerName: id,
+                                    date: date,
+                                    price: parseInt($("#price").val()),
+                                    image:image,
+                                    video:video
+                                },
+                                async: false,
+                                success: function (data) {
+                                    alert("添加成功");
+                                    window.location.href = "course.html";
+                                },
+                                error: function (xhr) {
+                                    //alert('动态页有问题噶！\n\n' + xhr.responseText);
+                                },
+                                traditional: true,
+                            }
+                        )
+                    },
+                    error: function (xhr) {
+                        $("#loader").hide();
+                    }
+                });
             },
             error: function (xhr) {
-
+                $("#loader").hide();
             }
         });
 
-        $.ajax({
-            url: url + "/courseVideo",
-            type: "POST",
-            data: fd2,
-            enctype: 'multipart/form-data',
-            processData: false,
-            contentType: false,
-            cache: false,
-            async: false,
-            success: function (data) {
-                if(data!="") {
-                    video = data;
-                }
 
-            },
-            error: function (xhr) {
 
-            }
-        });
 
-        $.ajax(
-            {
-                url: url + "/addCourse",
-                data: {
-                    title: $("#title").val(),
-                    writerName: id,
-                    date: date,
-                    price: parseInt($("#price").val()),
-                    image:image,
-                    video:video
-                },
-                async: false,
-                success: function (data) {
-                    alert("添加成功");
-                    window.location.href = "course.html";
-                },
-                error: function (xhr) {
-                    //alert('动态页有问题噶！\n\n' + xhr.responseText);
-                },
-                traditional: true,
-            }
-        )
     }
 }

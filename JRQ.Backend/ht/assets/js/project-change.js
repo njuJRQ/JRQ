@@ -1,4 +1,4 @@
-
+$("#loader").hide();
 $("#zidingyi").hide();
 var zi=false;
 
@@ -10,10 +10,6 @@ var attachment="";
 $.ajax(
     {
         url: url+"/getProject",
-        headers :{
-            'Authorization': 'Bearer ' + getToken(),
-            'content-type': 'application/x-www-form-urlencoded'
-        },
         data: {
             id:id
         },
@@ -67,6 +63,7 @@ function checkRate(input) {
 }
 function adduser() {
     if(checkRate("money")) {
+        $("#loader").show();
         var fd = new FormData($("#upload-file-form")[0]);
         var url = getUrl();
         var obj1 = document.getElementById("industry"); //定位id
@@ -91,48 +88,50 @@ function adduser() {
             processData: false,
             contentType: false,
             cache: false,
-            async: false,
             success: function (data) {
                 if(data!="") {
                     attachment = data;
                 }
+                $.ajax(
+                    {
+                        url: url + "/updateProject",
+                        data: {
+                            id: document.getElementById("id").innerText,
+                            title: $("#title").val(),
+                            writerName: $("#writerName").val(),
+                            identity: $("#identity").val(),
+                            phone: $("#phone").val(),
+                            city: $("#city").val(),
+                            industry: industry,
+                            business: business,
+                            content: $("#content").val(),
+                            money: $("#money").val(),
+                            date: $("#date").val(),
+                            attachment:attachment
+                        },
+                        async: false,
+                        success: function (data) {
+                            alert("修改成功");
+                            window.location.href = "project.html";
+                        },
+                        error: function (xhr) {
+                            //alert('动态页有问题噶！\n\n' + xhr.responseText);
+                        },
+                        traditional: true,
+                    }
+                )
                 // Handle upload success
                 // ...
+                $("#loader").hide();
             },
             error: function (xhr) {
                 //alert(xhr.responseText);
                 // Handle upload error
                 // ...
+                $("#loader").hide();
             }
         });
 
-        $.ajax(
-            {
-                url: url + "/updateProject",
-                data: {
-                    id: document.getElementById("id").innerText,
-                    title: $("#title").val(),
-                    writerName: $("#writerName").val(),
-                    identity: $("#identity").val(),
-                    phone: $("#phone").val(),
-                    city: $("#city").val(),
-                    industry: industry,
-                    business: business,
-                    content: $("#content").val(),
-                    money: $("#money").val(),
-                    date: $("#date").val(),
-                    attachment:attachment
-                },
-                async: false,
-                success: function (data) {
-                    alert("修改成功");
-                    window.location.href = "project.html";
-                },
-                error: function (xhr) {
-                    //alert('动态页有问题噶！\n\n' + xhr.responseText);
-                },
-                traditional: true,
-            }
-        )
+
     }
 }

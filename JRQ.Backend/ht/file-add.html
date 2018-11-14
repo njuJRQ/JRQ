@@ -13,6 +13,7 @@
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
     <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
     <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style-1.css" />
     <script src="assets/js/getUrl.js"></script>
 </head>
 <body>
@@ -25,6 +26,41 @@
 <!-- sidebar end -->
 
 <!-- content start -->
+<div id="loader" class="loader">
+    <div class="text">上传中，请稍后，Loading...</div>
+    <div class="horizontal">
+        <div class="circlesup">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+        <div class="circlesdwn">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+    </div>
+    <div class="vertical">
+        <div class="circlesup">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+        <div class="circlesdwn">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+    </div>
+</div>
 <div class="admin-content">
     <div class="admin-content-body">
         <div class="am-cf am-padding am-padding-bottom-0">
@@ -69,7 +105,6 @@
 
                         </div>
                     </form>
-                    <div id="x">hi</div>
                 </div>
             </div>
             <div class="am-margin">
@@ -108,18 +143,6 @@
 <script src="assets/js/file-add.js"></script>
 
 <script>
-    document.state = loadingChange;//当页面加载状态改变的时候执行这个方法.
-    function loadingChange()
-    {
-        if(document.readyState == "complete"){ //当页面加载状态为完全结束时进入
-            alert(1)
-            $("#x").hide();
-        }
-        else{
-            alert(2)
-            $("#x").show();
-        }
-    }
 </script>
 <script>
     var storage = window.localStorage;

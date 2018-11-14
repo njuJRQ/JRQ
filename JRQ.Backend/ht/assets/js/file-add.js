@@ -1,5 +1,7 @@
+$("#loader").hide();
 
 function adduser() {
+    $("#loader").show();
     var fd = new FormData($("#upload-file-form")[0]);
     var url = getUrl();
     var storage = window.localStorage;
@@ -15,39 +17,43 @@ function adduser() {
         processData: false,
         contentType: false,
         cache: false,
-        async: false,
         success: function (data) {
             if(data!="") {
                 attachment = data;
             }
+            $("#loader").hide();
+            $.ajax(
+                {
+                    url: url + "/addDocument",
+                    data: {
+                        title: $("#title").val(),
+                        content: $("#content").val(),
+                        attachment:attachment,
+                        writerName: id,
+                        date: date
+                    },
+                    async: false,
+                    success: function (data) {
+
+                        alert("添加成功");
+                        window.location.href = "file.html";
+                    },
+                    error: function (xhr) {
+                        //alert('动态页有问题噶！\n\n' + xhr.responseText);
+                    },
+                    traditional: true,
+                }
+            )
+
         },
         error: function (xhr) {
+            $("#loader").hide();
             //alert(xhr.responseText);
             // Handle upload error
             // ...
         }
     });
-    $.ajax(
-        {
-            url: url + "/addDocument",
-            data: {
-                title: $("#title").val(),
-                content: $("#content").val(),
-                attachment:attachment,
-                writerName: id,
-                date: date
-            },
-            async: false,
-            success: function (data) {
-                alert("添加成功");
-                window.location.href = "file.html";
-            },
-            error: function (xhr) {
-                //alert('动态页有问题噶！\n\n' + xhr.responseText);
-            },
-            traditional: true,
-        }
-    )
+
 
 
 }

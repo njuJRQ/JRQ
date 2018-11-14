@@ -88,6 +88,9 @@ document.getElementById("ad").onclick=function() {
     if (document.getElementById("c8").checked) {
         limits = limits + "8" + "...";
     }
+    if (document.getElementById("c9").checked) {
+        limits = limits + "9" + "...";
+    }
     $.ajax(
         {
             url: url+"/updateAdmin",

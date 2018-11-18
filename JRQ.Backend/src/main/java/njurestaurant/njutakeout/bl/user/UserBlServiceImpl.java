@@ -423,7 +423,7 @@ public class UserBlServiceImpl implements UserBlService {
 			//检查请求结果
 			if (wxMsgResponse.getStatusCode()==HttpStatus.OK) {
 				JSONObject result = JSONObject.fromObject(wxMsgResponse.getBody());
-				if (((String)result.get("errcode")).equals("0")) {
+				if (String.valueOf(result.get("errcode")).equals("0")) {
 					return new BoolResponse(true, wxMsgResponse.getBody());
 				} else {
 					return new BoolResponse(false, wxMsgResponse.getBody());

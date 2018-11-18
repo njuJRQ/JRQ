@@ -115,10 +115,13 @@ public class UserDataServiceImpl implements UserDataService {
 	}
 
 	@Override
-	public void addSendCard(SendCard sendCard) {
+	public boolean addSendCard(SendCard sendCard) {
 		// 若已经送过名片，则无变化
 		if (!sendCardDao.existsById(new SendCardKey(sendCard.getSenderOpenid(), sendCard.getReceiverOpenid()))) {
 			sendCardDao.save(sendCard);
+			return true;
+		} else {
+			return false;
 		}
 	}
 

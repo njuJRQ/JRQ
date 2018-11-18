@@ -22,7 +22,8 @@ public interface UserDataService {
 	//注意：删除Enterprise时统一使用deleteEnterpriseById（封装了相关数据连锁删除）
 	void deleteUserByOpenid(String openid) throws NotExistException;
 
-	void addSendCard(SendCard sendCard);
+	//true表示新加了，false表示该SendCard已经存在
+	boolean addSendCard(SendCard sendCard);
 
 	List<SendCard> getSendsByOpenid(String openid);
 

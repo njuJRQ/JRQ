@@ -248,9 +248,13 @@ public interface UserBlService {
 	 * 用户向别人发送名片(User)
 	 * @param senderOpenid 发送者微信openid
 	 * @param receiverOpenid 接收者微信openid
+	 * @param page 微信模板消息接口中要跳转的页面
+	 * @param formId 微信模板消息接口参数
+	 * @param data 微信模板消息接口内容
+	 * @param emphasisKeyword 微信模板消息接口放大的关键词
 	 * @return 是否成功
 	 */
-	InfoResponse sendMyCard(String senderOpenid, String receiverOpenid);
+	BoolResponse sendMyCard(String senderOpenid, String receiverOpenid, String page, String formId, String data, String emphasisKeyword);
 
 	/**
 	 * 用户获取自己的名片列表(User)

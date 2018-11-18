@@ -839,7 +839,11 @@ function sendMyCard(senderOpenid, receiverOpenid) {
     url: app.globalData.backendUrl + "sendMyCard",
     data: {
       senderOpenid: senderOpenid,
-      receiverOpenid: receiverOpenid
+      receiverOpenid: receiverOpenid,
+      page: "/pages/me/myHistory/myHistory?id" + senderOpenid,
+      formId: "NJoOn_GhBn_u_CvYSzfx1lxOO06iSrVPdFAdGqPWc4c",
+      data: "模板消息内容",
+      emphasisKeywork: "关键字"
     },
     header: {
       'Authorization': 'Bearer ' + app.getToken(),

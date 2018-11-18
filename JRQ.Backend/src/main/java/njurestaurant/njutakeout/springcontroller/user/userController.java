@@ -640,7 +640,11 @@ public class userController {
     @ApiOperation(value = "用户向别人发送名片", notes = "用户向别人发送名片")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "senderOpenid", value = "发送者微信openid", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "receiverOpenid", value = "接收者微信openid", required = true, dataType = "String")
+            @ApiImplicitParam(name = "receiverOpenid", value = "接收者微信openid", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "page", value = "微信模板消息接口中要跳转的页面", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "formId", value = "微信模板消息接口参数", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "data", value = "微信模板消息接口内容", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "emphasisKeyword", value = "微信模板消息接口放大的关键词", required = true, dataType = "String")
     })
     @RequestMapping(value = "/sendMyCard", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -648,8 +652,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> sendMyCard(@RequestParam(name="senderOpenid")String senderOpenid,@RequestParam(name="receiverOpenid")String receiverOpenid) {
-        return new ResponseEntity<>(userBlService.sendMyCard(senderOpenid,receiverOpenid), HttpStatus.OK);
+    public ResponseEntity<Response> sendMyCard(@RequestParam(name="senderOpenid")String senderOpenid,@RequestParam(name="receiverOpenid")String receiverOpenid,@RequestParam(name="page")String page,@RequestParam(name="formId")String formId,@RequestParam(name="data")String data,@RequestParam(name="emphasisKeyword")String emphasisKeyword) {
+        return new ResponseEntity<>(userBlService.sendMyCard(senderOpenid,receiverOpenid,page,formId,data,emphasisKeyword), HttpStatus.OK);
     }
 
     @ApiOperation(value = "用户获取自己的名片列表", notes = "用户获取自己的名片列表")

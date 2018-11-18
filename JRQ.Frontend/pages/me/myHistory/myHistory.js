@@ -175,9 +175,17 @@ Page({
     }
   },
 
-  onSendMyCard: function () {
+  onSendMyCard: function (e) {
+    /*console.log(e)*/
     if (this.data.isGetOtherInfo) {
-      api.sendMyCard.call(this, app.getOpenid(), this.data.otherid)
+      api.sendMyCard.call(this, app.getOpenid(), this.data.otherid, null, e.detail.formId, null, null, (res) => {
+        /*console.log(res)*/
+        wx.hideLoading()
+        wx.showToast({
+          icon: "none",
+          title: res.message,
+        })
+      })
     }
     else {
       wx.showModal({

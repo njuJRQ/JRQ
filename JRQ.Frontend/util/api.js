@@ -830,33 +830,39 @@ function updateMe(openid, detail, price, date) {
   })
 }
 
-function sendMyCard(senderOpenid, receiverOpenid) {
+function sendMyCard(senderOpenid, receiverOpenid, page, formId, data, emphasisKeyword, then) {
   var that = this
   wx.showLoading({
     title: '正在发送名片',
   })
-  wx.request({
-    url: app.globalData.backendUrl + "sendMyCard",
-    data: {
-      senderOpenid: senderOpenid,
-      receiverOpenid: receiverOpenid,
-      page: "/pages/me/myHistory/myHistory?id" + senderOpenid,
-      formId: "NJoOn_GhBn_u_CvYSzfx1lxOO06iSrVPdFAdGqPWc4c",
-      data: "模板消息内容",
-      emphasisKeyword: "关键字"
-    },
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      console.log(res)
-      wx.hideLoading()
-      wx.showToast({
-        title: '发送名片成功',
-      })
-    }
+  getMyUser.call(that, senderOpenid, (res) => {
+    /*console.log(res)*/
+    wx.request({
+      url: app.globalData.backendUrl + "sendMyCard",
+      data: {
+        senderOpenid: senderOpenid,
+        receiverOpenid: receiverOpenid,
+        page: "/pages/me/myHistory/myHistory?id" + senderOpenid,
+        formId: formId,
+        data: "名片申请交换通知",
+        emphasisKeyword: {
+          "申请人": res.username,
+          "备注": "您可点击查看Ta的名片，然后进入个人中心确认接收或拒绝！",
+          "公司名称": res.company,
+          "业务类型": res.label
+        }
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        if (res.statusCode == 200) {
+          if(then) then(res.data)
+        }
+      }
+    })
   })
 }
 

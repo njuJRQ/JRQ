@@ -32,6 +32,24 @@ Page({
     lastNewsId: ""
   },
 
+  getTitleAndContent: function (content) {
+    const reg = /【.*?】/
+    const results = reg.exec(content)
+    /*console.log(results)*/
+    if (results == null) {
+      return {
+        title: content, 
+        content: ""
+      }
+    }
+    else {
+      return { 
+        title: results[0],
+        content: content.replace(results[0], "")
+      }
+    }
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -39,9 +57,11 @@ Page({
     api.getNewsListBefore.call(this, "", (res) => {
       console.log(res)
       const tempNewsList = res.news.map((news) => {
+        const result = this.getTitleAndContent(news.content)
         return {
           newsId: news.newsId,
-          title: news.content,
+          title: result.title,
+          content: result.content,
           writerFace: "../../default/default-face.png",
           writerName: news.source,
           timeStamp: news.time,
@@ -60,9 +80,11 @@ Page({
   onReachBottom: function () {
     api.getNewsListBefore.call(this, this.data.lastNewsId, (res) => {
       const tempNewsList = res.news.map((news) => {
+        const result = this.getTitleAndContent(news.content)
         return {
           newsId: news.newsId,
-          title: news.content,
+          title: result.title,
+          content: result.content,
           writerFace: "../../default/default-face.png",
           writerName: news.source,
           timeStamp: news.time,

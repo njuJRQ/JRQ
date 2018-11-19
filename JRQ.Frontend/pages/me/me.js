@@ -49,6 +49,7 @@ Page({
     return {
       title: '我的钧融圈名片分享',
       path: '/pages/me/myHistory/myHistory?id=' + userId,
+      imageUrl: "img/post_template.jpg",
       success: function (res) {
         console.log("转发成功" + res);
       }

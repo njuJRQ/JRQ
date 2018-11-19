@@ -43,7 +43,7 @@
   <!--广告位-->
   <template class='ad' is='adBar' data='{{ad}}'></template>
   <view class='div-line'></view>
-  <view class="b1" hidden="{{flag}}">
+  <view class="b1" hidden="{{flag}}" bindtap="closeMask">
     <view class="b2">
       <image src="{{jumpAd}}" bindtap="touchMask"></image>
     </view>

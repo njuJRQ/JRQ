@@ -859,7 +859,17 @@ function sendMyCard(senderOpenid, receiverOpenid, page, formId, data, emphasisKe
       method: 'GET',
       success: (res) => {
         if (res.statusCode == 200) {
-          if(then) then(res.data)
+
+          if(res.data.ok){
+            console.log(res)
+            wx.hideLoading()
+            wx.showToast({
+              title: '发送名片成功',
+            })
+          }
+          else{
+            if(then) then(res.data)
+          }
         }
       }
     })

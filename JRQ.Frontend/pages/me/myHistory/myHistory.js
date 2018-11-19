@@ -183,7 +183,7 @@ Page({
         wx.hideLoading()
         wx.showToast({
           icon: "none",
-          title: "发送名片成功",
+          title: res.message,
         })
       })
     }

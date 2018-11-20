@@ -47,7 +47,7 @@ Page({
     var that = this;
     var userId = app.getOpenid();
     return {
-      title: '我的钧融圈名片分享',
+      title: '钧融圈,金融人的新社区',
       path: '/pages/me/myHistory/myHistory?id=' + userId,
       imageUrl: "img/post_template.jpg",
       success: function (res) {

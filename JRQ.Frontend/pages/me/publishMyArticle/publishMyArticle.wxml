@@ -2,7 +2,7 @@
 <view class='container container--color-gray'>
   <view class='publisher'>
     <view class='publisher-input'>
-      <textarea placeholder='关于所发内容的信息，如课程或项目描述、或文档下载地址。' bindinput='bindInputValue'></textarea>
+      <textarea placeholder='关于所发内容的信息，如课程或项目描述、或文档下载地址。' bindinput='bindInputValue' maxlength='600'></textarea>
       <view class='publisher-photos'>
         <view wx:for='{{publishPhotos}}' wx:key='*this' class='publisher-photo'>
           <image src='{{item}}'></image>

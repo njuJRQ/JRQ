@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.web.servlet.MultipartProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.MultipartResolver;
@@ -34,9 +35,13 @@ public class MultipartAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public MultipartConfigElement multipartConfigElement() {
-        return this.multipartProperties.createMultipartConfig();
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        //单个文件最大
+        factory.setMaxFileSize("10240000KB"); //KB,MB
+        /// 设置总上传数据总大小
+        factory.setMaxRequestSize("10240000KB");
+        return factory.createMultipartConfig();
     }
-
     @Bean(name = DispatcherServlet.MULTIPART_RESOLVER_BEAN_NAME)
     @ConditionalOnMissingBean(MultipartResolver.class)
     public StandardServletMultipartResolver multipartResolver() {

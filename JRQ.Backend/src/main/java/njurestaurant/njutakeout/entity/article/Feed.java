@@ -15,7 +15,7 @@ public class Feed {
 	@GeneratedValue(generator = "jpa-uuid")
 	private String id; //文章编号
 
-	@Column
+	@Column(length = 600)
 	private String content; //文章内容
 
 	@Column

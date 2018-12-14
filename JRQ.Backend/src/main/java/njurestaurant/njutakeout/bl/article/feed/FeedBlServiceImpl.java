@@ -7,6 +7,7 @@ import njurestaurant.njutakeout.dataservice.article.LikeDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
 import njurestaurant.njutakeout.entity.article.Feed;
 import njurestaurant.njutakeout.entity.user.SendCard;
+import njurestaurant.njutakeout.entity.user.User;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.BoolResponse;
 import njurestaurant.njutakeout.response.InfoResponse;
@@ -90,10 +91,15 @@ public class FeedBlServiceImpl implements FeedBlService {
 	public FeedViewListResponse getFeedViewListBefore(String openid, String id) throws NotExistException {
 		List<SendCard> sendCards = sendCardDao.findAllByReceiverOpenid(openid); //找到用户拥有的所有名片的openid
 		List<String> friendOpenids = new ArrayList<>();
-		for(SendCard sendCard:sendCards) {
-			friendOpenids.add(sendCard.getSenderOpenid());
+//		List<User> userList=userDataService.getAllUsers();
+//		for(SendCard sendCard:sendCards) {
+//			friendOpenids.add(sendCard.getSenderOpenid());
+//		}
+//		friendOpenids.add(openid); //把自己的openid加上
+		List<User> userList=userDataService.getAllUsers();
+		for(User user:userList) {
+			friendOpenids.add(user.getOpenid());
 		}
-		friendOpenids.add(openid); //把自己的openid加上
 
 		List<Feed> feeds = null;
 		if (id.equals("")) {

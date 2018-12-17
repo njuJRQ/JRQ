@@ -261,3 +261,22 @@ function search(){
 }
 
 
+function searchByName(){
+    var text=$("#con2").val();
+    for(var i=0;i<list.length;i++){
+        if(list[i].username==text){
+            $("#your-alert-1").show();
+            document.getElementById("number"+(firstID%5+1)).innerText=list[i].openid;
+            document.getElementById("name"+(firstID%5+1)).innerText=list[i].username;
+            document.getElementById("date"+(firstID%5+1)).innerText=list[i].levelName;
+            $("#your-alert-2").hide();
+            $("#your-alert-3").hide();
+            $("#your-alert-4").hide();
+            $("#your-alert-5").hide();
+            firstID=i-1;
+        }
+    }
+
+}
+
+

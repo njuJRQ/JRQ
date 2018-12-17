@@ -84,6 +84,10 @@ Page({
     articleItem.previewImg(e)
   },
 
+  onClickThisFace: function (e) {
+    articleItem.onClickThisFace(e)
+  },
+
   onPublish: function () {
     wx.navigateTo({
       url: '../me/publishMyArticle/publishMyArticle',

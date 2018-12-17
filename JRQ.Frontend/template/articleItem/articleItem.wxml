@@ -2,7 +2,7 @@
   <!--一篇文章-->
   <view class='article'>
     <!--作者信息-->
-    <view class='writer-info v-center'>
+    <view class='writer-info v-center' bindtap='onClickThisFace' data-id='{{item.writerOpenid}}'>
       <image src='{{item.writerFace}}'></image>
       <text style='font-size: 0.7rem;'>{{item.writerName}}</text>
     </view>

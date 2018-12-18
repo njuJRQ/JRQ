@@ -70,6 +70,7 @@ public class DocumentBlServiceImpl implements DocumentBlService {
 		document.setWriterName(writerName);
 		document.setTimeStamp(System.currentTimeMillis());
 		document.setLikeNum(likeNum);
+		document.setPreview(generatePreviewImage(attachment));
 		documentDataService.saveDocument(document);
 		return new InfoResponse();
 	}

@@ -17,18 +17,25 @@ page {
   border: 0;
   padding: 0;
 }
-.document-head {
+.head {
   padding: 10px;
   background-color: white;
 }
-.document-intro {
+.document {
   margin: 20px 0 0 0;
   padding: 10px;
   background-color: white;
 }
-.document-intro > .detail > text {
-  margin: 3px 0;
+.document__header {
+  color:black; 
+  font-size:1rem; 
+  font-weight:bold;
 }
-.document-intro > content{
+.document__detail {
+  margin: 0 0 10px 0;
   width: 100%;
+  font-size:0.8rem;
+}
+.document__preview {
+  width: auto;
 }

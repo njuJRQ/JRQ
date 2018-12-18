@@ -198,6 +198,7 @@ function getDocument(id) {
     success: (res) => {
       if (res.statusCode == 200) {
         /*console.log(res.data)*/
+        res.data.document.preview = app.globalData.picUrl + res.data.document.preview
         that.setData({
           document: res.data.document
         })

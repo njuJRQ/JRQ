@@ -11,8 +11,21 @@ import njurestaurant.njutakeout.response.article.document.DocumentListResponse;
 import njurestaurant.njutakeout.response.article.document.DocumentResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.icepdf.core.pobjects.*;
+import org.icepdf.core.exceptions.PDFException;
+import org.icepdf.core.exceptions.PDFSecurityException;
+import org.icepdf.core.util.GraphicsRenderingHints;
 
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -28,7 +41,8 @@ public class DocumentBlServiceImpl implements DocumentBlService {
 
 	@Override
 	public InfoResponse addDocument(String title, String content, String attachment, String writerName, long likeNum) {
-		documentDataService.addDocument(new Document(title, content, attachment, writerName, System.currentTimeMillis(), likeNum));
+		String preview = generatePreviewImage(attachment);
+		documentDataService.addDocument(new Document(title, content, attachment, writerName, System.currentTimeMillis(), likeNum, preview));
 		return new InfoResponse();
 	}
 
@@ -92,5 +106,31 @@ public class DocumentBlServiceImpl implements DocumentBlService {
 			documentItems.add(new DocumentItem(document, hasLiked));
 		}
 		return new DocumentListResponse(documentItems);
+	}
+
+	private String generatePreviewImage(String attachment) {
+		org.icepdf.core.pobjects.Document pdfDoc = null;
+		try {
+			float rotation = 0f;
+			//缩略图显示倍数，1表示不缩放，0.5表示缩小到50%
+			float zoom = 0.8f;
+			pdfDoc = new org.icepdf.core.pobjects.Document();
+			pdfDoc.setFile(attachment);
+			BufferedImage image = (BufferedImage)pdfDoc.getPageImage(0, GraphicsRenderingHints.SCREEN,
+					Page.BOUNDARY_CROPBOX, rotation, zoom);
+			Iterator iter = ImageIO.getImageWritersBySuffix("jpg");
+			ImageWriter writer = (ImageWriter)iter.next();
+
+			String previewImage = attachment+"-preview.jpg";
+			FileOutputStream out = new FileOutputStream(new File(previewImage));
+			ImageOutputStream outImage = ImageIO.createImageOutputStream(out);
+
+			writer.setOutput(outImage);
+			writer.write(new IIOImage(image, null, null));
+			return previewImage;
+		} catch (PDFException | IOException | PDFSecurityException | InterruptedException e) {
+			e.printStackTrace();
+			return "";
+		}
 	}
 }

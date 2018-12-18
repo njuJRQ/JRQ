@@ -11,6 +11,7 @@ public class DocumentItem {
 	private String date;//日期
 	private long likeNum;//点赞数
 	private boolean hasLiked; //用户是否已经点赞
+	private String preview; //附件预览图（若附件为PDF则为图片路径，否则为空）
 
 	//注意：管理员调用这个构造方法
 	public DocumentItem(Document document){
@@ -21,6 +22,7 @@ public class DocumentItem {
 		this.writerName = document.getWriterName();
 		this.date = document.getDate();
 		this.likeNum = document.getLikeNum();
+		this.preview = document.getPreview();
 	}
 
 	//注意：用户调用这个构造方法
@@ -33,6 +35,7 @@ public class DocumentItem {
 		this.date = document.getDate();
 		this.likeNum = document.getLikeNum();
 		this.hasLiked = hasLiked;
+		this.preview = document.getPreview();
 	}
 
 	public String getId() {
@@ -97,5 +100,13 @@ public class DocumentItem {
 
 	public void setAttachment(String attachment) {
 		this.attachment = attachment;
+	}
+
+	public String getPreview() {
+		return preview;
+	}
+
+	public void setPreview(String preview) {
+		this.preview = preview;
 	}
 }

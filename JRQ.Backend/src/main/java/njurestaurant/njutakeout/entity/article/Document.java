@@ -32,16 +32,20 @@ public class Document {
 	@Column
 	private long likeNum;//点赞数
 
+	@Column
+	private String preview; //附件预览图（若附件为PDF则为图片路径，否则为空）
+
 	public Document(){
 	}
 
-	public Document(String title, String content, String attachment, String writerName, long timeStamp, long likeNum) {
+	public Document(String title, String content, String attachment, String writerName, long timeStamp, long likeNum, String preview) {
 		this.title = title;
 		this.content = content;
 		this.attachment = attachment;
 		this.writerName = writerName;
 		this.timeStamp = timeStamp;
 		this.likeNum = likeNum;
+		this.preview = preview;
 	}
 
 	public String getId() {
@@ -103,5 +107,13 @@ public class Document {
 
 	public void setAttachment(String attachment) {
 		this.attachment = attachment;
+	}
+
+	public String getPreview() {
+		return preview;
+	}
+
+	public void setPreview(String preview) {
+		this.preview = preview;
 	}
 }

@@ -58,6 +58,9 @@ public class DocumentDataServiceImpl implements DocumentDataService {
 			if (! new File(document.getAttachment()).delete()) {
 				System.err.println("文档附件"+document.getAttachment()+"删除失败");
 			}
+			if (! new File(document.getPreview()).delete()) {
+				System.err.println("文档附件预览图"+document.getPreview()+"删除失败");
+			}
 			documentDao.delete(document);
 		} else {
 			throw new NotExistException("Document ID", id);
@@ -70,6 +73,9 @@ public class DocumentDataServiceImpl implements DocumentDataService {
 		for (Document document:documents) {
 			if (! new File(document.getAttachment()).delete()) {
 				System.err.println("文档附件"+document.getAttachment()+"删除失败");
+			}
+			if (! new File(document.getPreview()).delete()) {
+				System.err.println("文档附件预览图"+document.getPreview()+"删除失败");
 			}
 			documentDao.delete(document);
 		}

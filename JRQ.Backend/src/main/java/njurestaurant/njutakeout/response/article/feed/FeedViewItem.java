@@ -11,6 +11,7 @@ public class FeedViewItem {
 	private String id; //文章编号
 	private String content; //文章内容
 	private List<String> images; //文章图片路径集合（不超过3张）
+	private String writerOpenid; //作者openid
 	private String writerName; //作者名字
 	private String writerFace; //作者头像
 	private String date; //文章发布日期，如"2018-1-1"
@@ -21,6 +22,7 @@ public class FeedViewItem {
 		this.id = feed.getId();
 		this.content = feed.getContent();
 		this.images = feed.getImages();
+		this.writerOpenid = feed.getWriterOpenid();
 		User user = userDataService.getUserByOpenid(feed.getWriterOpenid());
 		this.writerName = user.getUsername();
 		this.writerFace = user.getFace();
@@ -83,5 +85,21 @@ public class FeedViewItem {
 
 	public void setLikeNum(long likeNum) {
 		this.likeNum = likeNum;
+	}
+
+	public String getWriterOpenid() {
+		return writerOpenid;
+	}
+
+	public void setWriterOpenid(String writerOpenid) {
+		this.writerOpenid = writerOpenid;
+	}
+
+	public boolean isHasLiked() {
+		return hasLiked;
+	}
+
+	public void setHasLiked(boolean hasLiked) {
+		this.hasLiked = hasLiked;
 	}
 }

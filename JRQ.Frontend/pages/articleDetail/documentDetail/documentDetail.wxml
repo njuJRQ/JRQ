@@ -17,7 +17,7 @@
     <text class='document__detail column'>{{document.content}}</text>
     <text style='color:black; font-size:1rem; font-weight:bold;'>文档预览</text>
     <view class='div-line'></view>
-    <image class='document__preview' src='{{document.preview}}'></image>
+    <image class='document__preview' mode='widthFix' src='{{document.preview}}' data-src='{{document.preview}}' bindtap='previewImg'></image>
   </view>
   <view class='download' style='margin: 20px'>
     <view wx:if='{{!isDownLoadAttachment}}'>

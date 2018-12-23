@@ -38,14 +38,14 @@ Page({
             title: '您的权限为普通用户，无法下载',
             content: '即将跳转到升级账户页面',
             success: (res) => {
-              if(res.confirm) {
+              if (res.confirm) {
                 wx.navigateTo({
                   url: '/pages/me/updateMe/updateMe',
                 })
               }
             }
           })
-          
+
         }
         else {
           api.downloadFile.call(this, this.data.document.attachment, () => {
@@ -69,6 +69,13 @@ Page({
     wx.openDocument({
       filePath: that.data.savedFilePath,
     })
-  }
+  },
 
+  previewImg: function (event) {
+    var src = event.currentTarget.dataset.src;//获取data-src
+    //图片预览
+    wx.previewImage({
+      urls: [src] // 需要预览的图片http链接列表
+    })
+  },
 })

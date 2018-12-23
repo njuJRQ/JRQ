@@ -42,7 +42,6 @@
   </view>
   <!--广告位-->
   <template class='ad' is='adBar' data='{{ad}}'></template>
-  <view class='div-line'></view>
   <view class="b1" hidden="{{flag}}" bindtap="closeMask">
     <view class="b2">
       <image src="{{jumpAd}}" bindtap="touchMask"></image>
@@ -54,7 +53,7 @@
     </view>
   </view>
   <!--文章列表-->
-  <view style='width: 100%; padding: 0 10px'>
+  <view class='articleListWrapper'>
     <text style='font-size:0.6rem' wx:if='{{searchCondition || searchCondition===""}}'>以下是“{{searchCondition}}”的搜索结果：</text>
     <view wx:for='{{articles}}' wx:key='id'>
       <view class='article' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
@@ -80,7 +79,6 @@
             <image wx:else src='img/unlike.png'></image>
           </view>
         </view>
-        <view class='div-line'></view>
       </view>
     </view>
   </view>

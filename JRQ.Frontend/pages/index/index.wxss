@@ -27,6 +27,15 @@
   width: 100%;
 }
 /*关于文章的属性*/
+.articleListWrapper {
+  width: 100%; 
+  padding: 0 8px;
+}
+.article {
+  margin: 10px 0;
+  padding: 5px 10px;
+  box-shadow: 0 0 10px #E0E0E0
+}
 .article-images > image {
   width: 100px;
   height: 100px;

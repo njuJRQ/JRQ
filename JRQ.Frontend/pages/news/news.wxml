@@ -1,18 +1,19 @@
 <!--pages/news/news.wxml-->
-<view wx:for='{{newsItemList}}' wx:for-item="newsItem">
-  <view class='newsWrapper'>
-    <view class='newsItem'>
-      <text class='newsItem__title'>{{newsItem.title}}</text>
-      <text class='newsItem__content'>{{newsItem.content}}</text>
-      <view class='newsItem__info'>
-        <!--
+<view class='newsItemListWrapper'>
+  <view wx:for='{{newsItemList}}' wx:for-item="newsItem">
+    <view class='newsWrapper'>
+      <view class='newsItem'>
+        <text class='newsItem__title'>{{newsItem.title}}</text>
+        <text class='newsItem__content'>{{newsItem.content}}</text>
+        <view class='newsItem__info'>
+          <!--
         <image class='newsItem__infoImage' src='{{newsItem.writerFace}}'></image>
         -->
-        <text class='newsItem__infoText'>来源:{{newsItem.writerName}}</text>
-        <text class='newsItem__infoText'>类型:{{newsItem.type}}</text>
-        <text class='newsItem__infoText'>{{newsItem.timeStamp}}</text>
+          <text class='newsItem__infoText'>来源:{{newsItem.writerName}}</text>
+          <text class='newsItem__infoText'>类型:{{newsItem.type}}</text>
+          <text class='newsItem__infoText'>{{newsItem.timeStamp}}</text>
+        </view>
       </view>
     </view>
   </view>
-  <view class='div-line'></view>
 </view>

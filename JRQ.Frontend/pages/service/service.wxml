@@ -39,27 +39,25 @@
     <text style='font-size: 0.6rem' wx:if='{{searchCondition || searchCondition===""}}'>以下是“{{searchCondition}}”的搜索结果：</text>
     <view wx:if='{{cards.length != 0}}' >
     <view wx:for='{{cards}}' wx:key='openid'>
-      <view class='card row' bindtap='onClickThisCard' data-id='{{item.openid}}'>
-        <view class='card-main row'>
-          <view class='card-face v-center'>
-            <image src='{{item.face}}'></image>
-          </view>
-          <view class='card-info column'>
-            <view class='row'>
-              <text style='font-size: 0.8rem;'>{{item.username}}</text>
-              <text class='v-center' style='font-size: 0.5rem; color: gray;'>{{item.position}}</text>
+      <view class='cardWrapper' bindtap='onClickThisCard' data-id='{{item.openid}}'>
+        <view class='card__main'>
+          <image class='card__face' src='{{item.face}}'></image>
+          <view class='card__info'>
+            <view class='card__title'>
+              <text class='card__username'>{{item.username}}</text>
+              <text class='card__position'>{{item.position}}</text>
             </view>
-            <view class='row' style='font-size: 0.5rem;'>
-              <text style='color: gray;'>{{item.city}}</text>
-              <text style='color: gray;'>{{item.company}}</text>
+            <view class='card__title' style='font-size: 0.5rem;'>
+              <text class='card__city'>{{item.city}}</text>
+              <text class='card__company'>{{item.company}}</text>
             </view>
             <view class='div-line'></view>
-            <view class='detail'>
+            <view class='card__intro'>
               <text>{{item.intro}}</text>
             </view>
           </view>
         </view>
-        <view class='card-category v-center h-center' style='background-color:{{item.bgColor}}'>
+        <view class='card__category' style='background-color:{{item.bgColor}}'>
           <text>{{item.label}}</text>
         </view>
       </view>

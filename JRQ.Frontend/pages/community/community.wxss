@@ -18,7 +18,7 @@
   align-items: center;
   justify-content: space-between;
   border: 1px rgba(0, 0, 0, 0.103) solid;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .publisher__text {

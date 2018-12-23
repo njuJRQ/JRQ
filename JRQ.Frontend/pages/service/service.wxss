@@ -39,9 +39,9 @@
   display: flex;
   justify-content: space-between;
   margin: 10px;
-  border-radius: 10%;
   min-height: 80px;
-  box-shadow: 0 0 10px #E0E0E0;
+  box-shadow: 0 0 20px #D0D0D0;
+  border-radius: 10px;
 }
 
 .card__main {
@@ -50,7 +50,7 @@
   align-items: center;
   padding: 5px 0 5px 5px;
   background-color: white;
-  border-radius: 5px 0 0 5px;
+  border-radius: 10px 0 0 10px;
 }
 
 .card__face {
@@ -100,7 +100,7 @@
   justify-content: center;
   align-items: center;
   font-size: 0.5rem;
-  border-radius: 0 5px 5px 0;
+  border-radius: 0 10px 10px 0;
   padding: 5px;
 }
 

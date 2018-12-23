@@ -1,35 +1,44 @@
 /*关于文章的属性*/
-.article-images > image {
+.article__image {
   width: 100px;
   height: 100px;
   margin: 2px;
 }
-.article-text {
+.article__content {
+  width: 100%;
+  justify-content: space-between;
   font-size: 0.8rem;
   margin: 5px 0 10px 0;
 }
-.article-info {
-  width: 100%;
+.article__bottom {
+  margin: 5px 0;
+  display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 0.5rem;
 }
-.article-share {
-  margin: 5px 0;
-  justify-content: space-between;
-  font-size: 0.5rem;
+.like {
+  display: flex;
+}
+.like__num {
+  margin: 0 5px 0 0;
+}
+.like__image {
+  width: 15px;
+  height: 15px;
 }
 /*关于文章作者的属性*/
-.writer-info {
-  margin: 3px 0 0 0;
+.writer {
+  display: flex;
+  align-items: center;
+  padding: 5px 0 0 0;
 }
-.writer-info > image {
+.writer__face {
   width: 25px;
   height: 25px;
   margin: 0 5px;
   border-radius: 5px;
 }
-.like-info > image {
-  width: 15px;
-  height: 15px;
-  margin: 5px;
+.writer__name {
+  font-size: 0.7rem;
 }

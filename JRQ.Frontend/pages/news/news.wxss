@@ -4,7 +4,7 @@
 .newsWrapper {
   margin: 10px 8px;
   padding: 10px 10px;
-  box-shadow: 0 0 10px #E0E0E0
+  box-shadow: 0 0 10px #E0E0E0;
 }
 
 .newsItem__title {

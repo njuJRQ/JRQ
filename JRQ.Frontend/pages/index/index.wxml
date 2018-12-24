@@ -3,7 +3,7 @@
 <import src='/template/adBar/adBar.wxml' />
 
 <view class="container container--color-white">
-  <view class='headWrapper' style='background-image: url(img/index-bg1.png); background-size: cover;background-repeat: no-repeat; background-position: bottom'>
+  <view class='headWrapper' style='background-image: url({{bg1}}); background-size: cover;background-repeat: no-repeat; background-position: bottom'>
     <!--搜索框-->
     <template is='searchBar' data='{{placeholder: "搜索文章", searchCondition: searchCondition}}'></template>
     <!--Banner-->

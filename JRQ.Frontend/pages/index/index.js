@@ -2,6 +2,7 @@
 //获取应用实例
 const app = getApp()
 var api = require('../../util/api.js')
+const { bg1 } = require('../../util/data.js')
 
 Page({
   data: {
@@ -52,6 +53,7 @@ Page({
       image: '../../default/default-pic.png',
       link: 'https://www.baidu.com'
     },
+    bg1: bg1,
     currentKind: null,
     searchCondition: null,
     lastId: "",

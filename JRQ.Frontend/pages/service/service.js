@@ -2,6 +2,7 @@
 //获取应用实例
 const app = getApp()
 var api = require('../../util/api.js')
+const { bg1 } = require('../../util/data.js')
 
 Page({
 
@@ -83,6 +84,7 @@ Page({
         bgColor: 'rgba(138, 138, 252, 0.767)'
       }],
       */
+      bg1: bg1,
       searchCondition: null,
       kind: 'capital',
       capitalClassDesc: "",

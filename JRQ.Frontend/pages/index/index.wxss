@@ -47,7 +47,6 @@
 .articleListWrapper {
   width: 100%; 
   padding: 0 8px;
-  text-align: center;
 }
 .article {
   position: relative;

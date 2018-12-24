@@ -6,24 +6,40 @@
 /*本页面css属性*/
 
 /*关于头部导航栏的属性*/
-
-.head {
-  width: 80%;
+.headWrapper {
+  width: 100%;
+  padding: 10px 20px;
+}
+/*搜索栏样式*/
+.search {
+  margin: auto;
+}
+/*导航栏*/
+.navBar {
+  width: 100%;
   display: flex;
   justify-content: space-around;
+  padding: 5px 20px;
 }
-
-.head image {
+.navBar__btn {
+  background-color: #ebeae3;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 5px #ffffff solid;
+  margin: 0;
+  padding: 3px;
+  text-align: center;
+  font-size: 0.8rem;
+}
+.navBar__icon {
+  margin: auto;
+  display: block;
   width: 35px;
   height: 35px;
 }
 
-.head text {
-  font-size: 0.8rem;
-}
-
 .content {
-  margin: 10px 0 0 0;
   width: 100%;
   min-height: 500px;
   text-align: center;
@@ -40,7 +56,7 @@
   justify-content: space-between;
   margin: 10px;
   min-height: 80px;
-  box-shadow: 0 0 20px #D0D0D0;
+  box-shadow: 0 4px 5px #D0D0D0;
   border-radius: 10px;
 }
 
@@ -49,7 +65,7 @@
   display: flex;
   align-items: center;
   padding: 5px 0 5px 5px;
-  background-color: white;
+  background-color: #f2f1f1;
   border-radius: 10px 0 0 10px;
 }
 

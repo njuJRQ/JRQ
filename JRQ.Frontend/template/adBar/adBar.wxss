@@ -3,6 +3,5 @@
   width: 100%;
 }
 .ad > image {
-  width: 350px;
-  height: 120px;
+  width: 300px;
 }

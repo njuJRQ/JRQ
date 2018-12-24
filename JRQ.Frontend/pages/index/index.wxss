@@ -5,68 +5,120 @@
 
 /*本页面css属性*/
 /*关于头部导航栏的属性*/
-.head {
-  width: 80%;
+.headWrapper {
+  width: 100%;
+  padding: 10px 20px;
+}
+
+/*搜索栏样式*/
+.search {
+  margin: auto;
+}
+
+/*导航栏*/
+.navBar {
+  width: 100%;
   display: flex;
   justify-content: space-around;
+  padding: 5px 20px;
 }
-.head image {
-  width: 35px;
-  height: 35px;
-}
-.head text {
+.navBar__btn {
+  background-color: #ebeae3;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 5px #ffffff solid;
+  margin: 0;
+  padding: 3px;
+  text-align: center;
   font-size: 0.8rem;
 }
-.ad {
-  margin: 0 0 10px 0;
-}
-.module:active {
-  background-color: #F0F0F0;
+.navBar__icon {
+  margin: auto;
+  display: block;
+  width: 35px;
+  height: 35px;
 }
 .modal__image {
   width: 100%;
 }
+
 /*关于文章的属性*/
 .articleListWrapper {
   width: 100%; 
   padding: 0 8px;
+  text-align: center;
 }
 .article {
-  margin: 10px 0;
-  padding: 5px 10px;
-  box-shadow: 0 0 20px #D0D0D0;
+  position: relative;
+  margin: 30px 0 0 0;
+  padding: 15px 10px 5px 10px;
+  box-shadow: 0 5px 5px #D0D0D0;
   border-radius: 10px;
+  background-color: #f4f3f0;
 }
-.article-images > image {
-  width: 100px;
-  height: 100px;
-  margin: 2px;
-}
-.article image {
+.article__banner {
   width: 100%;
   max-height: 150px;
   box-sizing: border-box;
 }
-.article-text {
-  font-size: 14px;
-  margin: 10px 0;
+.article__title {
+  position: absolute;
+  left: -5px;
+  top: -15px;
+  background-color: #f0db8b;
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 33% 100%, 0 70%);
+  border-radius: 10px;
+  width: 200px;
+  height: 60px;
+  font-size: 1rem;
+  padding: 5px 10px;
 }
-.article-info {
-  width: 100%;
-  justify-content: space-between;
-  font-size: 10px;
+.article__like {
+  display: flex;
+  justify-content: flex-end; 
 }
-/*关于文章作者的属性*/
-.writer-info > image {
-  width: 25px;
-  height: 25px;
-  margin: 5px;
+.article__likeClick {
+  margin: 0 0 10px 0;
+  display: flex;
+  align-items: center;
 }
-.like-info > image {
+.article__likeImage {
   width: 15px;
   height: 15px;
   margin: 5px;
 }
+.article__content {
+  width: 100%;
+  justify-content: space-between;
+  font-size: 10px;
+}
+.article__bottom {
+  position: absolute;
+  bottom: -10px;
+  right: -5px;
+  background-color: #e1ded5;
+  clip-path: polygon(0 60%, 60% 0, 100% 30%, 100% 100%, 0 100%);
+  border-radius: 10px;
+  width: 100px;
+  height: 50px;
+}
+
+/*关于文章作者的属性*/
+.writer {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+.writer__face {
+  width: 25px;
+  height: 25px;
+  border-radius: 5px;
+}
+.writer__name {
+  margin: 0 0 0 10px;
+}
+
 .b1 {
   position: fixed;
   width: 100%;
@@ -77,6 +129,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  z-index: 1000;
 }
 /* 设置展示图片大小 */
 .b2 {

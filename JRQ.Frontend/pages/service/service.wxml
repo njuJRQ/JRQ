@@ -3,65 +3,56 @@
 <import src='/template/adBar/adBar.wxml' />
 
 <view class='container container--color-white'>
-  <!--搜索框-->
-  <template is='searchBar' data='{{placeholder: "搜索相关业务人员", searchCondition: searchCondition}}'></template>
-  <!--Banner-->
-  <view class='head'>
-    <view class='module column' bindtap='showCapitalClass'>
-      <view class='h-center'>
-        <image src='img/capital.png'></image>
-      </view>
-      <view class='h-center'>
+
+  <view class='headWrapper' style='background-image: url(img/service-bg1.png); background-size: cover;background-repeat: no-repeat; background-position: bottom'>
+    <!--搜索框-->
+    <template is='searchBar' data='{{placeholder: "搜索相关业务人员", searchCondition: searchCondition}}'></template>
+    <!--Banner-->
+    <view class='navBar'>
+      <view class='navBar__btn' bindtap='showCapitalClass'>
+        <image class='navBar__icon' src='img/capital.png'></image>
         <text>{{capitalClassDesc}}</text>
       </view>
-    </view>
-    <view class='module column' bindtap='showStockClass'>
-      <view class='h-center'>
-        <image src='img/stock.png'></image>
-      </view>
-      <view class='h-center'>
+      <view class='navBar__btn' bindtap='showStockClass'>
+        <image class='navBar__icon' src='img/stock.png'></image>
         <text>{{stockClassDesc}}</text>
       </view>
-    </view>
-    <view class='module column' bindtap='showMergeClass'>
-      <view class='h-center'>
-        <image src='img/merge.png'></image>
-      </view>
-      <view class='h-center'>
+      <view class='navBar__btn' bindtap='showMergeClass'>
+        <image class='navBar__icon' src='img/merge.png'></image>
         <text>{{mergeClassDesc}}</text>
       </view>
     </view>
+    <!--广告位-->
+    <template class='ad' is='adBar' data='{{ad}}'></template>
   </view>
-  <!--广告位-->
-  <template is='adBar' data='{{ad}}'></template>
   <!--业务人员列表-->
   <view class='content'>
     <text style='font-size: 0.6rem' wx:if='{{searchCondition || searchCondition===""}}'>以下是“{{searchCondition}}”的搜索结果：</text>
-    <view wx:if='{{cards.length != 0}}' >
-    <view wx:for='{{cards}}' wx:key='openid'>
-      <view class='cardWrapper' bindtap='onClickThisCard' data-id='{{item.openid}}'>
-        <view class='card__main'>
-          <image class='card__face' src='{{item.face}}'></image>
-          <view class='card__info'>
-            <view class='card__title'>
-              <text class='card__username'>{{item.username}}</text>
-              <text class='card__position'>{{item.position}}</text>
-            </view>
-            <view class='card__title' style='font-size: 0.5rem;'>
-              <text class='card__city'>{{item.city}}</text>
-              <text class='card__company'>{{item.company}}</text>
-            </view>
-            <view class='div-line'></view>
-            <view class='card__intro'>
-              <text>{{item.intro}}</text>
+    <view wx:if='{{cards.length > 0}}'>
+      <view wx:for='{{cards}}' wx:key='openid'>
+        <view class='cardWrapper' bindtap='onClickThisCard' data-id='{{item.openid}}'>
+          <view class='card__main'>
+            <image class='card__face' src='{{item.face}}'></image>
+            <view class='card__info'>
+              <view class='card__title'>
+                <text class='card__username'>{{item.username}}</text>
+                <text class='card__position'>{{item.position}}</text>
+              </view>
+              <view class='card__title' style='font-size: 0.5rem;'>
+                <text class='card__city'>{{item.city}}</text>
+                <text class='card__company'>{{item.company}}</text>
+              </view>
+              <view class='div-line'></view>
+              <view class='card__intro'>
+                <text>{{item.intro}}</text>
+              </view>
             </view>
           </view>
-        </view>
-        <view class='card__category' style='background-color:{{item.bgColor}}'>
-          <text>{{item.label}}</text>
+          <view class='card__category' style='background-color:{{item.bgColor}}'>
+            <text>{{item.label}}</text>
+          </view>
         </view>
       </view>
-    </view>
     </view>
     <view wx:else style='margin: 20px 0 0 0'>
       <text>暂无相关业务人员</text>

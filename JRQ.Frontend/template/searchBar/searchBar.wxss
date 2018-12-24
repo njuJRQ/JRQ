@@ -1,7 +1,7 @@
 /* template/searchBar/searchBar.wxss */
 /*关于搜索栏的属性*/
 .search {
-  width: 85%;
+  width: 90%;
   margin: 10px 0 0 0;
   padding: 0 10px;
   background: white;

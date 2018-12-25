@@ -37,5 +37,6 @@ page {
   font-size:0.8rem;
 }
 .document__preview {
-  width: auto;
+  width: 100%;
+  margin: auto;
 }

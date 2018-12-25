@@ -6,7 +6,9 @@ text {
 }
 .jrq__button {
   background-color: #243264;
-  color: #FFF;
+  color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #808080;
 }
 .dot {
   width: 4px;

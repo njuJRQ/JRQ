@@ -35,6 +35,12 @@ function getAbstractList(kind, openid, lastId, lastIdType) {
       articles.forEach((article) => {
         article.images = article.images.map((image) => app.globalData.picUrl + image)
         article.writerFace = app.globalData.picUrl + article.writerFace
+        switch (article.kind){
+          case 'course': article.kindName = "课程"; break;
+          case 'document': article.kindName = "文档"; break;
+          case 'project': article.kindName = "项目"; break;
+          default: break;
+        }
       })
       that.data.articles = that.data.articles.concat(articles)
       that.data.lastId = articles[articles.length - 1].id
@@ -197,7 +203,6 @@ function getDocument(id) {
     method: 'GET',
     success: (res) => {
       if (res.statusCode == 200) {
-        /*console.log(res.data)*/
         res.data.document.preview = app.globalData.picUrl + res.data.document.preview
         that.setData({
           document: res.data.document

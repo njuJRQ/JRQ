@@ -10,6 +10,7 @@ import njurestaurant.njutakeout.response.article.document.DocumentItem;
 import njurestaurant.njutakeout.response.article.document.DocumentListResponse;
 import njurestaurant.njutakeout.response.article.document.DocumentResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.icepdf.core.pobjects.*;
 import org.icepdf.core.exceptions.PDFException;
@@ -132,6 +133,19 @@ public class DocumentBlServiceImpl implements DocumentBlService {
 		} catch (PDFException | IOException | PDFSecurityException | InterruptedException e) {
 			e.printStackTrace();
 			return "";
+		}
+	}
+
+	//定时任务：每天14:25点自动为没有附件预览图的文档生成预览图（用于为以前在数据库中的文档附件生成预览图）
+//	@Scheduled(cron = "0 25 14 * * ?")
+	private void genPreviews() {
+		List<Document> documents = documentDataService.getAllDocuments();
+		for (Document document: documents) {
+			if ((!document.getAttachment().equals("")) && document.getPreview()==null) {
+				//若此文档有附件，但是预览图为空，则为它生成预览图
+				document.setPreview(generatePreviewImage(document.getAttachment()));
+				documentDataService.saveDocument(document);
+			}
 		}
 	}
 }

@@ -17,8 +17,7 @@ Page({
       likeNum: 999, //点赞数
       video: 'http://www.w3school.com.cn/i/movie.ogg', //视屏url
       price: 998, //价格
-    },
-    isOwnCourse: false
+    }
   },
 
   /**
@@ -28,7 +27,7 @@ Page({
     var that = this
     api.getLevelList.call(this, (levels) => {
       levels.forEach((level) => {
-        console.log(level)
+        /*console.log(level)*/
         switch (level.name) {
           case "298": that.data.discount298 = level.courseDiscountedRatio; break;
           case "998": that.data.discount998 = level.courseDiscountedRatio; break;
@@ -37,7 +36,11 @@ Page({
       })
       that.setData(that.data)
     })
-    api.getMyCourse.call(this, app.getOpenid(), options.id)
+    api.getMyCourse(app.getOpenid(), options.id, (course) => {
+      this.setData({
+        course: course
+      })
+    })
   },
 
   //购买该课程

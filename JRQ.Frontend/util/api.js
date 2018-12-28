@@ -35,7 +35,7 @@ function getAbstractList(kind, openid, lastId, lastIdType) {
       articles.forEach((article) => {
         article.images = article.images.map((image) => app.globalData.picUrl + image)
         article.writerFace = app.globalData.picUrl + article.writerFace
-        switch (article.kind){
+        switch (article.kind) {
           case 'course': article.kindName = "课程"; break;
           case 'document': article.kindName = "文档"; break;
           case 'project': article.kindName = "项目"; break;
@@ -107,16 +107,16 @@ function getFeedList(openid, id) {
       wx.hideLoading()
       /*console.log(res)*/
       if (res.statusCode == 200) {
-      res.data.feedViews.forEach((article) => {
-        article.writerFace = app.globalData.picUrl + article.writerFace
-        article.images = article.images.map((image) => {
-          return app.globalData.picUrl + image
+        res.data.feedViews.forEach((article) => {
+          article.writerFace = app.globalData.picUrl + article.writerFace
+          article.images = article.images.map((image) => {
+            return app.globalData.picUrl + image
+          })
         })
-      })
-      that.data.articles = that.data.articles.concat(res.data.feedViews)
-      var articles = that.data.articles
-      that.data.lastId = articles[articles.length - 1].id
-      that.setData(that.data)
+        that.data.articles = that.data.articles.concat(res.data.feedViews)
+        var articles = that.data.articles
+        that.data.lastId = articles[articles.length - 1].id
+        that.setData(that.data)
       } else if (res.statusCode == 500) {
         wx.showModal({
           title: res.data.error,
@@ -156,7 +156,6 @@ function getCourse(id) {
 }
 
 function getMyCourse(openid, courseId, then) {
-  var that = this
   wx.showLoading({
     title: '加载中',
   })
@@ -173,18 +172,15 @@ function getMyCourse(openid, courseId, then) {
     method: 'GET',
     success: (res) => {
       wx.hideLoading()
-      /*console.log('getMyCourse', res)*/
-      that.data.course = res.data.course
-      that.data.course.image = app.globalData.picUrl + that.data.course.image
-      //判断是否购买了课程
-      if (that.data.course.hasBought) {
-        that.data.isOwnCourse = true
-        that.data.course.video = app.globalData.picUrl + that.data.course.video
-      } else {
-        that.data.isOwnCourse = false
+      console.log(res)
+      if (res.statusCode == 200) {
+        console.log(200)
+        let course = res.data.course
+        course.image = app.globalData.picUrl + course.image
+        course.video = app.globalData.picUrl + course.video
+        console.log(course)
+        then(course)
       }
-      that.setData(that.data)
-      if (then) then()
     }
   })
 }
@@ -866,15 +862,15 @@ function sendMyCard(senderOpenid, receiverOpenid, page, formId, data, emphasisKe
       success: (res) => {
         if (res.statusCode == 200) {
 
-          if(res.data.ok){
+          if (res.data.ok) {
             console.log(res)
             wx.hideLoading()
             wx.showToast({
               title: '发送名片成功',
             })
           }
-          else{
-            if(then) then(res.data)
+          else {
+            if (then) then(res.data)
           }
         }
       }
@@ -919,7 +915,7 @@ function getMyUser(openid, then) {
     },
     method: 'GET',
     success: (res) => {
-      if(res.statusCode == 200){
+      if (res.statusCode == 200) {
         then(res.data.user)
       }
     }
@@ -968,7 +964,7 @@ function getMyEnterpriseAdmin(openid) {
   })
 }
 
-function getMyCardLimits (openid) {
+function getMyCardLimits(openid) {
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "getMyUser",
@@ -989,7 +985,7 @@ function getMyCardLimits (openid) {
   })
 }
 
-function getLevelList (then) {
+function getLevelList(then) {
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "getLevelList",
@@ -999,7 +995,7 @@ function getLevelList (then) {
     },
     method: 'GET',
     success: (res) => {
-      if(res.statusCode == 200) {
+      if (res.statusCode == 200) {
         if (then) then(res.data.levels)
       }
     }
@@ -1016,14 +1012,14 @@ function getPrivilegeList(then) {
     },
     method: 'GET',
     success: (res) => {
-      if(res.statusCode == 200) {
+      if (res.statusCode == 200) {
         if (then) then(res.data.privileges)
       }
     }
   })
 }
 
-function isOtherCardAccessible (userOpenid, otherOpenid, then) {
+function isOtherCardAccessible(userOpenid, otherOpenid, then) {
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "isOtherCardAccessible",
@@ -1074,7 +1070,7 @@ function getMyCourseListBefore(openid, lastCourseId) {
   })
 }
 
-function isAdminUsernameExistent (username, then) {
+function isAdminUsernameExistent(username, then) {
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "isAdminUsernameExistent",
@@ -1118,7 +1114,7 @@ function getWxQrCode(then) {
           wx.getImageInfo({
             src: app.globalData.picUrl + res.data.imagePath,
             success: (res) => {
-              if (then) then({ imagePath: res.path})
+              if (then) then({ imagePath: res.path })
             }
           })
         }
@@ -1127,7 +1123,7 @@ function getWxQrCode(then) {
   })
 }
 
-function getMySubmittedEnterprise (openid, then) {
+function getMySubmittedEnterprise(openid, then) {
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "getMySubmittedEnterprise",
@@ -1147,7 +1143,7 @@ function getMySubmittedEnterprise (openid, then) {
   })
 }
 
-function getClassificationDescriptionList (then) {
+function getClassificationDescriptionList(then) {
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "getClassificationDescriptionList",
@@ -1164,7 +1160,7 @@ function getClassificationDescriptionList (then) {
   })
 }
 
-function getNewsListBefore (newsId, then) {
+function getNewsListBefore(newsId, then) {
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "getNewsListBefore",

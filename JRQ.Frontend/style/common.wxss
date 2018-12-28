@@ -10,6 +10,10 @@ text {
   border-radius: 5px;
   box-shadow: 0 0 5px #808080;
 }
+.jrq__button--color-red {
+  color: #FFF;
+  background-color: #D62F36;
+}
 .dot {
   width: 4px;
   height: 4px;

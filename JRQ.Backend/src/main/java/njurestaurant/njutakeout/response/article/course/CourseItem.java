@@ -39,7 +39,7 @@ public class CourseItem {
 		if(hasBought) {
 			this.video = course.getVideo();
 		} else {
-			this.video = "";
+			this.video = course.getPreview();
 		}
 		this.price = course.getPrice();
 		this.hasBought = hasBought;

@@ -35,10 +35,13 @@ public class Course {
 	@Column
 	private int price;
 
+	@Column
+	private String preview; //视频预览，前1分钟
+
 	public Course(){
 	}
 
-	public Course(String title, String image, String writerName, long timeStamp, long likeNum, String video, int price) {
+	public Course(String title, String image, String writerName, long timeStamp, long likeNum, String video, int price, String preview) {
 		this.title = title;
 		this.image = image;
 		this.writerName = writerName;
@@ -46,6 +49,7 @@ public class Course {
 		this.likeNum = likeNum;
 		this.video = video;
 		this.price = price;
+		this.preview = preview;
 	}
 
 	public String getId() {
@@ -115,5 +119,13 @@ public class Course {
 
 	public void setTimeStamp(long timeStamp) {
 		this.timeStamp = timeStamp;
+	}
+
+	public String getPreview() {
+		return preview;
+	}
+
+	public void setPreview(String preview) {
+		this.preview = preview;
 	}
 }

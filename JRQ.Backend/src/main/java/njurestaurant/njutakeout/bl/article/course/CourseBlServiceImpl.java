@@ -15,8 +15,10 @@ import njurestaurant.njutakeout.response.article.course.CourseItem;
 import njurestaurant.njutakeout.response.article.course.CourseListResponse;
 import njurestaurant.njutakeout.response.article.course.CourseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +41,8 @@ public class CourseBlServiceImpl implements CourseBlService {
 
 	@Override
 	public InfoResponse addCourse(String title, String image, String writerName, long likeNum, String video, int price) {
-		courseDataService.addCourse(new Course(title, image, writerName, System.currentTimeMillis(), likeNum, video, price));
+		String preview = generatePreviewVideo(video);
+		courseDataService.addCourse(new Course(title, image, writerName, System.currentTimeMillis(), likeNum, video, price, preview));
 		return new InfoResponse();
 	}
 
@@ -62,11 +65,27 @@ public class CourseBlServiceImpl implements CourseBlService {
 	public InfoResponse updateCourse(String id, String title, String image, String writerName, long likeNum, String video, int price) throws NotExistException {
 		Course course = courseDataService.getCourseById(id);
 		course.setTitle(title);
-		course.setImage(image);
+		//若课程图片发生了变化，则删除旧图片
+		if (!course.getImage().equals(image)) {
+			if (! new File(course.getImage()).delete()) {
+				System.err.println("课程图片"+course.getImage()+"删除失败");
+			}
+			course.setImage(image);
+		}
 		course.setWriterName(writerName);
 		course.setTimeStamp(System.currentTimeMillis());
 		course.setLikeNum(likeNum);
-		course.setVideo(video);
+		//若课程视频发生了变化，则删除旧视频，并重新生成预览视频
+		if (!course.getVideo().equals(video)) {
+			if (! new File(course.getVideo()).delete()) {
+				System.err.println("课程视频"+course.getVideo()+"删除失败");
+			}
+			if (! new File(course.getPreview()).delete()) {
+				System.err.println("课程预览视频"+course.getPreview()+"删除失败");
+			}
+			course.setVideo(video);
+			course.setPreview(generatePreviewVideo(video));
+		}
 		course.setPrice(price);
 		courseDataService.saveCourse(course);
 		return new InfoResponse();
@@ -130,5 +149,48 @@ public class CourseBlServiceImpl implements CourseBlService {
 			}
 		}
 		return hasBought;
+	}
+
+	private static String generatePreviewVideo(String videoPath) {
+		try {
+			System.out.println("正在为"+videoPath+"生成预览视频...");
+			int dotIndex = videoPath.lastIndexOf('.'); //'.'最后出现的位置
+			String suffix = videoPath.substring(dotIndex>0?dotIndex:videoPath.length()); //视频文件后缀名（包括.），若不存在.则为空串
+			String previewPath = videoPath + "-preview" + suffix; //预览视频路径
+			//使用FFmpeg将原视频切割出前60秒：ffmpeg -ss 00:00:00 -i input.mp4 -c copy -t 60 output.mp4
+			String []args = new String[] {"ffmpeg", "-ss", "00:00:00", "-i", videoPath, "-c", "copy", "-t", "60", previewPath};
+			Process process = Runtime.getRuntime().exec(args);
+			//打印标准输出流
+			BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			String line = null;
+			while ((line = in.readLine()) != null) {
+				System.out.println(line);
+			}
+			in.close();
+			//打印标准错误流
+			BufferedReader err = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+			while ((line = err.readLine()) != null) {
+				System.out.println(line);
+			}
+			err.close();
+			System.out.println(videoPath+"的预览视频已生成，路径为"+previewPath);
+			return previewPath;
+		} catch (IOException e) {
+			System.out.println("为"+videoPath+"生成预览的过程中出现错误");
+			e.printStackTrace();
+			return "";
+		}
+	}
+
+	//定时任务：每天10:45自动为没有预览视频的课程生成预览视频（用于为以前在数据库中的课程生成预览视频）
+//	@Scheduled(cron = "0 45 10 * * ?")
+	private void genPreviewVideos() {
+		List<Course> courses = courseDataService.getAllCourses();
+		for(Course course:courses) {
+			if(course.getVideo()!=null && !course.getVideo().equals("") && course.getPreview()==null) {
+				course.setPreview(generatePreviewVideo(course.getVideo()));
+				courseDataService.saveCourse(course);
+			}
+		}
 	}
 }

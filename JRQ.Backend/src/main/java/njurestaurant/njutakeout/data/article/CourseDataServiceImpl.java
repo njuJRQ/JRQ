@@ -61,6 +61,9 @@ public class CourseDataServiceImpl implements CourseDataService {
 			if (! new File(course.getVideo()).delete()) {
 				System.err.println("课程视频"+course.getVideo()+"删除失败");
 			}
+			if (! new File(course.getPreview()).delete()) {
+				System.err.println("课程预览视频"+course.getPreview()+"删除失败");
+			}
 			courseDao.delete(course);
 		} else {
 			throw new NotExistException("Course ID", id);
@@ -76,6 +79,9 @@ public class CourseDataServiceImpl implements CourseDataService {
 			}
 			if (! new File(course.getVideo()).delete()) {
 				System.err.println("课程视频"+course.getVideo()+"删除失败");
+			}
+			if (! new File(course.getPreview()).delete()) {
+				System.err.println("课程预览视频"+course.getPreview()+"删除失败");
 			}
 			courseDao.delete(course);
 		}

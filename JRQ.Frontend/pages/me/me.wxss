@@ -1,39 +1,12 @@
 /* pages/me/me.wxss */
 @import '/style/common.wxss';
+@import '/template/publishBar/publishBar.wxss';
 
 /*本页面css属性*/
 
 .header {
-  padding: 10px;
-  width: 100%;
-}
-
-/*关于发布栏的属性*/
-
-.publisher {
-  width: 100%;
-  padding: 5px 10px 5px 10px;
-  background: white;
-  justify-content: space-between;
-  border: 1px rgba(0, 0, 0, 0.1) solid;
-  border-radius: 10px;
-}
-
-.publisher {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-}
-
-.publisher__text {
-  padding: 3px 0 3px 10px;
-  font-size: 0.7rem;
-}
-
-.publisher__camera {
-  width: 20px;
-  height: 20px;
+  margin: 10px;
+  width: 95%;
 }
 
 /*关于我的名片的属性*/
@@ -43,75 +16,88 @@
   flex-direction: column;
   margin: 10px 0 0 0;
   padding: 10px;
-  width: 100%;
-  background-color: white;
 }
-
-.card__face {
-  margin: 0 20px 0 0;
-  width: 80px;
-  height: 80px;
-  border-radius: 5px;
-}
-
 .card__main {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-
-.card__info {
-  font-size: 0.8rem;
+.card__left {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px #ffffff solid;
+  box-shadow: 0 0 25px #c4a966;
 }
-
+.card__right {
+  margin: 0 0 0 20px;
+  font-size: 0.8rem;
+  line-height: 1.4rem;
+}
 .card__detail {
   display: flex;
   align-items: center;
 }
-
 .card__detail--wrapper {
   margin: 0 0 10px 0;
 }
-
 .card__name {
   display: inline-block;
   font-size: 1rem;
-  color: #252d47;
+  font-weight: bold;
+  color: #927912;
 }
-
 .card__medal {
   display: inline-block;
   margin: 0 0 0 5px;
   width: 20px;
   height: 20px;
 }
-
+.card__text {
+  display: block;
+  color: #927912;
+}
 .card__intro {
   font-size: 0.8rem;
+  color: #927912;
 }
-
 .card__sendButton {
-  margin: 15px 0 0 0;
-  width: 100%;
+  margin: 5px 10px 10px 10px;
   border-radius: 5px;
 }
 
 /*关于更多和设置的属性*/
-
-/*panel*/
-
 .panel {
-  width: 100%;
-  margin: 10rpx 0 0 0;
+  position: relative;
+  width: 95%;
+  margin: 20px 0;
+  padding: 10px 0 0 0;
 }
-
-.panel__more, .panel__setting {
-  background: white;
-  padding: 1px 15px;
+.panel__decorator {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 0;
+  width: 50%;
+  height: 20px;
+  background-color: #edc681;
+  border-radius: 20px;
+  padding: 5px 10px;
+  box-shadow: 0 0 10px #a0a0a0;
+  left: -30%;
 }
-
+.panel__name {
+  font-size: 0.8rem;
+  color: #927912;
+  font-weight: bold;
+  margin-left: auto;
+}
 .panel__setting {
-  margin: 30px 0;
+  padding: 10px 15px 5px 15px;
+}
+.panel__more {
+  margin: 20px 0 0 0;
+  padding: 5px 15px;
 }
 
 /* navigator*/
@@ -126,6 +112,7 @@
 
 .navigator__text {
   font-size: 0.8rem;
+  color: #927912;
 }
 
 .navigator__arrow {

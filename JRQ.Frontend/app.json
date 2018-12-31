@@ -17,7 +17,9 @@
     "pages/me/pay/pay",
     "pages/me/myEnterprise/myEnterprise",
     "pages/me/createPost/createPost",
-    "pages/news/news"
+    "pages/news/news",
+    "template/likeIcon/likeIcon",
+    "template/publishBar/publishBar"
   ],
   "window": {
     "backgroundTextStyle": "light",

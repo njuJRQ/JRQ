@@ -2,10 +2,21 @@ view {
   box-sizing: border-box;
 }
 text {
-  color: gray;
+  color: #5e645a;
+}
+.jrq__block {
+  box-shadow: 0 5px 20px #e0e0e0;
+  border-radius: 10px;
+  background-color: #f7f1e5;
+}
+.jrq__words {
+  font-weight: bold;
+  font-family: HYYaKuHeiW;
+  color: #b98c49;
+  font-size: 0.8rem;
 }
 .jrq__button {
-  background-color: #243264;
+  background-color: #c78f21;
   color: #ffffff;
   border-radius: 5px;
   box-shadow: 0 0 5px #808080;

@@ -1,13 +1,9 @@
 <!--pages/community/community.wxml-->
-<import src='/template/articleItem/articleItem.wxml' />
+<import src='/template/articleItem/articleItem.wxml'></import>
+<import src='/template/publishBar/publishBar.wxml'></import>
 
 <view class='container container--color-white'>
-  <view class='publisherWrapper'>
-    <view class='publisher' bindtap='onPublish'>
-      <text class='publisher__text'>发布业务合作、商业资讯或日常信息...</text>
-      <image class='publisher__camera' src=' img/camera.png'></image>
-    </view>
-  </view>
+  <template is='publishBar'></template>
   <view wx:if='{{articles.length > 0}}' class='articleListWrapper'>
     <view wx:for='{{articles}}' wx:key='id'>
       <template is='articleItem' data='{{item}}'></template>

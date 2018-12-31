@@ -8,35 +8,61 @@
 /*关于头部导航栏的属性*/
 .headWrapper {
   width: 100%;
-  padding: 10px 20px;
+  padding: 50px 20px 10px 20px;
 }
+
 /*搜索栏样式*/
 .search {
   margin: auto;
 }
-/*导航栏*/
+.search__keywords {
+  font-weight: bold;
+  font-family: HYYaKuHeiW;
+  line-height: 2rem;
+  color: #b98c49;
+  font-size: 0.8rem;
+}
+
+/*广告栏样式*/
+.ad {
+  margin: 10px auto;
+}
+
+/*导航栏样式*/
 .navBar {
-  width: 100%;
+  width: 150px;
   display: flex;
-  justify-content: space-around;
-  padding: 5px 20px;
+  justify-content: space-between;
+  align-items: center;
+  float: right;
+  box-sizing: content-box;
 }
 .navBar__btn {
-  background-color: #ebeae3;
-  width: 70px;
-  height: 70px;
   border-radius: 50%;
-  border: 5px #ffffff solid;
-  margin: 0;
-  padding: 3px;
+  background: inherit;
+  border: 5px inherit solid;
+  padding: 1px;
   text-align: center;
   font-size: 0.8rem;
+}
+.navBar__btn-state--chosen {
+  border: 5px #ebbc6a solid;
+}
+.navBar__btn-state--chosen::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 4px;
+  background-color: #ebbc6a;
+  transform: translate(-5px,3px);
 }
 .navBar__icon {
   margin: auto;
   display: block;
   width: 35px;
   height: 35px;
+  border-radius: 50%;
 }
 
 .content {
@@ -44,27 +70,40 @@
   min-height: 500px;
 }
 
-.module:active {
-  background-color: #f0f0f0;
-}
-
 /*关于业务卡片的属性*/
 
 .cardWrapper {
+  position: relative;
   display: flex;
   justify-content: space-between;
-  margin: 10px;
+  margin: 30px 10px;
   min-height: 80px;
-  box-shadow: 0 4px 5px #D0D0D0;
-  border-radius: 10px;
 }
-
+.card__decorator {
+  position: absolute;
+  top: -10px;
+  width: 50%;
+  height: 20px;
+  background-color: #edc681;
+  border-radius: 20px;
+  padding: 5px 10px;
+  box-shadow: 0 0 10px #a0a0a0;
+  left: -23%;
+  display: flex;
+  align-items: center;
+}
+.card__kindName {
+  color: #927912;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-left: auto;
+}
 .card__main {
   width: 85%;
   display: flex;
   align-items: center;
-  padding: 5px 0 5px 5px;
-  background-color: #f2f1f1;
+  padding: 10px 0 5px 5px;
+  background-color: inherit;
   border-radius: 10px 0 0 10px;
 }
 
@@ -88,6 +127,8 @@
   display: inline-block;
   max-width: 9rem;
   font-size: 0.8rem;
+  font-weight: bold;
+  color: #927912;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -97,7 +138,7 @@
   display: inline-block;
   margin: 0 0 0 5px;
   font-size: 0.5rem;
-  color: gray;
+  color: #927912;
   max-width: 7rem;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -107,6 +148,7 @@
 .card__city, .card__company {
   display: inline;
   margin: 0 5px 0 0;
+  color: #927912;
 }
 
 .card__category {
@@ -123,6 +165,7 @@
 .card__category text {
   font-size: 0.8rem;
   color: white;
+  font-weight: bold;
 }
 
 .card__intro {
@@ -133,4 +176,5 @@
   text-overflow: ellipsis;
   text-align: left;
   font-size: 0.5rem;
+  color: #927912;
 }

@@ -84,12 +84,13 @@ Page({
         bgColor: 'rgba(138, 138, 252, 0.767)'
       }],
       */
-      bg1: bg1,
-      searchCondition: null,
-      kind: 'capital',
-      capitalClassDesc: "",
-      stockClassDesc: "",
-      mergeClassDesc: ""
+
+    searchCondition: null,
+    currentKind: 'capital',
+    capitalClassDesc: "",
+    stockClassDesc: "",
+    mergeClassDesc: "",
+    bg1: bg1,
   },
 
   /**
@@ -100,13 +101,14 @@ Page({
     api.getClassificationDescriptionList.call(this, (res) => {
       res.classificationDescriptionItems.forEach((item) => {
         switch (item.workClass) {
-          case "stock": that.data.stockClassDesc = item.description; break;
-          case "merge": that.data.mergeClassDesc = item.description; break;
-          case "capital": that.data.capitalClassDesc = item.description; break;
+          case "stock": this.data.stockClassDesc = item.description; break;
+          case "merge": this.data.mergeClassDesc = item.description; break;
+          case "capital": this.data.capitalClassDesc = item.description; break;
           default: break;
         }
       })
-      that.setData(that.data)
+      this.setData(this.data)
+      this.showCapitalClass();
     })
     this.setData({
       searchCondition: null
@@ -116,25 +118,25 @@ Page({
         ad: res.ad
       })
     })
-    this.showCapitalClass();
   },
 
   onShow: function (options) {
     this.setData({
       searchCondition: null
     })
-    switch(this.data.kind) {
+    switch (this.data.currentKind) {
       case 'capital': this.showCapitalClass(); break;
       case 'stock': this.showStockClass(); break;
       case 'merge': this.showMergeClass(); break;
       default: break;
     }
   },
-  
+
   //展示资金类
-  showCapitalClass: function(event) {
+  showCapitalClass: function (event) {
     this.setData({
-      kind: 'capital',
+      currentKind: 'capital',
+      currentKindName: this.data.capitalClassDesc,
       searchCondition: null
     })
     api.getPersonList.call(this, 'capital')
@@ -143,7 +145,8 @@ Page({
   //展示股票类
   showStockClass: function () {
     this.setData({
-      kind: 'stock',
+      currentKind: 'stock',
+      currentKindName: this.data.stockClassDesc,
       searchCondition: null
     })
     api.getPersonList.call(this, 'stock')
@@ -152,12 +155,13 @@ Page({
   //展示并购类
   showMergeClass: function () {
     this.setData({
-      kind: 'merge',
+      currentKind: 'merge', 
+      currentKindName: this.data.mergeClassDesc,
       searchCondition: null
     })
     api.getPersonList.call(this, 'merge')
   },
-  
+
   //点击当前文章触发函数
   onClickThisCard: function (e) {
     var id = e.currentTarget.dataset.id

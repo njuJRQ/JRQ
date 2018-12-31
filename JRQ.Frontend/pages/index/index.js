@@ -53,12 +53,12 @@ Page({
       image: '../../default/default-pic.png',
       link: 'https://www.baidu.com'
     },
-    bg1: bg1,
     currentKind: null,
     searchCondition: null,
     lastId: "",
     lastIdType: "",
-    flag: false
+    flag: false,
+    bg1: bg1,
   },
 
   //事件处理函数
@@ -180,6 +180,10 @@ Page({
 
   //搜索触发函数
   onSearch: function () {
+    if (!this.data.searchCondition) {
+      this.showAll();
+      return;
+    }
     console.log('search article: ' + this.data.searchCondition)
     api.getAbstractListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
   },

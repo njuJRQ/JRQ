@@ -2,111 +2,132 @@
 @import '/style/common.wxss';
 @import '/template/searchBar/searchBar.wxss';
 @import '/template/adBar/adBar.wxss';
+@import '/template/likeIcon/likeIcon.wxss';
 
 /*本页面css属性*/
 /*关于头部导航栏的属性*/
 .headWrapper {
   width: 100%;
-  padding: 10px 20px;
+  padding: 50px 30px 10px 30px;
 }
 /*搜索栏样式*/
 .search {
   margin: auto;
 }
-
-/*导航栏*/
+.search__keywords {
+  line-height: 2rem;
+}
+/*广告栏样式*/
+.ad {
+  margin: 10px auto;
+}
+/*导航栏样式*/
 .navBar {
-  width: 100%;
+  width: 200px;
   display: flex;
-  justify-content: space-around;
-  padding: 5px 20px;
+  justify-content: space-between;
+  align-items: center;
+  float: right;
+  box-sizing: content-box;
 }
 .navBar__btn {
-  background-color: #ebeae3;
-  width: 70px;
-  height: 70px;
   border-radius: 50%;
-  border: 5px #ffffff solid;
-  margin: 0;
-  padding: 3px;
+  background: inherit;
+  border: 5px inherit solid;
+  padding: 1px;
   text-align: center;
   font-size: 0.8rem;
+}
+.navBar__btn-state--chosen {
+  border: 5px #ebbc6a solid;
+}
+.navBar__btn-state--chosen::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 4px;
+  background-color: #ebbc6a;
+  transform: translate(-5px,3px);
 }
 .navBar__icon {
   margin: auto;
   display: block;
   width: 35px;
   height: 35px;
-}
-
-.modal__image {
-  width: 100%;
+  border-radius: 50%;
 }
 
 /*关于文章的属性*/
 .articleListWrapper {
-  width: 100%; 
-  padding: 0 8px;
+  width: 100%;
+}
+.articleWrapper {
+  display: inline-block;
+  vertical-align: top;
+  width: 50%;
+  min-height: 200px;
+  padding: 30px 5px 0 5px;
 }
 .article {
   position: relative;
-  margin: 30px 0 0 0;
-  padding: 15px 10px 5px 10px;
-  box-shadow: 0 5px 5px #D0D0D0;
-  border-radius: 10px;
-  background-color: #f4f3f0;
+  margin: 10px 0 0 0;
+  padding: 10px 10px 5px 10px;
+}
+.article__decorator {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: -10px;
+  width: 70%;
+  height: 20px;
+  background-color: #edc681;
+  border-radius: 20px;
+  padding: 5px 10px;
+  box-shadow: 0 0 10px #a0a0a0;
+  left: 0;
+}
+.article__kindName {
+  font-size: 0.8rem;
+  color: #927912;
+  font-weight: bold;
 }
 .article__banner {
   width: 100%;
-  max-height: 150px;
+  display: block;
+  margin: 10px auto;
   box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #e0e0e0;
 }
 .article__title {
-  position: absolute;
-  left: -5px;
-  top: -15px;
-  background-color: #f0db8b;
-  clip-path: polygon(0 0, 100% 0, 100% 50%, 33% 100%, 0 70%);
-  border-radius: 10px;
-  width: 200px;
-  height: 60px;
-  font-size: 1rem;
-  padding: 5px 10px;
+  display: flex;
+  align-items: flex-start;
+}
+.article__titleNum {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #eeb83e;
+}
+.article__titleName {
+  line-height: 1.2rem;
+  font-size: 0.9rem;
+  margin: 0.3rem 0 0 0.2rem;
+  color: #907f1e;
+  font-family: '宋体';
+}
+.article__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.article__date {
+  display: block;
+  font-size: 10px;
 }
 .article__like {
   display: flex;
-  justify-content: flex-end; 
-}
-.article__likeClick {
-  margin: 0 0 10px 0;
-  display: flex;
-  align-items: center;
-}
-.article__likeImage {
-  width: 15px;
-  height: 15px;
-  margin: 5px;
-}
-.article__content {
-  width: 100%;
-  justify-content: space-between;
-  font-size: 10px;
-}
-.article__bottom {
-  position: absolute;
-  display: flex;  
-  flex-flow: row;
-  align-items: flex-end;
   justify-content: flex-end;
-  padding: 0 1rem 0.5rem 0;
-  bottom: -10px;
-  right: -5px;
-  background-color: #e1ded5;
-  clip-path: polygon(0 60%, 60% 0, 100% 30%, 100% 100%, 0 100%);
-  border-radius: 10px;
-  width: 100px;
-  height: 50px;
-  font-size: 1rem;
 }
 
 /*关于文章作者的属性*/
@@ -121,7 +142,9 @@
   border-radius: 5px;
 }
 .writer__name {
-  margin: 0 0 0 10px;
+  margin: 0 0 0 5px;
+  font-size: 0.8rem;
+  color: #927912;
 }
 
 .b1 {

@@ -56,10 +56,11 @@ Page({
         var price = that.data.course.price
         switch (res.levelName) {
           case "common": break;
-          case "298": price = Math.ceil(price / 2); break;
-          case "998": price = 0; break;
+          case "298": price = that.data.discount298 * price; break;
+          case "998": price = that.data.discount998 * price; break;
           default: break;
         }
+        that.data.course.price = price;
         wx.showModal({
           title: '确认购买',
           content: '确认以' + price + '的价格购买\r\n' + that.data.course.title + '\r\n吗？',

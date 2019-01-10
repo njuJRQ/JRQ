@@ -20,8 +20,6 @@ import njurestaurant.njutakeout.util.HttpUtil;
 import njurestaurant.njutakeout.util.PayCommonUtil;
 import njurestaurant.njutakeout.util.RandomUtil;
 import njurestaurant.njutakeout.util.XMLUtil;
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -214,6 +212,7 @@ public class PurchaseBlServiceImpl implements PurchaseBlService {
 			return new BoolResponse(false, e.getMessage());
 		}
 		if (user.getCredit()>=price) {
+
 			switch (type) {
 				case "level":
 					try {

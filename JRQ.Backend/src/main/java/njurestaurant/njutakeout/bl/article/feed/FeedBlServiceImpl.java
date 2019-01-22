@@ -5,6 +5,7 @@ import njurestaurant.njutakeout.data.dao.user.SendCardDao;
 import njurestaurant.njutakeout.dataservice.article.FeedDataService;
 import njurestaurant.njutakeout.dataservice.article.LikeDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
+import njurestaurant.njutakeout.entity.article.Course;
 import njurestaurant.njutakeout.entity.article.Feed;
 import njurestaurant.njutakeout.entity.user.SendCard;
 import njurestaurant.njutakeout.entity.user.User;
@@ -13,6 +14,8 @@ import njurestaurant.njutakeout.response.BoolResponse;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.AbstractItem;
 import njurestaurant.njutakeout.response.article.AbstractListResponse;
+import njurestaurant.njutakeout.response.article.course.CourseItem;
+import njurestaurant.njutakeout.response.article.course.CourseListResponse;
 import njurestaurant.njutakeout.response.article.feed.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -158,5 +161,35 @@ public class FeedBlServiceImpl implements FeedBlService {
 	public InfoResponse deleteMyFeed(String id) throws NotExistException {
 		feedDataService.deleteFeedById(id);
 		return new InfoResponse();
+	}
+
+	@Override
+	public FeedListResponse getFeedListByLikeNum(String id) throws NotExistException {
+		List<Feed> feeds = feedDataService.getFeedListByLikeNum(id);
+		List<FeedItem> feedItems = new ArrayList<>();
+		for(Feed feed:feeds){
+			feedItems.add(new FeedItem(feed));
+		}
+		return new FeedListResponse(feedItems);
+	}
+
+	@Override
+	public FeedListResponse getFeedListBeforeWeek(String id) throws NotExistException {
+		List<Feed> feeds = feedDataService.getFeedListBeforeWeek(id);
+		List<FeedItem> feedItems = new ArrayList<>();
+		for(Feed feed:feeds){
+			feedItems.add(new FeedItem(feed));
+		}
+		return new FeedListResponse(feedItems);
+	}
+
+	@Override
+	public FeedListResponse getFeedListBeforeMonth(String id) throws NotExistException {
+		List<Feed> feeds = feedDataService.getFeedListBeforeMonth(id);
+		List<FeedItem> feedItems = new ArrayList<>();
+		for(Feed feed:feeds){
+			feedItems.add(new FeedItem(feed));
+		}
+		return new FeedListResponse(feedItems);
 	}
 }

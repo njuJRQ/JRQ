@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JRQ.iml" filepath="$PROJECT_DIR$/.idea/modules/JRQ.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JRQ_main.iml" filepath="$PROJECT_DIR$/.idea/modules/JRQ_main.iml" group="JRQ" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JRQ_test.iml" filepath="$PROJECT_DIR$/.idea/modules/JRQ_test.iml" group="JRQ" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JRQ.Backend.iml" filepath="$PROJECT_DIR$/.idea/modules/JRQ.Backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JRQ.Backend_main.iml" filepath="$PROJECT_DIR$/.idea/modules/JRQ.Backend_main.iml" group="JRQ.Backend" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JRQ.Backend_test.iml" filepath="$PROJECT_DIR$/.idea/modules/JRQ.Backend_test.iml" group="JRQ.Backend" />
     </modules>
   </component>
 </project>

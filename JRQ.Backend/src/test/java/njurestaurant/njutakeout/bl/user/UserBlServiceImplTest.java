@@ -1,5 +1,6 @@
 package njurestaurant.njutakeout.bl.user;
 
+import njurestaurant.njutakeout.blservice.article.feed.FeedBlService;
 import njurestaurant.njutakeout.blservice.user.UserBlService;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.user.CardItem;
@@ -23,6 +24,8 @@ import static org.junit.Assert.*;
 public class UserBlServiceImplTest {
 	@Autowired
 	private UserBlService userBlService;
+	@Autowired
+	private FeedBlService feedBlService;
 
 	@Test
 	public void addUser() throws NotExistException {
@@ -78,10 +81,10 @@ public class UserBlServiceImplTest {
 	public void getPersonListByCondition() {
 	}
 
-	@Test
-	public void sendMyCard() {
-		userBlService.sendMyCard("111111", "222222");
-	}
+//	@Test
+//	public void sendMyCard() {
+//		userBlService.sendMyCard("111111", "222222");
+//	}
 
 	@Test
 	public void getMyCardList() throws NotExistException {
@@ -97,9 +100,16 @@ public class UserBlServiceImplTest {
 	}
 
 	@Test
-	public void addLevel() {
-		userBlService.addLevel("common", 5, 0);
-		userBlService.addLevel("298", 10, 20);
-		userBlService.addLevel("998", 100, 50);
+	public void addFeed() throws NotExistException {
+		List<String> strings = new ArrayList<>();
+		strings.add("2");
+		feedBlService.publishMyFeed("2",strings,"222");
 	}
+
+//	@Test
+//	public void addLevel() {
+//		userBlService.addLevel("common", 5, 0);
+//		userBlService.addLevel("298", 10, 20);
+//		userBlService.addLevel("998", 100, 50);
+//	}
 }

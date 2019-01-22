@@ -2,11 +2,14 @@ package njurestaurant.njutakeout.springcontroller.article.feed;
 
 import io.swagger.annotations.*;
 import njurestaurant.njutakeout.blservice.article.feed.FeedBlService;
+import njurestaurant.njutakeout.entity.article.Feed;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.Response;
 import njurestaurant.njutakeout.response.WrongResponse;
 import njurestaurant.njutakeout.response.event.EventLoadResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -348,4 +351,45 @@ public class FeedController {
         return new ResponseEntity<>(feedBlService.getFeedView(id), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "获取10条按点赞数降序的圈子", notes = "获取10条按点赞数降序的圈子")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "id", value = "圈子文章ID", required = true, dataType = "String")
+    )
+    @RequestMapping(value = "/getFeedListByLikeNum", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getFeedListByLikeNum(@RequestParam(name="id")String id) throws NotExistException {
+        return new ResponseEntity<>(feedBlService.getFeedListByLikeNum(id), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "获取10条一周内按时间戳降序的圈子", notes = "获取10条一周内按时间戳降序的圈子")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "id", value = "圈子文章ID", required = true, dataType = "String")
+    )
+    @RequestMapping(value = "/getFeedListBeforeWeek", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getFeedListBeforeWeek(@RequestParam(name="id")String id) throws NotExistException {
+        return new ResponseEntity<>(feedBlService.getFeedListBeforeWeek(id), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "获取10条一月内按时间戳降序的圈子", notes = "获取10条一月内按时间戳降序的圈子")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "id", value = "圈子文章ID", required = true, dataType = "String")
+    )
+    @RequestMapping(value = "/getFeedListBeforeMonth", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getFeedListBeforeMonth(@RequestParam(name="id")String id) throws NotExistException {
+        return new ResponseEntity<>(feedBlService.getFeedListBeforeMonth(id), HttpStatus.OK);
+    }
 }

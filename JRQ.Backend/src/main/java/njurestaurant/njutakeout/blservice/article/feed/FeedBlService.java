@@ -4,6 +4,7 @@ import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.BoolResponse;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.AbstractListResponse;
+import njurestaurant.njutakeout.response.article.course.CourseListResponse;
 import njurestaurant.njutakeout.response.article.feed.FeedListResponse;
 import njurestaurant.njutakeout.response.article.feed.FeedResponse;
 import njurestaurant.njutakeout.response.article.feed.FeedViewListResponse;
@@ -94,4 +95,28 @@ public interface FeedBlService {
 	 * @return 是否成功
 	 */
 	InfoResponse deleteMyFeed(String id) throws NotExistException;
+
+	/**
+	 * 获取10条按点赞数降序的圈子
+	 * 圈子列表按照点赞数排序，最多的在最前面，最少的在最后面，一次获取10条
+	 * @param id 圈子ID
+	 * @return
+	 */
+	FeedListResponse getFeedListByLikeNum(String id) throws NotExistException;
+
+	/**
+	 * 获取10条按时间戳降序的圈子
+	 * 圈子列表按照时间戳排序，最新的在最前面，最老的在最后面，一次获取10条，数据来源于一周内
+	 * @param id 圈子ID
+	 * @return
+	 */
+	FeedListResponse getFeedListBeforeWeek(String id) throws NotExistException;
+
+	/**
+	 * 获取10条按时间戳降序的圈子
+	 * 圈子列表按照时间戳排序，最新的在最前面，最老的在最后面，一次获取10条，数据来源于一月内
+	 * @param id 圈子ID
+	 * @return
+	 */
+	FeedListResponse getFeedListBeforeMonth(String id) throws NotExistException;
 }

@@ -2,6 +2,7 @@ package njurestaurant.njutakeout.data.article;
 
 import njurestaurant.njutakeout.data.dao.article.FeedDao;
 import njurestaurant.njutakeout.dataservice.article.FeedDataService;
+import njurestaurant.njutakeout.entity.article.Course;
 import njurestaurant.njutakeout.entity.article.Feed;
 import njurestaurant.njutakeout.exception.NotExistException;
 import org.hibernate.Session;
@@ -15,6 +16,8 @@ import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -104,5 +107,112 @@ public class FeedDataServiceImpl implements FeedDataService {
 			}
 			feedDao.delete(feed);
 		}
+	}
+
+	@Override
+	public List<Feed> getFeedListByLikeNum(String id) throws NotExistException {
+		return getFeedListByLikeNumDesc(
+				id.equals("")?-1:getFeedById(id).getLikeNum());
+	}
+
+	@Override
+	public List<Feed> getFeedListByLikeNumDesc(long likeNum) throws NotExistException {
+		List<Feed> feeds = null;
+		if (likeNum<0) {
+			feeds = feedDao.findTop10ByOrderByLikeNumDesc();
+		} else {
+			feeds = feedDao.findTop10ByLikeNumBeforeOrderByLikeNumDesc(likeNum);
+		}
+		if (!feeds.isEmpty()) {
+			List<Feed> sameLikeNumFeeds = feedDao.findFeedsByLikeNum(feeds.get(feeds.size()-1).getLikeNum());
+			for(Feed slf:sameLikeNumFeeds) {
+				boolean flag = false; //标记ssc是否在courses中
+				for(Feed f:feeds){
+					if(slf.getId().equals(f.getId())){
+						flag = true;
+						break;
+					}
+				}
+				if(!flag){ //ssc不在courses里面，加入进去
+					feeds.add(slf);
+				}
+			}
+		}
+
+		return feeds;
+	}
+
+	@Override
+	public List<Feed> getFeedListBeforeWeek(String id) throws NotExistException {
+		return getFeedListBeforeWeekDesc(
+				id.equals("")?-1:getFeedById(id).getTimeStamp());
+	}
+
+	@Override
+	public List<Feed> getFeedListBeforeWeekDesc(long timeStamp) throws NotExistException {
+		List<Feed> feeds = null;
+		Calendar c = Calendar.getInstance();
+		c.setTime(new Date());
+		c.add(Calendar.DATE, - 7);
+		Date d = c.getTime();
+		if (timeStamp < 0) {
+			feeds = feedDao.findTop10ByTimeStampAfterOrderByTimeStampDesc(d.getTime());
+		} else {
+			feeds = feedDao.findTop10ByTimeStampBetweenOrderByTimeStampDesc(timeStamp,d.getTime());
+		}
+		if (!feeds.isEmpty()) {
+			List<Feed> sameLikeNumFeeds = feedDao.findFeedsByTimeStamp(feeds.get(feeds.size() - 1).getTimeStamp());
+			for (Feed slf : sameLikeNumFeeds) {
+				boolean flag = false; //标记ssc是否在courses中
+				for (Feed f : feeds) {
+					if (slf.getId().equals(f.getId())) {
+						flag = true;
+						break;
+					}
+				}
+				if (!flag) { //ssc不在courses里面，加入进去
+					feeds.add(slf);
+				}
+			}
+		}
+
+		return feeds;
+	}
+
+	@Override
+	public List<Feed> getFeedListBeforeMonth(String id) throws NotExistException {
+		return getFeedListBeforeMonthDesc(
+				id.equals("")?-1:getFeedById(id).getTimeStamp());
+	}
+
+	@Override
+	public List<Feed> getFeedListBeforeMonthDesc(long timeStamp) throws NotExistException {
+		List<Feed> feeds = null;
+		Calendar c = Calendar.getInstance();
+		c.setTime(new Date());
+		c.add(Calendar.MONTH, -1);
+		Date m = c.getTime();
+		if (timeStamp < 0) {
+			feeds = feedDao.findTop10ByTimeStampAfterOrderByTimeStampDesc(m.getTime());
+		} else {
+			feeds = feedDao.findTop10ByTimeStampBetweenOrderByTimeStampDesc(timeStamp,m.getTime());
+		}
+		if (!feeds.isEmpty()) {
+			List<Feed> sameLikeNumFeeds = feedDao.findFeedsByTimeStamp(feeds.get(feeds.size() - 1).getTimeStamp());
+			for (Feed slf : sameLikeNumFeeds) {
+				boolean flag = false; //标记ssc是否在courses中
+				for (Feed f : feeds) {
+					if (slf.getId().equals(f.getId())) {
+						flag = true;
+						break;
+					}
+				}
+				if (!flag) { //ssc不在courses里面，加入进去
+					feeds.add(slf);
+				}
+			}
+		}
+
+		return feeds;
 	}
 }

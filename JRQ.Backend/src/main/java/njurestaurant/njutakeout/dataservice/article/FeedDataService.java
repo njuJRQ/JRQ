@@ -1,5 +1,6 @@
 package njurestaurant.njutakeout.dataservice.article;
 
+import njurestaurant.njutakeout.entity.article.Course;
 import njurestaurant.njutakeout.entity.article.Feed;
 import njurestaurant.njutakeout.exception.NotExistException;
 
@@ -28,4 +29,14 @@ public interface FeedDataService {
 	void deleteFeedById(String id) throws NotExistException;
 
 	void deleteFeedsByWriterOpenid(String openid);
+
+
+	List<Feed> getFeedListByLikeNum(String id) throws NotExistException;
+	List<Feed> getFeedListByLikeNumDesc(long likeNum) throws NotExistException;
+
+	List<Feed> getFeedListBeforeWeek(String id) throws NotExistException;
+	List<Feed> getFeedListBeforeWeekDesc(long timeStamp) throws NotExistException;
+
+	List<Feed> getFeedListBeforeMonth(String id) throws NotExistException;
+	List<Feed> getFeedListBeforeMonthDesc(long timeStamp) throws NotExistException;
 }

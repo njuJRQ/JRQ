@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name="feed")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class Feed {
 	@Id

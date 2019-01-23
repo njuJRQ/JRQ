@@ -38,6 +38,9 @@ public class Course {
 	@Column
 	private String preview; //视频预览，前1分钟
 
+	@Column
+	private long vieNum;//课程浏览量
+
 	public Course(){
 	}
 
@@ -127,5 +130,13 @@ public class Course {
 
 	public void setPreview(String preview) {
 		this.preview = preview;
+	}
+
+	public long getVieNum() {
+		return vieNum;
+	}
+
+	public void setVieNum(long vieNum) {
+		this.vieNum = vieNum;
 	}
 }

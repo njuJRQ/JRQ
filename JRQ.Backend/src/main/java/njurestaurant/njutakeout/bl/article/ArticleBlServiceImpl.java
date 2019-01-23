@@ -86,7 +86,10 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 		List<AbstractItem> abstractItems = new ArrayList<>();
 		Count count;
 		if(countDataService.getCountById(1)==null){
-			countDataService.saveCount(new Count(0,0,0,0,0,0,0));
+			count=new Count(0,0,0,0,0,0,0);
+		}
+		else{
+			count=countDataService.getCountById(1);
 		}
 		switch (kind) {
 			case "course":
@@ -95,9 +98,7 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, course.getId());
 					abstractItems.add(new AbstractItem(course, adminDataService, hasLiked));
 				}
-				count = countDataService.getCountById(1);
 				count.setViewCourse(count.getViewCourse()+1);//浏览课程页面次数+1
-				countDataService.saveCount(count);
 				break;
 			case "document":
 				List<Document> documents = documentDataService.getMyDocumentListBefore(openid, articleId);
@@ -105,9 +106,7 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, document.getId());
 					abstractItems.add(new AbstractItem(document, adminDataService, hasLiked));
 				}
-				count = countDataService.getCountById(1);
 				count.setViewDocument(count.getViewDocument()+1);//浏览文档页面次数+1
-				countDataService.saveCount(count);
 				break;
 			case "project":
 				List<Project> projects = projectDataService.getMyProjectListBefore(openid, articleId);
@@ -115,9 +114,7 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, project.getId());
 					abstractItems.add(new AbstractItem(project, adminDataService, hasLiked));
 				}
-				count = countDataService.getCountById(1);
 				count.setViewProject(count.getViewProject()+1);//浏览项目页面次数+1
-				countDataService.saveCount(count);
 				break;
 			case "all":
 				long timeStamp = -1;
@@ -164,12 +161,11 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 						throw new NotExistException("Article class", a.getClass().getName());
 					}
 				}
-				count = countDataService.getCountById(1);
 				count.setViewHomePage(count.getViewHomePage()+1);//浏览首页次数+1
-				countDataService.saveCount(count);
 				break;
 			default: ;
 		}
+		countDataService.saveCount(count);
 		return new AbstractListResponse(abstractItems);
 	}
 

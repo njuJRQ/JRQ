@@ -9,6 +9,7 @@ $("#page3").hide();
 $("#page4").hide();
 $("#page5").hide();
 var list=new Array();
+var tempList=new Array();
 var firstID=0;
 var theGroup=0;
 var url=getUrl();
@@ -21,6 +22,9 @@ $.ajax(
         success: function (data) {
             for(var i=0;i<data.users.length;i++){
                 list.push(data.users[i]);
+            }
+            for(var i=0;i<list.length;i++){
+                tempList.push(list[i]);
             }
             document.getElementById("jilu").innerText="共"+(list.length)+"条记录";
             changepage(1);
@@ -262,20 +266,18 @@ function search(){
 
 
 function searchByName(){
+    list=new Array();
     var text=$("#con2").val();
-    for(var i=0;i<list.length;i++){
-        if(list[i].username==text){
-            $("#your-alert-1").show();
-            document.getElementById("number"+(firstID%5+1)).innerText=list[i].openid;
-            document.getElementById("name"+(firstID%5+1)).innerText=list[i].username;
-            document.getElementById("date"+(firstID%5+1)).innerText=list[i].levelName;
-            $("#your-alert-2").hide();
-            $("#your-alert-3").hide();
-            $("#your-alert-4").hide();
-            $("#your-alert-5").hide();
-            firstID=i-1;
+    for(var i=0;i<tempList.length;i++){
+        if(tempList[i].username.indexOf(text)>(-1)){
+            list.push(tempList[i]);
         }
     }
+
+    firstID=0;
+    theGroup=0;
+    changepage(1);
+    document.getElementById("jilu").innerText="共"+(list.length)+"条记录";
 
 }
 

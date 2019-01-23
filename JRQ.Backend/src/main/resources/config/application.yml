@@ -1,9 +1,9 @@
 server:
-  port: 8080
-#  ssl:
-#    key-store: config/jrq.jks
-#    key-store-password: njujrq123
-#    key-store-type: JKS
+  port: 3389
+  ssl:
+    key-store: config/jrq.jks
+    key-store-password: njujrq123
+    key-store-type: JKS
 logging:
   level:
     org.springframework:
@@ -32,9 +32,9 @@ spring:
     open-in-view: true
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/jrq?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://localhost:3306/njutakeout?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
-    password: root
+    password: 123456
   aop:
     auto: true
     proxy-target-class: false

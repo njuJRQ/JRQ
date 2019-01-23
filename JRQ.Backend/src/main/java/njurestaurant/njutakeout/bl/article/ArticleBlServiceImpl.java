@@ -85,6 +85,9 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 	public AbstractListResponse getAbstractListBefore(String kind, String openid, String articleId, String articleType) throws NotExistException {
 		List<AbstractItem> abstractItems = new ArrayList<>();
 		Count count;
+		if(countDataService.getCountById(1)==null){
+			countDataService.saveCount(new Count(0,0,0,0,0,0,0));
+		}
 		switch (kind) {
 			case "course":
 				List<Course> courses = courseDataService.getMyCourseListBefore(openid, articleId);

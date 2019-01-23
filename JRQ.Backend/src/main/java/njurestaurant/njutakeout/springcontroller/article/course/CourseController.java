@@ -23,6 +23,7 @@ public class CourseController {
     public CourseController(CourseBlService courseBlService) {
         this.courseBlService = courseBlService;
     }
+
     @ApiOperation(value = "获取课程图片", notes = "获取课程图片")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "image", value = "课程图片", required = true, dataType = "MultipartFile")

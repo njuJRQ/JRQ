@@ -2,7 +2,10 @@ package njurestaurant.njutakeout.bl.user;
 
 import njurestaurant.njutakeout.blservice.article.feed.FeedBlService;
 import njurestaurant.njutakeout.blservice.user.UserBlService;
+import njurestaurant.njutakeout.entity.article.Feed;
 import njurestaurant.njutakeout.exception.NotExistException;
+import njurestaurant.njutakeout.response.article.feed.FeedItem;
+import njurestaurant.njutakeout.response.article.feed.FeedListResponse;
 import njurestaurant.njutakeout.response.user.CardItem;
 import njurestaurant.njutakeout.response.user.CardListResponse;
 import njurestaurant.njutakeout.response.user.PersonItem;
@@ -16,6 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -99,12 +103,6 @@ public class UserBlServiceImplTest {
 		userBlService.checkMyReceivedCard("111111", "222222");
 	}
 
-	@Test
-	public void addFeed() throws NotExistException {
-		List<String> strings = new ArrayList<>();
-		strings.add("2");
-		feedBlService.publishMyFeed("2",strings,"222");
-	}
 
 //	@Test
 //	public void addLevel() {

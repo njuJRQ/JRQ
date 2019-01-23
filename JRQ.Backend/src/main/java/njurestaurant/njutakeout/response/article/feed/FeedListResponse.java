@@ -21,4 +21,5 @@ public class FeedListResponse extends Response {
 	public void setFeeds(List<FeedItem> feeds) {
 		this.feeds = feeds;
 	}
+
 }

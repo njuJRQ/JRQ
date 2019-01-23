@@ -2,10 +2,12 @@ package njurestaurant.njutakeout.bl.user;
 
 import njurestaurant.njutakeout.blservice.user.UserBlService;
 import njurestaurant.njutakeout.data.dao.user.SendCardDao;
+import njurestaurant.njutakeout.dataservice.count.CountDataService;
 import njurestaurant.njutakeout.dataservice.user.ClassificationDataService;
 import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
 import njurestaurant.njutakeout.dataservice.user.LevelDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
+import njurestaurant.njutakeout.entity.count.Count;
 import njurestaurant.njutakeout.entity.user.*;
 import njurestaurant.njutakeout.exception.CannotGetOpenIdAndSessionKeyException;
 import njurestaurant.njutakeout.exception.NotExistException;
@@ -39,9 +41,9 @@ public class UserBlServiceImpl implements UserBlService {
 	private final SendCardDao sendCardDao;
 	private final JwtUserDetailsService jwtUserDetailsService;
 	private final JwtService jwtService;
+	private final CountDataService countDataService;
 
-	@Autowired
-	public UserBlServiceImpl(UserDataService userDataService, ClassificationDataService classificationDataService, LevelDataService levelDataService, EnterpriseDataService enterpriseDataService, SendCardDao sendCardDao, JwtUserDetailsService jwtUserDetailsService, JwtService jwtService) {
+	public UserBlServiceImpl(UserDataService userDataService, ClassificationDataService classificationDataService, LevelDataService levelDataService, EnterpriseDataService enterpriseDataService, SendCardDao sendCardDao, JwtUserDetailsService jwtUserDetailsService, JwtService jwtService, CountDataService countDataService) {
 		this.userDataService = userDataService;
 		this.classificationDataService = classificationDataService;
 		this.levelDataService = levelDataService;
@@ -49,6 +51,7 @@ public class UserBlServiceImpl implements UserBlService {
 		this.sendCardDao = sendCardDao;
 		this.jwtUserDetailsService = jwtUserDetailsService;
 		this.jwtService = jwtService;
+		this.countDataService = countDataService;
 	}
 
 	@Override
@@ -139,6 +142,12 @@ public class UserBlServiceImpl implements UserBlService {
 		for (ClassificationDescription classificationDescription:classificationDescriptions) {
 			classificationDescriptionItems.add(new ClassificationDescriptionItem(classificationDescription));
 		}
+
+		//浏览业务次数+1
+		Count count = countDataService.getCountById(1);
+		count.setViewBusiness(count.getViewBusiness()+1);
+		countDataService.saveCount(count);
+
 		return new ClassificationDescriptionListResponse(classificationDescriptionItems);
 	}
 

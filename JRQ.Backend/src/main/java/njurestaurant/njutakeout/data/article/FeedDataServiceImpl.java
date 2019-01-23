@@ -110,13 +110,13 @@ public class FeedDataServiceImpl implements FeedDataService {
 	}
 
 	@Override
-	public List<Feed> getFeedListByLikeNum(String id) throws NotExistException {
-		return getFeedListByLikeNumDesc(
+	public List<Feed> getFeedListByLikeNum(String openid,String id) throws NotExistException {
+		return getFeedListByLikeNumDesc(openid,
 				id.equals("")?-1:getFeedById(id).getLikeNum());
 	}
 
 	@Override
-	public List<Feed> getFeedListByLikeNumDesc(long likeNum) throws NotExistException {
+	public List<Feed> getFeedListByLikeNumDesc(String openid,long likeNum) throws NotExistException {
 		List<Feed> feeds = null;
 		if (likeNum<0) {
 			feeds = feedDao.findTop10ByOrderByLikeNumDesc();
@@ -143,13 +143,13 @@ public class FeedDataServiceImpl implements FeedDataService {
 	}
 
 	@Override
-	public List<Feed> getFeedListBeforeWeek(String id) throws NotExistException {
-		return getFeedListBeforeWeekDesc(
+	public List<Feed> getFeedListBeforeWeek(String openid,String id) throws NotExistException {
+		return getFeedListBeforeWeekDesc(openid,
 				id.equals("")?-1:getFeedById(id).getTimeStamp());
 	}
 
 	@Override
-	public List<Feed> getFeedListBeforeWeekDesc(long timeStamp) throws NotExistException {
+	public List<Feed> getFeedListBeforeWeekDesc(String openid,long timeStamp) throws NotExistException {
 		List<Feed> feeds = null;
 		Calendar c = Calendar.getInstance();
 		c.setTime(new Date());
@@ -180,13 +180,13 @@ public class FeedDataServiceImpl implements FeedDataService {
 	}
 
 	@Override
-	public List<Feed> getFeedListBeforeMonth(String id) throws NotExistException {
-		return getFeedListBeforeMonthDesc(
+	public List<Feed> getFeedListBeforeMonth(String openid,String id) throws NotExistException {
+		return getFeedListBeforeMonthDesc(openid,
 				id.equals("")?-1:getFeedById(id).getTimeStamp());
 	}
 
 	@Override
-	public List<Feed> getFeedListBeforeMonthDesc(long timeStamp) throws NotExistException {
+	public List<Feed> getFeedListBeforeMonthDesc(String openid,long timeStamp) throws NotExistException {
 		List<Feed> feeds = null;
 		Calendar c = Calendar.getInstance();
 		c.setTime(new Date());

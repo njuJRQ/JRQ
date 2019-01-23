@@ -31,12 +31,12 @@ public interface FeedDataService {
 	void deleteFeedsByWriterOpenid(String openid);
 
 
-	List<Feed> getFeedListByLikeNum(String id) throws NotExistException;
-	List<Feed> getFeedListByLikeNumDesc(long likeNum) throws NotExistException;
+	List<Feed> getFeedListByLikeNum(String openid,String id) throws NotExistException;
+	List<Feed> getFeedListByLikeNumDesc(String openid,long likeNum) throws NotExistException;
 
-	List<Feed> getFeedListBeforeWeek(String id) throws NotExistException;
-	List<Feed> getFeedListBeforeWeekDesc(long timeStamp) throws NotExistException;
+	List<Feed> getFeedListBeforeWeek(String openid,String id) throws NotExistException;
+	List<Feed> getFeedListBeforeWeekDesc(String openid,long timeStamp) throws NotExistException;
 
-	List<Feed> getFeedListBeforeMonth(String id) throws NotExistException;
-	List<Feed> getFeedListBeforeMonthDesc(long timeStamp) throws NotExistException;
+	List<Feed> getFeedListBeforeMonth(String openid,String id) throws NotExistException;
+	List<Feed> getFeedListBeforeMonthDesc(String openid,long timeStamp) throws NotExistException;
 }

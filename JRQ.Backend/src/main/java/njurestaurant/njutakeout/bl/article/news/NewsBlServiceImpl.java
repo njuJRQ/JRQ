@@ -4,8 +4,10 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import njurestaurant.njutakeout.blservice.article.news.NewsBlService;
 import njurestaurant.njutakeout.dataservice.article.NewsDataService;
+import njurestaurant.njutakeout.dataservice.count.CountDataService;
 import njurestaurant.njutakeout.entity.article.CJKXNews;
 import njurestaurant.njutakeout.entity.article.News;
+import njurestaurant.njutakeout.entity.count.Count;
 import njurestaurant.njutakeout.response.BoolResponse;
 import njurestaurant.njutakeout.response.IntResponse;
 import njurestaurant.njutakeout.response.article.news.NewsItem;
@@ -26,10 +28,12 @@ import java.util.Optional;
 @Service
 public class NewsBlServiceImpl implements NewsBlService {
 	private final NewsDataService newsDataService;
+	private final CountDataService countDataService;
 
 	@Autowired
-	public NewsBlServiceImpl(NewsDataService newsDataService) {
+	public NewsBlServiceImpl(NewsDataService newsDataService, CountDataService countDataService) {
 		this.newsDataService = newsDataService;
+		this.countDataService = countDataService;
 	}
 
 	@Override
@@ -81,6 +85,11 @@ public class NewsBlServiceImpl implements NewsBlService {
 				default:
 			}
 		}
+
+		//浏览首页次数+1
+		Count count = countDataService.getCountById(1);
+		count.setViewNews(count.getViewNews()+1);
+		countDataService.saveCount(count);
 
 		return new NewsListResponse(newsItems);
 	}

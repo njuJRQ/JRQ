@@ -96,27 +96,13 @@ public interface FeedBlService {
 	 */
 	InfoResponse deleteMyFeed(String id) throws NotExistException;
 
-	/**
-	 * 获取10条按点赞数降序的圈子
-	 * 圈子列表按照点赞数排序，最多的在最前面，最少的在最后面，一次获取10条
-	 * @param id 圈子ID
-	 * @return
-	 */
-	FeedListResponse getFeedListByLikeNum(String id) throws NotExistException;
 
 	/**
-	 * 获取10条按时间戳降序的圈子
-	 * 圈子列表按照时间戳排序，最新的在最前面，最老的在最后面，一次获取10条，数据来源于一周内
+	 * 获取10条圈子按条件查询
+	 * @param kind 条件查询，可能值：最热latest，一周weekly，一月monthly
+	 * @param openid 用户openid
 	 * @param id 圈子ID
 	 * @return
 	 */
-	FeedListResponse getFeedListBeforeWeek(String id) throws NotExistException;
-
-	/**
-	 * 获取10条按时间戳降序的圈子
-	 * 圈子列表按照时间戳排序，最新的在最前面，最老的在最后面，一次获取10条，数据来源于一月内
-	 * @param id 圈子ID
-	 * @return
-	 */
-	FeedListResponse getFeedListBeforeMonth(String id) throws NotExistException;
+	FeedListResponse getFeedListBeforeByKind(String kind, String openid, String id) throws NotExistException;
 }

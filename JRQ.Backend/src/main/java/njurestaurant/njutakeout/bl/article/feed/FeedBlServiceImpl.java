@@ -4,9 +4,13 @@ import njurestaurant.njutakeout.blservice.article.feed.FeedBlService;
 import njurestaurant.njutakeout.data.dao.user.SendCardDao;
 import njurestaurant.njutakeout.dataservice.article.FeedDataService;
 import njurestaurant.njutakeout.dataservice.article.LikeDataService;
+import njurestaurant.njutakeout.dataservice.count.CountDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
 import njurestaurant.njutakeout.entity.article.Course;
+import njurestaurant.njutakeout.entity.article.Document;
 import njurestaurant.njutakeout.entity.article.Feed;
+import njurestaurant.njutakeout.entity.article.Project;
+import njurestaurant.njutakeout.entity.count.Count;
 import njurestaurant.njutakeout.entity.user.SendCard;
 import njurestaurant.njutakeout.entity.user.User;
 import njurestaurant.njutakeout.exception.NotExistException;
@@ -20,8 +24,7 @@ import njurestaurant.njutakeout.response.article.feed.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class FeedBlServiceImpl implements FeedBlService {
@@ -29,13 +32,15 @@ public class FeedBlServiceImpl implements FeedBlService {
 	private final UserDataService userDataService;
 	private final LikeDataService likeDataService;
 	private final SendCardDao sendCardDao;
+	private final CountDataService countDataService;
 
 	@Autowired
-	public FeedBlServiceImpl(FeedDataService feedDataService, UserDataService userDataService, LikeDataService likeDataService, SendCardDao sendCardDao) {
+	public FeedBlServiceImpl(FeedDataService feedDataService, UserDataService userDataService, LikeDataService likeDataService, SendCardDao sendCardDao, CountDataService countDataService) {
 		this.feedDataService = feedDataService;
 		this.userDataService = userDataService;
 		this.likeDataService = likeDataService;
 		this.sendCardDao = sendCardDao;
+		this.countDataService = countDataService;
 	}
 
 	@Override
@@ -52,11 +57,7 @@ public class FeedBlServiceImpl implements FeedBlService {
 	@Override
 	public FeedListResponse getFeedList() {
 		List<Feed> feeds = feedDataService.getAllFeeds();
-		List<FeedItem> feedItems = new ArrayList<>();
-		for(Feed feed:feeds) {
-			feedItems.add(new FeedItem(feed));
-		}
-		return new FeedListResponse(feedItems);
+		return getFeedItemList(feeds);
 	}
 
 	@Override
@@ -134,6 +135,12 @@ public class FeedBlServiceImpl implements FeedBlService {
 			boolean hasLiked = likeDataService.isLikeExistent(openid, "feed", feed.getId());
 			feedViewItems.add(new FeedViewItem(feed, userDataService, hasLiked));
 		}
+
+		//浏览圈子次数+1
+		Count count = countDataService.getCountById(1);
+		count.setViewFeed(count.getViewFeed()+1);
+		countDataService.saveCount(count);
+
 		return new FeedViewListResponse(feedViewItems);
 	}
 
@@ -164,28 +171,34 @@ public class FeedBlServiceImpl implements FeedBlService {
 	}
 
 	@Override
-	public FeedListResponse getFeedListByLikeNum(String id) throws NotExistException {
-		List<Feed> feeds = feedDataService.getFeedListByLikeNum(id);
+	public FeedListResponse getFeedListBeforeByKind(String kind, String openid, String id) throws NotExistException {
 		List<FeedItem> feedItems = new ArrayList<>();
-		for(Feed feed:feeds){
-			feedItems.add(new FeedItem(feed));
+		List<Feed> feeds = new ArrayList<>();
+		switch (kind) {
+			case "lasted":
+				feeds = feedDataService.getFeedListByLikeNum(openid,id);
+				for(Feed feed:feeds){
+					feedItems.add(new FeedItem(feed));
+				}
+				break;
+			case "weekly":
+				feeds = feedDataService.getFeedListBeforeWeek(openid,id);
+				for(Feed feed:feeds){
+					feedItems.add(new FeedItem(feed));
+				}
+				break;
+			case "monthly":
+				feeds = feedDataService.getFeedListBeforeMonth(openid,id);
+				for(Feed feed:feeds){
+					feedItems.add(new FeedItem(feed));
+				}
+				break;
+			default: ;
 		}
 		return new FeedListResponse(feedItems);
 	}
 
-	@Override
-	public FeedListResponse getFeedListBeforeWeek(String id) throws NotExistException {
-		List<Feed> feeds = feedDataService.getFeedListBeforeWeek(id);
-		List<FeedItem> feedItems = new ArrayList<>();
-		for(Feed feed:feeds){
-			feedItems.add(new FeedItem(feed));
-		}
-		return new FeedListResponse(feedItems);
-	}
-
-	@Override
-	public FeedListResponse getFeedListBeforeMonth(String id) throws NotExistException {
-		List<Feed> feeds = feedDataService.getFeedListBeforeMonth(id);
+	public FeedListResponse getFeedItemList(List<Feed> feeds){
 		List<FeedItem> feedItems = new ArrayList<>();
 		for(Feed feed:feeds){
 			feedItems.add(new FeedItem(feed));

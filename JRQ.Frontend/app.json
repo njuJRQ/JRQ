@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/project/project",
     "pages/community/community",
     "pages/service/service",
     "pages/me/me",
@@ -19,7 +20,8 @@
     "pages/me/createPost/createPost",
     "pages/news/news",
     "template/likeIcon/likeIcon",
-    "template/publishBar/publishBar"
+    "template/publishBar/publishBar",
+    "pages/message/message"
   ],
   "window": {
     "backgroundTextStyle": "light",

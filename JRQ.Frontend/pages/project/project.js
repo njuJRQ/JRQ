@@ -68,69 +68,9 @@ Page({
       searchCondition: null,
       articles: []
     })
-    this.showAll()
-    api.getAd.call(this, 'index', (res) => {
-      this.setData({
-        ad: res.ad
-      })
-    })
+    this.showProjects()
   },
-
-  //onShow函数
-  onShow: function () {
-    this.setData({
-      searchCondition: null
-    })
-  },
-
-  //点击广告跳转
-  onAd: function () {
-    wx.navigateTo({
-      url: '../ad/ad?url=' + this.data.ad.link
-    })
-  },
-
-  showAll: function () {
-    this.setData({
-      currentKind: 'all',
-      searchCondition: null,
-      articles: [],
-      lastId: "",
-      lastIdType: ""
-    })
-    api.getAbstractList.call(this, 'all', app.getOpenid(), this.data.lastId, this.data.lastIdType)
-    api.getAd.call(this, 'jump', (res) => {
-      /*console.log(res)*/
-      this.setData({
-        jumpAd: res.ad.image
-      })
-    })
-  },
-
-  //展示课程
-  showCourses: function () {
-    this.setData({
-      currentKind: 'course',
-      searchCondition: null,
-      articles: [],
-      lastId: "",
-      lastIdType: ""
-    })
-    api.getAbstractList.call(this, 'course', app.getOpenid(), this.data.lastId, this.data.lastIdType)
-  },
-
-  //展示文档
-  showDocuments: function () {
-    this.setData({
-      currentKind: 'document',
-      searchCondition: null, 
-      articles: [],
-      lastId: "",
-      lastIdType: ""
-    })
-    api.getAbstractList.call(this, 'document', app.getOpenid(), this.data.lastId, this.data.lastIdType)
-  },
-
+  
   //展示项目
   showProjects: function () {
     this.setData({
@@ -141,13 +81,19 @@ Page({
       lastIdType: ""
     })
     api.getAbstractList.call(this, 'project', app.getOpenid(), this.data.lastId, this.data.lastIdType)
-    
+
   },
-toProjects:function(){
-  wx.navigateTo({
-    url: '/pages/project/project',
-  })
-},
+  toProjects: function () {
+    wx.navigateTo({
+      url: '/pages/index/project',
+      success: function (res) {
+        console.log('success')
+      },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
+
+  },
   //展示文章详情
   onTouchThisArticle: function (e) {
     var id = e.currentTarget.dataset.id //获取当前文章id
@@ -174,7 +120,7 @@ toProjects:function(){
   likePlus: function (e) {
     var id = e.currentTarget.dataset.id //获取当前文章id
     var kind = e.currentTarget.dataset.kind //获取当前文章kind
-    var article = this.data.articles.filter((article) => article.id===id)[0]
+    var article = this.data.articles.filter((article) => article.id === id)[0]
     api.likePlus.call(this, app.getOpenid(), kind, id, article) //点赞+1
   },
 

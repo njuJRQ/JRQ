@@ -32,6 +32,7 @@
     <view class='content'>
       <text wx:if='{{!course.hasBought}}'>视频预览1分钟：请购买该课程后观看完整课程视频</text>
       <video src='{{course.video}}'></video>
+      
     </view>
   </view>
   <view class='course-buttons row'>

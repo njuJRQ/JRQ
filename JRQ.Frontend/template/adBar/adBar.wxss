@@ -2,7 +2,7 @@
 .ad {
   display: block;
   margin: auto;
-  width: 300px;
+  width: 100%;
   max-height: 100px;
   box-shadow: 0 0 5px #A0A0A0;
   border-radius: 5px;

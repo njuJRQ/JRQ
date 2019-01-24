@@ -1,15 +1,36 @@
 <!--pages/community/community.wxml-->
 <import src='/template/articleItem/articleItem.wxml'></import>
 <import src='/template/publishBar/publishBar.wxml'></import>
-
+<view>
 <view class='container container--color-white'>
+
   <template is='publishBar'></template>
+
+  <view class='navBar'>
+      <view class='navBar__btn {{currentKind=="latest"?"navBar__btn-state--chosen":""}}' bindtap='showAll'>
+        <image class='navBar__icon' src='img/latest.png'></image>
+      </view>
+      <view class='navBar__btn {{currentKind=="weekly"?"navBar__btn-state--chosen":""}}' bindtap='showWeekly'>
+        <image class='navBar__icon' src='img/weekly.png'></image>
+      </view>
+      <view class='navBar__btn {{currentKind=="monthly"?"navBar__btn-state--chosen":""}}' bindtap='showMonthly'>
+        <image class='navBar__icon' src='img/monthly.png'></image>     
+      </view>
+  </view>
+<!-- <view class='navBar'>
+  <text class='navBar__btn'>最热</text>
+  <text class='navBar__btn'>一周内</text>
+  <text class='navBar__btn'>一月内</text>
+</view>
+   -->
   <view wx:if='{{articles.length > 0}}' class='articleListWrapper'>
     <view wx:for='{{articles}}' wx:key='id'>
       <template is='articleItem' data='{{item}}'></template>
     </view>
   </view>
-  <view wx:else>
+  
+  <!-- <view wx:else>
     <text>您的圈子还没有朋友文章发布哦，赶快去增加新的朋友吧</text>
-  </view>
+  </view> -->
+</view>
 </view>

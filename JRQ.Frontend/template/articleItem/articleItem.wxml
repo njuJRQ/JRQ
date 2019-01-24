@@ -1,9 +1,9 @@
 <template name="articleItem">
   <!--一篇文章-->
   <view class='article'>
-    <view class='article__decorator'>
+    <!-- <view class='article__decorator'>
       <text class='article__kindName'>圈子文章</text>
-    </view>
+    </view> -->
     <!--作者信息-->
     <view class='writer' bindtap='onClickThisFace' data-id='{{item.writerOpenid}}'>
       <image class='writer__face' src='{{item.writerFace}}'></image>
@@ -23,7 +23,12 @@
         <text>分享到朋友圈</text>
       </view>
       -->
-      <text class='article__date'>圈子发布日期：{{item.date}}</text>
+      <text class='article__date'>{{item.date}}</text>
+      <view class='like v-center'>      
+        <text class='like__num'>{{item.likeNum}}</text>
+        <image class='like__image' src='img/scan.png'></image>
+      </view>
+       
       <view class='like v-center' catchtap='likePlus' data-id='{{item.id}}'>
         <text class='like__num'>{{item.likeNum}}</text>
         <image class='like__image' wx:if='{{item.hasLiked}}' src='img/like.png'></image>

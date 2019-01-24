@@ -1,0 +1,24 @@
+<!--pages/message.wxml-->
+<!-- 表单 -->
+<form bindsubmit="formSubmit">
+<input type="text" name="liuyantext" placeholder='输入留言内容' class="input-style"/>
+
+<button formType="submit" class="btn">留言</button>
+<input type="text" name="nickname" value='{{nickName}}' style="display:none;"/>
+<input type="text" name="headimg" value='{{avatarUrl}}' style="display:none;"/>
+</form>
+
+<view wx:for="{{re}}" wx:key="re">
+  <view class="result">{{item.result}}</view>
+</view>
+<view style="text-align:center;font-size:14px;color:#ccc;margin-top:20px;">以下是留言内容</view>
+<view wx:for="{{liuyanlist}}" wx:key="liuyanlist" class="liuyanview">
+  <view class="headimg"><image src="{{item.headimg}}"></image></view>
+  <view class="nickname_liuyantext">
+    <view class="nickname">{{item.nickname}} <view class="time">{{item.lytime}}</view></view>
+    <view class="text">{{item.liuyantext}}</view>
+  </view>
+  <!-- 占位符 -->
+  <view style="width:100%;height:10px;"></view>
+</view>
+

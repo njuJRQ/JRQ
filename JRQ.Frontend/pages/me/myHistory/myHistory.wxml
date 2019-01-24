@@ -26,9 +26,11 @@
         <view class='myInfoVisible-button-wrapper'>
         <button wx:if='{{isMyInfoVisiable}}' class='jrq__button myInfoVisible-button' bindtap='isMyInfoVisiableToggle'>隐藏联系方式</button>
         <button wx:else class='jrq__button myInfoVisible-button' bindtap='isMyInfoVisiableToggle'>查看联系方式({{cardLimits}})</button>
+        
         </view>
       </view>
     </view>
+    <button class='jrq__button cardButton cardButton--style-backToIndex'>留言</button>
     <form bindsubmit='onSendMyCard' report-submit='true'>
       <button class='jrq__button cardButton' form-type='submit'>递给他名片</button>
     </form>

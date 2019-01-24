@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 11,
+			"current": 18,
 			"list": [
 				{
 					"id": 0,
@@ -104,7 +104,57 @@
 				{
 					"id": -1,
 					"name": "community",
-					"pathName": "pages/community/community"
+					"pathName": "pages/community/community",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "projectDetail",
+					"pathName": "pages/articleDetail/projectDetail/projectDetail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "community",
+					"pathName": "pages/community/community",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "index",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "project",
+					"pathName": "pages/project/project",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "courseDetail",
+					"pathName": "pages/articleDetail/courseDetail/courseDetail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "service",
+					"pathName": "pages/service/service",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "message",
+					"pathName": "pages/message/message",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

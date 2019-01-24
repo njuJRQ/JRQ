@@ -44,7 +44,7 @@ public class Course {
 	public Course(){
 	}
 
-	public Course(String title, String image, String writerName, long timeStamp, long likeNum, String video, int price, String preview) {
+	public Course(String title, String image, String writerName, long timeStamp, long likeNum, String video, int price, String preview,long vieNum) {
 		this.title = title;
 		this.image = image;
 		this.writerName = writerName;
@@ -53,6 +53,7 @@ public class Course {
 		this.video = video;
 		this.price = price;
 		this.preview = preview;
+		this.vieNum = vieNum;
 	}
 
 	public String getId() {

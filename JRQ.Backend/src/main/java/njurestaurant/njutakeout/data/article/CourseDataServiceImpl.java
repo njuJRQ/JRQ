@@ -39,7 +39,10 @@ public class CourseDataServiceImpl implements CourseDataService {
 	public Course getCourseById(String id) throws NotExistException {
 		Optional<Course> optionalCourse = courseDao.findById(id);
 		if (optionalCourse.isPresent()) {
-			return optionalCourse.get();
+			Course course = optionalCourse.get();
+			course.setVieNum(course.getVieNum()+1);
+			courseDao.save(course);
+			return course ;
 		} else {
 			throw new NotExistException("Course ID", id);
 		}

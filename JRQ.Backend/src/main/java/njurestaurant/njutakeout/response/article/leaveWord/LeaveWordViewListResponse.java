@@ -4,13 +4,13 @@ import njurestaurant.njutakeout.response.Response;
 
 import java.util.List;
 
-public class LeaveWordVIewListResponse extends Response {
+public class LeaveWordViewListResponse extends Response {
     private List<LeaveWordViewItem> leaveWordViewItems;
 
-    public LeaveWordVIewListResponse() {
+    public LeaveWordViewListResponse() {
     }
 
-    public LeaveWordVIewListResponse(List<LeaveWordViewItem> leaveWordViewItems) {
+    public LeaveWordViewListResponse(List<LeaveWordViewItem> leaveWordViewItems) {
         this.leaveWordViewItems = leaveWordViewItems;
     }
 

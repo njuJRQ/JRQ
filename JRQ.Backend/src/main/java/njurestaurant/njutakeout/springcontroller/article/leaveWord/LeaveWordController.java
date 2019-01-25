@@ -56,5 +56,22 @@ public class LeaveWordController {
         return new ResponseEntity<>(leaveWordBlService.deleteMyLeaveWord(id), HttpStatus.OK);
     }
 
-
+    @ApiOperation(value = "获取某一留言时间戳前的5条留言", notes = "获取某一留言时间戳前的5条留言")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "用户openid", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "courseId", value = "课程id", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "id", value = "留言id", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getLeaveWordViewListBefore", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getLeaveWordViewListBefore(
+            @RequestParam(name="openid")String openid,
+            @RequestParam(name="courseId") String courseId,
+            @RequestParam(name="id")String id) throws NotExistException {
+        return new ResponseEntity<>(leaveWordBlService.getLeaveWordViewListBefore(openid,courseId,id), HttpStatus.OK);
+    }
 }

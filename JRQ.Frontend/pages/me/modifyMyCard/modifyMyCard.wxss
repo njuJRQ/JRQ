@@ -6,20 +6,29 @@ page {
 }
 /*关于人物头像的属性*/
 .face {
-  margin: 10px 0 0 0;
+  text-align: center;
 }
-.face image {
+.face__image {
+  margin: 10px 0;
+  display: block;
   width: 100px;
   height: 100px;
+  border-radius: 50%;
+  border: 2px #ffffff solid;
+  box-shadow: 0 0 25px #c4a966;
 }
-.face-text {
+.face__text {
   text-align: center;
   margin: 10px 0;
   font-size: 0.8rem;
 }
 /*关于修改个人信息的属性*/
-.infos {
-  background-color: white;
+.infoListWrapper {
+  width: 100%;
+  padding: 10px;
+}
+.infoList {
+  /*background-color: white;*/
   padding: 10px;
   font-size: 0.8rem;
 }
@@ -28,8 +37,7 @@ page {
   justify-content: space-between;
 }
 .info__key {
-  font-size: 0.8rem;
-  color: black;
+  font-size: 1rem;
 }
 .info__value {
   font-size: 1rem;

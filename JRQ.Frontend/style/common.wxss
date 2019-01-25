@@ -25,12 +25,26 @@ text {
   color: #FFF;
   background-color: #D62F36;
 }
+/*CSS 小圆点*/
 .dot {
   width: 4px;
   height: 4px;
   background: #000;
   border-radius: 50%;
   margin: 5px;
+}
+/* CSS箭头*/
+.arrow {
+  content: " ";
+  height: 6px;
+  width: 6px;
+  border-width: 2px 2px 0 0;
+  border-color: #a1a2a2;
+  border-style: solid;
+  transform: rotate(45deg);
+  margin-top: -4px;
+  top: 50%;
+  right: 22px;
 }
 .div-line{
   background: #E0E3DA;

@@ -1,5 +1,5 @@
 const app = getApp()
-var util = require('./util.js')
+const util = require('./util.js')
 
 function getAbstractList(kind, openid, lastId, lastIdType) {
   var that = this
@@ -984,48 +984,42 @@ function updateMe(openid, detail, price, date) {
   })
 }
 
-function sendMyCard(senderOpenid, receiverOpenid, page, formId, data, emphasisKeyword, then) {
-  var that = this
-  wx.showLoading({
-    title: '正在发送名片',
-  })
-  getMyUser.call(that, senderOpenid, (res) => {
-    /*console.log(res)*/
-    wx.request({
-      url: app.globalData.backendUrl + "sendMyCard",
-      data: {
-        senderOpenid: senderOpenid,
-        receiverOpenid: receiverOpenid,
-        page: "/pages/me/myHistory/myHistory?id" + senderOpenid,
-        formId: formId,
-        data: "名片申请交换通知",
-        emphasisKeyword: {
-          "申请人": res.username,
-          "备注": "您可点击查看Ta的名片，然后进入个人中心确认接收或拒绝！",
-          "公司名称": res.company,
-          "业务类型": res.label
-        }
-      },
-      header: {
-        'Authorization': 'Bearer ' + app.getToken(),
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'GET',
-      success: (res) => {
-        if (res.statusCode == 200) {
-
-          if (res.data.ok) {
-            console.log(res)
-            wx.hideLoading()
-            wx.showToast({
-              title: '发送名片成功',
-            })
+function sendMyCard(senderOpenid, receiverOpenid) {
+  return new util.Promise((resolve, reject) => {
+    var that = this
+    wx.showLoading({
+      title: '正在发送名片',
+    })
+    getMyUser.call(that, senderOpenid, (res) => {
+      wx.request({
+        url: app.globalData.backendUrl + "sendMyCard",
+        data: {
+          senderOpenid: senderOpenid,
+          receiverOpenid: receiverOpenid,
+          page: "/pages/me/myHistory/myHistory?id" + senderOpenid,
+          data: "名片申请交换通知",
+          emphasisKeyword: {
+            "申请人": res.username,
+            "备注": "您可点击查看Ta的名片，然后进入个人中心确认接收或拒绝！",
+            "公司名称": res.company,
+            "业务类型": res.label
+          }
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          if (res.statusCode == 200) {
+            resolve(res)
           }
           else {
-            if (then) then(res.data)
+            reject()
           }
-        }
-      }
+        },
+        fail: reject
+      })
     })
   })
 }
@@ -1117,23 +1111,28 @@ function getMyEnterpriseAdmin(openid) {
 }
 
 function getMyCardLimits(openid) {
-  var that = this
-  wx.request({
-    url: app.globalData.backendUrl + "getMyUser",
-    data: {
-      openid: openid
-    },
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      /*console.log(res)*/
-      that.setData({
-        cardLimits: res.data.user.cardLimit
-      })
-    }
+  return new util.Promise((resolve, reject) => {
+    var that = this
+    wx.request({
+      url: app.globalData.backendUrl + "getMyUser",
+      data: {
+        openid: openid
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        if (res.statusCode == 200) {
+          resolve(res.data)
+        }
+        else {
+          reject()
+        }
+      },
+      fail: reject
+    })
   })
 }
 
@@ -1333,6 +1332,33 @@ function getNewsListBefore(newsId, then) {
   })
 }
 
+function uploadFormId(openid, formId) {
+  return new util.Promise((resolve, reject) => {
+    var that = this
+    wx.request({
+      url: app.globalData.backendUrl + "uploadFormId",
+      data: {
+        openid: openid,
+        formId: formId
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        if (res.statusCode == 200) {
+          resolve(res.data)
+        }
+        else {
+          reject()
+        }
+      },
+      fail: reject
+    })
+  })
+}
+
 module.exports = {
   getAbstractList: getAbstractList,
   getAbstractListByCondition: getAbstractListByCondition,
@@ -1372,5 +1398,6 @@ module.exports = {
   getWxQrCode: getWxQrCode,
   getMySubmittedEnterprise: getMySubmittedEnterprise,
   getClassificationDescriptionList: getClassificationDescriptionList,
-  getNewsListBefore: getNewsListBefore
+  getNewsListBefore: getNewsListBefore,
+  uploadFormId: uploadFormId
 }

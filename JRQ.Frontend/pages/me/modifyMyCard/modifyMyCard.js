@@ -31,7 +31,7 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
-        var tempFilePath = res.tempFilePaths[0]
+        const tempFilePath = res.tempFilePaths[0]
         console.log(tempFilePath)
         that.data.myInfo.face = tempFilePath
         that.data.newMyInfo.face = tempFilePath

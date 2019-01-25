@@ -9,10 +9,12 @@ form {
 }
 /*关于人物头像的属性*/
 .face {
+  padding: 20px 0 10px 0;
   text-align: center;
+  background-color: #fbf8f5;
 }
 .face__image {
-  margin: 10px auto;
+  margin: auto;
   display: block;
   width: 100px;
   height: 100px;
@@ -28,7 +30,7 @@ form {
 /*关于修改个人信息的属性*/
 .infoListWrapper {
   width: 100%;
-  padding: 10px;
+  padding: 10px 10px 0 10px;
 }
 .infoList {
   /*background-color: white;*/
@@ -43,7 +45,7 @@ form {
   font-size: 1rem;
 }
 .info__value {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 .info__textarea {
   min-height: 100px;

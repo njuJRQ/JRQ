@@ -4,22 +4,30 @@ view {
 text {
   color: #5e645a;
 }
+.header {
+  padding: 10px;
+  width: 100%;
+}
 .jrq__block {
   box-shadow: 0 5px 20px #e0e0e0;
   border-radius: 10px;
   background-color: #f7f1e5;
 }
-.jrq__words {
-  font-weight: bold;
+.jrq__words, .jrq__words--style-heavy {
   font-family: HYYaKuHeiW;
   color: #b98c49;
+  font-weight: bold;
   font-size: 0.8rem;
+}
+.jrq__words--style-light {
+  color: #927912;
+  font-weight: normal;
 }
 .jrq__button {
   background-color: #c78f21;
   color: #ffffff;
   border-radius: 5px;
-  box-shadow: 0 0 5px #808080;
+  box-shadow: 0 0 10px #808080;
 }
 .jrq__button--color-red {
   color: #FFF;

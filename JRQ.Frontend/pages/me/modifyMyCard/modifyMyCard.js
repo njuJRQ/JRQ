@@ -30,11 +30,11 @@ Page({
       count: 1,
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
-      success: function(res) {
+      success: (res) => {
         const tempFilePath = res.tempFilePaths[0]
         console.log(tempFilePath)
         that.data.myInfo.face = tempFilePath
-        that.newFace = tempFilePath
+        that.data.newFace = tempFilePath
         that.setData(that.data)
       },
     })
@@ -51,13 +51,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    var that = this
+    const that = this
     api.getClassificationList.call(this, () => {
       api.getMyInfo.call(this, app.getOpenid(), () => {
         /* 更新labelIndex */
         const label = that.data.myInfo.label
         const labelArray = that.data.labelArray
-        var index = labelArray.findIndex((l) => l == label)
+        let index = labelArray.findIndex((l) => l == label)
         if (index === -1) index = 0
         that.data.labelIndex = index
         /* 复制myInfo到newMyInfo中 */
@@ -71,7 +71,9 @@ Page({
     let newMyInfo = e.detail.value
     newMyInfo.openid = app.getOpenid()
     newMyInfo.label = this.data.labelArray[newMyInfo.label]
-    newMyInfo.face = this.newFace
+    if (this.data.newFace) {
+      newMyInfo.face = this.data.newFace
+    }
     console.log(newMyInfo)
     /* 检查输入合法性 */
     if (!(newMyInfo.phone === "" || /^1[34578]\d{9}$/.test(newMyInfo.phone))) {

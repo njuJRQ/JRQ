@@ -36,21 +36,29 @@ function getAbstractList(kind, openid, lastId, lastIdType) {
         article.images = article.images.map((image) => app.globalData.picUrl + image)
         article.writerFace = app.globalData.picUrl + article.writerFace
         switch (article.kind) {
-          case 'course': article.kindName = "课程"; break;
-          case 'document': article.kindName = "文档"; break;
-          case 'project': article.kindName = "项目"; break;
-          default: break;
+          case 'course':
+            article.kindName = "课程";
+            break;
+          case 'document':
+            article.kindName = "文档";
+            break;
+          case 'project':
+            article.kindName = "项目";
+            break;
+          default:
+            break;
         }
       })
       that.data.articles = that.data.articles.concat(articles)
       that.data.lastId = articles[articles.length - 1].id
-     
+
       that.data.lastIdType = articles[articles.length - 1].kind
       console.log(that.data.lastIdType)
       that.setData(that.data)
     }
   })
 }
+
 function getAbstractListByCondition(openid, condition) {
   var that = this
   if (condition == "") {
@@ -92,7 +100,7 @@ function getAbstractListByCondition(openid, condition) {
 //   wx.showLoading({
 //     title: '载入中',
 //   })
-  
+
 //   wx.request({
 //     url: app.globalData.backendUrl + "getFeedViewListBefore",
 //     header: {
@@ -146,7 +154,7 @@ function getAbstractListByCondition(openid, condition) {
 //     }
 //   })
 // }
-function getFeedListl(kind,openid, id) {
+function getFeedListl(kind, openid, id) {
   var that = this
   wx.showLoading({
     title: '载入中',
@@ -185,10 +193,17 @@ function getFeedListl(kind,openid, id) {
           })
           article.kindName = "最热";
           switch (article.kind) {
-            case 'latest': article.kindName = "最热"; break;
-            case 'weekly': article.kindName = "一周内"; break;
-            case 'monthly': article.kindName = "一月内"; break;
-            default: break;
+            case 'latest':
+              article.kindName = "最热";
+              break;
+            case 'weekly':
+              article.kindName = "一周内";
+              break;
+            case 'monthly':
+              article.kindName = "一月内";
+              break;
+            default:
+              break;
           }
         })
 
@@ -215,9 +230,9 @@ function getFeedListl(kind,openid, id) {
   })
 }
 
-function getFeedList(kind, openid, lastId,id) {
-  if(!id){
-    id="";
+function getFeedList(kind, openid, lastId, id) {
+  if (!id) {
+    id = "";
   }
   var that = this
   wx.showLoading({
@@ -231,13 +246,13 @@ function getFeedList(kind, openid, lastId,id) {
       'content-type': 'application/x-www-form-urlencoded'
     },
     data: {
-      kind:kind,
+      kind: kind,
       openid: openid,
       articleId: lastId,
-     // articleType: lastIdType,
+      // articleType: lastIdType,
       id: id
     },
-    
+
     method: 'GET',
     success: (res) => {
       wx.hideLoading()
@@ -257,10 +272,17 @@ function getFeedList(kind, openid, lastId,id) {
           })
           article.kindName = "最热";
           switch (kind) {
-            case 'latest': article.kindName = "最热";break;
-            case 'weekly': article.kindName = "一周内"; break;
-            case 'monthly': article.kindName = "一月内"; break;
-            default: break;
+            case 'latest':
+              article.kindName = "最热";
+              break;
+            case 'weekly':
+              article.kindName = "一周内";
+              break;
+            case 'monthly':
+              article.kindName = "一月内";
+              break;
+            default:
+              break;
           }
         })
 
@@ -508,11 +530,6 @@ function getPersonList(kind, then) {
 }
 
 function getMyInfo(openid, then) {
-  /**
-   * 方法：getUser
-   * 参数：
-   * 无
-   */
   var that = this
   wx.showLoading({
     title: '载入中',
@@ -529,6 +546,7 @@ function getMyInfo(openid, then) {
     method: 'GET',
     success: (res) => {
       wx.hideLoading()
+      console.log(res)
       that.data.myInfo = res.data.user
       that.data.myInfo.face = app.globalData.picUrl + that.data.myInfo.face
       if (that.data.myInfo.levelName == '998') {
@@ -686,104 +704,60 @@ function publishMyArticle(openid, kind, content, photos) {
   })
 }
 
-function modifyMyInfo() {
-  /**
-   * 方法：updateUser
-   * 参数：
-   * 用户头像：face
-   * 用户名：username
-   * 电话：phone
-   * 邮箱：email
-   * 城市：city
-   * 公司：company
-   * 部门：department
-   * 职位：position
-   * 个人简介：intro
-   */
-  var that = this
-  wx.showLoading({
-    title: '上传中',
+function uploadHead(facePath) {
+  return new util.Promise((resolve, reject) => {
+    wx.showLoading({
+      title: '上传中',
+    })
+    wx.uploadFile({
+      //上传用户图片
+      url: app.globalData.backendUrl + "uploadHead",
+      filePath: facePath,
+      name: 'face',
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: resolve,
+      fail: reject
+    })
   })
-  wx.uploadFile({
-    //上传用户图片
-    url: app.globalData.backendUrl + "uploadHead",
-    filePath: that.data.newMyInfo.face,
-    name: 'face',
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    success: (res) => {
+}
+
+function modifyMyInfo(newMyInfo) {
+  console.log("1")
+  return new util.Promise((resolve, reject) => {
+    console.log("2")
+    console.log("Face is " + newMyInfo.face)
+    uploadHead(newMyInfo.face).then((res) => {
+      console.log("3")
       wx.request({
         //上传用户信息
         url: app.globalData.backendUrl + "updateMyProfile",
-        data: {
-          openid: app.getOpenid(),
-          username: that.data.newMyInfo.username,
-          phone: that.data.newMyInfo.phone,
-          email: that.data.newMyInfo.email,
-          city: that.data.newMyInfo.city,
-          company: that.data.newMyInfo.company,
-          department: that.data.newMyInfo.department,
-          position: that.data.newMyInfo.position,
-          intro: that.data.newMyInfo.intro,
-          label: that.data.newMyInfo.label
-        },
+        data: newMyInfo,
         header: {
           'Authorization': 'Bearer ' + app.getToken(),
           'content-type': 'application/x-www-form-urlencoded'
         },
         method: 'GET',
-        success: (res) => {
-          wx.hideLoading()
-          wx.showToast({
-            title: '修改成功',
-            icon: 'succes',
-            duration: 1000,
-            mask: true
-          })
-          setTimeout(() => {
-            wx.navigateBack()
-          }, 1000)
-        }
+        success: resolve,
+        fail: reject
       })
-    },
-    fail: (res) => {
+    }).catch((res) => {
+      console.log("4")
       wx.request({
         //上传用户信息
         url: app.globalData.backendUrl + "updateMyProfileWithoutFile",
-        data: {
-          openid: app.getOpenid(),
-          face: that.data.newMyInfo.face.replace(app.globalData.picUrl, ""),
-          username: that.data.newMyInfo.username,
-          phone: that.data.newMyInfo.phone,
-          email: that.data.newMyInfo.email,
-          city: that.data.newMyInfo.city,
-          company: that.data.newMyInfo.company,
-          department: that.data.newMyInfo.department,
-          position: that.data.newMyInfo.position,
-          intro: that.data.newMyInfo.intro,
-          label: that.data.newMyInfo.label
-        },
+        data: newMyInfo,
         header: {
           'Authorization': 'Bearer ' + app.getToken(),
           'content-type': 'application/x-www-form-urlencoded'
         },
         method: 'GET',
-        success: (res) => {
-          wx.hideLoading()
-          wx.showToast({
-            title: '修改成功',
-            icon: 'succes',
-            duration: 1000,
-            mask: true
-          })
-          setTimeout(() => {
-            wx.navigateBack()
-          }, 1000)
-        }
+        success: resolve,
+        fail: reject
       })
-    }
+    })
   })
 }
 
@@ -990,7 +964,7 @@ function sendMyCard(senderOpenid, receiverOpenid) {
     wx.showLoading({
       title: '正在发送名片',
     })
-    getMyUser.call(that, senderOpenid, (res) => {
+    getMyUser(senderOpenid).then((res) => {
       wx.request({
         url: app.globalData.backendUrl + "sendMyCard",
         data: {
@@ -1011,10 +985,10 @@ function sendMyCard(senderOpenid, receiverOpenid) {
         },
         method: 'GET',
         success: (res) => {
+          console.log(res);
           if (res.statusCode == 200) {
             resolve(res)
-          }
-          else {
+          } else {
             reject()
           }
         },
@@ -1048,23 +1022,29 @@ function getMyCredit(openid) {
   })
 }
 
-function getMyUser(openid, then) {
-  var that = this
-  wx.request({
-    url: app.globalData.backendUrl + "getMyUser",
-    data: {
-      openid: openid
-    },
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      if (res.statusCode == 200) {
-        then(res.data.user)
-      }
-    }
+function getMyUser(openid) {
+  return new util.Promise((resolve, reject) => {
+    var that = this
+    wx.request({
+      url: app.globalData.backendUrl + "getMyUser",
+      data: {
+        openid: openid
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        if (res.statusCode == 200) {
+          resolve(res.data.user)
+        }
+        else {
+          reject()
+        }
+      },
+      fail: reject
+    })
   })
 }
 
@@ -1126,8 +1106,7 @@ function getMyCardLimits(openid) {
       success: (res) => {
         if (res.statusCode == 200) {
           resolve(res.data)
-        }
-        else {
+        } else {
           reject()
         }
       },
@@ -1265,7 +1244,9 @@ function getWxQrCode(then) {
           wx.getImageInfo({
             src: app.globalData.picUrl + res.data.imagePath,
             success: (res) => {
-              if (then) then({ imagePath: res.path })
+              if (then) then({
+                imagePath: res.path
+              })
             }
           })
         }
@@ -1347,10 +1328,10 @@ function uploadFormId(openid, formId) {
       },
       method: 'GET',
       success: (res) => {
+        console.log(res)
         if (res.statusCode == 200) {
           resolve(res.data)
-        }
-        else {
+        } else {
           reject()
         }
       },

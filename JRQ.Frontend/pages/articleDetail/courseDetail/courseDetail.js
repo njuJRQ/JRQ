@@ -52,7 +52,7 @@ Page({
         showCancel: false
       })
     } else {
-      api.getMyUser.call(that, app.getOpenid(), (res) => {
+      api.getMyUser(app.getOpenid()).then((res) => {
         var price = that.data.course.price
         switch (res.levelName) {
           case "common": break;

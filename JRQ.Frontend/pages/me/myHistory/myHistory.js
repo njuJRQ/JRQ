@@ -181,8 +181,9 @@ Page({
     if (this.data.isGetOtherInfo) {
       console.log("formId is " + e.detail.formId)
       api.uploadFormId(app.getOpenid(), e.detail.formId)
-        .then(api.sendMyCard(app.getOpenid(), this.data.otherid))
+        .then((res) => api.sendMyCard(app.getOpenid(), this.data.otherid))
         .then((res) => {
+          console.log("After send my card: ",res)
           wx.hideLoading()
           if (res.data.ok) {
             wx.showToast({
@@ -191,11 +192,12 @@ Page({
           } else {
             wx.showToast({
               icon: "none",
-              title: res.message,
+              title: res.data.message,
             })
           }
         })
-        .catch(() => {
+        .catch((res) => {
+          console.log(res);
           wx.hideLoading();
           wx.showModal({
             content: '发送名片失败，请检查网络连接',

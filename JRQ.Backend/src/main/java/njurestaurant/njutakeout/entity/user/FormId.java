@@ -11,8 +11,8 @@ public class FormId {
 	private String openid; //用户的openid
 
 	@Id
-	@Column
-	private String formId; //用户拥有的form_id
+	@Column(length = 40)
+	private String formId; //用户拥有的form_id，实测form_id长为32位，这里放长一些为40位
 
 	@Column
 	private long timestamp; //该form_id到期时间，由后端服务器产生，以毫秒为单位

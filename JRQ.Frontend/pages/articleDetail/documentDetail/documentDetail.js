@@ -32,7 +32,7 @@ Page({
   onDownload: function () {
     var that = this
     if (this.data.document.attachment) {
-      api.getMyUser.call(this, app.getOpenid(), (res) => {
+      api.getMyUser(app.getOpenid()).then((res) => {
         if (res.levelName == "common") {
           wx.showModal({
             title: '您的权限为普通用户，无法下载',

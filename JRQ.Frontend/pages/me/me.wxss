@@ -2,15 +2,7 @@
 @import '/style/common.wxss';
 @import '/template/publishBar/publishBar.wxss';
 
-/*本页面css属性*/
-
-.header {
-  padding: 10px;
-  width: 100%;
-}
-
 /*关于我的名片的属性*/
-
 .card {
   display: flex;
   flex-direction: column;

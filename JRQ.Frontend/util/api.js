@@ -725,12 +725,9 @@ function uploadHead(facePath) {
 }
 
 function modifyMyInfo(newMyInfo) {
-  console.log("1")
   return new util.Promise((resolve, reject) => {
-    console.log("2")
     console.log("Face is " + newMyInfo.face)
     uploadHead(newMyInfo.face).then((res) => {
-      console.log("3")
       wx.request({
         //上传用户信息
         url: app.globalData.backendUrl + "updateMyProfile",
@@ -744,7 +741,7 @@ function modifyMyInfo(newMyInfo) {
         fail: reject
       })
     }).catch((res) => {
-      console.log("4")
+      console.log(newMyInfo)
       wx.request({
         //上传用户信息
         url: app.globalData.backendUrl + "updateMyProfileWithoutFile",
@@ -965,19 +962,28 @@ function sendMyCard(senderOpenid, receiverOpenid) {
       title: '正在发送名片',
     })
     getMyUser(senderOpenid).then((res) => {
+      console.log(res)
       wx.request({
         url: app.globalData.backendUrl + "sendMyCard",
         data: {
           senderOpenid: senderOpenid,
           receiverOpenid: receiverOpenid,
-          page: "/pages/me/myHistory/myHistory?id" + senderOpenid,
-          data: "名片申请交换通知",
-          emphasisKeyword: {
-            "申请人": res.username,
-            "备注": "您可点击查看Ta的名片，然后进入个人中心确认接收或拒绝！",
-            "公司名称": res.company,
-            "业务类型": res.label
-          }
+          page: "/pages/me/myHistory/myHistory?id=" + senderOpenid,
+          data: {
+            "keyword1": {
+              "value": res.username
+            },
+            "keyword2": {
+              "value": "您可点击查看Ta的名片，然后进入个人中心确认接收或拒绝！"
+            },
+            "keyword3": {
+              "value": res.company
+            },
+            "keyword4": {
+              "value": res.label
+            }
+          },
+          emphasisKeyword: "keyword1.DATA"
         },
         header: {
           'Authorization': 'Bearer ' + app.getToken(),

@@ -5,7 +5,23 @@ function getTodayDate () {
   return [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('-')
 }
 
+function error(msg) {
+  wx.showModal({
+    title: msg,
+    showCancel: false
+  })
+}
+
+function flashInfo(msg) {
+  wx.showToast({
+    title: msg,
+    icon: 'none'
+  })
+}
+
 module.exports = {
   getTodayDate: getTodayDate,
-  Promise: Promise
+  Promise: Promise,
+  error: error,
+  flashInfo: flashInfo
 }

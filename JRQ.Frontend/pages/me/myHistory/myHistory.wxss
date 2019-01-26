@@ -93,13 +93,13 @@
 .history {
   width: 100%;
 }
-.blue-block {
+.golden-block {
   display: inline-block;
   vertical-align: middle;
   width: 10px;
   height: 20px;
   margin: 0 5px 0 0;
-  background-color: #243264;
+  background-color: #c78f21;
 }
 .history__title {
   margin: 0 0 10px 0;
@@ -107,6 +107,7 @@
 .history__titleText {
   display: inline-block;
   vertical-align: middle;
-  color: #243264;
+  color: #ab9647;
   font-size: 0.9rem;
+  font-weight: bold;
 }

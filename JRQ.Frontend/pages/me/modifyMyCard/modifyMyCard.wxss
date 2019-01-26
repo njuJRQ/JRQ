@@ -2,7 +2,7 @@
 @import '/style/common.wxss';
 /*本页面css属性*/
 page {
-  background-color: #efefef;
+  background-color: #ffffff;
 }
 form {
   width: 100%;
@@ -11,7 +11,7 @@ form {
 .face {
   padding: 20px 0 10px 0;
   text-align: center;
-  background-color: #fbf8f5;
+  background-color: rgba(253, 250, 243, 0.849);
 }
 .face__image {
   margin: auto;

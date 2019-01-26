@@ -24,25 +24,25 @@
           <text class='contact__item jrq__words jrq__words--style-light' wx:else>邮箱：{{encreptInfo.email}}</text>
         </view>
         <view class='myInfoVisible-button-wrapper'>
-        <button wx:if='{{isMyInfoVisiable}}' class='jrq__button myInfoVisible-button' bindtap='isMyInfoVisiableToggle'>隐藏联系方式</button>
-        <button wx:else class='jrq__button myInfoVisible-button' bindtap='isMyInfoVisiableToggle'>查看联系方式({{cardLimits}})</button>
+          <button wx:if='{{isMyInfoVisiable}}' class='jrq__button myInfoVisible-button' bindtap='isMyInfoVisiableToggle'>隐藏联系方式</button>
+          <button wx:else class='jrq__button myInfoVisible-button' bindtap='isMyInfoVisiableToggle'>查看联系方式({{cardLimits}})</button>
         </view>
       </view>
       <form bindsubmit='onSendMyCard' report-submit='true'>
-      <button class='jrq__button cardButton' form-type='submit'>递给他名片</button>
-    </form>
-    <button class='jrq__button cardButton'>留言</button>
+        <button class='jrq__button cardButton' form-type='submit'>递给他名片</button>
+      </form>
+      <button class='jrq__button cardButton'>留言</button>
     </view>
     <button class='jrq__button cardButton cardButton--style-white' bindtap='onBackToIndex'>回到首页</button>
   </view>
   <view class='history'>
     <view class='history__title'>
-      <view class='blue-block'></view>
+      <view class='golden-block'></view>
       <text class='history__titleText'>历史发布</text>
     </view>
     <view wx:for='{{myArticles}}' wx:key='id' style='margin: 10px 5px;'>
       <template is='articleItem' data='{{item}}'></template>
     </view>
-    <text class='h-center' style='font-size: 0.8rem' wx:if='{{myArticles.length === 0}}'>该用户没有历史文章发布</text>
+    <text class='h-center' style='font-size: 0.8rem; color: #ab9647;' wx:if='{{myArticles.length === 0}}'>该用户没有历史文章发布</text>
   </view>
 </view>

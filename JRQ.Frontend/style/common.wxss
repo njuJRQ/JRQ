@@ -24,7 +24,7 @@ text {
   font-weight: normal;
 }
 .jrq__button {
-  background-color: #c78f21;
+  background-color: #cca65b;
   color: #ffffff;
   border-radius: 5px;
   box-shadow: 0 0 10px #808080;

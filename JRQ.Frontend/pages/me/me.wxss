@@ -2,19 +2,11 @@
 @import '/style/common.wxss';
 @import '/template/publishBar/publishBar.wxss';
 
-/*本页面css属性*/
-
-.header {
-  margin: 10px;
-  width: 95%;
-}
-
 /*关于我的名片的属性*/
-
 .card {
   display: flex;
   flex-direction: column;
-  margin: 10px 0 0 0;
+  margin: 15px 0 0 0;
   padding: 10px;
 }
 .card__main {
@@ -62,16 +54,16 @@
   color: #927912;
 }
 .card__sendButton {
-  margin: 5px 10px 10px 10px;
+  margin: 10px 0 0 0;
   border-radius: 5px;
 }
 
 /*关于更多和设置的属性*/
 .panel {
   position: relative;
-  width: 95%;
+  width: 100%;
   margin: 20px 0;
-  padding: 10px 0 0 0;
+  padding: 10px 10px 0 10px;
 }
 .panel__decorator {
   position: absolute;
@@ -101,7 +93,6 @@
 }
 
 /* navigator*/
-
 .navigator {
   display: flex;
   justify-content: space-between;
@@ -109,31 +100,16 @@
   margin: 10px 0;
   box-sizing: border-box;
 }
-
 .navigator__text {
   font-size: 0.8rem;
   color: #927912;
 }
-
 .navigator__arrow {
   width: 0.6rem;
   height: 0.6rem;
 }
 
-/* CSS箭头*/
 
-.arrow {
-  content: " ";
-  height: 6px;
-  width: 6px;
-  border-width: 2px 2px 0 0;
-  border-color: #a1a2a2;
-  border-style: solid;
-  transform: rotate(45deg);
-  margin-top: -4px;
-  top: 50%;
-  right: 22px;
-}
 
 /*底部弹出层*/
 

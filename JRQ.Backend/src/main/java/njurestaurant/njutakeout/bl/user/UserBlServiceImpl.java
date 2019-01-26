@@ -423,24 +423,23 @@ public class UserBlServiceImpl implements UserBlService {
 			wxMsgParams.put("template_id", "NJoOn_GhBn_u_CvYSzfx1lxOO06iSrVPdFAdGqPWc4c");
 			wxMsgParams.put("page", page);
 			wxMsgParams.put("form_id", userDataService.getFormIdByOpenid(receiverOpenid)); //这里的formId可能为""，此时发送消息就会失败
-			wxMsgParams.put("data", data);
+			wxMsgParams.put("data", JSONObject.fromObject(data));
 			wxMsgParams.put("emphasis_keyword", emphasisKeyword);
 			MultiValueMap<String, String> wxQrCodeHeaders = new LinkedMultiValueMap<>();
 			HttpEntity<Object> wxMsgRequest = new HttpEntity<>(wxMsgParams, wxQrCodeHeaders);
 			ResponseEntity<String> wxMsgResponse = client.exchange(wxQrCodeUrl, HttpMethod.POST, wxMsgRequest, String.class);
 
-			//检查请求结果
+			//检查请求结果，无论是否给微信后台发送成功，都会显示true（SendCard表里面加入就算成功了，微信是否成功无所谓）
 			if (wxMsgResponse.getStatusCode()==HttpStatus.OK) {
 				JSONObject result = JSONObject.fromObject(wxMsgResponse.getBody());
-				if (String.valueOf(result.get("errcode")).equals("0")) {
+				if (String.valueOf(result.get("errcode")).equals("0")) { //微信后台发送成功
 					return new BoolResponse(true, wxMsgResponse.getBody());
 				} else {
-					return new BoolResponse(false, wxMsgResponse.getBody());
+					return new BoolResponse(true, wxMsgResponse.getBody());
 				}
 			} else {
-				return new BoolResponse(false, "后台请求失败");
+				return new BoolResponse(true, "微信后台请求失败");
 			}
-//			return new BoolResponse(true, "发送成功");
 		}
 		else {
 			return new BoolResponse(false, "已经发送过名片，无需重复发送");

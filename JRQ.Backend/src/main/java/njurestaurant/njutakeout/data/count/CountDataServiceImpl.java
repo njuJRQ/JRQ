@@ -21,7 +21,7 @@ public class CountDataServiceImpl implements CountDataService {
     }
 
     @Override
-    public Count getCountById(int id) {
+    public Count getCountById(int id)  {
         return countDao.getCountById(id);
     }
 }

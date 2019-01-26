@@ -171,7 +171,7 @@ public class FeedBlServiceImpl implements FeedBlService {
 	}
 
 	@Override
-	public FeedListResponse getFeedListBeforeByKind(String kind, String openid, String id) throws NotExistException {
+	public FeedViewListResponse getFeedListBeforeByKind(String kind, String openid, String id) throws NotExistException {
 		List<FeedItem> feedItems = new ArrayList<>();
 		List<Feed> feeds = new ArrayList<>();
 		switch (kind) {
@@ -195,7 +195,12 @@ public class FeedBlServiceImpl implements FeedBlService {
 				break;
 			default: ;
 		}
-		return new FeedListResponse(feedItems);
+		List<FeedViewItem> feedViewItems = new ArrayList<>();
+		for(Feed feed:feeds) {
+			boolean hasLiked = likeDataService.isLikeExistent(openid, "feed", feed.getId());
+			feedViewItems.add(new FeedViewItem(feed, userDataService, hasLiked));
+		}
+		return new FeedViewListResponse(feedViewItems);
 	}
 
 	public FeedListResponse getFeedItemList(List<Feed> feeds){

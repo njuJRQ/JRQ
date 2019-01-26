@@ -3,10 +3,14 @@ package njurestaurant.njutakeout.bl.article.course;
 import njurestaurant.njutakeout.blservice.article.course.CourseBlService;
 import njurestaurant.njutakeout.dataservice.admin.AdminDataService;
 import njurestaurant.njutakeout.dataservice.article.CourseDataService;
+import njurestaurant.njutakeout.dataservice.article.LeaveWordDataService;
 import njurestaurant.njutakeout.dataservice.article.LikeDataService;
 import njurestaurant.njutakeout.dataservice.purchase.PurchaseCourseDataService;
 import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
+import njurestaurant.njutakeout.dataservice.user.UserDataService;
 import njurestaurant.njutakeout.entity.article.Course;
+import njurestaurant.njutakeout.entity.article.Feed;
+import njurestaurant.njutakeout.entity.article.LeaveWord;
 import njurestaurant.njutakeout.entity.purchase.PurchaseCourseKey;
 import njurestaurant.njutakeout.entity.user.Enterprise;
 import njurestaurant.njutakeout.exception.NotExistException;
@@ -14,6 +18,9 @@ import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.course.CourseItem;
 import njurestaurant.njutakeout.response.article.course.CourseListResponse;
 import njurestaurant.njutakeout.response.article.course.CourseResponse;
+import njurestaurant.njutakeout.response.article.feed.FeedItem;
+import njurestaurant.njutakeout.response.article.leaveWord.LeaveWordItem;
+import njurestaurant.njutakeout.response.article.leaveWord.LeaveWordViewItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -29,20 +36,24 @@ public class CourseBlServiceImpl implements CourseBlService {
 	private final EnterpriseDataService enterpriseDataService;
 	private final AdminDataService adminDataService;
 	private final LikeDataService likeDataService;
+	private final LeaveWordDataService leaveWordDataService;
+	private final UserDataService userDataService;
 
 	@Autowired
-	public CourseBlServiceImpl(CourseDataService courseDataService, PurchaseCourseDataService purchaseCourseDataService, EnterpriseDataService enterpriseDataService, AdminDataService adminDataService, LikeDataService likeDataService) {
+	public CourseBlServiceImpl(CourseDataService courseDataService, PurchaseCourseDataService purchaseCourseDataService, EnterpriseDataService enterpriseDataService, AdminDataService adminDataService, LikeDataService likeDataService, LeaveWordDataService leaveWordDataService, UserDataService userDataService) {
 		this.courseDataService = courseDataService;
 		this.purchaseCourseDataService = purchaseCourseDataService;
 		this.enterpriseDataService = enterpriseDataService;
 		this.adminDataService = adminDataService;
 		this.likeDataService = likeDataService;
+		this.leaveWordDataService = leaveWordDataService;
+		this.userDataService = userDataService;
 	}
 
 	@Override
 	public InfoResponse addCourse(String title, String image, String writerName, long likeNum, String video, int price) {
 		String preview = generatePreviewVideo(video);
-		courseDataService.addCourse(new Course(title, image, writerName, System.currentTimeMillis(), likeNum, video, price, preview));
+		courseDataService.addCourse(new Course(title, image, writerName, System.currentTimeMillis(), likeNum, video, price, preview,0));
 		return new InfoResponse();
 	}
 
@@ -110,7 +121,12 @@ public class CourseBlServiceImpl implements CourseBlService {
 			}
 		}
 		boolean hasLiked = likeDataService.isLikeExistent(openid, "course", course.getId());
-		return new CourseResponse(new CourseItem(course, hasBought, hasLiked));
+		List<LeaveWord> leaveWords = leaveWordDataService.getLeaveWordListBefore(openid,"",courseId);
+		List<LeaveWordViewItem> leaveWordViewItems = new ArrayList<>();
+		for(LeaveWord leaveWord:leaveWords){
+			leaveWordViewItems.add(new LeaveWordViewItem(leaveWord,userDataService));
+		}
+		return new CourseResponse(new CourseItem(course, hasBought, hasLiked),leaveWordViewItems);
 	}
 
 	@Override

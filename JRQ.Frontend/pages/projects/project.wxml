@@ -1,0 +1,30 @@
+<!--pages/projects/project.wxml-->
+<import src='/template/articleItems/articleItem.wxml'></import>
+<import src='/template/findBar/searchBar.wxml'/>
+<view class='container container--color-white'>
+    <view class='headWrapper' style='background-color:black; background-size: cover;background-repeat: no-repeat; background-position: bottom'>
+    <!--搜索框-->
+    <view class='search_ico'>
+    <template is='searchBar' data='{{ placeholder: "搜索你感兴趣的人", searchCondition: searchCondition}}'></template>
+    </view>
+  </view>
+  
+  <!-- 切换 -->
+  <view class="swiper-tab">
+    <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">钧融优选</view>
+    <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">热度</view>
+    <view class="swiper-tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">时间</view>
+    </view>
+    <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 31}}px" bindchange="bindChange">
+    <swiper-item>
+      <view>钧融优选</view>
+    </swiper-item>
+    <swiper-item>
+      <view>热度</view>
+    </swiper-item>
+    <swiper-item>
+      <view>时间</view>
+    </swiper-item>
+</swiper>
+ 
+</view>

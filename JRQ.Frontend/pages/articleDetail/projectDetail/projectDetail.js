@@ -26,16 +26,11 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    api.getProject(app.getOpenid(), options.id)
-      .then((project) => {
-        this.setData({
-          project: project
-        })
-      })
+  onLoad: function (options) {
+    api.getProject.call(this, options.id)
   },
 
-  onDownload: function() {
+  onDownload: function () {
     var that = this
     if (this.data.project.attachment) {
       api.downloadFile.call(this, this.data.project.attachment, () => {
@@ -44,7 +39,8 @@ Page({
         })
       })
 
-    } else {
+    }
+    else {
       wx.showModal({
         content: '该项目不存在附件',
         showCancel: false
@@ -52,7 +48,7 @@ Page({
     }
   },
 
-  onOpen: function() {
+  onOpen: function () {
     var that = this
     console.log(that.data.savedFilePath)
     if (/.*?(gif|png|jpg|jpeg)/.test(that.data.savedFilePath)) {
@@ -60,7 +56,8 @@ Page({
       wx.previewImage({
         urls: [that.data.savedFilePath],
       })
-    } else {
+    }
+    else {
       //文档
       wx.openDocument({
         filePath: that.data.savedFilePath

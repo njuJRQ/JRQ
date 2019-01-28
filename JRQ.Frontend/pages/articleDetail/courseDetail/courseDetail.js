@@ -23,31 +23,28 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    api.getLevelList().then((levels) => {
+  onLoad: function (options) {
+    var that = this
+    api.getLevelList.call(this, (levels) => {
       levels.forEach((level) => {
         /*console.log(level)*/
         switch (level.name) {
-          case "298":
-            this.data.discount298 = level.courseDiscountedRatio;
-            break;
-          case "998":
-            this.data.discount998 = level.courseDiscountedRatio;
-            break;
-          default:
-            break;
+          case "298": that.data.discount298 = level.courseDiscountedRatio; break;
+          case "998": that.data.discount998 = level.courseDiscountedRatio; break;
+          default: break;
         }
       })
-      this.setData(this.data)
+      that.setData(that.data)
     })
-    api.getMyCourse(app.getOpenid(), options.id)
-      .then((course) => this.setData({
+    api.getMyCourse(app.getOpenid(), options.id, (course) => {
+      this.setData({
         course: course
-      }))
+      })
+    })
   },
 
   //购买该课程
-  onPurchase: function() {
+  onPurchase: function () {
     var that = this
     if (that.data.isOwnCourse) {
       wx.showModal({
@@ -55,19 +52,13 @@ Page({
         showCancel: false
       })
     } else {
-      api.getMyUser(app.getOpenid()).then((res) => {
+      api.getMyUser.call(that, app.getOpenid(), (res) => {
         var price = that.data.course.price
         switch (res.levelName) {
-          case "common":
-            break;
-          case "298":
-            price = that.data.discount298 * price;
-            break;
-          case "998":
-            price = that.data.discount998 * price;
-            break;
-          default:
-            break;
+          case "common": break;
+          case "298": price = that.data.discount298 * price; break;
+          case "998": price = that.data.discount998 * price; break;
+          default: break;
         }
         that.data.course.price = price;
         wx.showModal({
@@ -77,9 +68,7 @@ Page({
             if (res.confirm) {
               console.log(that.data.course.id)
               api.purchaseCourse.call(that, that.data.course.id, app.getOpenid(), that.data.course.price, app.getDate(), () => {
-                that.onLoad({
-                  id: that.data.course.id
-                })
+                that.onLoad({ id: that.data.course.id })
               })
             }
           }

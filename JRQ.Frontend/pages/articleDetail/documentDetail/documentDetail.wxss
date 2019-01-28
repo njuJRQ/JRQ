@@ -40,13 +40,3 @@ page {
   width: 100%;
   margin: auto;
 }
-.like {
-  display: flex;
-}
-.like__num {
-  margin: 0 5px 0 0;
-}
-.like__image {
-  width: 15px;
-  height: 15px;
-}

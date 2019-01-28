@@ -21,47 +21,47 @@
     "pages/news/news",
     "template/likeIcon/likeIcon",
     "template/publishBar/publishBar",
-    "pages/message/message"
+    "pages/me/userInfo",
+    "pages/contact/contact",
+    "pages/information/news",
+    "pages/projects/project"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#000000",
     "navigationBarTitleText": "钧融圈",
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "white",
     "enablePullDownRefresh": true
   },
   "tabBar": {
+    "backgroundColor": "#1b1b1b",
+    "color": "C09B54",
     "selectedColor": "#C09B54",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "首页",
-        "iconPath": "img/index.png",
-        "selectedIconPath": "img/index-choose.png"
+        "iconPath": "img/unstudy-icon.png",
+        "selectedIconPath": "img/study-icon.png"
       },
       {
         "pagePath": "pages/news/news",
-        "text": "资讯",
-        "iconPath": "img/news.png",
-        "selectedIconPath": "img/news-choose.png"
+        "iconPath": "img/unzixun-icon.png",
+        "selectedIconPath": "img/zixun-icon.png"
       },
       {
         "pagePath": "pages/service/service",
-        "text": "业务",
-        "iconPath": "img/service.png",
-        "selectedIconPath": "img/service-choose.png"
+        "iconPath": "img/unxiangmu-icon.png",
+        "selectedIconPath": "img/unxiangmu-icon.png"
       },
       {
         "pagePath": "pages/community/community",
-        "text": "圈子",
-        "iconPath": "img/community.png",
-        "selectedIconPath": "img/community-choose.png"
+        "iconPath": "img/unrenmai-icon.png",
+        "selectedIconPath": "img/renmai-icon.png"
       },
       {
         "pagePath": "pages/me/me",
-        "text": "我的",
-        "iconPath": "img/me.png",
-        "selectedIconPath": "img/me-choose.png"
+        "iconPath": "img/ungeren-icon.png",
+        "selectedIconPath": "img/geren-icon.png"
       }
     ]
   }

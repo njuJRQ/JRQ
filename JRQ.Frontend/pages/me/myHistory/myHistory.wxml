@@ -3,46 +3,47 @@
 
 <view class='container container--color-white'>
   <view class='header' style='width: 100%;'>
-    <view class='card jrq__block'>
+    <view class='card'>
       <image class='card__face' src='{{myInfo.face}}'></image>
       <view class='card__info column'>
-        <view class='card__title row v-center'>
-          <text class='card__username jrq__words'>{{myInfo.username}}</text>
+        <view class='card__username row v-center'>
+          <text>{{myInfo.username}}</text>
           <image class='card__medal' wx:for='{{myInfo.medals}}' wx:key='*this' src='{{item}}'></image>
         </view>
-        <text class='card__text jrq__words jrq__words--style-light'>公司: {{myInfo.company}}</text>
-        <text class='card__text jrq__words jrq__words--style-light'>部门: {{myInfo.department}}</text>
-        <text class='card__text jrq__words jrq__words--style-light'>职位: {{myInfo.position}}</text>
+        <text class='card__text'>公司: {{myInfo.company}}</text>
+        <text class='card__text'>部门: {{myInfo.department}}</text>
+        <text class='card__text'>职位: {{myInfo.position}}</text>
       </view>
       <view class='div-line'></view>
-      <text class='card__intro jrq__words jrq__words--style-light'>个人简介：{{myInfo.intro}}</text>
-      <view class='contact jrq__block'>
-        <view class='contact__info card__text'>
-          <text class='contact__item jrq__words jrq__words--style-light' wx:if='{{isMyInfoVisiable}}'>{{myInfo.phone}}</text>
-          <text class='contact__item jrq__words jrq__words--style-light' wx:else>{{encreptInfo.phone}}</text>
-          <text class='contact__item jrq__words jrq__words--style-light' wx:if='{{isMyInfoVisiable}}'>邮箱：{{myInfo.email}}</text>
-          <text class='contact__item jrq__words jrq__words--style-light' wx:else>邮箱：{{encreptInfo.email}}</text>
+      <text class='card__intro'>个人简介：{{myInfo.intro}}</text>
+      <view class='contact'>
+        <view class='contact__info'>
+          <text class='contact__item' wx:if='{{isMyInfoVisiable}}'>{{myInfo.phone}}</text>
+          <text class='contact__item' wx:else>{{encreptInfo.phone}}</text>
+          <text class='contact__item' wx:if='{{isMyInfoVisiable}}'>邮箱: {{myInfo.email}}</text>
+          <text class='contact__item' wx:else>邮箱：{{encreptInfo.email}}</text>
         </view>
         <view class='myInfoVisible-button-wrapper'>
-          <button wx:if='{{isMyInfoVisiable}}' class='jrq__button myInfoVisible-button' bindtap='isMyInfoVisiableToggle'>隐藏联系方式</button>
-          <button wx:else class='jrq__button myInfoVisible-button' bindtap='isMyInfoVisiableToggle'>查看联系方式({{cardLimits}})</button>
+        <button wx:if='{{isMyInfoVisiable}}' class='jrq__button myInfoVisible-button' bindtap='isMyInfoVisiableToggle'>隐藏联系方式</button>
+        <button wx:else class='jrq__button myInfoVisible-button' bindtap='isMyInfoVisiableToggle'>查看联系方式({{cardLimits}})</button>
+        
         </view>
       </view>
-      <form bindsubmit='onSendMyCard' report-submit='true'>
-        <button class='jrq__button cardButton' form-type='submit'>递给他名片</button>
-      </form>
-      <button class='jrq__button cardButton'>留言</button>
     </view>
-    <button class='jrq__button cardButton cardButton--style-white' bindtap='onBackToIndex'>回到首页</button>
+    <button class='jrq__button cardButton cardButton--style-backToIndex'>留言</button>
+    <form bindsubmit='onSendMyCard' report-submit='true'>
+      <button class='jrq__button cardButton' form-type='submit'>递给他名片</button>
+    </form>
+    <button class='jrq__button cardButton cardButton--style-backToIndex' bindtap='onBackToIndex'>回到首页</button>
   </view>
   <view class='history'>
     <view class='history__title'>
-      <view class='golden-block'></view>
+      <view class='blue-block'></view>
       <text class='history__titleText'>历史发布</text>
     </view>
     <view wx:for='{{myArticles}}' wx:key='id' style='margin: 10px 5px;'>
       <template is='articleItem' data='{{item}}'></template>
     </view>
-    <text class='h-center' style='font-size: 0.8rem; color: #ab9647;' wx:if='{{myArticles.length === 0}}'>该用户没有历史文章发布</text>
+    <text class='h-center' style='font-size: 0.8rem' wx:if='{{myArticles.length === 0}}'>该用户没有历史文章发布</text>
   </view>
 </view>

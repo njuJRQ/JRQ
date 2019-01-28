@@ -12,8 +12,10 @@
 }
 
 /*搜索栏样式*/
-.search {
-  margin: auto;
+.search_ico{
+  margin-left: -5%;
+  margin-right: 30%;
+  width: 110%;
 }
 .search__keywords {
   font-weight: bold;
@@ -76,7 +78,7 @@
   position: relative;
   display: flex;
   justify-content: space-between;
-  margin: 20px 10px;
+  margin: 30px 10px;
   min-height: 80px;
 }
 .card__decorator {

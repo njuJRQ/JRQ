@@ -74,16 +74,7 @@ Page({
 
   //搜索触发函数
   onSearch: function () {
-    api.getPersonListByCondition(app.getOpenid(), this.data.searchCondition)
-    .then((cards) => {
-      if (!cards.length) {
-        util.flashInfo("无搜索结果")
-        return
-      }
-      this.setData({
-        cards: cards
-      })
-    })
+    api.getPersonListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
   },
 
   //展示新收到的名片

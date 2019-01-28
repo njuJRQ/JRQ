@@ -7,10 +7,6 @@
   <view class='course-head row'>
     <view class='coursePrice column' style='width:100%'>
       <text style='color:black; font-size:1rem; font-weight:bold;'>{{course.title}}</text>
-      <view class='like v-center'>   
-        <image class='like__image' src='../../../img/fire.png'></image>   
-        <text class='like__num'>{{course.vieNum}}</text>
-      </view>
       <view>
         <text style='color:orange; font-size:0.8rem'>¥{{course.price}}</text>
         <text style='margin: 0 10px; font-size:0.7rem'>银牌会员*{{discount298}}，金牌会员*{{discount998}}</text>
@@ -36,6 +32,7 @@
     <view class='content'>
       <text wx:if='{{!course.hasBought}}'>视频预览1分钟：请购买该课程后观看完整课程视频</text>
       <video src='{{course.video}}'></video>
+      
     </view>
   </view>
   <view class='course-buttons row'>

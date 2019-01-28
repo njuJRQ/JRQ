@@ -5,8 +5,6 @@ var api = require('../../util/api.js')
 import articleItem from '../../template/articleItem/articleItem'
 
 Page({
-  
-
   /**
    * 页面的初始数据
    */
@@ -90,7 +88,7 @@ Page({
       //lastIdType: ""
     })
     // api.getFeedList.call(this, 'latest', app.getOpenid(), this.data.lastId)
-    api.getFeedList.call(this, 'lasted', app.getOpenid(), this.data.id)
+    api.getFeedList.call(this, 'kind', app.getOpenid(), this.data.id)
     
   },
 
@@ -104,7 +102,7 @@ Page({
       lastIdType: "",
       flag: false
     })
-    api.getFeedList.call(this, 'weekly', app.getOpenid(), this.data.lastId, this.data.id)
+    api.getFeedList.call(this, 'latest', app.getOpenid(), this.data.lastId, this.data.id)
   },
 
   //展示一月内文章
@@ -115,7 +113,7 @@ Page({
       lastId: "",
       lastIdType: ""
     })
-    api.getFeedList.call(this, 'monthly', app.getOpenid(), this.data.lastId, this.data.id)
+    api.getFeedList.call(this, 'latest', app.getOpenid(), this.data.lastId, this.data.id)
   },
 
   

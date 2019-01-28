@@ -6,10 +6,6 @@
   <view class='project-head row'>
   <view class='project-title column' style='width:100%'>
     <text style='color:black; font-size:1rem; font-weight:bold;'>{{project.title}}</text>
-    <view class='like v-center'>   
-        <image class='like__image' src='../../../img/fire.png'></image>   
-        <text class='like__num'>{{project.vieNum}}</text>
-      </view>
   </view>
   <view class='v-center h-center' style='width:100px; border:1px solid black; margin:5px; border-radius:5px'>
       <text style='color:black; font-size:1rem; margin:3px'>项目</text>

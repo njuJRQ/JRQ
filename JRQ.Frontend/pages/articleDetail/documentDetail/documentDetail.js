@@ -22,10 +22,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    api.getDocument(options.id)
+    api.getDocument(app.getOpenid(),options.id)
       .then((document) => {
         this.setData({
-          document: res.data.document
+          document: document
         })
       })
       .catch((res) => {

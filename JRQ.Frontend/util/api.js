@@ -211,7 +211,7 @@ function getFeedList(kind, openid, lastId, id) {
     title: '载入中',
   })
   wx.request({
-    url: app.globalData.backendUrl + "getFeedViewListBefore",
+    url: app.globalData.backendUrl + "getFeedListBeforeByKind",
     // url: app.globalData.backendUrl + "getFeedListByLikeNum",
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
@@ -314,13 +314,14 @@ function getMyCourse(openid, courseId) {
   })
 }
 
-function getDocument(id) {
+function getDocument(openid,id) {
   return new util.Promise((resolve, reject) => {
-    var that = this
+    var that = this;
     wx.request({
-      url: app.globalData.backendUrl + "getDocument",
+      url: app.globalData.backendUrl + "getMyDocument",
       data: {
-        id: id
+        openid: openid,
+        documentId: id
       },
       header: {
         'Authorization': 'Bearer ' + app.getToken(),
@@ -340,13 +341,14 @@ function getDocument(id) {
   })
 }
 
-function getProject(id) {
+function getProject(openid,id) {
   return new util.Promise((resolve, reject) => {
     var that = this
     wx.request({
-      url: app.globalData.backendUrl + "getProject",
+      url: app.globalData.backendUrl + "getMyProject",
       data: {
-        id: id
+        openid: openid,
+        projectId: id
       },
       header: {
         'Authorization': 'Bearer ' + app.getToken(),

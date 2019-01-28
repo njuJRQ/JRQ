@@ -24,11 +24,7 @@
       </view>
       -->
       <text class='article__date'>{{item.date}}</text>
-      <view class='like v-center'>      
-        <text class='like__num'>{{item.likeNum}}</text>
-        <image class='like__image' src='img/scan.png'></image>
-      </view>
-       
+    
       <view class='like v-center' catchtap='likePlus' data-id='{{item.id}}'>
         <text class='like__num'>{{item.likeNum}}</text>
         <image class='like__image' wx:if='{{item.hasLiked}}' src='img/like.png'></image>

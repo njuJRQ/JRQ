@@ -35,3 +35,13 @@ page {
 .download {
   padding: 20px 10px 20px 10px;
 }
+.like {
+  display: flex;
+}
+.like__num {
+  margin: 0 5px 0 0;
+}
+.like__image {
+  width: 15px;
+  height: 15px;
+}

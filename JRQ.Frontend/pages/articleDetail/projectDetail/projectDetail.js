@@ -27,7 +27,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    api.getProject(options.id)
+    api.getProject(app.getOpenid(), options.id)
       .then((project) => {
         this.setData({
           project: project

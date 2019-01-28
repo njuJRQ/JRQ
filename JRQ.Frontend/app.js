@@ -141,9 +141,10 @@ App({
     wechatUsername: "",
     token: "",
     defaultPic: '../../default/default-pic.png',
-    backendUrl: "https://junrongcenter.com:3389/",//used
+    backendUrl: "https://junrongcenter.com:3389/",
     picUrl: "https://www.junrongcenter.com/"//used
     //backendUrl: "http://localhost:3389/",
+    //backendUrl: "http://localhost:8080/",
     //picUrl: "http://localhost:8000/",
     //picUrl: "http://localhost/libs/"//xulei
   }

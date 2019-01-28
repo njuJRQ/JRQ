@@ -1,90 +1,70 @@
 const app = getApp()
-var util = require('./util.js')
+const util = require('./util.js')
 
 function getAbstractList(kind, openid, lastId, lastIdType) {
-  var that = this
-  wx.showLoading({
-    title: '载入中',
-  })
-  wx.request({
-    url: app.globalData.backendUrl + "getAbstractListBefore",
-    data: {
-      kind: kind,
-      openid: openid,
-      articleId: lastId,
-      articleType: lastIdType
-    },
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      wx.hideLoading()
-      if (res.data.status == 500) {
-        wx.showToast({
-          title: '获取文章列表失败',
-          icon: 'none'
-        })
-        return
-      }
-      var articles = res.data.abstractList
-      if (articles.length <= 0) {
-        return
-      }
-      articles.forEach((article) => {
-        article.images = article.images.map((image) => app.globalData.picUrl + image)
-        article.writerFace = app.globalData.picUrl + article.writerFace
-        switch (article.kind) {
-          case 'course': article.kindName = "课程"; break;
-          case 'document': article.kindName = "文档"; break;
-          case 'project': article.kindName = "项目"; break;
-          default: break;
+  return new util.Promise((resolve, reject) => {
+    var that = this
+    wx.showLoading({
+      title: '载入中',
+    })
+    wx.request({
+      url: app.globalData.backendUrl + "getAbstractListBefore",
+      data: {
+        kind: kind,
+        openid: openid,
+        articleId: lastId,
+        articleType: lastIdType
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        wx.hideLoading()
+        if (res.statusCode == 200) {
+          resolve(res.data.abstractList)
+        } else {
+          reject()
         }
-      })
-      that.data.articles = that.data.articles.concat(articles)
-      that.data.lastId = articles[articles.length - 1].id
-     
-      that.data.lastIdType = articles[articles.length - 1].kind
-      console.log(that.data.lastIdType)
-      that.setData(that.data)
-    }
+      }
+    })
   })
 }
+
 function getAbstractListByCondition(openid, condition) {
-  var that = this
-  if (condition == "") {
-    condition = null
-  }
-  wx.showLoading({
-    title: '搜索中',
-  })
-  wx.request({
-    url: app.globalData.backendUrl + "getAbstractListByCondition",
-    data: {
-      openid: openid,
-      condition: condition
-    },
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      /*console.log(res.data)*/
-      wx.hideLoading()
-      that.data.articles = res.data.abstractList
-      that.data.articles.forEach((article) => {
-        article.images = article.images.map((image) => app.globalData.picUrl + image)
-      })
-      that.setData(that.data)
-      if (!that.data.articles.length) {
-        wx.showToast({
-          title: '无搜索结果',
-          icon: 'none'
-        })
-      }
+  return new util.Promise((resolve, reject) => {
+    if (condition == "") {
+      condition = null
     }
+    wx.showLoading({
+      title: '搜索中',
+    })
+    wx.request({
+      url: app.globalData.backendUrl + "getAbstractListByCondition",
+      data: {
+        openid: openid,
+        condition: condition
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        if (res.statusCode == 200) {
+          wx.hideLoading()
+          let articles = res.data.abstractList
+          articles.forEach((article) => {
+            article.images = article.images.map((image) => app.globalData.picUrl + image)
+          })
+          resolve(articles)
+        } else {
+          reject()
+        }
+      },
+      fail: reject
+    })
   })
 }
 // function getFeedList(kind,openid, id) {
@@ -92,7 +72,7 @@ function getAbstractListByCondition(openid, condition) {
 //   wx.showLoading({
 //     title: '载入中',
 //   })
-  
+
 //   wx.request({
 //     url: app.globalData.backendUrl + "getFeedViewListBefore",
 //     header: {
@@ -146,7 +126,7 @@ function getAbstractListByCondition(openid, condition) {
 //     }
 //   })
 // }
-function getFeedListl(kind,openid, id) {
+function getFeedListl(kind, openid, id) {
   var that = this
   wx.showLoading({
     title: '载入中',
@@ -185,10 +165,17 @@ function getFeedListl(kind,openid, id) {
           })
           article.kindName = "最热";
           switch (article.kind) {
-            case 'latest': article.kindName = "最热"; break;
-            case 'weekly': article.kindName = "一周内"; break;
-            case 'monthly': article.kindName = "一月内"; break;
-            default: break;
+            case 'latest':
+              article.kindName = "最热";
+              break;
+            case 'weekly':
+              article.kindName = "一周内";
+              break;
+            case 'monthly':
+              article.kindName = "一月内";
+              break;
+            default:
+              break;
           }
         })
 
@@ -215,29 +202,29 @@ function getFeedListl(kind,openid, id) {
   })
 }
 
-function getFeedList(kind, openid, lastId,id) {
-  if(!id){
-    id="";
+function getFeedList(kind, openid, lastId, id) {
+  if (!id) {
+    id = "";
   }
   var that = this
   wx.showLoading({
     title: '载入中',
   })
   wx.request({
-    url: app.globalData.backendUrl + "getFeedViewListBefore",
+    url: app.globalData.backendUrl + "getFeedListBeforeByKind",
     // url: app.globalData.backendUrl + "getFeedListByLikeNum",
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
       'content-type': 'application/x-www-form-urlencoded'
     },
     data: {
-      kind:kind,
+      kind: kind,
       openid: openid,
       articleId: lastId,
-     // articleType: lastIdType,
+      // articleType: lastIdType,
       id: id
     },
-    
+
     method: 'GET',
     success: (res) => {
       wx.hideLoading()
@@ -257,10 +244,17 @@ function getFeedList(kind, openid, lastId,id) {
           })
           article.kindName = "最热";
           switch (kind) {
-            case 'latest': article.kindName = "最热";break;
-            case 'weekly': article.kindName = "一周内"; break;
-            case 'monthly': article.kindName = "一月内"; break;
-            default: break;
+            case 'latest':
+              article.kindName = "最热";
+              break;
+            case 'weekly':
+              article.kindName = "一周内";
+              break;
+            case 'monthly':
+              article.kindName = "一月内";
+              break;
+            default:
+              break;
           }
         })
 
@@ -287,131 +281,115 @@ function getFeedList(kind, openid, lastId,id) {
   })
 }
 
-function getCourse(id) {
-  var that = this
-  wx.request({
-    url: app.globalData.backendUrl + "getCourse",
-    data: {
-      id: id
-    },
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      that.setData({
-        course: res.data.course
-      })
-    }
-  })
-}
-
-function getMyCourse(openid, courseId, then) {
-  wx.showLoading({
-    title: '加载中',
-  })
-  wx.request({
-    url: app.globalData.backendUrl + "getMyCourse",
-    data: {
-      openid: openid,
-      courseId: courseId
-    },
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      wx.hideLoading()
-      console.log(res)
-      if (res.statusCode == 200) {
-        console.log(200)
-        let course = res.data.course
-        course.image = app.globalData.picUrl + course.image
-        course.video = app.globalData.picUrl + course.video
-        console.log(course)
-        then(course)
-      }
-    }
-  })
-}
-
-function getDocument(id) {
-  var that = this
-  wx.request({
-    url: app.globalData.backendUrl + "getDocument",
-    data: {
-      id: id
-    },
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      if (res.statusCode == 200) {
-        res.data.document.preview = app.globalData.picUrl + res.data.document.preview
-        that.setData({
-          document: res.data.document
-        })
-      } else if (res.statusCode == 500) {
-        console.log(res.data.message)
-      } else {
+function getMyCourse(openid, courseId) {
+  return new util.Promise((resolve, reject) => {
+    wx.showLoading({
+      title: '加载中',
+    })
+    wx.request({
+      url: app.globalData.backendUrl + "getMyCourse",
+      data: {
+        openid: openid,
+        courseId: courseId
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        wx.hideLoading()
         console.log(res)
-      }
-    }
+        if (res.statusCode == 200) {
+          let course = res.data.course
+          course.image = app.globalData.picUrl + course.image
+          course.video = app.globalData.picUrl + course.video
+          resolve(course)
+        } else {
+          reject()
+        }
+      },
+      fail: reject
+    })
   })
 }
 
-function getProject(id) {
-  var that = this
-  wx.request({
-    url: app.globalData.backendUrl + "getProject",
-    data: {
-      id: id
-    },
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      that.setData({
-        project: res.data.project
-      })
-    }
+function getDocument(openid,id) {
+  return new util.Promise((resolve, reject) => {
+    var that = this;
+    wx.request({
+      url: app.globalData.backendUrl + "getMyDocument",
+      data: {
+        openid: openid,
+        documentId: id
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        if (res.statusCode == 200) {
+          res.data.document.preview = app.globalData.picUrl + res.data.document.preview
+          resolve(res.data.document)
+        } else {
+          reject()
+        }
+      },
+      fail: reject
+    })
   })
 }
 
-function getAd(showPlace, then) {
-  /**
-   * 方法：getAd
-   * 参数：
-   * 无
-   */
-  var that = this
-  wx.request({
-    url: app.globalData.backendUrl + "getCheckedAd",
-    data: {
-      showPlace: showPlace
-    },
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      if (res.statusCode == 200) {
-        res.data.ad.image = app.globalData.picUrl + res.data.ad.image
-        if (then) then(res.data)
-      }
-      /*
-      that.data.ad = res.data.ad
-      that.data.ad.image = app.globalData.picUrl + that.data.ad.image
-      that.setData(that.data)
-      */
-    }
+function getProject(openid,id) {
+  return new util.Promise((resolve, reject) => {
+    var that = this
+    wx.request({
+      url: app.globalData.backendUrl + "getMyProject",
+      data: {
+        openid: openid,
+        projectId: id
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        if (res.statusCode == 200) {
+          resolve(res.data.project)
+        }
+        else {
+          reject()
+        }
+      },
+      fail: reject
+    })
+  })
+}
+
+function getAd(showPlace) {
+  return new util.Promise((resolve, reject) => {
+    wx.request({
+      url: app.globalData.backendUrl + "getCheckedAd",
+      data: {
+        showPlace: showPlace
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        if (res.statusCode == 200) {
+          res.data.ad.image = app.globalData.picUrl + res.data.ad.image
+          resolve(res.data.ad)
+        } else {
+          reject()
+        }
+      },
+      fail: reject
+    })
   })
 }
 
@@ -479,40 +457,39 @@ function purchaseCourse(courseId, openid, price, date, then) {
   })
 }
 
-function getPersonList(kind, then) {
-  var that = this
-  wx.showLoading({
-    title: '载入中',
-  })
-  wx.request({
-    url: app.globalData.backendUrl + "getPersonList",
-    data: {
-      workClass: kind
-    },
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      wx.hideLoading()
-      that.data.cards = res.data.persons
-      that.data.cards.forEach((card) => {
-        card.face = app.globalData.picUrl + card.face
-        return card
-      })
-      that.setData(that.data)
-      if (then) then()
-    }
+function getPersonList(kind) {
+  return new util.Promise((resolve, reject) => {
+    wx.showLoading({
+      title: '载入中',
+    })
+    wx.request({
+      url: app.globalData.backendUrl + "getPersonList",
+      data: {
+        workClass: kind
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        wx.hideLoading()
+        if (res.statusCode == 200) {
+          let cards = res.data.persons
+          cards.forEach((card) => {
+            card.face = app.globalData.picUrl + card.face
+          })
+          resolve(cards)
+        } else {
+          reject()
+        }
+      },
+      fail: reject
+    })
   })
 }
 
 function getMyInfo(openid, then) {
-  /**
-   * 方法：getUser
-   * 参数：
-   * 无
-   */
   var that = this
   wx.showLoading({
     title: '载入中',
@@ -529,6 +506,7 @@ function getMyInfo(openid, then) {
     method: 'GET',
     success: (res) => {
       wx.hideLoading()
+      console.log(res)
       that.data.myInfo = res.data.user
       that.data.myInfo.face = app.globalData.picUrl + that.data.myInfo.face
       if (that.data.myInfo.levelName == '998') {
@@ -569,11 +547,6 @@ function getOtherBasicInfo(id) {
 }
 
 function getOtherInfo(myid, otherid, resolve, reject) {
-  /**
-   * 方法：getOtherCard
-   * 参数：
-   * 无
-   */
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "getOtherCard",
@@ -686,155 +659,96 @@ function publishMyArticle(openid, kind, content, photos) {
   })
 }
 
-function modifyMyInfo() {
-  /**
-   * 方法：updateUser
-   * 参数：
-   * 用户头像：face
-   * 用户名：username
-   * 电话：phone
-   * 邮箱：email
-   * 城市：city
-   * 公司：company
-   * 部门：department
-   * 职位：position
-   * 个人简介：intro
-   */
-  var that = this
-  wx.showLoading({
-    title: '上传中',
+function uploadHead(facePath) {
+  return new util.Promise((resolve, reject) => {
+    wx.showLoading({
+      title: '上传中',
+    })
+    wx.uploadFile({
+      //上传用户图片
+      url: app.globalData.backendUrl + "uploadHead",
+      filePath: facePath,
+      name: 'face',
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: resolve,
+      fail: reject
+    })
   })
-  wx.uploadFile({
-    //上传用户图片
-    url: app.globalData.backendUrl + "uploadHead",
-    filePath: that.data.newMyInfo.face,
-    name: 'face',
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    success: (res) => {
+}
+
+function modifyMyInfo(newMyInfo) {
+  return new util.Promise((resolve, reject) => {
+    console.log("Face is " + newMyInfo.face)
+    uploadHead(newMyInfo.face).then((res) => {
       wx.request({
         //上传用户信息
         url: app.globalData.backendUrl + "updateMyProfile",
-        data: {
-          openid: app.getOpenid(),
-          username: that.data.newMyInfo.username,
-          phone: that.data.newMyInfo.phone,
-          email: that.data.newMyInfo.email,
-          city: that.data.newMyInfo.city,
-          company: that.data.newMyInfo.company,
-          department: that.data.newMyInfo.department,
-          position: that.data.newMyInfo.position,
-          intro: that.data.newMyInfo.intro,
-          label: that.data.newMyInfo.label
-        },
+        data: newMyInfo,
         header: {
           'Authorization': 'Bearer ' + app.getToken(),
           'content-type': 'application/x-www-form-urlencoded'
         },
         method: 'GET',
-        success: (res) => {
-          wx.hideLoading()
-          wx.showToast({
-            title: '修改成功',
-            icon: 'succes',
-            duration: 1000,
-            mask: true
-          })
-          setTimeout(() => {
-            wx.navigateBack()
-          }, 1000)
-        }
+        success: resolve,
+        fail: reject
       })
-    },
-    fail: (res) => {
+    }).catch((res) => {
+      console.log(newMyInfo)
       wx.request({
         //上传用户信息
         url: app.globalData.backendUrl + "updateMyProfileWithoutFile",
-        data: {
-          openid: app.getOpenid(),
-          face: that.data.newMyInfo.face.replace(app.globalData.picUrl, ""),
-          username: that.data.newMyInfo.username,
-          phone: that.data.newMyInfo.phone,
-          email: that.data.newMyInfo.email,
-          city: that.data.newMyInfo.city,
-          company: that.data.newMyInfo.company,
-          department: that.data.newMyInfo.department,
-          position: that.data.newMyInfo.position,
-          intro: that.data.newMyInfo.intro,
-          label: that.data.newMyInfo.label
-        },
+        data: newMyInfo,
         header: {
           'Authorization': 'Bearer ' + app.getToken(),
           'content-type': 'application/x-www-form-urlencoded'
         },
         method: 'GET',
-        success: (res) => {
-          wx.hideLoading()
-          wx.showToast({
-            title: '修改成功',
-            icon: 'succes',
-            duration: 1000,
-            mask: true
-          })
-          setTimeout(() => {
-            wx.navigateBack()
-          }, 1000)
-        }
+        success: resolve,
+        fail: reject
       })
-    }
+    })
   })
 }
 
 function getPersonListByCondition(openid, condition) {
-  /**
-   * 方法：searchCards
-   * 参数：
-   * 搜索条件：condition
-   */
-  var that = this
-  if (condition == "") {
-    condition = null
-  }
-  wx.showLoading({
-    title: '搜索中',
-  })
-  wx.request({
-    url: app.globalData.backendUrl + "getPersonListByCondition",
-    data: {
-      openid: openid,
-      condition: condition
-    },
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      wx.hideLoading()
-      that.data.cards = res.data.persons
-      that.data.cards.forEach((card) => {
-        card.face = app.globalData.picUrl + card.face
-      })
-      that.setData(that.data)
-      if (!that.data.cards.length) {
-        wx.showToast({
-          title: '无搜索结果',
-          icon: 'none'
-        })
-      }
+  return new util.Promise((resolve, reject) => {
+    if (condition == "") {
+      condition = null
     }
+    wx.showLoading({
+      title: '搜索中',
+    })
+    wx.request({
+      url: app.globalData.backendUrl + "getPersonListByCondition",
+      data: {
+        openid: openid,
+        condition: condition
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        wx.hideLoading()
+        if (res.statusCode == 200) {
+          res.data.persons.forEach((person) => {
+            person.face = app.globalData.picUrl + person.face
+          })
+          resolve(res.data.persons)
+        } else {
+          reject()
+        }
+      },
+      fail: reject
+    })
   })
 }
 
 function getMyPersonList(openid, kind) {
-  /**
-   * 方法：getMyPersonList
-   * 参数：
-   * 用户openId：openId
-   * 展示类别：kind
-   */
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "getMyCardList",
@@ -859,10 +773,6 @@ function getMyPersonList(openid, kind) {
 }
 
 function getUserHistoryAbstractList(myOpenid, otherOpenid) {
-  /**
-   * 方法：getUserHistoryAbstractList
-   * 参数：用户openId：openId
-   */
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "getUserHistoryAbstractList",
@@ -984,27 +894,61 @@ function updateMe(openid, detail, price, date) {
   })
 }
 
-function sendMyCard(senderOpenid, receiverOpenid, page, formId, data, emphasisKeyword, then) {
-  var that = this
-  wx.showLoading({
-    title: '正在发送名片',
+function sendMyCard(senderOpenid, receiverOpenid) {
+  return new util.Promise((resolve, reject) => {
+    wx.showLoading({
+      title: '正在发送名片',
+    })
+    getMyUser(senderOpenid).then((res) => {
+      console.log(res)
+      wx.request({
+        url: app.globalData.backendUrl + "sendMyCard",
+        data: {
+          senderOpenid: senderOpenid,
+          receiverOpenid: receiverOpenid,
+          page: "/pages/me/myHistory/myHistory?id=" + senderOpenid,
+          data: {
+            "keyword1": {
+              "value": res.username
+            },
+            "keyword2": {
+              "value": "您可点击查看Ta的名片，然后进入个人中心确认接收或拒绝！"
+            },
+            "keyword3": {
+              "value": res.company
+            },
+            "keyword4": {
+              "value": res.label
+            }
+          },
+          emphasisKeyword: "keyword1.DATA"
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          console.log(res);
+          if (res.statusCode == 200) {
+            resolve(res)
+          } else {
+            reject()
+          }
+        },
+        fail: reject
+      })
+    })
   })
-  getMyUser.call(that, senderOpenid, (res) => {
-    /*console.log(res)*/
+}
+
+function getMyUser(openid) {
+  return new util.Promise((resolve, reject) => {
+    var that = this
     wx.request({
-      url: app.globalData.backendUrl + "sendMyCard",
+      url: app.globalData.backendUrl + "getMyUser",
       data: {
-        senderOpenid: senderOpenid,
-        receiverOpenid: receiverOpenid,
-        page: "/pages/me/myHistory/myHistory?id" + senderOpenid,
-        formId: formId,
-        data: "名片申请交换通知",
-        emphasisKeyword: {
-          "申请人": res.username,
-          "备注": "您可点击查看Ta的名片，然后进入个人中心确认接收或拒绝！",
-          "公司名称": res.company,
-          "业务类型": res.label
-        }
+        openid: openid
       },
       header: {
         'Authorization': 'Bearer ' + app.getToken(),
@@ -1013,64 +957,13 @@ function sendMyCard(senderOpenid, receiverOpenid, page, formId, data, emphasisKe
       method: 'GET',
       success: (res) => {
         if (res.statusCode == 200) {
-
-          if (res.data.ok) {
-            console.log(res)
-            wx.hideLoading()
-            wx.showToast({
-              title: '发送名片成功',
-            })
-          }
-          else {
-            if (then) then(res.data)
-          }
+          resolve(res.data.user)
+        } else {
+          reject()
         }
-      }
+      },
+      fail: reject
     })
-  })
-}
-
-function getMyCredit(openid) {
-  var that = this
-  wx.request({
-    url: app.globalData.backendUrl + "getMyUser",
-    data: {
-      openid: openid
-    },
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      /*console.log(res)*/
-      that.setData({
-        price: res.data.user.credit,
-        isEnterprise: res.data.user.isEnterprise,
-        is298: res.data.user.levelName === "298",
-        is998: res.data.user.levelName === "998"
-      })
-    }
-  })
-}
-
-function getMyUser(openid, then) {
-  var that = this
-  wx.request({
-    url: app.globalData.backendUrl + "getMyUser",
-    data: {
-      openid: openid
-    },
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      if (res.statusCode == 200) {
-        then(res.data.user)
-      }
-    }
   })
 }
 
@@ -1117,57 +1010,71 @@ function getMyEnterpriseAdmin(openid) {
 }
 
 function getMyCardLimits(openid) {
-  var that = this
-  wx.request({
-    url: app.globalData.backendUrl + "getMyUser",
-    data: {
-      openid: openid
-    },
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      /*console.log(res)*/
-      that.setData({
-        cardLimits: res.data.user.cardLimit
-      })
-    }
+  return new util.Promise((resolve, reject) => {
+    var that = this
+    wx.request({
+      url: app.globalData.backendUrl + "getMyUser",
+      data: {
+        openid: openid
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        if (res.statusCode == 200) {
+          resolve(res.data)
+        } else {
+          reject()
+        }
+      },
+      fail: reject
+    })
   })
 }
 
-function getLevelList(then) {
-  var that = this
-  wx.request({
-    url: app.globalData.backendUrl + "getLevelList",
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      if (res.statusCode == 200) {
-        if (then) then(res.data.levels)
-      }
-    }
+function getLevelList() {
+  return new util.Promise((resolve, reject) => {
+    wx.request({
+      url: app.globalData.backendUrl + "getLevelList",
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        if (res.statusCode == 200) {
+          resolve(res.data.levels)
+        }
+        else {
+          reject()
+        }
+      },
+      fail: reject
+    })
   })
 }
 
-function getPrivilegeList(then) {
-  var that = this
-  wx.request({
-    url: app.globalData.backendUrl + "getPrivilegeList",
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      if (res.statusCode == 200) {
-        if (then) then(res.data.privileges)
-      }
-    }
+function getPrivilegeList() {
+  return new util.Promise((resolve, reject) => {
+    wx.request({
+      url: app.globalData.backendUrl + "getPrivilegeList",
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        if (res.statusCode == 200) {
+          resolve(res.data.privileges)
+        }
+        else {
+          reject()
+        }
+      },
+      fail: reject
+    })
   })
 }
 
@@ -1266,7 +1173,9 @@ function getWxQrCode(then) {
           wx.getImageInfo({
             src: app.globalData.picUrl + res.data.imagePath,
             success: (res) => {
-              if (then) then({ imagePath: res.path })
+              if (then) then({
+                imagePath: res.path
+              })
             }
           })
         }
@@ -1275,23 +1184,28 @@ function getWxQrCode(then) {
   })
 }
 
-function getMySubmittedEnterprise(openid, then) {
-  var that = this
-  wx.request({
-    url: app.globalData.backendUrl + "getMySubmittedEnterprise",
-    data: {
-      openid: openid
-    },
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      if (res.statusCode == 200) {
-        if (then) then(res.data.enterprise)
-      }
-    }
+function getMySubmittedEnterprise(openid) {
+  return new util.Promise((resolve, reject) => {
+    wx.request({
+      url: app.globalData.backendUrl + "getMySubmittedEnterprise",
+      data: {
+        openid: openid
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        if (res.statusCode == 200) {
+          resolve(res.data.enterprise)
+        }
+        else {
+          reject()
+        }
+      },
+      fail: reject
+    })
   })
 }
 
@@ -1333,11 +1247,41 @@ function getNewsListBefore(newsId, then) {
   })
 }
 
+function uploadFormId(openid, formId) {
+  return new util.Promise((resolve, reject) => {
+    //if (formId == undefined || formId == "the formId is a mock one") {
+    if (formId == undefined) {
+      resolve()
+      return
+    }
+    wx.request({
+      url: app.globalData.backendUrl + "uploadFormId",
+      data: {
+        openid: openid,
+        formId: formId
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        console.log(res)
+        if (res.statusCode == 200) {
+          resolve(res.data)
+        } else {
+          reject()
+        }
+      },
+      fail: reject
+    })
+  })
+}
+
 module.exports = {
   getAbstractList: getAbstractList,
   getAbstractListByCondition: getAbstractListByCondition,
   getFeedList: getFeedList,
-  getCourse: getCourse,
   getMyCourse: getMyCourse,
   getDocument: getDocument,
   getProject: getProject,
@@ -1359,7 +1303,6 @@ module.exports = {
   setMyUserAsEnterprise: setMyUserAsEnterprise,
   updateMe: updateMe,
   sendMyCard: sendMyCard,
-  getMyCredit: getMyCredit,
   getMyUser: getMyUser,
   isEnterprise: isEnterprise,
   getMyEnterpriseAdmin: getMyEnterpriseAdmin,
@@ -1372,5 +1315,6 @@ module.exports = {
   getWxQrCode: getWxQrCode,
   getMySubmittedEnterprise: getMySubmittedEnterprise,
   getClassificationDescriptionList: getClassificationDescriptionList,
-  getNewsListBefore: getNewsListBefore
+  getNewsListBefore: getNewsListBefore,
+  uploadFormId: uploadFormId
 }

@@ -21,18 +21,22 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    try {
-      api.getDocument.call(this, options.id)
-    } catch (e) {
-      console.log('获取编号为' + options.id + '的文档失败')
-    }
+  onLoad: function(options) {
+    api.getDocument(app.getOpenid(),options.id)
+      .then((document) => {
+        this.setData({
+          document: document
+        })
+      })
+      .catch((res) => {
+        console.log('获取编号为' + options.id + '的文档失败')
+      })
   },
 
-  onDownload: function () {
+  onDownload: function() {
     var that = this
     if (this.data.document.attachment) {
-      api.getMyUser.call(this, app.getOpenid(), (res) => {
+      api.getMyUser(app.getOpenid()).then((res) => {
         if (res.levelName == "common") {
           wx.showModal({
             title: '您的权限为普通用户，无法下载',
@@ -46,8 +50,7 @@ Page({
             }
           })
 
-        }
-        else {
+        } else {
           api.downloadFile.call(this, this.data.document.attachment, () => {
             that.setData({
               isDownLoadAttachment: true
@@ -55,8 +58,7 @@ Page({
           })
         }
       })
-    }
-    else {
+    } else {
       wx.showModal({
         content: '该项目不存在附件',
         showCancel: false
@@ -64,15 +66,15 @@ Page({
     }
   },
 
-  onOpen: function () {
+  onOpen: function() {
     var that = this
     wx.openDocument({
       filePath: that.data.savedFilePath,
     })
   },
 
-  previewImg: function (event) {
-    var src = event.currentTarget.dataset.src;//获取data-src
+  previewImg: function(event) {
+    var src = event.currentTarget.dataset.src; //获取data-src
     //图片预览
     wx.previewImage({
       urls: [src] // 需要预览的图片http链接列表

@@ -1,26 +1,37 @@
 /* template/searchBar/searchBar.wxss */
+
 /*关于搜索栏的属性*/
+
 .search {
-  width: 120%;
-  margin: 10px 100px 20px 0;
-  padding: 10px 10px 5px 5;
-  
+  padding: 10px 12px 5px 12px;
   background: white;
-  justify-content: space-between;
+  display: flex;
+  align-items: center;
   border-radius: 5px;
   box-shadow: 0 5px 20px #c0c0c0;
-  
 }
-.search-input {
-  padding: 8px 0 8px 10px; 
-  width: 100%;
-  font-size: 1rem;
+
+.search__image {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
 }
-.search-image {
+
+.search__btn {
+  display: inline-block;
+  background-color:transparent!important;
   padding: 0;
-  margin: 0;
+  width: 25px;
+  height: 25px;
+  line-height: unset;
 }
-.search-image image {
-  width: 20px;
-  height: 20px;
+
+.search__btn::after {
+  border: none;
+}
+
+.search__input {
+  display: inline-block;
+  font-size: 1rem;
+  margin: 0 0 0 10px;
 }

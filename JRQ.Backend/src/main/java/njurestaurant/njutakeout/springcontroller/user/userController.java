@@ -1,8 +1,6 @@
 package njurestaurant.njutakeout.springcontroller.user;
 
 import io.swagger.annotations.*;
-import io.swagger.models.auth.In;
-import njurestaurant.njutakeout.blservice.admin.AdminBlService;
 import njurestaurant.njutakeout.blservice.user.UserBlService;
 import njurestaurant.njutakeout.exception.CannotGetOpenIdAndSessionKeyException;
 import njurestaurant.njutakeout.exception.CardLimitUseUpException;
@@ -12,7 +10,6 @@ import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.Response;
 import njurestaurant.njutakeout.response.WrongResponse;
 import njurestaurant.njutakeout.response.event.EventLoadResponse;
-import njurestaurant.njutakeout.response.user.ClassificationListResponse;
 import njurestaurant.njutakeout.response.user.ClassificationResponse;
 import njurestaurant.njutakeout.response.user.UserListResponse;
 import njurestaurant.njutakeout.response.user.UserResponse;
@@ -642,7 +639,6 @@ public class userController {
             @ApiImplicitParam(name = "senderOpenid", value = "发送者微信openid", required = true, dataType = "String"),
             @ApiImplicitParam(name = "receiverOpenid", value = "接收者微信openid", required = true, dataType = "String"),
             @ApiImplicitParam(name = "page", value = "微信模板消息接口中要跳转的页面", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "formId", value = "微信模板消息接口参数", required = true, dataType = "String"),
             @ApiImplicitParam(name = "data", value = "微信模板消息接口内容", required = true, dataType = "String"),
             @ApiImplicitParam(name = "emphasisKeyword", value = "微信模板消息接口放大的关键词", required = true, dataType = "String")
     })
@@ -652,8 +648,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> sendMyCard(@RequestParam(name="senderOpenid")String senderOpenid,@RequestParam(name="receiverOpenid")String receiverOpenid,@RequestParam(name="page")String page,@RequestParam(name="formId")String formId,@RequestParam(name="data")String data,@RequestParam(name="emphasisKeyword")String emphasisKeyword) {
-        return new ResponseEntity<>(userBlService.sendMyCard(senderOpenid,receiverOpenid,page,formId,data,emphasisKeyword), HttpStatus.OK);
+    public ResponseEntity<Response> sendMyCard(@RequestParam(name="senderOpenid")String senderOpenid,@RequestParam(name="receiverOpenid")String receiverOpenid,@RequestParam(name="page")String page,@RequestParam(name="data")String data,@RequestParam(name="emphasisKeyword")String emphasisKeyword) {
+        return new ResponseEntity<>(userBlService.sendMyCard(senderOpenid,receiverOpenid,page,data,emphasisKeyword), HttpStatus.OK);
     }
 
     @ApiOperation(value = "用户获取自己的名片列表", notes = "用户获取自己的名片列表")
@@ -716,7 +712,20 @@ public class userController {
         return new ResponseEntity<>(userBlService.getOtherCard(userOpenid,otherOpenid), HttpStatus.OK);
     }
 
-
+    @ApiOperation(value = "用户上传他的formId，记录到数据库中以备使用，时间戳为后端服务器生成的时间戳", notes = "用户上传他的formId，记录到数据库中以备使用，时间戳为后端服务器生成的时间戳")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "用户的openid", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "formId", value = "用户点击所产生的formId", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/uploadFormId", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> uploadFormId(@RequestParam(name="openid")String openid,@RequestParam(name="formId")String formId){
+        return new ResponseEntity<>(userBlService.uploadFormId(openid,formId), HttpStatus.OK);
+    }
 
 
 

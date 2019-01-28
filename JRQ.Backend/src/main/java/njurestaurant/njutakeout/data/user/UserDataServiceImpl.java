@@ -1,18 +1,12 @@
 package njurestaurant.njutakeout.data.user;
 
-import njurestaurant.njutakeout.data.dao.admin.AdminDao;
-import njurestaurant.njutakeout.data.dao.user.EnterpriseDao;
+import njurestaurant.njutakeout.data.dao.user.FormIdDao;
 import njurestaurant.njutakeout.data.dao.user.SendCardDao;
 import njurestaurant.njutakeout.data.dao.user.UserDao;
 import njurestaurant.njutakeout.dataservice.article.FeedDataService;
 import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
-import njurestaurant.njutakeout.entity.admin.Admin;
-import njurestaurant.njutakeout.entity.article.Feed;
-import njurestaurant.njutakeout.entity.user.Enterprise;
-import njurestaurant.njutakeout.entity.user.SendCard;
-import njurestaurant.njutakeout.entity.user.SendCardKey;
-import njurestaurant.njutakeout.entity.user.User;
+import njurestaurant.njutakeout.entity.user.*;
 import njurestaurant.njutakeout.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,13 +19,15 @@ import java.util.Optional;
 public class UserDataServiceImpl implements UserDataService {
 	private final UserDao userDao;
 	private final SendCardDao sendCardDao;
+	private final FormIdDao formIdDao;
 	private final FeedDataService feedDataService;
 	private final EnterpriseDataService enterpriseDataService; //DataService中封装了相关数据连锁删除
 
 	@Autowired
-	public UserDataServiceImpl(UserDao userDao, SendCardDao sendCardDao, FeedDataService feedDataService, EnterpriseDataService enterpriseDataService) {
+	public UserDataServiceImpl(UserDao userDao, SendCardDao sendCardDao, FormIdDao formIdDao, FeedDataService feedDataService, EnterpriseDataService enterpriseDataService) {
 		this.userDao = userDao;
 		this.sendCardDao = sendCardDao;
+		this.formIdDao = formIdDao;
 		this.feedDataService = feedDataService;
 		this.enterpriseDataService = enterpriseDataService;
 	}
@@ -94,6 +90,7 @@ public class UserDataServiceImpl implements UserDataService {
 			sendCardDao.deleteSendCardsByReceiverOpenid(openid);  //删除此人接收名片的记录
 			sendCardDao.deleteSendCardsBySenderOpenid(openid);  //删除此人送给别人名片的记录
 			feedDataService.deleteFeedsByWriterOpenid(openid);  //删除此人发过的圈子内容
+			formIdDao.deleteAllByOpenid(openid); //删除此人的所有formId
 
 			//若此人在Enterprise表中，需要删除该项
 			try {
@@ -150,6 +147,29 @@ public class UserDataServiceImpl implements UserDataService {
 	@Override
 	public boolean existsByLabel(String userLabel) {
 		return userDao.existsByLabel(userLabel);
+	}
+
+	@Override
+	public boolean addFormId(FormId formId) {
+		if (formIdDao.existsById(new FormIdKey(formId.getOpenid(), formId.getFormId()))) {
+			return false;
+		} else {
+			formIdDao.save(formId);
+			return true;
+		}
+	}
+
+	@Override
+	public String getFormIdByOpenid(String openid) {
+		formIdDao.deleteAllByTimestampBefore(System.currentTimeMillis()); //首先删除所有过期数据
+		List<FormId> formIds = formIdDao.findAllByOpenidOrderByTimestamp(openid);
+		if (formIds.isEmpty()) {
+			return "";
+		} else {
+			String formId = formIds.get(0).getFormId();
+			formIdDao.deleteById(new FormIdKey(openid, formId)); //已使用过的formId要被删除
+			return formId;
+		}
 	}
 
 }

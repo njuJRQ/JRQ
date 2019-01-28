@@ -6,6 +6,10 @@
   <view class='head row'>
     <view class='title column' style='width:100%'>
       <text style='color:black; font-size:1rem; font-weight:bold;'>{{document.title}}</text>
+      <view class='like v-center'>   
+        <image class='like__image' src='../../../img/fire.png'></image>   
+        <text class='like__num'>{{document.vieNum}}</text>
+      </view>
     </view>
     <view class='v-center h-center' style='width:100px; border:1px solid black; margin:5px; border-radius:5px'>
       <text style='color:black; font-size:1rem; margin:3px'>文档</text>

@@ -1,3 +1,4 @@
+/* pages/contact/contact.wxss */
 /* pages/service/service.wxss */
 @import '/style/common.wxss';
 @import '/template/searchBar/searchBar.wxss';
@@ -8,7 +9,8 @@
 /*关于头部导航栏的属性*/
 .headWrapper {
   width: 100%;
-  padding: 50px 20px 10px 20px;
+  padding: 0 20px 5px 20px;
+  
 }
 
 /*搜索栏样式*/
@@ -20,15 +22,11 @@
 .search__keywords {
   font-weight: bold;
   font-family: HYYaKuHeiW;
-  line-height: 2rem;
+  line-height: 1rem;
   color: #b98c49;
   font-size: 0.8rem;
 }
 
-/*广告栏样式*/
-.ad {
-  margin: 10px auto;
-}
 
 /*导航栏样式*/
 .navBar {
@@ -78,7 +76,7 @@
   position: relative;
   display: flex;
   justify-content: space-between;
-  margin: 30px 10px;
+  margin: 5px 10px;
   min-height: 80px;
 }
 .card__decorator {
@@ -86,10 +84,10 @@
   top: -10px;
   width: 50%;
   height: 20px;
-  background-color: #edc681;
+  background-color: white;
   border-radius: 20px;
   padding: 5px 10px;
-  box-shadow: 0 0 10px #a0a0a0;
+  
   left: -23%;
   display: flex;
   align-items: center;
@@ -101,18 +99,18 @@
   margin-left: auto;
 }
 .card__main {
-  width: 85%;
+  width: 100%;
   display: flex;
   align-items: center;
   padding: 10px 0 5px 5px;
-  background-color: inherit;
+  background-color: white;
   border-radius: 10px 0 0 10px;
 }
 
 .card__face {
   width: 50px;
   height: 50px;
-  border-radius: 5px;
+  border-radius: 50%;
 }
 
 .card__info {
@@ -120,17 +118,27 @@
   margin: 5px 5px 5px 10px;
 }
 
-.card__title {
-  display: block;
+.card__title1 {
+   display: block;
   text-align: left;
 }
-
+.card__title2 {
+   display: flex;
+   flex-direction: column;
+  text-align: left;
+}
+.vipImage{
+  margin-bottom: 1%;
+  margin-left: 2%;
+  width: 10%;
+  height: 10px;
+}
 .card__username {
   display: inline-block;
   max-width: 9rem;
   font-size: 0.8rem;
   font-weight: bold;
-  color: #927912;
+  color: #040404;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -140,17 +148,17 @@
   display: inline-block;
   margin: 0 0 0 5px;
   font-size: 0.5rem;
-  color: #927912;
+  color: #a6a6a6;
   max-width: 7rem;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
 
-.card__city, .card__company {
+.card__city, .card__company, .card__position {
   display: inline;
   margin: 0 5px 0 0;
-  color: #927912;
+  color: #a6a6a6;
 }
 
 .card__category {
@@ -178,5 +186,26 @@
   text-overflow: ellipsis;
   text-align: left;
   font-size: 0.5rem;
-  color: #927912;
+  color: #b19114;
 }
+
+/* 右边标签和卡片按钮 */
+/* .label-buttons{
+  display: flex;
+
+  flex-direction: row-reverse;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+ 
+}
+.label_text{
+  display: block;
+  font-size: 8px;
+  margin-top: 2%;
+  
+  background-color: #1c88ee;
+  border-radius: 3px;
+  border-width: 25px;
+  opacity: 0.3;
+} */

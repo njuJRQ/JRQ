@@ -58,12 +58,24 @@
   color: #927912;
 }
 .card__intro {
+  
   font-size: 0.8rem;
-  color: #927912;
+  width: 60px;
+  height: 18px;
+  background-color: #4982fc;
+  opacity: 0.5;
+  border-radius: 5px;
+  color:rgb(0, 0, 0);
 }
 .card__sendButton {
   margin: 5px 10px 10px 10px;
   border-radius: 5px;
+}
+
+.div-line{
+  display: flex;
+  flex-direction: row; 
+  justify-content: space-around;
 }
 
 /*关于更多和设置的属性*/

@@ -1,4 +1,4 @@
-// pages/community/community.js
+// pages/information/news.js
 //获取应用实例
 const app = getApp();
 var api = require('../../util/api.js')
@@ -8,71 +8,24 @@ Page({
   /**
    * 页面的初始数据
    */
-  data:{
-    articles:[],
-    currentKind:null,
+  data: {
+    articles: [],
+    currentKind: null,
 
     writerFace: '',
     writerName: '',
-    writerOpenid:'',
-    content:'',
-    date:'',
-    images:null,
-    writerOpenid:'',
-    id:''
-},
+    writerOpenid: '',
+    content: '',
+    date: '',
+    images: null,
+    writerOpenid: '',
+    id: ''
+  },
+  onLoad: function (e) {
 
-  // data: {
-   
-  //   articles: [{
-  //     id: 1,
-  //     content: '《有效识别金融项目》课程。',
-  //     images: [
-  //       '../../default/default-pic.png',
-  //       '../../default/default-pic.png',
-  //       '../../default/default-pic.png'
-  //     ],
-  //     writerOpenid: '123',
-  //     writerFace: '../../default/default-icon.png',
-  //     writerName: '锄禾日当午',
-  //     date: '2020-01-01',
-  //     likeNum: 8888
-  //   }, {
-  //     id: 2,
-  //     text: '与钧融资本成功签订2个亿的基金合约，环保领域。',
-  //     images: [
-  //       '../../default/default-pic.png',
-  //       '../../default/default-pic.png',
-  //       '../../default/default-pic.png'
-  //     ],
-  //     writerFace: '../../default/default-icon.png',
-  //     writerName: '汗滴禾下土',
-  //     date: '2020-01-01',
-  //     likeNum: 9999
-  //   }, {
-  //     id: 3,
-  //     text: '《有效识别金融项目》课程。',
-  //     images: [
-  //       '../../default/default-pic.png',
-  //       '../../default/default-pic.png',
-  //       '../../default/default-pic.png'
-  //     ],
-  //     writerFace: '../../default/default-icon.png',
-  //     writerName: '锄禾日当午',
-  //     date: '2020-01-01',
-  //     likeNum: 8888
-  //   }]
-  // },
-
-
-  /**
-   * 生命周期函数--监听页面加载a
-   */
-  onLoad:function(e){
-    
     this.setData({
-      currentKind:'latest',
-      articles:[],
+      currentKind: 'latest',
+      articles: [],
     })
     this.showAll()
   },
@@ -82,14 +35,14 @@ Page({
     this.setData({
       currentKind: "latest",
       articles: [],
-      openid:"",
-      id:"",
-      
+      openid: "",
+      id: "",
+
       //lastIdType: ""
     })
     // api.getFeedList.call(this, 'latest', app.getOpenid(), this.data.lastId)
     api.getFeedList.call(this, 'kind', app.getOpenid(), this.data.id)
-    
+
   },
 
 
@@ -116,7 +69,7 @@ Page({
     api.getFeedList.call(this, 'latest', app.getOpenid(), this.data.lastId, this.data.id)
   },
 
-  
+
   // onLoad: function (options) {
   //   //展示圈子文章
   //   this.setData({
@@ -143,7 +96,7 @@ Page({
         currentData: e.target.dataset.current
       })
     }
-    },
+  },
 
   onPullDownRefresh: function () {
     this.onLoad()
@@ -160,7 +113,7 @@ Page({
   //点赞数加一
   likePlus: function (e) {
     var id = e.currentTarget.dataset.id //获取当前feed的id
-    var article = this.data.articles.filter((article)=>article.id===id)[0]
+    var article = this.data.articles.filter((article) => article.id === id)[0]
     api.likePlus.call(this, app.getOpenid(), 'feed', id, article)
   },
 

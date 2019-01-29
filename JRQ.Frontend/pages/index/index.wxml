@@ -4,7 +4,6 @@
 <import src='/template/likeIcon/likeIcon.wxml'></import>
 
 <view class="container container--color-white">
-
   <view class='headWrapper' style='background-image: url({{bg1}}); background-repeat: no-repeat; background-position: bottom'>
     <!--搜索框-->
     <template class='search' is='searchBar' data='{{placeholder: "搜索文章", searchCondition: searchCondition}}'></template>

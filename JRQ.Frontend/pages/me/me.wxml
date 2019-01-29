@@ -14,15 +14,21 @@
               <image class='card__medal' src='{{item}}'></image>
             </view>
           </view>
-          <text class='card__text'>手机号: {{myInfo.phone ? myInfo.phone : "未设置"}}</text>
-          <text class='card__text'>Email: {{myInfo.email ? myInfo.email : "未设置"}}</text>
-          <text class='card__text'>任职公司: {{myInfo.company ? myInfo.company : "未设置"}}</text>
+          <text class='card__text'> {{myInfo.phone ? myInfo.phone : "财务"}}</text>
+          <text class='card__text'>{{myInfo.email ? myInfo.email : "北京大同信托有限公司"}}</text>
+          <!-- <text class='card__text'>任职公司: {{myInfo.company ? myInfo.company : "未设置"}}</text>
           <text class='card__text'>部门: {{myInfo.department ? myInfo.department : "未设置"}}</text>
-          <text class='card__text'>职位: {{myInfo.position ? myInfo.position : "未设置"}}</text>
+          <text class='card__text'>职位: {{myInfo.position ? myInfo.position : "未设置"}}</text> -->
         </view>
       </view>
-      <view class='div-line'></view>
-      <text class='card__intro'>个人简介：{{myInfo.intro ? myInfo.intro : "未设置"}}</text>
+      <view class='div-line'>
+      <text class='card__intro'>{{myInfo.intro ? myInfo.intro : "并购重组"}}</text>
+      <text class='card__intro'>{{myInfo.intro ? myInfo.intro : "短融过桥"}}</text>
+      <text class='card__intro'>{{myInfo.intro ? myInfo.intro : "并购重组"}}</text>
+      
+      </view>
+      <view></view>
+      
     </navigator>
     <button class='jrq__button card__sendButton' bindtap='showModal'>分享我的名片</button>
   </view>

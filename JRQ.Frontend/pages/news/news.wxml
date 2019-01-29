@@ -1,7 +1,10 @@
 <!--pages/news/news.wxml-->
+<import src='/template/searchBar/searchBar.wxml' />
+
 <view class='newsItemListWrapper'>
   <view wx:for='{{newsItemList}}' wx:for-item="newsItem">
     <view class='newsWrapper jrq__block'>
+   
       <view class='newsItem'>
         <text class='newsItem__title'>{{newsItem.title}}</text>
         <text class='newsItem__content'>{{newsItem.content}}</text>

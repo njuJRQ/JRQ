@@ -46,8 +46,8 @@
     </view>
 
     <view class='panel__setting jrq__block'>
-      <navigator class='navigator' url='modifyMyCard/modifyMyCard' hover-class="none" open-type='navigate'>
-        <text class='navigator__text'>我的基本信息</text>
+      <navigator class='navigator' url='myHistory/myHistory' hover-class="none" open-type='navigate'>
+        <text class='navigator__text'>我的历史发布</text>
         <image class='navigator__arrow' src='img/arrow.png'></image>
       </navigator>
       <view class='div-line'></view>
@@ -56,8 +56,15 @@
         <image class='navigator__arrow' src='img/arrow.png'></image>
       </navigator>
       <view class='div-line'></view>
-      <navigator class='navigator' url='myHistory/myHistory' hover-class="none" open-type='navigate'>
-        <text class='navigator__text'>我的发布</text>
+      <navigator class='navigator' url='modifyMyCard/modifyMyCard' hover-class="none" open-type='navigate'>
+        <text class='navigator__text'>修改个人信息</text>
+        <image class='navigator__arrow' src='img/arrow.png'></image>
+      </navigator>
+    </view>
+
+    <view class='panel__more jrq__block'>
+      <navigator class='navigator' url='pay/pay' hover-class="none" open-type='navigate'>
+        <text class='navigator__text'>金额充值</text>
         <image class='navigator__arrow' src='img/arrow.png'></image>
       </navigator>
       <view class='div-line'></view>
@@ -66,13 +73,6 @@
         <image class='navigator__arrow' src='img/arrow.png'></image>
       </navigator>
       <view class='div-line'></view>
-      <navigator class='navigator' url='pay/pay' hover-class="none" open-type='navigate'>
-        <text class='navigator__text'>金额充值</text>
-        <image class='navigator__arrow' src='img/arrow.png'></image>
-      </navigator>
-    </view>
-
-    <view class='panel__more jrq__block'>
       <navigator class='navigator' url='myEnterprise/myEnterprise' hover-class="none" open-type='navigate'>
         <text class='navigator__text'>我的企业账户</text>
         <image class='navigator__arrow' src='img/arrow.png'></image>

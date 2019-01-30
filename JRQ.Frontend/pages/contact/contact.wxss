@@ -19,11 +19,7 @@
   margin-right: 30%;
   width: 110%;
 }
-.search_ico_1{
-  margin-left: -5%;
-  margin-right: 30%;
-  width: 110%;
-}
+
 .search__keywords {
   font-weight: bold;
   font-family: HYYaKuHeiW;

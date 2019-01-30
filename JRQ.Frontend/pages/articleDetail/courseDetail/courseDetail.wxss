@@ -1,119 +1,43 @@
 /* pages/articleDetail/articleDetail.wxss */
 @import '/style/common.wxss';
-
-.banner {
-  display: block;
+page {
+  background: #efefef;
+}
+.head {
   width: 100%;
   max-height: 200px;
 }
-
-.header {
+.head > image {
+  width: 100%;
+  max-height: 200px;
+}
+.course-head {
   padding: 10px;
-  margin: 10px;
-  width: calc(100% - 20px);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  background-color: white;
 }
-
-.header__title {
-  color: #927912;
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-.header__price {
-  display: block;
-  color: #d62f48;
-  font-size: 0.9rem;
-  font-weight: bold;
-}
-
-.header__discount {
-  font-size: 0.8rem;
-  color: #947841;
-}
-
-.header__update {
-  display: inline-block;
-  padding: 5px;
-  margin: 0 0 0 10px;
-  font-size: 0.7rem;
-  font-weight: bold;
-}
-
-.header__right {
-  width: 70px;
-  height: 70px;
-  text-align: center;
-  line-height: 70px;
-  font-size: 1rem;
-}
-
-.intro {
-  width: calc(100% - 20px);
-  margin: 10px;
+.course-intro {
+  margin: 20px 0 0 0;
   padding: 10px;
-  color: #927912;
+  background-color: white;
 }
-
-.intro__title {
-  color: #927912;
-  font-size: 1rem;
-  font-weight: bold;
+.updateButton {
+  display: inline;
+  margin: 0 10px;
+  padding: 3px;
+  font-size: 0.6rem;
 }
-
-.intro__detail {
-  display: block;
-  font-size: 0.8rem;
-  color: #927912;
-}
-
 .course-intro > .detail > text {
   margin: 3px 0;
 }
-
-.video {
-  width: calc(100% - 20px);
+.course-video {
+  margin: 20px 0 0 0;
   padding: 10px;
-  margin: 10px;
+  background-color: white;
 }
-
-.video__title {
-  color: #927912;
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-.video__tip {
-  color: #927912;
-  font-size: 0.8rem;
-}
-
-.video__content {
-  margin: 10px 0;
+.course-video .content video {
   width: 100%;
-  box-shadow: 0 0 15px #927912;
 }
-
-.purchaseButton {
-  margin: 10px;
-  width: calc(100% - 20px);
+.course-buttons {
+  padding: 20px 10px 60px 10px;
+  width: 100%;
 }
-<<<<<<< HEAD
-=======
-
-.like {
-  display: inline-flex;
-  margin: 0 0 0 10px;
-}
-
-.like__num {
-  margin: 0 5px 0 0;
-}
-
-.like__image {
-  width: 15px;
-  height: 15px;
-}
->>>>>>> master

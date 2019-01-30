@@ -1,4 +1,3 @@
-
 /* pages/projects/project.wxss */
 /* pages/information/news.wxss */
 /* pages/community/community.wxss */
@@ -103,5 +102,4 @@
  }
 .swiper-box view{ 
   text-align: center; 
-
 }

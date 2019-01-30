@@ -92,12 +92,12 @@
   vertical-align: top;
   width: 50%;
   min-height: 200px;
-  padding: 15px 5px 0 5px;
+  padding: 30px 5px 0 5px;
 }
 .article {
   position: relative;
   margin: 10px 0 0 0;
-  padding: 10px 5px 5px 5px;
+  padding: 10px 10px 5px 10px;
 }
 .article__decorator {
   position: absolute;
@@ -137,7 +137,6 @@
 .article__titleName {
   line-height: 1.2rem;
   font-size: 0.9rem;
-  font-weight: bold;
   margin: 0.3rem 0 0 0.2rem;
   color: #907f1e;
   font-family: '宋体';
@@ -169,7 +168,7 @@
 }
 .writer__name {
   margin: 0 0 0 5px;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   color: #927912;
 }
 

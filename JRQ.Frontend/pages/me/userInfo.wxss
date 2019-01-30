@@ -1,4 +1,3 @@
-
 /* pages/me/userInfo.wxss */
 .writerface{
   margin-top: 10%;
@@ -175,4 +174,5 @@ margin-left: 100px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  
 }

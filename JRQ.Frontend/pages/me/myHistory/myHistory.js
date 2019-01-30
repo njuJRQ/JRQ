@@ -31,7 +31,7 @@ Page({
     encreptInfo: {
       phone: '************',
       wechatId: '****',
-      email: '******'
+      email: '************'
     },
     myArticles: [
       {

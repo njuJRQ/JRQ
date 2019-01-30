@@ -7,21 +7,25 @@ Page({
    * 页面的初始数据
    */
   data: {
-    price: 0
+    myCredit: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    api.getMyCredit.call(this, app.getOpenid())
+  onLoad: function(options) {
+    api.getMyUser(app.getOpenid()).then((user) => {
+      this.setData({
+        myCredit: user.credit
+      })
+    })
   },
 
-  bindCancel: function () {
+  bindCancel: function() {
     wx.navigateBack({})
   },
 
-  bindSave: function (e) {
+  bindSave: function(e) {
     var that = this;
     var amount = e.detail.value.amount;
 

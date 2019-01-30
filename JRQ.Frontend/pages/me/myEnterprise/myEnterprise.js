@@ -15,8 +15,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this
-    api.getMySubmittedEnterprise.call(this, app.getOpenid(), (res) => {
+    const that = this
+    api.getMySubmittedEnterprise(app.getOpenid()).then((res) => {
       if (JSON.stringify(res) == "{}") {
         wx.showModal({
           title: '是否进入企业认证页面？',

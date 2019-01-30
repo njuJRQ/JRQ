@@ -9,13 +9,12 @@ import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.document.DocumentItem;
 import njurestaurant.njutakeout.response.article.document.DocumentListResponse;
 import njurestaurant.njutakeout.response.article.document.DocumentResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-import org.icepdf.core.pobjects.*;
 import org.icepdf.core.exceptions.PDFException;
 import org.icepdf.core.exceptions.PDFSecurityException;
+import org.icepdf.core.pobjects.Page;
 import org.icepdf.core.util.GraphicsRenderingHints;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
@@ -31,121 +30,124 @@ import java.util.List;
 
 @Service
 public class DocumentBlServiceImpl implements DocumentBlService {
-	private final DocumentDataService documentDataService;
-	private final LikeDataService likeDataService;
+    private final DocumentDataService documentDataService;
+    private final LikeDataService likeDataService;
 
-	@Autowired
-	public DocumentBlServiceImpl(DocumentDataService documentDataService, LikeDataService likeDataService) {
-		this.documentDataService = documentDataService;
-		this.likeDataService = likeDataService;
-	}
+    @Autowired
+    public DocumentBlServiceImpl(DocumentDataService documentDataService, LikeDataService likeDataService) {
+        this.documentDataService = documentDataService;
+        this.likeDataService = likeDataService;
+    }
 
-	@Override
-	public InfoResponse addDocument(String title, String content, String attachment, String writerName, long likeNum) {
-		String preview = generatePreviewImage(attachment);
-		documentDataService.addDocument(new Document(title, content, attachment, writerName, System.currentTimeMillis(), likeNum, preview));
-		return new InfoResponse();
-	}
+    @Override
+    public InfoResponse addDocument(String title, String content, String attachment, String writerName, long likeNum) {
+        String preview = generatePreviewImage(attachment);
+        documentDataService.addDocument(new Document(title, content, attachment, writerName, System.currentTimeMillis(), likeNum, preview));
+        return new InfoResponse();
+    }
 
-	@Override
-	public DocumentResponse getDocument(String id) throws NotExistException {
-		return new DocumentResponse(new DocumentItem(documentDataService.getDocumentById(id)));
-	}
+    @Override
+    public DocumentResponse getDocument(String id) throws NotExistException {
+        return new DocumentResponse(new DocumentItem(documentDataService.getDocumentById(id)));
+    }
 
-	@Override
-	public DocumentListResponse getDocumentList() {
-		List<Document> documents = documentDataService.getAllDocuments();
-		List<DocumentItem> documentItems = new ArrayList<>();
-		for(Document document:documents) {
-			documentItems.add(new DocumentItem(document));
-		}
-		return new DocumentListResponse(documentItems);
-	}
+    @Override
+    public DocumentListResponse getDocumentList() {
+        List<Document> documents = documentDataService.getAllDocuments();
+        List<DocumentItem> documentItems = new ArrayList<>();
+        for (Document document : documents) {
+            documentItems.add(new DocumentItem(document));
+        }
+        return new DocumentListResponse(documentItems);
+    }
 
-	@Override
-	public InfoResponse updateDocument(String id, String title, String content, String attachment, String writerName, long likeNum) throws NotExistException {
-		Document document = documentDataService.getDocumentById(id);
-		document.setTitle(title);
-		document.setContent(content);
-		document.setAttachment(attachment);
-		document.setWriterName(writerName);
-		document.setTimeStamp(System.currentTimeMillis());
-		document.setLikeNum(likeNum);
-		document.setPreview(generatePreviewImage(attachment));
-		documentDataService.saveDocument(document);
-		return new InfoResponse();
-	}
+    @Override
+    public InfoResponse updateDocument(String id, String title, String content, String attachment, String writerName, long likeNum) throws NotExistException {
+        Document document = documentDataService.getDocumentById(id);
+        document.setTitle(title);
+        document.setContent(content);
+        document.setAttachment(attachment);
+        document.setWriterName(writerName);
+        document.setTimeStamp(System.currentTimeMillis());
+        document.setLikeNum(likeNum);
+        document.setPreview(generatePreviewImage(attachment));
+        documentDataService.saveDocument(document);
+        return new InfoResponse();
+    }
 
-	@Override
-	public InfoResponse deleteDocument(String id) throws NotExistException {
-		documentDataService.deleteDocumentById(id);
-		return new InfoResponse();
-	}
+    @Override
+    public InfoResponse deleteDocument(String id) throws NotExistException {
+        documentDataService.deleteDocumentById(id);
+        return new InfoResponse();
+    }
 
-	@Override
-	public DocumentResponse getMyDocument(String openid, String documentId) throws NotExistException {
-		boolean hasLiked = likeDataService.isLikeExistent(openid, "document", documentId);
-		return new DocumentResponse(new DocumentItem(documentDataService.getDocumentById(documentId), hasLiked));
-	}
+    @Override
+    public DocumentResponse getMyDocument(String openid, String documentId) throws NotExistException {
+        boolean hasLiked = likeDataService.isLikeExistent(openid, "document", documentId);
+        Document document = documentDataService.getDocumentById(documentId);
+        document.setVieNum(document.getVieNum() + 1);
+        documentDataService.saveDocument(document);
+        return new DocumentResponse(new DocumentItem(documentDataService.getDocumentById(documentId), hasLiked));
+    }
 
-	@Override
-	public DocumentListResponse getMyDocumentList(String openid) {
-		List<Document> documents = documentDataService.getAllDocuments();
-		List<DocumentItem> documentItems = new ArrayList<>();
-		for(Document document:documents) {
-			boolean hasLiked = likeDataService.isLikeExistent(openid, "document", document.getId());
-			documentItems.add(new DocumentItem(document, hasLiked));
-		}
-		return new DocumentListResponse(documentItems);
-	}
+    @Override
+    public DocumentListResponse getMyDocumentList(String openid) {
+        List<Document> documents = documentDataService.getAllDocuments();
+        List<DocumentItem> documentItems = new ArrayList<>();
+        for (Document document : documents) {
+            boolean hasLiked = likeDataService.isLikeExistent(openid, "document", document.getId());
+            documentItems.add(new DocumentItem(document, hasLiked));
+        }
+        return new DocumentListResponse(documentItems);
+    }
 
-	@Override
-	public DocumentListResponse getMyDocumentListBefore(String openid, String id) throws NotExistException {
-		List<Document> documents = documentDataService.getMyDocumentListBefore(openid, id);
-		List<DocumentItem> documentItems = new ArrayList<>();
-		for(Document document:documents){
-			boolean hasLiked = likeDataService.isLikeExistent(openid, "document", document.getId());
-			documentItems.add(new DocumentItem(document, hasLiked));
-		}
-		return new DocumentListResponse(documentItems);
-	}
+    @Override
+    public DocumentListResponse getMyDocumentListBefore(String openid, String id) throws NotExistException {
+        List<Document> documents = documentDataService.getMyDocumentListBefore(openid, id);
+        List<DocumentItem> documentItems = new ArrayList<>();
+        for (Document document : documents) {
+            boolean hasLiked = likeDataService.isLikeExistent(openid, "document", document.getId());
+            documentItems.add(new DocumentItem(document, hasLiked));
+        }
+        return new DocumentListResponse(documentItems);
+    }
 
-	private String generatePreviewImage(String attachment) {
-		org.icepdf.core.pobjects.Document pdfDoc = null;
-		try {
-			float rotation = 0f;
-			//缩略图显示倍数，1表示不缩放，0.5表示缩小到50%
-			float zoom = 0.8f;
-			pdfDoc = new org.icepdf.core.pobjects.Document();
-			pdfDoc.setFile(attachment);
-			BufferedImage image = (BufferedImage)pdfDoc.getPageImage(0, GraphicsRenderingHints.SCREEN,
-					Page.BOUNDARY_CROPBOX, rotation, zoom);
-			Iterator iter = ImageIO.getImageWritersBySuffix("jpg");
-			ImageWriter writer = (ImageWriter)iter.next();
+    private String generatePreviewImage(String attachment) {
+        org.icepdf.core.pobjects.Document pdfDoc = null;
+        try {
+            float rotation = 0f;
+            //缩略图显示倍数，1表示不缩放，0.5表示缩小到50%
+            float zoom = 0.8f;
+            pdfDoc = new org.icepdf.core.pobjects.Document();
+            pdfDoc.setFile(attachment);
+            BufferedImage image = (BufferedImage) pdfDoc.getPageImage(0, GraphicsRenderingHints.SCREEN,
+                    Page.BOUNDARY_CROPBOX, rotation, zoom);
+            Iterator iter = ImageIO.getImageWritersBySuffix("jpg");
+            ImageWriter writer = (ImageWriter) iter.next();
 
-			String previewImage = attachment+"-preview.jpg";
-			FileOutputStream out = new FileOutputStream(new File(previewImage));
-			ImageOutputStream outImage = ImageIO.createImageOutputStream(out);
+            String previewImage = attachment + "-preview.jpg";
+            FileOutputStream out = new FileOutputStream(new File(previewImage));
+            ImageOutputStream outImage = ImageIO.createImageOutputStream(out);
 
-			writer.setOutput(outImage);
-			writer.write(new IIOImage(image, null, null));
-			return previewImage;
-		} catch (PDFException | IOException | PDFSecurityException | InterruptedException e) {
-			e.printStackTrace();
-			return "";
-		}
-	}
+            writer.setOutput(outImage);
+            writer.write(new IIOImage(image, null, null));
+            return previewImage;
+        } catch (PDFException | IOException | PDFSecurityException | InterruptedException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
 
-	//定时任务：每天14:25点自动为没有附件预览图的文档生成预览图（用于为以前在数据库中的文档附件生成预览图）
+    //定时任务：每天14:25点自动为没有附件预览图的文档生成预览图（用于为以前在数据库中的文档附件生成预览图）
 //	@Scheduled(cron = "0 25 14 * * ?")
-	private void genPreviews() {
-		List<Document> documents = documentDataService.getAllDocuments();
-		for (Document document: documents) {
-			if ((!document.getAttachment().equals("")) && document.getPreview()==null) {
-				//若此文档有附件，但是预览图为空，则为它生成预览图
-				document.setPreview(generatePreviewImage(document.getAttachment()));
-				documentDataService.saveDocument(document);
-			}
-		}
-	}
+    private void genPreviews() {
+        List<Document> documents = documentDataService.getAllDocuments();
+        for (Document document : documents) {
+            if ((!document.getAttachment().equals("")) && document.getPreview() == null) {
+                //若此文档有附件，但是预览图为空，则为它生成预览图
+                document.setPreview(generatePreviewImage(document.getAttachment()));
+                documentDataService.saveDocument(document);
+            }
+        }
+    }
 }

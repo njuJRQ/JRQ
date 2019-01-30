@@ -1,6 +1,7 @@
 package njurestaurant.njutakeout.springcontroller.article.course;
 
 import io.swagger.annotations.*;
+import njurestaurant.njutakeout.blservice.article.RecordBlService;
 import njurestaurant.njutakeout.blservice.article.course.CourseBlService;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.Response;
@@ -9,19 +10,27 @@ import njurestaurant.njutakeout.response.event.EventLoadResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.hibernate5.SpringSessionContext;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import sun.misc.Request;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static njurestaurant.njutakeout.util.FormatDateTime.toLongDateString;
 
 @RestController
 public class CourseController {
     private final CourseBlService courseBlService;
+    private final RecordBlService recordBlService;
 
     @Autowired
-    public CourseController(CourseBlService courseBlService) {
+    public CourseController(CourseBlService courseBlService, RecordBlService recordBlService) {
         this.courseBlService = courseBlService;
+        this.recordBlService = recordBlService;
     }
 
     @ApiOperation(value = "获取课程图片", notes = "获取课程图片")
@@ -267,8 +276,19 @@ public class CourseController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> updateCourse(@RequestParam(name="id")String id, @RequestParam(name="title")String title, @RequestParam(name="writerName")String writerName, @RequestParam(name="date")String date, @RequestParam(name="likeNum")long likeNum, @RequestParam(name="price")int price,@RequestParam(name="image")String image,@RequestParam(name="video")String video) throws NotExistException {
-
+    public ResponseEntity<Response> updateCourse(@RequestParam(name="id")String id,
+                                                 @RequestParam(name="title")String title,
+                                                 @RequestParam(name="writerName")String writerName,
+                                                 @RequestParam(name="date")String date,
+                                                 @RequestParam(name="likeNum")long likeNum,
+                                                 @RequestParam(name="price")int price,
+                                                 @RequestParam(name="image")String image,
+                                                 @RequestParam(name="video")String video,
+                                                 HttpServletRequest request) throws NotExistException {
+        //logger.log(time+ip+"update course "+id+title+)
+        //"time:"+toLongDateString(new Date())+" ip:"+request.getRemoteAddr()+" update course"
+        recordBlService.addRecord("time:"+toLongDateString(new Date())+" ip:"+request.getRemoteAddr()+" update course:"
+            +" id:"+id+" title:"+title+" writerName:"+writerName+" date:"+date+" likeNum:"+likeNum+" price:"+price+" image:"+image+" video:"+video);
         ResponseEntity<Response> r= new ResponseEntity<>(courseBlService.updateCourse(id,title,image,writerName,likeNum,video,price), HttpStatus.OK);
         return r;
     }
@@ -284,7 +304,9 @@ public class CourseController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> deleteCourse(@RequestParam(name="id")String id) throws NotExistException {
+    public ResponseEntity<Response> deleteCourse(@RequestParam(name="id")String id, HttpServletRequest request) throws NotExistException {
+        //logger.log(time+ip+"delete course "+id)
+        recordBlService.addRecord("time:"+toLongDateString(new Date())+" ip:"+request.getRemoteAddr()+" delete course"+" id:"+id);
         return new ResponseEntity<>(courseBlService.deleteCourse(id), HttpStatus.OK);
     }
 

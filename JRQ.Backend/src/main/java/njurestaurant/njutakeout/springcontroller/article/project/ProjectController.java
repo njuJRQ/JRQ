@@ -1,6 +1,7 @@
 package njurestaurant.njutakeout.springcontroller.article.project;
 
 import io.swagger.annotations.*;
+import njurestaurant.njutakeout.blservice.article.RecordBlService;
 import njurestaurant.njutakeout.blservice.article.project.ProjectBlService;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.Response;
@@ -12,17 +13,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.util.*;
+
+import static njurestaurant.njutakeout.util.FormatDateTime.toLongDateString;
 
 @RestController
 public class ProjectController {
     private final ProjectBlService projectBlService;
-    @Autowired
-    public ProjectController(ProjectBlService projectBlService) {
-        this.projectBlService = projectBlService;
-    }
 
+    private final RecordBlService recordBlService;
+
+    @Autowired
+    public ProjectController(ProjectBlService projectBlService, RecordBlService recordBlService) {
+        this.projectBlService = projectBlService;
+        this.recordBlService = recordBlService;
+    }
 
     @ApiOperation(value = "获取附件", notes = "获取附件")
     @ApiImplicitParams({
@@ -169,7 +176,9 @@ public class ProjectController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> updateProject(@RequestParam(name="id")String id,@RequestParam(name="title")String title, @RequestParam(name="writerName")String writerName, @RequestParam(name="identity")String identity, @RequestParam(name="phone")String phone, @RequestParam(name="city")String city, @RequestParam(name="industry")String industry, @RequestParam(name="business")String business, @RequestParam(name="content")String content, @RequestParam(name="money")int money, @RequestParam(name="date")String date,@RequestParam(name="attachment")String attachment) throws NotExistException {
+    public ResponseEntity<Response> updateProject(@RequestParam(name="id")String id,@RequestParam(name="title")String title, @RequestParam(name="writerName")String writerName, @RequestParam(name="identity")String identity, @RequestParam(name="phone")String phone, @RequestParam(name="city")String city, @RequestParam(name="industry")String industry, @RequestParam(name="business")String business, @RequestParam(name="content")String content, @RequestParam(name="money")int money, @RequestParam(name="date")String date,@RequestParam(name="attachment")String attachment, HttpServletRequest request) throws NotExistException {
+        recordBlService.addRecord("time:"+toLongDateString(new Date())+" ip:"+request.getRemoteAddr()+" update project"+
+                " id:"+id+" title:"+title+" writerName:"+" identity:"+identity+" phone:"+phone+" city:"+city+" industry:"+industry+" business:"+business+" content:"+content+" money:"+money+" date:"+date+" attachment:"+attachment);
         ResponseEntity<Response> r=new ResponseEntity<>(projectBlService.updateProject(id,title,writerName,identity,phone,city,industry,business,content,money,attachment), HttpStatus.OK);
         return r;
     }
@@ -184,7 +193,8 @@ public class ProjectController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> deleteProject(@RequestParam(name="id")String id) throws NotExistException {
+    public ResponseEntity<Response> deleteProject(@RequestParam(name="id")String id, HttpServletRequest request) throws NotExistException {
+        recordBlService.addRecord("time:"+toLongDateString(new Date())+" ip:"+request.getRemoteAddr()+" update project id:"+id);
         return new ResponseEntity<>(projectBlService.deleteProject(id), HttpStatus.OK);
     }
 

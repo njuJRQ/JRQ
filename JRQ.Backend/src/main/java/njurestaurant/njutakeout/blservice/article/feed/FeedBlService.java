@@ -104,5 +104,5 @@ public interface FeedBlService {
 	 * @param id 圈子ID
 	 * @return
 	 */
-	FeedListResponse getFeedListBeforeByKind(String kind, String openid, String id) throws NotExistException;
+	FeedViewListResponse getFeedListBeforeByKind(String kind, String openid, String id) throws NotExistException;
 }

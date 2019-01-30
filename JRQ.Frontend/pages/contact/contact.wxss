@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* pages/contact/contact.wxss */
 /* pages/service/service.wxss */
 @import '/style/common.wxss';
@@ -208,4 +209,216 @@
   border-radius: 3px;
   border-width: 25px;
   opacity: 0.3;
+=======
+/* pages/contact/contact.wxss */
+/* pages/service/service.wxss */
+@import '/style/common.wxss';
+@import '/template/searchBar/searchBar.wxss';
+@import '/template/adBar/adBar.wxss';
+
+/*本页面css属性*/
+
+/*关于头部导航栏的属性*/
+.headWrapper {
+  width: 100%;
+  padding: 0 20px 5px 20px;
+  
+}
+
+/*搜索栏样式*/
+.search_ico{
+  margin-left: -5%;
+  margin-right: 30%;
+  width: 110%;
+}
+.search__keywords {
+  font-weight: bold;
+  font-family: HYYaKuHeiW;
+  line-height: 1rem;
+  color: #b98c49;
+  font-size: 0.8rem;
+}
+
+
+/*导航栏样式*/
+.navBar {
+  width: 150px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  float: right;
+  box-sizing: content-box;
+}
+.navBar__btn {
+  border-radius: 50%;
+  background: inherit;
+  border: 5px inherit solid;
+  padding: 1px;
+  text-align: center;
+  font-size: 0.8rem;
+}
+.navBar__btn-state--chosen {
+  border: 5px #ebbc6a solid;
+}
+.navBar__btn-state--chosen::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 4px;
+  background-color: #ebbc6a;
+  transform: translate(-5px,3px);
+}
+.navBar__icon {
+  margin: auto;
+  display: block;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+.content {
+  width: 100%;
+  min-height: 500px;
+}
+
+/*关于业务卡片的属性*/
+
+.cardWrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 10px;
+  min-height: 80px;
+}
+.card__decorator {
+  position: absolute;
+  top: -10px;
+  width: 50%;
+  height: 20px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 5px 10px;
+  
+  left: -23%;
+  display: flex;
+  align-items: center;
+}
+.card__kindName {
+  color: #927912;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-left: auto;
+}
+.card__main {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px 0 5px 5px;
+  background-color: white;
+  border-radius: 10px 0 0 10px;
+}
+
+.card__face {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.card__info {
+  width: 80%;
+  margin: 5px 5px 5px 10px;
+}
+
+.card__title1 {
+   display: block;
+  text-align: left;
+}
+.card__title2 {
+   display: flex;
+   flex-direction: column;
+  text-align: left;
+}
+.vipImage{
+  margin-bottom: 1%;
+  margin-left: 2%;
+  width: 10%;
+  height: 10px;
+}
+.card__username {
+  display: inline-block;
+  max-width: 9rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #040404;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.card__position{
+  display: inline-block;
+  margin: 0 0 0 5px;
+  font-size: 0.5rem;
+  color: #a6a6a6;
+  max-width: 7rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.card__city, .card__company, .card__position {
+  display: inline;
+  margin: 0 5px 0 0;
+  color: #a6a6a6;
+}
+
+.card__category {
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.5rem;
+  border-radius: 0 10px 10px 0;
+  padding: 5px;
+  text-align: center;
+}
+
+.card__category text {
+  font-size: 0.8rem;
+  color: white;
+  font-weight: bold;
+}
+
+.card__intro {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  font-size: 0.5rem;
+  color: #b19114;
+}
+
+/* 右边标签和卡片按钮 */
+/* .label-buttons{
+  display: flex;
+
+  flex-direction: row-reverse;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+ 
+}
+.label_text{
+  display: block;
+  font-size: 8px;
+  margin-top: 2%;
+  
+  background-color: #1c88ee;
+  border-radius: 3px;
+  border-width: 25px;
+  opacity: 0.3;
+>>>>>>> 8ce792fea477fe8becd289a724d2630b52058cd9
 } */

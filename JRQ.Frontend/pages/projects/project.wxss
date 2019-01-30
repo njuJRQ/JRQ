@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* pages/projects/project.wxss */
 /* pages/information/news.wxss */
 /* pages/community/community.wxss */
@@ -102,4 +103,110 @@
  }
 .swiper-box view{ 
   text-align: center; 
+=======
+/* pages/projects/project.wxss */
+/* pages/information/news.wxss */
+/* pages/community/community.wxss */
+@import '/style/common.wxss';
+@import '/template/articleItems/articleItem.wxss';
+@import '/template/findBar/searchBar.wxss';
+/*关于头部导航栏的属性*/
+.headWrapper {
+  width: 100%;
+  padding: 0 20px 5px 20px;
+  
+}
+.articleListWrapper {
+  margin-top: -3%;
+  width: 100%;
+  padding: 5px 10px;
+}
+/*导航栏样式*/
+.navBar {
+  width: 85%;
+  margin-left: 25%;
+  margin-right: 25%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  float: right;
+  box-sizing: content-box;
+  margin-top: 10px;
+}
+.navBar__btn {
+  border-radius: 50%;
+  background: inherit;
+  border: 5px inherit solid;
+  padding: 1px;
+  text-align: center;
+  font-size: 0.8rem;
+}
+.navBar__btn-state--chosen {
+  border: 5px #ebbc6a solid;
+}
+.navBar__btn-state--chosen::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 4px;
+  background-color: #ebbc6a;
+  transform: translate(-5px,3px);
+}
+.navBar__icon {
+  margin: auto;
+  display: block;
+  width: 35px;
+  height: 35px;
+  border-radius: 100%;
+}
+
+
+/*搜索栏样式*/
+.search_ico{
+  margin-left: -5%;
+  margin-right: 30%;
+  width: 110%;
+}
+.search__keywords {
+  font-weight: bold;
+  font-family: HYYaKuHeiW;
+  line-height: 1rem;
+  color: #b98c49;
+ 
+}
+/* tab切换 */
+.swiper-tab{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%; 
+  border-bottom: 2rpx solid #f7f0f0; 
+  text-align: center; 
+  line-height: 30rpx;
+  box-shadow: 0 1px 2px #c0c0c0;
+}
+.swiper-tab-list{
+  font-size: 30rpx; 
+  display: inline-block; 
+  width: 20%; 
+  color: #2e2c2c; 
+  padding: 10px 0 5px 5px;
+  background-color: white;
+  
+  
+}
+.on{
+  color: #e9ca5d; 
+  border-bottom: 5rpx solid #e9ca5d;
+}
+.swiper-box{ 
+  display: block;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+ }
+.swiper-box view{ 
+  text-align: center; 
+>>>>>>> 8ce792fea477fe8becd289a724d2630b52058cd9
 }

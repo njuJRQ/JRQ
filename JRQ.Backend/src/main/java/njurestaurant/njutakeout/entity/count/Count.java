@@ -3,34 +3,44 @@ package njurestaurant.njutakeout.entity.count;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name="count")
 public class Count {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
 
-    @Column(columnDefinition = "long default 0")
+    @Column
     private long viewCourse; //查看课程次数
 
-    @Column(columnDefinition = "long default 0")
+    @Column
     private long viewDocument; //查看文档次数
 
-    @Column(columnDefinition = "long default 0")
+    @Column
     private long viewProject; //查看项目次数
 
-    @Column(columnDefinition = "long default 0")
+    @Column
     private long viewHomePage; //查看首页次数
 
-    @Column(columnDefinition = "long default 0")
+    @Column
     private long viewNews; //查看资讯次数
 
-    @Column(columnDefinition = "long default 0")
+    @Column
     private long viewBusiness; //查看业务次数
 
-    @Column(columnDefinition = "long default 0")
+    @Column
     private long viewFeed; //查看圈子次数
 
     public Count() {
+    }
+
+    public Count(long viewCourse, long viewDocument, long viewProject, long viewHomePage, long viewNews, long viewBusiness, long viewFeed) {
+        this.viewCourse = viewCourse;
+        this.viewDocument = viewDocument;
+        this.viewProject = viewProject;
+        this.viewHomePage = viewHomePage;
+        this.viewNews = viewNews;
+        this.viewBusiness = viewBusiness;
+        this.viewFeed = viewFeed;
     }
 
     public int getId() {

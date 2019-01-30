@@ -1,6 +1,7 @@
 package njurestaurant.njutakeout.springcontroller.article.document;
 
 import io.swagger.annotations.*;
+import njurestaurant.njutakeout.blservice.article.RecordBlService;
 import njurestaurant.njutakeout.blservice.article.document.DocumentBlService;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.Response;
@@ -12,17 +13,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import static njurestaurant.njutakeout.util.FormatDateTime.toLongDateString;
+
 @RestController
 public class DocumentController {
     private final DocumentBlService documentBlService;
+
+    private final RecordBlService recordBlService;
+
     @Autowired
-    public DocumentController(DocumentBlService documentBlService) {
+    public DocumentController(DocumentBlService documentBlService, RecordBlService recordBlService) {
         this.documentBlService = documentBlService;
+        this.recordBlService = recordBlService;
     }
 
     @ApiOperation(value = "获取附件", notes = "获取附件")
@@ -161,7 +170,17 @@ public class DocumentController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> updateDocument(@RequestParam(name="id")String id,@RequestParam(name="title")String title, @RequestParam(name="content")String content,@RequestParam(name="attachment")String attachment, @RequestParam(name="writerName")String writerName, @RequestParam(name="date")String date, @RequestParam(name="likeNum")String likeNum) throws NotExistException {
+    public ResponseEntity<Response> updateDocument(@RequestParam(name="id")String id,
+                                                   @RequestParam(name="title")String title,
+                                                   @RequestParam(name="content")String content,
+                                                   @RequestParam(name="attachment")String attachment,
+                                                   @RequestParam(name="writerName")String writerName,
+                                                   @RequestParam(name="date")String date,
+                                                   @RequestParam(name="likeNum")String likeNum,
+                                                   HttpServletRequest request) throws NotExistException {
+
+        recordBlService.addRecord("time:"+toLongDateString(new Date())+" ip:"+request.getRemoteAddr()+" update document"+
+        " id:"+id+" title:"+title+" content:"+content+" attachment:"+attachment+" writerName:"+writerName+" date:"+date+" likeNum:"+likeNum);
         ResponseEntity<Response> r= new ResponseEntity<>(documentBlService.updateDocument(id,title,content,attachment,writerName,Long.parseLong(likeNum)), HttpStatus.OK);
         return r;
     }
@@ -176,7 +195,8 @@ public class DocumentController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> deleteDocument(@RequestParam(name="id")String id) throws NotExistException {
+    public ResponseEntity<Response> deleteDocument(@RequestParam(name="id")String id, HttpServletRequest request) throws NotExistException {
+        recordBlService.addRecord("time:"+toLongDateString(new Date())+" ip:"+request.getRemoteAddr()+" delete document id:"+id);
         return new ResponseEntity<>(documentBlService.deleteDocument(id), HttpStatus.OK);
     }
 

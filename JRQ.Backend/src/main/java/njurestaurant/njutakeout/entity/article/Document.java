@@ -10,110 +10,121 @@ import java.util.Date;
 @Table
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class Document {
-	@Id
-	@GeneratedValue(generator = "jpa-uuid")
-	private String id;//编号
+    @Id
+    @GeneratedValue(generator = "jpa-uuid")
+    private String id;//编号
 
-	@Column
-	private String title;//标题
+    @Column
+    private String title;//标题
 
-	@Column
-	private String content; //内容
+    @Column
+    private String content; //内容
 
-	@Column
-	private String attachment; //附件路径
+    @Column
+    private String attachment; //附件路径
 
-	@Column
-	private String writerName;//作者名字
+    @Column
+    private String writerName;//作者名字
 
-	@Column
-	private long timeStamp; //最近一次更新的时间戳
+    @Column
+    private long timeStamp; //最近一次更新的时间戳
 
-	@Column
-	private long likeNum;//点赞数
+    @Column
+    private long likeNum;//点赞数
 
-	@Column
-	private String preview; //附件预览图（若附件为PDF则为图片路径，否则为空）
+    @Column
+    private String preview; //附件预览图（若附件为PDF则为图片路径，否则为空）
 
-	public Document(){
-	}
+    @Column
+    private long vieNum;//浏览量
 
-	public Document(String title, String content, String attachment, String writerName, long timeStamp, long likeNum, String preview) {
-		this.title = title;
-		this.content = content;
-		this.attachment = attachment;
-		this.writerName = writerName;
-		this.timeStamp = timeStamp;
-		this.likeNum = likeNum;
-		this.preview = preview;
-	}
+    public Document() {
+    }
 
-	public String getId() {
-		return id;
-	}
+    public Document(String title, String content, String attachment, String writerName, long timeStamp, long likeNum, String preview) {
+        this.title = title;
+        this.content = content;
+        this.attachment = attachment;
+        this.writerName = writerName;
+        this.timeStamp = timeStamp;
+        this.likeNum = likeNum;
+        this.preview = preview;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public String getContent() {
-		return content;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public String getWriterName() {
-		return writerName;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public void setWriterName(String writerName) {
-		this.writerName = writerName;
-	}
+    public String getWriterName() {
+        return writerName;
+    }
 
-	public String getDate() {
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		return simpleDateFormat.format(new Date(timeStamp));
-	}
+    public void setWriterName(String writerName) {
+        this.writerName = writerName;
+    }
 
-	public long getTimeStamp() {
-		return timeStamp;
-	}
+    public String getDate() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.format(new Date(timeStamp));
+    }
 
-	public void setTimeStamp(long timeStamp) {
-		this.timeStamp = timeStamp;
-	}
+    public long getTimeStamp() {
+        return timeStamp;
+    }
 
-	public long getLikeNum() {
-		return likeNum;
-	}
+    public void setTimeStamp(long timeStamp) {
+        this.timeStamp = timeStamp;
+    }
 
-	public void setLikeNum(long likeNum) {
-		this.likeNum = likeNum;
-	}
+    public long getLikeNum() {
+        return likeNum;
+    }
 
-	public String getAttachment() {
-		return attachment;
-	}
+    public void setLikeNum(long likeNum) {
+        this.likeNum = likeNum;
+    }
 
-	public void setAttachment(String attachment) {
-		this.attachment = attachment;
-	}
+    public String getAttachment() {
+        return attachment;
+    }
 
-	public String getPreview() {
-		return preview;
-	}
+    public void setAttachment(String attachment) {
+        this.attachment = attachment;
+    }
 
-	public void setPreview(String preview) {
-		this.preview = preview;
-	}
+    public String getPreview() {
+        return preview;
+    }
+
+    public void setPreview(String preview) {
+        this.preview = preview;
+    }
+
+    public long getVieNum() {
+        return vieNum;
+    }
+
+    public void setVieNum(long vieNum) {
+        this.vieNum = vieNum;
+    }
 }

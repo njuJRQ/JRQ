@@ -489,42 +489,6 @@ function getPersonList(kind) {
   })
 }
 
-function getMyInfo(openid, then) {
-  var that = this
-  wx.showLoading({
-    title: '载入中',
-  })
-  wx.request({
-    url: app.globalData.backendUrl + "getMyUser",
-    data: {
-      openid: openid
-    },
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      wx.hideLoading()
-      console.log(res)
-      that.data.myInfo = res.data.user
-      that.data.myInfo.face = app.globalData.picUrl + that.data.myInfo.face
-      if (that.data.myInfo.levelName == '998') {
-        that.data.myInfo.medals.push('/pages/me/img/gold.png')
-      } else if (that.data.myInfo.levelName == '298') {
-        that.data.myInfo.medals.push('/pages/me/img/silver.png')
-      } else if (that.data.myInfo.levelName === 'common') {
-        that.data.myInfo.medals.push('/pages/me/img/copper.png')
-      }
-      if (that.data.myInfo.isEnterprise) {
-        that.data.myInfo.medals.push('/pages/me/img/enterprise.png')
-      }
-      that.setData(that.data)
-      if (then) then()
-    }
-  })
-}
-
 function getOtherBasicInfo(id) {
   var that = this
   wx.request({
@@ -822,21 +786,24 @@ function downloadFile(filepath, then) {
   })
 }
 
-function getClassificationList(then) {
-  var that = this
-  wx.request({
-    url: app.globalData.backendUrl + "getClassificationList",
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      that.setData({
-        labelArray: res.data.classifications.map((c) => c.userLabel)
-      })
-      if (then) then()
-    }
+function getClassificationList() {
+  return new util.Promise((resolve, reject) => {
+    wx.request({
+      url: app.globalData.backendUrl + "getClassificationList",
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        if(res.statusCode == 200) {
+          resolve(res.data.classifications)
+        }
+        else {
+          reject()
+        }
+      }
+    })
   })
 }
 
@@ -957,6 +924,7 @@ function getMyUser(openid) {
       method: 'GET',
       success: (res) => {
         if (res.statusCode == 200) {
+          res.data.user.face = app.globalData.picUrl + res.data.user.face
           resolve(res.data.user)
         } else {
           reject()
@@ -1289,7 +1257,6 @@ module.exports = {
   likePlus: likePlus,
   purchaseCourse: purchaseCourse,
   getPersonList: getPersonList,
-  getMyInfo: getMyInfo,
   getOtherBasicInfo: getOtherBasicInfo,
   getOtherInfo: getOtherInfo,
   checkMyReceivedCard: checkMyReceivedCard,

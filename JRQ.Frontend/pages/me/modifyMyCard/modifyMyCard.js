@@ -51,19 +51,25 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    const that = this
-    api.getClassificationList.call(this, () => {
-      api.getMyInfo.call(this, app.getOpenid(), () => {
-        /* 更新labelIndex */
-        const label = that.data.myInfo.label
-        const labelArray = that.data.labelArray
-        let index = labelArray.findIndex((l) => l == label)
-        if (index === -1) index = 0
-        that.data.labelIndex = index
-        /* 复制myInfo到newMyInfo中 */
-        //that.data.newMyInfo = that.data.myInfo
-        that.setData(that.data)
+    api.getClassificationList()
+    .then((classifications) => {
+      this.setData({
+        labelArray: classifications.map((c) => c.userLabel)
       })
+    })
+    .then((res) => api.getMyUser(app.getOpenid()))
+    .then((user) => {
+      console.log(user)
+      const label = user.label
+      const labelArray = this.data.labelArray
+      const index = labelArray.findIndex((l) => l == label)
+      this.setData({
+        labelIndex: index < 0 ? 0 : index,
+        myInfo: user
+      })
+    })
+    .catch(() => {
+      console.log("error")
     })
   },
 
@@ -74,7 +80,7 @@ Page({
     if (this.data.newFace) {
       newMyInfo.face = this.data.newFace
     }
-    console.log(newMyInfo)
+    /*console.log(newMyInfo)*/
     /* 检查输入合法性 */
     if (!(newMyInfo.phone === "" || /^1[34578]\d{9}$/.test(newMyInfo.phone))) {
       wx.showToast({

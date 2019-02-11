@@ -85,14 +85,25 @@ Page({
       this.data.isGetOtherInfo = true
       this.data.isAlreadyGetOtherInfo = false
       this.data.otherid = options.id
-      api.getOtherBasicInfo.call(this, this.data.otherid) //获取除联系方式外的其他信息
-      api.getUserHistoryAbstractList.call(this, app.getOpenid(), this.data.otherid) //获取文章历史记录
+      
+      //获取除联系方式外的其他信息
+      api.getOtherBasicInfo.call(this, this.data.otherid) 
+      
+      //获取文章历史记录
+      api.getUserHistoryAbstractList.call(this, app.getOpenid(), this.data.otherid) 
     } else {
-      var that = this
       this.data.isGetOtherInfo = false
-      api.getMyInfo.call(this, app.getOpenid()) //获取个人信息
-      api.getUserHistoryAbstractList.call(this, app.getOpenid(), app.getOpenid()) //获取个人历史文章列表信息
+      
+      //获取个人信息
+      api.getMyUser(app.getOpenid()).then(user => this.setData({
+        myInfo: user
+      }))
+
+      //获取个人历史文章列表信息
+      api.getUserHistoryAbstractList.call(this, app.getOpenid(), app.getOpenid()) 
     }
+
+    //获取当前用户剩余查看次数
     api.getMyCardLimits(app.getOpenid())
       .then((res) => {
         this.setData({
@@ -169,8 +180,9 @@ Page({
       }
 
     } else { //获取自己信息
-      api.getMyInfo.call(this, app.getOpenid(), () => {
-        that.setData({
+      api.getMyUser(app.getOpenid()).then(user => {
+        this.setData({
+          myInfo: user,
           isMyInfoVisiable: !that.data.isMyInfoVisiable,
         })
       })
@@ -183,7 +195,7 @@ Page({
       api.uploadFormId(app.getOpenid(), e.detail.formId)
         .then((res) => api.sendMyCard(app.getOpenid(), this.data.otherid))
         .then((res) => {
-          console.log("After send my card: ",res)
+          console.log("After send my card: ", res)
           wx.hideLoading()
           if (res.data.ok) {
             wx.showToast({

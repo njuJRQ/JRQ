@@ -867,7 +867,7 @@ function sendMyCard(senderOpenid, receiverOpenid) {
       title: '正在发送名片',
     })
     getMyUser(senderOpenid).then((res) => {
-      console.log(res)
+      console.log("SendMyCard phase 1")
       wx.request({
         url: app.globalData.backendUrl + "sendMyCard",
         data: {
@@ -896,6 +896,7 @@ function sendMyCard(senderOpenid, receiverOpenid) {
         },
         method: 'GET',
         success: (res) => {
+          console.log("SendMyCard phase 2")
           console.log(res);
           if (res.statusCode == 200) {
             resolve(res)

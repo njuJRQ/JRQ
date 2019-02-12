@@ -28,7 +28,7 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "钧融圈",
     "navigationBarTextStyle": "black",
-    "enablePullDownRefresh": true
+    "enablePullDownRefresh": false
   },
   "tabBar": {
     "selectedColor": "#C09B54",

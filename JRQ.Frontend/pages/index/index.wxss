@@ -10,7 +10,6 @@
 .headWrapper {
   width: 100%;
   padding: 50px 30px 10px 30px;
-  
 }
 /*搜索栏样式*/
 .search {

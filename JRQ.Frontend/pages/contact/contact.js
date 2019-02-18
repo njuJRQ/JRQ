@@ -116,23 +116,7 @@ Page({
     this.setData({
       searchCondition: null
     })
-    api.getAd.call(this, 'service', (res) => {
-      this.setData({
-        ad: res.ad
-      })
-    })
-  },
-
-  onShow: function (options) {
-    this.setData({
-      searchCondition: null
-    })
-    switch (this.data.currentKind) {
-      case 'capital': this.showCapitalClass(); break;
-      case 'stock': this.showStockClass(); break;
-      case 'merge': this.showMergeClass(); break;
-      default: break;
-    }
+    
   },
 
   //展示资金类
@@ -143,26 +127,6 @@ Page({
       searchCondition: null
     })
     api.getPersonList.call(this, 'capital')
-  },
-
-  //展示股票类
-  showStockClass: function () {
-    this.setData({
-      currentKind: 'stock',
-      currentKindName: this.data.stockClassDesc,
-      searchCondition: null
-    })
-    api.getPersonList.call(this, 'stock')
-  },
-
-  //展示并购类
-  showMergeClass: function () {
-    this.setData({
-      currentKind: 'merge',
-      currentKindName: this.data.mergeClassDesc,
-      searchCondition: null
-    })
-    api.getPersonList.call(this, 'merge')
   },
 
   //点击当前文章触发函数
@@ -184,10 +148,5 @@ Page({
     api.getPersonListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
   },
 
-  //点击广告跳转
-  onAd: function () {
-    wx.navigateTo({
-      url: '../ad/ad?url=' + this.data.ad.link
-    })
-  },
+ 
 })

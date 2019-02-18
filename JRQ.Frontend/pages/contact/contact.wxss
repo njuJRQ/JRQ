@@ -190,23 +190,3 @@
   color: #b19114;
 }
 
-/* 右边标签和卡片按钮 */
-/* .label-buttons{
-  display: flex;
-
-  flex-direction: row-reverse;
-  justify-content: space-around;
-  flex-wrap: wrap;
-
- 
-}
-.label_text{
-  display: block;
-  font-size: 8px;
-  margin-top: 2%;
-  
-  background-color: #1c88ee;
-  border-radius: 3px;
-  border-width: 25px;
-  opacity: 0.3;
-} */

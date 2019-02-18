@@ -57,8 +57,7 @@
 
 /*搜索栏样式*/
 .search_ico{
-  margin-left: -5%;
-  margin-right: 30%;
+  margin-left: -3.5%; 
   width: 110%;
 }
 .search__keywords {

@@ -2,15 +2,15 @@
 /*关于搜索栏的属性*/
 .search {
   width: 100%;
-  margin: 0 0 0 0;
-  padding: 0 5px;
+  margin: 0 -4px 0 -4px;
+  padding: 0 1px;
   background: white;
   justify-content: space-between;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px #c0c0c0;
+  border-radius: 4px;
+  box-shadow: 0 0 0 #c0c0c0;
 }
 .search-input {
-  padding: 8px 0 8px 10px; 
+  padding: 5px 0 8px 10px; 
   width: 90%;
   font-size: 0.8rem;
 }

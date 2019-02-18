@@ -6,6 +6,27 @@ const { bg1 } = require('../../util/data.js')
 
 Page({
   data: {
+    cards: [{
+      thumbnail: '../../default/default-pic.png',
+      articleName:'什么是金融？',
+      summary:'一般指与货币流通及银行有关的东西'
+      },
+      {
+        thumbnail: '../../default/default-pic.png',
+        articleName: '什么是金融？',
+        summary: '一般指与货币流通及银行有关的东西'
+       
+      },
+      {
+        thumbnail: '../../default/default-pic.png',
+        articleName: '什么是金融？',
+        summary: '一般指与货币流通及银行有关的东西'
+      }],
+      
+    // cards:[{
+    //   face: '../../default/default-pic.png',
+      
+    // },{}]
     /*
     articles: [{
       id: 1,
@@ -49,10 +70,10 @@ Page({
     }],
     */
     articles: [],
-    ad: {
-      image: '../../default/default-pic.png',
-      link: 'https://www.baidu.com'
-    },
+    // ad: {
+    //   image: '../../default/default-pic.png',
+    //   link: 'https://www.baidu.com'
+    // },
     currentKind: null,
     searchCondition: null,
     lastId: "",
@@ -63,10 +84,12 @@ Page({
 
   //事件处理函数
   onLoad: function () {
+   
     this.setData({
       currentKind: 'course',
       searchCondition: null,
-      articles: []
+      articles: [],
+     
     })
     this.showAll()
     api.getAd.call(this, 'index', (res) => {
@@ -206,5 +229,36 @@ toProjects:function(){
     wx.navigateTo({
       url: '/pages/me/updateMe/updateMe',
     })
+  },
+
+
+  //展示资金类
+  showCapitalClass: function (event) {
+    this.setData({
+      currentKind: 'capital',
+      currentKindName: this.data.capitalClassDesc,
+      searchCondition: null
+    })
+    api.getPersonList.call(this, 'capital')
+  },
+
+  //点击当前文章触发函数
+  onClickThisCard: function (e) {
+    var id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '../me/myHistory/myHistory?id=' + id,
+    })
+  },
+
+  //更新搜索条件
+  updateSearchCondition: function (e) {
+    this.data.searchCondition = e.detail.value;
+  },
+
+  //搜索触发函数
+  onSearch: function () {
+    console.log('search service people: ' + this.data.searchCondition)
+    api.getPersonListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
   }
+
 })

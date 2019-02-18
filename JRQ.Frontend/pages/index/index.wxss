@@ -1,6 +1,6 @@
 /**index.wxss**/
 @import '/style/common.wxss';
-@import '/template/searchBar/searchBar.wxss';
+@import '/template/findBar/searchBar.wxss';
 @import '/template/adBar/adBar.wxss';
 @import '/template/likeIcon/likeIcon.wxss';
 
@@ -8,62 +8,54 @@
 
 /*关于头部导航栏的属性*/
 .headWrapper {
-  width: 100%;
-  padding: 50px 30px 10px 30px;
+  width: 105%;
+  padding:0 30px 10px 30px;
+ 
   
+}
+.adBar_btn{
+  width: 100%;
+  padding:0 30px 10px 30px;
 }
 /*搜索栏样式*/
 .search {
-  margin: auto;
+  margin-left: -5%;
+  margin-right: 30%;
+  width: 110%;
 }
 .search__keywords {
   line-height: 2rem;
 }
 /*广告栏样式*/
 .ad {
-  margin: 10px auto;
+  margin-top:0; 
+  margin-bottom: 10px;
 }
 /*导航栏样式*/
 .navBar {
   width: 100%;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  margin-bottom: -10%;
+  /* align-items: center;
   float: right;
-  box-sizing: content-box;
+  box-sizing: content-box; */
 }
-.navBar__btn {
-  border-radius: 50%;
-  background: inherit;
-  border: 5px inherit solid;
-  padding: 1px;
-  text-align: center;
-  font-size: 0.8rem;
-}
-.navBar__btn-state--chosen {
-  border: 5px #ebbc6a solid;
-}
-.navBar__btn-state--chosen::after {
-  content: '';
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 4px;
-  background-color: #ebbc6a;
-  transform: translate(-5px,3px);
-}
+
 .navBar__icon {
-  margin: auto;
+  margin-left: -25px;
+  margin-right: -25px;
   display: block;
-  width: 35px;
-  height: 35px;
-  border-radius: 100%;
+  width: 85px;
+  height: 45px;
+  
 }
 /* 关于项目按钮文章属性 */
 .articleWrapper_project {
   display: inline-block;
   vertical-align: top;
-  width: 50%;
+  width: 100%;
   min-height: 200px;
   padding: 30px 5px 0 5px;
 }
@@ -75,7 +67,7 @@
   top: -10px;
   width: 70%;
   height: 20px;
-  background-color: #edc681;
+  background-color: #6d4809;
   border-radius: 20px;
   padding: 5px 10px;
   box-shadow: 0 0 10px #a0a0a0;
@@ -86,13 +78,16 @@
 /*关于文章的属性*/
 .articleListWrapper {
   width: 100%;
+  margin-top: -10%;
 }
 .articleWrapper {
-  display: inline-block;
+ display: inline-block;
   vertical-align: top;
   width: 50%;
   min-height: 200px;
   padding: 30px 5px 0 5px;
+  margin-top: -20%;
+  
 }
 .article {
   position: relative;
@@ -104,9 +99,9 @@
   display: flex;
   align-items: center;
   top: -10px;
-  width: 70%;
+  width: 50%;
   height: 20px;
-  background-color: #edc681;
+  background-color: #422c05;
   border-radius: 20px;
   padding: 5px 10px;
   box-shadow: 0 0 10px #a0a0a0;
@@ -122,7 +117,7 @@
   display: block;
   margin: 10px auto;
   box-sizing: border-box;
-  border-radius: 10px;
+  border-radius: 0;
   box-shadow: 0 0 20px #e0e0e0;
 }
 .article__title {
@@ -200,4 +195,176 @@
 .t_image {
   width: 60rpx;
   height: 60rpx;
+}
+/* 热门文档——更多 */
+.document_more{
+  margin-top: 35px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.document{
+  margin-right: 180px;
+  font-size: 16px;
+  font-weight: bolder;
+
+}
+.more{
+  font-size:12px;
+  font-weight: bold;
+   
+}
+/* 热门视频——更多 */
+.video_more{
+  margin-top: -230px;
+  margin-bottom: 65px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.video{
+  margin-right: 150px;
+  font-size: 16px;
+  font-weight: bolder;
+
+}
+/*关于业务卡片的属性*/
+.content {
+  width: 100%;
+  min-height: 500px;
+}
+
+.cardWrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 10px;
+  min-height: 80px;
+}
+.card__decorator {
+  position: absolute;
+  top: -10px;
+  width: 50%;
+  height: 20px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 5px 10px;
+  
+  left: -23%;
+  display: flex;
+  align-items: center;
+}
+.card__kindName {
+  color: #927912;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-left: auto;
+}
+.card__main {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px 0 5px 5px;
+  background-color: white;
+  border-radius: 10px 0 0 10px;
+}
+
+.card__face {
+  width: 50px;
+  height: 50px;
+  border-radius: 10%;
+}
+
+.card__info {
+  width: 80%;
+  margin: 5px 5px 5px 10px;
+}
+
+.card__title1 {
+   display: block;
+  text-align: left;
+}
+.card__title2 {
+   display: flex;
+   flex-direction: column;
+  
+  text-align: left;
+}
+.doucument_bottom{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.vipImage{
+  margin-bottom: 1%;
+  margin-left: 2%;
+  width: 10%;
+  height: 10px;
+}
+.card__username {
+  display: inline-block;
+  max-width: 9rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #040404;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.card__position{
+  display: inline-block;
+  margin: 0 0 0 5px;
+  font-size: 0.5rem;
+  color: #a6a6a6;
+  max-width: 7rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.card__city, .card__company, .card__position {
+  display: inline;
+  margin: 0 5px 0 0;
+  color: #a6a6a6;
+}
+
+.card__category {
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.5rem;
+  border-radius: 0 10px 10px 0;
+  padding: 5px;
+  text-align: center;
+}
+
+.card__category text {
+  font-size: 0.8rem;
+  color: white;
+  font-weight: bold;
+}
+
+.card__intro {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  font-size: 0.5rem;
+  color: #b19114;
+}
+.summary{
+  font-size: 0.7rem;
+}
+.fees{
+  font-size: 0.7rem;
+  margin-right: 10px;
+}
+.vip{
+  font-size: 0.7rem;
+  color: #eeb83e;
+
 }

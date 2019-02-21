@@ -3,7 +3,9 @@
 //获取应用实例
 const app = getApp()
 var api = require('../../util/api.js')
-const { bg1 } = require('../../util/data.js')
+const {
+  bg1
+} = require('../../util/data.js')
 
 Page({
 
@@ -11,7 +13,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+    openId: '',
+    user: [],
+
     cards: [],
+
     /*
     cards: [{
       openid: 1,
@@ -99,15 +105,22 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     var that = this
     api.getClassificationDescriptionList.call(this, (res) => {
       res.classificationDescriptionItems.forEach((item) => {
         switch (item.workClass) {
-          case "stock": this.data.stockClassDesc = item.description; break;
-          case "merge": this.data.mergeClassDesc = item.description; break;
-          case "capital": this.data.capitalClassDesc = item.description; break;
-          default: break;
+          case "stock":
+            this.data.stockClassDesc = item.description;
+            break;
+          case "merge":
+            this.data.mergeClassDesc = item.description;
+            break;
+          case "capital":
+            this.data.capitalClassDesc = item.description;
+            break;
+          default:
+            break;
         }
       })
       this.setData(this.data)
@@ -116,11 +129,11 @@ Page({
     this.setData({
       searchCondition: null
     })
-    
+
   },
 
   //展示资金类
-  showCapitalClass: function (event) {
+  showCapitalClass: function(event) {
     this.setData({
       currentKind: 'capital',
       currentKindName: this.data.capitalClassDesc,
@@ -130,7 +143,7 @@ Page({
   },
 
   //点击当前文章触发函数
-  onClickThisCard: function (e) {
+  onClickThisCard: function(e) {
     var id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: '../me/myHistory/myHistory?id=' + id,
@@ -138,15 +151,25 @@ Page({
   },
 
   //更新搜索条件
-  updateSearchCondition: function (e) {
+  updateSearchCondition: function(e) {
     this.data.searchCondition = e.detail.value;
   },
 
   //搜索触发函数
-  onSearch: function () {
+  onSearch: function() {
     console.log('search service people: ' + this.data.searchCondition)
     api.getPersonListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
   },
 
- 
+  showContactList: function() {
+    this.setData({
+      openid: '',
+      userId:'',
+      userIdType:''
+
+    })
+    api.getContactList.call(this, app.getOpenid(), this.data.userId, this.data.userIdType)
+
+  }
+
 })

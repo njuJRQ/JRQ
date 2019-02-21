@@ -5,6 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    openid:'',
+    lastId: "",
+    lastIdType: "",
+
     myInfo: {
       // writerface:'../../default/default-icon.png',
       axis: [
@@ -33,7 +37,7 @@ Page({
         '/pages/me/img/writerface.jpg',
         '/pages/me/img/huiyuan-icon.png',
         '/pages/me/img/bianjian-icon.png',
-        '../../default/default-pic.png',
+        '/pages/me/img/bt.jpg',
         '/pages/me/img/VIP-icon.png'
 
       ],
@@ -99,5 +103,16 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+
+  // 修改
+  // 获取项目列表
+  getProjectList: function () {
+    this.setData({
+      articles: [],
+      lastId: "",
+      lastIdType: ""
+    })
+    api.getAbstractList.call(this, app.getOpenid(), this.data.projectId, this.data.projectIdType)
+  },
 })

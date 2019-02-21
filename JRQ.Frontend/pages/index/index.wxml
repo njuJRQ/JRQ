@@ -4,23 +4,24 @@
 <import src='/template/likeIcon/likeIcon.wxml'></import>
 
 <view class="container container--color-white">
-  <view class='headWrapper' style='background-color:black; background-size: cover;background-repeat: no-repeat; background-position: bottom' >
-  <!--搜索框-->
-  <template class='search' is='searchBar' data='{{placeholder: "搜索文章", searchCondition: searchCondition}}'></template>
-    </view>
-    <!--广告位-->
-    <template class='ad' is='adBar' data='{{ad}}'></template>
-    <view class='adBar_btn'>
+  <view class='headWrapper' style='background-color:black; background-size: cover;background-repeat: no-repeat; background-position: bottom'>
+    <!--搜索框-->
+    <template class='search' is='searchBar' data='{{placeholder: "搜索文章", searchCondition: searchCondition}}'></template>
+  </view>
+  <!--广告位-->
+  <template class='ad' is='adBar' data='{{ad}}'></template>
+  <view class='adBar_btn'>
 
     <!--Banner-->
     <view class='navBar'>
       <view class='navBar__btn {{currentKind=="all"?"navBar__btn-state--chosen":""}}' bindtap='showAll'>
         <image class='navBar__icon' src='img/remen-icon.png'></image>
       </view>
-      <view class='navBar__btn {{currentKind=="course"?"navBar__btn-state--chosen":""}}' bindtap='showCourses'>
+      <view class='navBar__btn {{currentKind=="course"?"navBar__btn-state--chosen":""}}' bindtap='showDocuments'>
+       <!-- class="{{showView?'header_view_show':'header_view_hide'}}" -->
         <image class='navBar__icon' src='img/wendang-icon.png'></image>
       </view>
-      <view class='navBar__btn {{currentKind=="document"?"navBar__btn-state--chosen":""}}' bindtap='showDocuments'>
+      <view class='navBar__btn {{currentKind=="document"?"navBar__btn-state--chosen":""}}' bindtap='showVideos'>
         <image class='navBar__icon' src='img/vedio-icon.png'></image>
       </view>
       <!-- 卡片展示项目 -->
@@ -43,12 +44,12 @@
     </view>
   </view> -->
   <view class='document_more'>
-  
-  <text class='document'>热门文档</text>
 
-  <text class='more'>更多>></text>
+    <text class='document'>热门文档</text>
+
+    <text class='more'>更多>></text>
   </view>
-   <view class='content'>
+  <view class='content'>
     <view wx:for='{{cards}}' wx:key='openid'>
       <view class='cardWrapper jrq__block' bindtap='onClickThisCard' data-id='{{item.openid}}'>
         <view class='card__main'>
@@ -56,27 +57,27 @@
           <view class='card__info'>
             <view class='card__title1'>
               <text class='card__username'>{{item.articleName}}</text>
-              
+
             </view>
             <view class='card__title2'>
-             <text class='summary'>{{item.summary}}</text>
-             <view class='doucument_bottom1'>
-             <text class='fees'>课费：100元</text>
-             <text class='vip'>会员免费</text>
-             <!-- <button class='preview'>预览</button> -->
+              <text class='summary'>{{item.summary}}</text>
+              <view class='doucument_bottom1'>
+                <text class='fees'>课费：100元</text>
+                <text class='vip'>会员免费</text>
+                <!-- <button class='preview'>预览</button> -->
               </view>
 
             </view>
           </view>
         </view>
+      </view>
+
     </view>
-
   </view>
- </view>
   <view class='video_more'>
-  <text class='video'>热门教学视频</text>
+    <text class='video'>热门教学视频</text>
 
-  <text class='more'>更多>></text>
+    <text class='more'>更多>></text>
   </view>
   <!--文章列表-->
   <view wx:if='{{searchCondition}}'>
@@ -86,11 +87,11 @@
   <view class='articleListWrapper'>
     <view class='articleWrapper' wx:for='{{articles}}' wx:key='id'>
       <view class='article jrq__block' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
-       
+
         <view class='article__content'>
           <image class='article__banner' mode='widthFix' src='{{item.images.length > 0 ? item.images[0]: "../../default/default-pic.png"}}'></image>
         </view>
-        
+
         <text class='article__titleName'>{{item.title}}</text>
         <!-- <text class='article__date'>{{item.date}}</text> -->
 
@@ -102,7 +103,7 @@
             <text class='writer__name'>{{item.writerName}}</text>
           </view> -->
           <!--点赞-->
-        
+
           <!-- <view class='article__like'>
             <template class='like' is='likeIcon' data='{{item: item}}'></template>
           </view> -->

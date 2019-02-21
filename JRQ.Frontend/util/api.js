@@ -1,6 +1,207 @@
 const app = getApp()
 var util = require('./util.js')
 
+//获取文档内容
+function getDocumentList(openid, documentId, documentIdType) {
+  var that = this
+  wx.showLoading({
+    title: '载入中',
+  })
+  wx.request({
+    url: app.globalData.backendUrl + "getDocumentList",
+    data: {
+      openid: openid,
+      documentId: documentId,
+      documentIdType: documentIdType
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      wx.hideLoading()
+      if (res.data.status == 500) {
+        wx.showToast({
+          title: '获取视频列表失败',
+          icon: 'none'
+        })
+        return
+      }
+      var documents = res.data.document
+      if (documents.length <= 0) {
+        return
+      }
+      documents.forEach((document) => {
+        document.images = document.images.map((image) => app.globalData.picUrl + image)
+        document.writerFace = app.globalData.picUrl + document.writerFace
+      })
+
+      that.data.document = that.data.document.concat(document)
+      that.data.documentId = document[documents.length - 1].id
+      that.setData(that.data)
+    }
+  })
+}
+
+//获取视频内容
+function getVideoList(openid, videoId, videoIdType) {
+  var that = this
+  wx.showLoading({
+    title: '载入中',
+  })
+  wx.request({
+    url: app.globalData.backendUrl + "getVideoList",
+    data: {
+      openid: openid,
+      videoId: videoId,
+      videoIdType: videoIdType
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      wx.hideLoading()
+      if (res.data.status == 500) {
+        wx.showToast({
+          title: '获取视频列表失败',
+          icon: 'none'
+        })
+        return
+      }
+      var videos = res.data.video
+      if (videos.length <= 0) {
+        return
+      }
+      videos.forEach((video) => {
+        video.images = video.images.map((image) => app.globalData.picUrl + image)
+        video.writerFace = app.globalData.picUrl + video.writerFace
+      })
+
+      that.data.video = that.data.video.concat(video)
+      that.data.videoId = video[videos.length - 1].id
+      that.setData(that.data)
+    }
+  })
+}
+
+//获取人脉内容
+function getContactList(openid, userId, userIdType) {
+  var that = this
+  wx.showLoading({
+    title: '载入中',
+  })
+  wx.request({
+    url: app.globalData.backendUrl + "getUserList",
+    data: {
+      openid: openid,
+      userId: userId,
+      userIdType: userIdType
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      wx.hideLoading()
+      if (res.data.status == 500) {
+        wx.showToast({
+          title: '获取人脉失败',
+          icon: 'none'
+        })
+        return
+      }
+      var users = res.data.user
+      if (users.length <= 0) {
+        return
+      }
+      users.forEach((user) => {
+        user.images = user.images.map((image) => app.globalData.picUrl + image)
+        user.userFace = app.globalData.picUrl + user.userFace
+      })
+
+      that.data.user = that.data.user.concat(user)
+      that.data.userId = user[users.length - 1].id
+      that.setData(that.data)
+    }
+  })
+}
+
+// 获取项目列表
+function getProjectList(openid, lastId, lastIdType) {
+  var that = this
+  wx.showLoading({
+    title: '载入中',
+  })
+  wx.request({
+    url: app.globalData.backendUrl + "getAbstractListBefore",
+    data: {
+      openid: openid,
+      articleId: lastId,
+      articleType: lastIdType
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      wx.hideLoading()
+      if (res.data.status == 500) {
+        wx.showToast({
+          title: '获取项目列表失败',
+          icon: 'none'
+        })
+        return
+      }
+      var articles = res.data.abstractList
+      if (articles.length <= 0) {
+        return
+      }
+      articles.forEach((article) => {
+        article.images = article.images.map((image) => app.globalData.picUrl + image)
+        // article.writerFace = app.globalData.picUrl + article.writerFace
+      })
+      that.data.articles = that.data.articles.concat(articles)
+      that.data.lastId = articles[articles.length - 1].id
+
+      that.data.lastIdType = articles[articles.length - 1].kind
+      console.log(that.data.lastIdType)
+      that.setData(that.data)
+    }
+  })
+}
+
+//钧融币
+function scanPlus(openid, kind, articleId, article) {
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "scanPlus",
+    data: {
+      openid: openid,
+      kind: kind,
+      articleId: articleId
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      if (article.hasScaned) {
+        article.scanNum--;
+      } else {
+        article.scanNum++;
+      }
+      article.hasScaned=!article.hasScaned
+      that.setData(that.data)
+    }
+  })
+}
+
 function getAbstractList(kind, openid, lastId, lastIdType) {
   var that = this
   wx.showLoading({
@@ -35,10 +236,11 @@ function getAbstractList(kind, openid, lastId, lastIdType) {
       articles.forEach((article) => {
         article.images = article.images.map((image) => app.globalData.picUrl + image)
         article.writerFace = app.globalData.picUrl + article.writerFace
+        
         switch (article.kind) {
-          case 'course': article.kindName = "课程"; break;
-          case 'document': article.kindName = "文档"; break;
-          case 'project': article.kindName = "项目"; break;
+          case 'course': article.kindName = "钧融优选"; break;
+          case 'document': article.kindName = "热度"; break;
+          case 'project': article.kindName = "时间"; break;
           default: break;
         }
       })

@@ -2,30 +2,43 @@
 //获取应用实例
 const app = getApp()
 var api = require('../../util/api.js')
-const { bg1 } = require('../../util/data.js')
+const {
+  bg1
+} = require('../../util/data.js')
 
 Page({
   data: {
+    doucument: [],
+    documentId: '',
+    doucumentIdType: '',
+
+    video: [],
+    videoId: '',
+    videoIdType: '',
+
+    image: '../../default/default-pic.png',
+    // showView:true,
     cards: [{
-      thumbnail: '../../default/default-pic.png',
-      articleName:'什么是金融？',
-      summary:'一般指与货币流通及银行有关的东西'
+        thumbnail: '../../default/default-pic.png',
+        articleName: '什么是金融？',
+        summary: '一般指与货币流通及银行有关的东西'
       },
       {
         thumbnail: '../../default/default-pic.png',
         articleName: '什么是金融？',
         summary: '一般指与货币流通及银行有关的东西'
-       
+
       },
       {
         thumbnail: '../../default/default-pic.png',
         articleName: '什么是金融？',
         summary: '一般指与货币流通及银行有关的东西'
-      }],
-      
+      }
+    ],
+
     // cards:[{
     //   face: '../../default/default-pic.png',
-      
+
     // },{}]
     /*
     articles: [{
@@ -83,13 +96,13 @@ Page({
   },
 
   //事件处理函数
-  onLoad: function () {
-   
+  onLoad: function() {
+
     this.setData({
       currentKind: 'course',
       searchCondition: null,
       articles: [],
-     
+
     })
     this.showAll()
     api.getAd.call(this, 'index', (res) => {
@@ -100,20 +113,20 @@ Page({
   },
 
   //onShow函数
-  onShow: function () {
+  onShow: function() {
     this.setData({
       searchCondition: null
     })
   },
 
   //点击广告跳转
-  onAd: function () {
+  onAd: function() {
     wx.navigateTo({
       url: '../ad/ad?url=' + this.data.ad.link
     })
   },
 
-  showAll: function () {
+  showAll: function() {
     this.setData({
       currentKind: 'all',
       searchCondition: null,
@@ -130,23 +143,32 @@ Page({
     })
   },
 
-  //展示课程
-  showCourses: function () {
+  //展示文档
+  showDocuments: function() {
+    console.log("hwurhw")
     this.setData({
-      currentKind: 'course',
-      searchCondition: null,
-      articles: [],
-      lastId: "",
-      lastIdType: ""
-    })
-    api.getAbstractList.call(this, 'course', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+      'cards ': this.data.cards,
+
+    });
+    // this.setData({
+    //   'cards': this.data.cards
+    //   // currentKind: 'course',
+    //   // searchCondition: null,
+    //   // articles: [],
+    //   // lastId: "",
+    //   // lastIdType: "",
+    //   // showView: (!this.data.showView)
+
+    // })
+
+    // api.getAbstractList.call(this, 'course', app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
 
-  //展示文档
-  showDocuments: function () {
+  //展示视频
+  showVideos: function() {
     this.setData({
       currentKind: 'document',
-      searchCondition: null, 
+      searchCondition: null,
       articles: [],
       lastId: "",
       lastIdType: ""
@@ -155,7 +177,7 @@ Page({
   },
 
   //展示项目
-  showProjects: function () {
+  showProjects: function() {
     this.setData({
       currentKind: 'project',
       searchCondition: null,
@@ -164,15 +186,15 @@ Page({
       lastIdType: ""
     })
     api.getAbstractList.call(this, 'project', app.getOpenid(), this.data.lastId, this.data.lastIdType)
-    
+
   },
-toProjects:function(){
-  wx.navigateTo({
-    url: '/pages/project/project',
-  })
-},
+  toProjects: function() {
+    wx.navigateTo({
+      url: '/pages/project/project',
+    })
+  },
   //展示文章详情
-  onTouchThisArticle: function (e) {
+  onTouchThisArticle: function(e) {
     var id = e.currentTarget.dataset.id //获取当前文章id
     var kind = e.currentTarget.dataset.kind
     var url = '../articleDetail/'
@@ -194,20 +216,20 @@ toProjects:function(){
   },
 
   //点赞数加一
-  likePlus: function (e) {
+  likePlus: function(e) {
     var id = e.currentTarget.dataset.id //获取当前文章id
     var kind = e.currentTarget.dataset.kind //获取当前文章kind
-    var article = this.data.articles.filter((article) => article.id===id)[0]
+    var article = this.data.articles.filter((article) => article.id === id)[0]
     api.likePlus.call(this, app.getOpenid(), kind, id, article) //点赞+1
   },
 
   //更新搜索条件
-  updateSearchCondition: function (e) {
+  updateSearchCondition: function(e) {
     this.data.searchCondition = e.detail.value;
   },
 
   //搜索触发函数
-  onSearch: function () {
+  onSearch: function() {
     if (!this.data.searchCondition) {
       this.showAll();
       return;
@@ -216,16 +238,20 @@ toProjects:function(){
     api.getAbstractListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
   },
 
-  onReachBottom: function () {
+  onReachBottom: function() {
     api.getAbstractList.call(this, this.data.currentKind, app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
-  showMask: function () {
-    this.setData({ flag: false })
+  showMask: function() {
+    this.setData({
+      flag: false
+    })
   },
-  closeMask: function () {
-    this.setData({ flag: true })
+  closeMask: function() {
+    this.setData({
+      flag: true
+    })
   },
-  touchMask: function () {
+  touchMask: function() {
     wx.navigateTo({
       url: '/pages/me/updateMe/updateMe',
     })
@@ -233,7 +259,7 @@ toProjects:function(){
 
 
   //展示资金类
-  showCapitalClass: function (event) {
+  showCapitalClass: function(event) {
     this.setData({
       currentKind: 'capital',
       currentKindName: this.data.capitalClassDesc,
@@ -243,7 +269,7 @@ toProjects:function(){
   },
 
   //点击当前文章触发函数
-  onClickThisCard: function (e) {
+  onClickThisCard: function(e) {
     var id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: '../me/myHistory/myHistory?id=' + id,
@@ -251,14 +277,47 @@ toProjects:function(){
   },
 
   //更新搜索条件
-  updateSearchCondition: function (e) {
+  updateSearchCondition: function(e) {
     this.data.searchCondition = e.detail.value;
   },
 
   //搜索触发函数
-  onSearch: function () {
+  onSearch: function() {
     console.log('search service people: ' + this.data.searchCondition)
     api.getPersonListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
-  }
+  },
 
+  // 新的修改
+  // 展示文档
+  showDocument: function() {
+    this.setData({
+      document: [],
+      documentId: "",
+      documentIdType: ""
+    })
+    api.getDocumentList.call(this, app.getOpenid(), this.data.documentId, this.data.documentIdType)
+
+  },
+  toDocument: function() {
+    wx.navigateTo({
+      url: '/pages/project/project',
+    })
+
+  },
+  
+  // 展示视频
+  showVideo: function() {
+    this.setData({
+      video: [],
+      videoId: "",
+      videoIdType: ""
+    })
+    api.getVideoList.call(this, app.getOpenid(), this.data.videoId, this.data.videoIdType)
+
+  },
+  toVideo: function() {
+    wx.navigateTo({
+      url: '/pages/project/project',
+    })
+  }
 })

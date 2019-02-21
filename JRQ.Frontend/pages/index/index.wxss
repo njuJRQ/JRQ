@@ -368,3 +368,11 @@
   color: #eeb83e;
 
 }
+.header_view_hide{
+  display: none;
+}
+
+.header_view_show{
+
+  display: block;
+}

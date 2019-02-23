@@ -5,7 +5,6 @@
 <view class='container container--color-white'>
 
   <template is='publishBar'></template>
-
   <view class='navBar'>
       <view class='navBar__btn {{currentKind=="latest"?"navBar__btn-state--chosen":""}}' bindtap='showAll'>
         <image class='navBar__icon' src='img/latest.png'></image>
@@ -17,12 +16,7 @@
         <image class='navBar__icon' src='img/monthly.png'></image>     
       </view>
   </view>
-<!-- <view class='navBar'>
-  <text class='navBar__btn'>最热</text>
-  <text class='navBar__btn'>一周内</text>
-  <text class='navBar__btn'>一月内</text>
-</view>
-   -->
+
   <view wx:if='{{articles.length > 0}}' class='articleListWrapper'>
     <view wx:for='{{articles}}' wx:key='id'>
       <template is='articleItem' data='{{item}}'></template>

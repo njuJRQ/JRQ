@@ -69,12 +69,12 @@ Page({
    * 生命周期函数--监听页面加载a
    */
   onLoad:function(e){
-    
     this.setData({
       currentKind:'latest',
       articles:[],
     })
     this.showAll()
+   
   },
 
   //展示最热文章
@@ -87,8 +87,9 @@ Page({
       
       //lastIdType: ""
     })
+    console.log("341341")
     // api.getFeedList.call(this, 'latest', app.getOpenid(), this.data.lastId)
-    api.getFeedList.call(this, 'kind', app.getOpenid(), this.data.id)
+    api.getFeedList.call(this, 'latest', app.getOpenid(), this.data.id)
     
   },
 
@@ -102,7 +103,7 @@ Page({
       lastIdType: "",
       flag: false
     })
-    api.getFeedList.call(this, 'latest', app.getOpenid(), this.data.lastId, this.data.id)
+    api.getFeedList.call(this, 'weekly', app.getOpenid(), this.data.lastId, this.data.id)
   },
 
   //展示一月内文章
@@ -113,7 +114,7 @@ Page({
       lastId: "",
       lastIdType: ""
     })
-    api.getFeedList.call(this, 'latest', app.getOpenid(), this.data.lastId, this.data.id)
+    api.getFeedList.call(this, 'monthly', app.getOpenid(), this.data.lastId, this.data.id)
   },
 
   
@@ -124,26 +125,7 @@ Page({
   //   })
   //   api.getFeedList.call(this, app.getOpenid(), "")
   // },
-  //获取当前滑块的index...
-  bindchange: function (e) {
-    const that = this;
-    that.setData({
-      currentData: e.detail.current
-    })
-  },
-  //点击切换，滑块index赋值
-  checkCurrent: function (e) {
-    const that = this;
-
-    if (that.data.currentData === e.target.dataset.current) {
-      return false;
-    } else {
-
-      that.setData({
-        currentData: e.target.dataset.current
-      })
-    }
-    },
+  
 
   onPullDownRefresh: function () {
     this.onLoad()

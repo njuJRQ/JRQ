@@ -1,81 +1,109 @@
 // pages/projects/project.js
+const app = getApp();
+var api = require('../../util/api.js')
+import articleItem from '../../template/articleItem/articleItem'
 Page({
   data: {
-    
-    // currentkind:'',
-    // searchCondition:'',
-
-    // project:[],
-    // projectId:'',
-    // projectIdType:'',
+    articles: [],
+    writerFace: '',
+    writerName: '',
+    writerOpenid: '',
+    content: '',
+    date: '',
+    images: null,
+    writerOpenid: '',
+    id: '',
+    // test:'你好吗',
     openid: '',
     currentKind: null,
+    curentTab:'',
     searchCondition: null,
-    lastId: "",
-    lastIdType: "",
-    flag: false,
+  
     // 页面配置  
     winWidth: 0,
     winHeight: 0,
     // tab切换 
     currentTab: 0,
   },
-  onLoad: function () {
+  onLoad: function() {
     var that = this;
+    that.showPrior()
     // 获取系统信息 
     wx.getSystemInfo({
-      success: function (res) {
+      success: function(res) {
+        console.log(res)
         that.setData({
           winWidth: res.windowWidth,
           winHeight: res.windowHeight
         });
       }
+    })
+    
+  },
+
+  // 滑动切换tab 
+  bindChange: function(e) {
+    var that = this;
+    that.setData({
+      currentTab: e.detail.current
     });
   },
-  // 滑动切换tab 
-  bindChange: function (e) {
-    var that = this;
-    that.setData({ currentTab: e.detail.current });
-  },
+
   // 点击tab切换 
-  swichNav: function (e) {
+  swichNav: function(e) {
+    console.log("enter switchNav")
     var that = this;
     if (this.data.currentTab === e.target.dataset.current) {
+      console.log(curentTab)
       return false;
     } else {
       that.setData({
         currentTab: e.target.dataset.current
       })
+      console.log('changeTab')
+      switch (currentKind) {
+        case 'prior':
+          showPrior()
+          break;
+        case 'hot':
+          showHot()
+          break;
+        case 'time':
+          showTime()
+          break;
+        default:
+      }
     }
+    
   },
 
-  //修改
-  //钧融优选
-  showPrior: function () {
+  showPrior: function() {
     this.setData({
-      currentKind: 'prior',
-      searchCondition: null,
+      currentKind: "prior",
       articles: [],
-      lastId: "",
-      lastIdType: ""
+      openid: "",
+      id: "",
+
+      //lastIdType: ""
     })
-    api.getAbstractList.call(this, 'prior', app.getOpenid(), this.data.projectId, this.data.projectIdType)
+    console.log('enter showPrior')
+    // api.getFeedList.call(this, 'latest', app.getOpenid(), this.data.lastId)
+    console.log("showPrior")
+    api.getFeedList.call(this, 'prior', app.getOpenid(), this.data.id)
+    console.log("showPrior success")
   },
 
-  //根据热度展示项目
-  showByHot: function () {
+  showHot: function () {
     this.setData({
       currentKind: 'hot',
-      searchCondition: null,
       articles: [],
       lastId: "",
-      lastIdType: ""
+      lastIdType: "",
+      flag: false
     })
-    api.getAbstractList.call(this, 'hot', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+    api.getFeedList.call(this, 'hot', app.getOpenid(), this.data.lastId, this.data.id)
   },
-
-  //根据时间展示项目
-  showByTime: function () {
+  showTime: function () {
     this.setData({
       currentKind: 'time',
       searchCondition: null,
@@ -85,21 +113,13 @@ Page({
     })
     api.getAbstractList.call(this, 'time', app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
-
-  // 搜索项目
-  //更新搜索条件
-  updateSearchCondition: function (e) {
-    this.data.searchCondition = e.detail.value;
+  onPullDownRefresh: function () {
+    this.onLoad()
   },
 
-  //搜索触发函数
-  onSearch: function () {
-    if (!this.data.searchCondition) {
-      this.showAll();
-      return;
-    }
-    console.log('search article: ' + this.data.searchCondition)
-    api.getAbstractListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
-  },
+  onReachBottom: function () {
+    api.getFeedList.call(this, app.getOpenid(), this.data.lastId)
+  }
 
+ 
 })

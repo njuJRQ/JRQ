@@ -203,6 +203,7 @@ function scanPlus(openid, kind, articleId, article) {
 }
 
 function getAbstractList(kind, openid, lastId, lastIdType) {
+  console.log(lastIdType+"----1111")
   var that = this
   wx.showLoading({
     title: '载入中',
@@ -289,133 +290,7 @@ function getAbstractListByCondition(openid, condition) {
     }
   })
 }
-// function getFeedList(kind,openid, id) {
-//   var that = this
-//   wx.showLoading({
-//     title: '载入中',
-//   })
-  
-//   wx.request({
-//     url: app.globalData.backendUrl + "getFeedViewListBefore",
-//     header: {
-//       'Authorization': 'Bearer ' + app.getToken(),
-//       'content-type': 'application/x-www-form-urlencoded'
-//     },
-//     data: {
-//       kind: kind,
-//       openid: openid,
-//       id: id
-//     },
-//     method: 'GET',
-//     success: (res) => {
-//       wx.hideLoading()
-//       console.log(res)
-//       if (res.statusCode == 200) {
-//         var articles = res.data.feedViews
-//         if (articles.length <= 0) {
-//           return
-//         }
-//         articles.forEach((article) => {
-//           article.writerFace = app.globalData.picUrl + article.writerFace
-//           article.images = article.images.map((image) => {
-//             return app.globalData.picUrl + image
-//           })
-//         })
-//         switch (kind) {
-//             case 'latest': article.kindName = "最热";break;
-//             case 'weekly': article.kindName = "一周内"; break;
-//             case 'monthly': article.kindName = "一月内"; break;
-//             default: break;
-//           }
-//         that.data.articles = that.data.articles.concat(res.data.feedViews)
-//         var articles = that.data.articles
-//         that.data.lastId = articles[articles.length - 1].id
-//         that.setData(that.data)
-//       } else if (res.statusCode == 500) {
-//         wx.showModal({
-//           title: res.data.error,
-//           content: res.data.message,
-//           showCancel: false
-//         })
-//       }
-//     },
-//     fail: (res) => {
-//       wx.hideLoading()
-//       wx.showToast({
-//         title: '服务器未连接',
-//         icon: 'none'
-//       })
-//     }
-//   })
-// }
-function getFeedListl(kind,openid, id) {
-  var that = this
-  wx.showLoading({
-    title: '载入中',
-  })
-  wx.request({
-    url: app.globalData.backendUrl + "getFeedListBeforeByKind",
-    // url: app.globalData.backendUrl + "getFeedListByLikeNum",
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    data: {
-      kind: kind,
-      openid: openid,
-      // articleId: lastId,
-      // articleType: lastIdType,
-      id: id
-    },
 
-    method: 'GET',
-    success: (res) => {
-      wx.hideLoading()
-      /*console.log(res)*/
-      if (res.statusCode == 200) {
-        var articles = res.data.feedViews
-        if (articles.length <= 0) {
-          return
-        }
-        articles.forEach((article) => {
-          console.log(article)
-          article.writerFace = app.globalData.picUrl + article.writerFace
-          // console.log(article.writerFace)
-
-          article.images = article.images.map((image) => {
-            return app.globalData.picUrl + image
-          })
-          article.kindName = "最热";
-          switch (article.kind) {
-            case 'latest': article.kindName = "最热"; break;
-            case 'weekly': article.kindName = "一周内"; break;
-            case 'monthly': article.kindName = "一月内"; break;
-            default: break;
-          }
-        })
-
-        that.data.articles = that.data.articles.concat(res.data.feedViews)
-        var articles = that.data.articles
-        that.data.id = articles[articles.length - 1].id
-        //that.data.lastIdType = articles[articles.length - 1].kind
-        that.setData(that.data)
-      } else if (res.statusCode == 500) {
-        wx.showModal({
-          title: res.data.error,
-          content: res.data.message,
-          showCancel: false
-        })
-      }
-    },
-    fail: (res) => {
-      wx.hideLoading()
-      wx.showToast({
-        title: '服务器未连接',
-        icon: 'none'
-      })
-    }
-  })
-}
 
 function getFeedList(kind, openid, lastId,id) {
   if(!id){
@@ -427,7 +302,7 @@ function getFeedList(kind, openid, lastId,id) {
   })
   wx.request({
     url: app.globalData.backendUrl + "getFeedViewListBefore",
-    // url: app.globalData.backendUrl + "getFeedListByLikeNum",
+    
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
       'content-type': 'application/x-www-form-urlencoded'

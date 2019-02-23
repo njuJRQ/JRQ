@@ -8,16 +8,22 @@ const {
 
 Page({
   data: {
+    
+    moreType:true,
+    isShowView:true,
+    isShow: true,
     doucument: [],
     documentId: '',
     doucumentIdType: '',
-
+    height:290,
+    height_video:250,
     video: [],
     videoId: '',
     videoIdType: '',
 
     image: '../../default/default-pic.png',
     // showView:true,
+    showView: true,
     cards: [{
         thumbnail: '../../default/default-pic.png',
         articleName: '什么是金融？',
@@ -102,7 +108,6 @@ Page({
       currentKind: 'course',
       searchCondition: null,
       articles: [],
-
     })
     this.showAll()
     api.getAd.call(this, 'index', (res) => {
@@ -126,13 +131,49 @@ Page({
     })
   },
 
+  moreAction:function(){
+    var that = this;
+
+    let type = this.data.moreType;
+    if(type){
+      that.setData({
+        height: '',
+        moreType:false
+      })
+    }else{
+      that.setData({
+        height: 290,
+        moreType: true
+      })
+    }
+    
+  },
+  moresAction: function () {
+    var that = this;
+
+    let type = this.data.moreType;
+    if (type) {
+      that.setData({
+        height_video: '',
+        moreType: false
+      })
+    } else {
+      that.setData({
+        height_video: 250,
+        moreType: true
+      })
+    }
+  },
+
   showAll: function() {
     this.setData({
       currentKind: 'all',
       searchCondition: null,
       articles: [],
       lastId: "",
-      lastIdType: ""
+      lastIdType: "",
+      isShowView: true,
+      height:290
     })
     api.getAbstractList.call(this, 'all', app.getOpenid(), this.data.lastId, this.data.lastIdType)
     api.getAd.call(this, 'jump', (res) => {
@@ -145,33 +186,32 @@ Page({
 
   //展示文档
   showDocuments: function() {
-    console.log("hwurhw")
+    
     this.setData({
-      'cards ': this.data.cards,
-
-    });
-    // this.setData({
-    //   'cards': this.data.cards
-    //   // currentKind: 'course',
-    //   // searchCondition: null,
-    //   // articles: [],
-    //   // lastId: "",
-    //   // lastIdType: "",
-    //   // showView: (!this.data.showView)
-
-    // })
-
-    // api.getAbstractList.call(this, 'course', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+      currentKind: 'course',
+      searchCondition: null,
+      articles: [],
+      lastId: "",
+      lastIdType: "",
+      isShowView: false,
+      moreType: true,
+      height: ''
+    })
+    api.getAbstractList.call(this, 'course', app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
 
   //展示视频
   showVideos: function() {
-    this.setData({
+    var that = this;   
+    that.setData({
       currentKind: 'document',
       searchCondition: null,
       articles: [],
       lastId: "",
-      lastIdType: ""
+      lastIdType: "",
+      isShowView: false, 
+      moreType: true,
+      height:''
     })
     api.getAbstractList.call(this, 'document', app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
@@ -319,5 +359,12 @@ Page({
     wx.navigateTo({
       url: '/pages/project/project',
     })
-  }
+  },
+
+  onChangeShowState: function () {
+    this.setData({
+      showView: (!this.data.showView)
+    })
+  },
+  
 })

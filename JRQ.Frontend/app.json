@@ -1,9 +1,12 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/project/project",
     "pages/community/community",
-    "pages/service/service",
+    "pages/project/project",
+    "pages/me/userInfo",
+    "pages/information/news",
+    "pages/projects/project",
+   
     "pages/me/me",
     "pages/me/myCardHolder/myCardHolder",
     "pages/me/modifyMyCard/modifyMyCard",
@@ -11,7 +14,7 @@
     "pages/articleDetail/courseDetail/courseDetail",
     "pages/articleDetail/documentDetail/documentDetail",
     "pages/articleDetail/projectDetail/projectDetail",
-    "pages/ad/ad",
+  
     "pages/me/publishMyArticle/publishMyArticle",
     "pages/login/login",
     "pages/me/updateMe/updateMe",
@@ -21,10 +24,11 @@
     "pages/news/news",
     "template/likeIcon/likeIcon",
     "template/publishBar/publishBar",
-    "pages/me/userInfo",
+    
     "pages/contact/contact",
-    "pages/information/news",
-    "pages/projects/project"
+    "pages/service/service"
+   
+    
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -54,7 +58,7 @@
         "selectedIconPath": "img/unxiangmu-icon.png"
       },
       {
-        "pagePath": "pages/community/community",
+        "pagePath": "pages/contact/contact",
         "iconPath": "img/unrenmai-icon.png",
         "selectedIconPath": "img/renmai-icon.png"
       },

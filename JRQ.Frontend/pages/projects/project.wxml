@@ -18,8 +18,6 @@
   </view>
   <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 31}}px" bindchange="bindChange">
     <swiper-item  class="swiper-items">
-      <!-- <view>钧融优选1</view> -->
-      <!-- <view>{{test}}</view> -->
       <scroll-view class='scroll-views' scroll-x="false" scroll-y="true">
         <view wx:if='{{articles.length > 0}}' class='articleListWrapper_view'>
           <view wx:for='{{articles}}' wx:key='id'>
@@ -28,11 +26,23 @@
         </view>
       </scroll-view>
     </swiper-item>
-    <swiper-item>
-      <view>热度</view>
+    <swiper-item  class="swiper-items">
+      <scroll-view class='scroll-views' scroll-x="false" scroll-y="true">
+        <view wx:if='{{articles.length > 0}}' class='articleListWrapper_view'>
+          <view wx:for='{{articles}}' wx:key='id'>
+            <template is='articleItem' data='{{item}}'></template>
+          </view>
+        </view>
+      </scroll-view>
     </swiper-item>
-    <swiper-item>
-      <view>时间</view>
+    <swiper-item  class="swiper-items">
+      <scroll-view class='scroll-views' scroll-x="false" scroll-y="true">
+        <view wx:if='{{articles.length > 0}}' class='articleListWrapper_view'>
+          <view wx:for='{{articles}}' wx:key='id'>
+            <template is='articleItem' data='{{item}}'></template>
+          </view>
+        </view>
+      </scroll-view>
     </swiper-item>
   </swiper>
 

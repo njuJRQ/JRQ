@@ -8,7 +8,7 @@
     <view class='center'>
       <view class='name-vip'>
         <text class='username'>{{myInfo.username}}</text>
-        <image class='vip' src='{{myInfo.writerface[4]}}'></image>
+        <image class='vip' mode='widthFix' src='{{myInfo.writerface[4]}}'></image>
       </view>
       <text class='position card_text'>{{myInfo.position}}</text>
       <text class='company card_text'>{{myInfo.company}}</text>
@@ -34,7 +34,33 @@
       <text class='check_benefit'>查看我的特权>></text>
     </view>
     <image class='benefit_card' src='{{myInfo.writerface[3]}}'></image>
+    <view class='contact_coin'>
+      <view class='get_card'>
+        <text class='my_contact'>我的人脉</text>
+        <view class='share'>
+          <view class='get_num'>
+            <text style='font-size:18px;'>5</text>
+            <text>收到的名片</text>
+          </view>
+          <view>
+          <text class='slash'>/</text>
+          </view>
+          
+          <view class='mutual'>
+            <text style='font-size:18px;'>5</text>
+            <text>互持的名片</text>
+          </view>
+
+        </view>
+
+      </view>
+      <text style='text-align:center;font-size:16px;'>钧融币</text>
+
+    </view>
+
+
     <view class='publish'>
+
       <text>我的发布</text>
     </view>
   </view>

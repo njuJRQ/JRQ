@@ -4,7 +4,7 @@
     "pages/community/community",
     "pages/project/project",
     "pages/me/userInfo",
-    "pages/information/news",
+    
     "pages/projects/project",
    
     "pages/me/me",
@@ -53,7 +53,7 @@
         "selectedIconPath": "img/zixun-icon.png"
       },
       {
-        "pagePath": "pages/service/service",
+        "pagePath": "pages/projects/project",
         "iconPath": "img/unxiangmu-icon.png",
         "selectedIconPath": "img/unxiangmu-icon.png"
       },

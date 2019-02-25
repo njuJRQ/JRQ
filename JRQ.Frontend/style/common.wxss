@@ -7,7 +7,7 @@ text {
 .jrq__block {
   box-shadow: 0 5px 20px #e0e0e0;
   border-radius: 10px;
-  background-color: #f7f1e5;
+  /* background-color: #f7f1e5; */
 }
 .jrq__words {
   font-weight: bold;

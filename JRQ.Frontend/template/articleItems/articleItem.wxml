@@ -20,7 +20,7 @@
     </view>
     
     <!--文章分享链接-->
-    <view class='article__bottom'>
-    </view>
+    <!-- <view class='article__bottom'>
+    </view> -->
   </view>
 </template>

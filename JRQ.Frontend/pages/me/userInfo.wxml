@@ -29,7 +29,7 @@
     <button class='card_button'>分享我的名片</button>
   </view>
   <view class='benefit'>
-    <view class='top_block'>
+    <view class='home_address'>
       <text class='my_benefit'>我的权益</text>
       <text class='check_benefit'>查看我的特权>></text>
     </view>

@@ -54,7 +54,7 @@ Page({
     console.log("enter switchNav")
     var that = this;
     if (this.data.currentTab === e.target.dataset.current) {
-      console.log(curentTab)
+      console.log("curentTab success")
       return false;
     } else {
       that.setData({
@@ -113,6 +113,7 @@ Page({
     })
     api.getAbstractList.call(this, 'time', app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
+  
   onPullDownRefresh: function () {
     this.onLoad()
   },

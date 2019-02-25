@@ -8,28 +8,30 @@ Page({
    * 页面的初始数据
    */
   data: {
-    newsItemList: [{
-      title: "这是标题这是标题这是标题这是标题这是标题这是标题这是标题",
-      content: "这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容",
-      writerFace: "../../default/default-face.png",
-      writerName: "发布者信息",
-      timeStamp: "2020-01-01"
-    },
-    {
-      title: "这是标题这是标题这是标题这是标题这是标题这是标题这是标题",
-      content: "这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容",
-      writerFace: "../../default/default-face.png",
-      writerName: "发布者信息",
-      timeStamp: "2020-01-01"
-    },
-    {
-      title: "这是标题这是标题这是标题这是标题这是标题这是标题这是标题",
-      content: "这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容",
-      writerFace: "../../default/default-face.png",
-      writerName: "发布者信息",
-      timeStamp: "2020-01-01"
-    }],
-    lastNewsId: ""
+    writerFace: "../../default/default-pic.png",
+    // newsItemList: [{
+    //   title: "这是标题这是标题这是标题这是标题这是标题这是标题这是标题",
+    //   content: "这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容",
+    //   writerFace: "../../default/default-face.png",
+    //   writerName: "发布者信息",
+    //   timeStamp: "2020-01-01"
+    // },
+    // {
+    //   title: "这是标题这是标题这是标题这是标题这是标题这是标题这是标题",
+    //   content: "这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容",
+    //   writerFace: "../../default/default-face.png",
+    //   writerName: "发布者信息",
+    //   timeStamp: "2020-01-01"
+    // },
+    // {
+    //   title: "这是标题这是标题这是标题这是标题这是标题这是标题这是标题",
+    //   content: "这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容",
+    //   writerFace: "../../default/default-face.png",
+    //   writerName: "发布者信息",
+    //   timeStamp: "2020-01-01"
+    // }],
+    lastNewsId: "",
+    
   },
 
   getTitleAndContent: function (content) {

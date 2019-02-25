@@ -176,3 +176,39 @@ margin-left: 100px;
   justify-content: flex-start;
   
 }
+
+/* 我的特权 */
+.home_address {
+  background-color: #f2c75e;
+  border-top-left-radius:20%;
+  border-top-right-radius:10%;
+  text-align: center;
+  padding: 10rpx;
+}
+ 
+.home_address view {
+  padding-right: 30rpx;
+  padding-left: 30rpx;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  white-space: nowrap;
+}
+ 
+.home_address view text {
+  color: white;
+  font-size: 14px;
+  padding-right: 40rpx;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  padding-left: 20rpx;
+  white-space: nowrap;
+  border-radius: 30rpx;
+  background-color: #a00c3d;
+}
+ 
+.home_address image {
+  width: 14rpx;
+  height: 9rpx;
+  padding: 8rpx;
+  margin-left: -40rpx;
+}

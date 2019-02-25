@@ -165,15 +165,15 @@
 				},
 				{
 					"id": -1,
-					"name": "information",
-					"pathName": "pages/information/news",
+					"name": "projects",
+					"pathName": "pages/projects/project",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "projects",
-					"pathName": "pages/projects/project",
+					"name": "myHistory",
+					"pathName": "pages/me/myHistory/myHistory",
 					"query": "",
 					"scene": null
 				}

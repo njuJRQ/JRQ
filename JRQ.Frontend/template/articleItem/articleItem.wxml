@@ -4,36 +4,37 @@
     <!-- <view class='article__decorator'>
       <text class='article__kindName'>圈子文章</text>
     </view> -->
+<view class='article_row'>
     <!--作者信息-->
     <view class='writer' bindtap='onClickThisFace' data-id='{{item.writerOpenid}}'>
       <image class='writer__face' src='{{item.writerFace}}'></image>
       <text class='writer__name'>{{item.writerName}}</text>
+      <image class='level' mode='widthFix' src='img/VIP-icon.png'></image>
+      
     </view>
+   <view class='article_rigtht'>
     <!--文章详情-->
+    <view class='article_text'>
+    <text style='font-weight:bold;margin-left:-22%;' >【财富集团】股票投资</text>
     <text class='article__content'>{{item.content ? item.content : item.title}}</text>
+    </view>
     <!--文章图片-->
     <view class='article__imageList'>
       <image class='article__image' mode='aspectFill' bindtap='previewImg' data-list="{{item.images}}" data-src="{{image}}" wx:for='{{item.images}}' wx:for-item='image' src='{{image}}'></image>
     </view>
-    <!--文章分享链接-->
-    <view class='article__bottom'>
-      <!--
-      <view class='v-center' bindtap='onShare'>  
-        <image src='img/share.png' style='width: 20px; height: 20px;'></image>
-        <text>分享到朋友圈</text>
-      </view>
-      -->
+     <view class='article__bottom'>
       <text class='article__date'>{{item.date}}</text>
-      <view class='like v-center'>      
-        <text class='like__num'>{{item.likeNum}}</text>
-        <image class='like__image' src='img/scan.png'></image>
-      </view>
        
       <view class='like v-center' catchtap='likePlus' data-id='{{item.id}}'>
-        <text class='like__num'>{{item.likeNum}}</text>
-        <image class='like__image' wx:if='{{item.hasLiked}}' src='img/like.png'></image>
-        <image class='like__image' wx:else src='img/unlike.png'></image>
+       
+        <image class='like__image' wx:if='{{item.hasLiked}}' src='img/fire-icon.png'></image>
+        <image class='like__image' mode='widthFix' wx:else src='img/fire-icon.png'></image>
+         <text class='like__num'>{{item.likeNum}}</text>
       </view>
     </view>
+   </view>
+   </view>
+    <!--文章分享链接-->
+   
   </view>
 </template>

@@ -11,7 +11,7 @@ Page({
     course: {
       id: 1, //编号
       title: "《有效识别金融项目》课程。", //标题
-      image: '../../../default/default-pic.png', //图片
+      image: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png', //图片
       writerName: '锄禾日当午', //作者名字
       date: '2018-1-1', //日期
       likeNum: 999, //点赞数

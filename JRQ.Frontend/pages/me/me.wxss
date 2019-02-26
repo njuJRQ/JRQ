@@ -59,13 +59,15 @@
 }
 .card__intro {
   
-  font-size: 0.8rem;
+  /* font-size: 0.8rem;
   width: 60px;
   height: 18px;
   background-color: #4982fc;
   opacity: 0.5;
   border-radius: 5px;
-  color:rgb(0, 0, 0);
+  color:rgb(0, 0, 0); */
+  
+
 }
 .card__sendButton {
   margin: 5px 10px 10px 10px;

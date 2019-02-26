@@ -9,7 +9,7 @@
     <view class='writer' bindtap='onClickThisFace' data-id='{{item.writerOpenid}}'>
       <image class='writer__face' src='{{item.writerFace}}'></image>
       <text class='writer__name'>{{item.writerName}}</text>
-      <image class='level' mode='widthFix' src='img/VIP-icon.png'></image>
+      <image class='level' mode='widthFix' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/VIP-icon.png'></image>
       
     </view>
    <view class='article_rigtht'>

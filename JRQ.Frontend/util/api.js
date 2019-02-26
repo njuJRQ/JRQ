@@ -610,14 +610,14 @@ function getMyInfo(openid, then) {
       that.data.myInfo = res.data.user
       that.data.myInfo.face = app.globalData.picUrl + that.data.myInfo.face
       if (that.data.myInfo.levelName == '998') {
-        that.data.myInfo.medals.push('/pages/me/img/gold.png')
+        that.data.myInfo.medals.push('http://junrongcenter.oss-cn-beijing.aliyuncs.com/updateMe/gold.png')
       } else if (that.data.myInfo.levelName == '298') {
-        that.data.myInfo.medals.push('/pages/me/img/silver.png')
+        that.data.myInfo.medals.push('http://junrongcenter.oss-cn-beijing.aliyuncs.com/updateMe/silver.png')
       } else if (that.data.myInfo.levelName === 'common') {
         that.data.myInfo.medals.push('/pages/me/img/copper.png')
       }
       if (that.data.myInfo.isEnterprise) {
-        that.data.myInfo.medals.push('/pages/me/img/enterprise.png')
+        that.data.myInfo.medals.push('http://junrongcenter.oss-cn-beijing.aliyuncs.com/updateMe/enterprise.png')
       }
       that.setData(that.data)
       if (then) then()

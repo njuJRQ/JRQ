@@ -21,7 +21,7 @@ Page({
     /*
     cards: [{
       openid: 1,
-      face: '../../default/default-pic.png',
+      face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
       username: 'username',
       position: '项目经理',
       city: '亚太区',
@@ -31,7 +31,7 @@ Page({
       bgColor: 'rgba(255, 161, 177, 0.699)'
     }, {
         openid: 2,
-        face: '../../default/default-pic.png',
+        face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
         username: 'username',
         position: '项目经理',
         city: '亚太区',
@@ -41,7 +41,7 @@ Page({
         bgColor: 'rgba(138, 138, 252, 0.767)'
       }, {
         openid: 3,
-        face: '../../default/default-pic.png',
+        face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
         username: 'username',
         position: '项目经理',
         city: '亚太区',
@@ -51,7 +51,7 @@ Page({
         bgColor: 'rgba(109, 156, 90, 0.726)'
       }, {
         openid: 4,
-        face: '../../default/default-pic.png',
+        face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
         username: 'username',
         position: '项目经理',
         city: '亚太区',
@@ -61,7 +61,7 @@ Page({
         bgColor: 'rgba(255, 58, 58, 0.678)'
       }, {
         openid: 5,
-        face: '../../default/default-pic.png',
+        face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
         username: 'username',
         position: '项目经理',
         city: '亚太区',
@@ -71,7 +71,7 @@ Page({
         bgColor: 'rgba(109, 156, 90, 0.726)'
       }, {
         openid: 6,
-        face: '../../default/default-pic.png',
+        face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
         username: 'username',
         position: '项目经理',
         city: '亚太区',
@@ -81,7 +81,7 @@ Page({
         bgColor: 'rgba(138, 138, 252, 0.767)'
       }, {
         openid: 7,
-        face: '../../default/default-pic.png',
+        face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
         username: 'username',
         position: '项目经理',
         city: '亚太区',
@@ -98,7 +98,7 @@ Page({
     stockClassDesc: "",
     mergeClassDesc: "",
     bg1: bg1,
-    vipImage: '/pages/contact/img/VIP-icon.png',
+    vipImage: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/VIP-icon.png',
     label: ['内构重组', '短融过桥', '大宗交易', '银行业务', '包里融租']
   },
 

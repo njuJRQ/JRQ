@@ -1,0 +1,4 @@
+<!--pages/judge.wxml-->
+<view class='app'>
+<text>该小程序暂不支持IOS用户访问！</text>
+</view>

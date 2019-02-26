@@ -11,9 +11,9 @@ Page({
       id: 1,
       text: '《有效识别金融项目》课程。',
       images: [
-        '../../default/default-pic.png',
-        '../../default/default-pic.png',
-        '../../default/default-pic.png'
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png'
       ],
       writerFace: '../../default/default-icon.png',
       writerName: '锄禾日当午',
@@ -24,9 +24,9 @@ Page({
       id: 2,
       text: '与钧融资本成功签订2个亿的基金合约，环保领域。',
       images: [
-        '../../default/default-pic.png',
-        '../../default/default-pic.png',
-        '../../default/default-pic.png'
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png'
       ],
       writerFace: '../../default/default-icon.png',
       writerName: '汗滴禾下土',
@@ -37,9 +37,9 @@ Page({
       id: 3,
       text: '《有效识别金融项目》课程。',
       images: [
-        '../../default/default-pic.png',
-        '../../default/default-pic.png',
-        '../../default/default-pic.png'
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png'
       ],
       writerFace: '../../default/default-icon.png',
       writerName: '锄禾日当午',
@@ -50,7 +50,7 @@ Page({
     */
     articles: [],
     ad: {
-      image: '../../default/default-pic.png',
+      image: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
       link: 'https://www.baidu.com'
     },
     currentKind: null,

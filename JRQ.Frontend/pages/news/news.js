@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    writerFace: "../../default/default-pic.png",
+    writerFace: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png",
     // newsItemList: [{
     //   title: "这是标题这是标题这是标题这是标题这是标题这是标题这是标题",
     //   content: "这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容",

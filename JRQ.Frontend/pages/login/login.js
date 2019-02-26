@@ -7,17 +7,23 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    systemInfo: {},
+
   },
+
+
+
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-  
+  onLoad: function(options) {
+    this.judgeApp()
+
   },
 
-  bindGetUserInfo: function (e) {
+
+  bindGetUserInfo: function(e) {
     console.log(e)
     wx.setStorageSync("wechatUsername", e.detail.userInfo.nickName);
     wx.setStorageSync("wechatFaceUrl", e.detail.userInfo.avatarUrl);
@@ -39,5 +45,48 @@ Page({
     wx.switchTab({
       url: '/pages/index/index',
     })
-  }
+  },
+  //判断
+  judgeApp: function() {
+    var that = this;
+    wx.getSystemInfo({
+      success: function(res) {
+        that.setData({
+          systemInfo: res,
+        })
+        if (res.platform == "devtools") {
+          //PC
+        } else if (res.platform == "ios") {
+          //IOS
+          // wx.navigateTo({
+          //   url: '/pages/judge/judge',
+          //   success: function(res) {},
+          //   fail: function(res) {},
+          //   complete: function(res) {},
+          // })
+          wx.showModal({
+            title: '该小程序暂不支持IOS用户访问！',
+            content: '敬请期待！',
+            success: (res) => {
+              if (res.confirm) {
+
+                wx.navigateBack({
+                  delta: -1
+                })
+              } else {
+                wx.navigateBack({
+                  delta: -1
+                })
+
+              }
+            }
+          })
+          
+
+        } else if (res.platform == "android") {
+
+        }
+      }
+    })
+  },
 })

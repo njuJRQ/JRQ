@@ -3,21 +3,21 @@
 <view class='content'>
   <view class='userInfo'>
     <view class='left'>
-      <image class='writerface' src='{{userInfo.writerface[0]}}'></image>
+      <image class='writerface' src='{{myInfo.face}}'></image>
     </view>
 
     <view class='center'>
       <view class='name-vip'>
-        <text class='username'>{{userInfo.username}}</text>
+        <text class='username'>{{myInfo.username}}</text>
         <image class='vip' mode='widthFix' src='{{userInfo.writerface[4]}}'></image>
       </view>
-      <text class='position card_text'>{{userInfo.position}}</text>
-      <text class='company card_text'>{{userInfo.company}}</text>
+      <text class='position card_text'>{{myInfo.position}}</text>
+      <text class='company card_text'>{{myInfo.department}}</text>
     </view>
 
     <view class='right'>
       <image class='vip_up' mode='widthFix' src='{{userInfo.writerface[1]}}'></image>
-      <image class='edit' src='{{userInfo.writerface[2]}}'></image>
+      <image class='edit'   src='{{userInfo.writerface[2]}}'></image>
     </view>
   </view>
 
@@ -27,7 +27,7 @@
     </view>
   </view>
   <view class='share_card'>
-    <button class='card_button'>分享我的名片</button>
+    <button class='card_button' bindtap='showModal'>分享我的名片</button>
   </view>
   <view class='benefit'>
     <view class='home_address'>

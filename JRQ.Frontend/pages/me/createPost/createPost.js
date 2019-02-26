@@ -44,7 +44,7 @@ Page({
     var that = this
     const ctx = wx.createCanvasContext('shareCanvas') //画布大小为600x900
     // 底图
-    ctx.drawImage('img/post_template.jpg', 0, 0, 600, 600)
+    ctx.drawImage('http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/%E4%B8%AA%E4%BA%BA/post_template.jpg', 0, 0, 600, 600)
     //ctx.setFillStyle('#F5F6FD')
     ctx.setFillStyle('#FFF')
     ctx.fillRect(0, 600, 600, 300)

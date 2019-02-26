@@ -1,12 +1,9 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/community/community",
     "pages/project/project",
     "pages/me/userInfo",
-    
     "pages/projects/project",
-   
     "pages/me/me",
     "pages/me/myCardHolder/myCardHolder",
     "pages/me/modifyMyCard/modifyMyCard",
@@ -14,7 +11,6 @@
     "pages/articleDetail/courseDetail/courseDetail",
     "pages/articleDetail/documentDetail/documentDetail",
     "pages/articleDetail/projectDetail/projectDetail",
-  
     "pages/me/publishMyArticle/publishMyArticle",
     "pages/login/login",
     "pages/me/updateMe/updateMe",
@@ -24,11 +20,9 @@
     "pages/news/news",
     "template/likeIcon/likeIcon",
     "template/publishBar/publishBar",
-    
     "pages/contact/contact",
-    "pages/service/service"
-   
-    
+    "pages/service/service",
+    "pages/judge"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -13,7 +13,7 @@ Page({
     lastIdType: "",
 
     userInfo: {
-      // writerface:'../../default/default-icon.png',
+      // writerface:'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png',
       axis: [
         {
           time: '2-1',
@@ -51,7 +51,7 @@ Page({
         '/pages/me/img/huiyuan-icon.png',
         '/pages/me/img/bianjian-icon.png',
         '/pages/me/img/bt.jpg',
-        '/pages/me/img/VIP-icon.png'
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/VIP-icon.png'
 
       ],
       username: 'EMILY',
@@ -64,10 +64,10 @@ Page({
     myInfo: {
       username: 'USERNAME',
       medals: [
-        '../../../default/default-icon.png',
-        '../../../default/default-icon.png',
-        '../../../default/default-icon.png',
-        '../../../default/default-icon.png'],
+        '../http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png',
+        '../http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png',
+        '../http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png',
+        '../http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png'],
       phone: '18512346956',
       email: '123456789@163.com',
       company: '美国永辉有限公司',
@@ -89,11 +89,11 @@ Page({
         id: 1,
         text: '《有效识别金融项目》课程。',
         images: [
-          '../../../default/default-pic.png',
-          '../../../default/default-pic.png',
-          '../../../default/default-pic.png'
+          'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+          'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+          'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png'
         ],
-        writerFace: '../../../default/default-icon.png',
+        writerFace: '../http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png',
         writerName: 'USERNAME',
         date: '2020-01-01',
         likeNum: 8965
@@ -102,11 +102,11 @@ Page({
         id: 2,
         text: '《有效识别金融项目》课程。',
         images: [
-          '../../../default/default-pic.png',
-          '../../../default/default-pic.png',
-          '../../../default/default-pic.png'
+          'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+          'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+          'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png'
         ],
-        writerFace: '../../../default/default-icon.png',
+        writerFace: '../http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png',
         writerName: 'USERNAME',
         date: '2020-01-01',
         likeNum: 8965
@@ -115,11 +115,11 @@ Page({
         id: 3,
         text: '《有效识别金融项目》课程。',
         images: [
-          '../../../default/default-pic.png',
-          '../../../default/default-pic.png',
-          '../../../default/default-pic.png'
+          'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+          'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+          'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png'
         ],
-        writerFace: '../../../default/default-icon.png',
+        writerFace: '../http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png',
         writerName: 'USERNAME',
         date: '2020-01-01',
         likeNum: 8965

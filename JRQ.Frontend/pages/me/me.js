@@ -11,10 +11,10 @@ Page({
     myInfo: {
       username: 'USERNAME',
       medals: [
-        '../../default/default-icon.png',
-        '../../default/default-icon.png',
-        '../../default/default-icon.png',
-        '../../default/default-icon.png'],
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png',
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png',
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png',
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png'],
       phone: '123456789',
       email: '123456789@163.com',
       company: '美国永辉有限公司',

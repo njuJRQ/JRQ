@@ -11,7 +11,7 @@ Page({
     labelArray: ['承兑汇票', '股票质押', '大宗减持', '定增', '短拆过桥', '企业信用贷', '供应链金融', '商业保理', '融资租赁', '股权融资', '并购重组', '壳资源', '基金产品', '资产证券化', '土地并购', '自定义'],
     labelIndex: 0,
     myInfo: {
-      face: '../../../default/default-pic.png',
+      face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
       username: 'USERNAME',
       phone: '13952146595',
       email: '13952146595@163.com',

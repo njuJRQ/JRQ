@@ -8,42 +8,42 @@ const {
 
 Page({
   data: {
-    
-    moreType:true,
-    isShowView:true,
+
+    moreType: true,
+    isShowView: true,
     isShow: true,
     doucument: [],
     documentId: '',
     doucumentIdType: '',
-    height:290,
-    height_video:250,
+    height: 290,
+    height_video: 250,
     video: [],
     videoId: '',
     videoIdType: '',
 
-    image: '../../default/default-pic.png',
+    image: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
     // showView:true,
     showView: true,
     cards: [{
-        thumbnail: '../../default/default-pic.png',
-        articleName: '什么是金融？',
-        summary: '一般指与货币流通及银行有关的东西'
-      },
-      {
-        thumbnail: '../../default/default-pic.png',
-        articleName: '什么是金融？',
-        summary: '一般指与货币流通及银行有关的东西'
+      thumbnail: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+      articleName: '什么是金融？',
+      summary: '一般指与货币流通及银行有关的东西'
+    },
+    {
+      thumbnail: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+      articleName: '什么是金融？',
+      summary: '一般指与货币流通及银行有关的东西'
 
-      },
-      {
-        thumbnail: '../../default/default-pic.png',
-        articleName: '什么是金融？',
-        summary: '一般指与货币流通及银行有关的东西'
-      }
+    },
+    {
+      thumbnail: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+      articleName: '什么是金融？',
+      summary: '一般指与货币流通及银行有关的东西'
+    }
     ],
 
     // cards:[{
-    //   face: '../../default/default-pic.png',
+    //   face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
 
     // },{}]
     /*
@@ -51,9 +51,9 @@ Page({
       id: 1,
       text: '《有效识别金融项目》课程。',
       images: [
-        '../../default/default-pic.png',
-        '../../default/default-pic.png',
-        '../../default/default-pic.png'
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png'
       ],
       writerFace: '../../default/default-icon.png',
       writerName: '锄禾日当午',
@@ -64,9 +64,9 @@ Page({
       id: 2,
       text: '与钧融资本成功签订2个亿的基金合约，环保领域。',
       images: [
-        '../../default/default-pic.png',
-        '../../default/default-pic.png',
-        '../../default/default-pic.png'
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png'
       ],
       writerFace: '../../default/default-icon.png',
       writerName: '汗滴禾下土',
@@ -77,9 +77,9 @@ Page({
       id: 3,
       text: '《有效识别金融项目》课程。',
       images: [
-        '../../default/default-pic.png',
-        '../../default/default-pic.png',
-        '../../default/default-pic.png'
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png'
       ],
       writerFace: '../../default/default-icon.png',
       writerName: '锄禾日当午',
@@ -90,7 +90,7 @@ Page({
     */
     articles: [],
     // ad: {
-    //   image: '../../default/default-pic.png',
+    //   image: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
     //   link: 'https://www.baidu.com'
     // },
     currentKind: null,
@@ -102,7 +102,7 @@ Page({
   },
 
   //事件处理函数
-  onLoad: function() {
+  onLoad: function () {
 
     this.setData({
       currentKind: 'course',
@@ -118,35 +118,35 @@ Page({
   },
 
   //onShow函数
-  onShow: function() {
+  onShow: function () {
     this.setData({
       searchCondition: null
     })
   },
 
   //点击广告跳转
-  onAd: function() {
+  onAd: function () {
     wx.navigateTo({
       url: '../ad/ad?url=' + this.data.ad.link
     })
   },
 
-  moreAction:function(){
+  moreAction: function () {
     var that = this;
 
     let type = this.data.moreType;
-    if(type){
+    if (type) {
       that.setData({
         height: '',
-        moreType:false
+        moreType: false
       })
-    }else{
+    } else {
       that.setData({
         height: 290,
         moreType: true
       })
     }
-    
+
   },
   moresAction: function () {
     var that = this;
@@ -165,7 +165,7 @@ Page({
     }
   },
 
-  showAll: function() {
+  showAll: function () {
     this.setData({
       currentKind: 'all',
       searchCondition: null,
@@ -173,7 +173,7 @@ Page({
       lastId: "",
       lastIdType: "",
       isShowView: true,
-      height:290
+      height: 290
     })
     api.getAbstractList.call(this, 'all', app.getOpenid(), this.data.lastId, this.data.lastIdType)
     api.getAd.call(this, 'jump', (res) => {
@@ -185,8 +185,8 @@ Page({
   },
 
   //展示文档
-  showDocuments: function() {
-    
+  showDocuments: function () {
+
     this.setData({
       currentKind: 'course',
       searchCondition: null,
@@ -201,23 +201,23 @@ Page({
   },
 
   //展示视频
-  showVideos: function() {
-    var that = this;   
+  showVideos: function () {
+    var that = this;
     that.setData({
       currentKind: 'document',
       searchCondition: null,
       articles: [],
       lastId: "",
       lastIdType: "",
-      isShowView: false, 
+      isShowView: false,
       moreType: true,
-      height:''
+      height: ''
     })
     api.getAbstractList.call(this, 'document', app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
 
   //展示项目
-  showProjects: function() {
+  showProjects: function () {
     this.setData({
       currentKind: 'project',
       searchCondition: null,
@@ -228,13 +228,13 @@ Page({
     api.getAbstractList.call(this, 'project', app.getOpenid(), this.data.lastId, this.data.lastIdType)
 
   },
-  toProjects: function() {
+  toProjects: function () {
     wx.navigateTo({
       url: '/pages/project/project',
     })
   },
   //展示文章详情
-  onTouchThisArticle: function(e) {
+  onTouchThisArticle: function (e) {
     var id = e.currentTarget.dataset.id //获取当前文章id
     var kind = e.currentTarget.dataset.kind
     var url = '../articleDetail/'
@@ -256,7 +256,7 @@ Page({
   },
 
   //点赞数加一
-  likePlus: function(e) {
+  likePlus: function (e) {
     var id = e.currentTarget.dataset.id //获取当前文章id
     var kind = e.currentTarget.dataset.kind //获取当前文章kind
     var article = this.data.articles.filter((article) => article.id === id)[0]
@@ -264,12 +264,12 @@ Page({
   },
 
   //更新搜索条件
-  updateSearchCondition: function(e) {
+  updateSearchCondition: function (e) {
     this.data.searchCondition = e.detail.value;
   },
 
   //搜索触发函数
-  onSearch: function() {
+  onSearch: function () {
     if (!this.data.searchCondition) {
       this.showAll();
       return;
@@ -278,20 +278,20 @@ Page({
     api.getAbstractListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
   },
 
-  onReachBottom: function() {
+  onReachBottom: function () {
     api.getAbstractList.call(this, this.data.currentKind, app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
-  showMask: function() {
+  showMask: function () {
     this.setData({
       flag: false
     })
   },
-  closeMask: function() {
+  closeMask: function () {
     this.setData({
       flag: true
     })
   },
-  touchMask: function() {
+  touchMask: function () {
     wx.navigateTo({
       url: '/pages/me/updateMe/updateMe',
     })
@@ -299,7 +299,7 @@ Page({
 
 
   //展示资金类
-  showCapitalClass: function(event) {
+  showCapitalClass: function (event) {
     this.setData({
       currentKind: 'capital',
       currentKindName: this.data.capitalClassDesc,
@@ -309,7 +309,7 @@ Page({
   },
 
   //点击当前文章触发函数
-  onClickThisCard: function(e) {
+  onClickThisCard: function (e) {
     var id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: '../me/myHistory/myHistory?id=' + id,
@@ -317,19 +317,19 @@ Page({
   },
 
   //更新搜索条件
-  updateSearchCondition: function(e) {
+  updateSearchCondition: function (e) {
     this.data.searchCondition = e.detail.value;
   },
 
   //搜索触发函数
-  onSearch: function() {
+  onSearch: function () {
     console.log('search service people: ' + this.data.searchCondition)
     api.getPersonListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
   },
 
   // 新的修改
   // 展示文档
-  showDocument: function() {
+  showDocument: function () {
     this.setData({
       document: [],
       documentId: "",
@@ -338,15 +338,15 @@ Page({
     api.getDocumentList.call(this, app.getOpenid(), this.data.documentId, this.data.documentIdType)
 
   },
-  toDocument: function() {
+  toDocument: function () {
     wx.navigateTo({
       url: '/pages/project/project',
     })
 
   },
-  
+
   // 展示视频
-  showVideo: function() {
+  showVideo: function () {
     this.setData({
       video: [],
       videoId: "",
@@ -355,7 +355,7 @@ Page({
     api.getVideoList.call(this, app.getOpenid(), this.data.videoId, this.data.videoIdType)
 
   },
-  toVideo: function() {
+  toVideo: function () {
     wx.navigateTo({
       url: '/pages/project/project',
     })
@@ -366,5 +366,5 @@ Page({
       showView: (!this.data.showView)
     })
   },
-  
+
 })

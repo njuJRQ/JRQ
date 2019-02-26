@@ -21,12 +21,12 @@
           <text class='card__text'>职位: {{myInfo.position ? myInfo.position : "未设置"}}</text> -->
         </view>
       </view>
-      <view class='div-line'>
+      <!-- <view class='div-line'>
       <text class='card__intro'>{{myInfo.intro ? myInfo.intro : "并购重组"}}</text>
       <text class='card__intro'>{{myInfo.intro ? myInfo.intro : "短融过桥"}}</text>
       <text class='card__intro'>{{myInfo.intro ? myInfo.intro : "并购重组"}}</text>
       
-      </view>
+      </view> -->
       <view></view>
       
     </navigator>
@@ -40,7 +40,7 @@
       <text class='modal__text'>分享给好友</text>
     </button>
     <button class='modal__button modal__right' bindtap='drawPost'>
-      <image class='modal__image' src='img/post.png'></image>
+      <image class='modal__image' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/%E4%B8%AA%E4%BA%BA/post.png'></image>
       <text class='modal__text'>生成海报</text>
     </button>
   </view>

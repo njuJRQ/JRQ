@@ -7,7 +7,7 @@
   </view>
   <view class='div-line'></view>
   <view class='updateWrapper'>
-    <image class='updateWrapper__image' src='img/silver.png'></image>
+    <image class='updateWrapper__image' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/updateMe/silver.png'></image>
     <view class='updateWrapper__capsule capsule'>
       <view class='capsule__left capsule__left--bg-red'>¥
         <big>{{price298}}</big> / 365天</view>
@@ -16,7 +16,7 @@
     </view>
   </view>
   <view class='updateWrapper'>
-    <image class='updateWrapper__image' src='img/gold.png'></image>
+    <image class='updateWrapper__image' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/updateMe/gold.png'></image>
     <view class='updateWrapper__capsule capsule'>
       <view class='capsule__left capsule__left--bg-red'>¥
         <big>{{price998}}</big> / 365天</view>
@@ -25,7 +25,7 @@
     </view>
   </view>
   <view class='updateWrapper'>
-    <image class='updateWrapper__image' src='img/enterprise.png'></image>
+    <image class='updateWrapper__image' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/updateMe/enterprise.png'></image>
     <view class='updateWrapper__capsule capsule'>
       <view class='capsule__left capsule__left--bg-red'>¥
         <big>{{priceEnterprise}}</big> / 365天</view>

@@ -16,7 +16,7 @@
   </view>
   <view class='content'>
     <view wx:for='{{cards}}' wx:key='openid'>
-      <view class='cardWrapper jrq__block' bindtap='onClickThisCard' data-id='{{item.openid}}'>
+      <view class=' jrq__block' bindtap='onClickThisCard' data-id='{{item.openid}}'>
         <view class='card__main'>
           <image class='card__face' src='{{item.face}}'></image>
           <view class='card__info'>

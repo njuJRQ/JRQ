@@ -1,31 +1,32 @@
 <!--pages/me/userInfo.wxml-->
+<import src='/template/article/articleItem.wxml' />
 <view class='content'>
   <view class='userInfo'>
     <view class='left'>
-      <image class='writerface' src='{{myInfo.writerface[0]}}'></image>
+      <image class='writerface' src='{{userInfo.writerface[0]}}'></image>
     </view>
 
     <view class='center'>
       <view class='name-vip'>
-        <text class='username'>{{myInfo.username}}</text>
-        <image class='vip' mode='widthFix' src='{{myInfo.writerface[4]}}'></image>
+        <text class='username'>{{userInfo.username}}</text>
+        <image class='vip' mode='widthFix' src='{{userInfo.writerface[4]}}'></image>
       </view>
-      <text class='position card_text'>{{myInfo.position}}</text>
-      <text class='company card_text'>{{myInfo.company}}</text>
+      <text class='position card_text'>{{userInfo.position}}</text>
+      <text class='company card_text'>{{userInfo.company}}</text>
     </view>
 
     <view class='right'>
-      <image class='vip_up' mode='widthFix' src='{{myInfo.writerface[1]}}'></image>
-      <image class='edit' src='{{myInfo.writerface[2]}}'></image>
+      <image class='vip_up' mode='widthFix' src='{{userInfo.writerface[1]}}'></image>
+      <image class='edit' src='{{userInfo.writerface[2]}}'></image>
     </view>
   </view>
 
   <view class='label'>
-    <view class='label_main' wx:for='{{myInfo.label}}' wx:key='*this'>
+    <view class='label_main' wx:for='{{userInfo.label}}' wx:key='*this'>
       <text class='label_text'>{{item}}</text>
     </view>
   </view>
-  <view class='share_card' bindtap=''>
+  <view class='share_card'>
     <button class='card_button'>分享我的名片</button>
   </view>
   <view class='benefit'>
@@ -33,7 +34,7 @@
       <text class='my_benefit'>我的权益</text>
       <text class='check_benefit'>查看我的特权>></text>
     </view>
-    <image class='benefit_card' src='{{myInfo.writerface[3]}}'></image>
+    <image class='benefit_card' src='{{userInfo.writerface[3]}}'></image>
     <view class='contact_coin'>
       <view class='get_card'>
         <text class='my_contact' style='font-size:16px;'>我的人脉</text>
@@ -63,6 +64,33 @@
     </view>
   </view>
   <!-- 时间轴 -->
+  <!-- <view class='weui-cell-third'>
+    <view class='year_publish'>
+      <view class='top'>
+        <view class='big_circle'>
+          <text class='year'>2019</text>
+        </view>
+        <view class='big_line'></view>
+      </view>
+      <view class='publish_project' bindtap='onPublish'>
+        <text class='publish_text'>发布项目</text>
+        <image class='publish_image' mode='widthFix' src='img/publish.png'></image>
+      </view>
+    </view>
+    <view wx:for="{{userInfo.axis}}" wx:key="*this">
+      <view class='weui-cell-time'><text>{{item.time}}</text></view>
+      <view class='line-card'>
+        <view class='weui-cell-list'>
+
+          <view class='weui-cell-circle'>
+          </view>
+          <view class='weui-cell-line'>
+          </view>
+        </view>
+        <view class='weui-cell-card'><text class='project_content'>{{item.event}}</text></view>
+      </view>
+    </view> -->
+  
   <view class='weui-cell-third'>
     <view class='year_publish'>
       <view class='top'>
@@ -76,8 +104,10 @@
         <image class='publish_image' mode='widthFix' src='img/publish.png'></image>
       </view>
     </view>
-    <view wx:for="{{myInfo.axis}}" wx:key="*this">
-      <view class='weui-cell-time'><text>{{item.time}}</text></view>
+    <view wx:for="{{userInfo.axis}}" wx:key="*this">
+      <view class='weui-cell-time'>
+        <text style='color: #f2c75e;'>{{item.time}}</text>
+      </view>
       <view class='line-card'>
         <view class='weui-cell-list'>
 
@@ -86,8 +116,16 @@
           <view class='weui-cell-line'>
           </view>
         </view>
-        <view class='weui-cell-card'><text class='project_content'>{{item.event}}</text></view>
+        <view class='project_bar'>
+          <!-- <text class='project_content'>{{item.event}}</text> -->
+          <view wx:for='{{myArticles}}' wx:key='id' style='margin: 10px 5px;'>
+            <template is='articleItem' data='{{item}}'></template>
+          </view>
+        </view>
+
       </view>
     </view>
   </view>
+
+
 </view>

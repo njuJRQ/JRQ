@@ -23,8 +23,8 @@
     </view>
   </view>
   
-  <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 31}}px;observer:true;observeParents:true" bindchange="bindChange">
-    <swiper-item class="swiper-items">
+  <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 31}}px;observeParents:true;" bindchange="bindChange">
+    <swiper-item class="swiper-items" style='observer:true;'>
       <scroll-view class='scroll-views' scroll-x="false" scroll-y="true">
         <view wx:if='{{articles.length > 0}}' class='articleListWrapper_view'>
           <view wx:for='{{articles}}' wx:key='id'>

@@ -13,24 +13,34 @@ Page({
       // writerface:'../../default/default-icon.png',
       axis: [
         {
-          time: '2019',
+          time: '2-1',
           name: '张三',
-          event: '垃圾太多'
+          event: '外媒报道称，特朗普21日呼吁美国电信企业加大力度建设速度更快的5G网络。'
         },
         {
           time: '2-18',
           name: '王三',
-          event: '垃圾太多'
+          event: '外媒报道称，特朗普21日呼吁美国电信企业加大力度建设速度更快的5G网络。'
         },
         {
           time: '2-17',
           name: '张三',
-          event: '垃圾太多'
+          event: '外媒报道称，特朗普21日呼吁美国电信企业加大力度建设速度更快的5G网络。'
         },
         {
           time: '2-16',
           name: '张三',
-          event: '垃圾太多'
+          event: '外媒报道称，特朗普21日呼吁美国电信企业加大力度建设速度更快的5G网络。'
+        },
+        {
+          time: '2-1',
+          name: '张三',
+          event: '外媒报道称，特朗普21日呼吁美国电信企业加大力度建设速度更快的5G网络。'
+        },
+        {
+          time: '2-18',
+          name: '王三',
+          event: '外媒报道称，特朗普21日呼吁美国电信企业加大力度建设速度更快的5G网络。'
         }],
 
       writerface:[
@@ -55,6 +65,15 @@ Page({
   onLoad: function (options) {
 
   },
+
+  //发布信息
+  onPublish: function () {
+    console.log('publish')
+    wx.navigateTo({
+      url: 'publishMyArticle/publishMyArticle',
+    })
+  },
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成

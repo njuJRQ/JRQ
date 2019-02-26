@@ -138,6 +138,7 @@ function getProjectList(openid, lastId, lastIdType) {
   })
   wx.request({
     url: app.globalData.backendUrl + "getAbstractListBefore",
+  
     data: {
       openid: openid,
       articleId: lastId,

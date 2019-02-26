@@ -142,6 +142,7 @@ App({
     token: "",
     defaultPic: '../../default/default-pic.png',
     backendUrl: "https://junrongcenter.com:3389/",//used
+    testUrl:"http://10.107.30.176:8080/JRQ.Backend/",
     picUrl: "https://www.junrongcenter.com/"//used
     //backendUrl: "http://localhost:3389/",
     //picUrl: "http://localhost:8000/",

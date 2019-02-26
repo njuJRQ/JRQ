@@ -15,7 +15,7 @@
     </view>
 
     <view class='right'>
-      <image class='vip_up' src='{{myInfo.writerface[1]}}'></image>
+      <image class='vip_up' mode='widthFix' src='{{myInfo.writerface[1]}}'></image>
       <image class='edit' src='{{myInfo.writerface[2]}}'></image>
     </view>
   </view>
@@ -25,7 +25,7 @@
       <text class='label_text'>{{item}}</text>
     </view>
   </view>
-  <view class='share_card'>
+  <view class='share_card' bindtap=''>
     <button class='card_button'>分享我的名片</button>
   </view>
   <view class='benefit'>
@@ -36,39 +36,48 @@
     <image class='benefit_card' src='{{myInfo.writerface[3]}}'></image>
     <view class='contact_coin'>
       <view class='get_card'>
-        <text class='my_contact'>我的人脉</text>
+        <text class='my_contact' style='font-size:16px;'>我的人脉</text>
         <view class='share'>
           <view class='get_num'>
-            <text style='font-size:18px;'>5</text>
+            <text style='font-size:16px;'>5</text>
             <text>收到的名片</text>
           </view>
-          <view>
+
           <text class='slash'>/</text>
-          </view>
-          
+
+
           <view class='mutual'>
-            <text style='font-size:18px;'>5</text>
+            <text style='font-size:16px;'>5</text>
             <text>互持的名片</text>
           </view>
-
         </view>
-
       </view>
-      <text style='text-align:center;font-size:16px;'>钧融币</text>
-
+      <view class='coin'>
+        <text style='text-align:center;font-size:16px;'>钧融币</text>
+        <text style='text-align:center;font-size:16px;'>1356</text>
+        <button class='will'>即将上线</button>
+      </view>
     </view>
-
-
     <view class='publish'>
-
       <text>我的发布</text>
     </view>
   </view>
   <!-- 时间轴 -->
-
   <view class='weui-cell-third'>
-    <block wx:for="{{myInfo.axis}}" wx:key="*this">
-      <view class='weui-cell-time'>{{item.time}}</view>
+    <view class='year_publish'>
+      <view class='top'>
+        <view class='big_circle'>
+          <text class='year'>2019</text>
+        </view>
+        <view class='big_line'></view>
+      </view>
+      <view class='publish_project' bindtap='onPublish'>
+        <text class='publish_text'>发布项目</text>
+        <image class='publish_image' mode='widthFix' src='img/publish.png'></image>
+      </view>
+    </view>
+    <view wx:for="{{myInfo.axis}}" wx:key="*this">
+      <view class='weui-cell-time'><text>{{item.time}}</text></view>
       <view class='line-card'>
         <view class='weui-cell-list'>
 
@@ -77,11 +86,8 @@
           <view class='weui-cell-line'>
           </view>
         </view>
-        <view class='weui-cell-card'>{{item.event}}</view>
+        <view class='weui-cell-card'><text class='project_content'>{{item.event}}</text></view>
       </view>
-    </block>
+    </view>
   </view>
-
-
-
 </view>

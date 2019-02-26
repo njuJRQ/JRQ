@@ -15,9 +15,9 @@
   align-items: center;
   top: -10px;
   width: 50%;
-  height: 20px; 
+  height: 20px;
   /* background-color: #edc681; */
-   border-radius: 20px;
+  border-radius: 20px;
   padding: 5px 10px;
   box-shadow: 0 0 10px #a0a0a0;
   left: -30%;
@@ -45,8 +45,8 @@
   justify-content: center;
   text-align: left;
   width: 100%;
-  font-size: 0.8rem;
-  color: #927912;
+  font-size: 0.7rem;
+  font-weight: 500;
   margin: 5px 0 10px 0;
   display: -webkit-box;
   overflow: hidden;
@@ -88,9 +88,9 @@
 }
 
 .article_text {
+ 
   height: 87px;
-  width: 200px;
-
+  width: 230px;
   overflow: hidden;
 }
 
@@ -113,12 +113,17 @@
 }
 
 .article__imageList {
-  
-  
   width: 100%;
 }
-.level{
+
+.level {
   width: 20px;
   margin-left: 25%;
   margin-top: 10%;
+}
+
+.title {
+  font-weight: bolder;
+  margin-left: -3%;
+  color: black;
 }

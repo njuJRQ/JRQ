@@ -54,6 +54,11 @@ public class CourseDataServiceImpl implements CourseDataService {
 	}
 
 	@Override
+	public List<Course> getAllCoursesOrderByLikeNum() {
+		return courseDao.findCoursesByOrderByLikeNumDesc();
+	}
+
+	@Override
 	public void deleteCourseById(String id) throws NotExistException {
 		Optional<Course> optionalCourse = courseDao.findById(id);
 		if (optionalCourse.isPresent()) {

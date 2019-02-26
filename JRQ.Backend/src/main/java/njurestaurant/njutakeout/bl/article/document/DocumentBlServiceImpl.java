@@ -41,9 +41,9 @@ public class DocumentBlServiceImpl implements DocumentBlService {
 	}
 
 	@Override
-	public InfoResponse addDocument(String title, String content, String attachment, String writerName, long likeNum) {
+	public InfoResponse addDocument(String title, String content, String image, String attachment, String writerName, int price, long likeNum) {
 		String preview = generatePreviewImage(attachment);
-		documentDataService.addDocument(new Document(title, content, attachment, writerName, System.currentTimeMillis(), likeNum, preview));
+		documentDataService.addDocument(new Document(title, content, image, attachment, writerName, price, System.currentTimeMillis(), likeNum, preview));
 		return new InfoResponse();
 	}
 
@@ -63,12 +63,14 @@ public class DocumentBlServiceImpl implements DocumentBlService {
 	}
 
 	@Override
-	public InfoResponse updateDocument(String id, String title, String content, String attachment, String writerName, long likeNum) throws NotExistException {
+	public InfoResponse updateDocument(String id, String title, String content, String image, String attachment, String writerName, int price, long likeNum) throws NotExistException {
 		Document document = documentDataService.getDocumentById(id);
 		document.setTitle(title);
 		document.setContent(content);
+		document.setImage(image);
 		document.setAttachment(attachment);
 		document.setWriterName(writerName);
+		document.setPrice(price);
 		document.setTimeStamp(System.currentTimeMillis());
 		document.setLikeNum(likeNum);
 		document.setPreview(generatePreviewImage(attachment));

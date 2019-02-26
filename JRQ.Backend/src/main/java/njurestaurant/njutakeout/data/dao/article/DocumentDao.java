@@ -10,4 +10,5 @@ public interface DocumentDao extends JpaRepository<Document, String> {
 	List<Document> findTop10ByOrderByTimeStampDesc();
 	List<Document> findTop10ByTimeStampBeforeOrderByTimeStampDesc(long timeStamp);
 	List<Document> findDocumentsByWriterName(String writerName);
+	List<Document> findDocumentsByOrderByLikeNumDesc();
 }

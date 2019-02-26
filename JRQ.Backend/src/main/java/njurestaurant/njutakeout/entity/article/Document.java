@@ -21,10 +21,16 @@ public class Document {
 	private String content; //内容
 
 	@Column
+	private String image;//图片路径
+
+	@Column
 	private String attachment; //附件路径
 
 	@Column
 	private String writerName;//作者名字
+
+	@Column
+	private int price;//价格
 
 	@Column
 	private long timeStamp; //最近一次更新的时间戳
@@ -38,11 +44,13 @@ public class Document {
 	public Document(){
 	}
 
-	public Document(String title, String content, String attachment, String writerName, long timeStamp, long likeNum, String preview) {
+	public Document(String title, String content, String image, String attachment, String writerName, int price, long timeStamp, long likeNum, String preview) {
 		this.title = title;
 		this.content = content;
+		this.image = image;
 		this.attachment = attachment;
 		this.writerName = writerName;
+		this.price = price;
 		this.timeStamp = timeStamp;
 		this.likeNum = likeNum;
 		this.preview = preview;
@@ -72,12 +80,28 @@ public class Document {
 		this.content = content;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public String getWriterName() {
 		return writerName;
 	}
 
 	public void setWriterName(String writerName) {
 		this.writerName = writerName;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 	public String getDate() {

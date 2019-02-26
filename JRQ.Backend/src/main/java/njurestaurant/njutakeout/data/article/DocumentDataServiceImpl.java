@@ -51,6 +51,11 @@ public class DocumentDataServiceImpl implements DocumentDataService {
 	}
 
 	@Override
+	public List<Document> getAllDocumentsOrderByLikeNum() {
+		return documentDao.findDocumentsByOrderByLikeNumDesc();
+	}
+
+	@Override
 	public void deleteDocumentById(String id) throws NotExistException {
 		Optional<Document> optionalDocument = documentDao.findById(id);
 		if (optionalDocument.isPresent()) {

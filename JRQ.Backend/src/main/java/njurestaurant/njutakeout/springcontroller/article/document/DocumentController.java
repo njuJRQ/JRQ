@@ -34,6 +34,83 @@ public class DocumentController {
         this.recordBlService = recordBlService;
     }
 
+    @ApiOperation(value = "获取文档图片", notes = "获取文档图片")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "image", value = "文档图片", required = true, dataType = "MultipartFile")
+    })
+    @RequestMapping(value = "/documentImage", method = RequestMethod.POST)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public String documentImage(@RequestParam("image")MultipartFile image){
+        Map<String,Object> map= new HashMap<String,Object>();
+        if(image.isEmpty()){
+            map.put( "result", "error");
+            map.put( "msg", "上传文件不能为空" );
+            return null;
+        } else {
+
+            // 获取文件名
+            String fileName = image.getOriginalFilename();
+            // 获取文件后缀
+
+            // 用uuid作为文件名，防止生成的临时文件重复
+            // MultipartFile to File
+            //你的业务逻辑
+            int bytesum = 0;
+            int byteread = 0;
+            InputStream inStream = null;    //读入原文件
+            try {
+                inStream = image.getInputStream();
+                FileOutputStream fs = new FileOutputStream(fileName);
+                byte[] buffer = new byte[20000000];
+                while ( (byteread = inStream.read(buffer)) != -1) {
+                    bytesum += byteread;            //字节数 文件大小
+                    fs.write(buffer, 0, byteread);
+                }
+                inStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
+            File file = new File(fileName);
+            String[] temp=fileName.split("\\.");
+            String thePath="record/document/image/"+uuid+"."+temp[1];
+            String path="record/document/image/"+uuid+"."+temp[1];
+            File tempfile=new File(path);
+            if (tempfile.exists() && tempfile.isFile()) {
+                tempfile.delete();
+            }
+            bytesum = 0;
+            byteread = 0;
+            try {
+                inStream =new FileInputStream(fileName);
+                FileOutputStream fs = new FileOutputStream(path);
+                byte[] buffer = new byte[20000000];
+                while ( (byteread = inStream.read(buffer)) != -1) {
+                    bytesum += byteread;            //字节数 文件大小
+                    fs.write(buffer, 0, byteread);
+                }
+                inStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            if (file.exists() && file.isFile()) {
+                file.delete();
+            }
+            return thePath;
+        }
+    }
+
+
     @ApiOperation(value = "获取附件", notes = "获取附件")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "attachment", value = "附件路径", required = true, dataType = "MultipartFile")
@@ -114,9 +191,10 @@ public class DocumentController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "title", value = "文档标题", required = true, dataType = "String"),
             @ApiImplicitParam(name = "content", value = "文档内容", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "image", value = "图片路径", required = true, dataType = "String"),
             @ApiImplicitParam(name = "attachment", value = "附件路径", required = true, dataType = "String"),
             @ApiImplicitParam(name = "writerName", value = "作者名字", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "date", value = "发布日期", required = true, dataType = "String")
+            @ApiImplicitParam(name = "price", value = "价格", required = true, dataType = "String")
     })
     @RequestMapping(value = "/addDocument", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -124,8 +202,8 @@ public class DocumentController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> addDocument(@RequestParam(name="title")String title, @RequestParam(name="content")String content, @RequestParam(name="attachment")String attachment,@RequestParam(name="writerName")String writerName, @RequestParam(name="date")String date) {
-        ResponseEntity<Response> r=new ResponseEntity<>(documentBlService.addDocument(title,content,attachment,writerName,0), HttpStatus.OK);
+    public ResponseEntity<Response> addDocument(@RequestParam(name="title")String title, @RequestParam(name="content")String content, @RequestParam(name="image")String image, @RequestParam(name="attachment")String attachment,@RequestParam(name="writerName")String writerName, @RequestParam(name="price")String price) {
+        ResponseEntity<Response> r=new ResponseEntity<>(documentBlService.addDocument(title,content,image,attachment,writerName,Integer.parseInt(price),0), HttpStatus.OK);
         return r;
     }
 
@@ -156,12 +234,13 @@ public class DocumentController {
 
     @ApiOperation(value = "根据文档ID修改文档", notes = "根据文档ID修改文档")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "课程id", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "title", value = "课程标题", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "content", value = "图片路径", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "id", value = "文档id", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "title", value = "文档标题", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "content", value = "文档内容", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "image", value = "图片路径", required = true, dataType = "String"),
             @ApiImplicitParam(name = "attachment", value = "附件路径", required = true, dataType = "String"),
             @ApiImplicitParam(name = "writerName", value = "作者名字", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "date", value = "发布日期", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "price", value = "价格", required = true, dataType = "String"),
             @ApiImplicitParam(name = "likeNum", value = "点赞数", required = true, dataType = "String")
     })
     @RequestMapping(value = "/updateDocument", method = RequestMethod.GET)
@@ -173,15 +252,16 @@ public class DocumentController {
     public ResponseEntity<Response> updateDocument(@RequestParam(name="id")String id,
                                                    @RequestParam(name="title")String title,
                                                    @RequestParam(name="content")String content,
+                                                   @RequestParam(name="image")String image,
                                                    @RequestParam(name="attachment")String attachment,
                                                    @RequestParam(name="writerName")String writerName,
-                                                   @RequestParam(name="date")String date,
+                                                   @RequestParam(name="price")String price,
                                                    @RequestParam(name="likeNum")String likeNum,
                                                    HttpServletRequest request) throws NotExistException {
 
         recordBlService.addRecord("time:"+toLongDateString(new Date())+" ip:"+request.getRemoteAddr()+" update document"+
-        " id:"+id+" title:"+title+" content:"+content+" attachment:"+attachment+" writerName:"+writerName+" date:"+date+" likeNum:"+likeNum);
-        ResponseEntity<Response> r= new ResponseEntity<>(documentBlService.updateDocument(id,title,content,attachment,writerName,Long.parseLong(likeNum)), HttpStatus.OK);
+        " id:"+id+" title:"+title+" content:"+content+" attachment:"+attachment+" writerName:"+writerName+" price:"+price+" likeNum:"+likeNum);
+        ResponseEntity<Response> r= new ResponseEntity<>(documentBlService.updateDocument(id,title,content,image,attachment,writerName,Integer.parseInt(price),Long.parseLong(likeNum)), HttpStatus.OK);
         return r;
     }
 

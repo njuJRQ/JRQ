@@ -17,6 +17,8 @@ public interface CourseDataService {
 
 	List<Course> getAllCourses();
 
+	List<Course> getAllCoursesOrderByLikeNum();
+
 	void deleteCourseById(String id) throws NotExistException;
 
 	void deleteCoursesByWriterName(String writerName);

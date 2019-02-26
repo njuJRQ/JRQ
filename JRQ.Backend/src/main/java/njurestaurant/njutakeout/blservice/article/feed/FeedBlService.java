@@ -15,12 +15,13 @@ import java.util.List;
 public interface FeedBlService {
 	/**
 	 * 用户发布自己的圈子文章(User)
+	 * @param title 文章标题
 	 * @param content 文章内容
 	 * @param images 文章图片
 	 * @param writerOpenid 作者微信openid
 	 * @return 是否成功
 	 */
-	InfoResponse publishMyFeed(String content, List<String> images, String writerOpenid);
+	InfoResponse publishMyFeed(String title, String content, List<String> images, String writerOpenid);
 
 	/**
 	 * 根据圈子文章ID获取全文(User&Admin)
@@ -99,7 +100,7 @@ public interface FeedBlService {
 
 	/**
 	 * 获取10条圈子按条件查询
-	 * @param kind 条件查询，可能值：最热latest，一周weekly，一月monthly
+	 * @param kind 条件查询，可能值：钧融优选isPreferred，热度hot，时间time
 	 * @param openid 用户openid
 	 * @param id 圈子ID
 	 * @return

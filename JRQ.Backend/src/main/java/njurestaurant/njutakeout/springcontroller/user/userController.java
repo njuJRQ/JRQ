@@ -716,12 +716,31 @@ public class userController {
         return new ResponseEntity<>(userBlService.getOtherCard(userOpenid,otherOpenid), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "获取用户收到的名片数量", notes = "获取用户收到的名片数量")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "用户的微信openid", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getMyReceivedCardNum", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public String getMyReceivedCardNum(@RequestParam(name="openid")String openid) throws NotExistException {
+        return userBlService.getMyReceivedCardNum(openid);
+    }
 
-
-
-
-
-
-
-
+    @ApiOperation(value = "获取用户互持名片的数量", notes = "获取用户互持名片的数量")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "用户的微信openid", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getMyMutualCardNum", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public String getMyMutualCardNum(@RequestParam(name="openid")String openid) throws NotExistException {
+        return userBlService.getMyMutualCardNum(openid);
+    }
 }

@@ -290,4 +290,18 @@ public interface UserBlService {
 	 */
 	CardResponse getOtherCard(String userOpenid, String otherOpenid) throws NotExistException;
 
+	/**
+	 * 获取用户收到的名片数量
+	 * @param openid 用户的微信openid
+	 * @return 用户收到名片的数量
+	 */
+	String getMyReceivedCardNum(String openid);
+
+	/**
+	 * 获取用户互持名片的数量
+	 * @param openid 用户的微信openid
+	 * @return 用户互持名片的数量
+	 */
+	String getMyMutualCardNum(String openid);
+
 }

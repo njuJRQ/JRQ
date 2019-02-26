@@ -44,8 +44,8 @@ public class FeedBlServiceImpl implements FeedBlService {
 	}
 
 	@Override
-	public InfoResponse publishMyFeed(String content, List<String> images, String writerOpenid) {
-		feedDataService.addFeed(new Feed(content, images, writerOpenid, System.currentTimeMillis(), 0));
+	public InfoResponse publishMyFeed(String title, String content, List<String> images, String writerOpenid) {
+		feedDataService.addFeed(new Feed(title, content, images, writerOpenid, System.currentTimeMillis(), 0, false));
 		return new InfoResponse();
 	}
 
@@ -175,20 +175,20 @@ public class FeedBlServiceImpl implements FeedBlService {
 		List<FeedItem> feedItems = new ArrayList<>();
 		List<Feed> feeds = new ArrayList<>();
 		switch (kind) {
-			case "lasted":
+			case "isPreferred":
+				feeds = feedDataService.getFeedListByIsPreferred(openid,id);
+				for(Feed feed:feeds){
+					feedItems.add(new FeedItem(feed));
+				}
+				break;
+			case "hot":
 				feeds = feedDataService.getFeedListByLikeNum(openid,id);
 				for(Feed feed:feeds){
 					feedItems.add(new FeedItem(feed));
 				}
 				break;
-			case "weekly":
-				feeds = feedDataService.getFeedListBeforeWeek(openid,id);
-				for(Feed feed:feeds){
-					feedItems.add(new FeedItem(feed));
-				}
-				break;
-			case "monthly":
-				feeds = feedDataService.getFeedListBeforeMonth(openid,id);
+			case "time":
+				feeds = feedDataService.getFeedListByTimeStamp(openid,id);
 				for(Feed feed:feeds){
 					feedItems.add(new FeedItem(feed));
 				}

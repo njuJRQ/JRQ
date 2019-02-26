@@ -30,13 +30,34 @@ public interface FeedDataService {
 
 	void deleteFeedsByWriterOpenid(String openid);
 
+	/**
+	 * 按照均融优选分页查询
+	 * @param openid 用户openid
+	 * @param id 每页最后一条数据id,第一次为空字符串
+	 * @return 项目列表
+	 * @throws NotExistException
+	 */
+	List<Feed> getFeedListByIsPreferred(String openid,String id) throws NotExistException;
+	List<Feed> getFeedListByIsPreferredDesc(String openid,long timeStamp) throws NotExistException;
 
+	/**
+	 * 按照热度排序分页查询
+	 * @param openid 用户openid
+	 * @param id 每页最后一条数据id,第一次为空字符串
+	 * @return 项目列表
+	 * @throws NotExistException
+	 */
 	List<Feed> getFeedListByLikeNum(String openid,String id) throws NotExistException;
 	List<Feed> getFeedListByLikeNumDesc(String openid,long likeNum) throws NotExistException;
 
-	List<Feed> getFeedListBeforeWeek(String openid,String id) throws NotExistException;
-	List<Feed> getFeedListBeforeWeekDesc(String openid,long timeStamp) throws NotExistException;
+	/**
+	 * 按照时间排序分页查询
+	 * @param openid 用户openid
+	 * @param id 每页最后一条数据id,第一次为空字符串
+	 * @return 项目列表
+	 * @throws NotExistException
+	 */
+	List<Feed> getFeedListByTimeStamp(String openid,String id) throws NotExistException;
+	List<Feed> getFeedListByTimeStampDesc(String openid,long timeStamp) throws NotExistException;
 
-	List<Feed> getFeedListBeforeMonth(String openid,String id) throws NotExistException;
-	List<Feed> getFeedListBeforeMonthDesc(String openid,long timeStamp) throws NotExistException;
 }

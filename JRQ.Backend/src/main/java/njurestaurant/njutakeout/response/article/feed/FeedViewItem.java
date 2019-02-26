@@ -9,6 +9,7 @@ import java.util.List;
 
 public class FeedViewItem {
 	private String id; //文章编号
+	private String title; //文章标题
 	private String content; //文章内容
 	private List<String> images; //文章图片路径集合（不超过3张）
 	private String writerOpenid; //作者openid
@@ -20,6 +21,7 @@ public class FeedViewItem {
 
 	public FeedViewItem(Feed feed, UserDataService userDataService, boolean hasLiked) throws NotExistException {
 		this.id = feed.getId();
+		this.title = feed.getTitle();
 		this.content = feed.getContent();
 		this.images = feed.getImages();
 		this.writerOpenid = feed.getWriterOpenid();
@@ -37,6 +39,14 @@ public class FeedViewItem {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getContent() {

@@ -17,6 +17,8 @@ public interface DocumentDataService {
 
 	List<Document> getAllDocuments();
 
+	List<Document> getAllDocumentsOrderByLikeNum();
+
 	void deleteDocumentById(String id) throws NotExistException;
 
 	void deleteDocumentsByWriterName(String writerName);

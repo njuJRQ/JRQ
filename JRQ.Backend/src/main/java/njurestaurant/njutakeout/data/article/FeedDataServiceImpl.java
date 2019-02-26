@@ -110,6 +110,27 @@ public class FeedDataServiceImpl implements FeedDataService {
 	}
 
 	@Override
+	public List<Feed> getFeedListByIsPreferred(String openid, String id) throws NotExistException {
+		return getFeedListByIsPreferredDesc(openid,
+				id.equals("")?-1:getFeedById(id).getTimeStamp());
+	}
+
+	@Override
+	public List<Feed> getFeedListByIsPreferredDesc(String openid, long timeStamp) throws NotExistException {
+		List<Feed> feeds = null;
+		if (timeStamp<0) {
+			feeds = feedDao.findTopByIsPreferredOrderByTimeStampDesc(true);
+		} else {
+			feeds = feedDao.findTopByIsPreferredAndTimeStampBeforeOrderByTimeStampDesc(true,timeStamp);
+		}
+		if (!feeds.isEmpty()) {
+			List<Feed> sameFeeds = feedDao.findFeedsByTimeStamp(feeds.get(feeds.size()-1).getTimeStamp());
+			addSame(feeds,sameFeeds);
+		}
+		return feeds;
+	}
+
+	@Override
 	public List<Feed> getFeedListByLikeNum(String openid,String id) throws NotExistException {
 		return getFeedListByLikeNumDesc(openid,
 				id.equals("")?-1:getFeedById(id).getLikeNum());
@@ -124,95 +145,52 @@ public class FeedDataServiceImpl implements FeedDataService {
 			feeds = feedDao.findTop10ByLikeNumBeforeOrderByLikeNumDesc(likeNum);
 		}
 		if (!feeds.isEmpty()) {
-			List<Feed> sameLikeNumFeeds = feedDao.findFeedsByLikeNum(feeds.get(feeds.size()-1).getLikeNum());
-			for(Feed slf:sameLikeNumFeeds) {
-				boolean flag = false; //标记ssc是否在courses中
-				for(Feed f:feeds){
-					if(slf.getId().equals(f.getId())){
-						flag = true;
-						break;
-					}
-				}
-				if(!flag){ //ssc不在courses里面，加入进去
-					feeds.add(slf);
-				}
-			}
+			List<Feed> sameFeeds = feedDao.findFeedsByLikeNum(feeds.get(feeds.size()-1).getLikeNum());
+			addSame(feeds,sameFeeds);
 		}
-
 		return feeds;
 	}
 
 	@Override
-	public List<Feed> getFeedListBeforeWeek(String openid,String id) throws NotExistException {
-		return getFeedListBeforeWeekDesc(openid,
+	public List<Feed> getFeedListByTimeStamp(String openid, String id) throws NotExistException {
+		return getFeedListByTimeStampDesc(openid,
 				id.equals("")?-1:getFeedById(id).getTimeStamp());
 	}
 
 	@Override
-	public List<Feed> getFeedListBeforeWeekDesc(String openid,long timeStamp) throws NotExistException {
+	public List<Feed> getFeedListByTimeStampDesc(String openid, long timeStamp) throws NotExistException {
 		List<Feed> feeds = null;
-		Calendar c = Calendar.getInstance();
-		c.setTime(new Date());
-		c.add(Calendar.DATE, - 7);
-		Date d = c.getTime();
-		if (timeStamp < 0) {
-			feeds = feedDao.findTop10ByTimeStampAfterOrderByTimeStampDesc(d.getTime());
+		if (timeStamp<0) {
+			feeds = feedDao.findTop10ByOrderByTimeStampDesc();
 		} else {
-			feeds = feedDao.findTop10ByTimeStampBetweenOrderByTimeStampDesc(timeStamp,d.getTime());
+			feeds = feedDao.findTop10ByTimeStampBeforeOrderByTimeStampDesc(timeStamp);
 		}
 		if (!feeds.isEmpty()) {
-			List<Feed> sameLikeNumFeeds = feedDao.findFeedsByTimeStamp(feeds.get(feeds.size() - 1).getTimeStamp());
-			for (Feed slf : sameLikeNumFeeds) {
-				boolean flag = false; //标记ssc是否在courses中
-				for (Feed f : feeds) {
-					if (slf.getId().equals(f.getId())) {
-						flag = true;
-						break;
-					}
-				}
-				if (!flag) { //ssc不在courses里面，加入进去
-					feeds.add(slf);
-				}
-			}
+			List<Feed> sameFeeds = feedDao.findFeedsByTimeStamp(feeds.get(feeds.size()-1).getTimeStamp());
+			addSame(feeds,sameFeeds);
 		}
-
 		return feeds;
 	}
 
-	@Override
-	public List<Feed> getFeedListBeforeMonth(String openid,String id) throws NotExistException {
-		return getFeedListBeforeMonthDesc(openid,
-				id.equals("")?-1:getFeedById(id).getTimeStamp());
-	}
-
-	@Override
-	public List<Feed> getFeedListBeforeMonthDesc(String openid,long timeStamp) throws NotExistException {
-		List<Feed> feeds = null;
-		Calendar c = Calendar.getInstance();
-		c.setTime(new Date());
-		c.add(Calendar.MONTH, -1);
-		Date m = c.getTime();
-		if (timeStamp < 0) {
-			feeds = feedDao.findTop10ByTimeStampAfterOrderByTimeStampDesc(m.getTime());
-		} else {
-			feeds = feedDao.findTop10ByTimeStampBetweenOrderByTimeStampDesc(timeStamp,m.getTime());
-		}
-		if (!feeds.isEmpty()) {
-			List<Feed> sameLikeNumFeeds = feedDao.findFeedsByTimeStamp(feeds.get(feeds.size() - 1).getTimeStamp());
-			for (Feed slf : sameLikeNumFeeds) {
-				boolean flag = false; //标记ssc是否在courses中
-				for (Feed f : feeds) {
-					if (slf.getId().equals(f.getId())) {
-						flag = true;
-						break;
-					}
-				}
-				if (!flag) { //ssc不在courses里面，加入进去
-					feeds.add(slf);
+	/**
+	 * 把与10条数据中最后一条数据时间戳或者热度相同的数据添加到这10条数据中去
+	 * @param feeds 10条数据
+	 * @param sameFeeds 与最后一条数据时间戳或者热度相同的数据
+	 */
+	private void addSame(List<Feed> feeds,List<Feed> sameFeeds){
+		for(Feed sameFeed : sameFeeds) {
+			boolean flag = false;
+			for(Feed feed : feeds){
+				if(sameFeed.getId().equals(feed.getId())){
+					flag = true;
+					break;
 				}
 			}
+			if(!flag){
+				feeds.add(sameFeed);
+			}
 		}
-
-		return feeds;
 	}
+
+
 }

@@ -510,6 +510,27 @@ public class UserBlServiceImpl implements UserBlService {
 		}
 	}
 
+	@Override
+	public String getMyReceivedCardNum(String openid) {
+		List<SendCard> sendCards = userDataService.getSendsByOpenid(openid);
+		return String.valueOf(sendCards.size());
+	}
+
+	@Override
+	public String getMyMutualCardNum(String openid) {
+		List<SendCard> receive = userDataService.getSendsByOpenid(openid);
+		List<SendCard> send = userDataService.getReceivesByOpenid(openid);
+		int count = 0;
+		for(int i=0;i<receive.size();i++){
+			for (int j=0;j<send.size();j++){
+				if(receive.get(i)==send.get(j)){
+					count++;
+				}
+			}
+		}
+		return String.valueOf(count);
+	}
+
 	/**
 	 * 定时任务：每天0点自动重置所有用户查看别人名片的次数
 	 */

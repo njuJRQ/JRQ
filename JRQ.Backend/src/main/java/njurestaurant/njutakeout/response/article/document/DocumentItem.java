@@ -6,8 +6,10 @@ public class DocumentItem {
 	private String id;//编号
 	private String title;//标题
 	private String content; //内容
+	private String image;//图片路径
 	private String attachment; //附件路径
 	private String writerName;//作者名字
+	private int price;//价格
 	private String date;//日期
 	private long likeNum;//点赞数
 	private boolean hasLiked; //用户是否已经点赞
@@ -18,8 +20,10 @@ public class DocumentItem {
 		this.id = document.getId();
 		this.title = document.getTitle();
 		this.content = document.getContent();
+		this.image = document.getImage();
 		this.attachment = document.getAttachment();
 		this.writerName = document.getWriterName();
+		this.price = document.getPrice();
 		this.date = document.getDate();
 		this.likeNum = document.getLikeNum();
 		this.preview = document.getPreview();
@@ -30,8 +34,10 @@ public class DocumentItem {
 		this.id = document.getId();
 		this.title = document.getTitle();
 		this.content = document.getContent();
+		this.image = document.getImage();
 		this.attachment = document.getAttachment();
 		this.writerName = document.getWriterName();
+		this.price = document.getPrice();
 		this.date = document.getDate();
 		this.likeNum = document.getLikeNum();
 		this.hasLiked = hasLiked;
@@ -62,12 +68,36 @@ public class DocumentItem {
 		this.content = content;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(String attachment) {
+		this.attachment = attachment;
+	}
+
 	public String getWriterName() {
 		return writerName;
 	}
 
 	public void setWriterName(String writerName) {
 		this.writerName = writerName;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 	public String getDate() {
@@ -92,14 +122,6 @@ public class DocumentItem {
 
 	public void setHasLiked(boolean hasLiked) {
 		this.hasLiked = hasLiked;
-	}
-
-	public String getAttachment() {
-		return attachment;
-	}
-
-	public void setAttachment(String attachment) {
-		this.attachment = attachment;
 	}
 
 	public String getPreview() {

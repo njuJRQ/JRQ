@@ -39,6 +39,15 @@ public class UserItem {
 		this.credit = user.getCredit();
 		this.label = user.getLabel();
 		this.cardLimit = user.getCardLimit();
+		switch(user.getLevelName()){
+			case "VIP":
+				this.levelName = "record/user/head/VIP-icon.png";
+				break;
+			case "普通会员":
+				this.levelName = "record/user/head/普通会员-icon.png";
+				break;
+			default: ;
+		}
 		this.levelName = user.getLevelName();
 		this.isEnterprise = enterpriseDataService.isUserEnterprise(user.getOpenid());
 		this.valid = user.isValid();

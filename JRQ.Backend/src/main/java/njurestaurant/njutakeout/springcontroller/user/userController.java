@@ -441,10 +441,6 @@ public class userController {
     }
 
 
-
-
-
-
     @ApiOperation(value = "小程序前端获取openid和session", notes = "小程序前端获取openid和session")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "jsCode", value = "微信小程序的jsCode", required = true, dataType = "String")

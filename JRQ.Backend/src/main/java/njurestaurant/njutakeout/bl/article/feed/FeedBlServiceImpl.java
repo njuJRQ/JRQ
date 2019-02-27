@@ -45,7 +45,7 @@ public class FeedBlServiceImpl implements FeedBlService {
 
 	@Override
 	public InfoResponse publishMyFeed(String title, String content, List<String> images, String writerOpenid) {
-		feedDataService.addFeed(new Feed(title, content, images, writerOpenid, System.currentTimeMillis(), 0, false));
+		feedDataService.addFeed(new Feed(title, content, images, writerOpenid, System.currentTimeMillis(), 0, 0,false));
 		return new InfoResponse();
 	}
 

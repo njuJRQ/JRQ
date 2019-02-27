@@ -17,6 +17,7 @@ public class FeedViewItem {
 	private String writerFace; //作者头像
 	private String date; //文章发布日期，如"2018-1-1"
 	private long likeNum; //文章点赞数
+	private long viewNum; //文章浏览量
 	private boolean hasLiked; //该用户是否点赞了
 
 	public FeedViewItem(Feed feed, UserDataService userDataService, boolean hasLiked) throws NotExistException {
@@ -30,6 +31,7 @@ public class FeedViewItem {
 		this.writerFace = user.getFace();
 		this.date = feed.getDate();
 		this.likeNum = feed.getLikeNum();
+		this.viewNum = feed.getViewNum();
 		this.hasLiked = hasLiked;
 	}
 
@@ -95,6 +97,14 @@ public class FeedViewItem {
 
 	public void setLikeNum(long likeNum) {
 		this.likeNum = likeNum;
+	}
+
+	public long getViewNum() {
+		return viewNum;
+	}
+
+	public void setViewNum(long viewNum) {
+		this.viewNum = viewNum;
 	}
 
 	public String getWriterOpenid() {

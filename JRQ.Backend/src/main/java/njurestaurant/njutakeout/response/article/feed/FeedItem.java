@@ -12,6 +12,7 @@ public class FeedItem {
 	private String writerOpenid; //作者微信openid
 	private String date; //文章发布日期，如"2018-1-1"
 	private long likeNum; //文章点赞数
+	private long viewNum; //文章浏览量
 
 	public FeedItem(Feed feed) {
 		this.id = feed.getId();
@@ -21,6 +22,7 @@ public class FeedItem {
 		this.writerOpenid = feed.getWriterOpenid();
 		this.date = feed.getDate();
 		this.likeNum = feed.getLikeNum();
+		this.viewNum = feed.getViewNum();
 	}
 
 	public String getId() {
@@ -77,5 +79,13 @@ public class FeedItem {
 
 	public void setLikeNum(long likeNum) {
 		this.likeNum = likeNum;
+	}
+
+	public long getViewNum() {
+		return viewNum;
+	}
+
+	public void setViewNum(long viewNum) {
+		this.viewNum = viewNum;
 	}
 }

@@ -23,6 +23,7 @@ Page({
 
 
   bindGetUserInfo: function(e) {
+    this.judgeApp()
     console.log(e)
     wx.setStorageSync("wechatUsername", e.detail.userInfo.nickName);
     wx.setStorageSync("wechatFaceUrl", e.detail.userInfo.avatarUrl);
@@ -57,26 +58,33 @@ Page({
           //PC
         } else if (res.platform == "ios") {
           //IOS
+          
+         
+
+        } else if (res.platform == "android") {
           wx.showModal({
             title: '该小程序暂不支持IOS用户访问！',
             content: '敬请期待！',
             success: (res) => {
               if (res.confirm) {
+                wx.navigateTo({
+                  url: '/pages/judge/judge',
+                })
 
-                wx.navigateBack({
-                  delta: -1
-                })
+                // wx.navigateBack({
+                //   delta: -1
+                // })
               } else {
-                wx.navigateBack({
-                  delta: -1
+                wx.navigateTo({
+                  url: '/pages/judge/judge',
                 })
+                // wx.navigateBack({
+                //   delta: -1
+                // })
 
               }
             }
           })
-         
-
-        } else if (res.platform == "android") {
 
         }
       }

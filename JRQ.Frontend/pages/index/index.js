@@ -16,7 +16,7 @@ Page({
     documentId: '',
     doucumentIdType: '',
     height: 290,
-    height_video: 250,
+    height_video: 300,
     video: [],
     videoId: '',
     videoIdType: '',
@@ -42,52 +42,7 @@ Page({
     }
     ],
 
-    // cards:[{
-    //   face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-
-    // },{}]
-    /*
-    articles: [{
-      id: 1,
-      text: '《有效识别金融项目》课程。',
-      images: [
-        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png'
-      ],
-      writerFace: '../../default/default-icon.png',
-      writerName: '锄禾日当午',
-      date: '2020-01-01',
-      likeNum: 8888,
-      kind: 'course'
-    }, {
-      id: 2,
-      text: '与钧融资本成功签订2个亿的基金合约，环保领域。',
-      images: [
-        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png'
-      ],
-      writerFace: '../../default/default-icon.png',
-      writerName: '汗滴禾下土',
-      date: '2020-01-01',
-      likeNum: 9999,
-      kind: 'document'
-    }, {
-      id: 3,
-      text: '《有效识别金融项目》课程。',
-      images: [
-        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-        'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png'
-      ],
-      writerFace: '../../default/default-icon.png',
-      writerName: '锄禾日当午',
-      date: '2020-01-01',
-      likeNum: 8888,
-      kind: 'project'
-    }],
-    */
+    
     articles: [],
     // ad: {
     //   image: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
@@ -159,7 +114,7 @@ Page({
       })
     } else {
       that.setData({
-        height_video: 250,
+        height_video: 400,
         moreType: true
       })
     }
@@ -209,9 +164,9 @@ Page({
       articles: [],
       lastId: "",
       lastIdType: "",
-      isShowView: false,
+      isShow: false,
       moreType: true,
-      height: ''
+      height_video: ''
     })
     api.getAbstractList.call(this, 'document', app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },

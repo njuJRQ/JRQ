@@ -15,23 +15,19 @@
     <!--Banner-->
     <view class='navBar'>
       <view class=' navBar__btn {{currentKind=="all"?"navBar__btn-state--chosen":""}}' bindtap='showAll'>
-        <image class='navBar__icon' src='https://junrongcenter.oss-cn-beijing.aliyuncs.com/img/remen-icon.png'></image>
+        <image class='navBar__icon' mode='widthFix' src='https://junrongcenter.oss-cn-beijing.aliyuncs.com/img/remen-icon.png'></image>
       </view>
       <view class='navBar__btn {{currentKind=="course"?"navBar__btn-state--chosen":"" }} ' bindtap='showDocuments'>
         <!-- class="{{showView?'header_view_show':'header_view_hide'}}"  -->
         <!-- {{showView?"header_view_show":"header_view_hide"}} -->
-        <image class='navBar__icon' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/wendang-icon.png'></image>
+        <image class='navBar__icon' mode='widthFix' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/wendang-icon.png'></image>
       </view>
       <view class='navBar__btn {{currentKind=="document"?"navBar__btn-state--chosen":""}} ' bindtap='showVideos'>
-        <image class='navBar__icon' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/vedio-icon.png'></image>
+        <image class='navBar__icon' mode='widthFix' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/vedio-icon.png'></image>
       </view>
-      <!-- 卡片展示项目 -->
-      <!-- <view class='navBar__btn {{currentKind=="project"?"navBar__btn-state--chosen":""}}' bindtap='toProjects'>
-        <image class='navBar__icon' src='img/project.png'></image>
-      </view> -->
     </view>
   </view>
-  <view wx-if="{{isShow}}">
+  <view style='width:100%;' wx-if="{{isShow}}">
     <view class='document_more'>
     <text class='document'>热门文档</text>
       <text class='more' bindtap='moreAction'>更多>></text>
@@ -60,7 +56,7 @@
   </view>
   <!-- </view> -->
 
-  <view wx-if="{{isShowView}}">
+  <view style='width:100%;margin-top:5%;' wx-if="{{isShowView}}">
     <view class='video_more'>
       <text class='video'>热门教学视频</text>
       <text class='more' bindtap='moresAction'>更多>></text>
@@ -76,7 +72,10 @@
           <view class='article__content'>
             <image class='article__banner' mode='widthFix' src='{{item.images.length > 0 ? item.images[0]: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png"}}'></image>
           </view>
+          <view class='title_range'>
           <text class='article__titleName'>{{item.title}}</text>
+          </view>
+          
         </view>
       </view>
     </view>

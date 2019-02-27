@@ -22,7 +22,7 @@
     "template/publishBar/publishBar",
     "pages/contact/contact",
     "pages/service/service",
-    "pages/judge"
+    "pages/judge/judge"
   ],
   "window": {
     "backgroundTextStyle": "light",

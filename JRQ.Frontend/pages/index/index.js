@@ -12,37 +12,31 @@ Page({
     moreType: true,
     isShowView: true,
     isShow: true,
-    doucument: [],
-    documentId: '',
-    doucumentIdType: '',
+   
     height: 290,
-    height_video: 300,
-    video: [],
-    videoId: '',
-    videoIdType: '',
-
+    height_video: 400,
     image: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
     // showView:true,
     showView: true,
     cards: [{
-      thumbnail: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-      articleName: '什么是金融？',
-      summary: '一般指与货币流通及银行有关的东西'
-    },
-    {
-      thumbnail: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-      articleName: '什么是金融？',
-      summary: '一般指与货币流通及银行有关的东西'
+        thumbnail: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+        articleName: '什么是金融？',
+        summary: '一般指与货币流通及银行有关的东西'
+      },
+      {
+        thumbnail: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+        articleName: '什么是金融？',
+        summary: '一般指与货币流通及银行有关的东西'
 
-    },
-    {
-      thumbnail: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-      articleName: '什么是金融？',
-      summary: '一般指与货币流通及银行有关的东西'
-    }
+      },
+      {
+        thumbnail: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+        articleName: '什么是金融？',
+        summary: '一般指与货币流通及银行有关的东西'
+      }
     ],
 
-    
+
     articles: [],
     // ad: {
     //   image: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
@@ -57,14 +51,16 @@ Page({
   },
 
   //事件处理函数
-  onLoad: function () {
+  onLoad: function() {
 
     this.setData({
       currentKind: 'course',
       searchCondition: null,
       articles: [],
     })
-    this.showAll()
+    // this.showAll()
+    this.showAll1()
+
     api.getAd.call(this, 'index', (res) => {
       this.setData({
         ad: res.ad
@@ -73,23 +69,23 @@ Page({
   },
 
   //onShow函数
-  onShow: function () {
+  onShow: function() {
     this.setData({
       searchCondition: null
     })
   },
 
   //点击广告跳转
-  onAd: function () {
+  onAd: function() {
     wx.navigateTo({
       url: '../ad/ad?url=' + this.data.ad.link
     })
   },
 
-  moreAction: function () {
+  moreAction: function() {
     var that = this;
 
-    let type = this.data.moreType;
+    var type = this.data.moreType;
     if (type) {
       that.setData({
         height: '',
@@ -103,10 +99,10 @@ Page({
     }
 
   },
-  moresAction: function () {
+  moresAction: function() {
     var that = this;
 
-    let type = this.data.moreType;
+    var type = this.data.moreType;
     if (type) {
       that.setData({
         height_video: '',
@@ -119,8 +115,32 @@ Page({
       })
     }
   },
+  showAll1: function () {
+    console.log('showAll1 success!')
+    // this.judgeView()
+    this.setData({
+      currentKind: 'course',
+      searchCondition: null,
+      articles: [],
+      lastId: "",
+      lastIdType: "",
+      isShowView: true,
+      height: 290
+    })
+    // api.getAbstractList.call(this, 'all', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+    api.getAbstractListByLikeNum.call(this, 'course', app.getOpenid())
 
-  showAll: function () {
+    // api.getAd.call(this, 'jump', (res) => {
+    //   // /*console.log(res)*/
+    //   this.setData({
+    //     jumpAd: res.ad.image
+    //   })
+    // })
+  },
+
+  showAll: function() {
+    console.log('showAll success!')
+    // this.judgeView()
     this.setData({
       currentKind: 'all',
       searchCondition: null,
@@ -131,19 +151,14 @@ Page({
       height: 290
     })
     api.getAbstractList.call(this, 'all', app.getOpenid(), this.data.lastId, this.data.lastIdType)
-    api.getAd.call(this, 'jump', (res) => {
-      /*console.log(res)*/
-      this.setData({
-        jumpAd: res.ad.image
-      })
-    })
+    
   },
 
   //展示文档
-  showDocuments: function () {
-
+  showDocuments: function() {
+    // this.judgeView()
     this.setData({
-      currentKind: 'course',
+      currentKind: 'document',
       searchCondition: null,
       articles: [],
       lastId: "",
@@ -152,14 +167,16 @@ Page({
       moreType: true,
       height: ''
     })
-    api.getAbstractList.call(this, 'course', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+    api.getAbstractList.call(this, 'document', app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
 
   //展示视频
-  showVideos: function () {
+  showVideos: function() {
+    
     var that = this;
+    // that.judgeView()
     that.setData({
-      currentKind: 'document',
+      currentKind: 'course',
       searchCondition: null,
       articles: [],
       lastId: "",
@@ -168,11 +185,43 @@ Page({
       moreType: true,
       height_video: ''
     })
-    api.getAbstractList.call(this, 'document', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+    api.getAbstractList.call(this, 'course', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+  },
+
+  judgeView: function() {
+    var that = this;
+    var kind = this.data.currentKind;
+    switch (kind) {
+      case 'all':
+        that.setData({
+          isShow: true,
+          isShowView: true,
+          height: 290,
+          height_video: 400
+        })
+        break;
+      case 'document':
+        that.setData({
+          isShow: true,
+          isShowView: false,
+          height: 290,
+          height_video: ''
+        })
+        break;
+      case 'course':
+        that.setData({
+          isShow: false,
+          isShowView: true,
+          height: '',
+          height_video: 400
+        })
+      default:
+
+    }
   },
 
   //展示项目
-  showProjects: function () {
+  showProjects: function() {
     this.setData({
       currentKind: 'project',
       searchCondition: null,
@@ -183,13 +232,14 @@ Page({
     api.getAbstractList.call(this, 'project', app.getOpenid(), this.data.lastId, this.data.lastIdType)
 
   },
-  toProjects: function () {
+  toProjects: function() {
     wx.navigateTo({
       url: '/pages/project/project',
     })
   },
+
   //展示文章详情
-  onTouchThisArticle: function (e) {
+  onTouchThisArticle: function(e) {
     var id = e.currentTarget.dataset.id //获取当前文章id
     var kind = e.currentTarget.dataset.kind
     var url = '../articleDetail/'
@@ -211,7 +261,7 @@ Page({
   },
 
   //点赞数加一
-  likePlus: function (e) {
+  likePlus: function(e) {
     var id = e.currentTarget.dataset.id //获取当前文章id
     var kind = e.currentTarget.dataset.kind //获取当前文章kind
     var article = this.data.articles.filter((article) => article.id === id)[0]
@@ -219,12 +269,12 @@ Page({
   },
 
   //更新搜索条件
-  updateSearchCondition: function (e) {
+  updateSearchCondition: function(e) {
     this.data.searchCondition = e.detail.value;
   },
 
   //搜索触发函数
-  onSearch: function () {
+  onSearch: function() {
     if (!this.data.searchCondition) {
       this.showAll();
       return;
@@ -233,20 +283,20 @@ Page({
     api.getAbstractListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
   },
 
-  onReachBottom: function () {
+  onReachBottom: function() {
     api.getAbstractList.call(this, this.data.currentKind, app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
-  showMask: function () {
+  showMask: function() {
     this.setData({
       flag: false
     })
   },
-  closeMask: function () {
+  closeMask: function() {
     this.setData({
       flag: true
     })
   },
-  touchMask: function () {
+  touchMask: function() {
     wx.navigateTo({
       url: '/pages/me/updateMe/updateMe',
     })
@@ -254,7 +304,7 @@ Page({
 
 
   //展示资金类
-  showCapitalClass: function (event) {
+  showCapitalClass: function(event) {
     this.setData({
       currentKind: 'capital',
       currentKindName: this.data.capitalClassDesc,
@@ -264,7 +314,7 @@ Page({
   },
 
   //点击当前文章触发函数
-  onClickThisCard: function (e) {
+  onClickThisCard: function(e) {
     var id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: '../me/myHistory/myHistory?id=' + id,
@@ -272,54 +322,16 @@ Page({
   },
 
   //更新搜索条件
-  updateSearchCondition: function (e) {
+  updateSearchCondition: function(e) {
     this.data.searchCondition = e.detail.value;
   },
 
   //搜索触发函数
-  onSearch: function () {
+  onSearch: function() {
     console.log('search service people: ' + this.data.searchCondition)
     api.getPersonListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
   },
 
-  // 新的修改
-  // 展示文档
-  showDocument: function () {
-    this.setData({
-      document: [],
-      documentId: "",
-      documentIdType: ""
-    })
-    api.getDocumentList.call(this, app.getOpenid(), this.data.documentId, this.data.documentIdType)
 
-  },
-  toDocument: function () {
-    wx.navigateTo({
-      url: '/pages/project/project',
-    })
-
-  },
-
-  // 展示视频
-  showVideo: function () {
-    this.setData({
-      video: [],
-      videoId: "",
-      videoIdType: ""
-    })
-    api.getVideoList.call(this, app.getOpenid(), this.data.videoId, this.data.videoIdType)
-
-  },
-  toVideo: function () {
-    wx.navigateTo({
-      url: '/pages/project/project',
-    })
-  },
-
-  onChangeShowState: function () {
-    this.setData({
-      showView: (!this.data.showView)
-    })
-  },
 
 })

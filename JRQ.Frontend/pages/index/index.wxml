@@ -14,15 +14,15 @@
 
     <!--Banner-->
     <view class='navBar'>
-      <view class=' navBar__btn {{currentKind=="all"?"navBar__btn-state--chosen":""}}' bindtap='showAll'>
+      <view class=' navBar__btn {{currentKind=="course"?"navBar__btn-state--chosen":""}}' bindtap='showAll1'>
         <image class='navBar__icon' mode='widthFix' src='https://junrongcenter.oss-cn-beijing.aliyuncs.com/img/remen-icon.png'></image>
       </view>
-      <view class='navBar__btn {{currentKind=="course"?"navBar__btn-state--chosen":"" }} ' bindtap='showDocuments'>
+      <view class='navBar__btn {{currentKind=="document"?"navBar__btn-state--chosen":"" }} ' bindtap='showDocuments'>
         <!-- class="{{showView?'header_view_show':'header_view_hide'}}"  -->
         <!-- {{showView?"header_view_show":"header_view_hide"}} -->
         <image class='navBar__icon' mode='widthFix' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/wendang-icon.png'></image>
       </view>
-      <view class='navBar__btn {{currentKind=="document"?"navBar__btn-state--chosen":""}} ' bindtap='showVideos'>
+      <view class='navBar__btn {{currentKind=="course1"?"navBar__btn-state--chosen":""}} ' bindtap='showVideos'>
         <image class='navBar__icon' mode='widthFix' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/vedio-icon.png'></image>
       </view>
     </view>

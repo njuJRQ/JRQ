@@ -4,36 +4,41 @@
   <view class='headWrapper' style='background-color:black; background-size: cover;background-repeat: no-repeat; background-position: bottom'>
     <!--搜索框-->
     <view class='search_ico'>
-    <template is='searchBar' data='{{placeholder: "搜索你感兴趣的人", searchCondition: searchCondition}}'></template>
+      <template is='searchBar' data='{{placeholder: "搜索你感兴趣的人", searchCondition: searchCondition}}'></template>
     </view>
-    </view>
-    
   </view>
 
-  <!--业务人员列表-->
-  <view wx:if='{{searchCondition}}'>
-    <text class='jrq__words'>以下是“{{searchCondition}}”的搜索结果：</text>
-  </view>
-  <view class='content'>
-    <view wx:for='{{cards}}' wx:key='openid'>
-      <view class=' jrq__block' bindtap='onClickThisCard' data-id='{{item.openid}}'>
-        <view class='card__main'>
-          <image class='card__face' src='{{item.face}}'></image>
-          <view class='card__info'>
-            <view class='card__title1'>
-              <text class='card__username'>{{item.username}}</text>
-              <image class='vipImage' src='{{vipImage}}'></image>
-            </view>
-            <view class='card__title2' style='font-size: 0.5rem;'>
-              
-              <text class='card__position'>{{item.position ? item.position : "未知职务"}}</text>
-              <text class='card__company'>{{item.company ? item.company : "未知公司"}}</text>
-            </view>
+</view>
+
+<!--业务人员列表-->
+<view wx:if='{{searchCondition}}'>
+  <text class='jrq__words'>以下是“{{searchCondition}}”的搜索结果：</text>
+</view>
+<view class='content'>
+  <view wx:for='{{cards}}' wx:key='openid'>
+    <view class=' jrq__block' bindtap='onClickThisCard' data-id='{{item.openid}}'>
+      <view class='card__main'>
+        <image class='card__face' src='{{item.face}}'></image>
+        <view class='card__info'>
+          <view class='card__title1'>
+            <text class='card__username'>{{item.username}}</text>
+            <image class='vipImage' src='{{vipImage}}'></image>
+          </view>
+          <view class='card__title2' style='font-size: 0.5rem;'>
+
+            <text class='card__position'>{{item.position ? item.position : "未知职务"}}</text>
+            <text class='card__company'>{{item.company ? item.company : "未知公司"}}</text>
+            <!-- <view class='company_contact'>
+            <text class='card__company'>{{item.company ? item.company : "未知公司"}}</text>
+            <image src=''></image>
+            </view> -->
             
           </view>
+
         </view>
-       
-        <!-- <view class='label-buttons'>
+      </view>
+
+      <!-- <view class='label-buttons'>
         <view class='label' wx:for='{{label}}' wx:key='*this'>
         <text class='label_text'>{{item}}</text>
         </view>

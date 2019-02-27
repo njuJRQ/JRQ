@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    condition: false,
     systemInfo: {},
 
   },
@@ -49,6 +50,12 @@ Page({
   //判断
   judgeApp: function() {
     var that = this;
+    // var condition = api.getIOSQualification.call()
+    // that.setData({
+    //   condition: api.getIOSQualification.call()
+    // })
+    
+    console.log(condition)
     wx.getSystemInfo({
       success: function(res) {
         that.setData({
@@ -58,10 +65,9 @@ Page({
           //PC
         } else if (res.platform == "ios") {
           //IOS
-          
          
 
-        } else if (res.platform == "android") {
+        } else if (res.platform == "android" && condition == false ) {
           wx.showModal({
             title: '该小程序暂不支持IOS用户访问！',
             content: '敬请期待！',
@@ -70,18 +76,10 @@ Page({
                 wx.navigateTo({
                   url: '/pages/judge/judge',
                 })
-
-                // wx.navigateBack({
-                //   delta: -1
-                // })
               } else {
                 wx.navigateTo({
                   url: '/pages/judge/judge',
                 })
-                // wx.navigateBack({
-                //   delta: -1
-                // })
-
               }
             }
           })

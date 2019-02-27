@@ -87,8 +87,6 @@
   color: #2e2c2c; 
   padding: 10px 0 5px 5px;
   background-color: white;
-  
-  
 }
 .on{
   color: #f1c65e; 

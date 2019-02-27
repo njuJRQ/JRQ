@@ -42,7 +42,7 @@
           </view>
           <view class='card_document'>
             <text class='article__titleName'>{{item.title}}</text>
-            <text class='document_summary'>与钧融资本成功签订2个亿的基</text>
+            <text class='document_summary'>{{item.content?item.content:'钧融中心'}}</text>
 
             <view class='doucument_bottom1'>
               <text class='fees'>课费：100元</text>
@@ -56,7 +56,7 @@
   </view>
   <!-- </view> -->
 
-  <view style='width:100%;margin-top:5%;' wx-if="{{isShowView}}">
+  <view style='width:100%;' wx-if="{{isShowView}}">
     <view class='video_more'>
       <text class='video'>热门教学视频</text>
       <text class='more' bindtap='moresAction'>更多>></text>
@@ -67,7 +67,7 @@
     </view>
     <!-- 文章展示 -->
     <view class='articleListWrapper ' style='height:{{height_video}}px;'>
-      <view class='articleWrapper' wx:for='{{articles}}' wx:key='id'>
+      <view class='articleWrapper' wx:for='{{videos}}' wx:key='id'>
         <view class='article jrq__block' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
           <view class='article__content'>
             <image class='article__banner' mode='widthFix' src='{{item.images.length > 0 ? item.images[0]: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png"}}'></image>

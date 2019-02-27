@@ -436,7 +436,7 @@
   width: 100%;
   overflow: hidden;
   /* margin-top: 1%; */
-  /* margin-bottom: 70%; */
+  margin-bottom: 5%;
 }
 
 .hot_document {

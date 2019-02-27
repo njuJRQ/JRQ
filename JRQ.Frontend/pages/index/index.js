@@ -38,10 +38,12 @@ Page({
 
 
     articles: [],
+    videos:[],
     // ad: {
     //   image: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
     //   link: 'https://www.baidu.com'
     // },
+    kind: null,
     currentKind: null,
     searchCondition: null,
     lastId: "",
@@ -54,13 +56,21 @@ Page({
   onLoad: function() {
 
     this.setData({
+      kind: 'document',
       currentKind: 'course',
       searchCondition: null,
+      lastId: "",
+      lastIdType: "",
+      videoId: "",
+      videoIdType: "",
       articles: [],
+      videos:[]
     })
     // this.showAll()
+    this.showVideos()
     this.showAll1()
-
+    
+    
     api.getAd.call(this, 'index', (res) => {
       this.setData({
         ad: res.ad
@@ -119,17 +129,21 @@ Page({
     console.log('showAll1 success!')
     // this.judgeView()
     this.setData({
-      currentKind: 'course',
+      kind: 'document',
       searchCondition: null,
       articles: [],
-      lastId: "",
-      lastIdType: "",
+      videoId: "",
+      videoIdType: "",
+      isShow:true,
       isShowView: true,
-      height: 290
+      height: 290,
+      height_video:400
     })
     // api.getAbstractList.call(this, 'all', app.getOpenid(), this.data.lastId, this.data.lastIdType)
-    api.getAbstractListByLikeNum.call(this, 'course', app.getOpenid())
-
+    api.getAbstractListByLikeNum.call(this, 'document', app.getOpenid())
+    
+    
+    
     // api.getAd.call(this, 'jump', (res) => {
     //   // /*console.log(res)*/
     //   this.setData({
@@ -173,22 +187,39 @@ Page({
   },
 
   //展示视频
-  showVideos: function() {
+  // showVideos: function() {
     
+  //   var that = this;
+  //   // that.judgeView()
+  //   that.setData({
+  //     currentKind: 'course',
+  //     searchCondition: null,
+  //     articles: [],
+  //     lastId: "",
+  //     lastIdType: "",
+  //     isShowView:true,
+  //     isShow: false,
+  //     moreType: true,
+  //     height_video: ''
+  //   })
+  //   api.getAbstractList.call(this, 'course', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+  // },
+  showVideos: function () {
+
     var that = this;
     // that.judgeView()
     that.setData({
       currentKind: 'course',
       searchCondition: null,
-      articles: [],
+      videos: [],
       lastId: "",
       lastIdType: "",
-      isShowView:true,
+      isShowView: true,
       isShow: false,
       moreType: true,
       height_video: ''
     })
-    api.getAbstractList.call(this, 'course', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+    api.getAbstractListVideo.call(this, 'course', app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
 
   judgeView: function() {

@@ -57,7 +57,7 @@
         "selectedIconPath": "img/renmai-icon.png"
       },
       {
-        "pagePath": "pages/me/me",
+        "pagePath": "pages/me/userInfo",
         "iconPath": "img/ungeren-icon.png",
         "selectedIconPath": "img/geren-icon.png"
       }

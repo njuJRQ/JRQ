@@ -385,3 +385,70 @@
 .publish_image {
   width: 25px;
 }
+
+/*底部弹出层*/
+
+.commodity_screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.2;
+  overflow: hidden;
+  z-index: 1000;
+  color: #fff;
+}
+
+.commodity_attr_box {
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 2000;
+  background: #fff;
+  padding-top: 20rpx;
+}
+
+.modal {
+  padding: 20px 0;
+  text-align: center;
+}
+
+.modal__button::after {
+  border: none;
+}
+
+.modal__button {
+  background-color: #fff;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  line-height: initial;
+  border-radius: 0;
+}
+
+.modal__left {
+  display: inline-block;
+  width: 50%;
+}
+
+.modal__right {
+  display: inline-block;
+  width: 50%;
+  border-left: 1px gray solid;
+}
+
+.modal__image {
+  display: block;
+  margin: 0 auto;
+  width: 40px;
+  height: 40px;
+}
+
+.modal__text {
+  font-size: 0.8rem;
+}
+

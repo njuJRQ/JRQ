@@ -16,8 +16,8 @@
     </view>
 
     <view class='right'>
-      <image class='vip_up' mode='widthFix' src='{{userInfo.writerface[1]}}'></image>
-      <image class='edit' src='{{userInfo.writerface[2]}}'></image>
+      <image class='vip_up' bindtap='updateMe' mode='widthFix' src='{{userInfo.writerface[1]}}'></image>
+      <image class='edit' bindtap='editCard' src='{{userInfo.writerface[2]}}'></image>
     </view>
   </view>
 
@@ -27,7 +27,7 @@
     </view>
   </view>
   <view class='share_card'>
-    <button class='card_button' bindtap='testLogin'>分享我的名片</button>
+    <button class='card_button' bindtap='showModal'>分享我的名片</button>
   </view>
   <view class='benefit'>
     <view class='home_address'>
@@ -126,6 +126,17 @@
 
       </view>
     </view> -->
+  </view>
+  <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+  <view animation="{{animationData}}" class="commodity_attr_box modal" wx:if="{{showModalStatus}}">
+    <button class='modal__button modal__left' open-type='share'>
+      <image class='modal__image' src='img/wechat.png'></image>
+      <text class='modal__text'>分享给好友</text>
+    </button>
+    <button class='modal__button modal__right' bindtap='drawPost'>
+      <image class='modal__image' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/%E4%B8%AA%E4%BA%BA/post.png'></image>
+      <text class='modal__text'>生成海报</text>
+    </button>
   </view>
 
 

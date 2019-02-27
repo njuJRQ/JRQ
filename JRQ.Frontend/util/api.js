@@ -1,5 +1,64 @@
 const app = getApp()
 var util = require('./util.js')
+function getAbstractListVideo(kind, openid, lastId, lastIdType) {
+  console.log('getAbstractListVideo success!')
+  var that = this
+  wx.showLoading({
+    title: '载入中',
+  })
+  wx.request({
+    url: app.globalData.backendUrl + "getAbstractListBefore",
+    data: {
+      kind: kind,
+      openid: openid,
+      articleId: lastId,
+      articleType: lastIdType
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      wx.hideLoading()
+      if (res.data.status == 500) {
+        // wx.showToast({
+        //   title: '',
+        //   icon: 'none'
+        // })
+        return
+      }
+      var videos = res.data.abstractList
+      if (videos.length <= 0) {
+        return
+      }
+      videos.forEach((article) => {
+        article.images = article.images.map((image) => app.globalData.picUrl + image)
+        article.writerFace = app.globalData.picUrl + article.writerFace
+
+        switch (article.kind) {
+          case 'course':
+            article.kindName = "钧融优选";
+            break;
+          case 'document':
+            article.kindName = "热度";
+            break;
+          case 'project':
+            article.kindName = "时间";
+            break;
+          default:
+            break;
+        }
+      })
+      that.data.videos = that.data.videos.concat(videos)
+      that.data.lastId = videos[videos.length - 1].id
+
+      that.data.lastIdType = videos[videos.length - 1].kind
+      console.log(that.data.lastIdType)
+      that.setData(that.data)
+    }
+  })
+}
 
 function getAbstractList(kind, openid, lastId, lastIdType) {
   console.log('getAbstractList success!')
@@ -23,10 +82,10 @@ function getAbstractList(kind, openid, lastId, lastIdType) {
     success: (res) => {
       wx.hideLoading()
       if (res.data.status == 500) {
-        wx.showToast({
-          title: '获取文章列表失败',
-          icon: 'none'
-        })
+        // wx.showToast({
+        //   title: '获取文章列表失败',
+        //   icon: 'none'
+        // })
         return
       }
       var articles = res.data.abstractList
@@ -170,9 +229,9 @@ function getFeedList(kind, openid, lastId, id) {
     title: '载入中',
   })
   wx.request({
-    
+
     url: app.globalData.backendUrl + "getProjectListBeforeByKind",
-    
+
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
       'content-type': 'application/x-www-form-urlencoded'
@@ -1292,12 +1351,12 @@ function getNewsListBefore(newsId, then) {
 
 function getIOSQualification(then) {
   console.log('getIOSQualification success!')
+
   var that = this
-  wx.showLoading({
-    title: '获取bool',
-  })
+ 
   wx.request({
-    url: 'app.globalData.backendUrl + "getIOSQualification"',
+    url: app.globalData.backendUrl + "getIOSQualification",
+
 
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
@@ -1306,11 +1365,14 @@ function getIOSQualification(then) {
     method: 'GET',
     success: (res) => {
       if (res.statusCode == 200) {
-        // if (then) then(res.data.status)
-        that.setData({
-           condition:that.data.status
-        })
-        return condition
+        if (then) then(res.data)
+        // console.log(res.data)
+        return res.data
+
+        // that.setData({
+        //    condition:that.data.status
+        // })
+        // return condition
       }
     }
   })
@@ -1357,5 +1419,6 @@ module.exports = {
   getClassificationDescriptionList: getClassificationDescriptionList,
   getNewsListBefore: getNewsListBefore,
   getIOSQualification: getIOSQualification,
-  getAbstractListByLikeNum: getAbstractListByLikeNum
+  getAbstractListByLikeNum: getAbstractListByLikeNum,
+  getAbstractListVideo: getAbstractListVideo
 }

@@ -1,5 +1,7 @@
 // pages/login/login.js
+//获取应用实例
 const app = getApp()
+var api = require('../../util/api.js')
 
 Page({
   /**
@@ -8,6 +10,7 @@ Page({
   data: {
     
     systemInfo: {},
+    status:true
 
   },
 
@@ -24,8 +27,7 @@ Page({
 
 
   bindGetUserInfo: function(e) {
-    this.judgeApp()
-    console.log(e)
+   
     wx.setStorageSync("wechatUsername", e.detail.userInfo.nickName);
     wx.setStorageSync("wechatFaceUrl", e.detail.userInfo.avatarUrl);
     wx.request({
@@ -50,31 +52,53 @@ Page({
   //判断
   judgeApp: function() {
     var that = this;
-    console.log(condition)
-    wx.getSystemInfo({
-      success: function(res) {
-        that.setData({
-          systemInfo: res,
-        })
-        if (res.platform == "devtools") {
-          //PC
-          wx.navigateTo({
-            url: '/pages/judge/judge',
+    var condition = true
+    api.getIOSQualification.call(this, (res) => {
+      console.log(res)
+       that.condition=res
+
+      wx.getSystemInfo({
+        
+        success: function (res) {
+          console.log(that.condition)
+          that.setData({
+            systemInfo: res,
           })
-        } else if (res.platform == "ios") {
-          wx.navigateTo({
-            url: '/pages/judge/judge',
-          })
+          // if (res.platform == "devtools") {
+          //   //PC
+          //   wx.navigateTo({
+          //     url: '/pages/judge/judge',
+          //   })
+          // } else 
+          if (res.platform == "ios" && that.condition == false) {
+            wx.navigateTo({
+              url: '/pages/judge/judge',
+            })
+          }
             //IOS
 
-        } else if (res.platform == "android") {
-          
-          wx.navigateTo({
-            url: '/pages/judge/judge',
-          })
+          // } else if (res.platform == "android") {
 
+          //   wx.navigateTo({
+          //     url: '/pages/judge/judge',
+          //   })
+
+          // }
         }
-      }
+      })
     })
+
+    // that.setData({
+    //   condition: api.getIOSQualification.call(this)
+    // })
+    
+    
+    
   },
+  // getStatus:function(){
+  //   var condition=true,
+  //   this.setData({
+  //     condition: api.getIOSQualification.call()
+  //   })
+  // }
 })

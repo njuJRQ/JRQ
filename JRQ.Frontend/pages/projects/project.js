@@ -28,7 +28,7 @@ Page({
   },
   onLoad: function() {
     var that = this;
-    that.showHot()
+    that.showPrior()
     // 获取系统信息 
     wx.getSystemInfo({
       success: function(res) {
@@ -54,6 +54,7 @@ Page({
   swichNav: function(e) {
     console.log("enter switchNav")
     var that = this;
+    var kind="1"
     that.setData({
       kind:that.data.currentKind
     })
@@ -65,18 +66,20 @@ Page({
         currentTab: e.target.dataset.current
       })
       console.log('changeTab')
-      switch (kind) {
-        case 'isPreferred':
-          isShow: false
-          showPrior()
+      console.log(this.data.currentTab)
+      switch (this.data.currentTab) {
+        case '0':
+          console.log('enter showPrior')
+          //isShow: false
+          that.showPrior()
           break;
-        case 'hot':
-          isShow: false
-          showHot()
+        case '1':
+          //isShow: false
+          that.showHot()
           break;
-        case 'time':
-          isShow: false
-          showTime()
+        case '2':
+          //isShow: false
+          that.showTime()
           break;
         default:
       }
@@ -85,6 +88,7 @@ Page({
   },
 
   showPrior: function() {
+    console.log('enter showPrior')
     this.setData({
       currentKind: "isPreferred",
       articles: [],
@@ -93,7 +97,7 @@ Page({
 
       //lastIdType: ""
     })
-    console.log('enter showPrior')
+    
     // api.getFeedList.call(this, 'latest', app.getOpenid(), this.data.lastId)
     console.log("showPrior")
     api.getFeedList.call(this, 'isPreferred', app.getOpenid(), this.data.id)
@@ -119,7 +123,8 @@ Page({
       lastId: "",
       lastIdType: ""
     })
-    api.getAbstractList.call(this, 'time', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+
+    api.getFeedList.call(this, 'time', app.getOpenid(), this.data.lastId, this.data.id)
   },
   
   onPullDownRefresh: function () {

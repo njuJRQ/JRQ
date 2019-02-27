@@ -22,7 +22,7 @@ public interface FeedDao extends JpaRepository<Feed, String> {
 	List<Feed> findTop10ByTimeStampBeforeOrderByTimeStampDesc(long timeStamp);
 	List<Feed> findFeedsByTimeStamp(long timeStamp);
 
-	List<Feed> findTopByIsPreferredOrderByTimeStampDesc(Boolean isPreferred);
-	List<Feed> findTopByIsPreferredAndTimeStampBeforeOrderByTimeStampDesc(Boolean isPreferred, long timeStamp);
+	List<Feed> findTop10ByIsPreferredOrderByTimeStampDesc(Boolean isPreferred);
+	List<Feed> findTop10ByIsPreferredAndTimeStampBeforeOrderByTimeStampDesc(Boolean isPreferred, long timeStamp);
 
 }

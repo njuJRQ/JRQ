@@ -119,9 +119,9 @@ public class FeedDataServiceImpl implements FeedDataService {
 	public List<Feed> getFeedListByIsPreferredDesc(String openid, long timeStamp) throws NotExistException {
 		List<Feed> feeds = null;
 		if (timeStamp<0) {
-			feeds = feedDao.findTopByIsPreferredOrderByTimeStampDesc(true);
+			feeds = feedDao.findTop10ByIsPreferredOrderByTimeStampDesc(true);
 		} else {
-			feeds = feedDao.findTopByIsPreferredAndTimeStampBeforeOrderByTimeStampDesc(true,timeStamp);
+			feeds = feedDao.findTop10ByIsPreferredAndTimeStampBeforeOrderByTimeStampDesc(true,timeStamp);
 		}
 		if (!feeds.isEmpty()) {
 			List<Feed> sameFeeds = feedDao.findFeedsByTimeStamp(feeds.get(feeds.size()-1).getTimeStamp());

@@ -40,7 +40,7 @@ public class CourseDataServiceImpl implements CourseDataService {
 		Optional<Course> optionalCourse = courseDao.findById(id);
 		if (optionalCourse.isPresent()) {
 			Course course = optionalCourse.get();
-			course.setVieNum(course.getVieNum()+1);
+			course.setViewNum(course.getViewNum()+1);
 			courseDao.save(course);
 			return course ;
 		} else {

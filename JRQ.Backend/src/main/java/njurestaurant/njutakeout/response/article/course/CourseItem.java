@@ -11,7 +11,7 @@ public class CourseItem {
 	private long likeNum;
 	private String video;
 	private int price;
-	private long vieNum;
+	private long viewNum;
 	private boolean hasBought; //用户是否已经购买（管理员获取页面不应显示这个属性）
 	private boolean hasLiked; //用户是否已经点赞
 
@@ -25,7 +25,7 @@ public class CourseItem {
 		this.likeNum = course.getLikeNum();
 		this.video = course.getVideo();
 		this.price = course.getPrice();
-		this.vieNum = course.getVieNum();
+		this.viewNum = course.getViewNum();
 		this.hasBought = true; //后台管理员只要能获取到这个Course，那么一定是有权限查看，就hasBought为true
 		this.hasLiked = false; //后台管理员不应显示这一项
 	}
@@ -44,7 +44,7 @@ public class CourseItem {
 			this.video = course.getPreview();
 		}
 		this.price = course.getPrice();
-		this.vieNum = course.getVieNum();
+		this.viewNum = course.getViewNum();
 		this.hasBought = hasBought;
 		this.hasLiked = hasLiked;
 	}
@@ -113,13 +113,14 @@ public class CourseItem {
 		this.price = price;
 	}
 
-	public long getVieNum() {
-		return vieNum;
+	public long getViewNum() {
+		return viewNum;
 	}
 
-	public void setVieNum(long vieNum) {
-		this.vieNum = vieNum;
+	public void setViewNum(long viewNum) {
+		this.viewNum = viewNum;
 	}
+
 
 	public boolean isHasBought() {
 		return hasBought;

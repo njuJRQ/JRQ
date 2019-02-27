@@ -22,6 +22,7 @@ public class AbstractItem {
 	private int price;//价格
 	private String date; //文章发布日期，如“2018-1-1”
 	private long likeNum; //文章点赞数
+	private long viewNum; //文章浏览量
 	private String kind; //文章类型，可能值：course，document，project
 	private boolean hasLiked; //用户是否已经点赞
 
@@ -51,6 +52,7 @@ public class AbstractItem {
 		this.writerName = course.getWriterName();
 		this.date = course.getDate();
 		this.likeNum = course.getLikeNum();
+		this.viewNum = course.getViewNum();
 		this.kind = "course";
 		this.hasLiked = hasLiked;
 	}
@@ -172,6 +174,14 @@ public class AbstractItem {
 
 	public void setLikeNum(long likeNum) {
 		this.likeNum = likeNum;
+	}
+
+	public long getViewNum() {
+		return viewNum;
+	}
+
+	public void setViewNum(long viewNum) {
+		this.viewNum = viewNum;
 	}
 
 	public String getKind() {

@@ -12,6 +12,9 @@ public class IOSQualification {
     @Column(columnDefinition="bit(1) default false",nullable=false)
     private boolean status; //ios是否通过审核
 
+    public IOSQualification() {
+    }
+
     public IOSQualification(boolean status) {
         this.status = status;
     }

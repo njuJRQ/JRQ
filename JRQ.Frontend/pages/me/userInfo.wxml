@@ -27,7 +27,7 @@
     </view>
   </view>
   <view class='share_card'>
-    <button class='card_button' bindtap='showModal'>分享我的名片</button>
+    <button class='card_button' bindtap='testLogin'>分享我的名片</button>
   </view>
   <view class='benefit'>
     <view class='home_address'>

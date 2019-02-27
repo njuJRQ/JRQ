@@ -12,6 +12,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showModal({
+      title: '该小程序暂不支持IOS用户访问！',
+      content: '敬请期待！',
+      success: (res) => {
+        if (res.confirm) {
+          wx.navigateTo({
+            url: '/pages/judge/judge',
+          })
+        } else {
+          wx.navigateTo({
+            url: '/pages/judge/judge',
+          })
+        }
+      }
+    })
 
     
   },

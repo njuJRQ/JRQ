@@ -1351,5 +1351,6 @@ module.exports = {
   getMySubmittedEnterprise: getMySubmittedEnterprise,
   getClassificationDescriptionList: getClassificationDescriptionList,
   getNewsListBefore: getNewsListBefore,
-  getIOSQualification: getIOSQualification
+  getIOSQualification: getIOSQualification,
+  getAbstractListByLikeNum: getAbstractListByLikeNum
 }

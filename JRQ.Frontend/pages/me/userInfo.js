@@ -260,7 +260,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
 
+testLogin:function(){
+  wx.navigateTo({
+    url: '/pages/judge/judge',
+  })
 
+},
   //发布信息
   onPublish: function () {
     console.log('publish')

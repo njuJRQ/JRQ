@@ -192,9 +192,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 24,
 					"name": "judge",
-					"pathName": "pages/judge",
+					"pathName": "pages/judge/judge",
+					"query": "",
 					"scene": null
 				}
 			]

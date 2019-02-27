@@ -12,7 +12,7 @@
 
   <!-- 切换 -->
   <view class="swiper-tab">
-    <view class="swiper-tab-list {{currentKind=='prior'}} {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">
+    <view class="swiper-tab-list {{currentKind=='isPreferred'}} {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">
       <image class="prior_icon " mode='widthFix' src='img/unjunrong-icon.png'></image>
     </view>
     <view class="swiper-tab-list {{currentKind=='hot'}} {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">
@@ -24,7 +24,16 @@
   </view>
   
   <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 31}}px;" bindchange="bindChange">
-    <swiper-item class="swiper-items">
+    <swiper-item class="swiper-items" wx-if="{{isShow}}">
+      <scroll-view class='scroll-views' scroll-x="false" scroll-y="true">
+        <view wx:if='{{articles.length > 0}}' class='articleListWrapper_view' >
+          <view wx:for='{{articles}}' wx:key='id'>
+            <template is='articleItem' data='{{item}}'></template>
+          </view>
+        </view>
+      </scroll-view>
+    </swiper-item>
+    <swiper-item class="swiper-items"  wx-if="{{isShow}}">
       <scroll-view class='scroll-views' scroll-x="false" scroll-y="true">
         <view wx:if='{{articles.length > 0}}' class='articleListWrapper_view'>
           <view wx:for='{{articles}}' wx:key='id'>
@@ -33,18 +42,9 @@
         </view>
       </scroll-view>
     </swiper-item>
-    <swiper-item class="swiper-items">
+    <swiper-item class="swiper-items" wx-if="{{isShow}}">
       <scroll-view class='scroll-views' scroll-x="false" scroll-y="true">
-        <view wx:if='{{articles.length > 0}}' class='articleListWrapper_view'>
-          <view wx:for='{{articles}}' wx:key='id'>
-            <template is='articleItem' data='{{item}}'></template>
-          </view>
-        </view>
-      </scroll-view>
-    </swiper-item>
-    <swiper-item class="swiper-items">
-      <scroll-view class='scroll-views' scroll-x="false" scroll-y="true">
-        <view wx:if='{{articles.length > 0}}' class='articleListWrapper_view'>
+        <view wx:if='{{articles.length > 0}}' class='articleListWrapper_view' >
           <view wx:for='{{articles}}' wx:key='id'>
             <template is='articleItem' data='{{item}}'></template>
           </view>

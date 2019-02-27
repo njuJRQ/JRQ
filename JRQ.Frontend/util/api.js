@@ -160,16 +160,19 @@ function getAbstractListByCondition(openid, condition) {
 
 
 function getFeedList(kind, openid, lastId, id) {
+  console.log("getFeedList success!")
   if (!id) {
     id = "";
+    console.log("id=null")
   }
   var that = this
   wx.showLoading({
     title: '载入中',
   })
   wx.request({
-    url: app.globalData.backendUrl + "getFeedViewListBefore",
-
+    
+    url: app.globalData.backendUrl + "getProjectListBeforeByKind",
+    
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
       'content-type': 'application/x-www-form-urlencoded'
@@ -177,7 +180,6 @@ function getFeedList(kind, openid, lastId, id) {
     data: {
       kind: kind,
       openid: openid,
-      articleId: lastId,
       // articleType: lastIdType,
       id: id
     },
@@ -187,11 +189,14 @@ function getFeedList(kind, openid, lastId, id) {
       wx.hideLoading()
       /*console.log(res)*/
       if (res.statusCode == 200) {
+        console.log('200')
         var articles = res.data.feedViews
         if (articles.length <= 0) {
+          console.log(" error")
           return
         }
         articles.forEach((article) => {
+          console.log('have article')
           console.log(article)
           article.writerFace = app.globalData.picUrl + article.writerFace
           // console.log(article.writerFace)

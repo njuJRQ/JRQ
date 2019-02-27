@@ -147,6 +147,7 @@ Page({
       articles: [],
       lastId: "",
       lastIdType: "",
+      isShow:true,
       isShowView: true,
       height: 290
     })
@@ -163,6 +164,7 @@ Page({
       articles: [],
       lastId: "",
       lastIdType: "",
+      isShow:true,
       isShowView: false,
       moreType: true,
       height: ''
@@ -181,6 +183,7 @@ Page({
       articles: [],
       lastId: "",
       lastIdType: "",
+      isShowView:true,
       isShow: false,
       moreType: true,
       height_video: ''

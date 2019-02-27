@@ -15,7 +15,7 @@
    <view class='article_rigtht'>
     <!--文章详情-->
     <view class='article_text'>
-    <text class='title' >【财富集团】股票投资</text>
+    <text class='title' >【{{item.title}}】</text>
     <text class='article__content'>{{item.content ? item.content : item.title}}</text>
     </view>
     <!--文章图片-->

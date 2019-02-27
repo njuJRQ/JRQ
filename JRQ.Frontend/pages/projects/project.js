@@ -4,6 +4,7 @@ var api = require('../../util/api.js')
 import articleItem from '../../template/articleItem/articleItem'
 Page({
   data: {
+    isShow:true,
     articles: [],
     writerFace: '',
     writerName: '',
@@ -27,7 +28,7 @@ Page({
   },
   onLoad: function() {
     var that = this;
-    that.showPrior()
+    that.showHot()
     // 获取系统信息 
     wx.getSystemInfo({
       success: function(res) {
@@ -53,6 +54,9 @@ Page({
   swichNav: function(e) {
     console.log("enter switchNav")
     var that = this;
+    that.setData({
+      kind:that.data.currentKind
+    })
     if (this.data.currentTab === e.target.dataset.current) {
       console.log("curentTab success")
       return false;
@@ -61,14 +65,17 @@ Page({
         currentTab: e.target.dataset.current
       })
       console.log('changeTab')
-      switch (currentKind) {
-        case 'prior':
+      switch (kind) {
+        case 'isPreferred':
+          isShow: false
           showPrior()
           break;
         case 'hot':
+          isShow: false
           showHot()
           break;
         case 'time':
+          isShow: false
           showTime()
           break;
         default:
@@ -79,7 +86,7 @@ Page({
 
   showPrior: function() {
     this.setData({
-      currentKind: "prior",
+      currentKind: "isPreferred",
       articles: [],
       openid: "",
       id: "",
@@ -89,7 +96,8 @@ Page({
     console.log('enter showPrior')
     // api.getFeedList.call(this, 'latest', app.getOpenid(), this.data.lastId)
     console.log("showPrior")
-    api.getFeedList.call(this, 'prior', app.getOpenid(), this.data.id)
+    api.getFeedList.call(this, 'isPreferred', app.getOpenid(), this.data.id)
+    console.log(api.getFeedList.call(this, 'isPreferred', app.getOpenid(), this.data.id))
     console.log("showPrior success")
   },
 

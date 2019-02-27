@@ -26,16 +26,20 @@ public class CJKXNews {
 	@Column
 	private String keywords; //信息关键字（以"|"分隔）
 
+	@Column
+	private Long viewNum; //浏览量
+
 	public CJKXNews() {
 	}
 
-	public CJKXNews(String id, String time, String content, String level, String type, String keywords) {
+	public CJKXNews(String id, String time, String content, String level, String type, String keywords, Long viewNum) {
 		this.id = id;
 		this.time = time;
 		this.content = content;
 		this.level = level;
 		this.type = type;
 		this.keywords = keywords;
+		this.viewNum = viewNum;
 	}
 
 	public String getId() {
@@ -84,5 +88,13 @@ public class CJKXNews {
 
 	public void setKeywords(String keywords) {
 		this.keywords = keywords;
+	}
+
+	public Long getViewNum() {
+		return viewNum;
+	}
+
+	public void setViewNum(Long viewNum) {
+		this.viewNum = viewNum;
 	}
 }

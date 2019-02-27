@@ -362,6 +362,24 @@ public class FeedController {
             @ApiImplicitParam(name = "openid", value = "用户openid", required = true, dataType = "String"),
             @ApiImplicitParam(name = "id", value = "圈子ID", required = true, dataType = "String")
     })
+    @RequestMapping(value = "/getProjectListBeforeByKind", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getProjectListBeforeByKind(
+            @RequestParam(name="kind")String kind,
+            @RequestParam(name="openid")String openid,
+            @RequestParam(name="id")String id) throws NotExistException {
+        return new ResponseEntity<>(feedBlService.getFeedListBeforeByKind(kind,openid,id), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "通过标题模糊搜索项目", notes = "通过标题模糊搜索项目")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "用户openid", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "condition", value = "搜索条件", required = true, dataType = "String")
+    })
     @RequestMapping(value = "/getProjectListByCondition", method = RequestMethod.GET)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
@@ -369,9 +387,23 @@ public class FeedController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> getProjectListByCondition(
-            @RequestParam(name="kind")String kind,
             @RequestParam(name="openid")String openid,
-            @RequestParam(name="id")String id) throws NotExistException {
-        return new ResponseEntity<>(feedBlService.getFeedListBeforeByKind(kind,openid,id), HttpStatus.OK);
+            @RequestParam(name="condition")String condition) throws NotExistException {
+        return new ResponseEntity<>(feedBlService.getFeedListByCondition(openid,condition), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "获取我发布的项目列表", notes = "获取我发布的项目列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "用户openid", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getMyProjectListOrderByTime", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getMyProjectListOrderByTime(
+            @RequestParam(name="openid")String openid) throws NotExistException {
+        return new ResponseEntity<>(feedBlService.getMyFeedList(openid), HttpStatus.OK);
     }
 }

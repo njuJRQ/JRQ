@@ -89,4 +89,18 @@ public class NewsController {
     public ResponseEntity<Response> getNewsNumber() {
         return new ResponseEntity<>(newsBlService.getNewsNumber(), HttpStatus.OK);
     }
+
+    @ApiOperation(value = "根据条件搜索资讯列表", notes = "根据条件搜索资讯列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "condition", value = "搜索条件", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getNewsListByCondition", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getNewsListByCondition(@RequestParam(name="condition")String condition)  {
+        return new ResponseEntity<>(newsBlService.getNewsListByCondition(condition), HttpStatus.OK);
+    }
 }

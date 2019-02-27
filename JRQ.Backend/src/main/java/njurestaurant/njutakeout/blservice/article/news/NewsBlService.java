@@ -43,4 +43,11 @@ public interface NewsBlService {
 	 * @return 是否操作成功
 	 */
 	BoolResponse deleteNews(String newsId);
+
+	/**
+	 * 根据标题关键字查询新闻
+	 * @param condition 搜索条件
+	 * @return 新闻列表
+	 */
+	NewsListResponse getNewsListByCondition(String condition);
 }

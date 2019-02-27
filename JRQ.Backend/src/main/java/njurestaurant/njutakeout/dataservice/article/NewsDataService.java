@@ -17,4 +17,6 @@ public interface NewsDataService {
 	void deleteCJKXNews(CJKXNews cjkxNews); //只删除CJKXNews，不删除相关News
 	void deleteNews(News news); //只删除News，不删除相关来源的记录
 	int getNewsNumber(); //获取总新闻条数
+
+	List<News> getAllNews();//获取所有新闻
 }

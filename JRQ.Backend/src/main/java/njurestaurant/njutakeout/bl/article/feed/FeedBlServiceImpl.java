@@ -203,6 +203,24 @@ public class FeedBlServiceImpl implements FeedBlService {
 		return new FeedViewListResponse(feedViewItems);
 	}
 
+	@Override
+	public FeedViewListResponse getFeedListByCondition(String openid, String condition) throws NotExistException {
+		List<FeedViewItem> feedViewItems = new ArrayList<>();
+		for(Feed feed : feedDataService.getAllFeeds()){
+			if(feed.getTitle().contains(condition)){
+				boolean hasLiked = likeDataService.isLikeExistent(openid, "feed", feed.getId());
+				feedViewItems.add(new FeedViewItem(feed, userDataService, hasLiked));
+			}
+		}
+		return new FeedViewListResponse(feedViewItems);
+	}
+
+	@Override
+	public FeedListResponse getMyFeedList(String openid) throws NotExistException {
+		List<Feed> feeds = feedDataService.getFeedsByWriterOpenid(openid);
+		return getFeedItemList(feeds);
+	}
+
 	public FeedListResponse getFeedItemList(List<Feed> feeds){
 		List<FeedItem> feedItems = new ArrayList<>();
 		for(Feed feed:feeds){

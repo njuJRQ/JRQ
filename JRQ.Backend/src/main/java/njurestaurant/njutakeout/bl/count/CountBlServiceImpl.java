@@ -1,4 +1,4 @@
-package njurestaurant.njutakeout.bl;
+package njurestaurant.njutakeout.bl.count;
 
 import njurestaurant.njutakeout.blservice.count.CountBlService;
 import njurestaurant.njutakeout.dataservice.count.CountDataService;

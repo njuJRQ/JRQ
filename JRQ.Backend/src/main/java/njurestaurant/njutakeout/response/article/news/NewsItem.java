@@ -19,6 +19,8 @@ public class NewsItem {
 
 	private String keywords; //信息关键字（以"|"分隔）
 
+	private Long viewNum; //浏览量
+
 	public NewsItem() {
 	}
 
@@ -31,6 +33,7 @@ public class NewsItem {
 		this.level = cjkxNews.getLevel();
 		this.type = cjkxNews.getType();
 		this.keywords = cjkxNews.getKeywords();
+		this.viewNum = cjkxNews.getViewNum();
 	}
 
 	public String getNewsId() {
@@ -39,6 +42,22 @@ public class NewsItem {
 
 	public void setNewsId(String newsId) {
 		this.newsId = newsId;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	public String getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(String sourceId) {
+		this.sourceId = sourceId;
 	}
 
 	public String getTime() {
@@ -79,5 +98,13 @@ public class NewsItem {
 
 	public void setKeywords(String keywords) {
 		this.keywords = keywords;
+	}
+
+	public Long getViewNum() {
+		return viewNum;
+	}
+
+	public void setViewNum(Long viewNum) {
+		this.viewNum = viewNum;
 	}
 }

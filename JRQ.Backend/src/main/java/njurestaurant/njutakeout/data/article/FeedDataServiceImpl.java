@@ -77,7 +77,7 @@ public class FeedDataServiceImpl implements FeedDataService {
 
 	@Override
 	public List<Feed> getFeedsByWriterOpenid(String writerOpenid) {
-		return feedDao.findFeedsByWriterOpenid(writerOpenid);
+		return feedDao.findFeedsByWriterOpenidOrderByTimeStampDesc(writerOpenid);
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class FeedDataServiceImpl implements FeedDataService {
 
 	@Override
 	public void deleteFeedsByWriterOpenid(String openid) {
-		List<Feed> feeds = feedDao.findFeedsByWriterOpenid(openid);
+		List<Feed> feeds = feedDao.findFeedsByWriterOpenidOrderByTimeStampDesc(openid);
 		for (Feed feed:feeds) {
 			for (String image:feed.getImages()) {
 				if(! new File(image).delete()) {

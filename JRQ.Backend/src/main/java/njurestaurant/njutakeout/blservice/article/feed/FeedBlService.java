@@ -103,7 +103,24 @@ public interface FeedBlService {
 	 * @param kind 条件查询，可能值：钧融优选isPreferred，热度hot，时间time
 	 * @param openid 用户openid
 	 * @param id 圈子ID
-	 * @return
+	 * @return 圈子文章信息列表
 	 */
 	FeedViewListResponse getFeedListBeforeByKind(String kind, String openid, String id) throws NotExistException;
+
+	/**
+	 * 通过标题模糊搜索
+	 * @param openid 用户openid
+	 * @param condition 搜索条件
+	 * @return 圈子文章信息列表
+	 * @throws NotExistException
+	 */
+	FeedViewListResponse getFeedListByCondition(String openid, String condition) throws NotExistException;
+
+	/**
+	 * 获取我发布的项目列表
+	 * @param openid 用户openid
+	 * @return 圈子文章信息列表
+	 * @throws NotExistException
+	 */
+	FeedListResponse getMyFeedList(String openid) throws NotExistException;
 }

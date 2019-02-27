@@ -2,7 +2,6 @@
 const app = getApp()
 
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -58,12 +57,6 @@ Page({
           //PC
         } else if (res.platform == "ios") {
           //IOS
-          // wx.navigateTo({
-          //   url: '/pages/judge/judge',
-          //   success: function(res) {},
-          //   fail: function(res) {},
-          //   complete: function(res) {},
-          // })
           wx.showModal({
             title: '该小程序暂不支持IOS用户访问！',
             content: '敬请期待！',
@@ -81,7 +74,7 @@ Page({
               }
             }
           })
-          
+         
 
         } else if (res.platform == "android") {
 

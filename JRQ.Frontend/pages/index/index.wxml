@@ -31,45 +31,34 @@
       </view> -->
     </view>
   </view>
-
-  <!--首页弹出蒙版框-->
-  <!-- <view class="b1" hidden="{{flag}}" bindtap="closeMask">
-    <view class="b2">
-      <image src="{{jumpAd}}" bindtap="touchMask"></image>
-    </view>
-    <view class="t_w">
-      <cover-view class="t_image" bindtap="closeMask">
-        <cover-image src="img/close.png"></cover-image>
-      </cover-view>
-    </view>
-  </view> -->
   <view wx-if="{{isShow}}">
     <view class='document_more'>
-      <text class='document'>热门文档</text>
+    <text class='document'>热门文档</text>
       <text class='more' bindtap='moreAction'>更多>></text>
+      
     </view>
-    <view>
-      <view class='articleListWrapper_document ' style='height:{{height}}px;'>
-        <view class='articleWrapper_document' wx:for='{{articles}}' wx:key='id'>
-          <view class='article jrq__block hot_document' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
-            <view class='article__content'>
-              <image class='article__image' src='{{item.images.length > 0 ? item.images[0]: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png"}}'></image>
-            </view>
-            <view class='card_document'>
-              <text class='article__titleName'>{{item.title}}</text>
-              <text class='document_summary'>与钧融资本成功签订2个亿的基</text>
-
-              <view class='doucument_bottom1'>
-                <text class='fees'>课费：100元</text>
-                <text class='vip'>会员免费</text>
-              </view>
-            </view>
-            <button class='preview'>预览</button>
+    <!-- <view> -->
+    <view class='articleListWrapper_document ' style='height:{{height}}px;'>
+      <view class='articleWrapper_document' wx:for='{{articles}}' wx:key='id'>
+        <view class='article jrq__block hot_document' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
+          <view class='article__content'>
+            <image class='article__image' src='{{item.images.length > 0 ? item.images[0]: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png"}}'></image>
           </view>
+          <view class='card_document'>
+            <text class='article__titleName'>{{item.title}}</text>
+            <text class='document_summary'>与钧融资本成功签订2个亿的基</text>
+
+            <view class='doucument_bottom1'>
+              <text class='fees'>课费：100元</text>
+              <text class='vip'>会员免费</text>
+            </view>
+          </view>
+          <button class='preview'>预览</button>
         </view>
       </view>
     </view>
   </view>
+  <!-- </view> -->
 
   <view wx-if="{{isShowView}}">
     <view class='video_more'>

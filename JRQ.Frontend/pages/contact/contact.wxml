@@ -32,7 +32,7 @@
             
           </view>
         </view>
-
+       
         <!-- <view class='label-buttons'>
         <view class='label' wx:for='{{label}}' wx:key='*this'>
         <text class='label_text'>{{item}}</text>

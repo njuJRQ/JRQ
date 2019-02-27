@@ -88,7 +88,6 @@
 }
 
 .article_text {
- 
   height: 87px;
   width: 230px;
   overflow: hidden;

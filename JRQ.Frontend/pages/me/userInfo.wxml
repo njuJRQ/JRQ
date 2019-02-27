@@ -11,13 +11,13 @@
         <text class='username'>{{myInfo.username}}</text>
         <image class='vip' mode='widthFix' src='{{userInfo.writerface[4]}}'></image>
       </view>
-      <text class='position card_text'>{{myInfo.position}}</text>
-      <text class='company card_text'>{{myInfo.department}}</text>
+      <text class='position card_text'>{{myInfo.position?myInfo.position:'未知职位'}}</text>
+      <text class='company card_text'>{{myInfo.department?myInfo.department:'未知公司'}}</text>
     </view>
 
     <view class='right'>
       <image class='vip_up' mode='widthFix' src='{{userInfo.writerface[1]}}'></image>
-      <image class='edit'   src='{{userInfo.writerface[2]}}'></image>
+      <image class='edit' src='{{userInfo.writerface[2]}}'></image>
     </view>
   </view>
 
@@ -90,21 +90,27 @@
         <view class='weui-cell-card'><text class='project_content'>{{item.event}}</text></view>
       </view>
     </view> -->
-  
+
   <view class='weui-cell-third'>
     <view class='year_publish'>
       <view class='top'>
         <view class='big_circle'>
           <text class='year'>2019</text>
         </view>
-        <view class='big_line'></view>
+        <!-- <view class='big_line'></view> -->
       </view>
       <view class='publish_project' bindtap='onPublish'>
         <text class='publish_text'>发布项目</text>
         <image class='publish_image' mode='widthFix' src='img/publish.png'></image>
       </view>
     </view>
-    <view wx:for="{{userInfo.axis}}" wx:key="*this">
+    <view class='project_bar'>
+          <!-- <text class='project_content'>{{item.event}}</text> -->
+          <view wx:for='{{myArticles}}' wx:key='id' style='margin: 10px 5px;'>
+            <template is='articleItem' data='{{item}}'></template>
+          </view>
+        </view>
+    <!-- <view wx:for="{{userInfo.axis}}" wx:key="*this">
       <view class='weui-cell-time'>
         <text style='color: #f2c75e;'>{{item.time}}</text>
       </view>
@@ -116,15 +122,10 @@
           <view class='weui-cell-line'>
           </view>
         </view>
-        <view class='project_bar'>
-          <!-- <text class='project_content'>{{item.event}}</text> -->
-          <view wx:for='{{myArticles}}' wx:key='id' style='margin: 10px 5px;'>
-            <template is='articleItem' data='{{item}}'></template>
-          </view>
-        </view>
+        
 
       </view>
-    </view>
+    </view> -->
   </view>
 
 

@@ -127,3 +127,9 @@
   margin-left: -3%;
   color: black;
 }
+.name_width{
+  width:45px;
+  height: 25px;
+  overflow: hidden;
+
+}

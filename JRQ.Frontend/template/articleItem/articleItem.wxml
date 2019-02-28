@@ -8,7 +8,10 @@
     <!--作者信息-->
     <view class='writer' bindtap='onClickThisFace' data-id='{{item.writerOpenid}}'>
       <image class='writer__face' src='{{item.writerFace}}'></image>
+      <view class='name_width'>
       <text class='writer__name'>{{item.writerName}}</text>
+      </view>
+      
       <image class='level' mode='widthFix' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/VIP-icon.png'></image>
       
     </view>
@@ -20,7 +23,7 @@
     </view>
     <!--文章图片-->
     <view class='article__imageList'>
-      <image class='article__image' mode='aspectFill' bindtap='previewImg' data-list="{{item.images}}" data-src="{{image}}" wx:for='{{item.images}}' wx:for-item='image' src='{{image}}'></image>
+      <image class='article__image' mode=' widthFix' bindtap='previewImg' data-list="{{item.images}}" data-src="{{image}}" wx:for='{{item.images}}' wx:for-item='image' src='{{image}}'></image>
     </view>
     
      <view class='article__bottom'>

@@ -1,9 +1,14 @@
 /* pages/news/news.wxss */
 @import '/style/common.wxss';
-
+@import '/template/findBar/searchBar.wxss';
+.headWrapper {
+  width: 112%;
+  padding: 0 30px 10px 30px;
+  margin-left:-5%;
+}
 .newsWrapper {
   position: relative;
-  margin: 30px 6px 30px 5px;
+  margin: 10px 8px 1px 8px;
   padding: 10px;
 }
 

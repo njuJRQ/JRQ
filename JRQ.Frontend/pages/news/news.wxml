@@ -1,5 +1,9 @@
 <!--pages/news/news.wxml-->
-<import src='/template/searchBar/searchBar.wxml' />
+<import src='/template/findBar/searchBar.wxml'></import>
+<view class='headWrapper' style='background-color:black; background-size: cover;background-repeat: no-repeat; background-position: bottom'>
+    <!--搜索框-->
+    <template class='search' is='searchBar' data='{{placeholder: "搜索你感兴趣的咨讯", searchCondition: searchCondition}}'></template>
+  </view>
 <view class='newsItemListWrapper'>
   <view wx:for='{{newsItemList}}' wx:for-item="newsItem">
     <view class='newsWrapper jrq__block'>
@@ -14,12 +18,13 @@
             <text class='newsItem__infoText'>{{newsItem.writerName}}</text>
           </view>
           <view class='newsItem__info'>
-            <text class='newsItem__infoText'>15731查看</text>
+            <text class='newsItem__infoText'>{{newsItem.viewNum}}人查看</text>
           </view>
           </view>
           </view>
           <view class='writerFace_image'>
           <image class='writerFace' src='{{writerFace}}'></image>
+          
           </view>
           
         </view>

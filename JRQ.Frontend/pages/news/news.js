@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    newsItemList:[],
     writerFace: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png",
     // newsItemList: [{
     //   title: "这是标题这是标题这是标题这是标题这是标题这是标题这是标题",
@@ -67,7 +68,8 @@ Page({
           writerFace: "../../default/default-face.png",
           writerName: news.source,
           timeStamp: news.time,
-          type: news.type
+          type: news.type,
+          viewNum: news.viewNum
         }
       })
       if (tempNewsList.length > 0) {

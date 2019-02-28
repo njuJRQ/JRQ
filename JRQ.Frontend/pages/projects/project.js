@@ -4,7 +4,7 @@ var api = require('../../util/api.js')
 import articleItem from '../../template/articleItem/articleItem'
 Page({
   data: {
-    isShow:true,
+    isShow: true,
     articles: [],
     writerFace: '',
     writerName: '',
@@ -17,9 +17,9 @@ Page({
     // test:'你好吗',
     openid: '',
     currentKind: null,
-    curentTab:'',
+    curentTab: '',
     searchCondition: null,
-  
+
     // 页面配置  
     winWidth: 0,
     winHeight: 0,
@@ -39,25 +39,47 @@ Page({
         });
       }
     })
-    
+
   },
 
   // 滑动切换tab 
   bindChange: function(e) {
+    console.log('1-----' + e)
     var that = this;
     that.setData({
       currentTab: e.detail.current
-    });
+    })
+    console.log(this.data.currentTab)
+    switch (this.data.currentTab) {
+      
+      case 0:
+        console.log('0enter showPrior')
+        //isShow: false
+        that.showPrior()
+        break;
+      case 1:
+        console.log('1enter showHot')
+        //isShow: false
+        that.showHot()
+        break;
+      case 2:
+        console.log('2enter showTime')
+        //isShow: false
+        that.showTime()
+        break;
+      default:
+    }
+    console.log("bing")
+
+
+
   },
 
   // 点击tab切换 
   swichNav: function(e) {
+    console.log('2-----' + e)
     console.log("enter switchNav")
     var that = this;
-    var kind="1"
-    that.setData({
-      kind:that.data.currentKind
-    })
     if (this.data.currentTab === e.target.dataset.current) {
       console.log("curentTab success")
       return false;
@@ -84,7 +106,7 @@ Page({
         default:
       }
     }
-    
+
   },
 
   showPrior: function() {
@@ -97,7 +119,7 @@ Page({
 
       //lastIdType: ""
     })
-    
+
     // api.getFeedList.call(this, 'latest', app.getOpenid(), this.data.lastId)
     console.log("showPrior")
     api.getFeedList.call(this, 'isPreferred', app.getOpenid(), this.data.id)
@@ -105,7 +127,7 @@ Page({
     console.log("showPrior success")
   },
 
-  showHot: function () {
+  showHot: function() {
     this.setData({
       currentKind: 'hot',
       articles: [],
@@ -115,7 +137,7 @@ Page({
     })
     api.getFeedList.call(this, 'hot', app.getOpenid(), this.data.lastId, this.data.id)
   },
-  showTime: function () {
+  showTime: function() {
     this.setData({
       currentKind: 'time',
       searchCondition: null,
@@ -126,14 +148,14 @@ Page({
 
     api.getFeedList.call(this, 'time', app.getOpenid(), this.data.lastId, this.data.id)
   },
-  
-  onPullDownRefresh: function () {
+
+  onPullDownRefresh: function() {
     this.onLoad()
   },
 
-  onReachBottom: function () {
+  onReachBottom: function() {
     api.getFeedList.call(this, app.getOpenid(), this.data.lastId)
   }
 
- 
+
 })

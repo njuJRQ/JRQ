@@ -26,6 +26,10 @@
   margin-left: 4%;
 }
 
+/* .article_row{
+  padding-right: 13%;
+} */
+
 .username {
   font-size: 14px;
   font-weight: bold;
@@ -79,8 +83,7 @@
 }
 
 .label {
-  display: flex;
-  flex-direction: row;
+  
   margin-top: 1%;
   margin-left: 22%;
   /* margin-right: 2%; */
@@ -151,11 +154,11 @@
 
 /* 时间轴 */
 
-.weui-cell-third {
+/* .weui-cell-third {
   background: #fff;
-  margin-left: -1.5%;
-  margin-top: -1%;
-}
+  margin-left: -5.5%;
+  margin-top:15%;
+} */
 
 .weui-cell-list {
   background: #fff;
@@ -196,7 +199,6 @@
   justify-content: center;
   align-content: center;
   align-items: center;
- 
 }
 
 .big_circle text {
@@ -209,15 +211,13 @@
 .weui-cell-time {
   /* width: 50px; */
   float: left;
- 
   width: 40px;
   color: #f2c75e;
   margin-top: -2.5%;
- 
   text-align: right;
 }
 
-.weui-cell-time text{
+.weui-cell-time text {
   font-size: 10px;
 }
 
@@ -242,10 +242,13 @@
   box-shadow: 0 5px 20px #e0e0e0;
   border-radius: 8px;
 }
-.project_bar{
-  margin-left: 12%;
-  margin-top: -15%;
+
+.project_bar {
+  /* margin-left: 12%;
+  margin-top: -15%; */
+  margin-left: 8%;
 }
+
 .project_content {
   font-size: 10px;
   text-align: left;
@@ -366,9 +369,10 @@
 .publish_project {
   display: flex;
   flex-direction: row;
-  margin-left: 63%;
+  margin-left: 81%;
   margin-top: 3%;
-   margin-bottom: 14%;
+  margin-bottom: -7%;
+ 
 }
 
 .year_publish {
@@ -451,4 +455,3 @@
 .modal__text {
   font-size: 0.8rem;
 }
-

@@ -64,41 +64,13 @@ Page({
           that.setData({
             systemInfo: res,
           })
-          // if (res.platform == "devtools") {
-          //   //PC
-          //   wx.navigateTo({
-          //     url: '/pages/judge/judge',
-          //   })
-          // } else 
           if (res.platform == "ios" && that.condition == false) {
             wx.navigateTo({
               url: '/pages/judge/judge',
             })
           }
-            //IOS
-
-          // } else if (res.platform == "android") {
-
-          //   wx.navigateTo({
-          //     url: '/pages/judge/judge',
-          //   })
-
-          // }
         }
       })
-    })
-
-    // that.setData({
-    //   condition: api.getIOSQualification.call(this)
-    // })
-    
-    
-    
+    })  
   },
-  // getStatus:function(){
-  //   var condition=true,
-  //   this.setData({
-  //     condition: api.getIOSQualification.call()
-  //   })
-  // }
 })

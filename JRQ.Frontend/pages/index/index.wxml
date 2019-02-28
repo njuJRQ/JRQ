@@ -18,8 +18,6 @@
         <image class='navBar__icon' mode='widthFix' src='https://junrongcenter.oss-cn-beijing.aliyuncs.com/img/remen-icon.png'></image>
       </view>
       <view class='navBar__btn {{currentKind=="document"?"navBar__btn-state--chosen":"" }} ' bindtap='showDocuments'>
-        <!-- class="{{showView?'header_view_show':'header_view_hide'}}"  -->
-        <!-- {{showView?"header_view_show":"header_view_hide"}} -->
         <image class='navBar__icon' mode='widthFix' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/wendang-icon.png'></image>
       </view>
       <view class='navBar__btn {{currentKind=="course1"?"navBar__btn-state--chosen":""}} ' bindtap='showVideos'>
@@ -62,9 +60,9 @@
       <text class='more' bindtap='moresAction'>更多>></text>
     </view>
     <!--文章列表-->
-    <view wx:if='{{searchCondition}}'>
+    <!-- <view wx:if='{{searchCondition}}'>
       <text class='jrq__words'>以下是“{{searchCondition}}”的搜索结果：</text>
-    </view>
+    </view> -->
     <!-- 文章展示 -->
     <view class='articleListWrapper ' style='height:{{height_video}}px;'>
       <view class='articleWrapper' wx:for='{{videos}}' wx:key='id'>
@@ -75,7 +73,6 @@
           <view class='title_range'>
           <text class='article__titleName'>{{item.title}}</text>
           </view>
-          
         </view>
       </view>
     </view>

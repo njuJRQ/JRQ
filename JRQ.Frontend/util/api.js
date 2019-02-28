@@ -1,5 +1,29 @@
 const app = getApp()
 var util = require('./util.js')
+
+function getMyReceivedCardNum(openid) {
+  console.log('getMyReceivedCardNum success!')
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "getMyReceivedCardNum",
+    data: {
+      openid: openid
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      /*console.log(res)*/
+      that.setData({
+        receive: res.data
+      })
+      console.log(receive)
+    }
+  })
+}
+
 function getAbstractListVideo(kind, openid, lastId, lastIdType) {
   console.log('getAbstractListVideo success!')
   var that = this
@@ -36,19 +60,6 @@ function getAbstractListVideo(kind, openid, lastId, lastIdType) {
         article.images = article.images.map((image) => app.globalData.picUrl + image)
         article.writerFace = app.globalData.picUrl + article.writerFace
 
-        switch (article.kind) {
-          case 'course':
-            article.kindName = "钧融优选";
-            break;
-          case 'document':
-            article.kindName = "热度";
-            break;
-          case 'project':
-            article.kindName = "时间";
-            break;
-          default:
-            break;
-        }
       })
       that.data.videos = that.data.videos.concat(videos)
       that.data.lastId = videos[videos.length - 1].id
@@ -95,20 +106,6 @@ function getAbstractList(kind, openid, lastId, lastIdType) {
       articles.forEach((article) => {
         article.images = article.images.map((image) => app.globalData.picUrl + image)
         article.writerFace = app.globalData.picUrl + article.writerFace
-
-        switch (article.kind) {
-          case 'course':
-            article.kindName = "钧融优选";
-            break;
-          case 'document':
-            article.kindName = "热度";
-            break;
-          case 'project':
-            article.kindName = "时间";
-            break;
-          default:
-            break;
-        }
       })
       that.data.articles = that.data.articles.concat(articles)
       that.data.lastId = articles[articles.length - 1].id
@@ -834,10 +831,10 @@ function getPersonListByCondition(openid, condition) {
       })
       that.setData(that.data)
       if (!that.data.cards.length) {
-        wx.showToast({
-          title: '无搜索结果',
-          icon: 'none'
-        })
+        // wx.showToast({
+        //   title: '无搜索结果',
+        //   icon: 'none'
+        // })
       }
     }
   })
@@ -1344,7 +1341,9 @@ function getNewsListBefore(newsId, then) {
     success: (res) => {
       if (res.statusCode == 200) {
         if (then) then(res.data)
+        console.log(res.data)
       }
+      
     }
   })
 }
@@ -1420,5 +1419,6 @@ module.exports = {
   getNewsListBefore: getNewsListBefore,
   getIOSQualification: getIOSQualification,
   getAbstractListByLikeNum: getAbstractListByLikeNum,
-  getAbstractListVideo: getAbstractListVideo
+  getAbstractListVideo: getAbstractListVideo,
+  getMyReceivedCardNum: getMyReceivedCardNum
 }

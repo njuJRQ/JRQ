@@ -185,25 +185,6 @@ Page({
     })
     api.getAbstractList.call(this, 'document', app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
-
-  //展示视频
-  // showVideos: function() {
-    
-  //   var that = this;
-  //   // that.judgeView()
-  //   that.setData({
-  //     currentKind: 'course',
-  //     searchCondition: null,
-  //     articles: [],
-  //     lastId: "",
-  //     lastIdType: "",
-  //     isShowView:true,
-  //     isShow: false,
-  //     moreType: true,
-  //     height_video: ''
-  //   })
-  //   api.getAbstractList.call(this, 'course', app.getOpenid(), this.data.lastId, this.data.lastIdType)
-  // },
   showVideos: function () {
 
     var that = this;
@@ -254,18 +235,6 @@ Page({
     }
   },
 
-  //展示项目
-  showProjects: function() {
-    this.setData({
-      currentKind: 'project',
-      searchCondition: null,
-      articles: [],
-      lastId: "",
-      lastIdType: ""
-    })
-    api.getAbstractList.call(this, 'project', app.getOpenid(), this.data.lastId, this.data.lastIdType)
-
-  },
   toProjects: function() {
     wx.navigateTo({
       url: '/pages/project/project',
@@ -303,19 +272,19 @@ Page({
   },
 
   //更新搜索条件
-  updateSearchCondition: function(e) {
-    this.data.searchCondition = e.detail.value;
-  },
+  // updateSearchCondition: function(e) {
+  //   this.data.searchCondition = e.detail.value;
+  // },
 
   //搜索触发函数
-  onSearch: function() {
-    if (!this.data.searchCondition) {
-      this.showAll();
-      return;
-    }
-    console.log('search article: ' + this.data.searchCondition)
-    api.getAbstractListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
-  },
+  // onSearch: function() {
+  //   if (!this.data.searchCondition) {
+  //     this.showAll();
+  //     return;
+  //   }
+  //   console.log('search article: ' + this.data.searchCondition)
+  //   api.getAbstractListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
+  // },
 
   onReachBottom: function() {
     api.getAbstractList.call(this, this.data.currentKind, app.getOpenid(), this.data.lastId, this.data.lastIdType)

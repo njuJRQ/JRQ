@@ -518,12 +518,12 @@ public class UserBlServiceImpl implements UserBlService {
 
 	@Override
 	public String getMyMutualCardNum(String openid) {
-		List<SendCard> receive = userDataService.getSendsByOpenid(openid);
-		List<SendCard> send = userDataService.getReceivesByOpenid(openid);
+		List<SendCard> receive = userDataService.getSendsByOpenid(openid);//收到的名片
+		List<SendCard> send = userDataService.getReceivesByOpenid(openid);//发送过的名片
 		int count = 0;
 		for(int i=0;i<receive.size();i++){
 			for (int j=0;j<send.size();j++){
-				if(receive.get(i)==send.get(j)){
+				if(receive.get(i).equals(send.get(j))){
 					count++;
 				}
 			}

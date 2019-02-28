@@ -85,7 +85,8 @@ public class ArticleController {
     @ApiOperation(value = "根据点赞数排序获取文章摘要列表", notes = "根据点赞数排序获取文章摘要列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "openid", value = "搜索条件", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "kind", value = "文章类型", required = true, dataType = "String")
+            @ApiImplicitParam(name = "kind", value = "文章类型", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "id", value = "文章id", required = true, dataType = "String")
     })
     @RequestMapping(value = "/getAbstractListByLikeNum", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -93,8 +94,8 @@ public class ArticleController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> getAbstractListByLikeNum(@RequestParam(name="openid")String openid,@RequestParam(name="kind")String kind)  {
-        return new ResponseEntity<>(articleBlService.getAbstractListByLikeNum(openid,kind), HttpStatus.OK);
+    public ResponseEntity<Response> getAbstractListByLikeNum(@RequestParam(name="openid")String openid,@RequestParam(name="kind")String kind,@RequestParam(name="id")String id) throws NotExistException {
+        return new ResponseEntity<>(articleBlService.getAbstractListByLikeNum(openid,kind,id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "获取摘要列表：仅包括首页不包括圈子，一次加载10条(User)", notes = "获取摘要列表：仅包括首页不包括圈子，一次加载10条(User)")

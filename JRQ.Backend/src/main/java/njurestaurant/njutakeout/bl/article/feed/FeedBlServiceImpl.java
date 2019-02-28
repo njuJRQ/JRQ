@@ -78,7 +78,10 @@ public class FeedBlServiceImpl implements FeedBlService {
 
 	@Override
 	public FeedViewResponse getFeedView(String id) throws NotExistException {
-		return new FeedViewResponse(new FeedViewItem(feedDataService.getFeedById(id), userDataService, false));
+		Feed feed = feedDataService.getFeedById(id);
+		feed.setViewNum(feed.getViewNum()+1);//feed浏览量+1
+		feedDataService.saveFeed(feed);
+		return new FeedViewResponse(new FeedViewItem(feed, userDataService, false));
 	}
 
 	@Override

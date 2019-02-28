@@ -23,7 +23,7 @@ public interface ArticleBlService {
 	 * @param kind 文章类型
 	 * @return 摘要列表
 	 */
-	AbstractListResponse getAbstractListByLikeNum(String openid, String kind);
+	AbstractListResponse getAbstractListByLikeNum(String openid, String kind, String id) throws NotExistException;
 
 	/**
 	 * 获取摘要列表：仅包括首页不包括圈子，一次加载10条(User)

@@ -82,18 +82,18 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 	}
 
 	@Override
-	public AbstractListResponse getAbstractListByLikeNum(String openid, String kind) {
+	public AbstractListResponse getAbstractListByLikeNum(String openid, String kind ,String id) throws NotExistException{
 		List<AbstractItem> abstractItems = new ArrayList<>();
 		switch (kind) {
 			case "course":
-				List<Course> courses = courseDataService.getAllCoursesOrderByLikeNum();
+				List<Course> courses = courseDataService.getTop10CoursesOrderByLikeNum(openid, id);
 				for (Course course:courses) {
 					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, course.getId());
 					abstractItems.add(new AbstractItem(course, adminDataService, hasLiked));
 				}
 				break;
 			case "document":
-				List<Document> documents = documentDataService.getAllDocumentsOrderByLikeNum();
+				List<Document> documents = documentDataService.getTop10DocumentsOrderByLikeNum(openid, id);
 				for (Document document:documents) {
 					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, document.getId());
 					abstractItems.add(new AbstractItem(document, adminDataService, hasLiked));

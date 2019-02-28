@@ -1,5 +1,6 @@
 package njurestaurant.njutakeout.data.dao.article;
 
+import njurestaurant.njutakeout.entity.article.Course;
 import njurestaurant.njutakeout.entity.article.Document;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,5 +11,9 @@ public interface DocumentDao extends JpaRepository<Document, String> {
 	List<Document> findTop10ByOrderByTimeStampDesc();
 	List<Document> findTop10ByTimeStampBeforeOrderByTimeStampDesc(long timeStamp);
 	List<Document> findDocumentsByWriterName(String writerName);
-	List<Document> findDocumentsByOrderByLikeNumDesc();
+
+	List<Document> findDocumentsByLikeNum(long likeNum);
+	List<Document> findTop10ByOrderByLikeNumDesc();
+	List<Document> findTop10ByLikeNumBeforeOrderByLikeNumDesc(long likeNum);
+//	List<Document> findDocumentsByOrderByLikeNumDesc();
 }

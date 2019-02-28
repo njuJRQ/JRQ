@@ -124,4 +124,8 @@ public class NewsDataServiceImpl implements NewsDataService {
 		return newsDao.countNewsBy();
 	}
 
+	@Override
+	public List<News> getAllNews() {
+		return newsDao.findAll();
+	}
 }

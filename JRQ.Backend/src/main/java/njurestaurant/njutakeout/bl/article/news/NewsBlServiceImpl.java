@@ -45,7 +45,10 @@ public class NewsBlServiceImpl implements NewsBlService {
 				case "财经快讯":
 					Optional<CJKXNews> optionalCJKXNews = newsDataService.findCJKXNewsById(news.getSourceId());
 					if (optionalCJKXNews.isPresent()) {
-						return new NewsResponse(new NewsItem(news.getId(), news.getSource(), optionalCJKXNews.get()));
+						CJKXNews cjkxNews = optionalCJKXNews.get();
+						cjkxNews.setViewNum(cjkxNews.getViewNum()+1);//资讯浏览次数+1
+						newsDataService.saveCJKXNews(cjkxNews);
+						return new NewsResponse(new NewsItem(news.getId(), news.getSource(), cjkxNews));
 					}
 					break;
 				default:
@@ -155,6 +158,22 @@ public class NewsBlServiceImpl implements NewsBlService {
 		}
 	}
 
+	@Override
+	public NewsListResponse getNewsListByCondition(String condition) {
+		List<NewsItem> newsItems = new ArrayList<>();
+		for(News news : newsDataService.getAllNews()){
+			Optional<CJKXNews> optionalCJKXNews = newsDataService.findCJKXNewsById(news.getSourceId());
+			if(optionalCJKXNews.isPresent()){
+				CJKXNews cjkxNews = optionalCJKXNews.get();
+				NewsItem newsItem = new NewsItem(news.getId(),news.getSource(),cjkxNews);
+				if(newsItem.getKeywords().contains(condition)){
+					newsItems.add(newsItem);
+				}
+			}
+		}
+		return new NewsListResponse(newsItems);
+	}
+
 	/**
 	 * 定时任务：每天每半个小时获取一次最新资讯（目前测试是一次5条）
 	 */
@@ -184,7 +203,7 @@ public class NewsBlServiceImpl implements NewsBlService {
 					default:
 				}
 				String keywords = (String) obj.get("Keywords");
-				newsDataService.addCJKXNews(new CJKXNews(id, time, content, level, type, keywords));
+				newsDataService.addCJKXNews(new CJKXNews(id, time, content, level, type, keywords,Long.valueOf(0)));
 			}
 		} else {
 			System.err.println("新闻更新失败");

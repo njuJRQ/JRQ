@@ -15,11 +15,14 @@ import java.util.List;
 public class AbstractItem {
 	private String id; //文章编号
 	private String title; //文章标题
+	private String content; //文章内容
 	private List<String> images; //文章图片路径集合（不超过3张）
 	private String writerFace; //作者头像图片路径（可能为空）
 	private String writerName; //作者名字
+	private int price;//价格
 	private String date; //文章发布日期，如“2018-1-1”
 	private long likeNum; //文章点赞数
+	private long viewNum; //文章浏览量
 	private String kind; //文章类型，可能值：course，document，project
 	private boolean hasLiked; //用户是否已经点赞
 
@@ -49,6 +52,7 @@ public class AbstractItem {
 		this.writerName = course.getWriterName();
 		this.date = course.getDate();
 		this.likeNum = course.getLikeNum();
+		this.viewNum = course.getViewNum();
 		this.kind = "course";
 		this.hasLiked = hasLiked;
 	}
@@ -56,6 +60,7 @@ public class AbstractItem {
 	public AbstractItem(Document document, AdminDataService adminDataService, boolean hasLiked) {
 		this.id = document.getId();
 		this.title = document.getTitle();
+		this.content = document.getContent();
 		this.images = Collections.emptyList();
 		try {
 			this.writerFace = adminDataService.getAdminByUsername(document.getWriterName()).getFace();
@@ -63,6 +68,7 @@ public class AbstractItem {
 			this.writerFace = "";
 		}
 		this.writerName = document.getWriterName();
+		this.price = document.getPrice();
 		this.date = document.getDate();
 		this.likeNum = document.getLikeNum();
 		this.kind = "document";
@@ -114,6 +120,14 @@ public class AbstractItem {
 		this.title = title;
 	}
 
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
 	public List<String> getImages() {
 		return images;
 	}
@@ -138,6 +152,14 @@ public class AbstractItem {
 		this.writerName = writerName;
 	}
 
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
 	public String getDate() {
 		return date;
 	}
@@ -154,11 +176,27 @@ public class AbstractItem {
 		this.likeNum = likeNum;
 	}
 
+	public long getViewNum() {
+		return viewNum;
+	}
+
+	public void setViewNum(long viewNum) {
+		this.viewNum = viewNum;
+	}
+
 	public String getKind() {
 		return kind;
 	}
 
 	public void setKind(String kind) {
 		this.kind = kind;
+	}
+
+	public boolean isHasLiked() {
+		return hasLiked;
+	}
+
+	public void setHasLiked(boolean hasLiked) {
+		this.hasLiked = hasLiked;
 	}
 }

@@ -10,4 +10,9 @@ public interface CourseDao extends JpaRepository<Course, String> {
 	List<Course> findTop10ByOrderByTimeStampDesc();
 	List<Course> findTop10ByTimeStampBeforeOrderByTimeStampDesc(long timeStamp);
 	List<Course> findCoursesByWriterName(String writerName);
+
+	List<Course> findCoursesByLikeNum(long likeNum);
+	List<Course> findTop10ByOrderByLikeNumDesc();
+	List<Course> findTop10ByLikeNumBeforeOrderByLikeNumDesc(long likeNum);
+//	List<Course> findCoursesByOrderByLikeNumDesc();
 }

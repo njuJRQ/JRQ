@@ -2,12 +2,14 @@ package njurestaurant.njutakeout.data.article;
 
 import njurestaurant.njutakeout.data.dao.article.DocumentDao;
 import njurestaurant.njutakeout.dataservice.article.DocumentDataService;
+import njurestaurant.njutakeout.entity.article.Course;
 import njurestaurant.njutakeout.entity.article.Document;
 import njurestaurant.njutakeout.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -98,19 +100,49 @@ public class DocumentDataServiceImpl implements DocumentDataService {
 
 		if (!documents.isEmpty()) {
 			List<Document> sameStampDocuments = documentDao.findDocumentsByTimeStamp(documents.get(documents.size()-1).getTimeStamp());
-			for(Document ssd:sameStampDocuments) {
-				boolean flag = false; //标记ssd是否在documents中
-				for(Document d:documents){
-					if(ssd.getId().equals(d.getId())){
-						flag = true;
-						break;
-					}
-				}
-				if(!flag){ //ssd不在documents里面，加入进去
-					documents.add(ssd);
-				}
-			}
+			addSame(documents, sameStampDocuments);
 		}
 		return documents;
+	}
+
+	@Override
+	public List<Document> getTop10DocumentsOrderByLikeNum(String openid, String id) throws NotExistException {
+		return getDocumentsOrderByLikeNumBefore(openid,
+				id.equals("")?-1:getDocumentById(id).getLikeNum());
+	}
+
+	@Override
+	public List<Document> getDocumentsOrderByLikeNumBefore(String openid, long likeNum) throws NotExistException {
+		List<Document> documents = null;
+		if(likeNum<0){
+			documents = documentDao.findTop10ByOrderByLikeNumDesc();
+		} else {
+			documents = documentDao.findTop10ByLikeNumBeforeOrderByLikeNumDesc(likeNum);
+		}
+		if (!documents.isEmpty()) {
+			List<Document> sameLikeNumDocuments = documentDao.findDocumentsByLikeNum(documents.get(documents.size()-1).getLikeNum());
+			addSame(documents, sameLikeNumDocuments);
+		}
+		return documents;
+	}
+
+	/**
+	 * 把与10条数据中最后一条数据时间戳或者热度相同的数据添加到这10条数据中去
+	 * @param documents 10条数据
+	 * @param sameDocuments 与最后一条数据时间戳或者热度相同的数据
+	 */
+	private void addSame(List<Document> documents, List<Document> sameDocuments){
+		for(Document sameDocument : sameDocuments) {
+			boolean flag = false;
+			for(Document document : documents){
+				if(sameDocument.getId().equals(document.getId())){
+					flag = true;
+					break;
+				}
+			}
+			if(!flag){
+				documents.add(sameDocument);//将时间戳或者热度相同的数据，除掉10条数据中已经有的那条
+			}
+		}
 	}
 }

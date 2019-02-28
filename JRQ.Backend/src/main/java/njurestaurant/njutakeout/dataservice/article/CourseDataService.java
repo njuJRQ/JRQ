@@ -36,4 +36,20 @@ public interface CourseDataService {
 	 * @return 课程列表
 	 */
 	List<Course> getMyCourseListBeforeTimeStamp(String openid, long timeStamp) throws NotExistException;
+
+	/**
+	 * 用户获取10条按热度排序的课程，第一次传id为空字符串
+	 * @param openid 用户微信openid
+	 * @param id 特定课程id
+	 * @return 课程列表
+	 */
+	List<Course> getTop10CoursesOrderByLikeNum(String openid, String id) throws NotExistException;
+
+	/**
+	 * 用户用户获取小于某热度值的10条按热度排序的课程
+	 * @param openid 用户微信openid
+	 * @param likeNum 热度值
+	 * @return 课程列表
+	 */
+	List<Course> getCoursesOrderByLikeNumBefore(String openid ,long likeNum) throws NotExistException;
 }

@@ -15,6 +15,9 @@ public class Feed {
 	@GeneratedValue(generator = "jpa-uuid")
 	private String id; //文章编号
 
+	@Column
+	private String title; //文章标题
+
 	@Column(length = 600)
 	private String content; //文章内容
 
@@ -31,15 +34,24 @@ public class Feed {
 	@Column
 	private long likeNum; //文章点赞数
 
+	@Column
+	private long viewNum; //文章浏览量
+
+	@Column
+	private Boolean isPreferred; //是否是均融优选
+
 	public Feed() {
 	}
 
-	public Feed(String content, List<String> images, String writerOpenid, long timeStamp, long likeNum) {
+	public Feed(String title, String content, List<String> images, String writerOpenid, long timeStamp, long likeNum, long viewNum, Boolean isPreferred) {
+		this.title = title;
 		this.content = content;
 		this.images = images;
 		this.writerOpenid = writerOpenid;
 		this.timeStamp = timeStamp;
 		this.likeNum = likeNum;
+		this.viewNum = viewNum;
+		this.isPreferred = isPreferred;
 	}
 
 	public String getId() {
@@ -48,6 +60,14 @@ public class Feed {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getContent() {
@@ -93,5 +113,21 @@ public class Feed {
 
 	public void setLikeNum(long likeNum) {
 		this.likeNum = likeNum;
+	}
+
+	public long getViewNum() {
+		return viewNum;
+	}
+
+	public void setViewNum(long viewNum) {
+		this.viewNum = viewNum;
+	}
+
+	public Boolean getPreferred() {
+		return isPreferred;
+	}
+
+	public void setPreferred(Boolean preferred) {
+		isPreferred = preferred;
 	}
 }

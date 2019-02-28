@@ -39,12 +39,12 @@ public class Course {
 	private String preview; //视频预览，前1分钟
 
 	@Column
-	private long vieNum;//课程浏览量
+	private long viewNum;//课程浏览量
 
-	public Course(){
+	public Course() {
 	}
 
-	public Course(String title, String image, String writerName, long timeStamp, long likeNum, String video, int price, String preview,long vieNum) {
+	public Course(String title, String image, String writerName, long timeStamp, long likeNum, String video, int price, String preview, long viewNum) {
 		this.title = title;
 		this.image = image;
 		this.writerName = writerName;
@@ -53,7 +53,7 @@ public class Course {
 		this.video = video;
 		this.price = price;
 		this.preview = preview;
-		this.vieNum = vieNum;
+		this.viewNum = viewNum;
 	}
 
 	public String getId() {
@@ -133,11 +133,11 @@ public class Course {
 		this.preview = preview;
 	}
 
-	public long getVieNum() {
-		return vieNum;
+	public long getViewNum() {
+		return viewNum;
 	}
 
-	public void setVieNum(long vieNum) {
-		this.vieNum = vieNum;
+	public void setViewNum(long viewNum) {
+		this.viewNum = viewNum;
 	}
 }

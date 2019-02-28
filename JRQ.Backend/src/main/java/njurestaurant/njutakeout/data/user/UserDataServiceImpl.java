@@ -124,12 +124,12 @@ public class UserDataServiceImpl implements UserDataService {
 
 	@Override
 	public List<SendCard> getSendsByOpenid(String openid) {
-		return sendCardDao.findAllByReceiverOpenid(openid);
+		return sendCardDao.findAllByReceiverOpenid(openid);//收到的名片
 	}
 
 	@Override
 	public List<SendCard> getReceivesByOpenid(String openid) {
-		return sendCardDao.findAllBySenderOpenid(openid);
+		return sendCardDao.findAllBySenderOpenid(openid);//发送的名片
 	}
 
 	@Override

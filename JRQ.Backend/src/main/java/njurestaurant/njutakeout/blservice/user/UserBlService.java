@@ -249,11 +249,12 @@ public interface UserBlService {
 	 * @param senderOpenid 发送者微信openid
 	 * @param receiverOpenid 接收者微信openid
 	 * @param page 微信模板消息接口中要跳转的页面
+	 * @param formId 微信模板消息接口参数
 	 * @param data 微信模板消息接口内容
 	 * @param emphasisKeyword 微信模板消息接口放大的关键词
 	 * @return 是否成功
 	 */
-	BoolResponse sendMyCard(String senderOpenid, String receiverOpenid, String page, String data, String emphasisKeyword);
+	BoolResponse sendMyCard(String senderOpenid, String receiverOpenid, String page, String formId, String data, String emphasisKeyword);
 
 	/**
 	 * 用户获取自己的名片列表(User)
@@ -290,11 +291,17 @@ public interface UserBlService {
 	CardResponse getOtherCard(String userOpenid, String otherOpenid) throws NotExistException;
 
 	/**
-	 * 用户上传他的formId，记录到数据库中以备使用，时间戳为后端服务器生成的时间戳
-	 * @param openid 用户的openid
-	 * @param formId 用户点击所产生的formId
-	 * @return 是否成功
+	 * 获取用户收到的名片数量
+	 * @param openid 用户的微信openid
+	 * @return 用户收到名片的数量
 	 */
-	BoolResponse uploadFormId(String openid, String formId);
+	String getMyReceivedCardNum(String openid);
+
+	/**
+	 * 获取用户互持名片的数量
+	 * @param openid 用户的微信openid
+	 * @return 用户互持名片的数量
+	 */
+	String getMyMutualCardNum(String openid);
 
 }

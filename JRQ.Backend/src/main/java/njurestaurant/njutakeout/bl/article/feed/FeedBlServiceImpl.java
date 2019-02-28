@@ -23,186 +23,211 @@ import java.util.List;
 
 @Service
 public class FeedBlServiceImpl implements FeedBlService {
-    private final FeedDataService feedDataService;
-    private final UserDataService userDataService;
-    private final LikeDataService likeDataService;
-    private final SendCardDao sendCardDao;
-    private final CountDataService countDataService;
 
-    @Autowired
-    public FeedBlServiceImpl(FeedDataService feedDataService, UserDataService userDataService, LikeDataService likeDataService, SendCardDao sendCardDao, CountDataService countDataService) {
-        this.feedDataService = feedDataService;
-        this.userDataService = userDataService;
-        this.likeDataService = likeDataService;
-        this.sendCardDao = sendCardDao;
-        this.countDataService = countDataService;
-    }
+	private final FeedDataService feedDataService;
+	private final UserDataService userDataService;
+	private final LikeDataService likeDataService;
+	private final SendCardDao sendCardDao;
+	private final CountDataService countDataService;
 
-    @Override
-    public InfoResponse publishMyFeed(String content, List<String> images, String writerOpenid) {
-        feedDataService.addFeed(new Feed(content, images, writerOpenid, System.currentTimeMillis(), 0));
-        return new InfoResponse();
-    }
+	@Autowired
+	public FeedBlServiceImpl(FeedDataService feedDataService, UserDataService userDataService, LikeDataService likeDataService, SendCardDao sendCardDao, CountDataService countDataService) {
+		this.feedDataService = feedDataService;
+		this.userDataService = userDataService;
+		this.likeDataService = likeDataService;
+		this.sendCardDao = sendCardDao;
+		this.countDataService = countDataService;
+	}
 
-    @Override
-    public FeedResponse getFeed(String id) throws NotExistException {
-        return new FeedResponse(new FeedItem(feedDataService.getFeedById(id)));
-    }
+	@Override
+	public InfoResponse publishMyFeed(String title, String content, List<String> images, String writerOpenid) {
+		feedDataService.addFeed(new Feed(title, content, images, writerOpenid, System.currentTimeMillis(), 0, 0,false));
+		return new InfoResponse();
+	}
 
-    @Override
-    public FeedListResponse getFeedList() {
-        List<Feed> feeds = feedDataService.getAllFeeds();
-        return getFeedItemList(feeds);
-    }
+	@Override
+	public FeedResponse getFeed(String id) throws NotExistException {
+		return new FeedResponse(new FeedItem(feedDataService.getFeedById(id)));
+	}
 
-    @Override
-    public InfoResponse updateFeed(String id, String content, List<String> images) throws NotExistException {
-        Feed feed = feedDataService.getFeedById(id);
-        feed.setContent(content);
-        feed.setImages(images);
-        feed.setTimeStamp(System.currentTimeMillis());
-        feedDataService.saveFeed(feed);
-        return new InfoResponse();
-    }
+	@Override
+	public FeedListResponse getFeedList() {
+		List<Feed> feeds = feedDataService.getAllFeeds();
+		return getFeedItemList(feeds);
+	}
 
-    @Override
-    public InfoResponse deleteFeed(String id) throws NotExistException {
-        feedDataService.deleteFeedById(id);
-        return new InfoResponse();
-    }
+	@Override
+	public InfoResponse updateFeed(String id, String content, List<String> images) throws NotExistException {
+		Feed feed = feedDataService.getFeedById(id);
+		feed.setContent(content);
+		feed.setImages(images);
+		feed.setTimeStamp(System.currentTimeMillis());
+		feedDataService.saveFeed(feed);
+		return new InfoResponse();
+	}
 
-    @Override
-    public FeedViewResponse getFeedView(String id) throws NotExistException {
-        return new FeedViewResponse(new FeedViewItem(feedDataService.getFeedById(id), userDataService, false));
-    }
+	@Override
+	public InfoResponse deleteFeed(String id) throws NotExistException {
+		feedDataService.deleteFeedById(id);
+		return new InfoResponse();
+	}
 
-    @Override
-    public FeedViewListResponse getFeedViewList() throws NotExistException {
-        List<Feed> feeds = feedDataService.getAllFeeds();
-        List<FeedViewItem> feedViewItems = new ArrayList<>();
-        for (Feed feed : feeds) {
-            feedViewItems.add(new FeedViewItem(feed, userDataService, false));
-        }
-        return new FeedViewListResponse(feedViewItems);
-    }
+	@Override
+	public FeedViewResponse getFeedView(String id) throws NotExistException {
+		Feed feed = feedDataService.getFeedById(id);
+		feed.setViewNum(feed.getViewNum()+1);//feed浏览量+1
+		feedDataService.saveFeed(feed);
+		return new FeedViewResponse(new FeedViewItem(feed, userDataService, false));
+	}
 
-    @Override
-    public FeedViewListResponse getFeedViewListBefore(String openid, String id) throws NotExistException {
-        List<SendCard> sendCards = sendCardDao.findAllByReceiverOpenid(openid); //找到用户拥有的所有名片的openid
-        List<String> friendOpenids = new ArrayList<>();
+	@Override
+	public FeedViewListResponse getFeedViewList() throws NotExistException {
+		List<Feed> feeds = feedDataService.getAllFeeds();
+		List<FeedViewItem> feedViewItems = new ArrayList<>();
+		for (Feed feed : feeds) {
+			feedViewItems.add(new FeedViewItem(feed, userDataService, false));
+		}
+		return new FeedViewListResponse(feedViewItems);
+	}
+
+	@Override
+	public FeedViewListResponse getFeedViewListBefore(String openid, String id) throws NotExistException {
+		List<SendCard> sendCards = sendCardDao.findAllByReceiverOpenid(openid); //找到用户拥有的所有名片的openid
+		List<String> friendOpenids = new ArrayList<>();
+
 //		List<User> userList=userDataService.getAllUsers();
 //		for(SendCard sendCard:sendCards) {
 //			friendOpenids.add(sendCard.getSenderOpenid());
 //		}
 //		friendOpenids.add(openid); //把自己的openid加上
-        List<User> userList = userDataService.getAllUsers();
-        for (User user : userList) {
-            friendOpenids.add(user.getOpenid());
-        }
 
-        List<Feed> feeds = null;
-        if (id.equals("")) {
-            feeds = feedDataService.getTop10ByWriterOpenidInOrderByTimeStampDesc(friendOpenids);
-        } else {
-            Feed feed = feedDataService.getFeedById(id);
-            feeds = feedDataService.getTop10ByWriterOpenidInAndTimeStampBeforeOrderByTimeStampDesc(friendOpenids, feed.getTimeStamp());
-        }
+		List<User> userList=userDataService.getAllUsers();
+		for(User user:userList) {
+			friendOpenids.add(user.getOpenid());
+		}
 
-        if (!feeds.isEmpty()) {
-            List<Feed> sameStampFeeds = feedDataService.getFeedsByWriterOpenidInAndTimeStamp(
-                    friendOpenids, feeds.get(feeds.size() - 1).getTimeStamp()); //与feeds中最早的Feed时间戳相同的文章
-            for (Feed ssf : sameStampFeeds) {
-                boolean flag = false; //标记ssf是否在feeds中
-                for (Feed f : feeds) {
-                    if (ssf.getId().equals(f.getId())) {
-                        flag = true;
-                        break;
-                    }
-                }
-                if (!flag) { //ssf不在feeds里面，加入进去
-                    feeds.add(ssf);
-                }
-            }
-        }
+		List<Feed> feeds = null;
+		if (id.equals("")) {
+			feeds = feedDataService.getTop10ByWriterOpenidInOrderByTimeStampDesc(friendOpenids);
+		} else {
+			Feed feed = feedDataService.getFeedById(id);
+			feeds = feedDataService.getTop10ByWriterOpenidInAndTimeStampBeforeOrderByTimeStampDesc(friendOpenids, feed.getTimeStamp());
+		}
 
-        List<FeedViewItem> feedViewItems = new ArrayList<>();
-        for (Feed feed : feeds) {
-            boolean hasLiked = likeDataService.isLikeExistent(openid, "feed", feed.getId());
-            feedViewItems.add(new FeedViewItem(feed, userDataService, hasLiked));
-        }
+		if (!feeds.isEmpty()) {
+			List<Feed> sameStampFeeds = feedDataService.getFeedsByWriterOpenidInAndTimeStamp(
+					friendOpenids, feeds.get(feeds.size()-1).getTimeStamp()); //与feeds中最早的Feed时间戳相同的文章
+			for (Feed ssf:sameStampFeeds) {
+				boolean flag = false; //标记ssf是否在feeds中
+				for (Feed f:feeds){
+					if (ssf.getId().equals(f.getId())) {
+						flag = true;
+						break;
+					}
+				}
+				if (!flag) { //ssf不在feeds里面，加入进去
+					feeds.add(ssf);
+				}
+			}
+		}
 
-        //浏览圈子次数+1
-        Count count = countDataService.getCountById(1);
-        count.setViewFeed(count.getViewFeed() + 1);
-        countDataService.saveCount(count);
+		List<FeedViewItem> feedViewItems = new ArrayList<>();
+		for(Feed feed:feeds) {
+			boolean hasLiked = likeDataService.isLikeExistent(openid, "feed", feed.getId());
+			feedViewItems.add(new FeedViewItem(feed, userDataService, hasLiked));
+		}
 
-        return new FeedViewListResponse(feedViewItems);
-    }
+		//浏览圈子次数+1
+		Count count = countDataService.getCountById(1);
+		count.setViewFeed(count.getViewFeed()+1);
+		countDataService.saveCount(count);
 
-    @Override
-    public AbstractListResponse getUserHistoryAbstractList(String myOpenid, String otherOpenid) throws NotExistException {
-        List<Feed> feeds = feedDataService.getFeedsByWriterOpenid(otherOpenid);
-        List<AbstractItem> abstractItems = new ArrayList<>();
-        for (Feed feed : feeds) {
-            boolean hasLiked = likeDataService.isLikeExistent(myOpenid, "feed", feed.getId());
-            abstractItems.add(new AbstractItem(feed, userDataService, hasLiked));
-        }
-        return new AbstractListResponse(abstractItems);
-    }
+		return new FeedViewListResponse(feedViewItems);
+	}
 
-    @Override
-    public InfoResponse updateMyFeed(String id, String content, List<String> images) throws NotExistException {
-        Feed feed = feedDataService.getFeedById(id);
-        feed.setContent(content);
-        feed.setImages(images);
-        feed.setTimeStamp(System.currentTimeMillis());
-        return new InfoResponse();
-    }
+	@Override
+	public AbstractListResponse getUserHistoryAbstractList(String myOpenid, String otherOpenid) throws NotExistException {
+		List<Feed> feeds = feedDataService.getFeedsByWriterOpenid(otherOpenid);
+		List<AbstractItem> abstractItems = new ArrayList<>();
+		for (Feed feed:feeds) {
+			boolean hasLiked = likeDataService.isLikeExistent(myOpenid, "feed", feed.getId());
+			abstractItems.add(new AbstractItem(feed, userDataService, hasLiked));
+		}
+		return new AbstractListResponse(abstractItems);
+	}
 
-    @Override
-    public InfoResponse deleteMyFeed(String id) throws NotExistException {
-        feedDataService.deleteFeedById(id);
-        return new InfoResponse();
-    }
+	@Override
+	public InfoResponse updateMyFeed(String id, String content, List<String> images) throws NotExistException {
+		Feed feed = feedDataService.getFeedById(id);
+		feed.setContent(content);
+		feed.setImages(images);
+		feed.setTimeStamp(System.currentTimeMillis());
+		return new InfoResponse();
+	}
 
-    @Override
-    public FeedViewListResponse getFeedListBeforeByKind(String kind, String openid, String id) throws NotExistException {
-        List<FeedItem> feedItems = new ArrayList<>();
-        List<Feed> feeds = new ArrayList<>();
-        switch (kind) {
-            case "lasted":
-                feeds = feedDataService.getFeedListByLikeNum(openid, id);
-                for (Feed feed : feeds) {
-                    feedItems.add(new FeedItem(feed));
-                }
-                break;
-            case "weekly":
-                feeds = feedDataService.getFeedListBeforeWeek(openid, id);
-                for (Feed feed : feeds) {
-                    feedItems.add(new FeedItem(feed));
-                }
-                break;
-            case "monthly":
-                feeds = feedDataService.getFeedListBeforeMonth(openid, id);
-                for (Feed feed : feeds) {
-                    feedItems.add(new FeedItem(feed));
-                }
-                break;
-            default:
-        }
-        List<FeedViewItem> feedViewItems = new ArrayList<>();
-        for (Feed feed : feeds) {
-            boolean hasLiked = likeDataService.isLikeExistent(openid, "feed", feed.getId());
-            feedViewItems.add(new FeedViewItem(feed, userDataService, hasLiked));
-        }
-        return new FeedViewListResponse(feedViewItems);
-    }
+	@Override
+	public InfoResponse deleteMyFeed(String id) throws NotExistException {
+		feedDataService.deleteFeedById(id);
+		return new InfoResponse();
+	}
 
-    public FeedListResponse getFeedItemList(List<Feed> feeds) {
-        List<FeedItem> feedItems = new ArrayList<>();
-        for (Feed feed : feeds) {
-            feedItems.add(new FeedItem(feed));
-        }
-        return new FeedListResponse(feedItems);
-    }
+	@Override
+	public FeedViewListResponse getFeedListBeforeByKind(String kind, String openid, String id) throws NotExistException {
+		List<FeedItem> feedItems = new ArrayList<>();
+		List<Feed> feeds = new ArrayList<>();
+		switch (kind) {
+			case "isPreferred":
+				feeds = feedDataService.getFeedListByIsPreferred(openid,id);
+				for(Feed feed:feeds){
+					feedItems.add(new FeedItem(feed));
+				}
+				break;
+			case "hot":
+				feeds = feedDataService.getFeedListByLikeNum(openid,id);
+				for(Feed feed:feeds){
+					feedItems.add(new FeedItem(feed));
+				}
+				break;
+			case "time":
+				feeds = feedDataService.getFeedListByTimeStamp(openid,id);
+				for(Feed feed:feeds){
+					feedItems.add(new FeedItem(feed));
+				}
+				break;
+			default: ;
+		}
+		List<FeedViewItem> feedViewItems = new ArrayList<>();
+		for(Feed feed:feeds) {
+			boolean hasLiked = likeDataService.isLikeExistent(openid, "feed", feed.getId());
+			feedViewItems.add(new FeedViewItem(feed, userDataService, hasLiked));
+		}
+		return new FeedViewListResponse(feedViewItems);
+	}
+
+	@Override
+	public FeedViewListResponse getFeedListByCondition(String openid, String condition) throws NotExistException {
+		List<FeedViewItem> feedViewItems = new ArrayList<>();
+		for(Feed feed : feedDataService.getAllFeeds()){
+			if(feed.getTitle().contains(condition)){
+				boolean hasLiked = likeDataService.isLikeExistent(openid, "feed", feed.getId());
+				feedViewItems.add(new FeedViewItem(feed, userDataService, hasLiked));
+			}
+		}
+		return new FeedViewListResponse(feedViewItems);
+	}
+
+	@Override
+	public FeedListResponse getMyFeedList(String openid) throws NotExistException {
+		List<Feed> feeds = feedDataService.getFeedsByWriterOpenid(openid);
+		return getFeedItemList(feeds);
+	}
+
+	public FeedListResponse getFeedItemList(List<Feed> feeds){
+		List<FeedItem> feedItems = new ArrayList<>();
+		for(Feed feed:feeds){
+			feedItems.add(new FeedItem(feed));
+		}
+		return new FeedListResponse(feedItems);
+	}
+
 }

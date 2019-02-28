@@ -6,19 +6,23 @@ import java.util.List;
 
 public class FeedItem {
 	private String id; //文章编号
+	private String title; //文章标题
 	private String content; //文章内容
 	private List<String> images; //文章图片路径集合（不超过3张）
 	private String writerOpenid; //作者微信openid
 	private String date; //文章发布日期，如"2018-1-1"
 	private long likeNum; //文章点赞数
+	private long viewNum; //文章浏览量
 
 	public FeedItem(Feed feed) {
 		this.id = feed.getId();
+		this.title = feed.getTitle();
 		this.content = feed.getContent();
 		this.images = feed.getImages();
 		this.writerOpenid = feed.getWriterOpenid();
 		this.date = feed.getDate();
 		this.likeNum = feed.getLikeNum();
+		this.viewNum = feed.getViewNum();
 	}
 
 	public String getId() {
@@ -27,6 +31,14 @@ public class FeedItem {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getContent() {
@@ -67,5 +79,13 @@ public class FeedItem {
 
 	public void setLikeNum(long likeNum) {
 		this.likeNum = likeNum;
+	}
+
+	public long getViewNum() {
+		return viewNum;
+	}
+
+	public void setViewNum(long viewNum) {
+		this.viewNum = viewNum;
 	}
 }

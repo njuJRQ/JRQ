@@ -14,7 +14,8 @@ Page({
         '../../default/default-icon.png',
         '../../default/default-icon.png',
         '../../default/default-icon.png',
-        '../../default/default-icon.png'],
+        '../../default/default-icon.png'
+      ],
       phone: '123456789',
       email: '123456789@163.com',
       company: '美国永辉有限公司',
@@ -27,14 +28,27 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onShow: function (options) {
-    var that = this
+  onShow: function(options) {
     //获取个人信息
-    api.getMyInfo.call(this, app.getOpenid())
+    api.getMyUser(app.getOpenid())
+      .then((user) => {
+        this.data.myInfo = user
+        if (this.data.myInfo.levelName == '998') {
+          this.data.myInfo.medals.push('/pages/me/img/gold.png')
+        } else if (this.data.myInfo.levelName == '298') {
+          this.data.myInfo.medals.push('/pages/me/img/silver.png')
+        } else if (this.data.myInfo.levelName === 'common') {
+          this.data.myInfo.medals.push('/pages/me/img/copper.png')
+        }
+        if (this.data.myInfo.isEnterprise) {
+          this.data.myInfo.medals.push('/pages/me/img/enterprise.png')
+        }
+        this.setData(this.data)
+      })
   },
 
   //发布信息
-  onPublish: function () {
+  onPublish: function() {
     console.log('publish')
     wx.navigateTo({
       url: 'publishMyArticle/publishMyArticle',
@@ -42,7 +56,7 @@ Page({
   },
 
   // 分享小程序
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     this.hideModal()
     var that = this;
     var userId = app.getOpenid();
@@ -50,14 +64,14 @@ Page({
       title: '钧融圈,金融人的新社区',
       path: '/pages/me/myHistory/myHistory?id=' + userId,
       imageUrl: "img/post_template.jpg",
-      success: function (res) {
+      success: function(res) {
         console.log("转发成功" + res);
       }
     }
   },
 
   // 绘制海报
-  drawPost: function () {
+  drawPost: function() {
     this.hideModal()
     wx.navigateTo({
       url: 'createPost/createPost',
@@ -65,7 +79,7 @@ Page({
   },
 
   // 显示遮罩层
-  showModal: function () {
+  showModal: function() {
     var animation = wx.createAnimation({
       duration: 200,
       timingFunction: "linear",
@@ -77,7 +91,7 @@ Page({
       animationData: animation.export(),
       showModalStatus: true
     })
-    setTimeout(function () {
+    setTimeout(function() {
       animation.translateY(0).step()
       this.setData({
         animationData: animation.export()
@@ -86,7 +100,7 @@ Page({
   },
 
   // 隐藏遮罩层
-  hideModal: function () {
+  hideModal: function() {
     var animation = wx.createAnimation({
       duration: 200,
       timingFunction: "linear",
@@ -97,7 +111,7 @@ Page({
     this.setData({
       animationData: animation.export(),
     })
-    setTimeout(function () {
+    setTimeout(function() {
       animation.translateY(0).step()
       this.setData({
         animationData: animation.export(),

@@ -6,28 +6,24 @@ import njurestaurant.njutakeout.dataservice.article.FeedDataService;
 import njurestaurant.njutakeout.dataservice.article.LikeDataService;
 import njurestaurant.njutakeout.dataservice.count.CountDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
-import njurestaurant.njutakeout.entity.article.Course;
-import njurestaurant.njutakeout.entity.article.Document;
 import njurestaurant.njutakeout.entity.article.Feed;
-import njurestaurant.njutakeout.entity.article.Project;
 import njurestaurant.njutakeout.entity.count.Count;
 import njurestaurant.njutakeout.entity.user.SendCard;
 import njurestaurant.njutakeout.entity.user.User;
 import njurestaurant.njutakeout.exception.NotExistException;
-import njurestaurant.njutakeout.response.BoolResponse;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.AbstractItem;
 import njurestaurant.njutakeout.response.article.AbstractListResponse;
-import njurestaurant.njutakeout.response.article.course.CourseItem;
-import njurestaurant.njutakeout.response.article.course.CourseListResponse;
 import njurestaurant.njutakeout.response.article.feed.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class FeedBlServiceImpl implements FeedBlService {
+
 	private final FeedDataService feedDataService;
 	private final UserDataService userDataService;
 	private final LikeDataService likeDataService;
@@ -98,11 +94,13 @@ public class FeedBlServiceImpl implements FeedBlService {
 	public FeedViewListResponse getFeedViewListBefore(String openid, String id) throws NotExistException {
 		List<SendCard> sendCards = sendCardDao.findAllByReceiverOpenid(openid); //找到用户拥有的所有名片的openid
 		List<String> friendOpenids = new ArrayList<>();
+
 //		List<User> userList=userDataService.getAllUsers();
 //		for(SendCard sendCard:sendCards) {
 //			friendOpenids.add(sendCard.getSenderOpenid());
 //		}
 //		friendOpenids.add(openid); //把自己的openid加上
+
 		List<User> userList=userDataService.getAllUsers();
 		for(User user:userList) {
 			friendOpenids.add(user.getOpenid());
@@ -231,4 +229,5 @@ public class FeedBlServiceImpl implements FeedBlService {
 		}
 		return new FeedListResponse(feedItems);
 	}
+
 }

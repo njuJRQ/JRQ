@@ -5,6 +5,7 @@
 @import '/template/likeIcon/likeIcon.wxss';
 
 /*本页面css属性*/
+
 /*关于头部导航栏的属性*/
 .headWrapper {
   width: 100%;
@@ -23,7 +24,7 @@
 }
 /*导航栏样式*/
 .navBar {
-  width: 200px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -55,8 +56,31 @@
   display: block;
   width: 35px;
   height: 35px;
-  border-radius: 50%;
+  border-radius: 100%;
 }
+/* 关于项目按钮文章属性 */
+.articleWrapper_project {
+  display: inline-block;
+  vertical-align: top;
+  width: 50%;
+  min-height: 200px;
+  padding: 30px 5px 0 5px;
+}
+
+.article__decorator_project {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: -10px;
+  width: 70%;
+  height: 20px;
+  background-color: #edc681;
+  border-radius: 20px;
+  padding: 5px 10px;
+  box-shadow: 0 0 10px #a0a0a0;
+  left: 0;
+}
+
 
 /*关于文章的属性*/
 .articleListWrapper {
@@ -67,12 +91,12 @@
   vertical-align: top;
   width: 50%;
   min-height: 200px;
-  padding: 30px 5px 0 5px;
+  padding: 15px 5px 0 5px;
 }
 .article {
   position: relative;
   margin: 10px 0 0 0;
-  padding: 10px 10px 5px 10px;
+  padding: 10px 5px 5px 5px;
 }
 .article__decorator {
   position: absolute;
@@ -112,6 +136,7 @@
 .article__titleName {
   line-height: 1.2rem;
   font-size: 0.9rem;
+  font-weight: bold;
   margin: 0.3rem 0 0 0.2rem;
   color: #907f1e;
   font-family: '宋体';
@@ -143,7 +168,7 @@
 }
 .writer__name {
   margin: 0 0 0 5px;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: #927912;
 }
 

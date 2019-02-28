@@ -29,61 +29,78 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onShow: function (options) {
+  onShow: function(options) {
     var that = this
-    api.getMyCredit.call(this, app.getOpenid())
-    api.getMySubmittedEnterprise.call(this, app.getOpenid(), (res) => {
+    api.getMyUser(app.getOpenid()).then((user) => {
+      this.setData({
+        price: user.credit,
+        isEnterprise: user.isEnterprise,
+        is298: user.levelName === "298",
+        is998: user.levelName === "998"
+      })
+    })
+    api.getMySubmittedEnterprise(app.getOpenid()).then((res) => {
       if (res.status == "submitted") {
-        that.setData({
+        this.setData({
           isEnterprisePending: true
         })
       }
     })
-    api.getLevelList.call(this, (levels) => {
+    api.getLevelList().then((levels) => {
       levels.forEach((level) => {
         switch (level.name) {
-          case "298": that.data.price298 = level.price; break;
-          case "998": that.data.price998 = level.price; break;
-          default: break;
+          case "298":
+            this.data.price298 = level.price;
+            break;
+          case "998":
+            this.data.price998 = level.price;
+            break;
+          default:
+            break;
         }
       })
-      that.setData(that.data)
+      this.setData(this.data)
     })
-    api.getPrivilegeList.call(this, (privileges) => {
+    api.getPrivilegeList().then((privileges) => {
       privileges.forEach((privilege) => {
         switch (privilege.name) {
-          case "enterprise": that.data.priceEnterprise = privilege.price === 0 ? '免费' : privilege.price; break;
-          default: break;
+          case "enterprise":
+            this.data.priceEnterprise = privilege.price === 0 ? '免费' : privilege.price;
+            break;
+          default:
+            break;
         }
       })
-      that.setData(that.data)
+      this.setData(this.data)
     })
   },
 
-  updateTo298: function () {
+  updateTo298: function() {
     wx.showModal({
       title: '确认升级',
       content: '你确认以¥298的价格升级为298用户吗？',
       success: (res) => {
-        if (res.confirm)
-          api.updateMe.call(this, app.getOpenid(), '298', 298, util.getTodayDate())
-          that.onShow()
+        if (res.confirm){
+          api.updateMe(app.getOpenid(), '298', 298, util.getTodayDate())
+        }
+        this.onShow()
       }
     })
   },
 
-  updateTo998: function () {
+  updateTo998: function() {
     wx.showModal({
       title: '确认升级',
       content: '你确认以¥998的价格升级为998用户吗？',
       success: (res) => {
-        if (res.confirm)
-          api.updateMe.call(this, app.getOpenid(), '998', 998, util.getTodayDate())
+        if (res.confirm){
+          api.updateMe(app.getOpenid(), '998', 998, util.getTodayDate())
+        }
       }
     })
   },
 
-  updateToEnterprise: function () {
+  updateToEnterprise: function() {
     var that = this
     wx.showModal({
       title: '确认升级',
@@ -99,14 +116,14 @@ Page({
   },
 
   //取消按钮
-  cancel: function () {
+  cancel: function() {
     console.log('cancel')
     this.setData({
       isHideModalput: true
     });
   },
   //确认
-  confirm: function () {
+  confirm: function() {
     console.log('confirm')
     if (this.isValid()) {
       this.setData({
@@ -129,7 +146,7 @@ Page({
     }
   },
 
-  isValid: function () {
+  isValid: function() {
     if (this.data.username == "") {
       wx.showToast({
         title: '用户名不得为空，请重填',
@@ -182,7 +199,7 @@ Page({
     return true
   },
 
-  updateUsername: function (e) {
+  updateUsername: function(e) {
     this.data.username = e.detail.value;
     var that = this
     api.isAdminUsernameExistent.call(this, this.data.username, (isAdminUsernameExistent) => {
@@ -192,14 +209,14 @@ Page({
     })
   },
 
-  updatePassword: function (e) {
+  updatePassword: function(e) {
     this.data.password = e.detail.value;
   },
 
-  uploadLicense: function (e) {
+  uploadLicense: function(e) {
     var that = this
     wx.chooseImage({
-      success: function (res) {
+      success: function(res) {
         that.setData({
           licenseTempUrl: res.tempFilePaths[0]
         })
@@ -207,18 +224,18 @@ Page({
     })
   },
 
-  updateEnterpriseName: function (e) {
+  updateEnterpriseName: function(e) {
     this.data.enterpriseName = e.detail.value;
   },
 
-  updateEnterpriseDescription: function (e) {
+  updateEnterpriseDescription: function(e) {
     this.data.description = e.detail.value;
     this.setData({
       isEnterpriseDescriptionNotEnough: this.data.description.length < 30
     })
   },
 
-  goToPay: function () {
+  goToPay: function() {
     wx.navigateTo({
       url: '../pay/pay'
     })

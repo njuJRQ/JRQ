@@ -1,6 +1,6 @@
 // pages/me/createPost/createPost.js
 const app = getApp();
-var api = require('../../../util/api.js')
+const api = require('../../../util/api.js')
 
 Page({
 
@@ -10,37 +10,38 @@ Page({
   data: {
     faceTempUrl: "", // 用户头像url
     qrcode: "", // 二维码字节流
+    imageTempUrl: "./img/post_loading.png" //预加载图片
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this
-    api.getMyInfo.call(this, app.getOpenid(), () => {
-      wx.showLoading({
-        title: '加载中',
-      })
-      wx.getImageInfo({
-        src: that.data.myInfo.face,
-        success: (res) => {
-          wx.hideLoading()
-          var faceTempUrl = res.path
-          api.getWxQrCode.call(that, (res) => {
-            console.log(res.imagePath)
-            that.setData({
-              faceTempUrl: faceTempUrl,
-              qrcode: res.imagePath
+    api.getMyUser(app.getOpenid())
+    .then((user) => {
+      this.data.myInfo = user
+        wx.showLoading({
+          title: '加载中',
+        })
+        wx.getImageInfo({
+          src: this.data.myInfo.face,
+          success: (res) => {
+            wx.hideLoading()
+            const faceTempUrl = res.path
+            api.getWxQrCode.call(this, (res) => {
+              console.log(res.imagePath)
+              this.setData({
+                faceTempUrl: faceTempUrl,
+                qrcode: res.imagePath
+              })
+              this.drawPost()
             })
-            that.drawPost()
-          })
-        }
-      })
+          }
+        })
     })
-    
   },
 
-  drawPost: function () {
+  drawPost: function() {
     var that = this
     const ctx = wx.createCanvasContext('shareCanvas') //画布大小为600x900
     // 底图
@@ -51,13 +52,13 @@ Page({
 
     const leftMargin = 30
     // 作者信息
-    ctx.setTextAlign('left')    // 文字靠左
-    ctx.setFillStyle('#000')  // 文字颜色：黑色
+    ctx.setTextAlign('left') // 文字靠左
+    ctx.setFillStyle('#000') // 文字颜色：黑色
     ctx.setFontSize(25)
     ctx.fillText(this.data.myInfo.username + " 为您推荐", leftMargin + 100, 700)
     ctx.drawImage(this.data.faceTempUrl, leftMargin, 650, 80, 80)
     // Title
-    ctx.setFontSize(40)         // 文字字号：22px
+    ctx.setFontSize(40) // 文字字号：22px
     ctx.fillText("金融人的新名片", leftMargin, 820)
     // 小程序码
     const qrImgSize = 200
@@ -80,16 +81,15 @@ Page({
         })
       })
     }, 100)
-    
   },
 
-  onSave: function () {
+  onSave: function() {
     wx.saveImageToPhotosAlbum({
       filePath: this.data.imageTempUrl,
     })
   },
 
-  previewImage: function () {
+  previewImage: function() {
     wx.previewImage({
       urls: [this.data.imageTempUrl],
     })

@@ -1,8 +1,9 @@
 //index.js
 //获取应用实例
 const app = getApp()
-var api = require('../../util/api.js')
-const { bg1 } = require('../../util/data.js')
+const api = require('../../util/api.js')
+const data = require('../../util/data.js')
+const util = require('../../util/util.js')
 
 Page({
   data: {
@@ -58,39 +59,67 @@ Page({
     lastId: "",
     lastIdType: "",
     flag: false,
-    bg1: bg1,
+    bg1: data.bg1,
   },
 
   //事件处理函数
-  onLoad: function () {
+  onLoad: function() {
     this.setData({
       currentKind: 'course',
       searchCondition: null,
       articles: []
     })
     this.showAll()
-    api.getAd.call(this, 'index', (res) => {
+    api.getAd('index').then((ad) => {
       this.setData({
-        ad: res.ad
+        ad: ad
       })
     })
   },
 
   //onShow函数
-  onShow: function () {
+  onShow: function() {
     this.setData({
       searchCondition: null
     })
   },
 
   //点击广告跳转
-  onAd: function () {
+  onAd: function() {
     wx.navigateTo({
       url: '../ad/ad?url=' + this.data.ad.link
     })
   },
 
-  showAll: function () {
+  updateArticles: function(articles) {
+    if (articles.length <= 0) {
+      return
+    }
+    articles.forEach((article) => {
+      article.images = article.images.map((image) => app.globalData.picUrl + image)
+      article.writerFace = app.globalData.picUrl + article.writerFace
+      switch (article.kind) {
+        case 'course':
+          article.kindName = "课程";
+          break;
+        case 'document':
+          article.kindName = "文档";
+          break;
+        case 'project':
+          article.kindName = "项目";
+          break;
+        default:
+          break;
+      }
+    })
+    this.setData({
+      articles: this.data.articles.concat(articles),
+      lastId: articles[articles.length - 1].id,
+      lastIdType: articles[articles.length - 1].kind
+    })
+  },
+
+  showAll: function() {
     this.setData({
       currentKind: 'all',
       searchCondition: null,
@@ -98,17 +127,18 @@ Page({
       lastId: "",
       lastIdType: ""
     })
-    api.getAbstractList.call(this, 'all', app.getOpenid(), this.data.lastId, this.data.lastIdType)
-    api.getAd.call(this, 'jump', (res) => {
-      /*console.log(res)*/
+    api.getAbstractList('all', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+      .then(this.updateArticles)
+      .catch((res) => util.error("获取文章列表失败"))
+    api.getAd('jump').then((ad) => {
       this.setData({
-        jumpAd: res.ad.image
+        jumpAd: ad.image
       })
     })
   },
 
   //展示课程
-  showCourses: function () {
+  showCourses: function() {
     this.setData({
       currentKind: 'course',
       searchCondition: null,
@@ -116,23 +146,27 @@ Page({
       lastId: "",
       lastIdType: ""
     })
-    api.getAbstractList.call(this, 'course', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+    api.getAbstractList('course', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+      .then(this.updateArticles)
+      .catch((res) => util.error("获取课程列表失败"))
   },
 
   //展示文档
-  showDocuments: function () {
+  showDocuments: function() {
     this.setData({
       currentKind: 'document',
-      searchCondition: null, 
+      searchCondition: null,
       articles: [],
       lastId: "",
       lastIdType: ""
     })
-    api.getAbstractList.call(this, 'document', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+    api.getAbstractList('document', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+      .then(this.updateArticles)
+      .catch((res) => util.error("获取文档列表失败"))
   },
 
   //展示项目
-  showProjects: function () {
+  showProjects: function() {
     this.setData({
       currentKind: 'project',
       searchCondition: null,
@@ -140,11 +174,18 @@ Page({
       lastId: "",
       lastIdType: ""
     })
-    api.getAbstractList.call(this, 'project', app.getOpenid(), this.data.lastId, this.data.lastIdType)
-  },
+    api.getAbstractList('project', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+      .then(this.updateArticles)
+      .catch((res) => util.error("获取项目列表失败"))
 
+  },
+  toProjects: function() {
+    wx.navigateTo({
+      url: '/pages/project/project',
+    })
+  },
   //展示文章详情
-  onTouchThisArticle: function (e) {
+  onTouchThisArticle: function(e) {
     var id = e.currentTarget.dataset.id //获取当前文章id
     var kind = e.currentTarget.dataset.kind
     var url = '../articleDetail/'
@@ -166,38 +207,74 @@ Page({
   },
 
   //点赞数加一
-  likePlus: function (e) {
+  likePlus: function(e) {
     var id = e.currentTarget.dataset.id //获取当前文章id
     var kind = e.currentTarget.dataset.kind //获取当前文章kind
-    var article = this.data.articles.filter((article) => article.id===id)[0]
+    var article = this.data.articles.filter((article) => article.id === id)[0]
     api.likePlus.call(this, app.getOpenid(), kind, id, article) //点赞+1
   },
 
   //更新搜索条件
-  updateSearchCondition: function (e) {
+  updateSearchCondition: function(e) {
     this.data.searchCondition = e.detail.value;
   },
 
+  updateSearchArticles: function(articles) {
+    articles.forEach((article) => {
+      article.writerFace = app.globalData.picUrl + article.writerFace
+      switch (article.kind) {
+        case 'course':
+          article.kindName = "课程";
+          break;
+        case 'document':
+          article.kindName = "文档";
+          break;
+        case 'project':
+          article.kindName = "项目";
+          break;
+        default:
+          break;
+      }
+    })
+    this.setData({
+      articles: articles
+    })
+  },
+
   //搜索触发函数
-  onSearch: function () {
-    if (!this.data.searchCondition) {
+  onSearch: function(e) {
+    let searchCondition = typeof(e.detail.value) == "object" ? e.detail.value.searchCondition : e.detail.value
+    console.log(e)
+    if (!searchCondition) {
       this.showAll();
       return;
     }
-    console.log('search article: ' + this.data.searchCondition)
-    api.getAbstractListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
+    api.uploadFormId(app.getOpenid(), e.detail.formId)
+      .then(res => api.getAbstractListByCondition(app.getOpenid(), searchCondition))
+      .then((articles) => {
+        console.log(searchCondition, articles)
+        if (!articles.length) util.flashInfo("无搜索结果")
+        this.updateSearchArticles(articles)
+      })
+      .catch((res) => util.error("搜索失败"))
   },
 
-  onReachBottom: function () {
-    api.getAbstractList.call(this, this.data.currentKind, app.getOpenid(), this.data.lastId, this.data.lastIdType)
+  onReachBottom: function() {
+    api.getAbstractList(this.data.currentKind, app.getOpenid(), this.data.lastId, this.data.lastIdType)
+      .then(this.updateArticles)
+      .catch((res) => util.error("获取文章列表失败"))
   },
-  showMask: function () {
-    this.setData({ flag: false })
+  showMask: function() {
+    this.setData({
+      flag: false
+    })
   },
-  closeMask: function () {
-    this.setData({ flag: true })
+  closeMask: function() {
+    this.setData({
+      flag: true
+    })
   },
-  touchMask: function () {
+  touchMask: function() {
     wx.navigateTo({
       url: '/pages/me/updateMe/updateMe',
     })

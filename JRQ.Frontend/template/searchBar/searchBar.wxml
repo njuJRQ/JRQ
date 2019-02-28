@@ -1,11 +1,13 @@
 <!--template/searchBar/searchBar.wxml-->
 <template name='searchBar'>
-  <view class='search row'>
-    <view class='search-image h-center v-center' bindtap='onSearch'>
-      <image src='/template/searchBar/img/search.png'></image>
+  <form bindsubmit='onSearch' report-submit='true'>
+    <view class='search'>
+      <button class='search__btn' form-type='submit'>
+        <image class='search__image' src='/template/searchBar/img/search.png'></image>
+      </button>
+      <view class='search__input'>
+        <input name='searchCondition' value='{{searchCondition}}' placeholder='{{placeholder}}' bindinput='updateSearchCondition' bindconfirm='onSearch'></input>
+      </view>
     </view>
-    <view class='search-input'>
-      <input value='{{searchCondition}}' placeholder='{{placeholder}}' bindinput='updateSearchCondition' bindconfirm='onSearch'></input>
-    </view>
-  </view>
+  </form>
 </template>

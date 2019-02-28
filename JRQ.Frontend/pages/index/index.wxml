@@ -4,7 +4,8 @@
 <import src='/template/likeIcon/likeIcon.wxml'></import>
 
 <view class="container container--color-white">
-  <view class='headWrapper' style='background-image: url({{bg1}}); background-size: cover;background-repeat: no-repeat; background-position: bottom'>
+
+  <view class='headWrapper' style='background-image: url({{bg1}}); background-repeat: no-repeat; background-position: bottom'>
     <!--搜索框-->
     <template class='search' is='searchBar' data='{{placeholder: "搜索文章", searchCondition: searchCondition}}'></template>
     <text class='search__keywords jrq__words'>关键词：金融；AAABBB</text>
@@ -23,7 +24,8 @@
       <view class='navBar__btn {{currentKind=="document"?"navBar__btn-state--chosen":""}}' bindtap='showDocuments'>
         <image class='navBar__icon' src='img/document.png'></image>
       </view>
-      <view class='navBar__btn {{currentKind=="project"?"navBar__btn-state--chosen":""}}' bindtap='showProjects'>
+      <!-- 卡片展示项目 -->
+      <view class='navBar__btn {{currentKind=="project"?"navBar__btn-state--chosen":""}}' bindtap='toProjects'>
         <image class='navBar__icon' src='img/project.png'></image>
       </view>
     </view>
@@ -46,6 +48,7 @@
   <view wx:if='{{searchCondition}}'>
     <text class='jrq__words'>以下是“{{searchCondition}}”的搜索结果：</text>
   </view>
+  <!-- 文章展示 -->
   <view class='articleListWrapper'>
     <view class='articleWrapper' wx:for='{{articles}}' wx:key='id'>
       <view class='article jrq__block' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
@@ -60,7 +63,7 @@
           <image class='article__banner' mode='widthFix' src='{{item.images.length > 0 ? item.images[0]: "../../default/default-pic.png"}}'></image>
         </view>
 
-        <text class='article__date'>发布日期：{{item.date}}</text>
+        <text class='article__date'>{{item.date}}</text>
 
         <!--文章底部-->
         <view class='article__bottom'>

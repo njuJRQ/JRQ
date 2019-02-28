@@ -57,20 +57,20 @@ Page({
       console.log(res)
        that.condition=res
 
-      wx.getSystemInfo({
+      // wx.getSystemInfo({
         
-        success: function (res) {
-          console.log(that.condition)
-          that.setData({
-            systemInfo: res,
-          })
-          if (res.platform == "ios" && that.condition == false) {
-            wx.navigateTo({
-              url: '/pages/judge/judge',
-            })
-          }
-        }
-      })
+      //   success: function (res) {
+      //     console.log(that.condition)
+      //     that.setData({
+      //       systemInfo: res,
+      //     })
+      //     if (res.platform == "ios" && that.condition == false) {
+      //       wx.navigateTo({
+      //         url: '/pages/judge/judge',
+      //       })
+      //     }
+      //   }
+      // })
     })  
   },
 })

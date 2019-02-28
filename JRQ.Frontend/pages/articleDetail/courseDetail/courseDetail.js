@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isShowPrice:true,
     course: {
       id: 1, //编号
       title: "《有效识别金融项目》课程。", //标题
@@ -24,6 +25,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var condition = true
+    api.getIOSQualification.call(this, (res) => {
+      console.log(res)
+      condition = res
+      if (!condition) {
+        this.setData({
+          isShowPrice: false
+        })
+      }
+    }) 
     var that = this
     api.getLevelList.call(this, (levels) => {
       levels.forEach((level) => {

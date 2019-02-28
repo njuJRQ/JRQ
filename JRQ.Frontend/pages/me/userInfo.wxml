@@ -9,14 +9,14 @@
     <view class='center'>
       <view class='name-vip'>
         <text class='username'>{{myInfo.username}}</text>
-        <image class='vip' mode='widthFix' src='{{writerface[4]}}'></image>
+        <image class='vip' wx-if="{{isShow}}" mode='widthFix' src='{{writerface[4]}}'></image>
       </view>
       <text class='position card_text'>{{myInfo.position?myInfo.position:'未知职位'}}</text>
       <text class='company card_text'>{{myInfo.department?myInfo.department:'未知公司'}}</text>
     </view>
 
     <view class='right'>
-      <image class='vip_up' bindtap='updateMe' mode='widthFix' src='{{writerface[1]}}'></image>
+      <image class='vip_up' wx-if="{{isShow}}" bindtap='updateMe' mode='widthFix' src='{{writerface[1]}}'></image>
       <image class='edit' bindtap='editCard' src='{{writerface[2]}}'></image>
     </view>
   </view>

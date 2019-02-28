@@ -1,5 +1,5 @@
 <!--pages/me/updateMe/updateMe.wxml-->
-<view class='container container--color-white'>
+<view class='container container--color-white' wx-if="{{isShow}}">
   <!--身份升级-->
   <view class="rowWrapper pay">
     <text class='pay__note'>请点击升级选项进行身份升级（<text style='color:#000'>当前余额：{{price}}</text>）</text>

@@ -12,7 +12,7 @@ Page({
     moreType: true,
     isShowView: true,
     isShow: true,
-   
+    isShowPrice:true,
     height: 290,
     height_video: 400,
     image: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
@@ -54,7 +54,16 @@ Page({
 
   //事件处理函数
   onLoad: function() {
-
+    var condition = true
+    api.getIOSQualification.call(this, (res) => {
+      console.log(res)
+      condition = res
+      if (!condition) {
+        this.setData({
+          isShowPrice: false
+        })
+      }
+    })  
     this.setData({
       kind: 'document',
       currentKind: 'course',
@@ -200,6 +209,7 @@ Page({
       moreType: true,
       height_video: ''
     })
+    
     api.getAbstractListVideo.call(this, 'course', app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
 
@@ -287,6 +297,8 @@ Page({
   // },
 
   onReachBottom: function() {
+    console.log(this.data.lastId)
+    console.log(this.data.currentKind)
     api.getAbstractList.call(this, this.data.currentKind, app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
   showMask: function() {

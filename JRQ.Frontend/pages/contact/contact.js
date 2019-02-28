@@ -13,6 +13,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isShow:true,
     openId: '',
     user: [],
 
@@ -106,6 +107,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    var condition = true
+    api.getIOSQualification.call(this, (res) => {
+      console.log(res)
+      condition = res
+      if (!condition) {
+        this.setData({
+          isShow: false
+        })
+      }
+    })  
     var that = this
     api.getClassificationDescriptionList.call(this, (res) => {
       res.classificationDescriptionItems.forEach((item) => {

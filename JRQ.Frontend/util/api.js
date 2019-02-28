@@ -73,6 +73,7 @@ function getAbstractListVideo(kind, openid, lastId, lastIdType) {
 
 function getAbstractList(kind, openid, lastId, lastIdType) {
   console.log('getAbstractList success!')
+  console.log(lastId)
   var that = this
   wx.showLoading({
     title: '载入中',
@@ -127,7 +128,8 @@ function getAbstractListByLikeNum(kind, openid) {
     url: app.globalData.backendUrl + "getAbstractListByLikeNum",
     data: {
       kind: kind,
-      openid: openid
+      openid: openid,
+      id:""
       // articleId: lastId,
       // articleType: lastIdType
     },

@@ -22,7 +22,7 @@
         <view class='card__info'>
           <view class='card__title1'>
             <text class='card__username'>{{item.username}}</text>
-            <image class='vipImage' src='{{vipImage}}'></image>
+            <image class='vipImage' wx-if="{{isShow}}" src='{{vipImage}}'></image>
           </view>
           <view class='card__title2' style='font-size: 0.5rem;'>
 

@@ -42,7 +42,7 @@
             <text class='article__titleName'>{{item.title}}</text>
             <text class='document_summary'>{{item.content?item.content:'钧融中心'}}</text>
 
-            <view class='doucument_bottom1'>
+            <view class='doucument_bottom1' wx-if="{{isShowPrice}}">
               <text class='fees'>课费：100元</text>
               <text class='vip'>会员免费</text>
             </view>

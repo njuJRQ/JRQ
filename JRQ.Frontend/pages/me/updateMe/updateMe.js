@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isShow:true,
     price: 0,
     price298: 298,
     price998: 998,
@@ -30,6 +31,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onShow: function (options) {
+    var condition = true
+    api.getIOSQualification.call(this, (res) => {
+      console.log(res)
+      condition = res
+      if (!condition) {
+        this.setData({
+          isShow: false
+        })
+      }
+    })  
     var that = this
     api.getMyCredit.call(this, app.getOpenid())
     api.getMySubmittedEnterprise.call(this, app.getOpenid(), (res) => {

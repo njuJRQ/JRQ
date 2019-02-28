@@ -1,6 +1,5 @@
 package njurestaurant.njutakeout.dataservice.user;
 
-import njurestaurant.njutakeout.entity.user.FormId;
 import njurestaurant.njutakeout.entity.user.SendCard;
 import njurestaurant.njutakeout.entity.user.SendCardKey;
 import njurestaurant.njutakeout.entity.user.User;
@@ -33,8 +32,4 @@ public interface UserDataService {
 	void checkSendCard(SendCardKey sendCardKey) throws NotExistException;
 
 	boolean existsByLabel(String userLabel);
-
-	boolean addFormId(FormId formId);
-
-	String getFormIdByOpenid(String openid);
 }

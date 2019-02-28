@@ -1,12 +1,14 @@
 /*关于文章的属性*/
+
 .article {
   position: relative;
-  background-color: #f7f1e5;
+  /* background-color: #f7f1e5; */
   border-radius: 5px;
   box-shadow: 0 5px 20px #d0d0d0;
   padding: 10px 10px;
-  margin: 20px 0;
+  margin: 20px 0 30px 0;
 }
+
 .article__decorator {
   position: absolute;
   display: flex;
@@ -14,62 +16,120 @@
   top: -10px;
   width: 50%;
   height: 20px;
-  background-color: #edc681;
+  /* background-color: #edc681; */
   border-radius: 20px;
   padding: 5px 10px;
   box-shadow: 0 0 10px #a0a0a0;
   left: -30%;
 }
+
 .article__kindName {
   font-size: 0.8rem;
   color: #927912;
   font-weight: bold;
   margin-left: auto;
 }
+
 .article__image {
   width: 100px;
   height: 100px;
   margin: 2px;
+  /* display: flex;
+  flex-direction: row;
+  flex-wrap:wrap; */
 }
+
 .article__content {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
   width: 100%;
-  justify-content: space-between;
-  font-size: 0.8rem;
-  color: #927912;
+  font-size: 0.7rem;
+  font-weight: 500;
   margin: 5px 0 10px 0;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  white-space: normal !important;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
+
 .article__bottom {
+  width: 100%;
   margin: 5px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.5rem;
 }
+
 .like {
   display: flex;
 }
+
 .like__num {
-  margin: 0 5px 0 0;
+  margin: 5px 0 0 5px;
 }
+
 .like__image {
   width: 15px;
   height: 15px;
 }
+
 /*关于文章作者的属性*/
+
 .writer {
   display: flex;
-  align-items: center;
-  padding: 5px 0 0 0;
+  flex-direction: column;
+  /* align-items: center;
+  padding: 5px 0 0 0; */
 }
+
+.article_text {
+  height: 87px;
+  width: 230px;
+  overflow: hidden;
+}
+
 .writer__face {
-  width: 25px;
-  height: 25px;
+  width: 35px;
+  height: 35px;
   margin: 0 5px;
-  border-radius: 5px;
+  border-radius: 50%;
 }
+
 .writer__name {
-  color: #927912;
-  font-weight: bold;
-  font-size: 1rem;
+  color: #f1c65e;
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.article_row {
+  display: flex;
+  flex-direction: row;
+}
+
+.article__imageList {
+  width: 100%;
+}
+
+.level {
+  width: 20px;
+  margin-left: 25%;
+  margin-top: 10%;
+}
+
+.title {
+  font-weight: bolder;
+  margin-left: -3%;
+  color: black;
+}
+.name_width{
+  width:45px;
+  height: 25px;
+  overflow: hidden;
+
 }

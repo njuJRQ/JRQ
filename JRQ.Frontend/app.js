@@ -140,10 +140,11 @@ App({
     sessionKey: "",
     wechatUsername: "",
     token: "",
-    defaultPic: '../../default/default-pic.png',
-     backendUrl: "https://junrongcenter.com:3389/",//used
-    picUrl: "https://www.junrongcenter.com/",//used
-    //backendUrl: "http://localhost:8080/",
+    defaultPic:'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+    backendUrl: "https://junrongcenter.com:3389/",//used
+    testUrl:"http://10.107.30.176:8080/JRQ.Backend/",
+    picUrl: "https://www.junrongcenter.com/"//used
+    //backendUrl: "http://localhost:3389/",
     //picUrl: "http://localhost:8000/",
     //picUrl: "http://localhost/libs/"//xulei
   }

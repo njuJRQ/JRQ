@@ -1,0 +1,43 @@
+<template name="articleItem">
+
+
+
+    <view class='big_circle'>
+      <text class='year'>{{myArticles.date?myArticles.date:'2019'}}</text>
+    </view>
+
+  <!--一篇文章-->
+
+  <view class='circle_border'>
+    <view class='circle'></view>
+    <view class='circle_line'>
+
+      <view class='article'>
+        <!-- <view class='article__decorator'>
+      <text class='article__kindName'>圈子文章</text>
+    </view> -->
+        <view class='article_row'>
+          <view class='article_right'>
+            <!--文章详情-->
+
+            <view class='article_text'>
+
+              <text class='article__content'>{{item.content ? item.content : item.title}}</text>
+            </view>
+            <!--文章图片-->
+            <view class='article__imageList'>
+              <image class='article__image' mode='aspectFill' bindtap='previewImg' data-list="{{item.images}}" data-src="{{image}}" wx:for='{{item.images}}' wx:for-item='image' src='{{image}}'></image>
+            </view>
+            <view class='article__bottom'>
+              <!-- <text class='article__date'>{{item.date}}</text> -->
+              <text class='scan_num' style='color:#fb1518'>{{item.viewNum}}人</text>
+              <text style='color:#fb1518'>已读</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!--文章分享链接-->
+    </view>
+  </view>
+
+</template>

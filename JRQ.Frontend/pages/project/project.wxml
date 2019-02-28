@@ -18,7 +18,7 @@
           <text class='article__titleName'>{{item.title}}</text>
         </view>
         <view class='article__content'>
-          <image class='article__banner' mode='widthFix' src='{{item.images.length > 0 ? item.images[0]: "../../default/default-pic.png"}}'></image>
+          <image class='article__banner' mode='widthFix' src='{{item.images.length > 0 ? item.images[0]: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png"}}'></image>
         </view>
 
         <text class='article__date'>{{item.date}}</text>

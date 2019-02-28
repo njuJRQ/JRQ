@@ -13,12 +13,12 @@ Page({
       {
         openid: 1,
         username: 'USERNAME',
-        face: '../../../default/default-pic.png',
+        face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
         medals: [
-          '../../../default/default-icon.png',
-          '../../../default/default-icon.png',
-          '../../../default/default-icon.png',
-          '../../../default/default-icon.png'],
+          'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png',
+          'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png',
+          'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png',
+          'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png'],
         phone: '123456789',
         email: '123456789@163.com',
         company: '美国永辉有限公司',
@@ -28,12 +28,12 @@ Page({
       }, {
         openid: 2,
         username: 'USERNAME',
-        face: '../../../default/default-pic.png',
+        face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
         medals: [
-          '../../../default/default-icon.png',
-          '../../../default/default-icon.png',
-          '../../../default/default-icon.png',
-          '../../../default/default-icon.png'],
+          'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png',
+          'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png',
+          'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png',
+          'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png'],
         phone: '123456789',
         email: '123456789@163.com',
         company: '美国永辉有限公司',
@@ -43,12 +43,12 @@ Page({
       }, {
         openid: 3,
         username: 'USERNAME',
-        face: '../../../default/default-pic.png',
+        face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
         medals: [
-          '../../../default/default-icon.png',
-          '../../../default/default-icon.png',
-          '../../../default/default-icon.png',
-          '../../../default/default-icon.png'],
+          'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png',
+          'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png',
+          'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png',
+          'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-icon.png'],
         phone: '123456789',
         email: '123456789@163.com',
         company: '美国永辉有限公司',
@@ -74,16 +74,7 @@ Page({
 
   //搜索触发函数
   onSearch: function () {
-    api.getPersonListByCondition(app.getOpenid(), this.data.searchCondition)
-    .then((cards) => {
-      if (!cards.length) {
-        util.flashInfo("无搜索结果")
-        return
-      }
-      this.setData({
-        cards: cards
-      })
-    })
+    api.getPersonListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
   },
 
   //展示新收到的名片

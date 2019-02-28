@@ -3,145 +3,98 @@
 @import '/template/articleItem/articleItem.wxss';
 
 /*本页面css属性*/
-
 /*关于我的名片的属性*/
-
-.card {
-  background-color: #f7f1e5;
-  padding: 10px 10px 1px 10px;
+.header {
+  width: 100%;
+  padding: 10px;
 }
-
+.card {
+  background-color: white;
+}
 .card__face {
-  margin: 0 20px 0 10px;
+  margin: 0 20px 0 0;  
   width: 80px;
   height: 80px;
-  border-radius: 50%;
-  border: 2px #fff solid;
-  box-shadow: 0 0 25px #c4a966;
+  border-radius: 5px;
 }
-
 .card__info {
-  margin: 0 0 5px 0;
   display: inline-block;
   font-size: 0.75rem;
 }
-
 .card__username {
-  margin: 0 0 5px 0;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #927912;
+  margin: 0 0 10px 0;
+  font-size: 0.8rem;
+  color:#252D47;
 }
-
 .card__medal {
   width: 15px;
   height: 15px;
   margin: 2px;
 }
-
 .card__text {
   display: block;
-  color: #927912;
 }
-
 .card__intro {
-  margin: 10px 0;
   display: block;
   font-size: 0.8rem;
 }
-
 /*关于我的联系方式的属性*/
-
 .contact {
   display: flex;
   justify-content: space-between;
-  background-color: #c790212d;
-  padding: 10px;
+  background-color: #F5F5F5;
+  padding: 10px 0;
   margin: 10px 0 0 0;
 }
-
 .contact__info {
   display: inline-block;
   vertical-align: middle;
   font-size: 0.5rem;
 }
-
 .contact__item {
   display: block;
   font-size: 0.8rem;
   margin: 10px;
 }
-
-.myInfoVisibleButtonWrapper {
-  position: relative;
-}
-
-.myInfoVisibleButtonDecorator {
-  min-width: 20px;
-  height: 20px;
-  background: #e77518;
-  box-sizing: border-box;
-  font-size: 10px;
-  font-weight: bold;
-  text-align: center;
-  line-height: 20px;
-  padding: 0 5px;
-  border-radius: 10px;
-  display: inline-block;
-  color: #ffffff;
-  position: absolute;
-  top: -5px;
-  right: -5px;
-}
-
-.myInfoVisibleButton {
+.myInfoVisible-button-wrapper {
   display: inline-flex;
-  justify-content: center;
   align-items: center;
-  margin: 0;
-  padding: 0 20rpx;
-  font-size: 0.75rem;
-  line-height: 1rem;
-  width: 140rpx;
-  height: 140rpx;
 }
-
+.myInfoVisible-button {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+  font-size: 0.7rem;
+}
 .cardButton {
   width: auto;
-  margin: 15px 5px;
-  font-size: 1rem;
-  line-height: 2rem;
-  font-weight: bold;
+  padding: 0 20px;
+  margin: 10px 5px;
+  font-size: 0.8rem;
 }
-
-.cardButton--style-white {
+.cardButton--style-backToIndex {
   background-color: white;
-  color: #937913c7;
+  border: 1px #243264 solid;
+  color: #243264;
 }
-
 /*关于历史发布的属性*/
-
 .history {
   width: 100%;
 }
-
-.golden-block {
+.blue-block {
   display: inline-block;
   vertical-align: middle;
   width: 10px;
   height: 20px;
   margin: 0 5px 0 0;
-  background-color: #c78f21;
+  background-color: #243264;
 }
-
 .history__title {
   margin: 0 0 10px 0;
 }
-
 .history__titleText {
   display: inline-block;
   vertical-align: middle;
-  color: #ab9647;
+  color: #243264;
   font-size: 0.9rem;
-  font-weight: bold;
 }

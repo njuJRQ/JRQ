@@ -1,0 +1,136 @@
+/* pages/projects/project.wxss */
+/* pages/information/news.wxss */
+/* pages/community/community.wxss */
+@import '/style/common.wxss';
+@import '/template/findBar/searchBar.wxss';
+@import '/template/articleItem/articleItem.wxss';
+/*关于头部导航栏的属性*/
+.headWrapper {
+  width: 100%;
+  padding: 0 20px 5px 20px;
+  
+}
+.articleListWrapper {
+  margin-top: -3%;
+  width: 100%;
+  padding: 5px 10px;
+}
+/*导航栏样式*/
+.navBar {
+  width: 85%;
+  margin-left: 25%;
+  margin-right: 25%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  float: right;
+  box-sizing: content-box;
+  margin-top: 10px;
+}
+.navBar__btn {
+  border-radius: 50%;
+  background: inherit;
+  border: 5px inherit solid;
+  padding: 1px;
+  text-align: center;
+  font-size: 0.8rem;
+}
+.navBar__btn-state--chosen {
+  border: 5px #f1c65e solid;
+}
+.navBar__btn-state--chosen::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 4px;
+  background-color: #f1c65e;
+  transform: translate(-5px,3px);
+}
+.navBar__icon {
+  margin: auto;
+  display: block;
+  width: 35px;
+  height: 35px;
+  border-radius: 100%;
+}
+
+
+/*搜索栏样式*/
+.search_ico{
+  margin-left: -3.5%;
+  margin-right: 30%;
+  width: 110%;
+}
+.search__keywords {
+  font-weight: bold;
+  font-family: HYYaKuHeiW;
+  line-height: 1rem;
+  color: #b98c49;
+ 
+}
+/* tab切换 */
+.swiper-tab{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%; 
+  border-bottom: 2rpx solid #f7f0f0; 
+  text-align: center; 
+  line-height: 40rpx;
+  box-shadow: 0 1px 2px #c0c0c0;
+}
+.swiper-tab-list{
+  font-size: 30rpx; 
+  display: flex; 
+  width: 20%; 
+  color: #2e2c2c; 
+  padding: 10px 0 5px 5px;
+  background-color: white;
+}
+.on{
+  color: #f1c65e; 
+  border-bottom: 5rpx solid #f1c65e;
+  margin-bottom: 10rpx;
+}
+.swiper-box{ 
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+ }
+/* .swiper-box view{ 
+  text-align: center; 
+} */
+
+.articleListWrapper_view {
+  margin-top: -3%;
+  width: 100%;
+  padding: 5px 10px;
+}
+.swiper-box{ 
+    display: flex; 
+    width: 100%; 
+    height: 100%; 
+    /* margin-top: 40rpx;  */
+    overflow: hidden;
+} 
+.swiper-items{
+ 
+  height: 100%;
+} 
+.scroll-views{
+  height: 100%;
+
+}
+.prior_icon{
+  
+  width: 59px;
+}
+.hot_icon{
+
+  width: 40px;
+}
+.time_icon{
+  width: 40px;
+}

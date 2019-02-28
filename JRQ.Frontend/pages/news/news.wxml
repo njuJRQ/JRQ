@@ -1,18 +1,36 @@
 <!--pages/news/news.wxml-->
-<view class='newsItemListWrapper'>
+<import src='/template/findBar/searchBar.wxml'></import>
+<view class='headWrapper' style='background-color:black; background-size: cover;background-repeat: no-repeat; background-position: bottom'>
+
+    <!--搜索框-->
+    <template class='search' wx-if="{{isShow}}" is='searchBar' data='{{placeholder: "搜索你感兴趣的资讯", searchCondition: searchCondition}}'></template>
+  </view>
+  <text wx-if="{{!isShow}}">即将上线</text>
+<view class='newsItemListWrapper' wx-if="{{isShow}}">
   <view wx:for='{{newsItemList}}' wx:for-item="newsItem">
     <view class='newsWrapper jrq__block'>
+
       <view class='newsItem'>
         <text class='newsItem__title'>{{newsItem.title}}</text>
-        <text class='newsItem__content'>{{newsItem.content}}</text>
-        <view class='newsItem__info'>
-          <!--
-        <image class='newsItem__infoImage' src='{{newsItem.writerFace}}'></image>
-        -->
-          <text class='newsItem__infoText'>来源:{{newsItem.writerName}}</text>
-          <text class='newsItem__infoText'>类型:{{newsItem.type}}</text>
-          <text class='newsItem__infoText'>{{newsItem.timeStamp}}</text>
+        <view class='origin_face'>
+        <view class='content'>
+          <text class='newsItem__content'>{{newsItem.content}}</text>
+          <view class='bottom'>
+          <view class='newsItem__info'>
+            <text class='newsItem__infoText'>{{newsItem.writerName}}</text>
+          </view>
+          <view class='newsItem__info'>
+            <text class='newsItem__infoText'>{{newsItem.viewNum}}人查看</text>
+          </view>
+          </view>
+          </view>
+          <view class='writerFace_image'>
+          <image class='writerFace' src='{{writerFace}}'></image>
+          
+          </view>
+          
         </view>
+
       </view>
     </view>
   </view>

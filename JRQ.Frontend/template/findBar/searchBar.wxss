@@ -1,0 +1,24 @@
+/* template/searchBar/searchBar.wxss */
+/*关于搜索栏的属性*/
+.search {
+  width: 100%;
+  margin: 0 -4px 0 -4px;
+  padding: 0 1px;
+  background: white;
+  justify-content: space-between;
+  border-radius: 4px;
+  box-shadow: 0 0 0 #c0c0c0;
+}
+.search-input {
+  padding: 5px 0 8px 10px; 
+  width: 90%;
+  font-size: 0.8rem;
+}
+.search-image {
+  padding: 0;
+  margin: 0;
+}
+.search-image image {
+  width: 25px;
+  height: 25px;
+}

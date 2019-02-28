@@ -1,78 +1,88 @@
 //index.js
 //获取应用实例
 const app = getApp()
-const api = require('../../util/api.js')
-const data = require('../../util/data.js')
-const util = require('../../util/util.js')
+var api = require('../../util/api.js')
+const {
+  bg1
+} = require('../../util/data.js')
 
 Page({
   data: {
-    /*
-    articles: [{
-      id: 1,
-      text: '《有效识别金融项目》课程。',
-      images: [
-        '../../default/default-pic.png',
-        '../../default/default-pic.png',
-        '../../default/default-pic.png'
-      ],
-      writerFace: '../../default/default-icon.png',
-      writerName: '锄禾日当午',
-      date: '2020-01-01',
-      likeNum: 8888,
-      kind: 'course'
-    }, {
-      id: 2,
-      text: '与钧融资本成功签订2个亿的基金合约，环保领域。',
-      images: [
-        '../../default/default-pic.png',
-        '../../default/default-pic.png',
-        '../../default/default-pic.png'
-      ],
-      writerFace: '../../default/default-icon.png',
-      writerName: '汗滴禾下土',
-      date: '2020-01-01',
-      likeNum: 9999,
-      kind: 'document'
-    }, {
-      id: 3,
-      text: '《有效识别金融项目》课程。',
-      images: [
-        '../../default/default-pic.png',
-        '../../default/default-pic.png',
-        '../../default/default-pic.png'
-      ],
-      writerFace: '../../default/default-icon.png',
-      writerName: '锄禾日当午',
-      date: '2020-01-01',
-      likeNum: 8888,
-      kind: 'project'
-    }],
-    */
+
+    moreType: true,
+    isShowView: true,
+    isShow: true,
+    isShowPrice:true,
+    height: 290,
+    height_video: 400,
+    image: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+    // showView:true,
+    showView: true,
+    cards: [{
+        thumbnail: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+        articleName: '什么是金融？',
+        summary: '一般指与货币流通及银行有关的东西'
+      },
+      {
+        thumbnail: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+        articleName: '什么是金融？',
+        summary: '一般指与货币流通及银行有关的东西'
+
+      },
+      {
+        thumbnail: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+        articleName: '什么是金融？',
+        summary: '一般指与货币流通及银行有关的东西'
+      }
+    ],
+
+
     articles: [],
-    ad: {
-      image: '../../default/default-pic.png',
-      link: 'https://www.baidu.com'
-    },
+    videos:[],
+    // ad: {
+    //   image: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
+    //   link: 'https://www.baidu.com'
+    // },
+    kind: null,
     currentKind: null,
     searchCondition: null,
     lastId: "",
     lastIdType: "",
     flag: false,
-    bg1: data.bg1,
+    bg1: bg1,
   },
 
   //事件处理函数
   onLoad: function() {
+    var condition = true
+    api.getIOSQualification.call(this, (res) => {
+      console.log(res)
+      condition = res
+      if (!condition) {
+        this.setData({
+          isShowPrice: false
+        })
+      }
+    })  
     this.setData({
+      kind: 'document',
       currentKind: 'course',
       searchCondition: null,
-      articles: []
+      lastId: "",
+      lastIdType: "",
+      videoId: "",
+      videoIdType: "",
+      articles: [],
+      videos:[]
     })
-    this.showAll()
-    api.getAd('index').then((ad) => {
+    // this.showAll()
+    this.showVideos()
+    this.showAll1()
+    
+    
+    api.getAd.call(this, 'index', (res) => {
       this.setData({
-        ad: ad
+        ad: res.ad
       })
     })
   },
@@ -91,99 +101,156 @@ Page({
     })
   },
 
-  updateArticles: function(articles) {
-    if (articles.length <= 0) {
-      return
+  moreAction: function() {
+    var that = this;
+
+    var type = this.data.moreType;
+    if (type) {
+      that.setData({
+        height: '',
+        moreType: false
+      })
+    } else {
+      that.setData({
+        height: 290,
+        moreType: true
+      })
     }
-    articles.forEach((article) => {
-      article.images = article.images.map((image) => app.globalData.picUrl + image)
-      article.writerFace = app.globalData.picUrl + article.writerFace
-      switch (article.kind) {
-        case 'course':
-          article.kindName = "课程";
-          break;
-        case 'document':
-          article.kindName = "文档";
-          break;
-        case 'project':
-          article.kindName = "项目";
-          break;
-        default:
-          break;
-      }
-    })
+
+  },
+  moresAction: function() {
+    var that = this;
+
+    var type = this.data.moreType;
+    if (type) {
+      that.setData({
+        height_video: '',
+        moreType: false
+      })
+    } else {
+      that.setData({
+        height_video: 400,
+        moreType: true
+      })
+    }
+  },
+  showAll1: function () {
+    console.log('showAll1 success!')
+    // this.judgeView()
     this.setData({
-      articles: this.data.articles.concat(articles),
-      lastId: articles[articles.length - 1].id,
-      lastIdType: articles[articles.length - 1].kind
+      kind: 'document',
+      searchCondition: null,
+      articles: [],
+      videoId: "",
+      videoIdType: "",
+      isShow:true,
+      isShowView: true,
+      height: 290,
+      height_video:400
     })
+    // api.getAbstractList.call(this, 'all', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+    api.getAbstractListByLikeNum.call(this, 'document', app.getOpenid())
+    
+    
+    
+    // api.getAd.call(this, 'jump', (res) => {
+    //   // /*console.log(res)*/
+    //   this.setData({
+    //     jumpAd: res.ad.image
+    //   })
+    // })
   },
 
   showAll: function() {
+    console.log('showAll success!')
+    // this.judgeView()
     this.setData({
       currentKind: 'all',
       searchCondition: null,
       articles: [],
       lastId: "",
-      lastIdType: ""
+      lastIdType: "",
+      isShow:true,
+      isShowView: true,
+      height: 290
     })
-    api.getAbstractList('all', app.getOpenid(), this.data.lastId, this.data.lastIdType)
-      .then(this.updateArticles)
-      .catch((res) => util.error("获取文章列表失败"))
-    api.getAd('jump').then((ad) => {
-      this.setData({
-        jumpAd: ad.image
-      })
-    })
-  },
-
-  //展示课程
-  showCourses: function() {
-    this.setData({
-      currentKind: 'course',
-      searchCondition: null,
-      articles: [],
-      lastId: "",
-      lastIdType: ""
-    })
-    api.getAbstractList('course', app.getOpenid(), this.data.lastId, this.data.lastIdType)
-      .then(this.updateArticles)
-      .catch((res) => util.error("获取课程列表失败"))
+    api.getAbstractList.call(this, 'all', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+    
   },
 
   //展示文档
   showDocuments: function() {
+    // this.judgeView()
     this.setData({
       currentKind: 'document',
       searchCondition: null,
       articles: [],
       lastId: "",
-      lastIdType: ""
+      lastIdType: "",
+      isShow:true,
+      isShowView: false,
+      moreType: true,
+      height: ''
     })
-    api.getAbstractList('document', app.getOpenid(), this.data.lastId, this.data.lastIdType)
-      .then(this.updateArticles)
-      .catch((res) => util.error("获取文档列表失败"))
+    api.getAbstractList.call(this, 'document', app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
+  showVideos: function () {
 
-  //展示项目
-  showProjects: function() {
-    this.setData({
-      currentKind: 'project',
+    var that = this;
+    // that.judgeView()
+    that.setData({
+      currentKind: 'course',
       searchCondition: null,
-      articles: [],
+      videos: [],
       lastId: "",
-      lastIdType: ""
+      lastIdType: "",
+      isShowView: true,
+      isShow: false,
+      moreType: true,
+      height_video: ''
     })
-    api.getAbstractList('project', app.getOpenid(), this.data.lastId, this.data.lastIdType)
-      .then(this.updateArticles)
-      .catch((res) => util.error("获取项目列表失败"))
-
+    
+    api.getAbstractListVideo.call(this, 'course', app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
+
+  judgeView: function() {
+    var that = this;
+    var kind = this.data.currentKind;
+    switch (kind) {
+      case 'all':
+        that.setData({
+          isShow: true,
+          isShowView: true,
+          height: 290,
+          height_video: 400
+        })
+        break;
+      case 'document':
+        that.setData({
+          isShow: true,
+          isShowView: false,
+          height: 290,
+          height_video: ''
+        })
+        break;
+      case 'course':
+        that.setData({
+          isShow: false,
+          isShowView: true,
+          height: '',
+          height_video: 400
+        })
+      default:
+
+    }
+  },
+
   toProjects: function() {
     wx.navigateTo({
       url: '/pages/project/project',
     })
   },
+
   //展示文章详情
   onTouchThisArticle: function(e) {
     var id = e.currentTarget.dataset.id //获取当前文章id
@@ -215,54 +282,24 @@ Page({
   },
 
   //更新搜索条件
-  updateSearchCondition: function(e) {
-    this.data.searchCondition = e.detail.value;
-  },
-
-  updateSearchArticles: function(articles) {
-    articles.forEach((article) => {
-      article.writerFace = app.globalData.picUrl + article.writerFace
-      switch (article.kind) {
-        case 'course':
-          article.kindName = "课程";
-          break;
-        case 'document':
-          article.kindName = "文档";
-          break;
-        case 'project':
-          article.kindName = "项目";
-          break;
-        default:
-          break;
-      }
-    })
-    this.setData({
-      articles: articles
-    })
-  },
+  // updateSearchCondition: function(e) {
+  //   this.data.searchCondition = e.detail.value;
+  // },
 
   //搜索触发函数
-  onSearch: function(e) {
-    let searchCondition = typeof(e.detail.value) == "object" ? e.detail.value.searchCondition : e.detail.value
-    console.log(e)
-    if (!searchCondition) {
-      this.showAll();
-      return;
-    }
-    api.uploadFormId(app.getOpenid(), e.detail.formId)
-      .then(res => api.getAbstractListByCondition(app.getOpenid(), searchCondition))
-      .then((articles) => {
-        console.log(searchCondition, articles)
-        if (!articles.length) util.flashInfo("无搜索结果")
-        this.updateSearchArticles(articles)
-      })
-      .catch((res) => util.error("搜索失败"))
-  },
+  // onSearch: function() {
+  //   if (!this.data.searchCondition) {
+  //     this.showAll();
+  //     return;
+  //   }
+  //   console.log('search article: ' + this.data.searchCondition)
+  //   api.getAbstractListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
+  // },
 
   onReachBottom: function() {
-    api.getAbstractList(this.data.currentKind, app.getOpenid(), this.data.lastId, this.data.lastIdType)
-      .then(this.updateArticles)
-      .catch((res) => util.error("获取文章列表失败"))
+    console.log(this.data.lastId)
+    console.log(this.data.currentKind)
+    api.getAbstractList.call(this, this.data.currentKind, app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
   showMask: function() {
     this.setData({
@@ -278,5 +315,38 @@ Page({
     wx.navigateTo({
       url: '/pages/me/updateMe/updateMe',
     })
-  }
+  },
+
+
+  //展示资金类
+  showCapitalClass: function(event) {
+    this.setData({
+      currentKind: 'capital',
+      currentKindName: this.data.capitalClassDesc,
+      searchCondition: null
+    })
+    api.getPersonList.call(this, 'capital')
+  },
+
+  //点击当前文章触发函数
+  onClickThisCard: function(e) {
+    var id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '../me/myHistory/myHistory?id=' + id,
+    })
+  },
+
+  //更新搜索条件
+  updateSearchCondition: function(e) {
+    this.data.searchCondition = e.detail.value;
+  },
+
+  //搜索触发函数
+  onSearch: function() {
+    console.log('search service people: ' + this.data.searchCondition)
+    api.getPersonListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
+  },
+
+
+
 })

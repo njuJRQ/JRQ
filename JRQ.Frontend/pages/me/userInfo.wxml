@@ -1,0 +1,118 @@
+<!--pages/me/userInfo.wxml-->
+<import src='/template/article/articleItem.wxml' />
+<view class='content'>
+  <view class='userInfo'>
+    <view class='left'>
+      <image class='writerface' src='{{myInfo.face}}'></image>
+    </view>
+
+    <view class='center'>
+      <view class='name-vip'>
+        <text class='username'>{{myInfo.username}}</text>
+        <image class='vip' wx-if="{{isShow}}" mode='widthFix' src='{{writerface[4]}}'></image>
+      </view>
+      <text class='position card_text'>{{myInfo.position?myInfo.position:'未知职位'}}</text>
+      <text class='company card_text'>{{myInfo.department?myInfo.department:'未知公司'}}</text>
+    </view>
+
+    <view class='right'>
+      <image class='vip_up' wx-if="{{isShow}}" bindtap='updateMe' mode='widthFix' src='{{writerface[1]}}'></image>
+      <image class='edit' bindtap='editCard' src='{{writerface[2]}}'></image>
+    </view>
+  </view>
+
+  <view class='label'>
+    <text class='label_text'>{{myInfo.label}}</text>
+    <!-- <view class='label_main' wx:for='{{myInfo.label}}' wx:key='*this'>
+      
+    </view> -->
+  </view>
+  <view class='share_card'>
+    <button class='card_button' bindtap='showModal'>分享我的名片</button>
+  </view>
+  <view class='benefit'>
+    <view class='home_address'>
+      <text class='my_benefit'>我的权益</text>
+      <text class='check_benefit'>查看我的特权>></text>
+    </view>
+    <image class='benefit_card' src='{{writerface[3]}}'></image>
+    <view class='contact_coin'>
+      <view class='get_card'>
+        <text class='my_contact' style='font-size:16px;'>我的人脉</text>
+        <view class='share'>
+          <view class='get_num'>
+            <text style='font-size:16px;'>{{receive}}</text>
+            <text>收到的名片</text>
+          </view>
+
+          <text class='slash'>/</text>
+
+
+          <view class='mutual'>
+            <text style='font-size:16px;'>{{mutual}}</text>
+            <text>互持的名片</text>
+          </view>
+        </view>
+      </view>
+      <view class='coin'>
+        <text style='text-align:center;font-size:16px;'>钧融币</text>
+        <text style='text-align:center;font-size:16px;'>{{myInfo.credit}}</text>
+        <button class='will'>即将上线</button>
+      </view>
+    </view>
+    <view class='publish'>
+      <text>我的发布</text>
+    </view>
+  </view>
+  <!-- 时间轴 -->
+  <!-- <view class='weui-cell-third'>
+    <view class='year_publish'>
+      <view class='top'>
+        <view class='big_circle'>
+          <text class='year'>2019</text>
+        </view>
+        <view class='big_line'></view>
+      </view>
+      <view class='publish_project' bindtap='onPublish'>
+        <text class='publish_text'>发布项目</text>
+        <image class='publish_image' mode='widthFix' src='img/publish.png'></image>
+      </view>
+    </view>
+    <view wx:for="{{userInfo.axis}}" wx:key="*this">
+      <view class='weui-cell-time'><text>{{item.time}}</text></view>
+      <view class='line-card'>
+        <view class='weui-cell-list'>
+
+          <view class='weui-cell-circle'>
+          </view>
+          <view class='weui-cell-line'>
+          </view>
+        </view>
+        <view class='weui-cell-card'><text class='project_content'>{{item.event}}</text></view>
+      </view>
+    </view> -->
+
+  <view class='publish_project' bindtap='onPublish'>
+    <text class='publish_text'>发布项目</text>
+    <image class='publish_image' mode='widthFix' src='img/publish.png'></image>
+  </view>
+  <view class='project_bar'>
+    <view wx:for='{{myArticles}}' wx:key='id'>
+      <template is='articleItem' data='{{item}}'></template>
+    </view>
+  </view>
+
+  <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+  <view animation="{{animationData}}" class="commodity_attr_box modal" wx:if="{{showModalStatus}}">
+    <button class='modal__button modal__left' open-type='share'>
+      <image class='modal__image' src='img/wechat.png'></image>
+      <text class='modal__text'>分享给好友</text>
+    </button>
+    <button class='modal__button modal__right' bindtap='drawPost'>
+      <image class='modal__image' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/%E4%B8%AA%E4%BA%BA/post.png'></image>
+      <text class='modal__text'>生成海报</text>
+    </button>
+  </view>
+
+
+</view>

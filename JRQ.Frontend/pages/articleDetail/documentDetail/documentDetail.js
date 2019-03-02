@@ -9,6 +9,7 @@ Page({
    */
   data: {
     document: {
+      isShow:true,
       id: 3,
       title: '这是一个文档标题',
       content: '这是文档的内容',
@@ -30,6 +31,16 @@ Page({
   },
 
   onDownload: function () {
+    var condition = true
+    api.getIOSQualification.call(this, (res) => {
+      console.log(res)
+      condition = res
+      if (!condition) {
+        this.setData({
+          isShow: false
+        })
+      }
+    })  
     var that = this
     if (this.data.document.attachment) {
       api.getMyUser.call(this, app.getOpenid(), (res) => {

@@ -12,7 +12,7 @@
       <text class='writer__name'>{{item.writerName}}</text>
       </view>
       
-      <image class='level' mode='widthFix' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/VIP-icon.png'></image>
+      <image class='level' wx-if="{{isShowVIP}}" mode='widthFix' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/VIP-icon.png'></image>
       
     </view>
    <view class='article_rigtht'>

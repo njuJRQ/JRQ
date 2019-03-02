@@ -5,6 +5,7 @@ import articleItem from '../../template/articleItem/articleItem'
 Page({
   data: {
     isShow: true,
+    isShowVIP:true,
     articles: [],
     writerFace: '',
     writerName: '',
@@ -27,6 +28,16 @@ Page({
     currentTab: 0,
   },
   onLoad: function() {
+    var condition = true
+    api.getIOSQualification.call(this, (res) => {
+      console.log(res)
+      condition = res
+      if (!condition) {
+        this.setData({
+          isShowVIP: false
+        })
+      }
+    })  
     var that = this;
     that.showPrior()
     // 获取系统信息 

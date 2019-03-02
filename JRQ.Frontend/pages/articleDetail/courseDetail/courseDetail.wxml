@@ -30,7 +30,7 @@
     <text style='color:black; font-size:1rem; font-weight:bold;'>课程视频</text>
     <view class='div-line'></view>
     <view class='content'>
-      <text wx:if='{{!course.hasBought}}'>视频预览1分钟：请购买该课程后观看完整课程视频</text>
+      <text wx-if="{{isShowPrice}}" wx:if='{{!course.hasBought}}'>视频预览1分钟：请购买该课程后观看完整课程视频</text>
       <video src='{{course.video}}'></video>
       
     </view>

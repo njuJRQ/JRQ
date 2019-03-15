@@ -672,8 +672,7 @@ function publishMyArticle(openid, kind, content, photos) {
       url: app.globalData.backendUrl + "publishMyFeed",
       data: {
         writerOpenid: openid,
-        kind: kind,
-        date: util.getTodayDate(),
+        title:"钧融中心",
         content: content
       },
       header: {

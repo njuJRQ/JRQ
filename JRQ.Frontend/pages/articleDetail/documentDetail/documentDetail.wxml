@@ -19,7 +19,7 @@
     <view class='div-line'></view>
     <image class='document__preview' mode='widthFix' src='{{document.preview}}' data-src='{{document.preview}}' bindtap='previewImg'></image>
   </view>
-  <view class='download' wx-if="{{isShow}}" style='margin: 20px'>
+  <view class='download' wx-if="{{!isShow}}" style='margin: 20px'>
     <view wx:if='{{!isDownLoadAttachment}}'>
       <button class='jrq__button' bindtap='onDownload' disabled='{{!document.attachment}}'>下载文档</button>
     </view>

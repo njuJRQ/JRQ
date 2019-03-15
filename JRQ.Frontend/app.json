@@ -42,11 +42,6 @@
         "selectedIconPath": "img/study-icon.png"
       },
       {
-        "pagePath": "pages/news/news",
-        "iconPath": "img/unzixun-icon.png",
-        "selectedIconPath": "img/zixun-icon.png"
-      },
-      {
         "pagePath": "pages/projects/project",
         "iconPath": "img/unxiangmu-icon.png",
         "selectedIconPath": "img/unxiangmu-icon.png"

@@ -24,7 +24,7 @@ oos:
 spring:
   jpa:
     database: mysql
-    properties:·
+    properties:
       dialect: org.hibernate.dialect.MySQL5Dialect
     show-sql: true
     hibernate:

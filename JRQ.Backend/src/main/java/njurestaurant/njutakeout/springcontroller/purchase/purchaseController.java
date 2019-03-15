@@ -62,7 +62,7 @@ public class purchaseController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public BoolResponse addPurchase(@RequestParam(name="openid")String openid, @RequestParam(name="type")String type, @RequestParam(name="detail")String detail, @RequestParam(name="price")int price, @RequestParam(name="date")String date) {
+    public BoolResponse addPurchase(@RequestParam(name="openid")String openid, @RequestParam(name="type")String type, @RequestParam(name="detail")String detail, @RequestParam(name="price")int price, @RequestParam(name="date")String date) throws NotExistException {
         return purchaseBlService.addPurchase(openid,type,detail,price,date);
     }
 

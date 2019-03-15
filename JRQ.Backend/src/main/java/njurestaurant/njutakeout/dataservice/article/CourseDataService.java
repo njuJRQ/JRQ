@@ -17,6 +17,10 @@ public interface CourseDataService {
 
 	List<Course> getAllCourses();
 
+	List<Course> getTextualResearchCourse();
+
+	List<Course> getOrdinaryCourse();
+
 	void deleteCourseById(String id) throws NotExistException;
 
 	void deleteCoursesByWriterName(String writerName);

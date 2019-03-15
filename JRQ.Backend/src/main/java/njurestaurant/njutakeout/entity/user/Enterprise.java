@@ -1,8 +1,10 @@
 package njurestaurant.njutakeout.entity.user;
 
+import njurestaurant.njutakeout.entity.job.JobCard;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -51,6 +53,9 @@ public class Enterprise {
 	@Column
 	private long verifyTimestamp; //后台审核的时间戳（审核结果可能是"verified"，"rejected"，"disqualified"）
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "enterprise")
+	private List<JobCard> jobCards;
+
 	public Enterprise() {
 	}
 
@@ -64,6 +69,7 @@ public class Enterprise {
 		this.adminPassword = adminPassword;
 		this.status = status;
 		this.submitTimestamp = submitTimestamp;
+		this.jobCards=null;
 	}
 
 	public String getId() {
@@ -152,5 +158,13 @@ public class Enterprise {
 
 	public void setAdminPassword(String adminPassword) {
 		this.adminPassword = adminPassword;
+	}
+
+	public List<JobCard> getJobCards() {
+		return jobCards;
+	}
+
+	public void setJobCards(List<JobCard> jobCards) {
+		this.jobCards = jobCards;
 	}
 }

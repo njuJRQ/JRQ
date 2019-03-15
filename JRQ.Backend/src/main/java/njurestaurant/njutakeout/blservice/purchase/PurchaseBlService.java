@@ -37,7 +37,7 @@ public interface PurchaseBlService {
 	 * @param date 交易日期
 	 * @return 是否成功
 	 */
-	BoolResponse addPurchase(String openid, String type, String detail, int price, String date);
+	BoolResponse addPurchase(String openid, String type, String detail, int price, String date) throws NotExistException;
 
 	/**
 	 * 根据订单号获取单个订单信息(User&Admin)

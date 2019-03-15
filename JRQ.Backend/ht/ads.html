@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Amaze UI Admin index Examples</title>
-    <meta name="description" content="这是一个 index 页面">
-    <meta name="keywords" content="index">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="renderer" content="webkit">
+    <meta title="description" content="这是一个 index 页面">
+    <meta title="keywords" content="index">
+    <meta title="viewport" content="width=device-width, initial-scale=1">
+    <meta title="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <meta title="apple-mobile-web-app-title" content="Amaze UI" />
     <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
     <link rel="stylesheet" href="assets/css/admin.css">
 </head>
@@ -78,7 +78,7 @@
                         <thead>
 
                         </thead><tr>
-                        <th><input type="checkbox" name="id[]"/></th>
+                        <th><input type="checkbox" title="id[]"/></th>
                         <th>广告编号</th>
                         <th>广告图片</th>
                         <th>广告链接</th>
@@ -86,7 +86,7 @@
                         <th class="table-set">操作</th>
                     </tr>
                         <tr id="your-alert-1">
-                            <td><input id="c1" type="checkbox" name="id[]"/></td>
+                            <td><input id="c1" type="checkbox" title="id[]"/></td>
                             <td id="number1"></td>
                             <td><img  id="name1" style="max-height: 30px;"/></td>
                             <td id="date1"></td>
@@ -104,7 +104,7 @@
                             </td>
                         </tr>
                         <tr id="your-alert-2">
-                            <td><input id="c2" type="checkbox" name="id[]"/></td>
+                            <td><input id="c2" type="checkbox" title="id[]"/></td>
                             <td id="number2"></td>
                             <td><img  id="name2" style="max-height: 30px;"/></td>
                             <td id="date2"></td>
@@ -122,7 +122,7 @@
                             </td>
                         </tr>
                         <tr id="your-alert-3">
-                            <td><input id="c3" type="checkbox" name="id[]"/></td>
+                            <td><input id="c3" type="checkbox" title="id[]"/></td>
                             <td id="number3"></td>
                             <td><img  id="name3" style="max-height: 30px;"/></td>
                             <td id="date3"></td>
@@ -140,7 +140,7 @@
                             </td>
                         </tr>
                         <tr id="your-alert-4">
-                            <td><input id="c4" type="checkbox" name="id[]"/></td>
+                            <td><input id="c4" type="checkbox" title="id[]"/></td>
                             <td id="number4"></td>
                             <td><img  id="name4" style="max-height: 30px;"/></td>
                             <td id="date4"></td>
@@ -158,7 +158,7 @@
                             </td>
                         </tr>
                         <tr id="your-alert-5">
-                            <td><input id="c5" type="checkbox" name="id[]"/></td>
+                            <td><input id="c5" type="checkbox" title="id[]"/></td>
                             <td id="number5"></td>
                             <td><img  id="name5" style="max-height: 30px;"/></td>
                             <td id="date5"></td>
@@ -228,7 +228,7 @@
 
 <script>
     $("#checkall").click(function(){
-        $("input[name='id[]']").each(function(){
+        $("input[title='id[]']").each(function(){
             if (this.checked) {
                 this.checked = false;
             }
@@ -258,7 +258,7 @@
     //批量删除
     function DelSelect(){
         var Checkbox=false;
-        $("input[name='id[]']").each(function(){
+        $("input[title='id[]']").each(function(){
             if (this.checked==true) {
                 Checkbox=true;
             }

@@ -5,9 +5,10 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table
+@Table()
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class Course {
 	@Id
@@ -36,15 +37,23 @@ public class Course {
 	private int price;
 
 	@Column
+	private boolean isTextualResearchCourse;
+
+	@Column
 	private String preview; //视频预览，前1分钟
 
 	@Column
 	private long viewNum;//课程浏览量
 
+	@ManyToMany(
+			cascade = CascadeType.REFRESH,
+			fetch = FetchType.LAZY)
+	private List<CourseGroup> courseGroups;
+
 	public Course() {
 	}
 
-	public Course(String title, String image, String writerName, long timeStamp, long likeNum, String video, int price, String preview, long viewNum) {
+	public Course(String title, String image, String writerName, long timeStamp, long likeNum, String video, int price, String preview, long viewNum,boolean isTextualResearchCourse,List<CourseGroup> courseGroups) {
 		this.title = title;
 		this.image = image;
 		this.writerName = writerName;
@@ -54,6 +63,8 @@ public class Course {
 		this.price = price;
 		this.preview = preview;
 		this.viewNum = viewNum;
+		this.isTextualResearchCourse=isTextualResearchCourse;
+		this.courseGroups=courseGroups;
 	}
 
 	public String getId() {
@@ -117,6 +128,14 @@ public class Course {
 		this.price = price;
 	}
 
+	public boolean isTextualResearchCourse() {
+		return isTextualResearchCourse;
+	}
+
+	public void setTextualResearchCourse(boolean textualResearchCourse) {
+		this.isTextualResearchCourse = textualResearchCourse;
+	}
+
 	public long getTimeStamp() {
 		return timeStamp;
 	}
@@ -139,5 +158,13 @@ public class Course {
 
 	public void setViewNum(long viewNum) {
 		this.viewNum = viewNum;
+	}
+
+	public List<CourseGroup> getCourseGroups() {
+		return courseGroups;
+	}
+
+	public void setCourseGroups(List<CourseGroup> courseGroups) {
+		this.courseGroups = courseGroups;
 	}
 }

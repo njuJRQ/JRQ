@@ -1,11 +1,14 @@
 package njurestaurant.njutakeout.bl.purchase;
 
 import njurestaurant.njutakeout.blservice.purchase.PurchaseBlService;
+import njurestaurant.njutakeout.dataservice.article.CourseGroupDataService;
 import njurestaurant.njutakeout.dataservice.purchase.BuyCreditDataService;
 import njurestaurant.njutakeout.dataservice.purchase.PurchaseCourseDataService;
 import njurestaurant.njutakeout.dataservice.purchase.PurchaseDataService;
 import njurestaurant.njutakeout.dataservice.user.LevelDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
+import njurestaurant.njutakeout.entity.article.Course;
+import njurestaurant.njutakeout.entity.article.CourseGroup;
 import njurestaurant.njutakeout.entity.purchase.BuyCredit;
 import njurestaurant.njutakeout.entity.purchase.Purchase;
 import njurestaurant.njutakeout.entity.purchase.PurchaseCourse;
@@ -37,14 +40,16 @@ public class PurchaseBlServiceImpl implements PurchaseBlService {
 	private final LevelDataService levelDataService;
 	private final PurchaseCourseDataService purchaseCourseDataService;
 	private final BuyCreditDataService buyCreditDataService;
+	private final CourseGroupDataService courseGroupDataService;
 
 	@Autowired
-	public PurchaseBlServiceImpl(PurchaseDataService purchaseDataService, UserDataService userDataService, LevelDataService levelDataService, PurchaseCourseDataService purchaseCourseDataService, BuyCreditDataService buyCreditDataService) {
+	public PurchaseBlServiceImpl(PurchaseDataService purchaseDataService, UserDataService userDataService, LevelDataService levelDataService, PurchaseCourseDataService purchaseCourseDataService, BuyCreditDataService buyCreditDataService,CourseGroupDataService courseGroupDataService) {
 		this.purchaseDataService = purchaseDataService;
 		this.userDataService = userDataService;
 		this.levelDataService = levelDataService;
 		this.purchaseCourseDataService = purchaseCourseDataService;
 		this.buyCreditDataService = buyCreditDataService;
+		this.courseGroupDataService=courseGroupDataService;
 	}
 
 	@Value(value = "${wechat.order_url}")
@@ -204,7 +209,7 @@ public class PurchaseBlServiceImpl implements PurchaseBlService {
 	}
 
 	@Override
-	public BoolResponse addPurchase(String openid, String type, String detail, int price, String date) {
+	public BoolResponse addPurchase(String openid, String type, String detail, int price, String date) throws NotExistException {
 		User user = null;
 		try {
 			user = userDataService.getUserByOpenid(openid);
@@ -230,7 +235,17 @@ public class PurchaseBlServiceImpl implements PurchaseBlService {
 					break;
 				case "course":
 					try {
-						purchaseCourseDataService.addPurchaseCourse(new PurchaseCourse(openid, detail));
+						purchaseCourseDataService.addPurchaseCourse(new PurchaseCourse(openid, detail,false));
+					} catch (AlreadyExistException e) {
+						return new BoolResponse(false, e.getMessage());
+					}
+				case "courseGroup":
+					try {
+						purchaseCourseDataService.addPurchaseCourse(new PurchaseCourse(openid, detail,true));
+						CourseGroup courseGroup=courseGroupDataService.findById(detail);
+						for(Course course:courseGroup.getCourseList()){
+							purchaseCourseDataService.addPurchaseCourse(new PurchaseCourse(openid,course.getId(),false));
+						}
 					} catch (AlreadyExistException e) {
 						return new BoolResponse(false, e.getMessage());
 					}

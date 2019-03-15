@@ -17,7 +17,7 @@ public interface CourseBlService {
 	 * @param price 课程价格
 	 * @return 是否成功添加
 	 */
-	InfoResponse addCourse(String title, String image, String writerName, long likeNum, String video, int price);
+	InfoResponse addCourse(String title, String image, String writerName, long likeNum, String video, int price,boolean isTextualResearchCourse);
 
 	/**
 	 * 根据课程ID获取课程内容(Admin)
@@ -31,6 +31,10 @@ public interface CourseBlService {
 	 * @return 课程列表
 	 */
 	CourseListResponse getCourseList();
+
+	CourseListResponse getTextualResearchCourseList();
+
+	CourseListResponse getOrdinaryCourseList();
 
 	/**
 	 * 根据课程ID修改课程内容(Admin)

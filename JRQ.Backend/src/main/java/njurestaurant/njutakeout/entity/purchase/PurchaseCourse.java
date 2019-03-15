@@ -14,12 +14,17 @@ public class PurchaseCourse {
 	@Column(name = "courseId", length = 32)
 	private String courseId; //课程ID
 
+	@Id
+	@Column
+	private boolean isGroup;
+
 	public PurchaseCourse() {
 	}
 
-	public PurchaseCourse(String openid, String courseId) {
+	public PurchaseCourse(String openid, String courseId,boolean isGroup) {
 		this.openid = openid;
 		this.courseId = courseId;
+		this.isGroup=isGroup;
 	}
 
 	public String getOpenid() {
@@ -36,5 +41,13 @@ public class PurchaseCourse {
 
 	public void setCourseId(String courseId) {
 		this.courseId = courseId;
+	}
+
+	public boolean isGroup() {
+		return isGroup;
+	}
+
+	public void setGroup(boolean group) {
+		isGroup = group;
 	}
 }

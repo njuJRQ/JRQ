@@ -209,7 +209,7 @@ public class CourseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "课程ID", required = true, dataType = "String")
     })
-    @RequestMapping(value = "/getCourse", method = RequestMethod.GET)
+    @RequestMapping(value = "/getCourse", method = RequestMethod.POST)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),

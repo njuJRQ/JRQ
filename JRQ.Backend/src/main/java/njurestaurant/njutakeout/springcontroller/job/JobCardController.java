@@ -6,7 +6,6 @@ import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.Response;
 import njurestaurant.njutakeout.response.WrongResponse;
-import njurestaurant.njutakeout.response.event.EventLoadResponse;
 import njurestaurant.njutakeout.response.job.JobCardListResponse;
 import njurestaurant.njutakeout.response.job.JobCardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,10 @@ public class JobCardController {
             @ApiImplicitParam(name = "experienceRequirement", value = "经验要求", required = true, dataType = "String"),
             @ApiImplicitParam(name = "degreeRequirement", value = "学历要求", required = true, dataType = "String"),
             @ApiImplicitParam(name = "address", value = "地址", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "hr", value = "联系人", required = true, dataType = "String")
+            @ApiImplicitParam(name = "hr", value = "联系人", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "hrTitle", value = "联系人职位", required = true, dataType = "String"),
+            @ApiImplicitParam(name="enterpriseId",value="公司id",required = true,dataType = "String")
+
     })
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ApiResponses(value = {
@@ -40,8 +42,8 @@ public class JobCardController {
     public ResponseEntity<Response> addJobCard(@RequestParam(name="position")String position,@RequestParam(name="wage")String wage,
                                               @RequestParam(name="experienceRequirement")String experienceRequirement,@RequestParam(name="degreeRequirement")String degreeRequirement,
                                               @RequestParam(name="address")String address,@RequestParam(name="hr")String hr,
-                                              @RequestParam(name="enterpriseId")String enterpriseId) throws NotExistException {
-        return new ResponseEntity<>(jobCardBlService.add(position,wage,experienceRequirement,degreeRequirement,address,hr,enterpriseId), HttpStatus.OK);
+                                              @RequestParam(name="enterpriseId")String enterpriseId,@RequestParam(name="hrTitle")String hrTitle) throws NotExistException {
+        return new ResponseEntity<>(jobCardBlService.add(position,wage,experienceRequirement,degreeRequirement,address,hr,hrTitle,enterpriseId), HttpStatus.OK);
     }
 
     @ApiOperation(value = "修改招聘信息", notes = "修改招聘信息")
@@ -52,7 +54,8 @@ public class JobCardController {
             @ApiImplicitParam(name = "experienceRequirement", value = "经验要求", required = true, dataType = "String"),
             @ApiImplicitParam(name = "degreeRequirement", value = "学历要求", required = true, dataType = "String"),
             @ApiImplicitParam(name = "address", value = "地址", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "hr", value = "联系人", required = true, dataType = "String")
+            @ApiImplicitParam(name = "hr", value = "联系人", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "hrTitle", value = "联系人职位", required = true, dataType = "String")
     })
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ApiResponses(value = {
@@ -62,8 +65,9 @@ public class JobCardController {
     @ResponseBody
     public ResponseEntity<Response> updateJobCard(@RequestParam(name="id")String id,@RequestParam(name="position")String position,@RequestParam(name="wage")String wage,
                                               @RequestParam(name="experienceRequirement")String experienceRequirement,@RequestParam(name="degreeRequirement")String degreeRequirement,
-                                              @RequestParam(name="address")String address,@RequestParam(name="hr")String hr) throws NotExistException {
-        return new ResponseEntity<>(jobCardBlService.update(id,position,wage,experienceRequirement,degreeRequirement,address,hr), HttpStatus.OK);
+                                              @RequestParam(name="address")String address,@RequestParam(name="hr")String hr,
+                                                  @RequestParam(name="hrTitle")String hrTitle) throws NotExistException {
+        return new ResponseEntity<>(jobCardBlService.update(id,position,wage,experienceRequirement,degreeRequirement,address,hr,hrTitle), HttpStatus.OK);
     }
 
     @ApiOperation(value = "根据id获取jobCard内容", notes = "根据课id获取jobCard内容")
@@ -101,7 +105,7 @@ public class JobCardController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> findByEnterprise(@RequestParam(name="enterpriseJd")String enterpriseId) throws NotExistException {
+    public ResponseEntity<Response> findByEnterprise(@RequestParam(name="enterpriseId")String enterpriseId) throws NotExistException {
         return new ResponseEntity<>(jobCardBlService.findByEnterprise(enterpriseId), HttpStatus.OK);
     }
 }

@@ -32,6 +32,9 @@ public class JobCard {
     @Column
     private String hr;
 
+    @Column
+    private String hrTitle;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "enterprise_id")
     private Enterprise enterprise;
@@ -39,7 +42,7 @@ public class JobCard {
     public JobCard() {
     }
 
-    public JobCard(String position, String wage, String experienceRequirement, String degreeRequirement, String address, String hr,Enterprise enterprise) {
+    public JobCard(String position, String wage, String experienceRequirement, String degreeRequirement, String address, String hr,String hrTitle,Enterprise enterprise) {
         this.position = position;
         this.enterprise = enterprise;
         this.wage = wage;
@@ -47,6 +50,7 @@ public class JobCard {
         this.degreeRequirement = degreeRequirement;
         this.address = address;
         this.hr = hr;
+        this.hrTitle=hrTitle;
     }
 
     public String getId() {
@@ -111,5 +115,13 @@ public class JobCard {
 
     public void setHr(String hr) {
         this.hr = hr;
+    }
+
+    public String getHrTitle() {
+        return hrTitle;
+    }
+
+    public void setHrTitle(String hrTitle) {
+        this.hrTitle = hrTitle;
     }
 }

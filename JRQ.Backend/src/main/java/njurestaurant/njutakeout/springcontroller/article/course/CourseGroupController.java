@@ -32,7 +32,7 @@ public class CourseGroupController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> addCourseGroup(@RequestBody CourseGroupParameters parameters) throws NotExistException {
-        ResponseEntity<Response> r=new ResponseEntity<>(courseGroupBlService.add(parameters.getTitle(),parameters.getCourses()), HttpStatus.OK);
+        ResponseEntity<Response> r=new ResponseEntity<>(courseGroupBlService.add(parameters.getTitle(),parameters.getWriterName(),parameters.getCourses()), HttpStatus.OK);
         return r;
     }
 
@@ -44,7 +44,7 @@ public class CourseGroupController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> updateCourseGroup(@RequestBody CourseGroupParameters parameters) throws NotExistException {
-        ResponseEntity<Response> r=new ResponseEntity<>(courseGroupBlService.update(parameters.getId(),parameters.getTitle(),parameters.getCourses()), HttpStatus.OK);
+        ResponseEntity<Response> r=new ResponseEntity<>(courseGroupBlService.update(parameters.getId(),parameters.getTitle(),parameters.getWriterName(),parameters.getCourses()), HttpStatus.OK);
         return r;
     }
 
@@ -70,7 +70,7 @@ public class CourseGroupController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> getAllCourseGroup(@RequestBody CourseGroupParameters parameters) throws NotExistException {
+    public ResponseEntity<Response> getAllCourseGroup() {
         ResponseEntity<Response> r=new ResponseEntity<>(courseGroupBlService.getAll(), HttpStatus.OK);
         return r;
     }

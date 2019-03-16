@@ -11,19 +11,21 @@ public interface CourseGroupBlService {
     /**
      * 新建课程组合
      * @param name
+     * @param writerName
      * @param courses
      * @return 是否添加成功
      */
-    InfoResponse add(String name,List<String> courses) throws NotExistException;
+    InfoResponse add(String name,String writerName,List<String> courses) throws NotExistException;
 
     /**
      * 根据id修改课程组合
      * @param id
      * @param title
+     * @param writerName
      * @param courses
      * @return 是否成功
      */
-    InfoResponse update(String id,String title,List<String> courses) throws NotExistException;
+    InfoResponse update(String id,String title,String writerName,List<String> courses) throws NotExistException;
 
     /**
      * 根据id查找课程组合

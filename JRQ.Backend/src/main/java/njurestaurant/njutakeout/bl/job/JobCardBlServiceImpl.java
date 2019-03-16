@@ -1,7 +1,6 @@
 package njurestaurant.njutakeout.bl.job;
 
 import njurestaurant.njutakeout.blservice.job.JobCardBlService;
-import njurestaurant.njutakeout.data.job.JobCardDataServiceImpl;
 import njurestaurant.njutakeout.dataservice.admin.AdminDataService;
 import njurestaurant.njutakeout.dataservice.job.JobCardDataService;
 import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
@@ -30,14 +29,14 @@ public class JobCardBlServiceImpl implements JobCardBlService {
         this.adminDataService=adminDataService;
     }
     @Override
-    public InfoResponse add(String position, String wage, String experienceRequirement, String degreeRequirement, String address, String hr, String enterpriseId) throws NotExistException {
+    public InfoResponse add(String position, String wage, String experienceRequirement, String degreeRequirement, String address, String hr, String hrTitle,String enterpriseId) throws NotExistException {
         Enterprise enterprise=enterpriseDataService.getEnterpriseById(enterpriseId);
-        jobCardDataService.add(new JobCard(position,wage,experienceRequirement,degreeRequirement,address,hr,enterprise));
+        jobCardDataService.add(new JobCard(position,wage,experienceRequirement,degreeRequirement,address,hr,hrTitle,enterprise));
         return new InfoResponse();
     }
 
     @Override
-    public InfoResponse update(String id, String position, String wage, String experienceRequirement, String degreeRequirement, String address, String hr) throws NotExistException {
+    public InfoResponse update(String id, String position, String wage, String experienceRequirement, String degreeRequirement, String address, String hr,String hrTtile) throws NotExistException {
         JobCard jobCard=jobCardDataService.findById(id);
         jobCard.setPosition(position);
         jobCard.setWage(wage);
@@ -45,6 +44,7 @@ public class JobCardBlServiceImpl implements JobCardBlService {
         jobCard.setDegreeRequirement(degreeRequirement);
         jobCard.setAddress(address);
         jobCard.setHr(hr);
+        jobCard.setHrTitle(hrTtile);
         jobCardDataService.update(jobCard);
         return new InfoResponse();
     }

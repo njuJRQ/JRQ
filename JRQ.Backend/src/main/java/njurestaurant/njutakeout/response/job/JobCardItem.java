@@ -1,30 +1,30 @@
 package njurestaurant.njutakeout.response.job;
 
 import njurestaurant.njutakeout.dataservice.admin.AdminDataService;
+import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
 import njurestaurant.njutakeout.entity.job.JobCard;
 import njurestaurant.njutakeout.response.user.EnterpriseItem;
+import njurestaurant.njutakeout.response.user.UserItem;
 
 public class JobCardItem {
     private String id;
-    private String position;
-    private String wage;
-    private String  experienceRequirement;
-    private String degreeRequirement;
-    private String address;
-    private String hr;
-    private EnterpriseItem enterprise;
+    private String expectPosition;
+    private String expectWage;
+    private String  experience;
+    private String degree;
+    private String introduction;
+    private UserItem user;
 
     public JobCardItem() {
     }
-    public JobCardItem(JobCard jobCard, AdminDataService adminDataService){
+    public JobCardItem(JobCard jobCard, EnterpriseDataService enterpriseDataService){
         this.id=jobCard.getId();
-        this.position=jobCard.getPosition();
-        this.wage=jobCard.getWage();
-        this.experienceRequirement=jobCard.getExperienceRequirement();
-        this.degreeRequirement=jobCard.getDegreeRequirement();
-        this.address=jobCard.getAddress();
-        this.hr=jobCard.getHr();
-        this.enterprise=new EnterpriseItem(jobCard.getEnterprise(),adminDataService);
+       this.expectPosition=jobCard.getExpectPosition();
+       this.expectWage=jobCard.getExpectWage();
+       this.experience=jobCard.getExperience();
+       this.degree=jobCard.getDegree();
+       this.introduction=jobCard.getIntroduction();
+       this.user=new UserItem(jobCard.getUser(),enterpriseDataService);
     }
 
     public String getId() {
@@ -35,59 +35,51 @@ public class JobCardItem {
         this.id = id;
     }
 
-    public String getPosition() {
-        return position;
+    public String getExpectPosition() {
+        return expectPosition;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setExpectPosition(String expectPosition) {
+        this.expectPosition = expectPosition;
     }
 
-    public String getWage() {
-        return wage;
+    public String getExpectWage() {
+        return expectWage;
     }
 
-    public void setWage(String wage) {
-        this.wage = wage;
+    public void setExpectWage(String expectWage) {
+        this.expectWage = expectWage;
     }
 
-    public String getExperienceRequirement() {
-        return experienceRequirement;
+    public String getExperience() {
+        return experience;
     }
 
-    public void setExperienceRequirement(String experienceRequirement) {
-        this.experienceRequirement = experienceRequirement;
+    public void setExperience(String experience) {
+        this.experience = experience;
     }
 
-    public String getDegreeRequirement() {
-        return degreeRequirement;
+    public String getDegree() {
+        return degree;
     }
 
-    public void setDegreeRequirement(String degreeRequirement) {
-        this.degreeRequirement = degreeRequirement;
+    public void setDegree(String degree) {
+        this.degree = degree;
     }
 
-    public String getAddress() {
-        return address;
+    public String getIntroduction() {
+        return introduction;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
     }
 
-    public String getHr() {
-        return hr;
+    public UserItem getUser() {
+        return user;
     }
 
-    public void setHr(String hr) {
-        this.hr = hr;
-    }
-
-    public EnterpriseItem getEnterprise() {
-        return enterprise;
-    }
-
-    public void setEnterprise(EnterpriseItem enterprise) {
-        this.enterprise = enterprise;
+    public void setUser(UserItem user) {
+        this.user = user;
     }
 }

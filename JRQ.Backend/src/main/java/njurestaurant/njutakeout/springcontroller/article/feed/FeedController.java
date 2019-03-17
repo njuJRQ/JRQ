@@ -68,8 +68,8 @@ public class FeedController {
             String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
             File file = new File(fileName);
             String[] temp=fileName.split("\\.");
-            String thePath="record/feed/image/"+uuid+"."+temp[1];
-            String path="record/feed/image/"+uuid+"."+temp[1];
+            String thePath="JRQ.Backend/record/feed/image/"+uuid+"."+temp[1];
+            String path="JRQ.Backend/record/feed/image/"+uuid+"."+temp[1];
             File tempfile=new File(path);
             if (tempfile.exists() && tempfile.isFile()) {
                 tempfile.delete();
@@ -143,11 +143,11 @@ public class FeedController {
             String thePath="";
             String path="";
             if(temp.length>2) {
-                thePath = "record/feed/image/" + uuid + "." + temp[3];
-                path = "record/feed/image/" + uuid + "." + temp[3];
+                thePath = "JRQ.Backend/record/feed/image/" + uuid + "." + temp[3];
+                path = "JRQ.Backend/record/feed/image/" + uuid + "." + temp[3];
             }else{
-                thePath = "record/feed/image/" + uuid + "." + temp[1];
-                path = "record/feed/image/" + uuid + "." + temp[1];
+                thePath = "JRQ.Backend/record/feed/image/" + uuid + "." + temp[1];
+                path = "JRQ.Backend/record/feed/image/" + uuid + "." + temp[1];
             }
             File tempfile=new File(path);
             if (tempfile.exists() && tempfile.isFile()) {
@@ -183,14 +183,14 @@ public class FeedController {
             @ApiImplicitParam(name = "content", value = "内容", required = true, dataType = "String"),
             @ApiImplicitParam(name = "writerOpenid", value = "作者id", required = true, dataType = "String")
     })
-    @RequestMapping(value = "/publishMyFeed", method = RequestMethod.GET)
+    @RequestMapping(value = "/publishMyFeed", method = RequestMethod.POST)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> publishMyFeed(@RequestParam(name="title")String title, @RequestParam(name="content")String content, @RequestParam(name="writerOpenid")String writerOpenid) {
-        ResponseEntity<Response> r= new ResponseEntity<>(feedBlService.publishMyFeed(title, content,imagesPath,writerOpenid), HttpStatus.OK);
+    public ResponseEntity<Response> publishMyFeed(@RequestParam(name="linkMan")String linkMan, @RequestParam(name="phone")String phone,@RequestParam(name="agencyName")String agencyName,@RequestParam(name="projectRef")String projectRef,@RequestParam(name="projectInfo")String projectInfo, @RequestParam(name="writerOpenid")String writerOpenid) {
+        ResponseEntity<Response> r= new ResponseEntity<>(feedBlService.publishMyFeed(linkMan,phone,agencyName,projectRef,projectInfo,imagesPath,writerOpenid), HttpStatus.OK);
         imagesPath.clear();
         return r;
     }
@@ -202,14 +202,14 @@ public class FeedController {
             @ApiImplicitParam(name = "images", value = "图片", required = true, dataType = "List<String>"),
             @ApiImplicitParam(name = "writerOpenid", value = "作者id", required = true, dataType = "String")
     })
-    @RequestMapping(value = "/addFeed", method = RequestMethod.GET)
+    @RequestMapping(value = "/addFeed", method = RequestMethod.POST)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> addFeed(@RequestParam(name="title")String title, @RequestParam(name="content")String content, @RequestParam(name="images")List<String> images,@RequestParam(name="writerOpenid")String writerOpenid) {
-        ResponseEntity<Response> r= new ResponseEntity<>(feedBlService.publishMyFeed(title,content,images,writerOpenid), HttpStatus.OK);
+    public ResponseEntity<Response> addFeed(@RequestParam(name="linkMan")String linkMan, @RequestParam(name="phone")String phone,@RequestParam(name="agencyName")String agencyName,@RequestParam(name="projectRef")String projectRef,@RequestParam(name="projectInfo")String projectInfo, @RequestParam(name="images")List<String> images,@RequestParam(name="writerOpenid")String writerOpenid) {
+        ResponseEntity<Response> r= new ResponseEntity<>(feedBlService.publishMyFeed(linkMan,phone,agencyName,projectRef,projectInfo,images,writerOpenid), HttpStatus.OK);
         return r;
     }
 
@@ -217,7 +217,7 @@ public class FeedController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "圈子文章ID", required = true, dataType = "String")
     })
-    @RequestMapping(value = "/getFeed", method = RequestMethod.GET)
+    @RequestMapping(value = "/getFeed", method = RequestMethod.POST)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
@@ -243,7 +243,7 @@ public class FeedController {
             @ApiImplicitParam(name = "openid", value = "圈子文章ID", required = true, dataType = "String"),
             @ApiImplicitParam(name = "id", value = "圈子文章ID", required = true, dataType = "String")
     })
-    @RequestMapping(value = "/getFeedViewListBefore", method = RequestMethod.GET)
+    @RequestMapping(value = "/getFeedViewListBefore", method = RequestMethod.POST)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
@@ -272,21 +272,21 @@ public class FeedController {
             @ApiImplicitParam(name = "content", value = "圈子文本", required = true, dataType = "String"),
             @ApiImplicitParam(name = "images", value = "圈子图片", required = true, dataType = "List<String>")
     })
-    @RequestMapping(value = "/updateFeed", method = RequestMethod.GET)
+    @RequestMapping(value = "/updateFeed", method = RequestMethod.POST)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> updateFeed(@RequestParam(name="id")String id,@RequestParam(name="content")String content,@RequestParam(name="images")List<String> images) throws NotExistException {
-        return new ResponseEntity<>(feedBlService.updateFeed(id,content,images), HttpStatus.OK);
+    public ResponseEntity<Response> updateFeed(@RequestParam(name="id")String id,@RequestParam(name="linkMan")String linkMan,@RequestParam(name="phone")String phone,@RequestParam(name="agencyName")String agencyName,@RequestParam(name="projectRef")String projectRef,@RequestParam(name="projectInfo")String projectInfo,@RequestParam(name="images")List<String> images) throws NotExistException {
+        return new ResponseEntity<>(feedBlService.updateFeed(id,linkMan,phone,agencyName,projectRef,projectInfo,images), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "获取某一篇圈子文章时间戳前的10篇文章", notes = "获取某一篇圈子文章时间戳前的10篇文章")
+    @ApiOperation(value = "根据id删除圈子", notes = "根据id删除圈子")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "圈子文章ID", required = true, dataType = "String")
     })
-    @RequestMapping(value = "/deleteFeed", method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteFeed", method = RequestMethod.POST)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
@@ -301,7 +301,7 @@ public class FeedController {
             @ApiImplicitParam(name = "myOpenid", value = "用户的微信openid", required = true, dataType = "String"),
             @ApiImplicitParam(name = "otherOpenid", value = "要查看的人的微信openid", required = true, dataType = "String")
     })
-    @RequestMapping(value = "/getUserHistoryAbstractList", method = RequestMethod.GET)
+    @RequestMapping(value = "/getUserHistoryAbstractList", method = RequestMethod.POST)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
@@ -316,14 +316,14 @@ public class FeedController {
             @ApiImplicitParam(name = "id", value = "圈子文章ID", required = true, dataType = "String"),
             @ApiImplicitParam(name = "content", value = "内容", required = true, dataType = "String")
     })
-    @RequestMapping(value = "/updateMyFeed", method = RequestMethod.GET)
+    @RequestMapping(value = "/updateMyFeed", method = RequestMethod.POST)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> updateMyFeed(@RequestParam(name="id")String id,@RequestParam(name="content")String content) throws NotExistException {
-        ResponseEntity<Response> r=new ResponseEntity<>(feedBlService.updateMyFeed(id,content,imagesPath), HttpStatus.OK);
+    public ResponseEntity<Response> updateMyFeed(@RequestParam(name="id")String id,@RequestParam(name="linkMan")String linkMan,@RequestParam(name="phone")String phone,@RequestParam(name="agencyName")String agencyName,@RequestParam(name="projectRef")String projectRef,@RequestParam(name="projectInfo")String projectInfo) throws NotExistException {
+        ResponseEntity<Response> r=new ResponseEntity<>(feedBlService.updateMyFeed(id,linkMan,phone,agencyName,projectRef,projectInfo,imagesPath), HttpStatus.OK);
         imagesPath.clear();
         return r;
     }
@@ -332,7 +332,7 @@ public class FeedController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "圈子文章ID", required = true, dataType = "String")
     })
-    @RequestMapping(value = "/deleteMyFeed", method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteMyFeed", method = RequestMethod.POST)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
@@ -346,7 +346,7 @@ public class FeedController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "圈子文章ID", required = true, dataType = "String")
     })
-    @RequestMapping(value = "/getFeedView", method = RequestMethod.GET)
+    @RequestMapping(value = "/getFeedView", method = RequestMethod.POST)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
@@ -362,7 +362,7 @@ public class FeedController {
             @ApiImplicitParam(name = "openid", value = "用户openid", required = true, dataType = "String"),
             @ApiImplicitParam(name = "id", value = "圈子ID", required = true, dataType = "String")
     })
-    @RequestMapping(value = "/getProjectListBeforeByKind", method = RequestMethod.GET)
+    @RequestMapping(value = "/getProjectListBeforeByKind", method = RequestMethod.POST)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
@@ -380,7 +380,7 @@ public class FeedController {
             @ApiImplicitParam(name = "openid", value = "用户openid", required = true, dataType = "String"),
             @ApiImplicitParam(name = "condition", value = "搜索条件", required = true, dataType = "String")
     })
-    @RequestMapping(value = "/getProjectListByCondition", method = RequestMethod.GET)
+    @RequestMapping(value = "/getProjectListByCondition", method = RequestMethod.POST)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
@@ -396,7 +396,7 @@ public class FeedController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "openid", value = "用户openid", required = true, dataType = "String")
     })
-    @RequestMapping(value = "/getMyProjectListOrderByTime", method = RequestMethod.GET)
+    @RequestMapping(value = "/getMyProjectListOrderByTime", method = RequestMethod.POST)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),

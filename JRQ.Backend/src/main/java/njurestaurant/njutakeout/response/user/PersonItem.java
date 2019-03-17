@@ -4,6 +4,8 @@ import njurestaurant.njutakeout.dataservice.user.ClassificationDataService;
 import njurestaurant.njutakeout.entity.user.User;
 import njurestaurant.njutakeout.exception.NotExistException;
 
+import java.util.List;
+
 public class PersonItem {
 	private String openid; //用户微信openid
 	private String username; //用户名
@@ -13,13 +15,13 @@ public class PersonItem {
 	private String position; //职位
 	private String intro; //个人简介
 	private String city; //所在城市
-	private String label; //用户类别信息，可取值：融资租赁，商业保理，地产交易，金融牌照
-	private String bgColor; //标签背景颜色，对应Classification表中的color字段
+	private List<String> label; //用户类别信息，可取值：融资租赁，商业保理，地产交易，金融牌照
+	//private String bgColor; //标签背景颜色，对应Classification表中的color字段
 
 	public PersonItem() {
 	}
 
-	public PersonItem(User user, ClassificationDataService classificationDataService) {
+	public PersonItem(User user) {
 		this.openid = user.getOpenid();
 		this.username = user.getUsername();
 		this.face = user.getFace();
@@ -29,11 +31,11 @@ public class PersonItem {
 		this.intro = user.getIntro();
 		this.city = user.getCity();
 		this.label = user.getLabel();
-		try {
-			this.bgColor = classificationDataService.getClassificationByUserLabel(user.getLabel()).getColor();
-		} catch (NotExistException e) {
-			this.bgColor = "";
-		}
+//		try {
+//			this.bgColor = classificationDataService.getClassificationByUserLabel(user.getLabel()).getColor();
+//		} catch (NotExistException e) {
+//			this.bgColor = "";
+//		}
 	}
 
 	public String getOpenid() {
@@ -100,19 +102,19 @@ public class PersonItem {
 		this.city = city;
 	}
 
-	public String getLabel() {
+	public List<String> getLabel() {
 		return label;
 	}
 
-	public void setLabel(String label) {
+	public void setLabel(List<String> label) {
 		this.label = label;
 	}
 
-	public String getBgColor() {
-		return bgColor;
-	}
-
-	public void setBgColor(String bgColor) {
-		this.bgColor = bgColor;
-	}
+	//	public String getBgColor() {
+//		return bgColor;
+//	}
+//
+//	public void setBgColor(String bgColor) {
+//		this.bgColor = bgColor;
+//	}
 }

@@ -93,7 +93,7 @@ public class AbstractItem {
 
 	public AbstractItem(Feed feed, UserDataService userDataService, boolean hasLiked) throws NotExistException {
 		this.id = feed.getId();
-		this.title = feed.getContent();
+		this.title = feed.getProjectInfo();
 		this.images = feed.getImages();
 		User user = userDataService.getUserByOpenid(feed.getWriterOpenid());
 		this.writerFace = user.getFace();

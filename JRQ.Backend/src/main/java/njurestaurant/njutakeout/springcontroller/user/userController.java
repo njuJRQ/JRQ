@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -98,7 +99,7 @@ public class userController {
             @ApiImplicitParam(name = "intro", value = "用户简介", required = true, dataType = "String"),
             @ApiImplicitParam(name = "city", value = "用户城市", required = true, dataType = "String"),
             @ApiImplicitParam(name = "credit", value = "余额", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "label", value = "用户标签", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "label", value = "用户标签", required = true, dataType = "List"),
             @ApiImplicitParam(name = "levelName", value = "用户等级", required = true, dataType = "String"),
             @ApiImplicitParam(name = "valid", value = "是否启用", required = true, dataType = "String")
     })
@@ -108,7 +109,7 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public InfoResponse addUser(@RequestParam(name="openid")String openid, @RequestParam(name="username")String username, @RequestParam(name="phone")String phone, @RequestParam(name="email")String email, @RequestParam(name="company")String company, @RequestParam(name="department")String department, @RequestParam(name="position")String position, @RequestParam(name="intro")String intro, @RequestParam(name="city")String city, @RequestParam(name="credit")String credit, @RequestParam(name="label")String label, @RequestParam(name="levelName")String levelName, @RequestParam(name="valid")String valid) throws NotExistException {
+    public InfoResponse addUser(@RequestParam(name="openid")String openid, @RequestParam(name="username")String username, @RequestParam(name="phone")String phone, @RequestParam(name="email")String email, @RequestParam(name="company")String company, @RequestParam(name="department")String department, @RequestParam(name="position")String position, @RequestParam(name="intro")String intro, @RequestParam(name="city")String city, @RequestParam(name="credit")String credit, @RequestParam(name="label")List<String> label, @RequestParam(name="levelName")String levelName, @RequestParam(name="valid")String valid) throws NotExistException {
         boolean is=true;
         if(valid=="冻结"){
             is=false;
@@ -160,7 +161,7 @@ public class userController {
             @ApiImplicitParam(name = "intro", value = "用户简介", required = true, dataType = "String"),
             @ApiImplicitParam(name = "city", value = "用户城市", required = true, dataType = "String"),
             @ApiImplicitParam(name = "credit", value = "余额", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "label", value = "用户标签", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "label", value = "用户标签", required = true, dataType = "List"),
             @ApiImplicitParam(name = "levelName", value = "用户等级", required = true, dataType = "String"),
             @ApiImplicitParam(name = "valid", value = "是否启用", required = true, dataType = "String")
     })
@@ -170,7 +171,7 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public InfoResponse addUserWithoutFace(@RequestParam(name="openid")String openid, @RequestParam(name="username")String username, @RequestParam(name="face")String face,@RequestParam(name="phone")String phone, @RequestParam(name="email")String email, @RequestParam(name="company")String company, @RequestParam(name="department")String department, @RequestParam(name="position")String position, @RequestParam(name="intro")String intro, @RequestParam(name="city")String city, @RequestParam(name="credit")String credit, @RequestParam(name="label")String label, @RequestParam(name="levelName")String levelName, @RequestParam(name="valid")String valid) throws NotExistException {
+    public InfoResponse addUserWithoutFace(@RequestParam(name="openid")String openid, @RequestParam(name="username")String username, @RequestParam(name="face")String face,@RequestParam(name="phone")String phone, @RequestParam(name="email")String email, @RequestParam(name="company")String company, @RequestParam(name="department")String department, @RequestParam(name="position")String position, @RequestParam(name="intro")String intro, @RequestParam(name="city")String city, @RequestParam(name="credit")String credit, @RequestParam(name="label")List<String> label, @RequestParam(name="levelName")String levelName, @RequestParam(name="valid")String valid) throws NotExistException {
         boolean is=true;
         if(valid=="冻结"){
             is=false;
@@ -218,7 +219,7 @@ public class userController {
             @ApiImplicitParam(name = "intro", value = "用户简介", required = true, dataType = "String"),
             @ApiImplicitParam(name = "city", value = "用户城市", required = true, dataType = "String"),
             @ApiImplicitParam(name = "credit", value = "余额", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "label", value = "用户标签", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "label", value = "用户标签", required = true, dataType = "List"),
             @ApiImplicitParam(name = "levelName", value = "用户等级", required = true, dataType = "String"),
             @ApiImplicitParam(name = "valid", value = "是否启用", required = true, dataType = "String")
     })
@@ -228,7 +229,7 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public InfoResponse updateUser(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username,@RequestParam(name="face")String face,@RequestParam(name="phone")String phone,@RequestParam(name="email")String email,@RequestParam(name="company")String company,@RequestParam(name="department")String department,@RequestParam(name="position")String position,@RequestParam(name="intro")String intro,@RequestParam(name="city")String city,@RequestParam(name="credit")String credit,@RequestParam(name="label")String label,@RequestParam(name="levelName")String levelName,@RequestParam(name="valid")String valid) throws NotExistException {
+    public InfoResponse updateUser(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username,@RequestParam(name="face")String face,@RequestParam(name="phone")String phone,@RequestParam(name="email")String email,@RequestParam(name="company")String company,@RequestParam(name="department")String department,@RequestParam(name="position")String position,@RequestParam(name="intro")String intro,@RequestParam(name="city")String city,@RequestParam(name="credit")String credit,@RequestParam(name="label")List<String> label,@RequestParam(name="levelName")String levelName,@RequestParam(name="valid")String valid) throws NotExistException {
         boolean is=true;
         if(valid=="冻结"){
             is=false;
@@ -518,7 +519,7 @@ public class userController {
             @ApiImplicitParam(name = "position", value = "用户职位", required = true, dataType = "String"),
             @ApiImplicitParam(name = "intro", value = "用户简介", required = true, dataType = "String"),
             @ApiImplicitParam(name = "city", value = "用户城市", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "label", value = "用户标签", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "label", value = "用户标签", required = true, dataType = "List"),
     })
     @RequestMapping(value = "/updateMyProfile", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -526,7 +527,7 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> updateMyProfile(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username,@RequestParam(name="phone")String phone,@RequestParam(name="email")String email,@RequestParam(name="company")String company,@RequestParam(name="department")String department,@RequestParam(name="position")String position,@RequestParam(name="intro")String intro,@RequestParam(name="city")String city,@RequestParam(name="label")String label) throws NotExistException {
+    public ResponseEntity<Response> updateMyProfile(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username,@RequestParam(name="phone")String phone,@RequestParam(name="email")String email,@RequestParam(name="company")String company,@RequestParam(name="department")String department,@RequestParam(name="position")String position,@RequestParam(name="intro")String intro,@RequestParam(name="city")String city,@RequestParam(name="label")List<String> label) throws NotExistException {
         File file = new File(headPath);
         String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
         String[] temp=headPath.split("\\.");
@@ -579,7 +580,7 @@ public class userController {
             @ApiImplicitParam(name = "position", value = "用户职位", required = true, dataType = "String"),
             @ApiImplicitParam(name = "intro", value = "用户简介", required = true, dataType = "String"),
             @ApiImplicitParam(name = "city", value = "用户城市", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "label", value = "用户标签", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "label", value = "用户标签", required = true, dataType = "List"),
     })
     @RequestMapping(value = "/updateMyProfileWithoutFile", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -587,7 +588,7 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> updateMyProfileWithoutFile(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username,@RequestParam(name="face")String face,@RequestParam(name="phone")String phone,@RequestParam(name="email")String email,@RequestParam(name="company")String company,@RequestParam(name="department")String department,@RequestParam(name="position")String position,@RequestParam(name="intro")String intro,@RequestParam(name="city")String city,@RequestParam(name="label")String label) throws NotExistException {
+    public ResponseEntity<Response> updateMyProfileWithoutFile(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username,@RequestParam(name="face")String face,@RequestParam(name="phone")String phone,@RequestParam(name="email")String email,@RequestParam(name="company")String company,@RequestParam(name="department")String department,@RequestParam(name="position")String position,@RequestParam(name="intro")String intro,@RequestParam(name="city")String city,@RequestParam(name="label")List<String> label) throws NotExistException {
         return new ResponseEntity<>(userBlService.updateMyProfile(openid,username,face,phone,email,company,department,position,intro,city,label), HttpStatus.OK);
     }
 

@@ -15,11 +15,26 @@ public class Feed {
 	@GeneratedValue(generator = "jpa-uuid")
 	private String id; //文章编号
 
-	@Column
-	private String title; //文章标题
+//	@Column
+//	private String title; //文章标题
+//
+//	@Column(length = 600)
+//	private String content; //文章内容
 
-	@Column(length = 600)
-	private String content; //文章内容
+	@Column
+	private String linkMan;//联系人
+
+	@Column
+	private String phone;//联系电话
+
+	@Column
+	private String agencyName;//机构名
+
+	@Column
+	private String projectRef;//项目关联
+
+	@Column
+	private String projectInfo;//项目信息
 
 	@Column
 	@ElementCollection(targetClass = String.class)
@@ -43,9 +58,12 @@ public class Feed {
 	public Feed() {
 	}
 
-	public Feed(String title, String content, List<String> images, String writerOpenid, long timeStamp, long likeNum, long viewNum, Boolean isPreferred) {
-		this.title = title;
-		this.content = content;
+	public Feed(String linkMan, String phone, String agencyName, String projectRef, String projectInfo, List<String> images, String writerOpenid, long timeStamp, long likeNum, long viewNum, Boolean isPreferred) {
+		this.linkMan = linkMan;
+		this.phone = phone;
+		this.agencyName = agencyName;
+		this.projectRef = projectRef;
+		this.projectInfo = projectInfo;
 		this.images = images;
 		this.writerOpenid = writerOpenid;
 		this.timeStamp = timeStamp;
@@ -53,6 +71,17 @@ public class Feed {
 		this.viewNum = viewNum;
 		this.isPreferred = isPreferred;
 	}
+
+	//	public Feed(String title, String content, List<String> images, String writerOpenid, long timeStamp, long likeNum, long viewNum, Boolean isPreferred) {
+//		this.title = title;
+//		this.content = content;
+//		this.images = images;
+//		this.writerOpenid = writerOpenid;
+//		this.timeStamp = timeStamp;
+//		this.likeNum = likeNum;
+//		this.viewNum = viewNum;
+//		this.isPreferred = isPreferred;
+//	}
 
 	public String getId() {
 		return id;
@@ -62,20 +91,61 @@ public class Feed {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+//	public String getTitle() {
+//		return title;
+//	}
+//
+//	public void setTitle(String title) {
+//		this.title = title;
+//	}
+//
+//	public String getContent() {
+//		return content;
+//	}
+//
+//	public void setContent(String content) {
+//		this.content = content;
+//	}
+
+
+	public String getLinkMan() {
+		return linkMan;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setLinkMan(String linkMan) {
+		this.linkMan = linkMan;
 	}
 
-	public String getContent() {
-		return content;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getAgencyName() {
+		return agencyName;
+	}
+
+	public void setAgencyName(String agencyName) {
+		this.agencyName = agencyName;
+	}
+
+	public String getProjectRef() {
+		return projectRef;
+	}
+
+	public void setProjectRef(String projectRef) {
+		this.projectRef = projectRef;
+	}
+
+	public String getProjectInfo() {
+		return projectInfo;
+	}
+
+	public void setProjectInfo(String projectInfo) {
+		this.projectInfo = projectInfo;
 	}
 
 	public List<String> getImages() {

@@ -30,19 +30,19 @@ public class Partnership {
     private PartnerType type;
 
     @Column
-    @ElementCollection(targetClass = IdentityImage.class)
-    private List<IdentityImage> identityImages;
+    @ElementCollection(targetClass = String.class)
+    private List<String> images;
 
     public Partnership() {
     }
 
-    public Partnership(String linkMan, String phone, String agencyName, String identityInfo,  PartnerType type, List<IdentityImage> identityImages) {
+    public Partnership(String linkMan, String phone, String agencyName, String identityInfo,  PartnerType type, List<String> images) {
         this.linkMan = linkMan;
         this.phone = phone;
         this.agencyName = agencyName;
         this.identityInfo = identityInfo;
         this.type = type;
-        this.identityImages = identityImages;
+        this.images=images;
     }
 
     public String getId() {
@@ -94,11 +94,12 @@ public class Partnership {
         this.type = type;
     }
 
-    public List<IdentityImage> getIdentityImages() {
-        return identityImages;
+    public List<String> getImages() {
+        return images;
     }
 
-    public void setIdentityImages(List<IdentityImage> identityImages) {
-        this.identityImages = identityImages;
+    public void setImages(List<String> images) {
+        this.images = images;
     }
+
 }

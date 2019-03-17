@@ -1,6 +1,5 @@
 package njurestaurant.njutakeout.response.partnership;
 
-import njurestaurant.njutakeout.entity.partnership.IdentityImage;
 import njurestaurant.njutakeout.entity.partnership.Partnership;
 import njurestaurant.njutakeout.publicdatas.partnership.PartnerType;
 
@@ -26,13 +25,7 @@ public class PartnershipItem {
         this.agencyName=partnership.getAgencyName();
         this.identityInfo=partnership.getIdentityInfo();
         this.type=partnership.getType();
-        img=new ArrayList<>();
-        List<IdentityImage> identityImages=partnership.getIdentityImages();
-        if(identityImages!=null && identityImages.size()>0){
-            for(IdentityImage identityImage:identityImages){
-                img.add(identityImage.getUrl());
-            }
-        }
+        this.img=partnership.getImages();
 
     }
 

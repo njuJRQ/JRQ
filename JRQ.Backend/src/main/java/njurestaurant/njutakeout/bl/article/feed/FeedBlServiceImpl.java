@@ -40,8 +40,8 @@ public class FeedBlServiceImpl implements FeedBlService {
 	}
 
 	@Override
-	public InfoResponse publishMyFeed(String title, String content, List<String> images, String writerOpenid) {
-		feedDataService.addFeed(new Feed(title, content, images, writerOpenid, System.currentTimeMillis(), 0, 0,false));
+	public InfoResponse publishMyFeed(String linkMan,String phone,String agencyName,String projectRef,String projectInfo,List<String> images,String writerOpenid) {
+		feedDataService.addFeed(new Feed(linkMan,phone,agencyName,projectRef,projectInfo,images,writerOpenid, System.currentTimeMillis(), 0, 0,false));
 		return new InfoResponse();
 	}
 
@@ -57,9 +57,13 @@ public class FeedBlServiceImpl implements FeedBlService {
 	}
 
 	@Override
-	public InfoResponse updateFeed(String id, String content, List<String> images) throws NotExistException {
+	public InfoResponse updateFeed(String id,String linkMan,String phone,String agencyName,String projectRef,String projectInfo,List<String> images) throws NotExistException {
 		Feed feed = feedDataService.getFeedById(id);
-		feed.setContent(content);
+		feed.setLinkMan(linkMan);
+		feed.setPhone(phone);
+		feed.setAgencyName(agencyName);
+		feed.setProjectRef(projectRef);
+		feed.setProjectInfo(projectInfo);
 		feed.setImages(images);
 		feed.setTimeStamp(System.currentTimeMillis());
 		feedDataService.saveFeed(feed);
@@ -157,11 +161,16 @@ public class FeedBlServiceImpl implements FeedBlService {
 	}
 
 	@Override
-	public InfoResponse updateMyFeed(String id, String content, List<String> images) throws NotExistException {
+	public InfoResponse updateMyFeed(String id, String linkMan,String phone,String agencyName,String projectRef,String projectInfo,List<String> images) throws NotExistException {
 		Feed feed = feedDataService.getFeedById(id);
-		feed.setContent(content);
+		feed.setLinkMan(linkMan);
+		feed.setPhone(phone);
+		feed.setAgencyName(agencyName);
+		feed.setProjectRef(projectRef);
+		feed.setProjectInfo(projectInfo);
 		feed.setImages(images);
 		feed.setTimeStamp(System.currentTimeMillis());
+		feedDataService.saveFeed(feed);
 		return new InfoResponse();
 	}
 
@@ -208,7 +217,7 @@ public class FeedBlServiceImpl implements FeedBlService {
 	public FeedViewListResponse getFeedListByCondition(String openid, String condition) throws NotExistException {
 		List<FeedViewItem> feedViewItems = new ArrayList<>();
 		for(Feed feed : feedDataService.getAllFeeds()){
-			if(feed.getTitle().contains(condition)){
+			if(feed.getProjectInfo().contains(condition)){
 				boolean hasLiked = likeDataService.isLikeExistent(openid, "feed", feed.getId());
 				feedViewItems.add(new FeedViewItem(feed, userDataService, hasLiked));
 			}

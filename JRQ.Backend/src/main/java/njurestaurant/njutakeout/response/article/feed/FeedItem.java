@@ -6,8 +6,13 @@ import java.util.List;
 
 public class FeedItem {
 	private String id; //文章编号
-	private String title; //文章标题
-	private String content; //文章内容
+//	private String title; //文章标题
+//	private String content; //文章内容
+	private String linkMan;//联系人
+	private String phone;//电话
+	private String agencyName;//机构名
+	private String projectRef;//项目关联
+	private String projectInfo;//项目信息
 	private List<String> images; //文章图片路径集合（不超过3张）
 	private String writerOpenid; //作者微信openid
 	private String date; //文章发布日期，如"2018-1-1"
@@ -16,8 +21,13 @@ public class FeedItem {
 
 	public FeedItem(Feed feed) {
 		this.id = feed.getId();
-		this.title = feed.getTitle();
-		this.content = feed.getContent();
+//		this.title = feed.getTitle();
+//		this.content = feed.getContent();
+		this.linkMan=feed.getLinkMan();
+		this.phone=feed.getPhone();
+		this.agencyName=feed.getAgencyName();
+		this.projectRef=feed.getProjectRef();
+		this.projectInfo=feed.getProjectInfo();
 		this.images = feed.getImages();
 		this.writerOpenid = feed.getWriterOpenid();
 		this.date = feed.getDate();
@@ -33,20 +43,44 @@ public class FeedItem {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getLinkMan() {
+		return linkMan;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setLinkMan(String linkMan) {
+		this.linkMan = linkMan;
 	}
 
-	public String getContent() {
-		return content;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getAgencyName() {
+		return agencyName;
+	}
+
+	public void setAgencyName(String agencyName) {
+		this.agencyName = agencyName;
+	}
+
+	public String getProjectRef() {
+		return projectRef;
+	}
+
+	public void setProjectRef(String projectRef) {
+		this.projectRef = projectRef;
+	}
+
+	public String getProjectInfo() {
+		return projectInfo;
+	}
+
+	public void setProjectInfo(String projectInfo) {
+		this.projectInfo = projectInfo;
 	}
 
 	public List<String> getImages() {

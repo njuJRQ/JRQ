@@ -2,7 +2,6 @@ package njurestaurant.njutakeout.bl.partnership;
 
 import njurestaurant.njutakeout.blservice.partnership.PartnershipBlService;
 import njurestaurant.njutakeout.dataservice.partnership.PartnershipDataService;
-import njurestaurant.njutakeout.entity.partnership.IdentityImage;
 import njurestaurant.njutakeout.entity.partnership.Partnership;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.publicdatas.partnership.PartnerType;
@@ -24,20 +23,20 @@ public class PartnershipBlServiceImpl implements PartnershipBlService {
         this.partnershipDataService=partnershipDataService;
     }
     @Override
-    public InfoResponse add(String linkMan, String phone, String agencyName, String identityInfo, String type, List<IdentityImage> img) {
+    public InfoResponse add(String linkMan, String phone, String agencyName, String identityInfo, String type, List<String> img) {
         partnershipDataService.add(new Partnership(linkMan,phone,agencyName,identityInfo,PartnerType.valueOf(type),img));
         return new InfoResponse();
     }
 
     @Override
-    public InfoResponse update(String id, String linkMan, String phone, String agencyName, String identityInfo, String type, List<IdentityImage> img) throws NotExistException {
+    public InfoResponse update(String id, String linkMan, String phone, String agencyName, String identityInfo, String type, List<String> img) throws NotExistException {
         Partnership partnership=partnershipDataService.findById(id);
         partnership.setLinkMan(linkMan);
         partnership.setPhone(phone);
         partnership.setAgencyName(agencyName);
         partnership.setIdentityInfo(identityInfo);
         partnership.setType(PartnerType.valueOf(type));
-        partnership.setIdentityImages(img);
+        partnership.setImages(img);
         partnershipDataService.update(partnership);
         return new InfoResponse();
     }

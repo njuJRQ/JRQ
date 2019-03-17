@@ -76,8 +76,8 @@ public class ArticleItem {
 
 	public ArticleItem(Feed feed, UserDataService userDataService) throws NotExistException {
 		this.id = feed.getId();
-		this.title = feed.getContent();
-		this.content = feed.getContent();
+		this.title = feed.getProjectInfo();
+		this.content = feed.getProjectInfo();
 		this.images = feed.getImages();
 		User user = userDataService.getUserByOpenid(feed.getWriterOpenid());
 		this.writerFace = user.getFace();

@@ -2,7 +2,6 @@ package njurestaurant.njutakeout.springcontroller.partnership;
 
 import io.swagger.annotations.*;
 import njurestaurant.njutakeout.blservice.partnership.PartnershipBlService;
-import njurestaurant.njutakeout.entity.partnership.IdentityImage;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.exception.SystemException;
 import njurestaurant.njutakeout.response.InfoResponse;
@@ -40,22 +39,20 @@ public class PartnershipController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> add(@RequestParam(name="linkMan")String linkMan,@RequestParam(name="phone")String phone,@RequestParam(name="agencyName")String agencyName,@RequestParam(name="identityInfo")String identityInfo,@RequestParam(name="type")String type,@RequestParam(name="img")List<MultipartFile> img) throws NotExistException, SystemException {
-        List<IdentityImage> identityImages=new ArrayList<>();
+    public ResponseEntity<Response> add(@RequestParam(name="linkMan")String linkMan,@RequestParam(name="phone")String phone,@RequestParam(name="agencyName")String agencyName,@RequestParam(name="identityInfo")String identityInfo,@RequestParam(name="type")String type,@RequestParam(name="img")List<MultipartFile> img) throws SystemException {
+        List<String> images=new ArrayList<>();
         String base="JRQ.Backend/record/partnership/";
-        //String base="";
         for (MultipartFile image : img) {
             String[] temp = image.getOriginalFilename().split("\\.");
             String path =base+UUID.randomUUID().toString().replace("-", "").toLowerCase() + "."+temp[1];
             if (saveImg(path, image)) {
-                identityImages.add(new IdentityImage(path));
+                images.add(path);
             }else{
                 throw new SystemException();
             }
         }
-//        return new ResponseEntity<>(partnershipBlService.add(params.getLinkMan(),params.getPhone(),
-//                params.getAgencyName(),params.getIdentityInfo(),params.getType(),map), HttpStatus.OK);
-        return new ResponseEntity<>(partnershipBlService.add(linkMan,phone,agencyName,identityInfo,type,identityImages), HttpStatus.OK);
+//    s
+        return new ResponseEntity<>(partnershipBlService.add(linkMan,phone,agencyName,identityInfo,type,images), HttpStatus.OK);
 
     }
 

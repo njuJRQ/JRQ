@@ -1,6 +1,6 @@
 package njurestaurant.njutakeout.entity.job;
 
-import njurestaurant.njutakeout.entity.user.Enterprise;
+import njurestaurant.njutakeout.entity.user.User;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -14,43 +14,35 @@ public class JobCard {
     private String id;
 
     @Column
-    private String position;
-
-
-    @Column
-    private String wage;
+    private String expectPosition;
 
     @Column
-    private String  experienceRequirement;
+    private String expectWage;
 
     @Column
-    private String degreeRequirement;
+    private String  experience;
 
     @Column
-    private String address;
+    private String degree;
 
     @Column
-    private String hr;
-
-    @Column
-    private String hrTitle;
+    private String introduction;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "enterprise_id")
-    private Enterprise enterprise;
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
     public JobCard() {
     }
 
-    public JobCard(String position, String wage, String experienceRequirement, String degreeRequirement, String address, String hr,String hrTitle,Enterprise enterprise) {
-        this.position = position;
-        this.enterprise = enterprise;
-        this.wage = wage;
-        this.experienceRequirement = experienceRequirement;
-        this.degreeRequirement = degreeRequirement;
-        this.address = address;
-        this.hr = hr;
-        this.hrTitle=hrTitle;
+    public JobCard(String expectPosition, String expectWage, String experience, String degree, String introduction, User user) {
+        this.expectPosition = expectPosition;
+        this.expectWage = expectWage;
+        this.experience = experience;
+        this.degree = degree;
+        this.introduction = introduction;
+        this.user = user;
     }
 
     public String getId() {
@@ -61,67 +53,51 @@ public class JobCard {
         this.id = id;
     }
 
-    public String getPosition() {
-        return position;
+    public String getExpectPosition() {
+        return expectPosition;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setExpectPosition(String expectPosition) {
+        this.expectPosition = expectPosition;
     }
 
-    public Enterprise getEnterprise() {
-        return enterprise;
+    public String getExpectWage() {
+        return expectWage;
     }
 
-    public void setEnterprise(Enterprise enterprise) {
-        this.enterprise = enterprise;
+    public void setExpectWage(String expectWage) {
+        this.expectWage = expectWage;
     }
 
-    public String getWage() {
-        return wage;
+    public String getExperience() {
+        return experience;
     }
 
-    public void setWage(String wage) {
-        this.wage = wage;
+    public void setExperience(String experience) {
+        this.experience = experience;
     }
 
-    public String getExperienceRequirement() {
-        return experienceRequirement;
+    public String getDegree() {
+        return degree;
     }
 
-    public void setExperienceRequirement(String experienceRequirement) {
-        this.experienceRequirement = experienceRequirement;
+    public void setDegree(String degree) {
+        this.degree = degree;
     }
 
-    public String getDegreeRequirement() {
-        return degreeRequirement;
+    public String getIntroduction() {
+        return introduction;
     }
 
-    public void setDegreeRequirement(String degreeRequirement) {
-        this.degreeRequirement = degreeRequirement;
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
     }
 
-    public String getAddress() {
-        return address;
+    public User getUser() {
+        return user;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getHr() {
-        return hr;
-    }
-
-    public void setHr(String hr) {
-        this.hr = hr;
-    }
-
-    public String getHrTitle() {
-        return hrTitle;
-    }
-
-    public void setHrTitle(String hrTitle) {
-        this.hrTitle = hrTitle;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

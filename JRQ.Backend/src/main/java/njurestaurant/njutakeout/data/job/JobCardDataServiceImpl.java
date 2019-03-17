@@ -1,9 +1,9 @@
 package njurestaurant.njutakeout.data.job;
 
-import njurestaurant.njutakeout.data.dao.dao.JobCardDao;
+import njurestaurant.njutakeout.data.dao.jobCard.JobCardDao;
 import njurestaurant.njutakeout.dataservice.job.JobCardDataService;
 import njurestaurant.njutakeout.entity.job.JobCard;
-import njurestaurant.njutakeout.entity.user.Enterprise;
+import njurestaurant.njutakeout.entity.user.User;
 import njurestaurant.njutakeout.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,7 +54,12 @@ public class JobCardDataServiceImpl implements JobCardDataService {
     }
 
     @Override
-    public List<JobCard> findByEnterprise(Enterprise enterprise) {
-        return jobCardDao.findByEnterprise(enterprise);
+    public List<JobCard> findByUser(User user) {
+        return jobCardDao.findByUser(user);
+    }
+
+    @Override
+    public List<JobCard> findByExpectPosition(String expectPosition) {
+        return jobCardDao.findByExpectPosition(expectPosition);
     }
 }

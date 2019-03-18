@@ -55,6 +55,16 @@ public class CourseDataServiceImpl implements CourseDataService {
 	}
 
 	@Override
+	public List<Course> getTextualResearchCourse() {
+		return courseDao.findByIsTextualResearchCourse(true);
+	}
+
+	@Override
+	public List<Course> getOrdinaryCourse() {
+		return courseDao.findByIsTextualResearchCourse(false);
+	}
+
+	@Override
 	public void deleteCourseById(String id) throws NotExistException {
 		Optional<Course> optionalCourse = courseDao.findById(id);
 		if (optionalCourse.isPresent()) {

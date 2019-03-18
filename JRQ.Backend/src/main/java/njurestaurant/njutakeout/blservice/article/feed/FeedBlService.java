@@ -13,16 +13,16 @@ import njurestaurant.njutakeout.response.article.feed.FeedViewResponse;
 import java.util.List;
 
 public interface FeedBlService {
-	/**
-	 * 用户发布自己的圈子文章(User)
-	 * @param title 文章标题
-	 * @param content 文章内容
-	 * @param images 文章图片
-	 * @param writerOpenid 作者微信openid
-	 * @return 是否成功
-	 */
-	InfoResponse publishMyFeed(String title, String content, List<String> images, String writerOpenid);
-
+//	/**
+//	 * 用户发布自己的圈子文章(User)
+//	 * @param title 文章标题
+//	 * @param content 文章内容
+//	 * @param images 文章图片
+//	 * @param writerOpenid 作者微信openid
+//	 * @return 是否成功
+//	 */
+	//InfoResponse publishMyFeed(String title, String content, List<String> images, String writerOpenid);
+	InfoResponse publishMyFeed(String linkMan,String phone,String agencyName,String projectRef,String projectInfo,List<String> images,String writerOpenid);
 	/**
 	 * 根据圈子文章ID获取全文(User&Admin)
 	 * @param id 圈子文章ID
@@ -36,15 +36,15 @@ public interface FeedBlService {
 	 */
 	FeedListResponse getFeedList();
 
-	/**
-	 * 管理员更新圈子文章内容(Admin)
-	 * @param id  圈子ID
-	 * @param content  圈子文本
-	 * @param images  圈子图片
-	 * @return 是否修改成功
-	 */
-	InfoResponse updateFeed(String id, String content, List<String> images) throws NotExistException;
-
+//	/**
+//	 * 管理员更新圈子文章内容(Admin)
+//	 * @param id  圈子ID
+//	 * @param content  圈子文本
+//	 * @param images  圈子图片
+//	 * @return 是否修改成功
+//	 */
+	//InfoResponse updateFeed(String id, String content, List<String> images) throws NotExistException;
+	InfoResponse updateFeed(String id,String linkMan,String phone,String agencyName,String projectRef,String projectInfo,List<String> images) throws NotExistException;
 	/**
 	 *管理员根据圈子ID删除圈子文章(Admin)
 	 * @param id 圈子ID
@@ -81,15 +81,15 @@ public interface FeedBlService {
 	 */
 	AbstractListResponse getUserHistoryAbstractList(String myOpenid, String otherOpenid) throws NotExistException;
 
-	/**
-	 * 用户更新自己发布的圈子文章信息(User)
-	 * @param id 圈子文章ID
-	 * @param content 新的文章内容
-	 * @param images 新的图片
-	 * @return 是否成功
-	 */
-	InfoResponse updateMyFeed(String id, String content, List<String> images) throws NotExistException;
-
+//	/**
+//	 * 用户更新自己发布的圈子文章信息(User)
+//	 * @param id 圈子文章ID
+//	 * @param content 新的文章内容
+//	 * @param images 新的图片
+//	 * @return 是否成功
+//	 */
+	//InfoResponse updateMyFeed(String id, String content, List<String> images) throws NotExistException;
+	InfoResponse updateMyFeed(String id,String linkMan,String phone,String agencyName,String projectRef,String projectInfo,List<String> images) throws NotExistException;
 	/**
 	 * 用户根据圈子文章ID删除自己的圈子文章(User)
 	 * @param id 圈子文章ID

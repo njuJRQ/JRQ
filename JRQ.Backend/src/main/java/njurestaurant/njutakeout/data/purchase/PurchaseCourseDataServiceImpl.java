@@ -28,7 +28,7 @@ public class PurchaseCourseDataServiceImpl implements PurchaseCourseDataService 
 
 	@Override
 	public void addPurchaseCourse(PurchaseCourse purchaseCourse) throws AlreadyExistException {
-		if (purchaseCourseDao.existsById(new PurchaseCourseKey(purchaseCourse.getOpenid(), purchaseCourse.getCourseId()))) {
+		if (purchaseCourseDao.existsById(new PurchaseCourseKey(purchaseCourse.getOpenid(), purchaseCourse.getCourseId(),purchaseCourse.isGroup()))) {
 			throw new AlreadyExistException("PurchaseCourse(openid=" + purchaseCourse.getOpenid() + ",courseId=" + purchaseCourse.getCourseId() + ")");
 		} else {
 			purchaseCourseDao.save(purchaseCourse);

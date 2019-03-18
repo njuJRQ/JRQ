@@ -1,5 +1,7 @@
 package njurestaurant.njutakeout.entity.user;
 
+import njurestaurant.njutakeout.entity.job.JobCard;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -45,7 +47,8 @@ public class User {
 	private int credit; //账户余额
 
 	@Column
-	private String label; //用户类别信息，可取值：融资租赁，商业保理，地产交易，金融牌照
+	@ElementCollection(targetClass = String.class)
+	private List<String> label; //用户类别信息，可取值：融资租赁，商业保理，地产交易，金融牌照
 
 	@Column
 	private int cardLimit; //今天剩余查看别人名片的次数
@@ -56,10 +59,13 @@ public class User {
 	@Column
 	private boolean valid;//是否冻结/启用，true代表启用
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+	private List<JobCard> jobCards;
+
 	public User() {
 	}
 
-	public User(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, String label, int cardLimit, String levelName, boolean valid) {
+	public User(String openid, String username, String face, List<String> medals, String phone, String email, String company, String department, String position, String intro, String city, int credit, List<String> label, int cardLimit, String levelName, boolean valid) {
 		this.openid = openid;
 		this.username = username;
 		this.face = face;
@@ -76,6 +82,7 @@ public class User {
 		this.cardLimit = cardLimit;
 		this.levelName = levelName;
 		this.valid = valid;
+		this.jobCards=null;
 	}
 
 	public String getOpenid() {
@@ -174,11 +181,11 @@ public class User {
 		this.credit = credit;
 	}
 
-	public String getLabel() {
+	public List<String> getLabel() {
 		return label;
 	}
 
-	public void setLabel(String label) {
+	public void setLabel(List<String> label) {
 		this.label = label;
 	}
 
@@ -206,4 +213,11 @@ public class User {
 		this.valid = valid;
 	}
 
+	public List<JobCard> getJobCards() {
+		return jobCards;
+	}
+
+	public void setJobCards(List<JobCard> jobCards) {
+		this.jobCards = jobCards;
+	}
 }

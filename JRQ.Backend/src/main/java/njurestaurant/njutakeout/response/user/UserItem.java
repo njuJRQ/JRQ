@@ -18,7 +18,7 @@ public class UserItem {
 	private String intro; //个人简介
 	private String city; //所在城市
 	private int credit; //账户余额
-	private String label; //用户类别信息，可取值：融资租赁，商业保理，地产交易，金融牌照
+	private List<String> label; //用户类别信息，可取值：融资租赁，商业保理，地产交易，金融牌照
 	private int cardLimit; //今天剩余查看别人名片的次数
 	private String levelName; //用户所属会员等级
 	private boolean isEnterprise; //是否为企业用户
@@ -149,11 +149,11 @@ public class UserItem {
 		this.credit = credit;
 	}
 
-	public String getLabel() {
+	public List<String> getLabel() {
 		return label;
 	}
 
-	public void setLabel(String label) {
+	public void setLabel(List<String> label) {
 		this.label = label;
 	}
 

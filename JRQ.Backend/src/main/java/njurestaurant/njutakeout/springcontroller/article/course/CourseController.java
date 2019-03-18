@@ -191,7 +191,8 @@ public class CourseController {
             @ApiImplicitParam(name = "writerName", value = "作者名字", required = true, dataType = "String"),
             @ApiImplicitParam(name = "price", value = "课程价格", required = true, dataType = "int"),
             @ApiImplicitParam(name = "image", value = "image", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "video", value = "video", required = true, dataType = "String")
+            @ApiImplicitParam(name = "video", value = "video", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "isTextualResearchCourse", value = "isTextualResearchCourse", required = true, dataType = "boolean")
     })
     @RequestMapping(value = "/addCourse", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -199,8 +200,8 @@ public class CourseController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> addCourse(@RequestParam(name="title")String title, @RequestParam(name="writerName")String writerName, @RequestParam(name="price")int price,@RequestParam(name="image")String image,@RequestParam(name="video")String video) {
-        ResponseEntity<Response> r=new ResponseEntity<>(courseBlService.addCourse(title,image,writerName,0,video,price), HttpStatus.OK);
+    public ResponseEntity<Response> addCourse(@RequestParam(name="title")String title, @RequestParam(name="writerName")String writerName, @RequestParam(name="price")int price,@RequestParam(name="image")String image,@RequestParam(name="video")String video,@RequestParam(name="isTextualResearchCourse")boolean isTextualResearchCourse) {
+        ResponseEntity<Response> r=new ResponseEntity<>(courseBlService.addCourse(title,image,writerName,0,video,price,isTextualResearchCourse), HttpStatus.OK);
         return r;
     }
 
@@ -208,7 +209,7 @@ public class CourseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "课程ID", required = true, dataType = "String")
     })
-    @RequestMapping(value = "/getCourse", method = RequestMethod.GET)
+    @RequestMapping(value = "/getCourse", method = RequestMethod.POST)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
@@ -245,6 +246,28 @@ public class CourseController {
     @ResponseBody
     public ResponseEntity<Response> getMyCourseList(@RequestParam(name="openid")String openid) throws NotExistException {
         return new ResponseEntity<>(courseBlService.getMyCourseList(openid), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "获取考证课程列表", notes = "获取考证课程列表")
+    @RequestMapping(value = "/getTextualResearchCourseList", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getTextualResearchCourseList(){
+        return new ResponseEntity<>(courseBlService.getTextualResearchCourseList(), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "获取非考证课程列表", notes = "获取非考证课程列表")
+    @RequestMapping(value = "/getOrdinaryCourseList", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getOrdinaryList(){
+        return new ResponseEntity<>(courseBlService.getOrdinaryCourseList(), HttpStatus.OK);
     }
 
     @ApiOperation(value = "获取课程列表", notes = "获取课程列表")

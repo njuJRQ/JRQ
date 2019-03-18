@@ -51,9 +51,9 @@ public class CourseBlServiceImpl implements CourseBlService {
 	}
 
 	@Override
-	public InfoResponse addCourse(String title, String image, String writerName, long likeNum, String video, int price) {
+	public InfoResponse addCourse(String title, String image, String writerName, long likeNum, String video, int price,boolean isTextualResearchCourse) {
 		String preview = generatePreviewVideo(video);
-		courseDataService.addCourse(new Course(title, image, writerName, System.currentTimeMillis(), likeNum, video, price, preview,0));
+		courseDataService.addCourse(new Course(title, image, writerName, System.currentTimeMillis(), likeNum, video, price, preview,0,isTextualResearchCourse,null));
 		return new InfoResponse();
 	}
 
@@ -69,6 +69,28 @@ public class CourseBlServiceImpl implements CourseBlService {
 		for (Course course:courses) {
 			courseItems.add(new CourseItem(course));
 		}
+		return new CourseListResponse(courseItems);
+	}
+
+	@Override
+	public CourseListResponse getTextualResearchCourseList() {
+		List<Course> courses=courseDataService.getTextualResearchCourse();
+		List<CourseItem> courseItems=new ArrayList<>();
+		if(courses!=null && courses.size()>0)
+		for(Course course:courses){
+			courseItems.add(new CourseItem(course));
+		}
+		return new CourseListResponse(courseItems);
+	}
+
+	@Override
+	public CourseListResponse getOrdinaryCourseList() {
+		List<Course> courses=courseDataService.getOrdinaryCourse();
+		List<CourseItem> courseItems=new ArrayList<>();
+		if(courses!=null && courses.size()>0)
+			for(Course course:courses){
+				courseItems.add(new CourseItem(course));
+			}
 		return new CourseListResponse(courseItems);
 	}
 
@@ -112,7 +134,7 @@ public class CourseBlServiceImpl implements CourseBlService {
 	public CourseResponse getMyCourse(String openid, String courseId) throws NotExistException {
 		Course course = courseDataService.getCourseById(courseId);
 		boolean hasBought = purchaseCourseDataService.isPurchaseCourseExistent(
-				new PurchaseCourseKey(openid, course.getId())); //用户是否已购买
+				new PurchaseCourseKey(openid, course.getId(),false)); //用户是否已购买
 		if (enterpriseDataService.isUserEnterprise(openid)) { //用户获取自己发布的课程
 			Enterprise enterprise = enterpriseDataService.getEnterpriseByOpenid(openid);
 			if (course.getWriterName().equals(
@@ -156,7 +178,7 @@ public class CourseBlServiceImpl implements CourseBlService {
 
 	private boolean hasUserBoughtCourse(String openid, Course course) throws NotExistException {
 		boolean hasBought = purchaseCourseDataService.isPurchaseCourseExistent(
-				new PurchaseCourseKey(openid, course.getId())); //用户是否已购买
+				new PurchaseCourseKey(openid, course.getId(),false)); //用户是否已购买
 		if (enterpriseDataService.isUserEnterprise(openid)) { //用户获取自己发布的课程
 			Enterprise enterprise = enterpriseDataService.getEnterpriseByOpenid(openid);
 			if (course.getWriterName().equals(

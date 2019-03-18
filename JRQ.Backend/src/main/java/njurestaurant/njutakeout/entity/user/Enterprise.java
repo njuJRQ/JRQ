@@ -1,8 +1,10 @@
 package njurestaurant.njutakeout.entity.user;
 
+import njurestaurant.njutakeout.entity.job.JobCard;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -50,6 +52,7 @@ public class Enterprise {
 
 	@Column
 	private long verifyTimestamp; //后台审核的时间戳（审核结果可能是"verified"，"rejected"，"disqualified"）
+
 
 	public Enterprise() {
 	}
@@ -153,4 +156,5 @@ public class Enterprise {
 	public void setAdminPassword(String adminPassword) {
 		this.adminPassword = adminPassword;
 	}
+
 }

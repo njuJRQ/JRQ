@@ -1,6 +1,6 @@
 package njurestaurant.njutakeout.data.job;
 
-import njurestaurant.njutakeout.data.dao.jobCard.JobCardDao;
+import njurestaurant.njutakeout.data.dao.job.JobCardDao;
 import njurestaurant.njutakeout.dataservice.job.JobCardDataService;
 import njurestaurant.njutakeout.entity.job.JobCard;
 import njurestaurant.njutakeout.entity.user.User;

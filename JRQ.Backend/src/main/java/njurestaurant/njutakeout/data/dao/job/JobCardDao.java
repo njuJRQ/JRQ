@@ -1,4 +1,4 @@
-package njurestaurant.njutakeout.data.dao.jobCard;
+package njurestaurant.njutakeout.data.dao.job;
 
 import njurestaurant.njutakeout.entity.job.JobCard;
 import njurestaurant.njutakeout.entity.user.User;

@@ -6,7 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name="jobCard")
+@Table(name="job")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class JobCard {
     @Id

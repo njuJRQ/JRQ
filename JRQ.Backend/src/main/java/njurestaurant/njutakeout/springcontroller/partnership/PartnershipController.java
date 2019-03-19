@@ -19,6 +19,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 @RestController
 @RequestMapping("/partnership")
 public class PartnershipController {
@@ -28,20 +30,11 @@ public class PartnershipController {
     public PartnershipController(PartnershipBlService partnershipBlService) {
         this.partnershipBlService = partnershipBlService;
     }
-
-    @ApiOperation(value = "提交合伙信息", notes = "提交合伙信息")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "合伙信息id", required = true, dataType = "String")
-    })
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success", response = InfoResponse.class),
-            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
-            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @RequestMapping(value="/uploadImg",method = POST)
     @ResponseBody
-    public ResponseEntity<Response> add(@RequestParam(name="linkMan")String linkMan,@RequestParam(name="phone")String phone,@RequestParam(name="agencyName")String agencyName,@RequestParam(name="identityInfo")String identityInfo,@RequestParam(name="type")String type,@RequestParam(name="img")List<MultipartFile> img) throws SystemException {
+    public List<String> uploadImg(@RequestParam(name="img")List<MultipartFile> img) throws SystemException {
         List<String> images=new ArrayList<>();
-        String base="JRQ.Backend/record/partnership/";
+        String base="record/partnership/";
         for (MultipartFile image : img) {
             String[] temp = image.getOriginalFilename().split("\\.");
             String path =base+UUID.randomUUID().toString().replace("-", "").toLowerCase() + "."+temp[1];
@@ -51,19 +44,46 @@ public class PartnershipController {
                 throw new SystemException();
             }
         }
-//    s
-        return new ResponseEntity<>(partnershipBlService.add(linkMan,phone,agencyName,identityInfo,type,images), HttpStatus.OK);
+        return images;
+    }
 
+
+    @ApiOperation(value = "提交合伙信息", notes = "提交合伙信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "合伙信息id", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/add", method = POST)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = InfoResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> add(@RequestParam(name="linkMan")String linkMan,@RequestParam(name="phone")String phone,@RequestParam(name="agencyName")String agencyName,@RequestParam(name="identityInfo")String identityInfo,@RequestParam(name="type")String type,@RequestParam(name="img")List<String> img) {
+        return new ResponseEntity<>(partnershipBlService.add(linkMan,phone,agencyName,identityInfo,type,img), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "修改合伙信息", notes = "修改合伙信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "合伙信息id", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/update", method = POST)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = InfoResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> update(@RequestParam(name="id")String id,@RequestParam(name="linkMan")String linkMan,@RequestParam(name="phone")String phone,@RequestParam(name="agencyName")String agencyName,@RequestParam(name="identityInfo")String identityInfo,@RequestParam(name="type")String type,@RequestParam(name="img")List<String> img) throws NotExistException {
+        return new ResponseEntity<>(partnershipBlService.update(id,linkMan,phone,agencyName,identityInfo,type,img), HttpStatus.OK);
     }
 
     @ApiOperation(value = "通过id查找合伙信息", notes = "通过id查找合伙信息")
-    @RequestMapping(value = "/findById", method = RequestMethod.POST)
+    @RequestMapping(value = "/findById", method = POST)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = PartnershipResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> findById(@RequestParam(name="id")String id) throws NotExistException, SystemException {
+    public ResponseEntity<Response> findById(@RequestParam(name="id")String id) throws NotExistException{
         return new ResponseEntity<>(partnershipBlService.findById(id), HttpStatus.OK);
 
     }
@@ -78,6 +98,17 @@ public class PartnershipController {
     public ResponseEntity<Response> getAll(){
         return new ResponseEntity<>(partnershipBlService.getAll(), HttpStatus.OK);
 
+    }
+
+    @ApiOperation(value = "获取事业合伙人图片", notes = "获取事业合伙人图片")
+    @RequestMapping(value = "/getBusinessPartnerImage", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = PartnershipListResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public String getBusinessPartnerImage(){
+       return "record/partnership/BusinessPartner.jpg";
     }
 
 

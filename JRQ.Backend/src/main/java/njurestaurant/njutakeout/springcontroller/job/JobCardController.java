@@ -45,7 +45,7 @@ public class JobCardController {
 
     @ApiOperation(value = "修改招聘信息", notes = "修改招聘信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "jobCard ID", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "id", value = "job ID", required = true, dataType = "String"),
             @ApiImplicitParam(name = "expectPosition", value = "职位", required = true, dataType = "String"),
             @ApiImplicitParam(name = "expectWage", value = "薪水", required = true, dataType = "String"),
             @ApiImplicitParam(name = "experience", value = "经验", required = true, dataType = "String"),
@@ -66,7 +66,7 @@ public class JobCardController {
 
     @ApiOperation(value = "根据id获取jobCard内容", notes = "根据课id获取jobCard内容")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "jobCard ID", required = true, dataType = "String")
+            @ApiImplicitParam(name = "id", value = "job ID", required = true, dataType = "String")
     })
     @RequestMapping(value = "/findById", method = RequestMethod.POST)
     @ApiResponses(value = {
@@ -76,6 +76,20 @@ public class JobCardController {
     @ResponseBody
     public ResponseEntity<Response> findById(@RequestParam(name="id")String id) throws NotExistException {
         return new ResponseEntity<>(jobCardBlService.findById(id), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "根据id删除jobCard", notes = "根据id删除jobCard")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "job ID", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/deleteById", method = RequestMethod.POST)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = JobCardResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> deleteById(@RequestParam(name="id")String id) throws NotExistException {
+        return new ResponseEntity<>(jobCardBlService.deleteById(id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "获取所有招聘信息", notes = "获取所有招聘信息")

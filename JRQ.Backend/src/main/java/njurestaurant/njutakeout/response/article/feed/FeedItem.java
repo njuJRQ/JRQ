@@ -122,4 +122,5 @@ public class FeedItem {
 	public void setViewNum(long viewNum) {
 		this.viewNum = viewNum;
 	}
+
 }

@@ -18,7 +18,7 @@ public interface DocumentBlService {
 	 * @param likeNum 点赞数
 	 * @return 是否成功
 	 */
-	InfoResponse addDocument(String title, String content, String image, String attachment, String writerName, int price, long likeNum);
+	InfoResponse addDocument(String title, String content, String image, String attachment, String writerName, int price, long likeNum,boolean isContract);
 
 	/**
 	 * 根据文档ID获取文档(Admin)
@@ -32,6 +32,12 @@ public interface DocumentBlService {
 	 * @return 文档列表
 	 */
 	DocumentListResponse getDocumentList();
+
+	/**
+	 * 获取合同列表(Admin)
+	 * @return 合同列表
+	 */
+	DocumentListResponse getContractList();
 
 	/**
 	 * 根据文档ID修改文档(Admin)
@@ -67,7 +73,7 @@ public interface DocumentBlService {
 	 * @param openid 用户的openid
 	 * @return 文档详细信息列表（包括是否点赞）
 	 */
-	DocumentListResponse getMyDocumentList(String openid);
+	DocumentListResponse getMyDocumentList(String openid,boolean isContract);
 
 	/**
 	 * 获取某一篇文档文章时间戳前的10篇文章
@@ -76,5 +82,5 @@ public interface DocumentBlService {
 	 * @param id 文档ID
 	 * @return 文档详细信息列表（包括是否点赞）
 	 */
-	DocumentListResponse getMyDocumentListBefore(String openid, String id) throws NotExistException;
+	DocumentListResponse getMyDocumentListBefore(String openid, String id,boolean isContract) throws NotExistException;
 }

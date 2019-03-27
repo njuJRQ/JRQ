@@ -8,12 +8,12 @@ import java.util.List;
 
 public interface DocumentDao extends JpaRepository<Document, String> {
 	List<Document> findDocumentsByTimeStamp(long timeStamp);
-	List<Document> findTop10ByOrderByTimeStampDesc();
-	List<Document> findTop10ByTimeStampBeforeOrderByTimeStampDesc(long timeStamp);
-	List<Document> findDocumentsByWriterName(String writerName);
-
-	List<Document> findDocumentsByLikeNum(long likeNum);
-	List<Document> findTop10ByOrderByLikeNumDesc();
-	List<Document> findTop10ByLikeNumBeforeOrderByLikeNumDesc(long likeNum);
-//	List<Document> findDocumentsByOrderByLikeNumDesc();
+	List<Document> findByIsContract(boolean isContract);
+	List<Document> findTop10ByIsContractOrderByTimeStampDesc(boolean isContract);
+	List<Document> findTop10ByIsContractAndTimeStampBeforeOrderByTimeStampDesc(boolean isContract,long timeStamp);
+	List<Document> findDocumentsByWriterNameAndIsContract(String writerName,boolean isContract);
+	List<Document> findDocumentsByLikeNumAndIsContract(long likeNum,boolean isContract);
+	List<Document> findTop10ByIsContractOrderByLikeNumDesc(boolean isContract);
+	List<Document> findTop10ByIsContractAndLikeNumBeforeOrderByLikeNumDesc(boolean isContract,long likeNum);
+//	List<Document> findDocumentsByIsContractOrderByLikeNumDesc(boolean isContract);
 }

@@ -41,10 +41,13 @@ public class Document {
 	@Column
 	private String preview; //附件预览图（若附件为PDF则为图片路径，否则为空）
 
+	@Column
+	private boolean isContract;//是否是合同
+
 	public Document(){
 	}
 
-	public Document(String title, String content, String image, String attachment, String writerName, int price, long timeStamp, long likeNum, String preview) {
+	public Document(String title, String content, String image, String attachment, String writerName, int price, long timeStamp, long likeNum, String preview,boolean isContract) {
 		this.title = title;
 		this.content = content;
 		this.image = image;
@@ -54,6 +57,7 @@ public class Document {
 		this.timeStamp = timeStamp;
 		this.likeNum = likeNum;
 		this.preview = preview;
+		this.isContract=isContract;
 	}
 
 	public String getId() {
@@ -139,5 +143,13 @@ public class Document {
 
 	public void setPreview(String preview) {
 		this.preview = preview;
+	}
+
+	public boolean isContract() {
+		return isContract;
+	}
+
+	public void setContract(boolean contract) {
+		isContract = contract;
 	}
 }

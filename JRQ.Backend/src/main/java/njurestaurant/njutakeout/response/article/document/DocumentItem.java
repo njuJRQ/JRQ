@@ -14,6 +14,7 @@ public class DocumentItem {
 	private long likeNum;//点赞数
 	private boolean hasLiked; //用户是否已经点赞
 	private String preview; //附件预览图（若附件为PDF则为图片路径，否则为空）
+	private boolean isContract;
 
 	//注意：管理员调用这个构造方法
 	public DocumentItem(Document document){
@@ -27,6 +28,7 @@ public class DocumentItem {
 		this.date = document.getDate();
 		this.likeNum = document.getLikeNum();
 		this.preview = document.getPreview();
+		this.isContract=document.isContract();
 	}
 
 	//注意：用户调用这个构造方法
@@ -42,6 +44,7 @@ public class DocumentItem {
 		this.likeNum = document.getLikeNum();
 		this.hasLiked = hasLiked;
 		this.preview = document.getPreview();
+		this.isContract=document.isContract();
 	}
 
 	public String getId() {
@@ -130,5 +133,13 @@ public class DocumentItem {
 
 	public void setPreview(String preview) {
 		this.preview = preview;
+	}
+
+	public boolean isContract() {
+		return isContract;
+	}
+
+	public void setContract(boolean contract) {
+		isContract = contract;
 	}
 }

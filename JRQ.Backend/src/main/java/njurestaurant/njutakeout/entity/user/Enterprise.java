@@ -1,6 +1,5 @@
 package njurestaurant.njutakeout.entity.user;
 
-import njurestaurant.njutakeout.entity.job.JobCard;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;

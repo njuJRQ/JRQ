@@ -200,4 +200,5 @@ public class Feed {
 	public void setPreferred(Boolean preferred) {
 		isPreferred = preferred;
 	}
+
 }

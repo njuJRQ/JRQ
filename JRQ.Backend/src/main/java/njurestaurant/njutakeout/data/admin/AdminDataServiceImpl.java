@@ -83,7 +83,8 @@ public class AdminDataServiceImpl implements AdminDataService {
 		Optional<Admin> optionalAdmin = adminDao.findById(id);
 		if (optionalAdmin.isPresent()) {
 			Admin admin = optionalAdmin.get();
-			documentDataService.deleteDocumentsByWriterName(admin.getUsername());  //删除此作者发布过的所有文档
+			documentDataService.deleteDocumentsByWriterName(admin.getUsername(),false);  //删除此作者发布过的所有文档
+			documentDataService.deleteDocumentsByWriterName(admin.getUsername(),true);  //删除此作者发布过的所有合同
 			courseDataService.deleteCoursesByWriterName(admin.getUsername());  //删除此作者发布过的所有课程
 			projectDataService.deleteProjectsByWriterName(admin.getUsername());  //删除此作者发布过的所有项目
 			adminDao.deleteById(id);

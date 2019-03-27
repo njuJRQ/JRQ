@@ -49,7 +49,11 @@ public class DocumentDataServiceImpl implements DocumentDataService {
 
 	@Override
 	public List<Document> getAllDocuments() {
-		return documentDao.findAll();
+		return documentDao.findByIsContract(false);
+	}
+
+	@Override
+	public List<Document> getAllContracts() {return documentDao.findByIsContract(true);
 	}
 
 	@Override
@@ -70,8 +74,8 @@ public class DocumentDataServiceImpl implements DocumentDataService {
 	}
 
 	@Override
-	public void deleteDocumentsByWriterName(String writerName) {
-		List<Document> documents = documentDao.findDocumentsByWriterName(writerName);
+	public void deleteDocumentsByWriterName(String writerName,boolean isContract) {
+		List<Document> documents = documentDao.findDocumentsByWriterNameAndIsContract(writerName,isContract);
 		for (Document document:documents) {
 			if (! new File(document.getAttachment()).delete()) {
 				System.err.println("文档附件"+document.getAttachment()+"删除失败");
@@ -84,18 +88,18 @@ public class DocumentDataServiceImpl implements DocumentDataService {
 	}
 
 	@Override
-	public List<Document> getMyDocumentListBefore(String openid, String id) throws NotExistException {
+	public List<Document> getMyDocumentListBefore(String openid, String id,boolean isContract) throws NotExistException {
 		return getMyDocumentListBeforeTimeStamp(openid,
-				id.equals("")?-1:getDocumentById(id).getTimeStamp());
+				id.equals("")?-1:getDocumentById(id).getTimeStamp(),isContract);
 	}
 
 	@Override
-	public List<Document> getMyDocumentListBeforeTimeStamp(String openid, long timeStamp) throws NotExistException {
+	public List<Document> getMyDocumentListBeforeTimeStamp(String openid, long timeStamp,boolean isContract) throws NotExistException {
 		List<Document> documents = null;
 		if (timeStamp<0) {
-			documents = documentDao.findTop10ByOrderByTimeStampDesc();
+			documents = documentDao.findTop10ByIsContractOrderByTimeStampDesc(isContract);
 		} else {
-			documents = documentDao.findTop10ByTimeStampBeforeOrderByTimeStampDesc(timeStamp);
+			documents = documentDao.findTop10ByIsContractAndTimeStampBeforeOrderByTimeStampDesc(isContract,timeStamp);
 		}
 
 		if (!documents.isEmpty()) {
@@ -106,21 +110,22 @@ public class DocumentDataServiceImpl implements DocumentDataService {
 	}
 
 	@Override
-	public List<Document> getTop10DocumentsOrderByLikeNum(String openid, String id) throws NotExistException {
+	public List<Document> getTop10DocumentsOrderByLikeNum(String openid, String id,boolean isContract) throws NotExistException {
 		return getDocumentsOrderByLikeNumBefore(openid,
-				id.equals("")?-1:getDocumentById(id).getLikeNum());
+				id.equals("")?-1:getDocumentById(id).getLikeNum(),isContract);
 	}
 
 	@Override
-	public List<Document> getDocumentsOrderByLikeNumBefore(String openid, long likeNum) throws NotExistException {
+	public List<Document> getDocumentsOrderByLikeNumBefore(String openid, long likeNum,boolean isContract) throws NotExistException {
 		List<Document> documents = null;
 		if(likeNum<0){
-			documents = documentDao.findTop10ByOrderByLikeNumDesc();
+			documents = documentDao.findTop10ByIsContractOrderByLikeNumDesc(isContract);
 		} else {
-			documents = documentDao.findTop10ByLikeNumBeforeOrderByLikeNumDesc(likeNum);
+			documents = documentDao.findTop10ByIsContractAndLikeNumBeforeOrderByLikeNumDesc(isContract,likeNum);
 		}
 		if (!documents.isEmpty()) {
-			List<Document> sameLikeNumDocuments = documentDao.findDocumentsByLikeNum(documents.get(documents.size()-1).getLikeNum());
+			List<Document> sameLikeNumDocuments = documentDao.findDocumentsByLikeNumAndIsContract(documents.get(documents.size()-1).getLikeNum(),isContract
+			);
 			addSame(documents, sameLikeNumDocuments);
 		}
 		return documents;

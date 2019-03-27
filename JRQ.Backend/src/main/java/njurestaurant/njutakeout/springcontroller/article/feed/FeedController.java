@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -68,8 +69,8 @@ public class FeedController {
             String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
             File file = new File(fileName);
             String[] temp=fileName.split("\\.");
-            String thePath="JRQ.Backend/record/feed/image/"+uuid+"."+temp[1];
-            String path="JRQ.Backend/record/feed/image/"+uuid+"."+temp[1];
+            String thePath="record/feed/image/"+uuid+"."+temp[1];
+            String path="record/feed/image/"+uuid+"."+temp[1];
             File tempfile=new File(path);
             if (tempfile.exists() && tempfile.isFile()) {
                 tempfile.delete();
@@ -189,7 +190,8 @@ public class FeedController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> publishMyFeed(@RequestParam(name="linkMan")String linkMan, @RequestParam(name="phone")String phone,@RequestParam(name="agencyName")String agencyName,@RequestParam(name="projectRef")String projectRef,@RequestParam(name="projectInfo")String projectInfo, @RequestParam(name="writerOpenid")String writerOpenid) {
+    public ResponseEntity<Response> publishMyFeed(@RequestParam(name="linkMan")String linkMan, @RequestParam(name="phone")String phone,@RequestParam(name="agencyName")String agencyName,@RequestParam(name="projectRef")String projectRef,@RequestParam(name="projectInfo")String projectInfo,
+                                                 @RequestParam(name="writerOpenid")String writerOpenid) {
         ResponseEntity<Response> r= new ResponseEntity<>(feedBlService.publishMyFeed(linkMan,phone,agencyName,projectRef,projectInfo,imagesPath,writerOpenid), HttpStatus.OK);
         imagesPath.clear();
         return r;
@@ -208,7 +210,8 @@ public class FeedController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> addFeed(@RequestParam(name="linkMan")String linkMan, @RequestParam(name="phone")String phone,@RequestParam(name="agencyName")String agencyName,@RequestParam(name="projectRef")String projectRef,@RequestParam(name="projectInfo")String projectInfo, @RequestParam(name="images")List<String> images,@RequestParam(name="writerOpenid")String writerOpenid) {
+    public ResponseEntity<Response> addFeed(@RequestParam(name="linkMan")String linkMan, @RequestParam(name="phone")String phone,@RequestParam(name="agencyName")String agencyName,@RequestParam(name="projectRef")String projectRef,@RequestParam(name="projectInfo")String projectInfo,
+                                            @RequestParam(name="images")List<String> images,@RequestParam(name="writerOpenid")String writerOpenid) {
         ResponseEntity<Response> r= new ResponseEntity<>(feedBlService.publishMyFeed(linkMan,phone,agencyName,projectRef,projectInfo,images,writerOpenid), HttpStatus.OK);
         return r;
     }
@@ -266,6 +269,7 @@ public class FeedController {
         return new ResponseEntity<>(feedBlService.getFeedList(), HttpStatus.OK);
     }
 
+
     @ApiOperation(value = "管理员更新圈子文章内容", notes = "管理员更新圈子文章内容")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "圈子ID", required = true, dataType = "String"),
@@ -278,7 +282,8 @@ public class FeedController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> updateFeed(@RequestParam(name="id")String id,@RequestParam(name="linkMan")String linkMan,@RequestParam(name="phone")String phone,@RequestParam(name="agencyName")String agencyName,@RequestParam(name="projectRef")String projectRef,@RequestParam(name="projectInfo")String projectInfo,@RequestParam(name="images")List<String> images) throws NotExistException {
+    public ResponseEntity<Response> updateFeed(@RequestParam(name="id")String id,@RequestParam(name="linkMan")String linkMan,@RequestParam(name="phone")String phone,@RequestParam(name="agencyName")String agencyName,@RequestParam(name="projectRef")String projectRef,@RequestParam(name="projectInfo")String projectInfo,
+                                               @RequestParam(name="images")List<String> images) throws NotExistException {
         return new ResponseEntity<>(feedBlService.updateFeed(id,linkMan,phone,agencyName,projectRef,projectInfo,images), HttpStatus.OK);
     }
 

@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 25,
+			"current": 29,
 			"list": [
 				{
 					"id": 0,
@@ -204,6 +204,29 @@
 					"pathName": "pages/me/publishMyArticle/publishMyArticle",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "jobwanted",
+					"pathName": "pages/particulars/jobwanted/jobwanted",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "resume",
+					"pathName": "pages/particulars/resume/resume",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "resume",
+					"pathName": "pages/articleDetail/contractDetail/contractDetail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "select",
+					"pathName": "pages/selector/selector"
 				}
 			]
 		}

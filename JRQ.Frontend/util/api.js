@@ -3,6 +3,7 @@ var util = require('./util.js')
 
 function getMyReceivedCardNum(openid) {
   console.log('getMyReceivedCardNum success!')
+  // console.log('openid')
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "getMyReceivedCardNum",
@@ -46,10 +47,7 @@ function getAbstractListVideo(kind, openid, lastId, lastIdType) {
     success: (res) => {
       wx.hideLoading()
       if (res.data.status == 500) {
-        // wx.showToast({
-        //   title: '',
-        //   icon: 'none'
-        // })
+
         return
       }
       var videos = res.data.abstractList
@@ -112,7 +110,7 @@ function getAbstractList(kind, openid, lastId, lastIdType) {
       that.data.lastId = articles[articles.length - 1].id
 
       that.data.lastIdType = articles[articles.length - 1].kind
-      console.log(that.data.lastIdType)
+      console.log(that.data.lastIdType + '789789')
       that.setData(that.data)
     }
   })
@@ -129,7 +127,7 @@ function getAbstractListByLikeNum(kind, openid) {
     data: {
       kind: kind,
       openid: openid,
-      id:""
+      id: ""
       // articleId: lastId,
       // articleType: lastIdType
     },
@@ -242,7 +240,7 @@ function getFeedList(kind, openid, lastId, id) {
       id: id
     },
 
-    method: 'GET',
+    method: 'POST',
     success: (res) => {
       wx.hideLoading()
       /*console.log(res)*/
@@ -261,6 +259,7 @@ function getFeedList(kind, openid, lastId, id) {
 
           article.images = article.images.map((image) => {
             return app.globalData.picUrl + image
+            
           })
           article.kindName = "最热";
           switch (kind) {
@@ -321,6 +320,35 @@ function getCourse(id) {
   })
 }
 
+function getFindById(id) {
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "jobCard/findById",
+    data: {
+      id: id
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'POST',
+
+    success: (res) => {
+      if (res.statusCode == 200) {
+        res.data.jobCardItem.face = app.globalData.picUrl + res.data.jobCardItem.user.face
+        that.setData({
+          jobCardItem: res.data.jobCardItem
+        })
+        console.log(res.data.jobCardItem)
+      } else if (res.statusCode == 500) {
+        console.log(res.data.message)
+      } else {
+        console.log(res)
+      }
+    }
+  })
+}
+
 function getMyCourse(openid, courseId, then) {
   wx.showLoading({
     title: '加载中',
@@ -369,6 +397,7 @@ function getDocument(id) {
         that.setData({
           document: res.data.document
         })
+        console.log(res.data.document)
       } else if (res.statusCode == 500) {
         console.log(res.data.message)
       } else {
@@ -451,6 +480,7 @@ function likePlus(openid, kind, articleId, article) {
       }
       article.hasLiked = !article.hasLiked
       that.setData(that.data)
+
     }
   })
 }
@@ -656,8 +686,52 @@ function uploadImageOneByOne(photos, index, length, then) {
     }
   })
 }
+// 业务详情接口
+function businessAdd(openid, linkMan, agencyName, projectRef, projectInfo, phone, marketType) {
 
-function publishMyArticle(openid, kind, content, photos) {
+  var that = this
+  wx.showLoading({
+    title: '发布圈子中',
+  })
+
+  wx.request({
+    url: app.globalData.backendUrl + "business/add",
+    data: {
+      writerOpenid: openid,
+      linkMan: linkMan,
+      phone: phone,
+      agencyName: agencyName,
+      projectRef: projectRef,
+      projectInfo: projectInfo,
+      marketType: marketType
+    },
+
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      console.log(res)
+
+      wx.hideLoading()
+      wx.showToast({
+        title: '发布成功',
+        icon: 'succes',
+        duration: 1000,
+        success: () => {
+          setTimeout(() => {
+            wx.navigateBack()
+          }, 1000)
+        },
+        mask: true
+      })
+    }
+  })
+
+}
+
+function addFeed(openid, kind, content, photos, phone, linkMan, agencyName, projectRef, projectInfo, images) {
   /**
    * 方法：publishMyFeed
    * 参数：
@@ -667,21 +741,30 @@ function publishMyArticle(openid, kind, content, photos) {
   wx.showLoading({
     title: '发布圈子中',
   })
-  uploadImageOneByOne(photos, 0, photos.length, () => {
+  // uploadImageOneByOne(photos, 0, photos.length, () => {
     wx.request({
-      url: app.globalData.backendUrl + "publishMyFeed",
+      url: app.globalData.backendUrl + "addFeed",
       data: {
         writerOpenid: openid,
-        title:"钧融中心",
-        content: content
+        kind: kind,
+        date: util.getTodayDate(),
+        content: content,
+        linkMan: linkMan,
+        phone: phone,
+        agencyName: agencyName,
+        projectRef: projectRef,
+        projectInfo: projectInfo,
+        images:photos,
       },
       header: {
         'Authorization': 'Bearer ' + app.getToken(),
         'content-type': 'application/x-www-form-urlencoded'
       },
-      method: 'GET',
+      method: 'POST',
       success: (res) => {
-        console.log(res)
+        console.log(res.data.images + '123456')
+        res.data.images = app.globalData.picUrl + + res.data.images
+
         wx.hideLoading()
         wx.showToast({
           title: '发布成功',
@@ -696,7 +779,52 @@ function publishMyArticle(openid, kind, content, photos) {
         })
       }
     })
+  // })
+}
+
+function getPartnership(phone, linkMan, agencyName, img, identityInfo, type) {
+  // console.log(openid + '123123')
+  console.log(type + '123123')
+  var that = this
+  wx.showLoading({
+    title: '发布圈子中',
   })
+
+  wx.request({
+    url: app.globalData.backendUrl + "partnership/add",
+    data: {
+      linkMan: linkMan,
+      phone: phone,
+      identityInfo: identityInfo,
+      agencyName: agencyName,
+      type: type,
+      img: img
+
+    },
+
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'POST',
+    success: (res) => {
+      console.log(res)
+
+      wx.hideLoading()
+      wx.showToast({
+        title: '发布成功',
+        icon: 'succes',
+        duration: 1000,
+        success: () => {
+          setTimeout(() => {
+            wx.navigateBack()
+          }, 1000)
+        },
+        mask: true
+      })
+    }
+  })
+
 }
 
 function modifyMyInfo() {
@@ -887,16 +1015,19 @@ function getUserHistoryAbstractList(myOpenid, otherOpenid) {
       'Authorization': 'Bearer ' + app.getToken(),
       'content-type': 'application/x-www-form-urlencoded'
     },
-    method: 'GET',
+    method: 'POST',
     success: (res) => {
       that.data.myArticles = res.data.abstractList
+      console.log(that.data.myArticles + '123456')
+
       that.data.myArticles.forEach((article) => {
         article.writerFace = app.globalData.picUrl + article.writerFace
-        article.images = article.images.map((image) => app.globalData.picUrl + image)
+        // article.images = article.images.map((image) => app.globalData.picUrl + image)
       })
       that.setData(that.data)
     }
   })
+
 }
 
 function downloadFile(filepath, then) {
@@ -1344,7 +1475,7 @@ function getNewsListBefore(newsId, then) {
         if (then) then(res.data)
         console.log(res.data)
       }
-      
+
     }
   })
 }
@@ -1353,7 +1484,7 @@ function getIOSQualification(then) {
   console.log('getIOSQualification success!')
 
   var that = this
- 
+
   wx.request({
     url: app.globalData.backendUrl + "getIOSQualification",
 
@@ -1378,6 +1509,165 @@ function getIOSQualification(then) {
   })
 }
 
+function getTextualResearchCourseList(then) {
+  console.log('getTextualResearchCourseList success!')
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "getTextualResearchCourseList",
+
+
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    // success: (res) => {
+    //   if (res.statusCode == 200) {
+    //     if (then) then(res.data)
+    //     return res.data
+    //   }
+    // }
+    success: (res) => {
+      res.data.courseList.forEach(item => {
+        item.image = app.globalData.picUrl + item.image
+      })
+      that.setData({
+        courseList: res.data.courseList
+      })
+      console.log(res.data)
+    }
+  })
+}
+
+function getAll(then) {
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "jobCard/getAll",
+
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      res.data.jobCardItems.forEach(item => {
+        item.image = app.globalData.picUrl + item.user.face
+      })
+      that.setData({
+        jobCardItems: res.data.jobCardItems
+      })
+      console.log(res.data)
+    }
+  })
+}
+
+function getCourseList(then) {
+  console.log('getCourseList success!')
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "getCourseList",
+
+
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      res.data.courseList.forEach(item => {
+        item.image = app.globalData.picUrl + item.image
+      })
+      that.setData({
+        courseList: res.data.courseList
+      })
+      console.log(res.data)
+    }
+
+
+  })
+}
+
+function getContractList(then) {
+  console.log('getContractList success!')
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "getContractList",
+
+
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    // success: (res) => {
+    //   if (res.statusCode == 200) {
+    //     if (then) then(res.data)
+    //     return res.data
+
+    //     console.log(res.data)
+    //   }
+    // }
+    success: (res) => {
+      res.data.documents.forEach(item => {
+        item.image = app.globalData.picUrl + item.preview
+      })
+      that.setData({
+        documents: res.data.documents
+      })
+      console.log(res.data)
+    }
+  })
+}
+
+function getBusinessPartnerImage(then) {
+  console.log('getBusinessPartnerImage success!')
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "/partnership/getBusinessPartnerImage",
+
+
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      if (res.statusCode == 200) {
+        // let course = res.data
+        // course = app.globalData.picUrl + course
+        res.data = app.globalData.picUrl + res.data
+        that.setData({
+          course: res.data
+        })
+      }
+      console.log(res.data)
+    }
+  })
+}
+
+function getDocumentList(then) {
+  console.log('getDocumentList success!')
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "getDocumentList",
+
+
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      res.data.documents.forEach(item => {
+        item.image = app.globalData.picUrl + item.preview
+      })
+      that.setData({
+        documentsList: res.data.documents
+      })
+      console.log(res.data)
+    }
+  })
+}
 module.exports = {
   getAbstractList: getAbstractList,
   getAbstractListByCondition: getAbstractListByCondition,
@@ -1394,7 +1684,7 @@ module.exports = {
   getOtherBasicInfo: getOtherBasicInfo,
   getOtherInfo: getOtherInfo,
   checkMyReceivedCard: checkMyReceivedCard,
-  publishMyArticle: publishMyArticle,
+  addFeed: addFeed,
   modifyMyInfo: modifyMyInfo,
   getPersonListByCondition: getPersonListByCondition,
   getMyPersonList: getMyPersonList,
@@ -1421,5 +1711,14 @@ module.exports = {
   getIOSQualification: getIOSQualification,
   getAbstractListByLikeNum: getAbstractListByLikeNum,
   getAbstractListVideo: getAbstractListVideo,
-  getMyReceivedCardNum: getMyReceivedCardNum
+  getMyReceivedCardNum: getMyReceivedCardNum,
+  getTextualResearchCourseList: getTextualResearchCourseList,
+  getAll: getAll,
+  getCourseList: getCourseList,
+  getContractList: getContractList,
+  getBusinessPartnerImage: getBusinessPartnerImage,
+  getDocumentList: getDocumentList,
+  getPartnership: getPartnership,
+  getFindById: getFindById,
+  businessAdd: businessAdd
 }

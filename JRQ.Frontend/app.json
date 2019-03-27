@@ -4,6 +4,17 @@
     "pages/project/project",
     "pages/me/userInfo",
     "pages/projects/project",
+    "pages/business/business",
+    "pages/business/stair/stair",
+    "pages/business/second/second",
+    "pages/business/cardinal/cardinal",
+    "pages/business/wholesale/wholesale",
+    "pages/business/note/note",
+    "pages/business/property/property",
+    "pages/business/security/security",
+    "pages/business/government/government",
+    "pages/business/financial/financial",
+    "pages/business/fund/fund",
     "pages/me/me",
     "pages/me/myCardHolder/myCardHolder",
     "pages/me/modifyMyCard/modifyMyCard",
@@ -11,6 +22,7 @@
     "pages/articleDetail/courseDetail/courseDetail",
     "pages/articleDetail/documentDetail/documentDetail",
     "pages/articleDetail/projectDetail/projectDetail",
+    "pages/articleDetail/contractDetail/contractDetail",
     "pages/me/publishMyArticle/publishMyArticle",
     "pages/login/login",
     "pages/me/updateMe/updateMe",
@@ -22,7 +34,17 @@
     "template/publishBar/publishBar",
     "pages/contact/contact",
     "pages/service/service",
-    "pages/judge/judge"
+    "pages/judge/judge",
+    "pages/particulars/jobwanted/jobwanted",
+    "pages/particulars/verificine/verificine",
+    "pages/particulars/partnership/partnership",
+    "pages/particulars/cooperation/cooperation",
+    "pages/particulars/resume/resume",
+    "pages/particulars/curriculum/curriculum",
+    "pages/particulars/documentation/documentation",
+    "pages/particulars/contract/contract",
+    "pages/selector/selector"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -33,28 +55,39 @@
   },
   "tabBar": {
     "backgroundColor": "#1b1b1b",
-    "color": "C09B54",
+    "color": "#fff",
     "selectedColor": "#C09B54",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "iconPath": "img/unstudy-icon.png",
-        "selectedIconPath": "img/study-icon.png"
+        "iconPath": "img/xuexi.png",
+        "selectedIconPath": "img/xuexi-icon.png",
+        "text": "学习"
       },
+        {
+          "pagePath": "pages/business/business",
+          "iconPath": "img/yewu.png",
+          "selectedIconPath": "img/yewu-icon.png",
+          "text": "业务"
+        },
       {
         "pagePath": "pages/projects/project",
-        "iconPath": "img/unxiangmu-icon.png",
-        "selectedIconPath": "img/unxiangmu-icon.png"
+        "iconPath": "img/xiangmu.png",
+        "selectedIconPath": "img/xiangmu-icon.png",
+        "text": "项目"
       },
+   
       {
         "pagePath": "pages/contact/contact",
-        "iconPath": "img/unrenmai-icon.png",
-        "selectedIconPath": "img/renmai-icon.png"
+        "iconPath": "img/renmai-icon-png.png",
+        "selectedIconPath": "img/renmai.png",
+        "text": "人脉"
       },
       {
         "pagePath": "pages/me/userInfo",
-        "iconPath": "img/ungeren-icon.png",
-        "selectedIconPath": "img/geren-icon.png"
+        "iconPath": "img/geren.png",
+        "selectedIconPath": "img/geren-icon.png",
+        "text": "我的"
       }
     ]
   }

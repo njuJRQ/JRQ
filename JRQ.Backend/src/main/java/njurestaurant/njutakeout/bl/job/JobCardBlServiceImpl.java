@@ -5,7 +5,9 @@ import njurestaurant.njutakeout.dataservice.admin.AdminDataService;
 import njurestaurant.njutakeout.dataservice.job.JobCardDataService;
 import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
+import njurestaurant.njutakeout.entity.job.EducationExperience;
 import njurestaurant.njutakeout.entity.job.JobCard;
+import njurestaurant.njutakeout.entity.job.WorkExperience;
 import njurestaurant.njutakeout.entity.user.Enterprise;
 import njurestaurant.njutakeout.entity.user.User;
 import njurestaurant.njutakeout.exception.NotExistException;
@@ -33,20 +35,23 @@ public class JobCardBlServiceImpl implements JobCardBlService {
     }
 
     @Override
-    public InfoResponse add(String expectPosition, String expectWage, String experience, String degree, String introduction, String openid) throws NotExistException {
+    public InfoResponse add(String photo, String expectPosition, String expectWage, String degree, String introduction, boolean isFresh, int age, List<WorkExperience> workExperienceList, List<EducationExperience> educationExperienceList, String openid) throws NotExistException {
         User user = userDataService.getUserByOpenid(openid);
-        jobCardDataService.add(new JobCard(expectPosition, expectWage, experience, degree, introduction, user));
+        jobCardDataService.add(new JobCard(photo,expectPosition, expectWage, degree, introduction,isFresh,age,workExperienceList,educationExperienceList,user));
         return new InfoResponse();
     }
 
     @Override
-    public InfoResponse update(String id, String expectPosition, String expectWage, String experience, String degree, String introduction) throws NotExistException {
+    public InfoResponse update(String id,String photo, String expectPosition, String expectWage, String degree, String introduction, boolean isFresh, int age, List<WorkExperience> workExperienceList, List<EducationExperience> educationExperienceList) throws NotExistException {
         JobCard jobCard = jobCardDataService.findById(id);
         jobCard.setExpectPosition(expectPosition);
         jobCard.setExpectWage(expectWage);
-        jobCard.setExperience(experience);
         jobCard.setDegree(degree);
         jobCard.setIntroduction(introduction);
+        jobCard.setAge(age);
+        jobCard.setFresh(isFresh);
+        jobCard.setWorkExperiences(workExperienceList);
+        jobCard.setEducationExperiences(educationExperienceList);
         jobCardDataService.update(jobCard);
         return new InfoResponse();
     }

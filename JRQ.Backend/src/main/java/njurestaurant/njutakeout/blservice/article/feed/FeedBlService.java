@@ -123,4 +123,5 @@ public interface FeedBlService {
 	 * @throws NotExistException
 	 */
 	FeedListResponse getMyFeedList(String openid) throws NotExistException;
+
 }

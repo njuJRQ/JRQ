@@ -93,7 +93,7 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 				}
 				break;
 			case "document":
-				List<Document> documents = documentDataService.getTop10DocumentsOrderByLikeNum(openid, id);
+				List<Document> documents = documentDataService.getTop10DocumentsOrderByLikeNum(openid, id,false);
 				for (Document document:documents) {
 					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, document.getId());
 					abstractItems.add(new AbstractItem(document, adminDataService, hasLiked));
@@ -124,7 +124,7 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 				count.setViewCourse(count.getViewCourse()+1);//浏览课程页面次数+1
 				break;
 			case "document":
-				List<Document> documents = documentDataService.getMyDocumentListBefore(openid, articleId);
+				List<Document> documents = documentDataService.getMyDocumentListBefore(openid, articleId,false);
 				for (Document document:documents) {
 					boolean hasLiked = likeDataService.isLikeExistent(openid, kind, document.getId());
 					abstractItems.add(new AbstractItem(document, adminDataService, hasLiked));
@@ -153,7 +153,7 @@ public class ArticleBlServiceImpl implements ArticleBlService {
 				List<Long> articleTimeStamps = new ArrayList<>();
 				coursesPart.forEach(c->articleTimeStamps.add(c.getTimeStamp()));
 
-				List<Document> documentsPart = documentDataService.getMyDocumentListBeforeTimeStamp(openid, timeStamp);
+				List<Document> documentsPart = documentDataService.getMyDocumentListBeforeTimeStamp(openid, timeStamp,false);
 				articles.addAll(documentsPart);
 				documentsPart.forEach(d->articleTimeStamps.add(d.getTimeStamp()));
 

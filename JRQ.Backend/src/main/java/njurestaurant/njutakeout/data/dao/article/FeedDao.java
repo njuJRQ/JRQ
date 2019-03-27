@@ -1,10 +1,7 @@
 package njurestaurant.njutakeout.data.dao.article;
 
-import njurestaurant.njutakeout.entity.article.Course;
 import njurestaurant.njutakeout.entity.article.Feed;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -24,5 +21,4 @@ public interface FeedDao extends JpaRepository<Feed, String> {
 
 	List<Feed> findTop10ByIsPreferredOrderByTimeStampDesc(Boolean isPreferred);
 	List<Feed> findTop10ByIsPreferredAndTimeStampBeforeOrderByTimeStampDesc(Boolean isPreferred, long timeStamp);
-
 }

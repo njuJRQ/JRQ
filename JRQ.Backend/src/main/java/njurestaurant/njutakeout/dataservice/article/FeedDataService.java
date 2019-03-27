@@ -1,6 +1,5 @@
 package njurestaurant.njutakeout.dataservice.article;
 
-import njurestaurant.njutakeout.entity.article.Course;
 import njurestaurant.njutakeout.entity.article.Feed;
 import njurestaurant.njutakeout.exception.NotExistException;
 

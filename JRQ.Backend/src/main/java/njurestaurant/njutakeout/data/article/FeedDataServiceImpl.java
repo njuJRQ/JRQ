@@ -2,22 +2,12 @@ package njurestaurant.njutakeout.data.article;
 
 import njurestaurant.njutakeout.data.dao.article.FeedDao;
 import njurestaurant.njutakeout.dataservice.article.FeedDataService;
-import njurestaurant.njutakeout.entity.article.Course;
 import njurestaurant.njutakeout.entity.article.Feed;
 import njurestaurant.njutakeout.exception.NotExistException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,6 +69,7 @@ public class FeedDataServiceImpl implements FeedDataService {
 	public List<Feed> getFeedsByWriterOpenid(String writerOpenid) {
 		return feedDao.findFeedsByWriterOpenidOrderByTimeStampDesc(writerOpenid);
 	}
+
 
 	@Override
 	public void deleteFeedById(String id) throws NotExistException {

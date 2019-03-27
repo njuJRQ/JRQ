@@ -5,19 +5,17 @@
 @import '/template/adBar/adBar.wxss';
 
 /*本页面css属性*/
+.search {
+  /* background-color: rgb(200, 165, 65); */
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 
 /*关于头部导航栏的属性*/
 .headWrapper {
   width: 100%;
-  padding: 0 20px 5px 20px;
-  
-}
-
-/*搜索栏样式*/
-.search_ico{
-  margin-left: -5%;
-  margin-right: 30%;
-  width: 110%;
 }
 
 .search__keywords {

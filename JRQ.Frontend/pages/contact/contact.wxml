@@ -3,9 +3,7 @@
 <view class='container container--color-white'>
   <view class='headWrapper' style='background-color:black; background-size: cover;background-repeat: no-repeat; background-position: bottom'>
     <!--搜索框-->
-    <view class='search_ico'>
-      <template is='searchBar' data='{{placeholder: "搜索你感兴趣的人", searchCondition: searchCondition}}'></template>
-    </view>
+      <template is='searchBar' class='search' data='{{placeholder: "搜索你感兴趣的人", searchCondition: searchCondition}}'></template>
   </view>
 
 </view>

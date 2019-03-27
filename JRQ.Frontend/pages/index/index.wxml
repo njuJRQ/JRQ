@@ -4,9 +4,11 @@
 <import src='/template/likeIcon/likeIcon.wxml'></import>
 
 <view class="container container--color-white">
-  <view class='headWrapper' style='background-color:rgb(242,197,72); background-size: cover;background-repeat: no-repeat; background-position: bottom'>
+  <view class='headWrapper' style='background-color:black; background-size: cover;background-repeat: no-repeat; background-position: bottom'>
     <!--搜索框-->
+    <view class='search_ico'>
     <template class='search' is='searchBar' data='{{placeholder: "搜索文章", searchCondition: searchCondition}}'></template>
+    </view>
   </view>
   <!--广告位-->
   <!-- <template class='ad' is='adBar' data='{{ad}}'></template> -->

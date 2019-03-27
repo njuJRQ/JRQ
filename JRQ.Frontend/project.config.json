@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 29,
+			"current": 31,
 			"list": [
 				{
 					"id": 0,
@@ -226,7 +226,19 @@
 				{
 					"id": -1,
 					"name": "select",
-					"pathName": "pages/selector/selector"
+					"pathName": "pages/selector/selector",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "projects",
+					"pathName": "pages/projects/projects",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "projects",
+					"pathName": "pages/projects/project"
 				}
 			]
 		}

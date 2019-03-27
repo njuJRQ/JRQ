@@ -10,15 +10,14 @@
 /*关于头部导航栏的属性*/
 .headWrapper {
   width: 100%;
-  padding: 50px 30px 10px 30px;
-  
 }
 /*搜索栏样式*/
 .search {
-  margin: auto;
-}
-.search__keywords {
-  line-height: 2rem;
+  /* background-color: rgb(200, 165, 65); */
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 /*广告栏样式*/
 .ad {

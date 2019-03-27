@@ -62,14 +62,18 @@ tag
     font-size: 24rpx;
 }
 
+.container .tag-item-selected {
+    padding: 5rpx 25rpx;
+    font-size: 24rpx;
+}
+
 .container>.tag-wrapper>.tag-item-wrapper>.tag-item {
     border: 1rpx solid #C09B54;
     border-radius: 40rpx;
 }
 
-.container>.tag-wrapper>.tag-item-wrapper-selected>.tag-item-selected {
-    border: 1rpx solid #C09B54;
+.container>.tag-wrapper>.tag-item-wrapper>.tag-item-selected {
     background: #C09B54;
-    font:#ffffff;
+    color: #ffffff;
     border-radius: 40rpx;
 }

@@ -51,27 +51,27 @@
       </view>
       <view class='div-line'></view>
       <view class='info'>
-        <text class='info__key'>用户标签</text>
-        <!-- 用户标签列表 -->
-        <modal show="{{showUserTagsModal}}" height='60%'  title="用户标签选择" bindcancel="{{userTagsModalCancel}}" bindconfirm='{{userTagsModalConfirm}}'>
-          <view class='container' bindtap='{{showUserTagsModal}}'>
+        <text class='info__key' bindtap='letShowUserTagsModal'>用户标签</text>
+        <!-- 用户标签列表，模态框 -->
+        <modal wx:if="{{showUserTagsModal}}" height='60%' title="用户标签选择" bindcancel="userTagsModalCancel" bindconfirm='userTagsModalConfirm'>
+          <view class='container'>
             <view class='tag-wrapper'>
               <view wx:for="{{allUserTags}}" wx:key="index" class='tag-item-wrapper'>
-                <text class='tag-item' bindtap="userTagSelect" id="{{item}}">{{item}}</text>
+                <text class="{{item.state?'tag-item-selected':'tag-item'}}" bindtap="userTagSelect" id="{{item.name}}">{{item.name}}</text>
               </view>
             </view>
           </view>
         </modal>
 
-        <view class='container'>
+        <view class='container' bindtap='letShowUserTagsModal'>
           <view class='tag-wrapper'>
-            <view wx:for="{{myInfo.label}}" wx:key="index" class="{{ selectedUserTags.indexOf(item)<0?'tag-item-wrapper':'tag-item-wrapper-selected'}}">
-              <text class="{{selectedUserTags.indexOf(item)<0?'tag-item':'tag-item-selected'}}">{{item}}</text>
+            <view wx:for="{{newMyInfo.label}}" wx:key="index" class="tag-item-wrapper">
+              <text class="tag-item">{{item}}</text>
             </view>
           </view>
         </view>
       </view>
-      <view class='div-line'></view>
+      <view class='div-line' bindtap='letShowUserTagsModal'></view>
       <view class='info'>
         <text class='info__key'>个人简介:</text>
         <textarea class='info__value info__textarea' auto-height="true" placeholder='{{myInfo.intro}}' bindinput='updateIntro'></textarea>

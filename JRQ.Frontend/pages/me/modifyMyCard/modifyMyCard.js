@@ -9,7 +9,19 @@ Page({
    */
   data: {
     labelArray: ['承兑汇票', '股票质押', '大宗减持', '定增', '短拆过桥', '企业信用贷', '供应链金融', '商业保理', '融资租赁', '股权融资', '并购重组', '壳资源', '基金产品', '资产证券化', '土地并购', '自定义'],
-    allUserTags: ['高科·智造', '医疗健康', '文娱·体游', 'AI·芯片'],
+    allUserTags: [{
+      name: '高科·智造',
+      state: false
+    }, {
+      name: '医疗健康',
+      state: false
+    }, {
+      name: '文娱·体游',
+      state: false
+    }, {
+      name: 'AI·芯片',
+      state: false
+    }],
     showUserTagsModal: false,
     selectedUserTags: [],
 
@@ -17,13 +29,13 @@ Page({
     myInfo: {
       face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
       username: 'USERNAME',
-      phone: '13952146595',
-      email: '13952146595@163.com',
-      company: '美国永辉公司',
-      city: '亚太区',
-      department: 'IT技术部',
-      position: 'T1初级经理',
-      intro: '我要在代码的世界里飞翔。我要在代码的世界里飞翔。我要在代码的世界里飞翔。我要在代码的世界里飞翔。我要在代码的世界里飞翔。我要在代码的世界里飞翔。我要在代码的世界里飞翔。我要在代码的世界里飞翔。'
+      phone: 'phone',
+      email: 'email',
+      company: 'company',
+      city: 'city',
+      department: 'department',
+      position: 'position',
+      intro: 'intro'
     },
     newMyInfo: {}
   },
@@ -40,40 +52,34 @@ Page({
         isAlreadyExists = true;
       }
     }
-    if(!isAlreadyExists){
+    if (!isAlreadyExists) {
       newSelectedUserTags.push(selectItem);
     }
-    this.setData(
-      {
-        selectedUserTags : newSelectedUserTags
-      }
-    )
+    this.setData({
+      selectedUserTags: newSelectedUserTags
+    })
+    this.updateAllTag();
   },
 
-  showUserTagsModal: function() {
-    this.setData(
-      {
-        showUserTagsModal: false
-      }
-    )
+  letShowUserTagsModal: function() {
+    this.setData({
+      showUserTagsModal: true
+    })
   },
 
   userTagsModalCancel: function() {
-    this.setData(
-      {
-        showUserTagsModal: false
-      }
-    )
+    this.setData({
+      showUserTagsModal: false
+    })
   },
 
   userTagsModalConfirm: function() {
     var newMyInfo = this.data.newMyInfo;
-    this.setData(
-      {
-        newMyInfo: newMyInfo,
-        showUserTagsModal: false
-      }
-    )
+    newMyInfo.label = this.data.selectedUserTags;
+    this.setData({
+      newMyInfo: newMyInfo,
+      showUserTagsModal: false
+    })
   },
 
   updateFace: function() {
@@ -124,6 +130,26 @@ Page({
     this.data.newMyInfo.intro = e.detail.value;
   },
 
+  updateAllTag: function(e) {
+    var newAllUserTags = [];
+    for (var i = 0; i < this.data.allUserTags.length; i++) {
+      if (this.data.selectedUserTags.indexOf(this.data.allUserTags[i].name) >= 0) {
+        newAllUserTags.push({
+          name: this.data.allUserTags[i].name,
+          state: true
+        })
+      } else {
+        newAllUserTags.push({
+          name: this.data.allUserTags[i].name,
+          state: false
+        })
+      }
+    }
+    this.setData({
+      allUserTags: newAllUserTags
+    })
+  },
+
   bindLabelPickerChange: function(e) {
     this.setData({
       labelIndex: e.detail.value
@@ -148,6 +174,7 @@ Page({
         that.data.newMyInfo = that.data.myInfo
         that.selectedUserTags = label
         that.setData(that.data)
+        that.updateAllTag();
       })
     })
   },

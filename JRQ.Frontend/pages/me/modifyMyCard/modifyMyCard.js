@@ -9,6 +9,10 @@ Page({
    */
   data: {
     labelArray: ['承兑汇票', '股票质押', '大宗减持', '定增', '短拆过桥', '企业信用贷', '供应链金融', '商业保理', '融资租赁', '股权融资', '并购重组', '壳资源', '基金产品', '资产证券化', '土地并购', '自定义'],
+    allUserTags: ['高科·智造', '医疗健康', '文娱·体游', 'AI·芯片'],
+    showUserTagsModal: false,
+    selectedUserTags: [],
+
     labelIndex: 0,
     myInfo: {
       face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
@@ -24,13 +28,61 @@ Page({
     newMyInfo: {}
   },
 
-  updateFace: function () {
+  userTagSelect: function(e) {
+    var selectItem = e.target.id;
+    var selectedUserTags = this.data.selectedUserTags;
+    var newSelectedUserTags = [];
+    var isAlreadyExists = false;
+    for (var i = selectedUserTags.length - 1; i >= 0; i--) {
+      if (selectedUserTags[i] !== selectItem) {
+        newSelectedUserTags.push(selectedUserTags[i]);
+      } else {
+        isAlreadyExists = true;
+      }
+    }
+    if(!isAlreadyExists){
+      newSelectedUserTags.push(selectItem);
+    }
+    this.setData(
+      {
+        selectedUserTags : newSelectedUserTags
+      }
+    )
+  },
+
+  showUserTagsModal: function() {
+    this.setData(
+      {
+        showUserTagsModal: false
+      }
+    )
+  },
+
+  userTagsModalCancel: function() {
+    this.setData(
+      {
+        showUserTagsModal: false
+      }
+    )
+  },
+
+  userTagsModalConfirm: function() {
+    var newMyInfo = this.data.newMyInfo;
+    this.setData(
+      {
+        newMyInfo: newMyInfo,
+        showUserTagsModal: false
+      }
+    )
+  },
+
+  updateFace: function() {
     var that = this;
     wx.chooseImage({
       count: 1,
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
-      success: function (res) {
+      success: function(res) {
         var tempFilePath = res.tempFilePaths[0]
         console.log(tempFilePath)
         that.data.myInfo.face = tempFilePath
@@ -40,39 +92,39 @@ Page({
     })
   },
 
-  updateName: function (e) {
+  updateName: function(e) {
     this.data.newMyInfo.name = e.detail.value;
   },
 
-  updatePhone: function (e) {
+  updatePhone: function(e) {
     this.data.newMyInfo.phone = e.detail.value;
   },
 
-  updateEmail: function (e) {
+  updateEmail: function(e) {
     this.data.newMyInfo.email = e.detail.value;
   },
 
-  updateCity: function (e) {
+  updateCity: function(e) {
     this.data.newMyInfo.city = e.detail.value;
   },
 
-  updateCompany: function (e) {
+  updateCompany: function(e) {
     this.data.newMyInfo.company = e.detail.value;
   },
 
-  updateDepartment: function (e) {
+  updateDepartment: function(e) {
     this.data.newMyInfo.department = e.detail.value;
   },
 
-  updatePosition: function (e) {
+  updatePosition: function(e) {
     this.data.newMyInfo.position = e.detail.value;
   },
 
-  updateIntro: function (e) {
+  updateIntro: function(e) {
     this.data.newMyInfo.intro = e.detail.value;
   },
 
-  bindLabelPickerChange: function (e) {
+  bindLabelPickerChange: function(e) {
     this.setData({
       labelIndex: e.detail.value
     })
@@ -82,7 +134,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     var that = this
     api.getClassificationList.call(this, () => {
       api.getMyInfo.call(this, app.getOpenid(), () => {
@@ -94,12 +146,13 @@ Page({
         that.data.labelIndex = index
         /* 复制myInfo到newMyInfo中 */
         that.data.newMyInfo = that.data.myInfo
+        that.selectedUserTags = label
         that.setData(that.data)
       })
     })
   },
 
-  onSave: function () {
+  onSave: function() {
     /* 检查输入合法性 */
     if (!(this.data.newMyInfo.phone === "" || /^1[34578]\d{9}$/.test(this.data.newMyInfo.phone))) {
       wx.showToast({

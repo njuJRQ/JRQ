@@ -455,3 +455,27 @@
 .modal__text {
   font-size: 0.8rem;
 }
+
+/**
+tag
+**/
+.container {
+}
+
+.container .tag-wrapper {
+}
+
+.container .tag-item-wrapper {
+    display: inline-block;
+    margin: 20rpx 0 0rpx 18rpx;
+}
+
+.container .tag-item {
+    padding: 5rpx 25rpx;
+    font-size: 24rpx;
+}
+
+.container>.tag-wrapper>.tag-item-wrapper>.tag-item {
+    border: 1rpx solid #C09B54;
+    border-radius: 40rpx;
+}

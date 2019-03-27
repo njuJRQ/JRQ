@@ -26,6 +26,7 @@ Page({
 
     cardLimits: 0,
     myInfo: [],
+    tagList: ['内构重组', '短融过桥', '大宗交易', '银行业务']
   },
 
   /**

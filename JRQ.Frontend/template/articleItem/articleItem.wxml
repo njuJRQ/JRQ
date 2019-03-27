@@ -22,7 +22,7 @@
           <text class='title' wx:elif="{{item.projectInfo.length==20}}">核心股东</text>
           <text class='title' wx:elif="{{item.projectInfo.length==8}}">雇员</text>
           <text class='title' wx:elif="{{item.projectInfo.length==11}}">一手第三方</text>
-          <text class='article__content'>{{item.projectRef ? item.projectRef : item.title}}</text>
+          <text class='article__content'>{{item.projectInfo ? item.projectInfo : item.title}}</text>
         </view>
         <!--文章图片-->
         <view class='article__imageList'>

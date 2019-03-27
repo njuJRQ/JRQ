@@ -10,6 +10,7 @@
       <view class='name-vip'>
         <text class='username'>{{myInfo.username}}</text>
         <image class='vip' wx-if="{{isShow}}" mode='widthFix' src='{{writerface[4]}}'></image>
+        <!--用户标签-->
       </view>
       <text class='position card_text'>{{myInfo.position?myInfo.position:'未知职位'}}</text>
       <text class='company card_text'>{{myInfo.department?myInfo.department:'未知公司'}}</text>
@@ -20,12 +21,12 @@
       <image class='edit' bindtap='editCard' src='{{writerface[2]}}'></image>
     </view>
   </view>
-
-  <view class='label'>
-    <text class='label_text'>{{myInfo.label}}</text>
-    <!-- <view class='label_main' wx:for='{{myInfo.label}}' wx:key='*this'>
-      
-    </view> -->
+  <view class='container'>
+    <view class='tag-wrapper'>
+      <view wx:for="{{myInfo.label}}" wx:key="index" class='tag-item-wrapper'>
+        <text class='tag-item'>{{item}}</text>
+      </view>
+    </view>
   </view>
   <view class='share_card'>
     <button class='card_button' bindtap='showModal'>分享我的名片</button>

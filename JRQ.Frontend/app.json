@@ -43,8 +43,8 @@
     "pages/particulars/curriculum/curriculum",
     "pages/particulars/documentation/documentation",
     "pages/particulars/contract/contract",
-    "pages/selector/selector"
-    
+    "pages/selector/selector",
+    "pages/userTags/userTags"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -64,19 +64,18 @@
         "selectedIconPath": "img/xuexi-icon.png",
         "text": "学习"
       },
-        {
-          "pagePath": "pages/business/business",
-          "iconPath": "img/yewu.png",
-          "selectedIconPath": "img/yewu-icon.png",
-          "text": "业务"
-        },
+      {
+        "pagePath": "pages/business/business",
+        "iconPath": "img/yewu.png",
+        "selectedIconPath": "img/yewu-icon.png",
+        "text": "业务"
+      },
       {
         "pagePath": "pages/projects/project",
         "iconPath": "img/xiangmu.png",
         "selectedIconPath": "img/xiangmu-icon.png",
         "text": "项目"
       },
-   
       {
         "pagePath": "pages/contact/contact",
         "iconPath": "img/renmai-icon-png.png",

@@ -42,3 +42,34 @@ page {
   margin: 40px 0 200px 0;
   width: 90%;
 }
+/**
+tag
+**/
+.container {
+  
+}
+
+.container .tag-wrapper {
+}
+
+.container .tag-item-wrapper {
+    display: inline-block;
+    margin: 20rpx 0 0rpx 18rpx;
+}
+
+.container .tag-item {
+    padding: 5rpx 25rpx;
+    font-size: 24rpx;
+}
+
+.container>.tag-wrapper>.tag-item-wrapper>.tag-item {
+    border: 1rpx solid #C09B54;
+    border-radius: 40rpx;
+}
+
+.container>.tag-wrapper>.tag-item-wrapper-selected>.tag-item-selected {
+    border: 1rpx solid #C09B54;
+    background: #C09B54;
+    font:#ffffff;
+    border-radius: 40rpx;
+}

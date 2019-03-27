@@ -5,7 +5,7 @@ text {
   color: #5e645a;
 }
 .jrq__block {
-  box-shadow: 0 5px 20px #e0e0e0;
+  /* box-shadow: 0 5px 20px #e0e0e0; */
   border-radius: 10px;
   /* background-color: #f7f1e5; */
 }

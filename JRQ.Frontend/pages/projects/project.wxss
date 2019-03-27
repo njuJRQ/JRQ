@@ -4,9 +4,13 @@
 @import '/style/common.wxss';
 @import '/template/findBar/searchBar.wxss';
 @import '/template/articleItem/articleItem.wxss';
+.container{
+  background: rgb(23,23,23);
+
+}
 /*关于头部导航栏的属性*/
 .headWrapper {
-  width: 100%;
+  width: 105%;
   padding: 0 20px 5px 20px;
   
 }
@@ -58,9 +62,19 @@
 
 /*搜索栏样式*/
 .search_ico{
-  margin-left: -3.5%;
-  margin-right: 30%;
-  width: 110%;
+  /* margin-left: -3.5%; */
+  /* margin-right: 30%; */
+  width: 100%;
+  /* background-color: rgb(200, 165, 65); */
+
+}
+.search {
+  width: 100%;
+  background-color: rgb(200, 165, 65);
+  border-radius: 10px;
+  color: #fff;
+  margin: 0 auto;
+  margin-top: 5px;
 }
 .search__keywords {
   font-weight: bold;
@@ -83,15 +97,21 @@
 .swiper-tab-list{
   font-size: 30rpx; 
   display: flex; 
-  width: 20%; 
-  color: #2e2c2c; 
+  width: 30%; 
+  height: 40px;
+  color: #fff; 
   padding: 10px 0 5px 5px;
-  background-color: white;
+  margin: 0 auto;
+  /* border: 1px solid red; */
 }
 .on{
   color: #f1c65e; 
   border-bottom: 5rpx solid #f1c65e;
   margin-bottom: 10rpx;
+}
+.prior_text{
+  display: inline-block;
+  color: #fff;
 }
 .swiper-box{ 
   display: flex;
@@ -99,9 +119,6 @@
   width: 100%;
   overflow: hidden;
  }
-/* .swiper-box view{ 
-  text-align: center; 
-} */
 
 .articleListWrapper_view {
   margin-top: -3%;
@@ -112,7 +129,6 @@
     display: flex; 
     width: 100%; 
     height: 100%; 
-    /* margin-top: 40rpx;  */
     overflow: hidden;
 } 
 .swiper-items{
@@ -124,8 +140,10 @@
 
 }
 .prior_icon{
-  
-  width: 59px;
+  display: inline-block;
+  width: 15px;
+  margin-left: 5px;
+ margin-top: 3px;
 }
 .hot_icon{
 

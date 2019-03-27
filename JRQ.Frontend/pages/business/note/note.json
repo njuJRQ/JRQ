@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "票据市场",
+  "usingComponents": {
+    "selector": "/pages/selector/selector"
+  }
+}

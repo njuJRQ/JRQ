@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "牌照市场",
+  "usingComponents": {
+    "selector": "/pages/selector/selector"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "地金市场",
+  "usingComponents": {
+    "selector": "/pages/selector/selector"
+  }
+}

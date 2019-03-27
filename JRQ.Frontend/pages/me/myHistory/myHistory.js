@@ -80,10 +80,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options)
     if (options.id) {
       this.data.isGetOtherInfo = true
       this.data.isAlreadyGetOtherInfo = false
-      this.data.otherid = options.id
+        this.data.otherid = options.id
+      this.data.writerOpenid = this.data.otherid
+
+      console.log(this.data.otherid  + '123456')
+
       api.getOtherBasicInfo.call(this, this.data.otherid) //获取除联系方式外的其他信息
       api.getUserHistoryAbstractList.call(this, app.getOpenid(), this.data.otherid) //获取文章历史记录
     }

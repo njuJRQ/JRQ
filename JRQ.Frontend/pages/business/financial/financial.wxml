@@ -1,0 +1,78 @@
+<import src='/template/findBar/searchBar.wxml'></import>
+<import src='/template/adBar/adBar.wxml'></import>
+<import src='/template/likeIcon/likeIcon.wxml'></import>
+
+<view class="container container--color-white">
+  <view class='box'>
+    <view class='heder_img'>
+    <image class='img_image' src='{{image}}' mode='widthFix'></image>
+  </view>
+    <view class='conten'>
+      <view>
+        <text class='title'>{{cooperation.title}}</text>
+      </view>
+      <view>
+        <text class='text'>{{cooperation.text}}</text>
+      </view>
+      <view style='margin-top:10px'>
+        <text class='title'>{{cooperation.text_tex}}</text>
+      </view>
+      <view>
+        <text class='text'>{{cooperation.text_size}}</text>
+      </view>
+      <view>
+        <text class='text'>{{cooperation.time}}</text>
+      </view>
+      <view>
+        <text class='title'>{{cooperation.title_a}}</text>
+      </view>
+      <view class='img'>
+        <image class='img_a' src='/img/liucheng.png'></image>
+      </view>
+      <!-- 合作申请 -->
+      <view style='text-align: center'>
+        <text class='title'>{{cooperation.title_txt}}</text>
+      </view>
+      <view class='type_txt'>
+        <text class='type'>以下信息本平台严格保密，请放心填写</text>
+      </view>
+      <view class='basic'>基础信息*</view>
+      <!-- 输入框 -->
+      <view class='section_box'>
+
+        <view class="section">
+          <text class='types'>联系人</text>
+          <input  value='{{linkMan}}' bindblur='linkManInput' style='border: 1px solid rgb(221, 201, 162);' class='placeholder' />
+        </view>
+        <view class='section'>
+          <text class='types'>手机号</text>
+          <input  value='{{phone}}' bindblur='phoneInput' style='border: 1px solid rgb(221, 201, 162);' class='placeholders' />
+        </view>
+        <view class='section'>
+          <text class='types'>机构名</text>
+          <input  value='{{agencyName}}' bindblur='agencyNameInput'  style='border: 1px solid rgb(221, 201, 162);' class='placeholders' />
+        </view>
+        <view class="section">
+          <text class='types'>项目关联</text>
+          <view class='selects_text'>
+          <selector value='{{projectRef}}' prop-array='{{selectArray}}' bind:myget='getDate'></selector>
+          </view>
+           
+        </view>
+        <!-- 项目 -->
+        <view class='textarea'>
+          <text class='basic'>项目信息</text>
+          <view class="textarea-wrp">
+            <textarea value='{{projectInfo}}' bindinput='projectInfoInput'  auto-focus="true" style="height: 5em;" />
+          </view>
+        </view>
+        <!--上传图片  -->
+        
+      </view>
+    </view>
+  </view>
+  <view class='publisher-button'>
+    <button class='' bindtap='onPublish'>提交</button>
+  </view>
+</view>
+

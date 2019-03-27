@@ -1,0 +1,32 @@
+<!--pages/particulars/documentation/documentation.wxml-->
+<!--pages/particulars/curriculum/curriculum.wxml-->
+<!--index.wxml-->
+<import src='/template/findBar/searchBar.wxml'></import>
+<import src='/template/adBar/adBar.wxml'></import>
+<import src='/template/likeIcon/likeIcon.wxml'></import>
+
+
+<view class="container container--color-white">
+  <view class='box'  wx:for="{{documents}}" wx:key="id">
+    <view class='conten' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
+      <view class='vessel'>
+        <view class='img'>
+          <image class='img_bofang' src='{{item.image}}'></image>
+        </view>
+        <view class='right'>
+          <text class='title'>{{item.title}}</text>
+          <view class='shoping'>
+          <view>
+            <!-- <text style='color: rgb(247, 198, 17);'>￥</text> -->
+            <text class='money'>{{item.writerName}}</text>
+          </view>
+            <text class='img_cart' >{{item.date}}</text>
+          </view>
+        </view>
+        
+      </view>
+    </view>
+  </view>
+</view>
+
+

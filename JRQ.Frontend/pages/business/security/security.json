@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "资产证券化",
+  "usingComponents": {
+    "selector": "/pages/selector/selector"
+  }
+}

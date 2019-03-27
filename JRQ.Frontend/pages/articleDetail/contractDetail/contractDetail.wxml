@@ -1,0 +1,44 @@
+<!--pages/articleDetail/contractDetail/contractDetail.wxml-->
+<import src='/template/findBar/searchBar.wxml'></import>
+<import src='/template/adBar/adBar.wxml'></import>
+<import src='/template/likeIcon/likeIcon.wxml'></import>
+
+<view class='container'>
+  <view class='box'>
+    <view class='img'>
+      <image class='img_a' src='{{image}}' mode='widthFix'></image>
+    </view>
+    <view class='content'>
+      <view class='section_icon'>
+        <view class="section">
+          <input class='input_text' placeholder="请输入文档名称" placeholder-style="color:rgb(247, 198, 17)" />
+        </view>
+        <view class='button'>
+          <text class='button_text'>合同</text>
+        </view>
+      </view>
+    </view>
+    <view class='content'>
+      <view class='section_i'>
+        <view class='input'>
+          <input class='input_text' placeholder="合同详情" placeholder-style="color:rgb(247, 198, 17)"></input>
+        </view>
+      </view>
+    </view>
+    <view class='content'>
+      <view class='section_i'>
+        <view class='input'>
+          <input class='input_text' placeholder="合同预览" placeholder-style="color:rgb(247, 198, 17)"></input>
+        </view>
+      </view>
+
+    </view>
+    <view class='images'>
+      <image class='images_a' mode='widthFix' src='{{document.preview}}'></image>
+    </view>
+
+    <view class='footer'>
+     <text class='footer_text' bindtap='onDownload' disabled='{{!document.attachment}}'>下载合同</text>
+    </view>
+  </view>
+</view>

@@ -5,6 +5,8 @@
   <view class='header' style='width: 100%;'>
     <view class='card'>
       <image class='card__face' src='{{myInfo.face}}'></image>
+      <!-- <image class='card__face' src='{{myInfo.writerFace}}'></image> -->
+
       <view class='card__info column'>
         <view class='card__username row v-center'>
           <text>{{myInfo.username}}</text>

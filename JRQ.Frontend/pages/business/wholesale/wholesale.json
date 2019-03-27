@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "大额短诉",
+  "usingComponents": {
+    "selector": "/pages/selector/selector"
+  }
+}

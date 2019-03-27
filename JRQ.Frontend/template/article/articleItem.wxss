@@ -90,8 +90,6 @@
 .article_text {
   height: 55px;
   width: 260px;
-  overflow: hidden;
-  /* margin-bottom: 3%; */
 }
 
 .writer__face {

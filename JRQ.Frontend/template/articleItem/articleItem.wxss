@@ -2,9 +2,8 @@
 
 .article {
   position: relative;
-  /* background-color: #f7f1e5; */
+  background-color: rgb(33, 33, 33);
   border-radius: 5px;
-  box-shadow: 0 5px 20px #d0d0d0;
   padding: 10px 10px;
   margin: 20px 0 30px 0;
 }
@@ -47,6 +46,7 @@
   width: 100%;
   font-size: 0.7rem;
   font-weight: 500;
+  color: #fff;
   margin: 5px 0 10px 0;
   display: -webkit-box;
   overflow: hidden;
@@ -89,9 +89,10 @@
 }
 
 .article_text {
-  height: 87px;
+  height: 120px;
   width: 230px;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .writer__face {
@@ -123,13 +124,17 @@
 }
 
 .title {
-  font-weight: bolder;
-  margin-left: -3%;
-  color: black;
+  /* font-weight: bolder; */
+  color: #f65e;
+  font-size: 12px;
+  margin-top: 10px;
+  padding-bottom: 10px;
+  width: 80%;
+  border-bottom:1px solid #f1c65e;
 }
-.name_width{
-  width:45px;
+
+.name_width {
+  width: 45px;
   height: 25px;
   overflow: hidden;
-
 }

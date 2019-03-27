@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "其他类",
+  "usingComponents": {
+    "selector": "/pages/selector/selector"
+  }
+}

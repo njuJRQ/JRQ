@@ -1,0 +1,8 @@
+<import src='/template/findBar/searchBar.wxml'></import>
+<import src='/template/adBar/adBar.wxml'></import>
+<import src='/template/likeIcon/likeIcon.wxml'></import>
+<view class="container">
+  <view class='img' >
+    <image class='img_partnership'mode='widthFix' src='{{course}}'></image>
+  </view>
+</view>

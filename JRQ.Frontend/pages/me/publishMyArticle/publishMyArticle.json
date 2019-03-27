@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "发布项目"
+  "navigationBarTitleText": "发布项目",
+    "usingComponents": {
+      "selector": "/pages/selector/selector"
+    }
 }

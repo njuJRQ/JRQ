@@ -4,16 +4,19 @@
 <import src='/template/likeIcon/likeIcon.wxml'></import>
 
 <view class="container container--color-white">
-  <view class='headWrapper' style='background-color:black; background-size: cover;background-repeat: no-repeat; background-position: bottom'>
+  <view class='headWrapper' style='background-color:rgb(242,197,72); background-size: cover;background-repeat: no-repeat; background-position: bottom'>
     <!--搜索框-->
     <template class='search' is='searchBar' data='{{placeholder: "搜索文章", searchCondition: searchCondition}}'></template>
   </view>
   <!--广告位-->
-  <template class='ad' is='adBar' data='{{ad}}'></template>
+  <!-- <template class='ad' is='adBar' data='{{ad}}'></template> -->
+  <view class='banner'>
+  <image class='banner_img' mode='widthFix' src='https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E6%84%9F%E8%B0%A2%E6%9C%89%E4%BD%A0%20%E4%BC%9A%E5%91%98%E4%B8%93%E4%BA%AB.png'></image>
+  </view>
   <view class='adBar_btn'>
 
     <!--Banner-->
-    <view class='navBar'>
+    <!-- <view class='navBar'>
       <view class=' navBar__btn {{currentKind=="course"?"navBar__btn-state--chosen":""}}' bindtap='showAll1'>
         <image class='navBar__icon' mode='widthFix' src='https://junrongcenter.oss-cn-beijing.aliyuncs.com/img/remen-icon.png'></image>
       </view>
@@ -23,22 +26,67 @@
       <view class='navBar__btn {{currentKind=="course1"?"navBar__btn-state--chosen":""}} ' bindtap='showVideos'>
         <image class='navBar__icon' mode='widthFix' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/vedio-icon.png'></image>
       </view>
+    </view> -->
+  </view>
+  <!--内容  -->
+  <view class='box-tll'>
+  <view class='box'>
+    <view class='conten'  wx:for-items="{{array}}" wx:key="id">
+      <view class='diteall' catchtap="catchTapCategory" open-type="switchTab"  data-goodsid="{{item.id}}" >
+      <view >
+      <view class='conten-image'>
+        <view class='conten-text'>
+          <image src='{{item.src}}' class='img'></image>
+        </view>
+        </view>
+        </view>
+        <text class='txt'>{{item.text}}</text>
+      </view>
     </view>
   </view>
-  <view style='width:100%;' wx-if="{{isShow}}">
+  </view>
+  <!-- 课程 -->
+  <view style='width:100%;background:black;' wx-if="{{isShow}}">
     <view class='document_more'>
-    <text class='document'>热门文档</text>
-      <text class='more' bindtap='moreAction'>更多>></text>
-      
+      <text class='document'>最新课程</text>
+      <!-- <text class='more' bindtap='moreAction'>更多>></text> -->
+      <text class='more'>Last Course Update</text>
+    </view>
+    <!-- style='height:{{height_video}}px;' -->
+    <view class='articleListWrapper ' >
+      <view class='articleWrapper' wx:for='{{videos}}' wx:key='id'>
+        <view class='article jrq__block' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
+          <view class='article__content'>
+            <image class='article__banner' mode='widthFix' src='{{item.images.length > 0 ? item.images[0]: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png"}}'></image>
+            <!-- <image class='article__banner' mode='widthFix' src='/img/bofang.jpg'></image> -->
+          </view>
+          <view class='title_range'>
+            <text class='article__titleName'></text>
+          </view>
+        </view>
+      </view>
     </view>
     <!-- <view> -->
-    <view class='articleListWrapper_document ' style='height:{{height}}px;'>
+
+  </view>
+  <!-- </view> -->
+
+  <view style='width:100%;background:black;' wx-if="{{isShowView}}">
+    <view class='video_more'>
+      <text class='document'>组合课程 Curricular</text>
+      <!-- <text class='video' bindtap='moresAction'>更多>></text> -->
+    </view>
+    <!--文章列表-->
+    <!-- 文章展示 -->
+    <!-- style='height:{{height}}px;' -->
+    <view class='articleListWrapper_document '>   
       <view class='articleWrapper_document' wx:for='{{articles}}' wx:key='id'>
-        <view class='article jrq__block hot_document' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
+        <view class='articles jrq__block' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
           <view class='article__content'>
-            <image class='article__image' src='{{item.images.length > 0 ? item.images[0]: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png"}}'></image>
+            <!-- <image class='article__image' src='{{item.images.length > 0 ? item.images[0]: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png"}}'></image> -->
+                        <image class='article__banner' mode='widthFix' src='{{item.images.length > 0 ? item.images[0]: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png"}}'></image>
           </view>
-          <view class='card_document'>
+          <!-- <view class='card_document'>
             <text class='article__titleName'>{{item.title}}</text>
             <text class='document_summary'>{{item.content?item.content:'钧融中心'}}</text>
 
@@ -47,32 +95,7 @@
               <text class='vip'>会员免费</text>
             </view>
           </view>
-          <button class='preview'>预览</button>
-        </view>
-      </view>
-    </view>
-  </view>
-  <!-- </view> -->
-
-  <view style='width:100%;' wx-if="{{isShowView}}">
-    <view class='video_more'>
-      <text class='video'>热门教学视频</text>
-      <text class='more' bindtap='moresAction'>更多>></text>
-    </view>
-    <!--文章列表-->
-    <!-- <view wx:if='{{searchCondition}}'>
-      <text class='jrq__words'>以下是“{{searchCondition}}”的搜索结果：</text>
-    </view> -->
-    <!-- 文章展示 -->
-    <view class='articleListWrapper ' style='height:{{height_video}}px;'>
-      <view class='articleWrapper' wx:for='{{videos}}' wx:key='id'>
-        <view class='article jrq__block' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
-          <view class='article__content'>
-            <image class='article__banner' mode='widthFix' src='{{item.images.length > 0 ? item.images[0]: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png"}}'></image>
-          </view>
-          <view class='title_range'>
-          <text class='article__titleName'>{{item.title}}</text>
-          </view>
+          <button class='preview'>预览</button> -->
         </view>
       </view>
     </view>

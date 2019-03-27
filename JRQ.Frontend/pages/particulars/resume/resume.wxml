@@ -1,0 +1,91 @@
+<!--pages/particulars/resume/resume.wxml-->
+<import src='/template/findBar/searchBar.wxml'></import>
+<import src='/template/adBar/adBar.wxml'></import>
+<import src='/template/likeIcon/likeIcon.wxml'></import>
+
+<view class="container container--color-white">
+  <view class='box' >
+    <view class='conten'>
+      <!-- 头部信息 -->
+      <view class='top'>
+        <view class='typeface'>
+          <text class='title'>{{jobCardItem.user.username}}</text>
+          <text class='title_studu'>南京林业大学-平面设计</text>
+        </view>
+        <view class='img'>
+          <image class='img_image' src='{{jobCardItem.face}}'></image>
+        </view>
+      </view>
+
+      <!-- 学历信息 -->
+      <view class='top'>
+        <view class='middle'>
+          <view class='icon'>
+            <image class='icon_img' src='/img/icon_user.png'></image>
+            <text class='title_studu'>应届生</text>
+          </view>
+          <view class='icon'>
+            <image class='icon_img' src='/img/icon_age.png'></image>
+            <text class='title_studu'>本科</text>
+          </view>
+          <view class='icon'>
+            <image class='icon_img' src='/img/icon_eduo.png'></image>
+            <text class='title_studu'>21岁</text>
+          </view>
+          <view class='experience'>
+            <text class='title_studu'>{{jobCardItem.experience}}</text>
+          </view>
+        </view>
+      </view>
+      <!-- 期望 -->
+      <view class='top'>
+        <view class='expect'>
+          <view class='expect_a'>
+            <text class='title_txt'>求职期望</text>
+          </view>
+          <view class='expect_b'>
+            <text class='title_txt'>平面设计师-南京</text>
+            <text class='title_txt'>{{jobCardItem.expectWage}}</text>
+          </view>
+          <view class='expect_v'>
+            <text class='title_studu'>行业不限</text>
+          </view>
+        </view>
+      </view>
+      <!-- 经历 -->
+      <view class='top'>
+        <view class='expect'>
+          <view class='expect_a'>
+            <text class='title_txt'>实习经历</text>
+          </view>
+          <view class='expect_b'>
+            <text class='title_txt'>{{jobCardItem.company}}</text>
+            <text class='title_studu'>{{jobCardItem.time}}</text>
+          </view>
+          <view class='expect_v'>
+            <text class='title_studu'>平面设计师-设计</text>
+          </view>
+          <view class='expect_v'>
+            <text class='title_studu'>成绩:</text>
+            <text class='title_studu'>内容:</text>
+          </view>
+        </view>
+      </view>
+      <!--  -->
+           <view class='footer'>
+        <view class='expect'>
+          <view class='expect_a'>
+            <text class='title_txt'>教育经历</text>
+          </view>
+          <view class='expect_b'>
+            <text class='title_txt'>南京林业大学</text>
+            <text class='title_studu'>2016-2020</text>
+          </view>
+          <view class='expect_v'>
+            <text class='title_studu'>本科-平面设计</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

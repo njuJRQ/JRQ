@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "二级市场",
+  "usingComponents": {
+    "selector": "/pages/selector/selector"
+  }
+}

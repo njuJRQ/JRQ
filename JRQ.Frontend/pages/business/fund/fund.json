@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "基金服务",
+  "usingComponents": {
+    "selector": "/pages/selector/selector"
+  }
+}

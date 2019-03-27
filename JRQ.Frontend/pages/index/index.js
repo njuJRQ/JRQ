@@ -8,11 +8,51 @@ const {
 
 Page({
   data: {
+    array: [{
+        id: '0',
+      src: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E8%AF%BE%E7%A8%8B.png',
+        text: '课程培训'
+      },
+      {
+        id: '1',
+        src: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E8%80%83%E8%AF%81%E8%80%83%E7%BA%A7.png',
+        text: '考证考级'
+      },
+      {
+        id: '2',
+        src: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E6%9C%BA%E6%9E%84%E6%8B%9B%E8%81%98.png',
+        text: '机构招聘'
+      },
+      {
+        id: '3',
+        src: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E6%8A%A5%E5%91%8A%E6%96%87%E4%B9%A6.png',
+        text: '报告文档'
+      },{
+        id:'4',
+        src:'/img/hehuo.png',
+        text:"事业合伙"
+      },
+      {
+        id:"5",
+        src:"https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E5%90%88%E5%90%8C.png",
+        text:"标准合同"
+      },
+      {
+        id:"6",
+        src:"https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E5%95%86%E5%8A%A1%E5%90%88%E4%BD%9C.png",
+        text:"商务合作"
+      },
+      {
+        id:"7",
+        src:'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E5%9F%8E%E5%B8%82%E7%A4%BE%E7%BE%A4.png',
+        text:"城市社群"
+      }
 
+    ],
     moreType: true,
     isShowView: true,
     isShow: true,
-    isShowPrice:true,
+    isShowPrice: true,
     height: 290,
     height_video: 400,
     image: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
@@ -38,7 +78,7 @@ Page({
 
 
     articles: [],
-    videos:[],
+    videos: [],
     // ad: {
     //   image: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
     //   link: 'https://www.baidu.com'
@@ -63,7 +103,7 @@ Page({
           isShowPrice: false
         })
       }
-    })  
+    })
     this.setData({
       kind: 'document',
       currentKind: 'course',
@@ -73,13 +113,13 @@ Page({
       videoId: "",
       videoIdType: "",
       articles: [],
-      videos:[]
+      videos: []
     })
     // this.showAll()
     this.showVideos()
     this.showAll1()
-    
-    
+
+
     api.getAd.call(this, 'index', (res) => {
       this.setData({
         ad: res.ad
@@ -103,7 +143,7 @@ Page({
 
   moreAction: function() {
     var that = this;
-
+     
     var type = this.data.moreType;
     if (type) {
       that.setData({
@@ -120,8 +160,9 @@ Page({
   },
   moresAction: function() {
     var that = this;
-
+   
     var type = this.data.moreType;
+    console.log(type+'123123')
     if (type) {
       that.setData({
         height_video: '',
@@ -134,7 +175,7 @@ Page({
       })
     }
   },
-  showAll1: function () {
+  showAll1: function() {
     console.log('showAll1 success!')
     // this.judgeView()
     this.setData({
@@ -143,16 +184,16 @@ Page({
       articles: [],
       videoId: "",
       videoIdType: "",
-      isShow:true,
+      isShow: true,
       isShowView: true,
       height: 290,
-      height_video:400
+      height_video: 400
     })
     // api.getAbstractList.call(this, 'all', app.getOpenid(), this.data.lastId, this.data.lastIdType)
     api.getAbstractListByLikeNum.call(this, 'document', app.getOpenid())
-    
-    
-    
+
+
+
     // api.getAd.call(this, 'jump', (res) => {
     //   // /*console.log(res)*/
     //   this.setData({
@@ -170,12 +211,12 @@ Page({
       articles: [],
       lastId: "",
       lastIdType: "",
-      isShow:true,
+      isShow: true,
       isShowView: true,
       height: 290
     })
     api.getAbstractList.call(this, 'all', app.getOpenid(), this.data.lastId, this.data.lastIdType)
-    
+
   },
 
   //展示文档
@@ -187,14 +228,14 @@ Page({
       articles: [],
       lastId: "",
       lastIdType: "",
-      isShow:true,
+      isShow: true,
       isShowView: false,
       moreType: true,
       height: ''
     })
     api.getAbstractList.call(this, 'document', app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
-  showVideos: function () {
+  showVideos: function() {
 
     var that = this;
     // that.judgeView()
@@ -209,7 +250,7 @@ Page({
       moreType: true,
       height_video: ''
     })
-    
+
     api.getAbstractListVideo.call(this, 'course', app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
 
@@ -346,7 +387,51 @@ Page({
     console.log('search service people: ' + this.data.searchCondition)
     api.getPersonListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
   },
-
-
-
+  //通过id获取不同页面
+  catchTapCategory: function(e) {
+    var that = this;
+    var id = e.currentTarget.dataset.id //获取当前文章id
+    var goodsId = e.currentTarget.dataset.goodsid;
+    console.log('goodsId:' + goodsId);
+    if ("0" == e.currentTarget.dataset.goodsid) {
+      wx.navigateTo({
+        url: '../particulars/curriculum/curriculum?goodsId=' + goodsId
+      })
+    }
+    if ("2" == e.currentTarget.dataset.goodsid) {
+      wx.navigateTo({
+        url: '../particulars/jobwanted/jobwanted?goodsId=' + goodsId
+      })
+    }
+    if ("1" == e.currentTarget.dataset.goodsid) {
+      wx.navigateTo({
+        url: '../particulars/verificine/verificine?goodsId=' + goodsId
+      })
+    }
+    if ("4" == e.currentTarget.dataset.goodsid) {
+      wx.navigateTo({
+        url: '../particulars/partnership/partnership?goodsId=' + goodsId
+      })
+    }
+    if ("6" == e.currentTarget.dataset.goodsid) {
+      wx.navigateTo({
+        url: '../particulars/cooperation/cooperation?goodsId=' + goodsId
+      })
+    }
+    if ("3" == e.currentTarget.dataset.goodsid) {
+      wx.navigateTo({
+        url: '../particulars/documentation/documentation?goodsId=' + goodsId
+      })
+    }
+    if ("7" == e.currentTarget.dataset.goodsid) {
+      wx.switchTab({
+        url: '../contact/contact'
+      })
+    }
+    if ("5" == e.currentTarget.dataset.goodsid) {
+      wx.navigateTo({
+        url: '../particulars/contract/contract?goodsId=' + goodsId
+      })
+    }
+  },
 })

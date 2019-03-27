@@ -13,6 +13,8 @@ Page({
     content: '',
     date: '',
     images: null,
+    projectRef:'',//项目关联
+    projectInfo:'',//项目信息
     writerOpenid: '',
     id: '',
     // test:'你好吗',
@@ -52,7 +54,9 @@ Page({
     })
 
   },
-
+  itemclick(event) {
+    articleItem.onClickThisFace(event)
+  },
   // 滑动切换tab 
   bindChange: function(e) {
     console.log('1-----' + e)

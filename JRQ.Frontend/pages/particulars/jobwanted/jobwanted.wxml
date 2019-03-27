@@ -1,0 +1,37 @@
+<import src='/template/findBar/searchBar.wxml'></import>
+<import src='/template/adBar/adBar.wxml'></import>
+<import src='/template/likeIcon/likeIcon.wxml'></import>
+
+<view class="container container--color-white">
+  <view class='box' wx:for="{{jobCardItems}}" wx:key="">
+    <view class='conten' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
+      <!-- 标题 -->
+      <!-- 个人信息 -->
+      <view class='user'>
+        <view class='title'>
+          <view class='img'>
+            <image src='{{item.image}}'></image>
+          </view>
+          <view class='title_txt'>
+            <text class='title_user'>{{item.user.username}}</text>
+          </view>
+
+        </view>
+        <view>
+          <text class='txt'>{{item.expectWage}}</text>
+        </view>
+      </view>
+      <!-- 公司 -->
+      <view class='money'>
+        <text class='text'>{{item.expectPosition}}</text>
+      </view>
+      <!-- 要求 -->
+      <view class='ask'>
+        <text class='ask_type'>应届生</text>
+        <text class='ask_type'>{{item.degree}}</text>
+        <text class='ask_type'>21岁</text>
+      </view>
+
+    </view>
+  </view>
+</view>

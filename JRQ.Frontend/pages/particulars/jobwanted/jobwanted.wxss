@@ -1,0 +1,81 @@
+/**index.wxss**/
+@import '/style/common.wxss';
+@import '/template/findBar/searchBar.wxss';
+@import '/template/adBar/adBar.wxss';
+@import '/template/likeIcon/likeIcon.wxss';
+/* 本页面的样式 */
+.container {
+  background-color: rgb(247, 198, 17);
+}
+.box{
+  width: 90%;
+  border-radius: 10px;
+  background: rgb(42, 40, 40);
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+.conten{
+  width: 90%;
+  margin: 0 auto;
+}
+.title{
+  display: flex;
+  justify-content: space-between;
+}
+.txt{
+  color: #927912;
+  font-size: 14px;
+}
+.money{
+  border-bottom: 1px solid #927912;
+  padding-bottom: 10px;
+  width: 68%;
+}
+.text{
+  font-size: 12px;
+}
+.ask{
+  width: 65%;
+}
+.ask_type{
+  font-size: 10px;
+  color: #fff;
+  background-color: rgb(247, 198, 17);
+  margin-right: 8px;
+}
+.user{
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  /* width: 35%; */
+}
+.img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display:table-cell;
+  text-align:center; 
+  vertical-align:middle;
+  align-items: center;
+ margin-bottom: 15px;
+}
+.img image{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  
+}
+.title_txt{
+  margin-left: 10px;
+  text-align: center;
+}
+.title_user{
+  color: #927912;
+  font-size: 1rem;
+  
+}
+.userinfo{
+  font-size: 10px;
+  text-align:center; 
+  margin-top: 5px;
+}

@@ -72,6 +72,7 @@ Page({
   },
 
   updateTo298: function () {
+    var that = this
     wx.showModal({
       title: '确认升级',
       content: '你确认以¥298的价格升级为298用户吗？',

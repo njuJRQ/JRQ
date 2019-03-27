@@ -22,7 +22,11 @@
 
             <view class='article_text'>
 
-              <text class='article__content'>{{item.content ? item.content : item.title}}</text>
+              <!-- <text class='article__content'>{{item.content ? item.content : item.title}}</text> -->
+                        <text class='title' wx:if="{{item.title.length==17}}">实控人</text>
+          <text class='title' wx:elif="{{item.title.length==20}}">核心股东</text>
+          <text class='title' wx:elif="{{item.title.length==8}}">雇员</text>
+          <text class='title' wx:elif="{{item.title.length==11}}">一手第三方</text>
             </view>
             <!--文章图片-->
             <view class='article__imageList'>

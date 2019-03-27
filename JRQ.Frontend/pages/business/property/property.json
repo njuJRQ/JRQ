@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "不良资产",
+  "usingComponents": {
+    "selector": "/pages/selector/selector"
+  }
+}

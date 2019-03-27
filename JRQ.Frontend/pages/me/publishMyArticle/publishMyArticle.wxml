@@ -1,32 +1,73 @@
 <!--pages/me/publishMyArticle/publishMyArticle.wxml-->
 <view class='container container--color-gray'>
-  <view class='publisher'>
-    <view class='publisher-input'>
-      <textarea placeholder='关于所发内容的信息，如课程或项目描述、或文档下载地址。' bindinput='bindInputValue' maxlength='600'></textarea>
-      <view class='publisher-photos'>
-        <view wx:for='{{publishPhotos}}' wx:key='*this' class='publisher-photo'>
-          <image src='{{item}}'></image>
+  <view class='box' wx:for="{{cooperation}}">
+    <view class='conten'>
+      <!-- 221 201 162 -->
+      <!-- 资源介绍 -->
+      <view style='text-align: center'>
+        <text class='title'>{{item.title}}</text>
+      </view>
+      <view>
+        <text class='text'>{{item.text}}</text>
+      </view>
+      <view style='margin-top:20px'>
+        <text class='text'>{{item.text_tex}}</text>
+      </view>
+      <view>
+        <text class='text'>{{item.time}}</text>
+      </view>
+      <!-- 合作申请 -->
+      <view style='text-align: center'>
+        <text class='title'>{{item.title_txt}}</text>
+      </view>
+      <view class='type_txt'>
+        <text class='type'>以下信息本平台严格保密，请放心填写</text>
+      </view>
+      <view class='basic'>基础信息*</view>
+      <!-- 输入框 -->
+      <view class='section_box' bindsubmit="formSubmit" bindreset="formReset">
+
+        <view class="section">
+          <text class='types'>联系人</text>
+          <input  value='{{linkMan}}' bindblur='linkManInput' class='placeholder' name='linkMan' />
         </view>
-        <view class='publisher-photo' bindtap='onUploadPhotos'>
-          <image src='img/plusPhoto.png'></image>
+        <view class='section'>
+          <text class='types'>手机号</text>
+          <input value='{{phone}}' bindblur='phoneInput' class='placeholders' name='phone' />
         </view>
-      </view>
-    </view>
-    <view class='publisher-chooser'>
-      <!--
-      <view class='publisher-chooser-text'>
-        <text>您好！您可在当前页面发布一下内容，请选择对应内容类型</text>
-        <text>(当前版本仅支持圈子类型发布)</text>
-      </view>
-      <view class='row'>
-        <button style="{{publishType=='community'?'background-color:gray':''}}" bindtap='onChooseType' data-t='community'>圈子</button>
-        <button style="{{publishType=='course'?'background-color:gray':''}}" bindtap='onChooseType' data-t='course'>课程</button>
-        <button style="{{publishType=='document'?'background-color:gray':''}}" bindtap='onChooseType' data-t='document'>文档</button>
-        <button style="{{publishType=='project'?'background-color:gray':''}}" bindtap='onChooseType' data-t='project'>项目</button>
-      </view>
-      -->
-      <view class='publisher-button'>
-        <button class='jrq__button v-center h-center' bindtap='onPublish'>发布项目</button>
+        <view class='section'>
+          <text class='types'>机构名</text>
+          <input value='{{agencyName}}' bindblur='agencyNameInput' class='placeholders' name='agencyName' />
+        </view>
+        <view class="section">
+          <text class='types'>项目关联</text>
+           <selector value='{{projectRef}}' prop-array='{{selectArray}}' bind:myget='getDate'></selector>
+        </view>
+        <!-- 项目 -->
+        <view class='textarea'>
+          <text class='basic'>项目信息</text>
+          <view class="textarea-wrp">
+            <textarea auto-focus="true" name="projectInfo" style="height: 3em" />
+          </view>
+        </view>
+        <view class='publisher'>
+          <view class='publisher-input'>
+            <textarea placeholder='关于所发内容的信息，如课程或项目描述、或文档下载地址。' bindinput='bindInputValue' maxlength='200'></textarea>
+            <view class='publisher-photos'>
+              <view wx:for='{{publishPhotos}}' wx:key='*this' class='publisher-photo'>
+                <image src='{{item}}'></image>
+              </view>
+              <view class='publisher-photo' bindtap='onUploadPhotos'>
+                <image src='img/plusPhoto.png'></image>
+              </view>
+            </view>
+          </view>
+          <view class='publisher-chooser'>
+            <view class='publisher-button'>
+              <button class='jrq__button v-center h-center' bindtap='onPublish'>发布项目</button>
+            </view>
+          </view>
+        </view>
       </view>
     </view>
   </view>

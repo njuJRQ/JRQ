@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "一级市场",
+  "usingComponents": {
+    "selector": "/pages/selector/selector"
+  }
+}

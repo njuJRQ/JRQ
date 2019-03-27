@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "商务合作",
+  "usingComponents": {
+    "selector": "/pages/selector/selector"
+  }
+}

@@ -155,7 +155,6 @@ Page({
 
   //点击当前文章触发函数
   onClickThisCard: function(e) {
-    debugger
     var id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: '../me/myHistory/myHistory?id=' + id,

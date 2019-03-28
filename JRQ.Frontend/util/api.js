@@ -1668,6 +1668,31 @@ function getDocumentList(then) {
     }
   })
 }
+// 业务
+function getImage(marketType) {
+  console.log('getImage success!' +'123')
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "business/getImage",
+    data: {
+      marketType: marketType,
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      if (res.statusCode == 200) {
+        that.setData({
+          image: res.data
+        })
+        console.log(res.data+'123456')
+      }
+    }
+  })
+}
+  
 module.exports = {
   getAbstractList: getAbstractList,
   getAbstractListByCondition: getAbstractListByCondition,
@@ -1720,5 +1745,6 @@ module.exports = {
   getDocumentList: getDocumentList,
   getPartnership: getPartnership,
   getFindById: getFindById,
-  businessAdd: businessAdd
+  businessAdd: businessAdd,
+  getImage: getImage
 }

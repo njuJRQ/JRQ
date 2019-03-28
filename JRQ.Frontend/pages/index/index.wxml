@@ -48,7 +48,7 @@
   </view>
   </view>
   <!-- 课程 -->
-  <view style='width:100%;background:black;' wx-if="{{isShow}}">
+  <view style='width:100%;background:#fff;' wx-if="{{isShow}}">
     <view class='document_more'>
       <text class='document'>最新课程</text>
       <!-- <text class='more' bindtap='moreAction'>更多>></text> -->
@@ -73,7 +73,7 @@
   </view>
   <!-- </view> -->
 
-  <view style='width:100%;background:black;' wx-if="{{isShowView}}">
+  <view style='width:100%;background:#fff;' wx-if="{{isShowView}}">
     <view class='video_more'>
       <text class='document'>组合课程 Curricular</text>
       <!-- <text class='video' bindtap='moresAction'>更多>></text> -->

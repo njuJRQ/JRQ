@@ -5,36 +5,18 @@
 <view class="container container--color-white">
   <view class='box'>
     <view class='heder_img'>
-    <image class='img_image' src='{{image}}' mode='widthFix'></image>
+    <image class='img_image' src='{{image.up}}' mode='widthFix'></image>
+  </view>
+     <view class='heder_img'>
+    <image class='img_image' src='{{image.down}}' mode='widthFix'></image>
   </view>
     <view class='conten'>
-      <view>
-        <text class='title'>{{cooperation.title}}</text>
-      </view>
-      <view>
-        <text class='text'>{{cooperation.text}}</text>
-      </view>
-      <view style='margin-top:10px'>
-        <text class='title'>{{cooperation.text_tex}}</text>
-      </view>
-      <view>
-        <text class='text'>{{cooperation.text_size}}</text>
-      </view>
-      <view>
-        <text class='text'>{{cooperation.time}}</text>
-      </view>
-      <view>
-        <text class='title'>{{cooperation.title_a}}</text>
-      </view>
-      <view class='img'>
-        <image class='img_a' src='/img/liucheng.png'></image>
-      </view>
       <!-- 合作申请 -->
-      <view style='text-align: center'>
+      <view style='text-align: center;margin-bottom:15px'>
         <text class='title'>{{cooperation.title_txt}}</text>
       </view>
       <view class='type_txt'>
-        <text class='type'>以下信息本平台严格保密，请放心填写</text>
+        <!-- <text class='type'>以下信息本平台严格保密，请放心填写</text> -->
       </view>
       <view class='basic'>基础信息*</view>
       <!-- 输入框 -->

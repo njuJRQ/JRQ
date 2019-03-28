@@ -1,17 +1,15 @@
 .com-selectBox{
     width: 90px;
   border-radius: 5px;
-
+  border: 1px solid rgb(221, 201, 162);
 }
 .com-sContent{
-    border: 1px solid #e2e2e2;
     background: white;
     font-size: 16px;
     position: relative;
     height: 25px;
     line-height: 25px;
   border-radius: 5px;
-
 }
 .com-sImg{
     position: absolute;

@@ -38,7 +38,8 @@ Page({
       "projectRef": 'THIRD_PARTY'
     }
     ],
-    image: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/yiqu/WechatIMG189.jpeg',
+    image: '',
+    images:"https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E9%A1%B9%E7%9B%AE.jpg",
     phone: '',
     agencyName: "",
     identityInfo: '',
@@ -56,6 +57,7 @@ Page({
     this.setData({
       marketType: options.marketType
     })
+    api.getImage.call(this, this.data.marketType)
   },
   linkManInput: function (e) {
     this.setData({

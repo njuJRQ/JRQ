@@ -99,12 +99,12 @@
 }
 
 .document {
-  color: #fff;
+  color: black;
 }
 
 .more {
   font-size: 12px;
-  color: #fff;
+  color: black;
   margin-left: 10px;
 }
 

@@ -3,7 +3,14 @@
 @import '/style/common.wxss';
 @import '/template/searchBar/searchBar.wxss';
 @import '/template/adBar/adBar.wxss';
+page{
+  background-color: rgb(247, 198, 17);
 
+}
+.container{
+  background-color: rgb(247, 198, 17);
+
+}
 /*本页面css属性*/
 .search {
   /* background-color: rgb(200, 165, 65); */
@@ -98,21 +105,21 @@
   margin-left: auto;
 }
 .card__main {
-  width: 100%;
+  width: 95%;
   display: flex;
   align-items: center;
   padding: 10px 0 15px 5px;
+  margin: 0 auto;
+  background-color: rgb(23,23,23);
+  border-radius: 10px;
   margin-top: 10px;
-  margin-left: 3%;
-  background-color: white;
-  border-radius: 10px 0 0 10px;
 }
 
 .card__face {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  
+  width: 120px;
+  height: 80px;
+  border-radius: 5px;
+  margin-left: 5px;
 }
 
 .card__info {
@@ -123,11 +130,14 @@
 .card__title1 {
    display: block;
   text-align: left;
+  margin-bottom: 20px;
 }
 .card__title2 {
    display: flex;
    flex-direction: column;
   text-align: left;
+  margin-top: 20px;
+
 }
 .vipImage{
   margin-bottom: 1%;
@@ -140,7 +150,8 @@
   max-width: 9rem;
   font-size: 0.8rem;
   font-weight: bold;
-  color: #040404;
+  color: rgb(247, 198, 17);
+
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -150,7 +161,8 @@
   display: inline-block;
   margin: 0 0 0 5px;
   font-size: 0.5rem;
-  color: #a6a6a6;
+  color: rgb(247, 198, 17);
+
   max-width: 7rem;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -160,7 +172,8 @@
 .card__city, .card__company, .card__position {
   display: inline;
   margin: 0 5px 0 0;
-  color: #a6a6a6;
+  color: rgb(247, 198, 17);
+  /* color: #a6a6a6; */
 }
 
 .card__category {
@@ -176,7 +189,8 @@
 
 .card__category text {
   font-size: 0.8rem;
-  color: white;
+  color: rgb(247, 198, 17);
+
   font-weight: bold;
 }
 

@@ -27,16 +27,16 @@
     <swiper-item class="swiper-items" wx-if="{{isShow}}">
       <scroll-view class='scroll-views' scroll-x="false" scroll-y="true">
         <view wx:if='{{articles.length > 0}}' class='articleListWrapper_view' >
-          <view wx:for='{{articles}}' wx:key='id'>
+          <view wx:for='{{articles}}' wx:key='id'  bindtap='itemclick'>
             <template is='articleItem' data='{{item}}'></template>
           </view>
         </view>
       </scroll-view>
     </swiper-item>
-    <swiper-item class="swiper-items"  wx-if="{{isShow}}">
+    <swiper-item class="swiper-items"  wx-if="{{isShow}}" >
       <scroll-view class='scroll-views' scroll-x="false" scroll-y="true">
         <view wx:if='{{articles.length > 0}}' class='articleListWrapper_view'>
-          <view wx:for='{{articles}}' wx:key='id'>
+          <view wx:for='{{articles}}' wx:key='id'  bindtap='itemclick'>
             <template is='articleItem' data='{{item}}'></template>
           </view>
         </view>
@@ -45,7 +45,7 @@
     <swiper-item class="swiper-items" wx-if="{{isShow}}">
       <scroll-view class='scroll-views' scroll-x="false" scroll-y="true">
         <view wx:if='{{articles.length > 0}}' class='articleListWrapper_view' >
-          <view wx:for='{{articles}}' wx:key='id'>
+          <view wx:for='{{articles}}' wx:key='id' bindtap='itemclick' >
             <template is='articleItem' data='{{item}}'></template>
           </view>
         </view>

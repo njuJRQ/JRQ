@@ -80,12 +80,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
+    console.log(options+'789789')
     if (options.id) {
       this.data.isGetOtherInfo = true
       this.data.isAlreadyGetOtherInfo = false
+      this.setData({
+        writerOpenid: options.id
+      })
         this.data.otherid = options.id
-      this.data.writerOpenid = this.data.otherid
 
       console.log(this.data.otherid  + '123456')
 

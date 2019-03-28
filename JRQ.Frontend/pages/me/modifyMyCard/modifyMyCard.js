@@ -10,25 +10,120 @@ Page({
   data: {
     labelArray: ['承兑汇票', '股票质押', '大宗减持', '定增', '短拆过桥', '企业信用贷', '供应链金融', '商业保理', '融资租赁', '股权融资', '并购重组', '壳资源', '基金产品', '资产证券化', '土地并购', '自定义'],
     allUserTags: [{
-      name: '高科·智造',
-      state: false
-    }, {
-      name: '医疗健康',
-      state: false
-    }, {
-      name: '文娱·体游',
-      state: false
-    }, {
-      name: 'AI·芯片',
-      state: false
-    }],
+        name: '高科·智造',
+        state: false
+      }, {
+        name: '医疗健康',
+        state: false
+      }, {
+        name: '文娱·体游',
+        state: false
+      }, {
+        name: 'AI·芯片',
+        state: false
+      }, {
+        name: "交通物流",
+        state: false
+      }, {
+        name: "能源环保电",
+        state: false,
+      }, {
+        name: '教育.养老',
+        state: false
+      },
+      {
+        name: "材料.化工",
+        state: false
+      }, {
+        name: '电商.消费',
+        state: false
+      }, {
+        name: '土地.物业',
+        state: false
+      }, {
+        name: '汽车.军工',
+        state: false
+      }, {
+        name: '农林.牧海',
+        state: false
+      }, {
+        name: '竹子.园林',
+        state: false
+      }, {
+        name: '航空.通信',
+        state: false
+      }, {
+        name: '生活.服务',
+        state: false
+      }, {
+        name: 'TML.大数据',
+        state: false
+      }, {
+        name: '物联',
+        state: false
+      }, {
+        name: '金融.其他'
+      },
+
+      {
+        name: '并购.重组',
+        state: false
+      }, {
+        name: '定增.转股',
+        state: false
+      }, {
+        name: '壳与.牌照',
+        state: false
+      }, {
+        name: '质押.抵押',
+        state: false
+      }, {
+        name: '短融.过桥',
+        state: false
+      }, {
+        name: '大宗.交易',
+        state: false
+      }, {
+        name: '信托.资管',
+        state: false
+      }, {
+        name: '债券.ABS',
+        state: false
+      }, {
+        name: '保理.融租',
+        state: false
+      }, {
+        name: '港股.美股',
+        state: false
+      }, {
+        name: '公募.私募',
+        state: false
+      }, {
+        name: 'IPO.挂牌'
+      }, {
+        name: '不良资产',
+        state: false
+      }, {
+        name: '银行业务',
+        state: false
+      },{
+        name:'种子天使',
+        state:false
+      },{
+        name:'A轮',
+        state:false
+      },{
+        name:'B轮及以上',
+        state:false
+      }
+    ],
     showUserTagsModal: false,
     selectedUserTags: [],
 
     labelIndex: 0,
     myInfo: {
       face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-      username: 'USERNAME',
+      username: 'USERname',
       phone: 'phone',
       email: 'email',
       company: 'company',
@@ -98,7 +193,7 @@ Page({
     })
   },
 
-  updateName: function(e) {
+  updatename: function(e) {
     this.data.newMyInfo.name = e.detail.value;
   },
 

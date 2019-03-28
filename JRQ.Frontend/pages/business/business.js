@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    image: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/yiqu/WechatIMG189.jpeg',
+    image: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/44.jpg',
     images: [{
       id: 0,
       image_a: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E5%9C%B0%E4%BA%A7.png',

@@ -13,7 +13,7 @@ Page({
     content: '',
     date: '',
     images: null,
-    writerOpenid: '',
+    // writerOpenid: '',
     id: '',
     // test:'你好吗',
     openid: '',
@@ -28,6 +28,7 @@ Page({
     currentTab: 0,
   },
   onLoad: function() {
+    
     var condition = true
     api.getIOSQualification.call(this, (res) => {
       console.log(res)
@@ -52,7 +53,7 @@ Page({
     })
 
   },
-
+ 
   // 滑动切换tab 
   bindChange: function(e) {
     console.log('1-----' + e)
@@ -166,7 +167,9 @@ Page({
 
   onReachBottom: function() {
     api.getFeedList.call(this, app.getOpenid(), this.data.lastId)
-  }
+  },
 
-
+  itemclick(event) {
+    articleItem.onClickThisFace(event)
+  },
 })

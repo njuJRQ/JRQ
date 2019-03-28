@@ -6,12 +6,11 @@
 
 /* 本页面的样式 */
 page{
-  background-color: rgb(23, 23, 17);
+  background-color: #fff;
 
 }
 .container {
-  background-color: rgb(23, 23, 17);
-  /* background-color: rgb(255, 255, 255); */
+  background-color: #fff;
 }
 
 .conten {
@@ -25,13 +24,13 @@ page{
   width: 100%;
 }
 .title {
-  color: rgb(247, 198, 17);
+  color: black;
   font-size: 14px;
   font-weight: 800;
 }
 
 .text {
-  color: rgb(247, 198, 17);
+  color: black;
   font-size: 12px;
 }
 
@@ -42,14 +41,14 @@ page{
 }
 
 .type {
-  color: rgb(247, 198, 17);
+  color: black;
   font-size: 10px;
 }
 
 .basic {
-  color: rgb(247, 198, 17);
+  color: black;
   font-size: 14px;
-  margin-top: 5px;
+  margin-top: 15px;
 }
 
 .section_box {
@@ -61,7 +60,7 @@ page{
 .section {
   display: flex;
   flex-wrap: nowrap;
-  margin-top: 10px;
+  margin-top: 15px;
   justify-content: space-between;
   align-items: center;
 }
@@ -74,7 +73,7 @@ page{
 }
 
 .types {
-  color: rgb(247, 198, 17);
+  color: black;
   font-size: 12px;
   align-items: center;
   margin-right: 5px;
@@ -88,7 +87,7 @@ page{
 }
 
 .textarea {
-  margin-top: 10px;
+  margin-top: 15px;
   width: 100%;
 }
 
@@ -96,7 +95,7 @@ page{
   background-color: #fff;
   border-radius: 10px;
   margin: 0 auto;
-  margin-top: 10px;
+  margin-top: 15px;
   border: 1px solid rgb(221, 201, 162);
   margin-bottom: 10px;
 }

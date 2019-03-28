@@ -38,14 +38,14 @@ Page({
         "projectRef": 'THIRD_PARTY'
       }
     ],
-    image: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/yiqu/WechatIMG189.jpeg',
     phone: '',
     agencyName: "",
     identityInfo: '',
     linkMan: '',
     projectRef: '',
     projectInfo: '',
-    marketType: 'GOLD_MARKET'
+    marketType: 'GOLD_MARKET',
+    image:''
   },
 
   /**
@@ -56,11 +56,14 @@ Page({
     this.setData({
       marketType: options.marketType
     })
+    api.getImage.call(this, this.data.marketType)
+
   },
   linkManInput: function(e) {
     this.setData({
       linkMan: e.detail.value
     })
+  
   },
   phoneInput: function(e) {
     this.setData({

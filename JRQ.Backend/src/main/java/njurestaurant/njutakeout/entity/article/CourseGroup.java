@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="courseGroup")
+@Table
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class CourseGroup {
     @Id
@@ -16,6 +16,8 @@ public class CourseGroup {
     private String title;
     @Column
     private String writerName;
+    @Column
+    private String image;
 
     @ManyToMany
     @JoinTable(
@@ -27,9 +29,10 @@ public class CourseGroup {
     public CourseGroup() {
     }
 
-    public CourseGroup(String title, String writerName, List<Course> courseList) {
+    public CourseGroup(String title, String writerName,String image, List<Course> courseList) {
         this.title = title;
         this.writerName = writerName;
+        this.image=image;
         this.courseList = courseList;
     }
 
@@ -55,6 +58,14 @@ public class CourseGroup {
 
     public void setWriterName(String writerName) {
         this.writerName = writerName;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public List<Course> getCourseList() {

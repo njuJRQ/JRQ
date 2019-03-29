@@ -144,11 +144,11 @@ public class FeedController {
             String thePath="";
             String path="";
             if(temp.length>2) {
-                thePath = "JRQ.Backend/record/feed/image/" + uuid + "." + temp[3];
-                path = "JRQ.Backend/record/feed/image/" + uuid + "." + temp[3];
+                thePath = "record/feed/image/" + uuid + "." + temp[3];
+                path = "record/feed/image/" + uuid + "." + temp[3];
             }else{
-                thePath = "JRQ.Backend/record/feed/image/" + uuid + "." + temp[1];
-                path = "JRQ.Backend/record/feed/image/" + uuid + "." + temp[1];
+                thePath = "record/feed/image/" + uuid + "." + temp[1];
+                path = "record/feed/image/" + uuid + "." + temp[1];
             }
             File tempfile=new File(path);
             if (tempfile.exists() && tempfile.isFile()) {

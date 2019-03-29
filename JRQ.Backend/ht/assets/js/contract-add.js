@@ -1,55 +1,29 @@
 $("#loader").hide();
-var url = getUrl();
-var storage = window.localStorage;
-var id = storage["thisCourse"];
-var image = "";
-var video = "";
-$.ajax(
-    {
-        url: url + "/getCourse",
-        type: "POST",
-
-        data: {
-            id: id
-        },
-        async: false,
-        success: function (data) {
-            document.getElementById("id").innerText = data.course.id;
-            document.getElementById("title").value = data.course.title;
-            document.getElementById("writerName").value = data.course.writerName;
-            document.getElementById("date").value = data.course.date;
-            document.getElementById("likeNum").value = data.course.likeNum;
-            document.getElementById("price").value = data.course.price;
-            image = data.course.image;
-            video = data.course.video;
-        },
-        error: function (xhr) {
-            alert('动态页有问题噶！\n\n' + xhr.responseText);
-        },
-        traditional: true,
-    }
-)
-
 function checkRate(input) {
     var re = /^[0-9]+.?[0-9]*$/; //判断字符串是否为数字 //判断正整数 /^[1-9]+[0-9]*]*$/
     var nubmer = document.getElementById(input).value;
 
     if (!re.test(nubmer)) {
-        alert(input + "请输入数字");
+        alert(input+"请输入数字");
         document.getElementById(input).value = "";
         return false;
     }
     return true;
 }
 function adduser() {
-    if (checkRate("likeNum") && checkRate("price")) {
+    if(checkRate("price")) {
         $("#loader").show();
         var fd = new FormData($("#upload-file-form")[0]);
         var url = getUrl();
         var fd2 = new FormData($("#upload-video-form")[0]);
-
+        var storage = window.localStorage;
+        var id = storage["adminUsername"];
+        var myDate = new Date();
+        var date = myDate.toLocaleDateString();
+        var image="";
+        var attachment="";
         $.ajax({
-            url: url + "/courseImage",
+            url: url + "/documentImage",
             type: "POST",
             data: fd,
             enctype: 'multipart/form-data',
@@ -57,12 +31,11 @@ function adduser() {
             contentType: false,
             cache: false,
             success: function (data) {
-                if (data != "") {
+                if(data!="") {
                     image = data;
                 }
-
                 $.ajax({
-                    url: url + "/courseVideo",
+                    url: url + "/uploadDocument",
                     type: "POST",
                     data: fd2,
                     enctype: 'multipart/form-data',
@@ -70,29 +43,27 @@ function adduser() {
                     contentType: false,
                     cache: false,
                     success: function (data) {
-                        if (data != "") {
-                            video = data;
-                        }
                         $("#loader").hide();
+                        if(data!="") {
+                            attachment = data;
+                        }
                         $.ajax(
                             {
-                                url: url + "/updateCourse",
-                                type: "POST",
-
+                                url: url + "/addContract",
                                 data: {
-                                    id: id,
                                     title: $("#title").val(),
-                                    writerName: $("#writerName").val(),
-                                    date: $("#date").val(),
-                                    likeNum: $("#likeNum").val(),
+                                    id:id,
+                                    writerName:writerName,
+                                    attachment: attachment,
+                                    date: date,
                                     price: parseInt($("#price").val()),
-                                    image: image,
-                                    video: video
+                                    image:image,
+                                    attachment:attachment
                                 },
                                 async: false,
                                 success: function (data) {
-                                    alert("修改成功");
-                                    window.location.href = "course.html";
+                                    alert("添加成功");
+                                    window.location.href = "contract.html";
                                 },
                                 error: function (xhr) {
                                     //alert('动态页有问题噶！\n\n' + xhr.responseText);
@@ -100,21 +71,15 @@ function adduser() {
                                 traditional: true,
                             }
                         )
-
                     },
                     error: function (xhr) {
                         $("#loader").hide();
                     }
                 });
-
             },
             error: function (xhr) {
                 $("#loader").hide();
             }
         });
-
-
-
-
     }
 }

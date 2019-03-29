@@ -5,6 +5,7 @@ var video;
 $.ajax(
     {
         url: url+"/getCourse",
+        type: "POST",
         data: {
             id:id
         },

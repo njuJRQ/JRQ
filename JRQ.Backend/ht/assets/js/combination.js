@@ -60,8 +60,11 @@ $.ajax(
                             isEnterprise = true;
                             $("#checkall").hide();
                             $("#del").hide();
-                            for (var i = 0; i < data.courseList.length; i++) {
-                                list.push(data.courseList[i]);
+                            for (var i = 0; i < data.courseGroupItems.length; i++) {
+                                for (var j = 0; j < data.courseGroupItems[i].courseList.length; j++) {
+                                    list.push(data.courseGroupItems[i].courseList[j]);
+
+                                }
                             }
                             document.getElementById("jilu").innerText = "共" + (list.length) + "条记录";
                             changepage(1);
@@ -77,15 +80,16 @@ $.ajax(
                 if (isSuper) {
                     $.ajax(
                         {
-                            url: url + "/getCourseList",
-                            // type: "POST",
-
+                            url: url + "/courseGroup/getAll",
                             data: {},
                             async: false,
                             success: function (data) {
-                                for (var i = 0; i < data.courseList.length; i++) {
-                                    list.push(data.courseList[i]);
-                                }
+                              
+                                for (var i = 0; i < data.courseGroupItems.length; i++) {
+                                    // for (var j = 0; j < data.courseGroupItems[i].courseList.length; j++) {
+                                        list.push(data.courseGroupItems[i]);
+                                    }
+                                // }
                                 document.getElementById("jilu").innerText = "共" + (list.length) + "条记录";
                                 changepage(1);
                             },
@@ -108,8 +112,11 @@ $.ajax(
                                 isEnterprise = true;
                                 $("#checkall").hide();
                                 $("#del").hide();
-                                for (var i = 0; i < data.courseList.length; i++) {
-                                    list.push(data.courseList[i]);
+                                for (var i = 0; i < data.courseGroupItems.length; i++) {
+                                    for (var j = 0; j < data.courseGroupItems[i].courseList.length; j++) {
+                                        list.push(data.courseGroupItems[i].courseList[j]);
+
+                                    }
                                 }
                                 document.getElementById("jilu").innerText = "共" + (list.length) + "条记录";
                                 changepage(1);
@@ -137,6 +144,8 @@ function setthisquestion(n) {
     var q = list[firstID + n];
     var storage = window.localStorage;
     storage["thisCourse"] = q.id;
+    console.log(q.id+'===================')
+
 }
 function deletequestion(n) {
     var r = confirm("确定删除么？");
@@ -145,13 +154,13 @@ function deletequestion(n) {
         var url = getUrl();
         $.ajax(
             {
-                url: url + "/deleteCourse",
+                url: url + "/courseGroup/deleteById",
                 data: {
                     id: q.id
                 },
                 async: false,
                 success: function (data) {
-                    window.location.href = "course.html";
+                    window.location.href = "combination.html";
                 },
                 error: function (xhr) {
                     alert('动态页有问题噶！\n\n' + xhr.responseText);
@@ -344,7 +353,7 @@ function deletesingle(n) {
     var url = getUrl();
     $.ajax(
         {
-            url: url + "/deleteCourse",
+            url: url + "/courseGroup/deleteById",
             headers: {
                 'Authorization': 'Bearer ' + getToken(),
                 'content-type': 'application/x-www-form-urlencoded'
@@ -381,7 +390,7 @@ function delAll() {
             deletesingle(5);
         }
         alert("批量删除成功");
-        window.location.href = "course.html";
+        window.location.href = "combination.html";
     }
 
 }

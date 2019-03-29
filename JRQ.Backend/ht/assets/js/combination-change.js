@@ -6,7 +6,7 @@ var image = "";
 var video = "";
 $.ajax(
     {
-        url: url + "/getCourse",
+        url: url + "/courseGroup/findById",
         type: "POST",
 
         data: {
@@ -76,7 +76,7 @@ function adduser() {
                         $("#loader").hide();
                         $.ajax(
                             {
-                                url: url + "/updateCourse",
+                                url: url + "/courseGroup/update",
                                 type: "POST",
 
                                 data: {
@@ -92,7 +92,7 @@ function adduser() {
                                 async: false,
                                 success: function (data) {
                                     alert("修改成功");
-                                    window.location.href = "course.html";
+                                    window.location.href = "combination.html";
                                 },
                                 error: function (xhr) {
                                     //alert('动态页有问题噶！\n\n' + xhr.responseText);

@@ -77,7 +77,7 @@ $.ajax(
                 if (isSuper) {
                     $.ajax(
                         {
-                            url: url + "/getCourseList",
+                            url: url + "/getTextualResearchCourseList",
                             // type: "POST",
 
                             data: {},
@@ -151,7 +151,7 @@ function deletequestion(n) {
                 },
                 async: false,
                 success: function (data) {
-                    window.location.href = "course.html";
+                    window.location.href = "verificine.html";
                 },
                 error: function (xhr) {
                     alert('动态页有问题噶！\n\n' + xhr.responseText);

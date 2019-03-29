@@ -12,6 +12,6 @@ public interface BusinessImageDataService {
     void update(BusinessImage businessImage);
     void delete(String id);
     BusinessImage findById(String id) throws NotExistException;
-    BusinessImage findByMarketTypeAndPosition(MarketType marketType,String position) throws NotExistException;
+    List<BusinessImage> findByMarketType(MarketType marketType);
     List<BusinessImage> getAll();
 }

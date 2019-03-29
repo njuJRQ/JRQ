@@ -8,6 +8,7 @@ import njurestaurant.njutakeout.publicdatas.business.MarketType;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.Response;
 import njurestaurant.njutakeout.response.WrongResponse;
+import njurestaurant.njutakeout.response.business.BusinessImageItem;
 import njurestaurant.njutakeout.response.business.BusinessImageResponse;
 import njurestaurant.njutakeout.response.business.BusinessListResponse;
 import njurestaurant.njutakeout.response.business.BusinessResponse;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -36,13 +38,19 @@ public class BusinessController {
 
     @ApiOperation(value = "获取业务静态图片", notes = "获取业务静态图片")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "marketType", value = "marketType", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "position", value = "position", required = true, dataType = "String")
+            @ApiImplicitParam(name = "marketType", value = "marketType", required = true, dataType = "String")
     })
     @RequestMapping(value = "/getImage", method = RequestMethod.GET)
     @ResponseBody
-    public String getImage(@RequestParam("marketType")String marketType,@RequestParam("position")String position) throws NotExistException {
-        return businessImageBlService.findByMarketTypeAndPosition(marketType,position).getBusinessImageItem().getImage();
+    public Map getImage(@RequestParam("marketType")String marketType) {
+        Map<String,String> map=new HashMap<>();
+        List<BusinessImageItem> businessImageItems=businessImageBlService.findByMarketType(marketType).getBusinessImageItemList();
+        if(businessImageItems!=null && businessImageItems.size()>0){
+            for(BusinessImageItem businessImageItem:businessImageItems){
+                map.put(businessImageItem.getPosition(),businessImageItem.getImage());
+            }
+        }
+        return map;
     }
 
     @ApiOperation(value = "上传业务静态图片", notes = "上传业务静态图片")

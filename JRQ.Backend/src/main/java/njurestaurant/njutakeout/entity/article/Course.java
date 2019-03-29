@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table()
+@Table
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class Course {
 	@Id

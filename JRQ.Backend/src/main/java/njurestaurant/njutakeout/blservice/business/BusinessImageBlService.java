@@ -10,7 +10,7 @@ public interface BusinessImageBlService {
     InfoResponse update(String id,String image) throws NotExistException;
     InfoResponse delete(String id);
     BusinessImageResponse findById(String id) throws NotExistException;
-    BusinessImageResponse findByMarketTypeAndPosition(String marketType,String position) throws NotExistException;
+    BusinessImageListResponse findByMarketType(String marketType);
     BusinessImageListResponse getAll();
 }
 

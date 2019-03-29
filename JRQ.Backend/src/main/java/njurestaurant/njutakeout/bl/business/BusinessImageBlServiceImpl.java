@@ -50,8 +50,15 @@ public class BusinessImageBlServiceImpl implements BusinessImageBlService {
     }
 
     @Override
-    public BusinessImageResponse findByMarketTypeAndPosition(String marketType, String position) throws NotExistException {
-        return new BusinessImageResponse(new BusinessImageItem(businessImageDataService.findByMarketTypeAndPosition(MarketType.valueOf(marketType),position)));
+    public BusinessImageListResponse findByMarketType(String marketType){
+        List<BusinessImage> businessImages=businessImageDataService.findByMarketType(MarketType.valueOf(marketType));
+        List<BusinessImageItem> businessImageItems=new ArrayList<>();
+        if(businessImages!=null && businessImages.size()>0){
+            for(BusinessImage businessImage:businessImages){
+                businessImageItems.add(new BusinessImageItem(businessImage));
+            }
+        }
+        return new BusinessImageListResponse(businessImageItems);
     }
 
     @Override

@@ -46,13 +46,8 @@ public class BusinessImageDataServiceImpl implements BusinessImageDataService {
     }
 
     @Override
-    public BusinessImage findByMarketTypeAndPosition(MarketType marketType, String position) throws NotExistException {
-        Optional<BusinessImage> optionalBusinessImage=businessImageDao.findByMarketTypeAndPosition(marketType,position);
-        if(optionalBusinessImage.isPresent()){
-            return optionalBusinessImage.get();
-        }else{
-            throw new NotExistException("Business Image for:",marketType+"_"+position);
-        }
+    public List<BusinessImage> findByMarketType(MarketType marketType){
+        return businessImageDao.findByMarketType(marketType);
     }
 
     @Override

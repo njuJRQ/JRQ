@@ -9,6 +9,7 @@ import java.util.List;
 public class CourseGroupItem {
     private String id;
     private String title;
+    private String image;
     private List<CourseItem> courseList;
 
     public CourseGroupItem() {
@@ -17,6 +18,7 @@ public class CourseGroupItem {
     public CourseGroupItem(CourseGroup courseGroup) {
         this.id=courseGroup.getId();
         this.title =courseGroup.getTitle();
+        this.image=courseGroup.getImage();
         List<Course> courses=courseGroup.getCourseList();
         List<CourseItem> courseItems=new ArrayList<>();
         if(courses!=null && courses.size()>0){
@@ -41,6 +43,14 @@ public class CourseGroupItem {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public List<CourseItem> getCourseList() {

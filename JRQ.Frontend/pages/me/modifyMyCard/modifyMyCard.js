@@ -9,7 +9,7 @@ Page({
    */
   data: {
     labelArray: ['承兑汇票', '股票质押', '大宗减持', '定增', '短拆过桥', '企业信用贷', '供应链金融', '商业保理', '融资租赁', '股权融资', '并购重组', '壳资源', '基金产品', '资产证券化', '土地并购', '自定义'],
-    allUserTags: [{
+    userTag1: [{
         name: '高科·智造',
         state: false
       }, {
@@ -63,62 +63,63 @@ Page({
         state: false
       }, {
         name: '金融.其他'
-      },
-
-      {
-        name: '并购.重组',
-        state: false
-      }, {
-        name: '定增.转股',
-        state: false
-      }, {
-        name: '壳与.牌照',
-        state: false
-      }, {
-        name: '质押.抵押',
-        state: false
-      }, {
-        name: '短融.过桥',
-        state: false
-      }, {
-        name: '大宗.交易',
-        state: false
-      }, {
-        name: '信托.资管',
-        state: false
-      }, {
-        name: '债券.ABS',
-        state: false
-      }, {
-        name: '保理.融租',
-        state: false
-      }, {
-        name: '港股.美股',
-        state: false
-      }, {
-        name: '公募.私募',
-        state: false
-      }, {
-        name: 'IPO.挂牌'
-      }, {
-        name: '不良资产',
-        state: false
-      }, {
-        name: '银行业务',
-        state: false
-      }, {
-        name: '种子天使',
-        state: false
-      }, {
-        name: 'A轮',
-        state: false
-      }, {
-        name: 'B轮及以上',
-        state: false
       }
     ],
+    userTag2: [{
+      name: '并购.重组',
+      state: false
+    }, {
+      name: '定增.转股',
+      state: false
+    }, {
+      name: '壳与.牌照',
+      state: false
+    }, {
+      name: '质押.抵押',
+      state: false
+    }, {
+      name: '短融.过桥',
+      state: false
+    }, {
+      name: '大宗.交易',
+      state: false
+    }, {
+      name: '信托.资管',
+      state: false
+    }, {
+      name: '债券.ABS',
+      state: false
+    }, {
+      name: '保理.融租',
+      state: false
+    }, {
+      name: '港股.美股',
+      state: false
+    }, {
+      name: '公募.私募',
+      state: false
+    }, {
+      name: 'IPO.挂牌'
+    }, {
+      name: '不良资产',
+      state: false
+    }, {
+      name: '银行业务',
+      state: false
+    }, {
+      name: '种子天使',
+      state: false
+    }, {
+      name: 'A轮',
+      state: false
+    }, {
+      name: 'B轮及以上',
+      state: false
+    }],
     showUserTagsModal: false,
     selectedUserTags: [],
+    showUserTagsModal2: false,
+    selectedUserTags2: [],
 
     labelIndex: 0,
     myInfo: {
@@ -135,7 +136,7 @@ Page({
     newMyInfo: {}
   },
 
-  userTagSelect: function(e) {
+  userTagSelect1: function(e) {
     var selectItem = e.target.id;
     var selectedUserTags = this.data.selectedUserTags;
     var newSelectedUserTags = [];
@@ -155,7 +156,30 @@ Page({
         selectedUserTags: newSelectedUserTags
       })
     }
-    this.updateAllTag();
+    this.updateAllTag1();
+  },
+
+  userTagSelect2: function(e) {
+    var selectItem = e.target.id;
+    var selectedUserTags = this.data.selectedUserTags2;
+    var newSelectedUserTags = [];
+    var isAlreadyExists = false;
+    for (var i = selectedUserTags.length - 1; i >= 0; i--) {
+      if (selectedUserTags[i] !== selectItem) {
+        newSelectedUserTags.push(selectedUserTags[i]);
+      } else {
+        isAlreadyExists = true;
+      }
+    }
+    if (!isAlreadyExists) {
+      newSelectedUserTags.push(selectItem);
+    }
+    if (newSelectedUserTags.length <= 3) {
+      this.setData({
+        selectedUserTags2: newSelectedUserTags
+      })
+    }
+    this.updateAllTag2();
   },
 
   letShowUserTagsModal: function() {
@@ -164,19 +188,36 @@ Page({
     })
   },
 
-  userTagsModalCancel: function() {
+  letShowUserTagsModal2: function() {
     this.setData({
-      showUserTagsModal: false
+      showUserTagsModal2: true
     })
   },
 
-  userTagsModalConfirm: function() {
+  userTagsModalCancel: function() {
+    this.setData({
+      showUserTagsModal: false,
+      showUserTagsModal2: false,
+    })
+  },
+
+  userTagsModalConfirm1: function() {
     var newMyInfo = this.data.newMyInfo;
     newMyInfo.label = this.data.selectedUserTags;
     this.setData({
       newMyInfo: newMyInfo,
       showUserTagsModal: false
     })
+  },
+
+  userTagsModalConfirm2: function() {
+    var newMyInfo = this.data.newMyInfo;
+    newMyInfo.label2 = this.data.selectedUserTags2;
+    this.setData({
+      newMyInfo: newMyInfo,
+      showUserTagsModal2: false
+    })
+    console.log('hhhhh')
   },
 
   updateFace: function() {
@@ -227,23 +268,43 @@ Page({
     this.data.newMyInfo.intro = e.detail.value;
   },
 
-  updateAllTag: function(e) {
+  updateAllTag1: function(e) {
     var newAllUserTags = [];
-    for (var i = 0; i < this.data.allUserTags.length; i++) {
-      if (this.data.selectedUserTags.indexOf(this.data.allUserTags[i].name) >= 0) {
+    for (var i = 0; i < this.data.userTag1.length; i++) {
+      if (this.data.selectedUserTags.indexOf(this.data.userTag1[i].name) >= 0) {
         newAllUserTags.push({
-          name: this.data.allUserTags[i].name,
+          name: this.data.userTag1[i].name,
           state: true
         })
       } else {
         newAllUserTags.push({
-          name: this.data.allUserTags[i].name,
+          name: this.data.userTag1[i].name,
           state: false
         })
       }
     }
     this.setData({
-      allUserTags: newAllUserTags
+      userTag1: newAllUserTags
+    })
+  },
+
+  updateAllTag2: function(e) {
+    var newAllUserTags = [];
+    for (var i = 0; i < this.data.userTag2.length; i++) {
+      if (this.data.selectedUserTags2.indexOf(this.data.userTag2[i].name) >= 0) {
+        newAllUserTags.push({
+          name: this.data.userTag2[i].name,
+          state: true
+        })
+      } else {
+        newAllUserTags.push({
+          name: this.data.userTag2[i].name,
+          state: false
+        })
+      }
+    }
+    this.setData({
+      userTag2: newAllUserTags
     })
   },
 
@@ -271,7 +332,8 @@ Page({
         that.data.newMyInfo = that.data.myInfo
         that.selectedUserTags = label
         that.setData(that.data)
-        that.updateAllTag();
+        that.updateAllTag1();
+        that.updateAllTag2();
       })
     })
   },

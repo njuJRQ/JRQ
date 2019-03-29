@@ -62,7 +62,7 @@
         "pagePath": "pages/index/index",
         "iconPath": "img/xuexi.png",
         "selectedIconPath": "img/xuexi-icon.png",
-        "text": "学习"
+        "text": "首页"
       },
       {
         "pagePath": "pages/business/business",

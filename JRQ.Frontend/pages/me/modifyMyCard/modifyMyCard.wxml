@@ -9,55 +9,62 @@
       <view class='info'>
         <text class='info__key'>姓名</text>
         <input class='info__value' placeholder='{{myInfo.username}}' bindinput='updateName'></input>
+        <image src='https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/jiantou.png' class='arrow'></image>
       </view>
-      <view class='div-line'></view>
+      <!-- <view class='div-line'></view> -->
       <view class='info'>
         <text class='info__key'>手机号</text>
         <input class='info__value' placeholder='{{myInfo.phone}}' bindinput='updatePhone'></input>
+        <image src='https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/jiantou.png' class='arrow'></image>
       </view>
-      <view class='div-line'></view>
+      <!-- <view class='div-line'></view> -->
       <view class='info'>
         <text class='info__key'>Email</text>
         <input class='info__value' placeholder='{{myInfo.email}}' bindinput='updateEmail'></input>
+        <image src='https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/jiantou.png' class='arrow'></image>
       </view>
-      <view class='div-line'></view>
+      <!-- <view class='div-line'></view> -->
       <view class='info'>
         <text class='info__key'>城市</text>
         <input class='info__value' placeholder='{{myInfo.city}}' bindinput='updateCity'></input>
+        <image src='https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/jiantou.png' class='arrow'></image>
       </view>
-      <view class='div-line'></view>
+      <!-- <view class='div-line'></view> -->
       <view class='info'>
         <text class='info__key'>任职公司</text>
         <input class='info__value' placeholder='{{myInfo.company}}' bindinput='updateCompany'></input>
+        <image src='https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/jiantou.png' class='arrow'></image>
       </view>
-      <view class='div-line'></view>
+      <!-- <view class='div-line'></view> -->
       <view class='info'>
         <text class='info__key'>部门</text>
         <input class='info__value' placeholder='{{myInfo.department}}' bindinput='updateDepartment'></input>
+        <image src='https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/jiantou.png' class='arrow'></image>
       </view>
-      <view class='div-line'></view>
+      <!-- <view class='div-line'></view> -->
       <view class='info'>
         <text class='info__key'>职位</text>
         <input class='info__value' placeholder='{{myInfo.position}}' bindinput='updatePosition'></input>
+        <image src='https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/jiantou.png' class='arrow'></image>
       </view>
-      <view class='div-line'></view>
-      <view class='info'>
+      <!-- <view class='div-line'></view> -->
+      <!-- <view class='info'>
         <text class='info__key'>业务标签</text>
         <picker class='info__value' bindchange="bindLabelPickerChange" value="{{labelIndex}}" range="{{labelArray}}">
           <view class="picker">
             {{labelArray[labelIndex]}}
           </view>
         </picker>
-      </view>
-      <view class='div-line'></view>
-      <view class='info'>
-        <text class='info__key' bindtap='letShowUserTagsModal'>用户标签</text>
+      </view> -->
+      <!-- <view class='div-line'></view> -->
+      <view class='info' bindtap='letShowUserTagsModal'>
+        <text class='info__key' bindtap='letShowUserTagsModal'>关注领域</text>
         <!-- 用户标签列表，模态框 -->
-        <modal wx:if="{{showUserTagsModal}}" height='60%' title="用户标签选择(至多三项)" bindcancel="userTagsModalCancel" bindconfirm='userTagsModalConfirm'>
+        <modal wx:if="{{showUserTagsModal}}" height='60%' title="用户标签选择(至多三项)" bindcancel="userTagsModalCancel" bindconfirm='userTagsModalConfirm1'>
           <view class='container'>
             <view class='tag-wrapper'>
-              <view wx:for="{{allUserTags}}" wx:key="index" class='tag-item-wrapper'>
-                <text class="{{item.state?'tag-item-selected':'tag-item'}}" bindtap="userTagSelect" id="{{item.name}}">{{item.name}}</text>
+              <view wx:for="{{userTag1}}" wx:key="index" class='tag-item-wrapper'>
+                <text class="{{item.state?'tag-item-selected':'tag-item'}}" bindtap="userTagSelect1" id="{{item.name}}">{{item.name}}</text>
               </view>
             </view>
           </view>
@@ -71,7 +78,29 @@
           </view>
         </view>
       </view>
-      <view class='div-line' bindtap='letShowUserTagsModal'></view>
+
+      <view class='info' bindtap='letShowUserTagsModal2'>
+        <text class='info__key' bindtap='letShowUserTagsModal2'>业务标签</text>
+        <!-- 用户标签列表，模态框 -->
+        <modal wx:if="{{showUserTagsModal2}}" height='60%' title="用户标签选择(至多三项)" bindcancel="userTagsModalCancel" bindconfirm='userTagsModalConfirm2'>
+          <view class='container'>
+            <view class='tag-wrapper'>
+              <view wx:for="{{userTag2}}" wx:key="index" class='tag-item-wrapper'>
+                <text class="{{item.state?'tag-item-selected':'tag-item'}}" bindtap="userTagSelect2" id="{{item.name}}">{{item.name}}</text>
+              </view>
+            </view>
+          </view>
+        </modal>
+
+        <view class='container' bindtap='letShowUserTagsModal2'>
+          <view class='tag-wrapper'>
+            <view wx:for="{{newMyInfo.label2}}" wx:key="index" class="tag-item-wrapper">
+              <text class="tag-item">{{item}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- <view class='div-line' bindtap='letShowUserTagsModal'></view> -->
       <view class='info'>
         <text class='info__key'>个人简介:</text>
         <textarea class='info__value info__textarea' auto-height="true" placeholder='{{myInfo.intro}}' bindinput='updateIntro'></textarea>

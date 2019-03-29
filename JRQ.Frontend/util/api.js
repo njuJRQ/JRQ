@@ -259,7 +259,7 @@ function getFeedList(kind, openid, lastId, id) {
 
           article.images = article.images.map((image) => {
             return app.globalData.picUrl + image
-            
+
           })
           article.kindName = "最热";
           switch (kind) {
@@ -742,43 +742,43 @@ function addFeed(openid, kind, content, photos, phone, linkMan, agencyName, proj
     title: '发布圈子中',
   })
   // uploadImageOneByOne(photos, 0, photos.length, () => {
-    wx.request({
-      url: app.globalData.backendUrl + "addFeed",
-      data: {
-        writerOpenid: openid,
-        kind: kind,
-        date: util.getTodayDate(),
-        content: content,
-        linkMan: linkMan,
-        phone: phone,
-        agencyName: agencyName,
-        projectRef: projectRef,
-        projectInfo: projectInfo,
-        images:photos,
-      },
-      header: {
-        'Authorization': 'Bearer ' + app.getToken(),
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'POST',
-      success: (res) => {
-        console.log(res.data.images + '123456')
-        res.data.images = app.globalData.picUrl + + res.data.images
+  wx.request({
+    url: app.globalData.backendUrl + "addFeed",
+    data: {
+      writerOpenid: openid,
+      kind: kind,
+      date: util.getTodayDate(),
+      content: content,
+      linkMan: linkMan,
+      phone: phone,
+      agencyName: agencyName,
+      projectRef: projectRef,
+      projectInfo: projectInfo,
+      images: photos,
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'POST',
+    success: (res) => {
+      console.log(res.data.images + '123456')
+      res.data.images = app.globalData.picUrl + +res.data.images
 
-        wx.hideLoading()
-        wx.showToast({
-          title: '发布成功',
-          icon: 'succes',
-          duration: 1000,
-          success: () => {
-            setTimeout(() => {
-              wx.navigateBack()
-            }, 1000)
-          },
-          mask: true
-        })
-      }
-    })
+      wx.hideLoading()
+      wx.showToast({
+        title: '发布成功',
+        icon: 'succes',
+        duration: 1000,
+        success: () => {
+          setTimeout(() => {
+            wx.navigateBack()
+          }, 1000)
+        },
+        mask: true
+      })
+    }
+  })
   // })
 }
 
@@ -874,7 +874,7 @@ function modifyMyInfo() {
           'Authorization': 'Bearer ' + app.getToken(),
           'content-type': 'application/x-www-form-urlencoded'
         },
-        method: 'GET',
+        method: 'POST',
         success: (res) => {
           wx.hideLoading()
           wx.showToast({
@@ -892,6 +892,7 @@ function modifyMyInfo() {
     fail: (res) => {
       wx.request({
         //上传用户信息
+        dataType: "json",
         url: app.globalData.backendUrl + "updateMyProfileWithoutFile",
         data: {
           openid: app.getOpenid(),
@@ -908,9 +909,10 @@ function modifyMyInfo() {
         },
         header: {
           'Authorization': 'Bearer ' + app.getToken(),
-          'content-type': 'application/x-www-form-urlencoded'
+          "Accept": "application/json, text/javascript, */*; q=0.01",
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
-        method: 'GET',
+        method: 'POST',
         success: (res) => {
           wx.hideLoading()
           wx.showToast({
@@ -1670,7 +1672,7 @@ function getDocumentList(then) {
 }
 // 业务
 function getImage(marketType) {
-  console.log('getImage success!' +'123')
+  console.log('getImage success!' + '123')
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "business/getImage",
@@ -1687,12 +1689,12 @@ function getImage(marketType) {
         that.setData({
           image: res.data
         })
-        console.log(res.data+'123456')
+        console.log(res.data + '123456')
       }
     }
   })
 }
-  
+
 module.exports = {
   getAbstractList: getAbstractList,
   getAbstractListByCondition: getAbstractListByCondition,

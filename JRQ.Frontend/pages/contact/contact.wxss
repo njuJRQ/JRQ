@@ -1,10 +1,12 @@
 /* pages/contact/contact.wxss */
+
 /* pages/service/service.wxss */
 @import '/style/common.wxss';
 @import '/template/searchBar/searchBar.wxss';
 @import '/template/adBar/adBar.wxss';
 
 /*本页面css属性*/
+
 .search {
   /* background-color: rgb(200, 165, 65); */
   width: 95%;
@@ -14,6 +16,7 @@
 }
 
 /*关于头部导航栏的属性*/
+
 .headWrapper {
   width: 100%;
 }
@@ -26,8 +29,8 @@
   font-size: 0.8rem;
 }
 
-
 /*导航栏样式*/
+
 .navBar {
   width: 150px;
   display: flex;
@@ -36,6 +39,7 @@
   float: right;
   box-sizing: content-box;
 }
+
 .navBar__btn {
   border-radius: 50%;
   background: inherit;
@@ -44,9 +48,11 @@
   text-align: center;
   font-size: 0.8rem;
 }
+
 .navBar__btn-state--chosen {
   border: 5px #ebbc6a solid;
 }
+
 .navBar__btn-state--chosen::after {
   content: '';
   position: absolute;
@@ -54,8 +60,9 @@
   height: 10px;
   border-radius: 4px;
   background-color: #ebbc6a;
-  transform: translate(-5px,3px);
+  transform: translate(-5px, 3px);
 }
+
 .navBar__icon {
   margin: auto;
   display: block;
@@ -78,6 +85,7 @@
   margin: 5px 10px;
   min-height: 80px;
 }
+
 .card__decorator {
   position: absolute;
   top: -10px;
@@ -86,17 +94,18 @@
   background-color: white;
   border-radius: 20px;
   padding: 5px 10px;
-  
   left: -23%;
   display: flex;
   align-items: center;
 }
+
 .card__kindName {
   color: #927912;
   font-size: 0.8rem;
   font-weight: bold;
   margin-left: auto;
 }
+
 .card__main {
   width: 95%;
   display: flex;
@@ -106,14 +115,13 @@
   margin-left: 2.5%;
   background-color: white;
   /* border-radius: 10px 0 0 10px; */
-  box-shadow: 0px 15px 30px rgba(0,0,0,0.1);
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
 }
 
 .card__face {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  
 }
 
 .card__info {
@@ -122,20 +130,27 @@
 }
 
 .card__title1 {
-   display: block;
+  display: block;
   text-align: left;
 }
+
 .card__title2 {
-   display: flex;
-   flex-direction: column;
+  display: flex;
+  flex-direction: column;
   text-align: left;
 }
-.vipImage{
+
+.card__title3 {
+  display: flex;
+}
+
+.vipImage {
   margin-bottom: 1%;
   margin-left: 2%;
   width: 10%;
   height: 10px;
 }
+
 .card__username {
   display: inline-block;
   max-width: 9rem;
@@ -147,7 +162,7 @@
   overflow: hidden;
 }
 
-.card__position{
+.card__position {
   display: inline-block;
   margin: 0 0 0 5px;
   font-size: 0.5rem;
@@ -179,7 +194,6 @@
   font-size: 0.8rem;
   color: white;
   color: rgb(247, 198, 17);
-
   font-weight: bold;
 }
 
@@ -194,10 +208,9 @@
   color: #b19114;
 }
 
-.label_text{
+.label_text {
   width: 15%;
   /* border-color: #e9c05f; */
-  
   height: 30rpx;
   line-height: 25rpx;
   background-color: #fff;
@@ -213,11 +226,37 @@
   margin-left: -200%;
   margin-top: 20%;
 }
+
 .label_text::after {
   border: none;
 }
-.contact{
+
+.contact {
   display: flex;
   flex-direction: row;
 }
 
+/**
+tag
+**/
+
+.container {
+}
+
+.container .tag-wrapper {
+}
+
+.container .tag-item-wrapper {
+  display: inline-block;
+  margin-left: 5rpx;
+}
+
+.container .tag-item {
+  padding: 5rpx 25rpx;
+  font-size: 24rpx;
+}
+
+.container>.tag-wrapper>.tag-item-wrapper>.tag-item {
+  border: 1rpx solid #c09b54;
+  border-radius: 40rpx;
+}

@@ -53,7 +53,7 @@
       <view class='info'>
         <text class='info__key' bindtap='letShowUserTagsModal'>用户标签</text>
         <!-- 用户标签列表，模态框 -->
-        <modal wx:if="{{showUserTagsModal}}" height='60%' title="用户标签选择" bindcancel="userTagsModalCancel" bindconfirm='userTagsModalConfirm'>
+        <modal wx:if="{{showUserTagsModal}}" height='60%' title="用户标签选择(至多三项)" bindcancel="userTagsModalCancel" bindconfirm='userTagsModalConfirm'>
           <view class='container'>
             <view class='tag-wrapper'>
               <view wx:for="{{allUserTags}}" wx:key="index" class='tag-item-wrapper'>

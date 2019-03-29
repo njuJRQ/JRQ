@@ -106,15 +106,15 @@ Page({
       }, {
         name: '银行业务',
         state: false
-      },{
-        name:'种子天使',
-        state:false
-      },{
-        name:'A轮',
-        state:false
-      },{
-        name:'B轮及以上',
-        state:false
+      }, {
+        name: '种子天使',
+        state: false
+      }, {
+        name: 'A轮',
+        state: false
+      }, {
+        name: 'B轮及以上',
+        state: false
       }
     ],
     showUserTagsModal: false,
@@ -150,9 +150,11 @@ Page({
     if (!isAlreadyExists) {
       newSelectedUserTags.push(selectItem);
     }
-    this.setData({
-      selectedUserTags: newSelectedUserTags
-    })
+    if (newSelectedUserTags.length <= 3) {
+      this.setData({
+        selectedUserTags: newSelectedUserTags
+      })
+    }
     this.updateAllTag();
   },
 

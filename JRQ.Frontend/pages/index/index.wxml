@@ -60,7 +60,6 @@
         <view class='article jrq__block' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
           <view class='article__content'>
             <image class='article__banner' mode='widthFix' src='{{item.images.length > 0 ? item.images[0]: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png"}}'></image>
-            <!-- <image class='article__banner' mode='widthFix' src='/img/bofang.jpg'></image> -->
           </view>
           <view class='title_range'>
             <text class='article__titleName'></text>

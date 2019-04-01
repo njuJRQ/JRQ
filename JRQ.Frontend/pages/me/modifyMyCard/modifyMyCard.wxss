@@ -53,7 +53,7 @@ page {
 
 .info__value {
   font-size: 0.8rem;
-  width: 90%;
+  width: 100%;
   text-align: right;
   color: rgb(150, 150, 150);
 }

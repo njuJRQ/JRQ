@@ -9,43 +9,36 @@
       <view class='info'>
         <text class='info__key'>姓名</text>
         <input class='info__value' placeholder='{{myInfo.username}}' bindinput='updateName'></input>
-        <image src='https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/jiantou.png' class='arrow'></image>
       </view>
       <!-- <view class='div-line'></view> -->
       <view class='info'>
         <text class='info__key'>手机号</text>
         <input class='info__value' placeholder='{{myInfo.phone}}' bindinput='updatePhone'></input>
-        <image src='https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/jiantou.png' class='arrow'></image>
       </view>
       <!-- <view class='div-line'></view> -->
       <view class='info'>
         <text class='info__key'>Email</text>
         <input class='info__value' placeholder='{{myInfo.email}}' bindinput='updateEmail'></input>
-        <image src='https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/jiantou.png' class='arrow'></image>
       </view>
       <!-- <view class='div-line'></view> -->
       <view class='info'>
         <text class='info__key'>城市</text>
         <input class='info__value' placeholder='{{myInfo.city}}' bindinput='updateCity'></input>
-        <image src='https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/jiantou.png' class='arrow'></image>
       </view>
       <!-- <view class='div-line'></view> -->
       <view class='info'>
         <text class='info__key'>任职公司</text>
         <input class='info__value' placeholder='{{myInfo.company}}' bindinput='updateCompany'></input>
-        <image src='https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/jiantou.png' class='arrow'></image>
       </view>
       <!-- <view class='div-line'></view> -->
       <view class='info'>
         <text class='info__key'>部门</text>
         <input class='info__value' placeholder='{{myInfo.department}}' bindinput='updateDepartment'></input>
-        <image src='https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/jiantou.png' class='arrow'></image>
       </view>
       <!-- <view class='div-line'></view> -->
       <view class='info'>
         <text class='info__key'>职位</text>
         <input class='info__value' placeholder='{{myInfo.position}}' bindinput='updatePosition'></input>
-        <image src='https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/jiantou.png' class='arrow'></image>
       </view>
       <!-- <view class='div-line'></view> -->
       <!-- <view class='info'>

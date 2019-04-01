@@ -3,7 +3,6 @@ const app = getApp()
 var api = require('../../../util/api.js')
 
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -199,6 +198,7 @@ Page({
       showUserTagsModal: false,
       showUserTagsModal2: false,
     })
+    console.log(this.data.showUserTagsModal)
   },
 
   userTagsModalConfirm1: function() {
@@ -217,7 +217,6 @@ Page({
       newMyInfo: newMyInfo,
       showUserTagsModal2: false
     })
-    console.log('hhhhh')
   },
 
   updateFace: function() {
@@ -354,6 +353,7 @@ Page({
       })
       return
     }
+    console.log(this.data.newMyInfo)
     api.modifyMyInfo.call(this)
   }
 })

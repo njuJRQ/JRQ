@@ -120,6 +120,7 @@
 
 .articleWrapper {
   width: 48%;
+  /* border: 1px solid red; */
 }
 
 .article__banner {
@@ -159,4 +160,31 @@
 
 .articleWrapper_document {
   width: 48%;
+}
+.article__titleName{
+  color: black;
+  font-weight:500;
+display: block;
+font-size: 16px;
+text-overflow:ellipsis;
+white-space:nowrap;
+overflow:hidden;
+letter-spacing:5rpx;
+}
+.article__writerName{
+  font-size: 12px;
+  color: black;
+  letter-spacing:5rpx;
+}
+.preview{
+  background-color: rgb(242, 198, 94);
+  color: #fff;
+  width: 60px;
+  height: 20px;
+  line-height: 20px;
+  border-radius: 10px;
+  float: right;
+  margin-bottom: 10px;
+  /* margin-top: 10px; */
+  font-size: 12px;
 }

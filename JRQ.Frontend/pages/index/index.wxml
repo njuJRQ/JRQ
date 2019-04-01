@@ -63,8 +63,11 @@
             <!-- <image class='article__banner' mode='widthFix' src='/img/bofang.jpg'></image> -->
           </view>
           <view class='title_range'>
-            <text class='article__titleName'></text>
+            <text class='article__titleName'>{{item.title}}</text>
+            <text class='article__writerName'>{{item.writerName}}</text>
           </view>
+          <button class='preview'>购买</button>
+
         </view>
       </view>
     </view>
@@ -88,16 +91,16 @@
             <!-- <image class='article__image' src='{{item.images.length > 0 ? item.images[0]: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png"}}'></image> -->
                         <image class='article__banner' mode='widthFix' src='{{item.images.length > 0 ? item.images[0]: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png"}}'></image>
           </view>
-          <!-- <view class='card_document'>
+          <view class='card_document'>
             <text class='article__titleName'>{{item.title}}</text>
-            <text class='document_summary'>{{item.content?item.content:'钧融中心'}}</text>
+            <text class='article__writerName'>{{item.content?item.content:'钧融中心'}}</text>
 
-            <view class='doucument_bottom1' wx-if="{{isShowPrice}}">
-              <text class='fees'>课费：100元</text>
-              <text class='vip'>会员免费</text>
-            </view>
+            <!-- <view class='doucument_bottom1' wx-if="{{isShowPrice}}"> -->
+              <!-- <text class='fees'>课费：100元</text> -->
+              <!-- <text class='vip'>会员免费</text> -->
+            <!-- </view> -->
           </view>
-          <button class='preview'>预览</button> -->
+          <button class='preview'>购买</button>
         </view>
       </view>
     </view>

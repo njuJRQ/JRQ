@@ -11,6 +11,7 @@ var articleItem = {
   },
 
   onClickThisFace: function(event) {
+    
     var id = event.currentTarget.dataset.id
     console.log(id)
     wx.navigateTo({

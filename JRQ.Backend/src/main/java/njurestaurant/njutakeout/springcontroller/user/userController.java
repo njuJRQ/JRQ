@@ -521,7 +521,7 @@ public class userController {
             @ApiImplicitParam(name = "city", value = "用户城市", required = true, dataType = "String"),
             @ApiImplicitParam(name = "label", value = "用户标签", required = true, dataType = "List"),
     })
-    @RequestMapping(value = "/updateMyProfile", method = RequestMethod.GET)
+    @RequestMapping(value = "/updateMyProfile", method = RequestMethod.POST)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
@@ -582,7 +582,7 @@ public class userController {
             @ApiImplicitParam(name = "city", value = "用户城市", required = true, dataType = "String"),
             @ApiImplicitParam(name = "label", value = "用户标签", required = true, dataType = "List"),
     })
-    @RequestMapping(value = "/updateMyProfileWithoutFile", method = RequestMethod.GET)
+    @RequestMapping(value = "/updateMyProfileWithoutFile", method = RequestMethod.POST)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),

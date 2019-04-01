@@ -8,29 +8,29 @@ $("#page2").hide();
 $("#page3").hide();
 $("#page4").hide();
 $("#page5").hide();
-var list=new Array();
-var firstID=0;
-var theGroup=0;
-var url=getUrl();
-function getUsername(){
+var list = new Array();
+var firstID = 0;
+var theGroup = 0;
+var url = getUrl();
+function getUsername() {
     var storage = window.localStorage;
-    var name=storage["adminUsername"];
+    var name = storage["adminUsername"];
     return name;
 }
-var adminId="";
-var isEnterprise=false;
-var isSuper=false;
+var adminId = "";
+var isEnterprise = false;
+var isSuper = false;
 $.ajax(
     {
-        url: url+"/getAdminByUsername",
+        url: url + "/getAdminByUsername",
         data: {
-            username:getUsername()
+            username: getUsername()
         },
-        async:false,
+        async: false,
         success: function (data) {
-            adminId=data.admin.id;
-            if(data.admin.limits.indexOf('9')!=(-1)){
-                isSuper=true;
+            adminId = data.admin.id;
+            if (data.admin.limits.indexOf('9') != (-1)) {
+                isSuper = true;
             }
         },
         error: function (xhr) {
@@ -42,28 +42,28 @@ $.ajax(
 
 $.ajax(
     {
-        url: url+"/isAdminEnterprise",
+        url: url + "/isAdminEnterprise",
         data: {
-            adminId:adminId
+            adminId: adminId
         },
-        async:false,
+        async: false,
         success: function (data) {
-            if(data.ok){
+            if (data.ok) {
                 $.ajax(
                     {
-                        url: url+"/getMyPublishedCourseList",
+                        url: url + "/getMyPublishedCourseList",
                         data: {
-                            adminId:adminId
+                            adminId: adminId
                         },
-                        async:false,
+                        async: false,
                         success: function (data) {
-                            isEnterprise=true;
+                            isEnterprise = true;
                             $("#checkall").hide();
                             $("#del").hide();
-                            for(var i=0;i<data.courseList.length;i++){
+                            for (var i = 0; i < data.courseList.length; i++) {
                                 list.push(data.courseList[i]);
                             }
-                            document.getElementById("jilu").innerText="共"+(list.length)+"条记录";
+                            document.getElementById("jilu").innerText = "共" + (list.length) + "条记录";
                             changepage(1);
                         },
                         error: function (xhr) {
@@ -73,11 +73,13 @@ $.ajax(
                     }
                 )
             }
-            else{
-                if(isSuper) {
+            else {
+                if (isSuper) {
                     $.ajax(
                         {
                             url: url + "/getCourseList",
+                            // type: "POST",
+
                             data: {},
                             async: false,
                             success: function (data) {
@@ -94,22 +96,22 @@ $.ajax(
                         }
                     )
                 }
-                else{
+                else {
                     $.ajax(
                         {
-                            url: url+"/getMyPublishedCourseList",
+                            url: url + "/getMyPublishedCourseList",
                             data: {
-                                adminId:adminId
+                                adminId: adminId
                             },
-                            async:false,
+                            async: false,
                             success: function (data) {
-                                isEnterprise=true;
+                                isEnterprise = true;
                                 $("#checkall").hide();
                                 $("#del").hide();
-                                for(var i=0;i<data.courseList.length;i++){
+                                for (var i = 0; i < data.courseList.length; i++) {
                                     list.push(data.courseList[i]);
                                 }
-                                document.getElementById("jilu").innerText="共"+(list.length)+"条记录";
+                                document.getElementById("jilu").innerText = "共" + (list.length) + "条记录";
                                 changepage(1);
                             },
                             error: function (xhr) {
@@ -131,14 +133,14 @@ $.ajax(
 
 
 
-function setthisquestion(n){
-    var q=list[firstID+n];
+function setthisquestion(n) {
+    var q = list[firstID + n];
     var storage = window.localStorage;
-    storage["thisCourse"]=q.id;
+    storage["thisCourse"] = q.id;
 }
-function deletequestion(n){
-    var r=confirm("确定删除么？");
-    if(r) {
+function deletequestion(n) {
+    var r = confirm("确定删除么？");
+    if (r) {
         var q = list[firstID + n];
         var url = getUrl();
         $.ajax(
@@ -162,46 +164,46 @@ function deletequestion(n){
 
 
 
-function changegroup(to){
+function changegroup(to) {
     $("#page1").show();
     $("#page2").show();
     $("#page3").show();
     $("#page4").show();
     $("#page5").show();
-    if(to==1){
-        if(theGroup!=0){
-            theGroup=theGroup-1;
+    if (to == 1) {
+        if (theGroup != 0) {
+            theGroup = theGroup - 1;
         }
     }
-    else{
-        theGroup=theGroup+1;
+    else {
+        theGroup = theGroup + 1;
 
     }
-    document.getElementById("page1").innerText=theGroup*5+1;
-    document.getElementById("page2").innerText=theGroup*5+2;
-    document.getElementById("page3").innerText=theGroup*5+3;
-    document.getElementById("page4").innerText=theGroup*5+4;
-    document.getElementById("page5").innerText=theGroup*5+5;
+    document.getElementById("page1").innerText = theGroup * 5 + 1;
+    document.getElementById("page2").innerText = theGroup * 5 + 2;
+    document.getElementById("page3").innerText = theGroup * 5 + 3;
+    document.getElementById("page4").innerText = theGroup * 5 + 4;
+    document.getElementById("page5").innerText = theGroup * 5 + 5;
 
 
     changepage(1);
 }
-function changepage(page){
+function changepage(page) {
     $("#page1").show();
     $("#page2").show();
     $("#page3").show();
     $("#page4").show();
     $("#page5").show();
-    firstID=(theGroup*5+page-1)*5;
-    if(list.length<(theGroup*25+21)){
+    firstID = (theGroup * 5 + page - 1) * 5;
+    if (list.length < (theGroup * 25 + 21)) {
         $("#page5").hide();
-        if(list.length<(theGroup*25+16)){
+        if (list.length < (theGroup * 25 + 16)) {
             $("#page4").hide();
-            if(list.length<(theGroup*25+11)){
+            if (list.length < (theGroup * 25 + 11)) {
                 $("#page3").hide();
-                if(list.length<(theGroup*25+6)){
+                if (list.length < (theGroup * 25 + 6)) {
                     $("#page2").hide();
-                    if(list.length<(theGroup*25+1)){
+                    if (list.length < (theGroup * 25 + 1)) {
                         $("#page1").hide();
                     }
                 }
@@ -209,19 +211,19 @@ function changepage(page){
         }
 
     }
-    if(list.length<(firstID+1)){
+    if (list.length < (firstID + 1)) {
         $("#your-alert-1").hide();
         $("#your-alert-2").hide();
         $("#your-alert-3").hide();
         $("#your-alert-4").hide();
         $("#your-alert-5").hide();
     }
-    else if(list.length<(firstID+2)){
+    else if (list.length < (firstID + 2)) {
         $("#your-alert-1").show();
-        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
-        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].title;
-        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].date;
-        if(isEnterprise) {
+        document.getElementById("number" + (firstID % 5 + 1)).innerText = list[firstID].id;
+        document.getElementById("name" + (firstID % 5 + 1)).innerText = list[firstID].title;
+        document.getElementById("date" + (firstID % 5 + 1)).innerText = list[firstID].date;
+        if (isEnterprise) {
             $("#del1").hide();
             $("#del2").hide();
             $("#del3").hide();
@@ -233,16 +235,16 @@ function changepage(page){
         $("#your-alert-4").hide();
         $("#your-alert-5").hide();
     }
-    else if(list.length<(firstID+3)){
+    else if (list.length < (firstID + 3)) {
         $("#your-alert-1").show();
         $("#your-alert-2").show();
-        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
-        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].title;
-        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].date;
-        document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].id;
-        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].title;
-        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].date;
-        if(isEnterprise) {
+        document.getElementById("number" + (firstID % 5 + 1)).innerText = list[firstID].id;
+        document.getElementById("name" + (firstID % 5 + 1)).innerText = list[firstID].title;
+        document.getElementById("date" + (firstID % 5 + 1)).innerText = list[firstID].date;
+        document.getElementById("number" + (firstID % 5 + 2)).innerText = list[firstID + 1].id;
+        document.getElementById("name" + (firstID % 5 + 2)).innerText = list[firstID + 1].title;
+        document.getElementById("date" + (firstID % 5 + 2)).innerText = list[firstID + 1].date;
+        if (isEnterprise) {
             $("#del1").hide();
             $("#del2").hide();
             $("#del3").hide();
@@ -253,21 +255,21 @@ function changepage(page){
         $("#your-alert-4").hide();
         $("#your-alert-5").hide();
     }
-    else if(list.length<(firstID+4)){
+    else if (list.length < (firstID + 4)) {
         $("#your-alert-1").show();
         $("#your-alert-2").show();
         $("#your-alert-3").show();
-        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
-        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].title;
-        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].date;
-        document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].id;
-        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].title;
-        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].date;
-        document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].id;
-        document.getElementById("name"+(firstID%5+3)).innerText=list[firstID+2].title;
-        document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].date;
+        document.getElementById("number" + (firstID % 5 + 1)).innerText = list[firstID].id;
+        document.getElementById("name" + (firstID % 5 + 1)).innerText = list[firstID].title;
+        document.getElementById("date" + (firstID % 5 + 1)).innerText = list[firstID].date;
+        document.getElementById("number" + (firstID % 5 + 2)).innerText = list[firstID + 1].id;
+        document.getElementById("name" + (firstID % 5 + 2)).innerText = list[firstID + 1].title;
+        document.getElementById("date" + (firstID % 5 + 2)).innerText = list[firstID + 1].date;
+        document.getElementById("number" + (firstID % 5 + 3)).innerText = list[firstID + 2].id;
+        document.getElementById("name" + (firstID % 5 + 3)).innerText = list[firstID + 2].title;
+        document.getElementById("date" + (firstID % 5 + 3)).innerText = list[firstID + 2].date;
 
-        if(isEnterprise) {
+        if (isEnterprise) {
             $("#del1").hide();
             $("#del2").hide();
             $("#del3").hide();
@@ -278,24 +280,24 @@ function changepage(page){
         $("#your-alert-4").hide();
         $("#your-alert-5").hide();
     }
-    else if(list.length<(firstID+5)){
+    else if (list.length < (firstID + 5)) {
         $("#your-alert-1").show();
         $("#your-alert-2").show();
         $("#your-alert-3").show();
         $("#your-alert-4").show();
-        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
-        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].title;
-        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].date;
-        document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].id;
-        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].title;
-        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].date;
-        document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].id;
-        document.getElementById("name"+(firstID%5+3)).innerText=list[firstID+2].title;
-        document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].date;
-        document.getElementById("number"+(firstID%5+4)).innerText=list[firstID+3].id;
-        document.getElementById("name"+(firstID%5+4)).innerText=list[firstID+3].title;
-        document.getElementById("date"+(firstID%5+4)).innerText=list[firstID+3].date;
-        if(isEnterprise) {
+        document.getElementById("number" + (firstID % 5 + 1)).innerText = list[firstID].id;
+        document.getElementById("name" + (firstID % 5 + 1)).innerText = list[firstID].title;
+        document.getElementById("date" + (firstID % 5 + 1)).innerText = list[firstID].date;
+        document.getElementById("number" + (firstID % 5 + 2)).innerText = list[firstID + 1].id;
+        document.getElementById("name" + (firstID % 5 + 2)).innerText = list[firstID + 1].title;
+        document.getElementById("date" + (firstID % 5 + 2)).innerText = list[firstID + 1].date;
+        document.getElementById("number" + (firstID % 5 + 3)).innerText = list[firstID + 2].id;
+        document.getElementById("name" + (firstID % 5 + 3)).innerText = list[firstID + 2].title;
+        document.getElementById("date" + (firstID % 5 + 3)).innerText = list[firstID + 2].date;
+        document.getElementById("number" + (firstID % 5 + 4)).innerText = list[firstID + 3].id;
+        document.getElementById("name" + (firstID % 5 + 4)).innerText = list[firstID + 3].title;
+        document.getElementById("date" + (firstID % 5 + 4)).innerText = list[firstID + 3].date;
+        if (isEnterprise) {
             $("#del1").hide();
             $("#del2").hide();
             $("#del3").hide();
@@ -304,28 +306,28 @@ function changepage(page){
         }
         $("#your-alert-5").hide();
     }
-    else{
+    else {
         $("#your-alert-1").show();
         $("#your-alert-2").show();
         $("#your-alert-3").show();
         $("#your-alert-4").show();
         $("#your-alert-5").show();
-        document.getElementById("number"+(firstID%5+1)).innerText=list[firstID].id;
-        document.getElementById("name"+(firstID%5+1)).innerText=list[firstID].title;
-        document.getElementById("date"+(firstID%5+1)).innerText=list[firstID].date;
-        document.getElementById("number"+(firstID%5+2)).innerText=list[firstID+1].id;
-        document.getElementById("name"+(firstID%5+2)).innerText=list[firstID+1].title;
-        document.getElementById("date"+(firstID%5+2)).innerText=list[firstID+1].date;
-        document.getElementById("number"+(firstID%5+3)).innerText=list[firstID+2].id;
-        document.getElementById("name"+(firstID%5+3)).innerText=list[firstID+2].title;
-        document.getElementById("date"+(firstID%5+3)).innerText=list[firstID+2].date;
-        document.getElementById("number"+(firstID%5+4)).innerText=list[firstID+3].id;
-        document.getElementById("name"+(firstID%5+4)).innerText=list[firstID+3].title;
-        document.getElementById("date"+(firstID%5+4)).innerText=list[firstID+3].date;
-        document.getElementById("number"+(firstID%5+5)).innerText=list[firstID+4].id;
-        document.getElementById("name"+(firstID%5+5)).innerText=list[firstID+4].title;
-        document.getElementById("date"+(firstID%5+5)).innerText=list[firstID+4].date;
-        if(isEnterprise) {
+        document.getElementById("number" + (firstID % 5 + 1)).innerText = list[firstID].id;
+        document.getElementById("name" + (firstID % 5 + 1)).innerText = list[firstID].title;
+        document.getElementById("date" + (firstID % 5 + 1)).innerText = list[firstID].date;
+        document.getElementById("number" + (firstID % 5 + 2)).innerText = list[firstID + 1].id;
+        document.getElementById("name" + (firstID % 5 + 2)).innerText = list[firstID + 1].title;
+        document.getElementById("date" + (firstID % 5 + 2)).innerText = list[firstID + 1].date;
+        document.getElementById("number" + (firstID % 5 + 3)).innerText = list[firstID + 2].id;
+        document.getElementById("name" + (firstID % 5 + 3)).innerText = list[firstID + 2].title;
+        document.getElementById("date" + (firstID % 5 + 3)).innerText = list[firstID + 2].date;
+        document.getElementById("number" + (firstID % 5 + 4)).innerText = list[firstID + 3].id;
+        document.getElementById("name" + (firstID % 5 + 4)).innerText = list[firstID + 3].title;
+        document.getElementById("date" + (firstID % 5 + 4)).innerText = list[firstID + 3].date;
+        document.getElementById("number" + (firstID % 5 + 5)).innerText = list[firstID + 4].id;
+        document.getElementById("name" + (firstID % 5 + 5)).innerText = list[firstID + 4].title;
+        document.getElementById("date" + (firstID % 5 + 5)).innerText = list[firstID + 4].date;
+        if (isEnterprise) {
             $("#del1").hide();
             $("#del2").hide();
             $("#del3").hide();
@@ -337,20 +339,20 @@ function changepage(page){
 
 }
 
-function deletesingle(n){
-    var q=list[firstID+n];
-    var url=getUrl();
+function deletesingle(n) {
+    var q = list[firstID + n];
+    var url = getUrl();
     $.ajax(
         {
-            url: url+"/deleteCourse",
-            headers :{
+            url: url + "/deleteCourse",
+            headers: {
                 'Authorization': 'Bearer ' + getToken(),
                 'content-type': 'application/x-www-form-urlencoded'
             },
             data: {
-                id:q.id
+                id: q.id
             },
-            async:false,
+            async: false,
             success: function (data) {
             },
             error: function (xhr) {
@@ -360,9 +362,9 @@ function deletesingle(n){
         }
     )
 }
-function delAll(){
-    var r=confirm("确定删除么？");
-    if(r) {
+function delAll() {
+    var r = confirm("确定删除么？");
+    if (r) {
         if (document.getElementById("c1").checked) {
             deletesingle(1);
         }
@@ -384,19 +386,19 @@ function delAll(){
 
 }
 
-function search(){
-    var text=$("#con").val();
-    for(var i=0;i<list.length;i++){
-        if(list[i].id==text){
+function search() {
+    var text = $("#con").val();
+    for (var i = 0; i < list.length; i++) {
+        if (list[i].id == text) {
             $("#your-alert-1").show();
-            document.getElementById("number"+(firstID%5+1)).innerText=list[i].id;
-            document.getElementById("name"+(firstID%5+1)).innerText=list[i].title;
-            document.getElementById("date"+(firstID%5+1)).innerText=list[i].date;
+            document.getElementById("number" + (firstID % 5 + 1)).innerText = list[i].id;
+            document.getElementById("name" + (firstID % 5 + 1)).innerText = list[i].title;
+            document.getElementById("date" + (firstID % 5 + 1)).innerText = list[i].date;
             $("#your-alert-2").hide();
             $("#your-alert-3").hide();
             $("#your-alert-4").hide();
             $("#your-alert-5").hide();
-            firstID=i-1;
+            firstID = i - 1;
         }
     }
 

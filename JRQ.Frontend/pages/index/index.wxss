@@ -17,7 +17,7 @@
 
 .search {
   /* background-color: rgb(200, 165, 65); */
-  width: 90%;
+  width: 95%;
   margin: 0 auto;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -94,12 +94,14 @@
 
 .document_more {
   width: 90%;
-  margin: 0 auto;
-  padding: 10px 0 10px;
+  margin-top: 0;
+  margin-left: 5%;
+  padding: 0px 0 20px;
 }
 
 .document {
   color: black;
+  /* margin-bottom: 10px; */
 }
 
 .more {
@@ -138,9 +140,9 @@
 .video_more {
   width: 90%;
   margin: 0 auto;
-  padding: 10px 0 10px;
-  display: flex;
-  justify-content: space-between;
+  padding: 10px 0 20px;
+  /* display: flex; */
+  /* justify-content: space-between; */
 }
 
 .video {

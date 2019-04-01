@@ -43,10 +43,11 @@ public class CourseGroupBlServiceImpl implements CourseGroupBlService {
     }
 
     @Override
-    public InfoResponse add(String name,String writerName, List<String> courses) throws NotExistException {
+    public InfoResponse add(String name,String writerName,String image, List<String> courses) throws NotExistException {
         CourseGroup courseGroup = new CourseGroup();
         courseGroup.setTitle(name);
         courseGroup.setWriterName(writerName);
+        courseGroup.setImage(image);
         List<Course> courseList = new ArrayList<>();
         if (courses != null && courses.size() > 0) {
             for (String courseId : courses) {
@@ -59,10 +60,11 @@ public class CourseGroupBlServiceImpl implements CourseGroupBlService {
     }
 
     @Override
-    public InfoResponse update(String id, String title, String writerName,List<String> courses) throws NotExistException {
+    public InfoResponse update(String id, String title, String writerName,String image,List<String> courses) throws NotExistException {
         CourseGroup courseGroup = courseGroupDataService.findById(id);
         courseGroup.setTitle(title);
         courseGroup.setWriterName(writerName);
+        courseGroup.setImage(image);
         List<Course> courseList = new ArrayList<>();
         if (courses != null && courses.size() > 0) {
             for (String courseId : courses) {
@@ -102,6 +104,12 @@ public class CourseGroupBlServiceImpl implements CourseGroupBlService {
             }
         }
         return new CourseGroupListResponse(courseGroupItems);
+    }
+
+    @Override
+    public InfoResponse deleteById(String id) throws NotExistException {
+        courseGroupDataService.deleteById(id);
+        return new InfoResponse();
     }
 
 

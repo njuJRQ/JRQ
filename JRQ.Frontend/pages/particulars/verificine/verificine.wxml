@@ -15,7 +15,7 @@
           <text class='title'>{{item.title}}</text>
           <view class='shoping'>
           <view>
-            <text style='color: rgb(247, 198, 17);'>￥</text>
+            <text style='color: black;'>￥</text>
             <text class='money'>{{item.price}}</text>
           </view>
             <!-- <image class='img_cart' src='{{item.icon}}'></image> -->

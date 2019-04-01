@@ -7,13 +7,13 @@
   <view class='headWrapper' style='background-color:black; background-size: cover;background-repeat: no-repeat; background-position: bottom'>
     <!--搜索框-->
     <view class='search_ico'>
-    <template class='search' is='searchBar' data='{{placeholder: "搜索文章", searchCondition: searchCondition}}'></template>
+      <template class='search' is='searchBar' data='{{placeholder: "搜索文章", searchCondition: searchCondition}}'></template>
     </view>
   </view>
   <!--广告位-->
   <!-- <template class='ad' is='adBar' data='{{ad}}'></template> -->
   <view class='banner'>
-  <image class='banner_img' mode='widthFix' src='https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E6%84%9F%E8%B0%A2%E6%9C%89%E4%BD%A0%20%E4%BC%9A%E5%91%98%E4%B8%93%E4%BA%AB.png'></image>
+    <image class='banner_img' mode='widthFix' src='https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E6%84%9F%E8%B0%A2%E6%9C%89%E4%BD%A0%20%E4%BC%9A%E5%91%98%E4%B8%93%E4%BA%AB.png'></image>
   </view>
   <view class='adBar_btn'>
 
@@ -32,20 +32,20 @@
   </view>
   <!--内容  -->
   <view class='box-tll'>
-  <view class='box'>
-    <view class='conten'  wx:for-items="{{array}}" wx:key="id">
-      <view class='diteall' catchtap="catchTapCategory" open-type="switchTab"  data-goodsid="{{item.id}}" >
-      <view >
-      <view class='conten-image'>
-        <view class='conten-text'>
-          <image src='{{item.src}}' class='img'></image>
+    <view class='box'>
+      <view class='conten' wx:for-items="{{array}}" wx:key="id">
+        <view class='diteall' catchtap="catchTapCategory" open-type="switchTab" data-goodsid="{{item.id}}">
+          <view>
+            <view class='conten-image'>
+              <view class='conten-text'>
+                <image src='{{item.src}}' class='img'></image>
+              </view>
+            </view>
+          </view>
+          <text class='txt'>{{item.text}}</text>
         </view>
-        </view>
-        </view>
-        <text class='txt'>{{item.text}}</text>
       </view>
     </view>
-  </view>
   </view>
   <!-- 课程 -->
   <view style='width:100%;background:#fff;' wx-if="{{isShow}}">
@@ -55,12 +55,11 @@
       <text class='more'>Last Course Update</text>
     </view>
     <!-- style='height:{{height_video}}px;' -->
-    <view class='articleListWrapper ' >
+    <view class='articleListWrapper '>
       <view class='articleWrapper' wx:for='{{videos}}' wx:key='id'>
         <view class='article jrq__block' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
           <view class='article__content'>
             <image class='article__banner' mode='widthFix' src='{{item.images.length > 0 ? item.images[0]: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png"}}'></image>
-            <!-- <image class='article__banner' mode='widthFix' src='/img/bofang.jpg'></image> -->
           </view>
           <view class='title_range'>
             <text class='article__titleName'>{{item.title}}</text>
@@ -78,18 +77,19 @@
 
   <view style='width:100%;background:#fff;' wx-if="{{isShowView}}">
     <view class='video_more'>
-      <text class='document'>组合课程 Curricular</text>
+      <text class='document'>组合课程</text>
+      <text class='more'>Curricular</text>
       <!-- <text class='video' bindtap='moresAction'>更多>></text> -->
     </view>
     <!--文章列表-->
     <!-- 文章展示 -->
     <!-- style='height:{{height}}px;' -->
-    <view class='articleListWrapper_document '>   
+    <view class='articleListWrapper_document '>
       <view class='articleWrapper_document' wx:for='{{articles}}' wx:key='id'>
         <view class='articles jrq__block' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
           <view class='article__content'>
             <!-- <image class='article__image' src='{{item.images.length > 0 ? item.images[0]: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png"}}'></image> -->
-                        <image class='article__banner' mode='widthFix' src='{{item.images.length > 0 ? item.images[0]: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png"}}'></image>
+            <image class='article__banner' mode='widthFix' src='{{item.images.length > 0 ? item.images[0]: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png"}}'></image>
           </view>
           <view class='card_document'>
             <text class='article__titleName'>{{item.title}}</text>

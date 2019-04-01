@@ -58,9 +58,8 @@
 
 /*搜索栏样式*/
 .search_ico{
-  margin-left: -3.5%;
-  margin-right: 30%;
-  width: 110%;
+  margin: 5px auto;
+  width: 100%;
 }
 .search__keywords {
   font-weight: bold;

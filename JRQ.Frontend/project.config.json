@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 31,
+			"current": 19,
 			"list": [
 				{
 					"id": 0,
@@ -157,7 +157,7 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 19,
 					"name": "contact",
 					"pathName": "pages/contact/contact",
 					"query": "",
@@ -238,7 +238,14 @@
 				{
 					"id": -1,
 					"name": "projects",
-					"pathName": "pages/projects/project"
+					"pathName": "pages/projects/project",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "myHistory",
+					"pathName": "pages/contact/contact",
+					"query": ""
 				}
 			]
 		}

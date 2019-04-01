@@ -1,79 +1,119 @@
 /* pages/modifyMyCard/modifyMyCard.wxss */
 @import '/style/common.wxss';
+
 /*本页面css属性*/
+
 page {
   background-color: #efefef;
 }
+
 /*关于人物头像的属性*/
+
 .face {
   margin: 10px 0 0 0;
 }
+
 .face image {
   width: 100px;
   height: 100px;
 }
+
 .face-text {
   text-align: center;
   margin: 10px 0;
   font-size: 0.8rem;
 }
+
 /*关于修改个人信息的属性*/
+
 .infos {
   background-color: white;
   padding: 10px;
   font-size: 0.8rem;
 }
+
 .info {
-  width: 100%;
+  width: 96%;
+  margin-left: 2%;
+  border-bottom-color: rgb(230, 230, 230);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
   justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
 }
+
 .info__key {
   font-size: 0.8rem;
   color: black;
+  width: 25%;
+  padding-top: 5px;
 }
+
 .info__value {
-  font-size: 1rem;
+  font-size: 0.8rem;
+  width: 100%;
+  text-align: right;
+  color: rgb(150, 150, 150);
 }
+
+.arrow {
+  margin-top: 8px;
+  height: 14px;
+  width: 24px;
+}
+
 .info__textarea {
   min-height: 100px;
 }
+
 /*关于保存按钮的属性*/
+
 .save-btn {
   margin: 40px 0 200px 0;
   width: 90%;
 }
+
 /**
 tag
 **/
+
 .container {
-  
+  /* display: inline-block; */
 }
 
-.container .tag-wrapper {
+.container> .tag-wrapper {
+  display: inline-block;
+  /* flex-direction: row; */
 }
 
 .container .tag-item-wrapper {
-    display: inline-block;
-    margin: 20rpx 0 0rpx 18rpx;
+  /* display: flex;
+  flex-direction: row; */
+  display: inline-block;
+  margin: 10rpx 0 0rpx 18rpx;
 }
 
 .container .tag-item {
-    padding: 5rpx 25rpx;
-    font-size: 24rpx;
+  padding: 5rpx 25rpx;
+  font-size: 24rpx;
+  width: 100%;
 }
 
 .container .tag-item-selected {
-    padding: 5rpx 25rpx;
-    font-size: 24rpx;
+  padding: 5rpx 25rpx;
+  font-size: 24rpx;
 }
 
 .container>.tag-wrapper>.tag-item-wrapper>.tag-item {
-    border: 1rpx solid #C09B54;
-    border-radius: 40rpx;
+  border: 1rpx solid #c09b54;
+  border-radius: 40rpx;
+  width: 100%;
 }
 
 .container>.tag-wrapper>.tag-item-wrapper>.tag-item-selected {
-    background: #C09B54;
-    color: #ffffff;
-    border-radius: 40rpx;
+  background: #c09b54;
+  color: #fff;
+  border-radius: 40rpx;
 }

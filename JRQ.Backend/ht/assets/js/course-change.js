@@ -1,25 +1,27 @@
 $("#loader").hide();
-var url=getUrl();
+var url = getUrl();
 var storage = window.localStorage;
-var id=storage["thisCourse"];
-var image="";
-var video="";
+var id = storage["thisCourse"];
+var image = "";
+var video = "";
 $.ajax(
     {
-        url: url+"/getCourse",
+        url: url + "/getCourse",
+        type: "POST",
+
         data: {
-            id:id
+            id: id
         },
-        async:false,
+        async: false,
         success: function (data) {
-            document.getElementById("id").innerText=data.course.id;
-            document.getElementById("title").value=data.course.title;
-            document.getElementById("writerName").value=data.course.writerName;
-            document.getElementById("date").value=data.course.date;
-            document.getElementById("likeNum").value=data.course.likeNum;
-            document.getElementById("price").value=data.course.price;
-            image=data.course.image;
-            video=data.course.video;
+            document.getElementById("id").innerText = data.course.id;
+            document.getElementById("title").value = data.course.title;
+            document.getElementById("writerName").value = data.course.writerName;
+            document.getElementById("date").value = data.course.date;
+            document.getElementById("likeNum").value = data.course.likeNum;
+            document.getElementById("price").value = data.course.price;
+            image = data.course.image;
+            video = data.course.video;
         },
         error: function (xhr) {
             alert('动态页有问题噶！\n\n' + xhr.responseText);
@@ -33,14 +35,14 @@ function checkRate(input) {
     var nubmer = document.getElementById(input).value;
 
     if (!re.test(nubmer)) {
-        alert(input+"请输入数字");
+        alert(input + "请输入数字");
         document.getElementById(input).value = "";
         return false;
     }
     return true;
 }
 function adduser() {
-    if(checkRate("likeNum")&&checkRate("price")) {
+    if (checkRate("likeNum") && checkRate("price")) {
         $("#loader").show();
         var fd = new FormData($("#upload-file-form")[0]);
         var url = getUrl();
@@ -55,7 +57,7 @@ function adduser() {
             contentType: false,
             cache: false,
             success: function (data) {
-                if(data!="") {
+                if (data != "") {
                     image = data;
                 }
 
@@ -68,13 +70,15 @@ function adduser() {
                     contentType: false,
                     cache: false,
                     success: function (data) {
-                        if(data!="") {
+                        if (data != "") {
                             video = data;
                         }
                         $("#loader").hide();
                         $.ajax(
                             {
                                 url: url + "/updateCourse",
+                                type: "POST",
+
                                 data: {
                                     id: id,
                                     title: $("#title").val(),
@@ -82,8 +86,8 @@ function adduser() {
                                     date: $("#date").val(),
                                     likeNum: $("#likeNum").val(),
                                     price: parseInt($("#price").val()),
-                                    image:image,
-                                    video:video
+                                    image: image,
+                                    video: video
                                 },
                                 async: false,
                                 success: function (data) {

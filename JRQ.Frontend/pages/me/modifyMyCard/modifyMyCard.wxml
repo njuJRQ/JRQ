@@ -57,7 +57,7 @@
         </picker>
       </view> -->
       <!-- <view class='div-line'></view> -->
-      <view class='info' bindtap='letShowUserTagsModal'>
+      <view class='info'>
         <text class='info__key' bindtap='letShowUserTagsModal'>关注领域</text>
         <!-- 用户标签列表，模态框 -->
         <modal wx:if="{{showUserTagsModal}}" height='60%' title="用户标签选择(至多三项)" bindcancel="userTagsModalCancel" bindconfirm='userTagsModalConfirm1'>
@@ -79,7 +79,7 @@
         </view>
       </view>
 
-      <view class='info' bindtap='letShowUserTagsModal2'>
+      <view class='info'>
         <text class='info__key' bindtap='letShowUserTagsModal2'>业务标签</text>
         <!-- 用户标签列表，模态框 -->
         <modal wx:if="{{showUserTagsModal2}}" height='60%' title="用户标签选择(至多三项)" bindcancel="userTagsModalCancel" bindconfirm='userTagsModalConfirm2'>

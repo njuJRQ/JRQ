@@ -41,7 +41,8 @@ Page({
     images: [],
     publishInputValue: "",
     publishType: "",
-    linkMan: ""
+    linkMan: "",
+    phone: "",
   },
   /**
    * 生命周期函数--监听页面加载
@@ -52,7 +53,13 @@ Page({
   //获取textarea输入文本内容
   bindInputValue: function(e) {
     this.setData({
-      allValue: e.detail.value
+      publishInputValue: e.detail.value
+    })
+  },
+  //获取textarea输入文本内容
+  bindProjectInfo: function(e) {
+    this.setData({
+      projectInfo: e.detail.value
     })
   },
 
@@ -64,8 +71,20 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: (res) => {
-        that.data.publishPhotos = that.data.publishPhotos.concat(res.tempFilePaths)
-        that.setData(that.data)
+        wx.uploadFile({
+          url: app.globalData.backendUrl + "uploadFeed",
+          filePath: res.tempFilePaths[0],
+          name: 'image',
+          success: (response) => {
+            var images = that.data.images;
+            var photos = that.data.publishPhotos.concat(res.tempFilePaths[0]);
+            images = images.concat(app.globalData.picUrl + JSON.parse(response.data));
+            that.setData({
+              images: images,
+              publishPhotos: photos
+            })
+          }
+        })
       },
     })
   },
@@ -100,36 +119,20 @@ Page({
   },
   //发布文章
   onPublish: function() {
-    var photos = this.data.publishPhotos;
-    for (var i = 0; i < photos.length; i++) {
-      wx.uploadFile({
-        url: app.globalData.backendUrl + "uploadFeed",
-        filePath: photos[i],
-        name: 'image',
-        success: (res) => {
-          var images = this.data.images;
-          images.concat(app.picUrl + res.data);
-          this.setData({
-            images: images
-          })
-        }
-      })
-    }
     api.addFeed.call(
       this,
       app.getOpenid(),
       this.data.publishType,
       this.data.publishInputValue,
       this.data.publishPhotos,
-      this.data.openid,
-      this.data.linkMan,
       this.data.phone,
+      this.data.linkMan,
       this.data.agencyName,
       this.data.projectRef,
       this.data.projectInfo,
       this.data.images
     )
-    console.log(this.data.images + '----------------------')
+    console.log(this.data.images)
 
   }
 })

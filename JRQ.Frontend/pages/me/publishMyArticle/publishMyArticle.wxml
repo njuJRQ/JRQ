@@ -29,7 +29,7 @@
 
         <view class="section">
           <text class='types'>联系人</text>
-          <input  value='{{linkMan}}' bindblur='linkManInput' class='placeholder' name='linkMan' />
+          <input value='{{linkMan}}' bindblur='linkManInput' class='placeholder' name='linkMan' />
         </view>
         <view class='section'>
           <text class='types'>手机号</text>
@@ -41,13 +41,13 @@
         </view>
         <view class="section">
           <text class='types'>项目关联</text>
-           <selector value='{{projectRef}}' prop-array='{{selectArray}}' bind:myget='getDate'></selector>
+          <selector value='{{projectRef}}' prop-array='{{selectArray}}' bind:myget='getDate'></selector>
         </view>
         <!-- 项目 -->
         <view class='textarea'>
           <text class='basic'>项目信息</text>
           <view class="textarea-wrp">
-            <textarea auto-focus="true" name="projectInfo" style="height: 3em" />
+            <textarea auto-focus="true" name="projectInfo" style="height: 3em" value='{{projectInfo}}' bindinput='bindProjectInfo'></textarea>
           </view>
         </view>
         <view class='publisher'>

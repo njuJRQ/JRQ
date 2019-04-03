@@ -424,8 +424,8 @@ Page({
       })
     }
     if ("7" == e.currentTarget.dataset.goodsid) {
-      wx.switchTab({
-        url: '../contact/contact'
+      wx.navigateTo({
+        url: '../particulars/association/association?goodsId=' + goodsId
       })
     }
     if ("5" == e.currentTarget.dataset.goodsid) {

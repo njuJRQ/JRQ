@@ -7,35 +7,36 @@ Page({
    * 页面的初始数据
    */
   data: {
-
-    cooperation: {
-      title: "资源介绍",
-      text: '全国运营，影响100w金融从业者，直接社群用户20w，涵盖基金、地金、拍照、一二级市场、证券、票据等领域的初级小白、资深从业者以及机构。',
-      text_tex: '现面向金融界广招合作，金融知识、金融培训、考证考级、提供资金的业务方、一手项目方。',
-      title_txt: '合作申请',
-      time: "xxxx",
-  
-    },
+    image: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/4.2/%E5%95%86%E5%8A%A1%E5%90%88%E4%BD%9C.jpg',
+    proiew: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/4.2/%E8%B5%84%E6%BA%90%E4%BB%8B%E7%BB%8D.png',
     selectArray: [{
-      "id": "0",
-      "text": "投资方",
-      "type": 'INVESTOR'
-    }, {
-      "id": "1",
-      "text": "项目方",
+        "id": "0",
+        "text": "资金方",
+        "type": 'INVESTOR'
+      }, {
+        "id": "1",
+        "text": "项目方",
         "type": 'PROJECT'
 
-    },
-    {
-      "id": "2",
-      "text": "知识付费",
-      "type": 'PAY_FOR_KNOWLEDGE'
+      },
+      {
+        "id": "2",
+        "text": "知识付费",
+        "type": 'PAY_FOR_KNOWLEDGE'
 
-    }, {
-      "id": "3",
-      "text": "考级培训",
-      "type": 'EMPLOYS_TRAINING'
-    }
+      }, {
+        "id": "3",
+        "text": "考级培训",
+        "type": 'EMPLOYS_TRAINING'
+      }, {
+        "id": "4",
+        "text": "法务财税",
+        "type": 'EMPLOYS_TRAINING'
+      }, {
+        "id": "5",
+        "text": "其他服务",
+        "type": 'EMPLOYS_TRAINING'
+      }
     ],
     phone: '',
     agencyName: "",
@@ -48,35 +49,35 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
- 
+
   },
-  getDate: function (e) {
+  getDate: function(e) {
     console.log(e.detail.type)
     this.setData({
       type: e.detail.type
     })
   },
-  linkManInput:function(e){
+  linkManInput: function(e) {
     this.setData({
       linkMan: e.detail.value
     })
   },
-  phoneInput:function(e){
+  phoneInput: function(e) {
     this.setData({
-      phone:e.detail.value
+      phone: e.detail.value
     })
   },
-  agencyNameInput:function(e){
+  agencyNameInput: function(e) {
     this.setData({
-      agencyName:e.detail.value
+      agencyName: e.detail.value
     })
   },
-  typeInput:function(e){
+  typeInput: function(e) {
     this.setData({
-      type:e.detail.value
+      type: e.detail.value
     })
   },
-  onPublish:function(){
+  onPublish: function() {
     api.getPartnership.call(
       this,
       this.data.phone,

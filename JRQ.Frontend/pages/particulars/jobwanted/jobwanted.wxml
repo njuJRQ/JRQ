@@ -3,35 +3,48 @@
 <import src='/template/likeIcon/likeIcon.wxml'></import>
 
 <view class="container container--color-white">
+  <view class='heder_img'>
+    <image class='img_image' src='{{image}}' mode='widthFix'></image>
+  </view>
+  <!-- 选择器 -->
+  <view class='ditu'>
+   <view class='ditu_box'>
+    <picker class='picker' bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+    <text>{{array[index]}}</text>
+  </picker>
+    <image src='/img/ditu.png'></image>
+  </view>
+  </view>
+  
   <view class='box' wx:for="{{jobCardItems}}" wx:key="">
     <view class='conten' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
       <!-- 标题 -->
-      <!-- 个人信息 -->
-      <view class='user'>
-        <view class='title'>
-          <view class='img'>
-            <image src='{{item.image}}'></image>
-          </view>
-          <view class='title_txt'>
-            <text class='title_user'>{{item.user.username}}</text>
-          </view>
-
-        </view>
-        <view>
-          <text class='txt'>{{item.expectWage}}</text>
-        </view>
-      </view>
-      <!-- 公司 -->
       <view class='money'>
         <text class='text'>{{item.expectPosition}}</text>
       </view>
-      <!-- 要求 -->
-      <view class='ask'>
-        <text class='ask_type'>应届生</text>
-        <text class='ask_type'>{{item.degree}}</text>
-        <text class='ask_type'>21岁</text>
+      <!-- 个人信息 -->
+      <view class='user'>
+        <view class='img'>
+          <image src='{{item.image}}'></image>
+        </view>
+        <view class='text_box'>
+          <view class='text_ask'>
+            <text>北京市 海定区</text>
+          </view>
+          <view class='text_degree'>
+            <text>{{item.degree}}</text>
+          </view>
+          <view class='text_sree'>
+            <text>经验不限</text>
+          </view>
+        </view>
+        <view class='txt'>
+          <text>{{item.expectWage}}</text>
+        </view>
       </view>
-
+      <view class='footer'>
+        <text>{{item.user.company}}</text>
+      </view>
     </view>
   </view>
 </view>

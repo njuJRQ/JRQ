@@ -1,0 +1,33 @@
+/* pages/particulars/association/association.wxss */
+@import '/style/common.wxss';
+@import '/template/findBar/searchBar.wxss';
+@import '/template/adBar/adBar.wxss';
+@import '/template/likeIcon/likeIcon.wxss';
+
+/* 本页面的样式 */
+
+.container {
+  background-color: white;
+}
+
+.heder_img {
+  width: 96%;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 3px;
+}
+
+.img_image {
+  width: 100%;
+}
+.main{
+  width: 96%;
+  display: flex;
+  justify-content: space-between;
+}
+.main_img{
+  width: 32%;
+}
+.main_img image{
+  width: 100%;
+}

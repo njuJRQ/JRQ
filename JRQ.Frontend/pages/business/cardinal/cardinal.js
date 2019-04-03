@@ -6,17 +6,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    cooperation: {
-      title: "资源介绍",
-      text: '股权投融资,IPO,并购',
-      text_tex: '服务内容',
-      title_txt: '信息提交',
-      text_size: '提供上述业务一手资金',
-      title_a: '服务流程',
-      time: "xxxx",
-
-
-    },
     selectArray: [{
         "id": "0",
         "text": "实控人",

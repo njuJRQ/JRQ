@@ -11,6 +11,27 @@ Page({
    * 页面的初始数据
    */
   data: {
+    array: ['北京', '上海', '广东', '南京'],
+    objectArray: [
+      {
+        id: 0,
+        name: '北京'
+      },
+      {
+        id: 1,
+        name: '上海'
+      },
+      {
+        id: 2,
+        name: '广东'
+      },
+      {
+        id: 3,
+        name: '南京'
+      }
+    ],
+    index: 0,
+image:'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/4.2/%E6%8B%9B%E8%81%98.png',
     jobCardItems: [{
       id: 0,
       title: '张三',
@@ -74,7 +95,12 @@ Page({
       console.log(res)
     })
   },
-
+  bindPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      index: e.detail.value
+    })
+  },
   onTouchThisArticle: function (e) {
     var id = e.currentTarget.dataset.id //获取当前文章id
     var kind = e.currentTarget.dataset.kind

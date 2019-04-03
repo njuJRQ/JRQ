@@ -18,6 +18,24 @@ Page({
 
   },
 
+  letShowUserTagsModal2: function () {
+    this.setData({
+      showUserTagsModal2: true
+    })
+  },
+
+  userTagsModalCancel: function () {
+    this.setData({
+      showUserTagsModal: false,
+      showUserTagsModal2: false,
+    })
+    console.log(this.data.showUserTagsModal)
+  },
+  userTagsModalConfirm2: function () {
+    this.setData({
+      showUserTagsModal2: false
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

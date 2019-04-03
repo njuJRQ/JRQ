@@ -7,13 +7,22 @@
     <image class='img_image' src='{{header_img}}' mode='widthFix'></image>
   </view>
   <view class='main'>
-   <view class='main_img'>
+   <view class='main_img'  bindtap='letShowUserTagsModal2'>
    <image src='{{mian_imgA}}' mode='widthFix'></image>
    </view>
-    <view class='main_img'>
+    <view class='main_img'  bindtap='letShowUserTagsModal2'>
    <image src='{{mian_imgB}}' mode='widthFix'></image>
-   </view> <view class='main_img'>
+   </view> <view class='main_img'  bindtap='letShowUserTagsModal2'>
    <image src='{{mian_imgC}}' mode='widthFix'></image>
    </view>
   </view>
+            <modal wx:if="{{showUserTagsModal2}}" height='60%' title="功能正在开发中，敬请期待" bindcancel="userTagsModalCancel" bindconfirm='userTagsModalConfirm2'>
+          <view class='container'>
+            <view class='tag-wrapper'>
+              <view wx:for="{{userTag2}}" wx:key="index" class='tag-item-wrapper'>
+                <text class="{{item.state?'tag-item-selected':'tag-item'}}" bindtap="userTagSelect2" id="{{item.name}}">{{item.name}}</text>
+              </view>
+            </view>
+          </view>
+        </modal>
   </view>

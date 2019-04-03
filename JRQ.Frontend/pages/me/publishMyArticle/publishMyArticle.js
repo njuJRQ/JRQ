@@ -17,31 +17,31 @@ Page({
 
     }],
     selectArray: [{
-      "id": "0",
-      "text": "实控人",
-      "projectRef": 'ACTUAL_CONTROLLER'
-    }, {
-      "id": "1",
-      "text": "核心股东",
-      "projectRef": 'CORE_OF_SHAREHOLDERS'
+        "id": "0",
+        "text": "实控人",
+        "projectRef": 'ACTUAL_CONTROLLER'
+      }, {
+        "id": "1",
+        "text": "核心股东",
+        "projectRef": 'CORE_OF_SHAREHOLDERS'
 
-    },
-    {
-      "id": "2",
-      "text": "雇员",
-      "projectRef": 'EMPLOYEE'
+      },
+      {
+        "id": "2",
+        "text": "雇员",
+        "projectRef": 'EMPLOYEE'
 
-    }, {
-      "id": "3",
-      "text": "一手第三方",
-      "projectRef": 'THIRD_PARTY'
-    }
+      }, {
+        "id": "3",
+        "text": "一手第三方",
+        "projectRef": 'THIRD_PARTY'
+      }
     ],
     publishPhotos: [],
-    images:[],
+    images: [],
     publishInputValue: "",
     publishType: "",
-    linkMan:""
+    linkMan: ""
   },
   /**
    * 生命周期函数--监听页面加载
@@ -65,7 +65,6 @@ Page({
       sourceType: ['album', 'camera'],
       success: (res) => {
         that.data.publishPhotos = that.data.publishPhotos.concat(res.tempFilePaths)
-        console.log(that.data.publishPhotos.concat(res.tempFilePaths)+'789789')
         that.setData(that.data)
       },
     })
@@ -78,22 +77,22 @@ Page({
     })
     console.log(this.data.publishType)
   },
-  linkManInput: function (e) {
+  linkManInput: function(e) {
     this.setData({
       linkMan: e.detail.value
     })
   },
-  phoneInput: function (e) {
+  phoneInput: function(e) {
     this.setData({
       phone: e.detail.value
     })
   },
-  agencyNameInput: function (e) {
+  agencyNameInput: function(e) {
     this.setData({
       agencyName: e.detail.value
     })
   },
-  getDate: function (e) {
+  getDate: function(e) {
     console.log(e.detail.projectRef)
     this.setData({
       projectRef: e.detail.projectRef
@@ -101,7 +100,21 @@ Page({
   },
   //发布文章
   onPublish: function() {
-    
+    var photos = this.data.publishPhotos;
+    for (var i = 0; i < photos.length; i++) {
+      wx.uploadFile({
+        url: app.globalData.backendUrl + "uploadFeed",
+        filePath: photos[i],
+        name: 'image',
+        success: (res) => {
+          var images = this.data.images;
+          images.concat(app.picUrl + res.data);
+          this.setData({
+            images: images
+          })
+        }
+      })
+    }
     api.addFeed.call(
       this,
       app.getOpenid(),
@@ -116,7 +129,7 @@ Page({
       this.data.projectInfo,
       this.data.images
     )
-    console.log(this.data.images+'----------------------')
+    console.log(this.data.images + '----------------------')
 
   }
 })

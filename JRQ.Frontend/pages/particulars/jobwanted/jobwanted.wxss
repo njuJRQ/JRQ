@@ -62,13 +62,13 @@
 }
 
 .txt {
-  height: 40px;
-  line-height: 40px;
+  height: 30px;
+  line-height: 30px;
 }
 
 .txt text {
   color: rgb(242, 198, 94);
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .money {
@@ -109,8 +109,8 @@
   display: flex;
   justify-content: space-around;
   /* border: 1px solid red; */
-  height: 40px;
-  line-height: 40px;
+  height: 30px;
+  line-height: 30px;
 }
 
 .text_sree {
@@ -126,7 +126,7 @@
 
 .text_ask {
   background-color: #ccc;
-  width: 100px;
+  width: 80px;
   border-radius: 15px;
   height: 20px;
   line-height: 15px;

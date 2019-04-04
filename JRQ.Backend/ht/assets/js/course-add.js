@@ -13,19 +13,31 @@ function checkRate(input) {
 function adduser() {
     if(checkRate("price")) {
         $("#loader").show();
-        var fd = new FormData($("#upload-file-form")[0]);
         var url = getUrl();
-        var fd2 = new FormData($("#upload-video-form")[0]);
         var storage = window.localStorage;
         var id = storage["adminUsername"];
         var myDate = new Date();
         var date = myDate.toLocaleDateString();
+        // 上传图片
         var image="";
+        var el = $('#image')[0];
+        var formData = new FormData();
+        if (!el.files[0]) {
+            return;
+        }
+        formData.append('image', el.files[0]);
+        // 上传视频
         var video="";
+        var els = $('#video')[0];
+        var form = new FormData();
+        if (!els.files[0]) {
+            return;
+        }
+        form.append('video', els.files[0]);
         $.ajax({
             url: url + "/courseImage",
             type: "POST",
-            data: fd,
+            data: formData,
             enctype: 'multipart/form-data',
             processData: false,
             contentType: false,
@@ -37,7 +49,7 @@ function adduser() {
                 $.ajax({
                     url: url + "/courseVideo",
                     type: "POST",
-                    data: fd2,
+                    data: form,
                     enctype: 'multipart/form-data',
                     processData: false,
                     contentType: false,
@@ -56,7 +68,8 @@ function adduser() {
                                     date: date,
                                     price: parseInt($("#price").val()),
                                     image:image,
-                                    video:video
+                                    video:video,
+                                    isTextualResearchCourse:false
                                 },
                                 async: false,
                                 success: function (data) {

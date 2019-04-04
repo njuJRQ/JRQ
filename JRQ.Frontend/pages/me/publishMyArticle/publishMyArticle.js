@@ -78,7 +78,7 @@ Page({
           success: (response) => {
             var images = that.data.images;
             var photos = that.data.publishPhotos.concat(res.tempFilePaths[0]);
-            images = images.concat(app.globalData.picUrl + JSON.parse(response.data));
+            images = images.concat(JSON.parse(response.data));
             that.setData({
               images: images,
               publishPhotos: photos

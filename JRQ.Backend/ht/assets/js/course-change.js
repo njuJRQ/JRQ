@@ -44,14 +44,25 @@ function checkRate(input) {
 function adduser() {
     if (checkRate("likeNum") && checkRate("price")) {
         $("#loader").show();
-        var fd = new FormData($("#upload-file-form")[0]);
+        // var fd = new FormData($("#upload-file-form")[0]);
+        var el = $('#image')[0];
+        var formData = new FormData();
+        if (!el.files[0]) {
+            return;
+        }
+        formData.append('image', el.files[0]);
         var url = getUrl();
-        var fd2 = new FormData($("#upload-video-form")[0]);
-
+        // var fd2 = new FormData($("#upload-video-form")[0]);
+        var ele = $('#video')[0];
+        var form = new FormData();
+        if (!ele.files[0]) {
+            return;
+        }
+        form.append('video', ele.files[0]);
         $.ajax({
             url: url + "/courseImage",
             type: "POST",
-            data: fd,
+            data: formData,
             enctype: 'multipart/form-data',
             processData: false,
             contentType: false,
@@ -64,7 +75,7 @@ function adduser() {
                 $.ajax({
                     url: url + "/courseVideo",
                     type: "POST",
-                    data: fd2,
+                    data: form,
                     enctype: 'multipart/form-data',
                     processData: false,
                     contentType: false,

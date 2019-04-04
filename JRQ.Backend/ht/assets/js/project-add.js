@@ -30,7 +30,7 @@ function checkRate(input) {
 function adduser() {
     if(checkRate("money")) {
         $("#loader").show();
-        var fd = new FormData($("#upload-file-form")[0]);
+        // var fd = new FormData($("#upload-file-form")[0]);
         var url = getUrl();
         var obj1 = document.getElementById("industry"); //定位id
         var index1 = obj1.selectedIndex; // 选中索引
@@ -47,10 +47,16 @@ function adduser() {
         var myDate = new Date();
         var date = myDate.toLocaleDateString();
         var attachment="";
+        var el = $('#attachment')[0];
+        var formData = new FormData();
+        if (!el.files[0]) {
+            return;
+        }
+        formData.append('attachment', el.files[0]);
         $.ajax({
             url: url + "/uploadAttachment",
             type: "POST",
-            data: fd,
+            data: formData,
             enctype: 'multipart/form-data',
             processData: false,
             contentType: false,

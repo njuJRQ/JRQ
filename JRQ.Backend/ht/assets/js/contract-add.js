@@ -4,47 +4,60 @@ function checkRate(input) {
     var nubmer = document.getElementById(input).value;
 
     if (!re.test(nubmer)) {
-        alert(input+"请输入数字");
+        alert(input + "请输入数字");
         document.getElementById(input).value = "";
         return false;
     }
     return true;
 }
 function adduser() {
-    if(checkRate("price")) {
+    if (checkRate("price")) {
         $("#loader").show();
-        var fd = new FormData($("#upload-file-form")[0]);
+        // var fd = new FormData($("#upload-file-form")[0]);
         var url = getUrl();
         var fd2 = new FormData($("#upload-video-form")[0]);
         var storage = window.localStorage;
         var id = storage["adminUsername"];
         var myDate = new Date();
         var date = myDate.toLocaleDateString();
-        var image="";
-        var attachment="";
+        var image = "";
+        var el = $('#image')[0];
+        var formData = new FormData();
+        if (!el.files[0]) {
+            return;
+        }
+        formData.append('image', el.files[0]);
+        // --------------------------------------------
+        var attachment = "";
+        var e = $('#attachment')[0];
+        var form = new FormData();
+        if (!e.files[0]) {
+            return;
+        }
+        form.append('attachment', e.files[0]);
         $.ajax({
             url: url + "/documentImage",
             type: "POST",
-            data: fd,
+            data: formData,
             enctype: 'multipart/form-data',
             processData: false,
             contentType: false,
             cache: false,
             success: function (data) {
-                if(data!="") {
+                if (data != "") {
                     image = data;
                 }
                 $.ajax({
                     url: url + "/uploadDocument",
                     type: "POST",
-                    data: fd2,
+                    data: form,
                     enctype: 'multipart/form-data',
                     processData: false,
                     contentType: false,
                     cache: false,
                     success: function (data) {
                         $("#loader").hide();
-                        if(data!="") {
+                        if (data != "") {
                             attachment = data;
                         }
                         $.ajax(
@@ -52,13 +65,14 @@ function adduser() {
                                 url: url + "/addContract",
                                 data: {
                                     title: $("#title").val(),
-                                    id:id,
-                                    writerName:writerName,
+                                    id: id,
+                                    writerName: $("#writerName").val(),
+                                    content: $("#content").val(),
                                     attachment: attachment,
                                     date: date,
                                     price: parseInt($("#price").val()),
-                                    image:image,
-                                    attachment:attachment
+                                    image: image,
+                                    attachment: attachment
                                 },
                                 async: false,
                                 success: function (data) {

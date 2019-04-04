@@ -17,31 +17,32 @@ Page({
 
     }],
     selectArray: [{
-      "id": "0",
-      "text": "实控人",
-      "projectRef": 'ACTUAL_CONTROLLER'
-    }, {
-      "id": "1",
-      "text": "核心股东",
-      "projectRef": 'CORE_OF_SHAREHOLDERS'
+        "id": "0",
+        "text": "实控人",
+        "projectRef": 'ACTUAL_CONTROLLER'
+      }, {
+        "id": "1",
+        "text": "核心股东",
+        "projectRef": 'CORE_OF_SHAREHOLDERS'
 
-    },
-    {
-      "id": "2",
-      "text": "雇员",
-      "projectRef": 'EMPLOYEE'
+      },
+      {
+        "id": "2",
+        "text": "雇员",
+        "projectRef": 'EMPLOYEE'
 
-    }, {
-      "id": "3",
-      "text": "一手第三方",
-      "projectRef": 'THIRD_PARTY'
-    }
+      }, {
+        "id": "3",
+        "text": "一手第三方",
+        "projectRef": 'THIRD_PARTY'
+      }
     ],
     publishPhotos: [],
-    images:[],
+    images: [],
     publishInputValue: "",
     publishType: "",
-    linkMan:""
+    linkMan: "",
+    phone: "",
   },
   /**
    * 生命周期函数--监听页面加载
@@ -52,7 +53,13 @@ Page({
   //获取textarea输入文本内容
   bindInputValue: function(e) {
     this.setData({
-      allValue: e.detail.value
+      publishInputValue: e.detail.value
+    })
+  },
+  //获取textarea输入文本内容
+  bindProjectInfo: function(e) {
+    this.setData({
+      projectInfo: e.detail.value
     })
   },
 
@@ -64,9 +71,20 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: (res) => {
-        that.data.publishPhotos = that.data.publishPhotos.concat(res.tempFilePaths)
-        console.log(that.data.publishPhotos.concat(res.tempFilePaths)+'789789')
-        that.setData(that.data)
+        wx.uploadFile({
+          url: app.globalData.backendUrl + "uploadFeed",
+          filePath: res.tempFilePaths[0],
+          name: 'image',
+          success: (response) => {
+            var images = that.data.images;
+            var photos = that.data.publishPhotos.concat(res.tempFilePaths[0]);
+            images = images.concat(JSON.parse(response.data));
+            that.setData({
+              images: images,
+              publishPhotos: photos
+            })
+          }
+        })
       },
     })
   },
@@ -78,22 +96,22 @@ Page({
     })
     console.log(this.data.publishType)
   },
-  linkManInput: function (e) {
+  linkManInput: function(e) {
     this.setData({
       linkMan: e.detail.value
     })
   },
-  phoneInput: function (e) {
+  phoneInput: function(e) {
     this.setData({
       phone: e.detail.value
     })
   },
-  agencyNameInput: function (e) {
+  agencyNameInput: function(e) {
     this.setData({
       agencyName: e.detail.value
     })
   },
-  getDate: function (e) {
+  getDate: function(e) {
     console.log(e.detail.projectRef)
     this.setData({
       projectRef: e.detail.projectRef
@@ -101,22 +119,20 @@ Page({
   },
   //发布文章
   onPublish: function() {
-    
     api.addFeed.call(
       this,
       app.getOpenid(),
       this.data.publishType,
       this.data.publishInputValue,
       this.data.publishPhotos,
-      this.data.openid,
-      this.data.linkMan,
       this.data.phone,
+      this.data.linkMan,
       this.data.agencyName,
       this.data.projectRef,
       this.data.projectInfo,
       this.data.images
     )
-    console.log(this.data.images+'----------------------')
+    console.log(this.data.images)
 
   }
 })

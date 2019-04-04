@@ -252,14 +252,9 @@ function getFeedList(kind, openid, lastId, id) {
           return
         }
         articles.forEach((article) => {
-          console.log('have article')
-          console.log(article)
           article.writerFace = app.globalData.picUrl + article.writerFace
-          // console.log(article.writerFace)
-
           article.images = article.images.map((image) => {
             return app.globalData.picUrl + image
-
           })
           article.kindName = "最热";
           switch (kind) {
@@ -754,7 +749,7 @@ function addFeed(openid, kind, content, photos, phone, linkMan, agencyName, proj
       agencyName: agencyName,
       projectRef: projectRef,
       projectInfo: projectInfo,
-      images: photos,
+      images: images,
     },
     header: {
       'Authorization': 'Bearer ' + app.getToken(),

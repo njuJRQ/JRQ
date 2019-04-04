@@ -6,7 +6,7 @@
     </view> -->
     <view class='article_row'>
       <!--作者信息-->
-      <view class='writer' bindtap='onClickThisFace' data-item='{{item}}'>
+      <view class='writer' id='{{item.writerOpenid}}' bindtap='onClickThisFace' data-item='{{item}}'>
         <image class='writer__face' src='{{item.writerFace}}'></image>
         <view class='name_width'>
         </view>

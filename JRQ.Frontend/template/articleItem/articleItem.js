@@ -11,10 +11,7 @@ var articleItem = {
   },
 
   onClickThisFace: function(event) {  
-    var id = event.currentTarget.dataset.id
-    console.log(id)
-    console.log(event.currentTarget.dataset)
-    var id = event.currentTarget.dataset.id.writerOpenid
+    var id = event.target.id
     wx.navigateTo({
       url: '../me/myHistory/myHistory?id=' + id,
     })

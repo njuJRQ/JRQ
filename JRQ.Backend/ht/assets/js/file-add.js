@@ -2,17 +2,23 @@ $("#loader").hide();
 
 function adduser() {
     $("#loader").show();
-    var fd = new FormData($("#upload-file-form")[0]);
+    // var fd = new FormData($("#upload-file-form")[0]);
     var url = getUrl();
     var storage = window.localStorage;
     var id = storage["adminUsername"];
     var myDate = new Date();
     var date = myDate.toLocaleDateString();
     var attachment="";
+    var el = $('#attachment')[0];
+    var formData = new FormData();
+    if (!el.files[0]) {
+        return;
+    }
+    formData.append('attachment', el.files[0]);
     $.ajax({
         url: url + "/uploadDocument",
         type: "POST",
-        data: fd,
+        data: formData,
         enctype: 'multipart/form-data',
         processData: false,
         contentType: false,
@@ -29,6 +35,7 @@ function adduser() {
                         title: $("#title").val(),
                         content: $("#content").val(),
                         attachment:attachment,
+                        image:image,
                         writerName: id,
                         date: date
                     },

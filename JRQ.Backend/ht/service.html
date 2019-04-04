@@ -27,7 +27,7 @@
 <div class="admin-content">
     <div class="admin-content-body">
         <div class="am-cf am-padding am-padding-bottom-0">
-            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">考证课程管理</strong> / <small></small></div>
+            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">广告列表</strong> / <small></small></div>
         </div>
 
         <hr>
@@ -37,19 +37,35 @@
                 <div class="am-btn-toolbar">
                     <div class="am-btn-group am-btn-group-xs">
                         <button type="button" id="checkall"class="am-btn am-btn-default"><span class="icon-check"></span> 全选</button>
-                        <button id="del" type="button" class="am-btn am-btn-default" onclick="delAll()"><span class="am-icon-trash-o"></span> 删除</button>
-                        <button type="button" class="am-btn am-btn-default">   <a href="verificine-add.html"><span class="am-icon-plus"></span> 添加考证课程</a></button>
+                        <button type="button" class="am-btn am-btn-default" onclick="delAll()"><span class="am-icon-trash-o"></span> 删除</button>
+                        <button type="button" class="am-btn am-btn-default">   <a href="service-add.html"><span class="am-icon-plus"></span> 添加广告</a></button>
+
 
                     </div>
                 </div>
             </div>
             <div class="am-u-sm-12 am-u-md-3">
+                <!--<div class="am-form-group">
+                  <select data-am-selected="{btnSize: 'sm'}">
+                    <option value="option1">所有类别</option>
+                    <option value="option2">恋爱情感培训</option>
+                    <option value="option3">人际交往改善</option>
+                    <option value="option4">工作学习提升</option>
+                      <option value="option5">陌生环境适应</option>
+                    <option value="option6">自我评价提升</option>
+                    <option value="option7">自卑心理客服</option>
+                    <option value="option8">正视挫折感受</option>
+                    <option value="option9">负面情绪调节</option>
+                    <option value="option10">习得无助培训</option>
+                    <option value="optio11">归因偏差培训</option>
+                  </select>
+                </div>-->
             </div>
             <div class="am-u-sm-12 am-u-md-3">
                 <div class="am-input-group am-input-group-sm">
                     <input id="con" type="text" class="am-form-field">
                     <span class="am-input-group-btn">
-            <button class="am-btn am-btn-default" type="button" onclick="search()">根据课程id搜索</button>
+            <button class="am-btn am-btn-default" type="button" onclick="search()">根据id搜索</button>
           </span>
                 </div>
             </div>
@@ -63,23 +79,26 @@
 
                         </thead><tr>
                         <th><input type="checkbox" title="id[]"/></th>
-                        <th>课程编号</th>
-                        <th>课程标题</th>
-                        <th>日期</th>
+                        <th>广告编号</th>
+                        <th>广告图片</th>
+                        <th>业务市场</th>
+                        <th>广告展示位置</th>
                         <th class="table-set">操作</th>
                     </tr>
                         <tr id="your-alert-1">
                             <td><input id="c1" type="checkbox" title="id[]"/></td>
                             <td id="number1"></td>
-                            <td id="name1"></td>
+                            <td><identityImages  id="name1" style="max-height: 30px;"/></td>
                             <td id="date1"></td>
+                            <td id="place1"></td>
                             <td>
                                 <div class="am-btn-toolbar">
                                     <div class="am-btn-group am-btn-group-xs">
-                                        <a href="course-look.html" onclick="setthisquestion(0)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-eye"></span>  查看详情</a>
-                                        <a href="course-change.html" onclick="setthisquestion(0)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
-                                        <button id="del1" type="button" class="am-btn am-btn-default am-btn-xs am-text-danger" onclick="deletequestion(0)"><span class="am-icon-trash-o"></span>删除</button>
 
+                                        <a href="service-change.html" onclick="setthisquestion(0)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
+
+                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close1" onclick="deletequestion(0)"><span class="am-icon-trash-o"></span>删除</button>
+                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick="setAsChecked(0)"><span class="am-icon-trash-o"></span>选中</button>
                                     </div>
                                 </div>
                             </td>
@@ -87,16 +106,17 @@
                         <tr id="your-alert-2">
                             <td><input id="c2" type="checkbox" title="id[]"/></td>
                             <td id="number2"></td>
-                            <td id="name2"></td>
+                            <td><identityImages  id="name2" style="max-height: 30px;"/></td>
                             <td id="date2"></td>
+                            <td id="place2"></td>
                             <td>
                                 <div class="am-btn-toolbar">
                                     <div class="am-btn-group am-btn-group-xs">
-                                        <a href="course-look.html" onclick="setthisquestion(1)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-eye"></span>  查看详情</a>
-                                        <a href="course-change.html" onclick="setthisquestion(1)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
 
-                                        <button id="del2" type="button" class="am-btn am-btn-default am-btn-xs am-text-danger"  onclick="deletequestion(1)"><span class="am-icon-trash-o"></span>删除</button>
+                                        <a href="service-change.html" onclick="setthisquestion(1)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
 
+                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close2" onclick="deletequestion(1)"><span class="am-icon-trash-o"></span>删除</button>
+                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick="setAsChecked(1)"><span class="am-icon-trash-o"></span>选中</button>
                                     </div>
                                 </div>
                             </td>
@@ -104,16 +124,17 @@
                         <tr id="your-alert-3">
                             <td><input id="c3" type="checkbox" title="id[]"/></td>
                             <td id="number3"></td>
-                            <td id="name3"></td>
+                            <td><identityImages  id="name3" style="max-height: 30px;"/></td>
                             <td id="date3"></td>
+                            <td id="place3"></td>
                             <td>
                                 <div class="am-btn-toolbar">
                                     <div class="am-btn-group am-btn-group-xs">
-                                        <a href="course-look.html" onclick="setthisquestion(2)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-eye"></span>  查看详情</a>
-                                        <a href="course-change.html" onclick="setthisquestion(2)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
 
-                                        <button id="del3" type="button" class="am-btn am-btn-default am-btn-xs am-text-danger" onclick="deletequestion(2)"><span class="am-icon-trash-o"></span>删除</button>
+                                        <a href="service-change.html" onclick="setthisquestion(2)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
 
+                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close3" onclick="deletequestion(2)"><span class="am-icon-trash-o"></span>删除</button>
+                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick="setAsChecked(2)"><span class="am-icon-trash-o"></span>选中</button>
                                     </div>
                                 </div>
                             </td>
@@ -121,16 +142,17 @@
                         <tr id="your-alert-4">
                             <td><input id="c4" type="checkbox" title="id[]"/></td>
                             <td id="number4"></td>
-                            <td id="name4"></td>
+                            <td><identityImages  id="name4" style="max-height: 30px;"/></td>
                             <td id="date4"></td>
+                            <td id="place4"></td>
                             <td>
                                 <div class="am-btn-toolbar">
                                     <div class="am-btn-group am-btn-group-xs">
-                                        <a href="course-look.html" onclick="setthisquestion(3)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-eye"></span>  查看详情</a>
-                                        <a href="course-change.html" onclick="setthisquestion(3)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
 
-                                        <button id="del4" type="button" class="am-btn am-btn-default am-btn-xs am-text-danger" onclick="deletequestion(3)"><span class="am-icon-trash-o"></span>删除</button>
+                                        <a href="service-change.html" onclick="setthisquestion(3)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
 
+                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close4" onclick="deletequestion(3)"><span class="am-icon-trash-o"></span>删除</button>
+                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick="setAsChecked(3)"><span class="am-icon-trash-o"></span>选中</button>
                                     </div>
                                 </div>
                             </td>
@@ -138,16 +160,17 @@
                         <tr id="your-alert-5">
                             <td><input id="c5" type="checkbox" title="id[]"/></td>
                             <td id="number5"></td>
-                            <td id="name5"></td>
+                            <td><identityImages  id="name5" style="max-height: 30px;"/></td>
                             <td id="date5"></td>
+                            <td id="place5"></td>
                             <td>
                                 <div class="am-btn-toolbar">
                                     <div class="am-btn-group am-btn-group-xs">
-                                        <a href="course-look.html" onclick="setthisquestion(4)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-eye"></span>  查看详情</a>
-                                        <a href="course-change.html" onclick="setthisquestion(4)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
 
-                                        <button id="del5" type="button" class="am-btn am-btn-default am-btn-xs am-text-danger" onclick="deletequestion(4)"><span class="am-icon-trash-o"></span>删除</button>
+                                        <a href="service-change.html" onclick="setthisquestion(4)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
 
+                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close5" onclick="deletequestion(4)"><span class="am-icon-trash-o"></span>删除</button>
+                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick="setAsChecked(4)"><span class="am-icon-trash-o"></span>选中</button>
                                     </div>
                                 </div>
                             </td>
@@ -182,7 +205,7 @@
 
 </div>
 <!-- content end -->
-
+</div>
 
 
 
@@ -251,8 +274,8 @@
         }
     }
 </script>
-<script src="assets/js/getUrl.js"></script>
-<script src="./assets/js/verificine.js"></script>
+<script src="./assets/js/getUrl.js"></script>
+<script src="./assets/js/service.js"></script>
 <script>
     var storage = window.localStorage;
     if(storage["has"]!="yes"){

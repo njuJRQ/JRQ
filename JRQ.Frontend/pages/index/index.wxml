@@ -67,7 +67,7 @@
           </view>
           <view class='bottom'>
             <view class='doucument_bottom1' wx-if="{{isShowPrice}}">
-              <text class='fees'>课费:65元</text>
+              <text class='fees'>65元</text>
               <text class='vip'>会员免费</text>
             </view>
             <view class='preview'>预览</view>
@@ -101,7 +101,7 @@
             <text class='article__writerName'>{{item.content?item.content:'钧融中心'}}</text>
             <view class='bottom'>
               <view class='doucument_bottom1' wx-if="{{isShowPrice}}">
-                <text class='fees'>课费:100元</text>
+                <text class='fees'>100元</text>
                 <text class='vip'>会员免费</text>
               </view>
               <view class='preview'>预览</view>

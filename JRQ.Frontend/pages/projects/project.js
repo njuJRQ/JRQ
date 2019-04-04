@@ -5,7 +5,7 @@ import articleItem from '../../template/articleItem/articleItem'
 Page({
   data: {
     isShow: true,
-    isShowVIP:true,
+    isShowVIP: true,
     articles: [],
     writerFace: '',
     writerName: '',
@@ -28,7 +28,7 @@ Page({
     currentTab: 0,
   },
   onLoad: function() {
-    
+
     var condition = true
     api.getIOSQualification.call(this, (res) => {
       console.log(res)
@@ -38,7 +38,7 @@ Page({
           isShowVIP: false
         })
       }
-    })  
+    })
     var that = this;
     that.showPrior()
     // 获取系统信息 
@@ -53,7 +53,18 @@ Page({
     })
 
   },
- 
+
+  likePlus: function(event) {
+    var id = event.currentTarget.dataset.id;
+    var article = null;
+    for (var i = 0; i < this.data.articles.length; i++) {
+      if (this.data.articles[i].id === id) {
+        article = this.data.articles[i];
+      }
+    }
+    api.likePlus.call(app.globalData.openid, this.data.currentKind, id, article);
+  },
+
   // 滑动切换tab 
   bindChange: function(e) {
     console.log('1-----' + e)
@@ -63,7 +74,7 @@ Page({
     })
     console.log(this.data.currentTab)
     switch (this.data.currentTab) {
-      
+
       case 0:
         console.log('0enter showPrior')
         //isShow: false

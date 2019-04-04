@@ -15,7 +15,7 @@ var articleItem = {
     wx.navigateTo({
       url: '../me/myHistory/myHistory?id=' + id,
     })
-  }
+  },
 }
 
 export default articleItem;

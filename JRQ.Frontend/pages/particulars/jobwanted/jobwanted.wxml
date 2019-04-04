@@ -16,7 +16,7 @@
   </view>
   </view>
   
-  <view class='box' wx:for="{{jobCardItems}}" wx:key="">
+  <view class='box' wx:for="{{jobCardItems}}" wx:for-index="index" wx:key="">
     <view class='conten' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
       <!-- 标题 -->
       <view class='money'>
@@ -24,8 +24,8 @@
       </view>
       <!-- 个人信息 -->
       <view class='user'>
-        <view class='img'>
-          <image src='{{item.image}}'></image>
+        <view class='img_index'>
+          <text class='index_text'>{{index}}</text>
         </view>
         <view class='text_box'>
           <view class='text_ask'>

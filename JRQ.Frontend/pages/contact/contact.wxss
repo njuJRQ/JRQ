@@ -19,14 +19,7 @@
 
 .headWrapper {
   width: 100%;
-}
-
-.search__keywords {
-  font-weight: bold;
-  font-family: HYYaKuHeiW;
-  line-height: 1rem;
-  color: #b98c49;
-  font-size: 0.8rem;
+  background-color: rgb(242, 197, 72);
 }
 
 /*导航栏样式*/

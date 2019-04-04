@@ -475,7 +475,6 @@ function likePlus(openid, kind, articleId, article) {
       }
       article.hasLiked = !article.hasLiked
       that.setData(that.data)
-
     }
   })
 }

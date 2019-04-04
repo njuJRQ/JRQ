@@ -6,7 +6,7 @@
 <view class="container container--color-white">
   <view class='headWrapper' style='background-color:black; background-size: cover;background-repeat: no-repeat; background-position: bottom'>
     <!--搜索框-->
-    <view class='search_ico'>
+    <view>
       <template class='search' is='searchBar' data='{{placeholder: "搜搜你感兴趣的内容吧~", searchCondition: searchCondition,onSearch:onSearch}}'></template>
     </view>
   </view>

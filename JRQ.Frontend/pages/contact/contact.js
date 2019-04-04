@@ -103,6 +103,10 @@ Page({
     label: ['内构重组', '短融过桥', '大宗交易', '银行业务', '包里融租']
   },
 
+  onReachBottom: function () {
+    api.getAbstractList.call(this, this.data.currentKind, app.getOpenid(), this.data.lastId, this.data.lastIdType)
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

@@ -7,7 +7,7 @@
   border-radius: 5px;
   padding: 10px 10px;
   margin: 20px 0 30px 0;
-box-shadow: 0px 15px 30px rgba(0,0,0,0.1);
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
 }
 
 .article__decorator {
@@ -71,6 +71,7 @@ box-shadow: 0px 15px 30px rgba(0,0,0,0.1);
 
 .like {
   display: flex;
+  float: right;
 }
 
 .like__num {
@@ -135,7 +136,7 @@ box-shadow: 0px 15px 30px rgba(0,0,0,0.1);
   margin-top: 10px;
   padding-bottom: 10px;
   width: 80%;
-  border-bottom:1px solid #f1c65e;
+  border-bottom: 1px solid #f1c65e;
 }
 
 .name_width {

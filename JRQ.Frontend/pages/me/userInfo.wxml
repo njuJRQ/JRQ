@@ -40,14 +40,13 @@
     <view class='contact_coin'>
       <view class='get_card'>
         <text class='my_contact' style='font-size:16px;'>我的人脉</text>
-        <view class='share'>
+        <view class='share' bindtap='nagivateToMyCardHolder'>
           <view class='get_num'>
             <text style='font-size:16px;'>{{receive}}</text>
             <text>收到的名片</text>
           </view>
 
           <text class='slash'>/</text>
-
 
           <view class='mutual'>
             <text style='font-size:16px;'>{{mutual}}</text>
@@ -58,7 +57,7 @@
       <view class='coin'>
         <text style='text-align:center;font-size:16px;'>钧融币</text>
         <text style='text-align:center;font-size:16px;'>{{myInfo.credit}}</text>
-        <button class='will'>即将上线</button>
+        <button class='will'>财富</button>
       </view>
     </view>
     <view class='publish'>

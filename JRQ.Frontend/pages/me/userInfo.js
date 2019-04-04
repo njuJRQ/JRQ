@@ -282,5 +282,10 @@ Page({
       url: 'updateMe/updateMe',
 
     })
+  },
+  nagivateToMyCardHolder:function(){
+    wx.navigateTo({
+      url: 'myCardHolder/myCardHolder',
+    })
   }
 })

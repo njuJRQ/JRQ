@@ -10,7 +10,7 @@ Page({
   data: {
     array: [{
         id: '0',
-      src: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E8%AF%BE%E7%A8%8B.png',
+        src: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E8%AF%BE%E7%A8%8B.png',
         text: '课程培训'
       },
       {
@@ -27,25 +27,25 @@ Page({
         id: '3',
         src: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E6%8A%A5%E5%91%8A%E6%96%87%E4%B9%A6.png',
         text: '报告文档'
-      },{
-        id:'4',
-        src:'/img/hehuo.png',
-        text:"事业合伙"
+      }, {
+        id: '4',
+        src: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/hehuo.png',
+        text: "事业合伙"
       },
       {
-        id:"5",
-        src:"https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E5%90%88%E5%90%8C.png",
-        text:"标准合同"
+        id: "5",
+        src: "https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E5%90%88%E5%90%8C.png",
+        text: "标准合同"
       },
       {
-        id:"6",
-        src:"https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E5%95%86%E5%8A%A1%E5%90%88%E4%BD%9C.png",
-        text:"商务合作"
+        id: "6",
+        src: "https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E5%95%86%E5%8A%A1%E5%90%88%E4%BD%9C.png",
+        text: "商务合作"
       },
       {
-        id:"7",
-        src:'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E5%9F%8E%E5%B8%82%E7%A4%BE%E7%BE%A4.png',
-        text:"城市社群"
+        id: "7",
+        src: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E5%9F%8E%E5%B8%82%E7%A4%BE%E7%BE%A4.png',
+        text: "城市社群"
       }
 
     ],
@@ -56,7 +56,6 @@ Page({
     height: 290,
     height_video: 400,
     image: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-    // showView:true,
     showView: true,
     cards: [{
         thumbnail: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
@@ -76,13 +75,8 @@ Page({
       }
     ],
 
-
     articles: [],
     videos: [],
-    // ad: {
-    //   image: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-    //   link: 'https://www.baidu.com'
-    // },
     kind: null,
     currentKind: null,
     searchCondition: null,
@@ -143,7 +137,7 @@ Page({
 
   moreAction: function() {
     var that = this;
-     
+
     var type = this.data.moreType;
     if (type) {
       that.setData({
@@ -160,9 +154,9 @@ Page({
   },
   moresAction: function() {
     var that = this;
-   
+
     var type = this.data.moreType;
-    console.log(type+'123123')
+    console.log(type + '123123')
     if (type) {
       that.setData({
         height_video: '',
@@ -323,23 +317,65 @@ Page({
   },
 
   //更新搜索条件
-  // updateSearchCondition: function(e) {
-  //   this.data.searchCondition = e.detail.value;
-  // },
+  updateSearchCondition: function(e) {
+    this.data.searchCondition = e.detail.value;
+  },
 
   //搜索触发函数
-  // onSearch: function() {
-  //   if (!this.data.searchCondition) {
-  //     this.showAll();
-  //     return;
-  //   }
-  //   console.log('search article: ' + this.data.searchCondition)
-  //   api.getAbstractListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
-  // },
+  onSearch: function() {
+    var searchText = this.data.searchCondition;
+    if ("课程培训".includes(searchText)) {
+      wx.navigateTo({
+        url: '../particulars/curriculum/curriculum',
+      })
+    } else if ("考证考级".includes(searchText)) {
+      wx.navigateTo({
+        url: '../particulars/particulars/verificine/verificine',
+      })
+    } else if ("机构招聘".includes(searchText)) {
+      wx.navigateTo({
+        url: '../particulars/particulars/jobwanted/jobwanted',
+      })
+    } else if ("报告文档".includes(searchText)) {
+      wx.navigateTo({
+        url: '../particulars/particulars/documentation/documentation',
+      })
+    } else if ("事业合伙".includes(searchText)) {
+      wx.navigateTo({
+        url: '../particulars/particulars/partnership/partnership',
+      })
+    } else if ("标准合同".includes(searchText)) {
+      wx.navigateTo({
+        url: '../particulars/particulars/contract/contract',
+      })
+    } else if ("商务合作".includes(searchText)) {
+      wx.navigateTo({
+        url: '../particulars/particulars/cooperation/cooperation',
+      })
+    } else if ("城市社群".includes(searchText)) {
+      wx.navigateTo({
+        url: '../particulars/particulars/association/association',
+      })
+    } else if ("业务".includes(searchText)) {
+      wx.switchTab({
+        url: '../business/business',
+      })
+    } else if ("项目".includes(searchText)) {
+      wx.switchTab({
+        url: '../projects/project',
+      })
+    } else if ("人脉".includes(searchText)) {
+      wx.switchTab({
+        url: '../contact/contact',
+      })
+    } else {
+      wx.switchTab({
+        url: '../me/userInfo',
+      })
+    }
+  },
 
   onReachBottom: function() {
-    console.log(this.data.lastId)
-    console.log(this.data.currentKind)
     api.getAbstractList.call(this, this.data.currentKind, app.getOpenid(), this.data.lastId, this.data.lastIdType)
   },
   showMask: function() {
@@ -377,16 +413,6 @@ Page({
     })
   },
 
-  //更新搜索条件
-  updateSearchCondition: function(e) {
-    this.data.searchCondition = e.detail.value;
-  },
-
-  //搜索触发函数
-  onSearch: function() {
-    console.log('search service people: ' + this.data.searchCondition)
-    api.getPersonListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
-  },
   //通过id获取不同页面
   catchTapCategory: function(e) {
     var that = this;

@@ -14,16 +14,15 @@
         <image class='level' wx-if="{{isShowVIP}}" mode='widthFix' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/VIP-icon.png'></image>
 
       </view>
-      <view class='article_rigtht'>
+      <view>
         <!--文章详情-->
         <view class='article_text'>
           <text class='writer__name'>{{item.writerName}}</text>
-          <text class='title' wx:if="{{item.projectInfo.length==17}}">实控人</text>
-          <text class='title' wx:elif="{{item.projectInfo.length==20}}">核心股东</text>
-          <text class='title' wx:elif="{{item.projectInfo.length==8}}">雇员</text>
-          <text class='title' wx:elif="{{item.projectInfo.length==11}}">一手第三方</text>
-          <text class='article__content' wx:if="{{item.projectInfo.length<20}}">{{item.projectRef}}</text>
-          <text  class='article__content' wx:elif="{{item.projectInfo.length>20}}">{{item.projectInfo}}</text>
+          <text class='title' wx:if="{{item.projectRef.length==17}}">实控人</text>
+          <text class='title' wx:elif="{{item.projectRef.length==20}}">核心股东</text>
+          <text class='title' wx:elif="{{item.projectRef.length==8}}">雇员</text>
+          <text class='title' wx:elif="{{item.projectRef.length==11}}">一手第三方</text>
+          <text class='article__content'>{{item.projectInfo}}</text>
         </view>
         <!--文章图片-->
         <view class='article__imageList'>

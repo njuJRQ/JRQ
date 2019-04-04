@@ -352,7 +352,7 @@
 .will {
   width: 40px;
   height: 14px;
-  background-color: #b5b4b9;
+  background-color: #f2c75e;
   color: #fff;
   font-size: 7px;
   padding-right: 2%;

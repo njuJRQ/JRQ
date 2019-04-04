@@ -7,7 +7,7 @@
   <view class='headWrapper' style='background-color:black; background-size: cover;background-repeat: no-repeat; background-position: bottom'>
     <!--搜索框-->
     <view class='search_ico'>
-      <template class='search' is='searchBar' data='{{placeholder: "搜索文章", searchCondition: searchCondition}}'></template>
+      <template class='search' is='searchBar' data='{{placeholder: "搜搜你感兴趣的内容吧~", searchCondition: searchCondition,onSearch:onSearch}}'></template>
     </view>
   </view>
   <!--广告位-->
@@ -16,19 +16,6 @@
     <image class='banner_img' mode='widthFix' src='https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E6%84%9F%E8%B0%A2%E6%9C%89%E4%BD%A0%20%E4%BC%9A%E5%91%98%E4%B8%93%E4%BA%AB.png'></image>
   </view>
   <view class='adBar_btn'>
-
-    <!--Banner-->
-    <!-- <view class='navBar'>
-      <view class=' navBar__btn {{currentKind=="course"?"navBar__btn-state--chosen":""}}' bindtap='showAll1'>
-        <image class='navBar__icon' mode='widthFix' src='https://junrongcenter.oss-cn-beijing.aliyuncs.com/img/remen-icon.png'></image>
-      </view>
-      <view class='navBar__btn {{currentKind=="document"?"navBar__btn-state--chosen":"" }} ' bindtap='showDocuments'>
-        <image class='navBar__icon' mode='widthFix' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/wendang-icon.png'></image>
-      </view>
-      <view class='navBar__btn {{currentKind=="course1"?"navBar__btn-state--chosen":""}} ' bindtap='showVideos'>
-        <image class='navBar__icon' mode='widthFix' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/vedio-icon.png'></image>
-      </view>
-    </view> -->
   </view>
   <!--内容  -->
   <view class='box-tll'>

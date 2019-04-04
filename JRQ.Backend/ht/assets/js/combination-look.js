@@ -9,11 +9,8 @@ $.ajax(
         data: {
             id:id
         },
-        async:false,
-        
+        async:false,     
         success: function (data) {
-console.log(id+'================')
-
             document.getElementById("id").innerText=data.courseGroupItem.id;
             document.getElementById("title").innerText=data.document.title;
             document.getElementById("content").innerText=data.document.content;

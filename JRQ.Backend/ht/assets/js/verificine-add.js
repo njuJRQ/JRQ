@@ -1,50 +1,24 @@
 $("#loader").hide();
-var url = getUrl();
-var storage = window.localStorage;
-var id = storage["thisCourse"];
-var image = "";
-var video = "";
-$.ajax(
-    {
-        url: url + "/courseGroup/findById",
-        type: "POST",
-
-        data: {
-            id: id
-        },
-        async: false,
-        success: function (data) {
-            document.getElementById("id").innerText = data.courseGroupItem.id;
-            document.getElementById("title").value = data.courseGroupItem.title;
-            document.getElementById("writerName").value = data.courseGroupItem.writerName;
-            document.getElementById("date").value = data.courseGroupItem.date;
-            document.getElementById("likeNum").value = data.courseGroupItem.likeNum;
-            document.getElementById("price").value = data.courseGroupItem.price;
-            image = data.courseGroupItem.image;
-            video = data.courseGroupItem.video;
-        },
-        error: function (xhr) {
-            alert('动态页有问题噶！\n\n' + xhr.responseText);
-        },
-        traditional: true,
-    }
-)
-
 function checkRate(input) {
     var re = /^[0-9]+.?[0-9]*$/; //判断字符串是否为数字 //判断正整数 /^[1-9]+[0-9]*]*$/
     var nubmer = document.getElementById(input).value;
 
     if (!re.test(nubmer)) {
-        alert(input + "请输入数字");
+        alert(input+"请输入数字");
         document.getElementById(input).value = "";
         return false;
     }
     return true;
 }
 function adduser() {
-    if (checkRate("likeNum") && checkRate("price")) {
+    if(checkRate("price")) {
         $("#loader").show();
-        // var fd = new FormData($("#upload-file-form")[0]);
+        var url = getUrl();
+        var storage = window.localStorage;
+        var id = storage["adminUsername"];
+        var myDate = new Date();
+        var date = myDate.toLocaleDateString();
+        // 上传图片
         var image="";
         var el = $('#image')[0];
         var formData = new FormData();
@@ -52,16 +26,14 @@ function adduser() {
             return;
         }
         formData.append('image', el.files[0]);
-        var url = getUrl();
-        // var fd2 = new FormData($("#upload-video-form")[0]);
+        // 上传视频
         var video="";
-        var ele = $('#video')[0];
+        var els = $('#video')[0];
         var form = new FormData();
-        if (!ele.files[0]) {
+        if (!els.files[0]) {
             return;
         }
-        form.append('video', el.files[0]);
-
+        form.append('video', els.files[0]);
         $.ajax({
             url: url + "/courseImage",
             type: "POST",
@@ -71,10 +43,9 @@ function adduser() {
             contentType: false,
             cache: false,
             success: function (data) {
-                if (data != "") {
+                if(data!="") {
                     image = data;
                 }
-
                 $.ajax({
                     url: url + "/courseVideo",
                     type: "POST",
@@ -84,30 +55,26 @@ function adduser() {
                     contentType: false,
                     cache: false,
                     success: function (data) {
-                        if (data != "") {
+                        $("#loader").hide();
+                        if(data!="") {
                             video = data;
                         }
-                        $("#loader").hide();
                         $.ajax(
                             {
-                                url: url + "/courseGroup/update",
-                                type: "POST",
-                                // dataType: "json",
-                                // contentType: "application/json",
+                                url: url + "/addCourse",
                                 data: {
-                                    id: id,
                                     title: $("#title").val(),
-                                    writerName: $("#writerName").val(),
-                                    date: $("#date").val(),
-                                    likeNum: $("#likeNum").val(),
+                                    writerName: id,
+                                    date: date,
                                     price: parseInt($("#price").val()),
-                                    image: image,
-                                    video: video
+                                    image:image,
+                                    video:video,
+                                    isTextualResearchCourse:true
                                 },
                                 async: false,
                                 success: function (data) {
-                                    alert("修改成功");
-                                    window.location.href = "combination.html";
+                                    alert("添加成功");
+                                    window.location.href = "verificine.html";
                                 },
                                 error: function (xhr) {
                                     //alert('动态页有问题噶！\n\n' + xhr.responseText);
@@ -115,13 +82,11 @@ function adduser() {
                                 traditional: true,
                             }
                         )
-
                     },
                     error: function (xhr) {
                         $("#loader").hide();
                     }
                 });
-
             },
             error: function (xhr) {
                 $("#loader").hide();

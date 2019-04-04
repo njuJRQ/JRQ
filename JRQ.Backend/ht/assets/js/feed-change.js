@@ -7,6 +7,7 @@ var id=storage["thisFeed"];
 $.ajax(
     {
         url: url+"/getFeed",
+        type:"POST",
         data: {
             id:id
         },

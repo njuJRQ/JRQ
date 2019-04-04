@@ -2,43 +2,51 @@ $("#loader").hide();
 
 function adduser() {
     $("#loader").show();
-    var fd = new FormData($("#upload-file-form")[0]);
-    console.log($("#image")+'==============')
+    // var fd = new FormData($("#upload-file-form")[0]);
     var url = getUrl();
     var storage = window.localStorage;
     var id = storage["adminUsername"];
     var myDate = new Date();
     var date = myDate.toLocaleDateString();
-    var image="";
+    var image = "";
+    var el = $('#image')[0];
+    var formData = new FormData();
+    if (!el.files[0]) {
+        return;
+    }
+    formData.append('image', el.files[0]);
     $.ajax({
         url: url + "/courseGroup/uploadImage",
         type: "POST",
-        data: fd,
+        data: formData,
         enctype: 'multipart/form-data',
         processData: false,
         contentType: false,
         cache: false,
         success: function (data) {
-            
-            if(data!="") {
+            if (data != "") {
                 image = data;
             }
-            
+
             $("#loader").hide();
+            var data1 = JSON.stringify({
+                "title": $("#title").val(),
+                "content": $("#content").val(),
+                "image": image,
+                // "writerName": writerName,
+                "id": id,
+                "date": date
+            })
             $.ajax(
                 {
                     url: url + "/courseGroup/add",
-                    data: {
-                        title: $("#title").val(),
-                        content: $("#content").val(),
-                        image:image,
-                        writerName:writerName,
-                        id: id,
-                        date: date
-                    },
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: data1,
                     async: false,
                     success: function (data) {
-
+                        console.log(data + '=================')
                         alert("添加成功");
                         window.location.href = "combination.html";
                     },

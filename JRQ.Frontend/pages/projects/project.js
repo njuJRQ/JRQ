@@ -202,6 +202,6 @@ Page({
   },
 
   itemclick(event) {
-    articleItem.onClickThisFace(event)
+    articleItem.onClickThisFace(event.currentTarget.dataset.id)
   },
 })

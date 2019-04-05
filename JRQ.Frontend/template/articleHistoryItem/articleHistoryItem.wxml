@@ -1,0 +1,46 @@
+<template name="articleHistoryItem">
+  <!--一篇文章-->
+  <view class='article'>
+    <!-- <view class='article__decorator'>
+      <text class='article__kindName'>圈子文章</text>
+    </view> -->
+    <view class='article_row'>
+      <!--作者信息-->
+      <view class='writer' id='{{item.writerOpenid}}' bindtap='onClickThisFace' data-item='{{item}}'>
+        <image class='writer__face' src='{{item.writerFace}}'></image>
+        <view class='name_width'>
+        </view>
+
+        <image class='level' wx-if="{{isShowVIP}}" mode='widthFix' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/VIP-icon.png'></image>
+
+      </view>
+      <view>
+        <!--文章详情-->
+        <view class='article_text'>
+          <text class='writer__name'>{{item.writerName}}</text>
+          <text class='title' wx:if="{{item.projectRef.length==17}}">实控人</text>
+          <text class='title' wx:elif="{{item.projectRef.length==20}}">核心股东</text>
+          <text class='title' wx:elif="{{item.projectRef.length==8}}">雇员</text>
+          <text class='title' wx:elif="{{item.projectRef.length==11}}">一手第三方</text>
+          <text class='article__content'>{{item.content}}</text>
+        </view>
+        <!--文章图片-->
+        <view class='article__imageList'>
+          <image class='article__image' mode=' widthFix' data-list="{{item.images}}" data-src="{{image}}" wx:for='{{item.images}}' wx:for-item='image' src='{{"https://www.junrongcenter.com/"+image}}'></image>
+        </view>
+
+        <view class='article__bottom'>
+          <text class='article__date'>{{item.date}}</text>
+          <view class='like v-center' catchtap='likePlus' data-id='{{item.id}}'>
+
+            <image class='like__image' wx:if='{{item.hasLiked}}' src='img/fire-icon.png'></image>
+            <image class='like__image' mode='widthFix' wx:else src='img/scan.png'></image>
+            <text class='like__num'>{{item.likeNum}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--文章分享链接-->
+
+  </view>
+</template>

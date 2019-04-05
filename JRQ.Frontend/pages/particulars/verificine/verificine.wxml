@@ -14,7 +14,7 @@
         <view class='right'>
           <text class='title'>{{item.title}}</text>
           <view class='shoping'>
-          <view>
+          <view wx-if="{{isShowPrice}}">
             <text style='color: black;'>￥</text>
             <text class='money'>{{item.price}}</text>
           </view>

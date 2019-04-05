@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isShowPrice: false,
     courseList: []
   },
 
@@ -18,10 +19,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    api.getIOSQualification.call(this, (res) => {
+      condition = res
+      if (!condition) {
+        this.setData({
+          isShowPrice: false
+        })
+      }
+    })
     api.getTextualResearchCourseList.call(this)
   },
-   
-  onTouchThisArticle: function (e) {
+
+  onTouchThisArticle: function(e) {
     var id = e.currentTarget.dataset.id //获取当前文章id
     var kind = e.currentTarget.dataset.kind
     wx.navigateTo({

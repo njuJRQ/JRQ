@@ -1,5 +1,5 @@
 <!--pages/myHistory/myHistory.wxml-->
-<import src='/template/articleItem/articleItem.wxml' />
+<import src='/template/articleHistoryItem/articleHistoryItem.wxml' />
 
 <view class='container container--color-white'>
   <view class='header' style='width: 100%;'>
@@ -44,7 +44,7 @@
       <text class='history__titleText'>历史发布</text>
     </view>
     <view wx:for='{{myArticles}}' wx:key='id' style='margin: 10px 5px;'>
-      <template is='articleItem' data='{{item}}'></template>
+      <template is='articleHistoryItem' data='{{item}}'></template>
     </view>
     <text class='h-center' style='font-size: 0.8rem' wx:if='{{myArticles.length === 0}}'>该用户没有历史文章发布</text>
   </view>

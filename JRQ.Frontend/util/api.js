@@ -519,34 +519,6 @@ function purchaseCourse(courseId, openid, price, date, then) {
   })
 }
 
-function getPersonList(kind, then) {
-  var that = this
-  wx.showLoading({
-    title: '载入中',
-  })
-  wx.request({
-    url: app.globalData.backendUrl + "getPersonList",
-    data: {
-      workClass: kind
-    },
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      wx.hideLoading()
-      that.data.cards = res.data.persons
-      that.data.cards.forEach((card) => {
-        card.face = app.globalData.picUrl + card.face
-        return card
-      })
-      that.setData(that.data)
-      if (then) then()
-    }
-  })
-}
-
 function getMyInfo(openid, then) {
   /**
    * 方法：getUser
@@ -1703,7 +1675,6 @@ module.exports = {
   getAd: getAd,
   likePlus: likePlus,
   purchaseCourse: purchaseCourse,
-  getPersonList: getPersonList,
   getMyInfo: getMyInfo,
   getOtherBasicInfo: getOtherBasicInfo,
   getOtherInfo: getOtherInfo,

@@ -1,110 +1,42 @@
-/* pages/articleDetail/contractDetail/contractDetail.wxss */
+/* pages/articleDetail/documentDetail/documentDetail.wxss */
 @import '/style/common.wxss';
-@import '/template/findBar/searchBar.wxss';
-@import '/template/adBar/adBar.wxss';
-@import '/template/likeIcon/likeIcon.wxss';
-
-/* 本页面的样式 */
-
-page{
-  background-color: rgb(49, 49, 54);
- 
+page {
+  background: #efefef;
 }
-.container {
-  background-color: rgb(49, 49, 54);
+.head-pic {
+  width: 100%;
+  height: 200px;
+  margin: 0;
+  border: 0;
+  padding: 0;
 }
-
-.box {
+.head-pic > image {
   width: 100%;
   height: 100%;
+  margin: 0;
+  border: 0;
+  padding: 0;
 }
-
-.img_a {
+.head {
+  padding: 10px;
+  background-color: white;
+}
+.document {
+  margin: 20px 0 0 0;
+  padding: 10px;
+  background-color: white;
+}
+.document__header {
+  color:black; 
+  font-size:1rem; 
+  font-weight:bold;
+}
+.document__detail {
+  margin: 0 0 10px 0;
   width: 100%;
+  font-size:0.8rem;
 }
-
-.content {
-  border-bottom: 1px solid rgb(247, 198, 17);
-  /* height: 40px; */
-}
-
-.section_icon {
-  width: 85%;
-  display: flex;
-  justify-content: space-between;
-  margin: 0 auto;
-  margin-bottom: 5px;
-  height: 30px;
-  margin-top: 10px;
-}
-
-.section {
-
-  width: 150px;
-  height: 25px;
-  text-align: center;
-}
-
-.input_text {
+.document__preview {
   width: 100%;
-  height: 100%;
-}
-
-.button {
-  width: 60px;
-  border-radius: 5px;
-  text-align: center;
-  height: 25px;
-  background-color: rgb(203, 127, 7);
-  color: #fff;
-}
-
-.button_text {
-  color: #fff;
-}
-
-.section_i {
-  width: 85%;
-  margin: 0 auto;
-  margin-bottom: 5px;
-  height: 30px;
-  margin-top: 10px;
-}
-.input{
-  width: 70%;
-  margin: 0 auto;
-}
-.input_text{
-  width: 100%;
-  height: 100%;
-}
-.images{
-display: flex;
-width: 60%;
-margin: 0 auto;
-justify-content: center;
-margin-top: 10px;
-margin-bottom: 10px;
-}
-images_a{
-width: 100%;
-height: 100%;
-}
-.footer{
-  display: flex;
-width: 65%;
-margin: 0 auto;
-justify-content: center;
-margin-top: 10px;
-margin-bottom: 10px;
-  background-color: rgb(203, 127, 7);
-  height: 40px;
-  text-align: center;
-  border-radius: 5px;
-}
-.footer_text{
-  color: #fff;
-  text-align: center;
-  height: 40px;
-  line-height: 40px;
+  margin: auto;
 }

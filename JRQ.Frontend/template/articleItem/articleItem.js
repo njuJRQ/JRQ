@@ -10,8 +10,7 @@ var articleItem = {
     })
   },
 
-  onClickThisFace: function(event) {  
-    var id = event.target.id
+  onClickThisFace: function(id) {
     wx.navigateTo({
       url: '../me/myHistory/myHistory?id=' + id,
     })

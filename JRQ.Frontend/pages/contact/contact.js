@@ -13,88 +13,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isShow:true,
+    isShow: true,
     openId: '',
-    user: [],
 
     cards: [],
 
-    /*
-    cards: [{
-      openid: 1,
-      face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-      username: 'username',
-      position: '项目经理',
-      city: '亚太区',
-      company: '上海崇尚金融担保有限公司 (美资)',
-      intro: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
-      label: '融资租赁',
-      bgColor: 'rgba(255, 161, 177, 0.699)'
-    }, {
-        openid: 2,
-        face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-        username: 'username',
-        position: '项目经理',
-        city: '亚太区',
-        company: '上海崇尚金融担保有限公司 (美资)',
-        intro: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
-        label: '商业保理',
-        bgColor: 'rgba(138, 138, 252, 0.767)'
-      }, {
-        openid: 3,
-        face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-        username: 'username',
-        position: '项目经理',
-        city: '亚太区',
-        company: '上海崇尚金融担保有限公司 (美资)',
-        intro: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
-        label: '地产交易',
-        bgColor: 'rgba(109, 156, 90, 0.726)'
-      }, {
-        openid: 4,
-        face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-        username: 'username',
-        position: '项目经理',
-        city: '亚太区',
-        company: '上海崇尚金融担保有限公司 (美资)',
-        intro: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
-        label: '金融牌照',
-        bgColor: 'rgba(255, 58, 58, 0.678)'
-      }, {
-        openid: 5,
-        face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-        username: 'username',
-        position: '项目经理',
-        city: '亚太区',
-        company: '上海崇尚金融担保有限公司 (美资)',
-        intro: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
-        label: '地产交易',
-        bgColor: 'rgba(109, 156, 90, 0.726)'
-      }, {
-        openid: 6,
-        face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-        username: 'username',
-        position: '项目经理',
-        city: '亚太区',
-        company: '上海崇尚金融担保有限公司 (美资)',
-        intro: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
-        label: '商业保理',
-        bgColor: 'rgba(138, 138, 252, 0.767)'
-      }, {
-        openid: 7,
-        face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-        username: 'username',
-        position: '项目经理',
-        city: '亚太区',
-        company: '上海崇尚金融担保有限公司 (美资)',
-        intro: '中铁三十九局电商30个E,寻靠谱资方。139999999 严',
-        label: '商业保理',
-        bgColor: 'rgba(138, 138, 252, 0.767)'
-      }],
-      */
-
     searchCondition: null,
-    currentKind: 'capital',
     capitalClassDesc: "",
     stockClassDesc: "",
     mergeClassDesc: "",
@@ -103,8 +27,9 @@ Page({
     label: ['内构重组', '短融过桥', '大宗交易', '银行业务', '包里融租']
   },
 
-  onReachBottom: function () {
-    api.getAbstractList.call(this, this.data.currentKind, app.getOpenid(), this.data.lastId, this.data.lastIdType)
+  onReachBottom: function() {
+    var lastOpenid = this.data.cards[this.data.cards.length - 1].openid;
+    this.getPersonList(lastOpenid)
   },
 
   /**
@@ -120,41 +45,8 @@ Page({
           isShow: false
         })
       }
-    })  
-    var that = this
-    api.getClassificationDescriptionList.call(this, (res) => {
-      res.classificationDescriptionItems.forEach((item) => {
-        switch (item.workClass) {
-          case "stock":
-            this.data.stockClassDesc = item.description;
-            break;
-          case "merge":
-            this.data.mergeClassDesc = item.description;
-            break;
-          case "capital":
-            this.data.capitalClassDesc = item.description;
-            break;
-          default:
-            break;
-        }
-      })
-      this.setData(this.data)
-      this.showCapitalClass();
     })
-    this.setData({
-      searchCondition: null
-    })
-
-  },
-
-  //展示资金类
-  showCapitalClass: function(event) {
-    this.setData({
-      currentKind: 'capital',
-      currentKindName: this.data.capitalClassDesc,
-      searchCondition: null
-    })
-    api.getPersonList.call(this, 'capital')
+    this.showContactList();
   },
 
   //点击当前文章触发函数
@@ -177,14 +69,37 @@ Page({
   },
 
   showContactList: function() {
-    this.setData({
-      openid: '',
-      userId:'',
-      userIdType:''
+    this.getPersonList(-1)
+  },
 
+  getPersonList: function(lastPersonId) {
+    var that = this
+    wx.showLoading({
+      title: '载入中',
     })
-    api.getContactList.call(this, app.getOpenid(), this.data.userId, this.data.userIdType)
-
+    wx.request({
+      url: app.globalData.backendUrl + "getPersonList",
+      data: {
+        openid: lastPersonId
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        wx.hideLoading()
+        var newCards = res.data.persons
+        newCards.forEach((card) => {
+          card.face = app.globalData.picUrl + card.face
+          return card
+        })
+        var cards = that.data.cards;
+        cards = cards.concat(newCards);
+        that.setData({
+          cards: cards
+        })
+      }
+    })
   }
-
 })

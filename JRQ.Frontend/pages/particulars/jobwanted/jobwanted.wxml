@@ -8,34 +8,39 @@
   </view>
   <!-- 选择器 -->
   <view class='ditu'>
-   <view class='ditu_box'>
-    <picker class='picker' bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-    <text>{{array[index]}}</text>
-  </picker>
-    <image src='/img/ditu.png'></image>
+    <view class='ditu_box'>
+      <picker class='picker' bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+        <text>{{array[index]}}</text>
+      </picker>
+      <image src='/img/ditu.png'></image>
+    </view>
   </view>
-  </view>
-  
+
   <view class='box' wx:for="{{jobCardItems}}" wx:for-index="index" wx:key="">
     <view class='conten' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
       <!-- 标题 -->
-      <view class='money'>
-        <text class='text'>{{item.expectPosition}}</text>
+      <view class='user_title'>
+        <text>{{item.user.username}}</text>
       </view>
       <!-- 个人信息 -->
       <view class='user'>
-        <view class='img_index'>
-          <text class='index_text'>{{index}}</text>
-        </view>
-        <view class='text_box'>
-          <view class='text_ask'>
-            <text>北京市 海定区</text>
+        <view style='display: flex;'>
+          <view class='img_index'>
+            <view>
+              <image class='user_face' src='{{"https://www.junrongcenter.com/"+item.user.face}}'></image>
+            </view>
           </view>
-          <view class='text_degree'>
-            <text>{{item.degree}}</text>
-          </view>
-          <view class='text_sree'>
-            <text>经验不限</text>
+          <view class='text_box'>
+          <view class='text_tag'>
+              <text wx:if="{{item.isFresh}}">应届生</text>
+              <text wx:else>非应届生</text>
+            </view>
+            <view class='text_tag'>
+              <text>{{item.age}}岁</text>
+            </view>
+            <view class='text_tag'>
+              <text>{{item.degree}}</text>
+            </view>
           </view>
         </view>
         <view class='txt'>

@@ -9,20 +9,38 @@ Page({
    */
   data: {
     document: {
-      isShow:true,
+      isShow: true,
       id: 3,
       title: '这是一个文档标题',
       content: '这是文档的内容',
       writerName: '锄禾日当午',
       date: '2018-1-1',
-      likeNum: 999
+      likeNum: 999,
+      isShowPrice: false
     }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
+    var that=this;
+    api.getIOSQualification.call(this, (res) => {
+      this.setData({
+        isShowPrice: res
+      })
+    })
+    api.getLevelList.call(this, (levels) => {
+      levels.forEach((level) => {
+        /*console.log(level)*/
+        switch (level.name) {
+          case "298": that.data.discount298 = level.courseDiscountedRatio; break;
+          case "998": that.data.discount998 = level.courseDiscountedRatio; break;
+          default: break;
+        }
+      })
+      that.setData(that.data)
+    })
     try {
       api.getDocument.call(this, options.id)
     } catch (e) {
@@ -30,7 +48,7 @@ Page({
     }
   },
 
-  onDownload: function () {
+  onDownload: function() {
     var condition = true
     api.getIOSQualification.call(this, (res) => {
       console.log(res)
@@ -40,7 +58,7 @@ Page({
           isShow: false
         })
       }
-    })  
+    })
     var that = this
     if (this.data.document.attachment) {
       api.getMyUser.call(this, app.getOpenid(), (res) => {
@@ -57,8 +75,7 @@ Page({
             }
           })
 
-        }
-        else {
+        } else {
           api.downloadFile.call(this, this.data.document.attachment, () => {
             that.setData({
               isDownLoadAttachment: true
@@ -66,8 +83,7 @@ Page({
           })
         }
       })
-    }
-    else {
+    } else {
       wx.showModal({
         content: '该项目不存在附件',
         showCancel: false
@@ -75,15 +91,15 @@ Page({
     }
   },
 
-  onOpen: function () {
+  onOpen: function() {
     var that = this
     wx.openDocument({
       filePath: that.data.savedFilePath,
     })
   },
 
-  previewImg: function (event) {
-    var src = event.currentTarget.dataset.src;//获取data-src
+  previewImg: function(event) {
+    var src = event.currentTarget.dataset.src; //获取data-src
     //图片预览
     wx.previewImage({
       urls: [src] // 需要预览的图片http链接列表

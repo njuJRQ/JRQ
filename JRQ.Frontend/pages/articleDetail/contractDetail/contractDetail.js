@@ -7,24 +7,46 @@ Page({
    * 页面的初始数据
    */
   data: {
-    image:'https://image-s1.oss-cn-shanghai.aliyuncs.com/yiqu/WechatIMG189.jpeg',
-    images:'https://image-s1.oss-cn-shanghai.aliyuncs.com/yiqu/WechatIMG191.png',
-  document:{}
+    image: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/yiqu/WechatIMG189.jpeg',
+    images: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/yiqu/WechatIMG191.png',
+    document: {},
+    isShowPrice: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    console.log('4556')
+  onLoad: function(options) {
+    var that = this;
+    api.getIOSQualification.call(this, (res) => {
+      this.setData({
+        isShowPrice: res
+      })
+    })
+    api.getLevelList.call(this, (levels) => {
+      levels.forEach((level) => {
+        /*console.log(level)*/
+        switch (level.name) {
+          case "298":
+            that.data.discount298 = level.courseDiscountedRatio;
+            break;
+          case "998":
+            that.data.discount998 = level.courseDiscountedRatio;
+            break;
+          default:
+            break;
+        }
+      })
+      that.setData(that.data)
+    })
     try {
       api.getDocument.call(this, options.id)
     } catch (e) {
       console.log('获取编号为' + options.id + '的文档失败')
     }
-  
+
   },
-  onDownload: function () {
+  onDownload: function() {
     var condition = true
     api.getIOSQualification.call(this, (res) => {
       console.log(res)
@@ -51,8 +73,7 @@ Page({
             }
           })
 
-        }
-        else {
+        } else {
           api.uploadDocument.call(this, this.data.document.attachment, () => {
             that.setData({
               isDownLoadAttachment: true
@@ -60,8 +81,7 @@ Page({
           })
         }
       })
-    }
-    else {
+    } else {
       wx.showModal({
         content: '该项目不存在附件',
         showCancel: false
@@ -72,49 +92,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

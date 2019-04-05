@@ -10,7 +10,7 @@
       <view class='top'>
         <view class='typeface'>
           <text class='title'>{{jobCardItem.user.username}}</text>
-          <text class='title_studu'>南京林业大学-平面设计</text>
+          <text class='title_studu'>{{jobCardItem.user.company}}</text>
         </view>
         <view class='img'>
           <image class='img_image' src='{{jobCardItem.face}}'></image>
@@ -22,15 +22,16 @@
         <view class='middle'>
           <view class='icon'>
             <image class='icon_img' src='/img/icon_user.png'></image>
-            <text class='title_studu'>应届生</text>
+            <text class='title_studu' wx:if="{{jobCardItem.isFresh}}">应届生</text>
+              <text class='title_studu' wx:else>非应届生</text>
           </view>
           <view class='icon'>
             <image class='icon_img' src='/img/icon_age.png'></image>
-            <text class='title_studu'>本科</text>
+            <text class='title_studu'>{{jobCardItem.degree}}</text>
           </view>
           <view class='icon'>
             <image class='icon_img' src='/img/icon_eduo.png'></image>
-            <text class='title_studu'>21岁</text>
+            <text class='title_studu'>{{jobCardItem.age}}</text>
           </view>
           <view class='experience'>
             <text class='title_studu'>{{jobCardItem.experience}}</text>
@@ -44,11 +45,8 @@
             <text class='title_txt'>求职期望</text>
           </view>
           <view class='expect_b'>
-            <text class='title_txt'>平面设计师-南京</text>
+            <text class='title_txt'>{{jobCardItem.expectPosition}}</text>
             <text class='title_txt'>{{jobCardItem.expectWage}}</text>
-          </view>
-          <view class='expect_v'>
-            <text class='title_studu'>行业不限</text>
           </view>
         </view>
       </view>

@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 29,
+			"current": 30,
 			"list": [
 				{
 					"id": 0,
@@ -226,6 +226,13 @@
 					"id": 29,
 					"name": "contract",
 					"pathName": "pages/particulars/contract/contract",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "documentation",
+					"pathName": "pages/particulars/documentation/documentation",
 					"query": "",
 					"scene": null
 				}

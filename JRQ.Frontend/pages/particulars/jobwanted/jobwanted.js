@@ -11,10 +11,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    array: ['北京', '上海', '广东', '南京'],
+    array: ['苏州', '上海', '广东', '南京'],
     objectArray: [{
         id: 0,
-        name: '北京'
+        name: '苏州'
       },
       {
         id: 1,
@@ -96,9 +96,6 @@ Page({
   bindPickerChange: function(e) {
     this.setData({
       index: e.detail.value
-    })
-    wx.showLoading({
-      title: '加载中',
     })
     this.loadPositionsByCity(this.data.objectArray[this.data.index].name);
   },

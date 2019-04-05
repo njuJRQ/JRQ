@@ -62,4 +62,9 @@ public class JobCardDataServiceImpl implements JobCardDataService {
     public List<JobCard> findByExpectPosition(String expectPosition) {
         return jobCardDao.findByExpectPosition(expectPosition);
     }
+
+    @Override
+    public List<JobCard> findByCity(String city) {
+        return jobCardDao.findByUserCity(city);
+    }
 }

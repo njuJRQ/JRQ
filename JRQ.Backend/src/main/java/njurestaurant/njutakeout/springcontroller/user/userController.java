@@ -1,8 +1,6 @@
 package njurestaurant.njutakeout.springcontroller.user;
 
 import io.swagger.annotations.*;
-import io.swagger.models.auth.In;
-import njurestaurant.njutakeout.blservice.admin.AdminBlService;
 import njurestaurant.njutakeout.blservice.user.UserBlService;
 import njurestaurant.njutakeout.exception.CannotGetOpenIdAndSessionKeyException;
 import njurestaurant.njutakeout.exception.CardLimitUseUpException;
@@ -12,7 +10,6 @@ import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.Response;
 import njurestaurant.njutakeout.response.WrongResponse;
 import njurestaurant.njutakeout.response.event.EventLoadResponse;
-import njurestaurant.njutakeout.response.user.ClassificationListResponse;
 import njurestaurant.njutakeout.response.user.ClassificationResponse;
 import njurestaurant.njutakeout.response.user.UserListResponse;
 import njurestaurant.njutakeout.response.user.UserResponse;
@@ -608,7 +605,7 @@ public class userController {
 
     @ApiOperation(value = "获取业务名片列表", notes = "获取业务名片列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "workClass", value = "类别", required = true, dataType = "String")
+            @ApiImplicitParam(name = "openid", value = "类别", required = true, dataType = "String")
     })
     @RequestMapping(value = "/getPersonList", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -616,8 +613,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> getPersonList(@RequestParam(name="workClass")String workClass) throws NotExistException {
-        return new ResponseEntity<>(userBlService.getPersonList(workClass), HttpStatus.OK);
+    public ResponseEntity<Response> getPersonList(@RequestParam(name="openid")String openid) throws NotExistException {
+        return new ResponseEntity<>(userBlService.getPersonList(openid), HttpStatus.OK);
     }
 
     @ApiOperation(value = "获取符合特定条件的业务名片列表", notes = "获取符合特定条件的业务名片列表")

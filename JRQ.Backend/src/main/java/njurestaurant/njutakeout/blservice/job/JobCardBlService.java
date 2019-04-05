@@ -18,4 +18,6 @@ public interface JobCardBlService {
     JobCardListResponse getAll();
     JobCardListResponse findByUser(String openid) throws NotExistException;
     JobCardListResponse findByExpectPosition(String expectPosition);
+
+    JobCardListResponse findByCity(String city);
 }

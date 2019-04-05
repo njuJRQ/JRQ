@@ -64,8 +64,15 @@ Page({
 
   //搜索触发函数
   onSearch: function() {
-    console.log('search service people: ' + this.data.searchCondition)
-    api.getPersonListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
+    if (this.data.searchCondition.length <= 0) {
+      this.setData({
+        searchCondition: null,
+        cards: []
+      })
+      this.onLoad();
+    } else {
+      api.getPersonListByCondition.call(this, app.getOpenid(), this.data.searchCondition)
+    }
   },
 
   showContactList: function() {

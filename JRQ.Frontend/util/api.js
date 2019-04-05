@@ -1510,28 +1510,6 @@ function getTextualResearchCourseList(then) {
   })
 }
 
-function getAll(then) {
-  var that = this
-  wx.request({
-    url: app.globalData.backendUrl + "jobCard/getAll",
-
-    header: {
-      'Authorization': 'Bearer ' + app.getToken(),
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    method: 'GET',
-    success: (res) => {
-      res.data.jobCardItems.forEach(item => {
-        item.image = app.globalData.picUrl + item.user.face
-      })
-      that.setData({
-        jobCardItems: res.data.jobCardItems
-      })
-      console.log(res.data)
-    }
-  })
-}
-
 function getCourseList(then) {
   console.log('getCourseList success!')
   var that = this
@@ -1621,8 +1599,6 @@ function getDocumentList(then) {
   var that = this
   wx.request({
     url: app.globalData.backendUrl + "getDocumentList",
-
-
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
       'content-type': 'application/x-www-form-urlencoded'
@@ -1708,7 +1684,6 @@ module.exports = {
   getAbstractListVideo: getAbstractListVideo,
   getMyReceivedCardNum: getMyReceivedCardNum,
   getTextualResearchCourseList: getTextualResearchCourseList,
-  getAll: getAll,
   getCourseList: getCourseList,
   getContractList: getContractList,
   getBusinessPartnerImage: getBusinessPartnerImage,

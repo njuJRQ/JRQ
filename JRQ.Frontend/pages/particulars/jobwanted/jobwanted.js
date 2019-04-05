@@ -12,8 +12,7 @@ Page({
    */
   data: {
     array: ['北京', '上海', '广东', '南京'],
-    objectArray: [
-      {
+    objectArray: [{
         id: 0,
         name: '北京'
       },
@@ -31,18 +30,18 @@ Page({
       }
     ],
     index: 0,
-image:'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/4.2/%E6%8B%9B%E8%81%98.png',
+    image: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/4.2/%E6%8B%9B%E8%81%98.png',
     jobCardItems: [{
-      id: 0,
-      title: '张三',
-      money: '10k-14k',
-      text: '着棋设计 未融资',
-      site: '南京 玄武区 大行宫 ',
-      time: '3年-5年',
-      tainer: '本科',
-      image: '/img/user.png',
-      name:'许善-CEO'
-    },
+        id: 0,
+        title: '张三',
+        money: '10k-14k',
+        text: '着棋设计 未融资',
+        site: '南京 玄武区 大行宫 ',
+        time: '3年-5年',
+        tainer: '本科',
+        image: '/img/user.png',
+        name: '许善-CEO'
+      },
       {
         id: 0,
         title: '李四',
@@ -84,24 +83,49 @@ image:'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/4.2/%E6%8B%9B%E
         tainer: '本科',
         image: '/img/user.png',
         name: '许善-CEO'
-      },]
+      },
+    ]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    api.getAll.call(this,(res)=>{
-      console.log(res)
-    })
+    this.loadPositionsByCity(this.data.objectArray[this.data.index].name);
   },
-  bindPickerChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+  bindPickerChange: function(e) {
     this.setData({
       index: e.detail.value
     })
+    wx.showLoading({
+      title: '加载中',
+    })
+    this.loadPositionsByCity(this.data.objectArray[this.data.index].name);
   },
-  onTouchThisArticle: function (e) {
+
+  loadPositionsByCity: function(city) {
+    var that = this;
+    wx.request({
+      url: app.globalData.backendUrl + "jobCard/findByCity",
+      data: {
+        city: city
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        res.data.jobCardItems.forEach(item => {
+          item.image = app.globalData.picUrl + item.user.face
+        })
+        that.setData({
+          jobCardItems: res.data.jobCardItems
+        })
+      }
+    })
+  },
+  onTouchThisArticle: function(e) {
     var id = e.currentTarget.dataset.id //获取当前文章id
     var kind = e.currentTarget.dataset.kind
     wx.navigateTo({

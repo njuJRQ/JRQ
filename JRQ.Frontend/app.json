@@ -1,7 +1,6 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/project/project",
     "pages/me/userInfo",
     "pages/projects/project",
     "pages/business/business",
@@ -33,7 +32,6 @@
     "template/likeIcon/likeIcon",
     "template/publishBar/publishBar",
     "pages/contact/contact",
-    "pages/service/service",
     "pages/particulars/jobwanted/jobwanted",
     "pages/particulars/verificine/verificine",
     "pages/particulars/partnership/partnership",

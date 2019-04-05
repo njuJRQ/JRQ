@@ -1,5 +1,5 @@
 <!--pages/myCardHolder/myCardHolder.wxml-->
-<import src='/template/searchBar/searchBar.wxml'/>
+<import src='/template/findBar/searchBar.wxml'/>
 
 <view class='container container--color-gray'>
   <!--搜索框-->

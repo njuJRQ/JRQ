@@ -25,14 +25,15 @@
   margin-top: 10px;
 }
 
-
 .ditu_box {
   display: flex;
   justify-content: flex-end;
 }
-.picker{
+
+.picker {
   display: inline-block;
 }
+
 .ditu image {
   width: 25px;
   height: 30px;
@@ -101,7 +102,7 @@
   /* margin-bottom: 15px; */
 }
 
-.index_text{
+.index_text {
   text-align: center;
   vertical-align: middle;
   color: rgb(242, 198, 94);
@@ -117,10 +118,11 @@
   display: flex;
   justify-content: space-around;
   /* border: 1px solid red; */
+  float: left;
   height: 30px;
   line-height: 30px;
   margin-left: 0;
-  padding-left: 0
+  padding-left: 0;
 }
 
 .text_sree {

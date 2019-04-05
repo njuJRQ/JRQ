@@ -2,7 +2,7 @@
 
 /* pages/service/service.wxss */
 @import '/style/common.wxss';
-@import '/template/searchBar/searchBar.wxss';
+@import '/template/findBar/searchBar.wxss';
 @import '/template/adBar/adBar.wxss';
 
 /*本页面css属性*/

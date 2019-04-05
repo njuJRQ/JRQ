@@ -55,14 +55,38 @@ Page({
   },
 
   likePlus: function(event) {
+    var that = this;
+    var articles = this.data.articles;
     var id = event.currentTarget.dataset.id;
-    var article = null;
-    for (var i = 0; i < this.data.articles.length; i++) {
-      if (this.data.articles[i].id === id) {
-        article = this.data.articles[i];
+    for (var i = 0; i < articles.length; i++) {
+      if (articles[i].id === id) {
+        wx.request({
+          url: app.globalData.backendUrl + "likePlus",
+          data: {
+            openid: app.getOpenid(),
+            kind: "feed",
+            articleId: id
+          },
+          header: {
+            'Authorization': 'Bearer ' + app.getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          method: 'GET',
+          success: (res) => {
+            if (articles[i].hasLiked) {
+              articles[i].likeNum--;
+            } else {
+              articles[i].likeNum++;
+            }
+            articles[i].hasLiked = !articles[i].hasLiked
+            that.setData({
+              articles: articles
+            })
+          }
+        })
+        return;
       }
     }
-    api.likePlus.call(app.globalData.openid, this.data.currentKind, id, article);
   },
 
   // 滑动切换tab 
@@ -100,17 +124,14 @@ Page({
 
   // 点击tab切换 
   swichNav: function(e) {
-    console.log('2-----' + e)
-    console.log("enter switchNav")
+    var currentTabIndex = e.currentTarget.dataset.current;
     var that = this;
-    if (this.data.currentTab === e.target.dataset.current) {
-      console.log("curentTab success")
+    if (this.data.currentTab === currentTabIndex) {
       return false;
     } else {
       that.setData({
-        currentTab: e.target.dataset.current
+        currentTab: currentTabIndex
       })
-      console.log('changeTab')
       console.log(this.data.currentTab)
       switch (this.data.currentTab) {
         case '0':

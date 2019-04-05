@@ -468,6 +468,8 @@ function likePlus(openid, kind, articleId, article) {
     },
     method: 'GET',
     success: (res) => {
+      console.log("****************")
+      console.log(article)
       if (article.hasLiked) {
         article.likeNum--;
       } else {

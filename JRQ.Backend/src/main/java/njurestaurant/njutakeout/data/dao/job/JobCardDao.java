@@ -9,4 +9,5 @@ import java.util.List;
 public interface JobCardDao extends JpaRepository<JobCard,String> {
     List<JobCard> findByUser(User user);
     List<JobCard> findByExpectPosition(String expectPosition);
+    List<JobCard> findByUserCity(String city);
 }

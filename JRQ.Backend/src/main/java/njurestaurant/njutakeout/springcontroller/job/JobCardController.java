@@ -186,4 +186,18 @@ public class JobCardController {
     public ResponseEntity<Response> findByExpectPosition(@RequestParam(name="expectPosition")String expectPosition) throws NotExistException {
         return new ResponseEntity<>(jobCardBlService.findByExpectPosition(expectPosition), HttpStatus.OK);
     }
+
+    @ApiOperation(value = "根据定位查找求职信息", notes = "根据定位查找求职信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "city", value = "city", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/findByCity", method = RequestMethod.POST)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = JobCardResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> findByCity(@RequestParam(name="city")String city) throws NotExistException {
+        return new ResponseEntity<>(jobCardBlService.findByCity(city), HttpStatus.OK);
+    }
 }

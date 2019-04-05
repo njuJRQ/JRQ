@@ -15,4 +15,6 @@ public interface JobCardDataService {
     List<JobCard> getAll();
     List<JobCard> findByUser(User user);
     List<JobCard> findByExpectPosition(String expectPosition);
+
+    List<JobCard> findByCity(String city);
 }

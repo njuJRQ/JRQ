@@ -22,7 +22,6 @@ $.ajax(
                 imageList.push(data.feed.images[i]);
                 $("#imageList").append("<img src='"+"../"+data.feed.images[i]+"' style=\"width: 10rem;height: 10rem;\">")
             }
-
         },
         error: function (xhr) {
             alert('动态页有问题噶！\n\n' + xhr.responseText);

@@ -1,5 +1,6 @@
 package njurestaurant.njutakeout.bl.user;
 
+import net.sf.json.JSONObject;
 import njurestaurant.njutakeout.blservice.user.UserBlService;
 import njurestaurant.njutakeout.data.dao.user.SendCardDao;
 import njurestaurant.njutakeout.dataservice.count.CountDataService;
@@ -16,17 +17,14 @@ import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.account.OpenIdAndSessionKeyResponse;
 import njurestaurant.njutakeout.response.user.*;
 import njurestaurant.njutakeout.security.jwt.JwtService;
-import njurestaurant.njutakeout.security.jwt.JwtUser;
 import njurestaurant.njutakeout.security.jwt.JwtUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.http.*;
-import net.sf.json.JSONObject;
 
 import java.io.*;
 import java.net.URL;
@@ -373,10 +371,39 @@ public class UserBlServiceImpl implements UserBlService {
     }
 
     @Override
-    public PersonListResponse getPersonList(String workClass) throws NotExistException {
+    public PersonListResponse getPersonList(String openid) throws NotExistException {
         List<User> userList = userDataService.getAllUsers();
+        List<User> pageList= new ArrayList<>();
+        int count=0;
+        boolean getId=false;
+        if(openid.equals("-1")){
+            for(int i=0;i<userList.size();i++){
+                pageList.add(userList.get(i));
+                count++;
+                if(count>=10){
+                    break;
+                }
+            }
+        }
+        else{
+            for(int i=0;i<userList.size();i++){
+
+                if(getId){
+                    pageList.add(userList.get(i));
+                    count++;
+                    if(count>=10){
+                        break;
+                    }
+                }
+
+                if(userList.get(i).getOpenid().equals(openid)){
+                    getId=true;
+                }
+
+            }
+        }
         List<PersonItem> personItemList = new ArrayList<>();
-        for (User user : userList) {
+        for (User user : pageList) {
             personItemList.add(new PersonItem(user));
         }
         return new PersonListResponse(personItemList);

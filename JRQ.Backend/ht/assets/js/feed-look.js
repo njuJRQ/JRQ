@@ -3,9 +3,11 @@ var imageList=new Array();
 var url=getUrl();
 var storage = window.localStorage;
 var id=storage["thisFeed"];
+alert(id);
 $.ajax(
     {
         url: url+"/getFeed",
+        type:"POST",
         data: {
             id:id
         },
@@ -20,7 +22,6 @@ $.ajax(
                 imageList.push(data.feed.images[i]);
                 $("#imageList").append("<img src='"+"../"+data.feed.images[i]+"' style=\"width: 10rem;height: 10rem;\">")
             }
-
         },
         error: function (xhr) {
             alert('动态页有问题噶！\n\n' + xhr.responseText);

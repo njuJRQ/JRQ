@@ -189,7 +189,7 @@ letter-spacing:5rpx;
   line-height: 20px;
   border-radius: 10px;
   font-size: 12px;
-  margin-top: 5px;
+  /* margin-top: 5px; */
   text-align: center;
 }
 .fees{

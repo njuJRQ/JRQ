@@ -14,43 +14,44 @@ var theGroup = 0;
 var url = getUrl();
 $.ajax(
     {
-        url: url + "/business/getAllImage",
+        url: url + "/business/getAll",
         data: {
         },
         async: false,
         success: function (data) {
-            for (var i = 0; i < data.businessImageItemList.length; i++) {
+            for (var i = 0; i < data.BusinessListResponse.length; i++) {
 
-                if (data.businessImageItemList[i].marketType == 'GOLD_MARKET') {
-                    data.businessImageItemList[i].marketType = '地金市场'
-                } else if (data.businessImageItemList[i].marketType == 'PRIMARY_MARKET') {
-                    data.businessImageItemList[i].marketType = '一级市场'
-                } else if (data.businessImageItemList[i].marketType == 'SECONDARY_MARKET') {
-                    data.businessImageItemList[i].marketType = '二级市场'
-                } else if (data.businessImageItemList[i].marketType == 'PAPER_MARKET') {
-                    data.businessImageItemList[i].marketType = '票据市场'
-                } else if (data.businessImageItemList[i].marketType == 'BAD_ASSETS') {
-                    data.businessImageItemList[i].marketType = '不良资产'
-                } else if (data.businessImageItemList[i].marketType == 'LARGE_SHORT_BREAK') {
-                    data.businessImageItemList[i].marketType = '大额短拆'
-                } else if (data.businessImageItemList[i].marketType == 'ASSET_SECURITIZATION') {
-                    data.businessImageItemList[i].marketType = '资产证券化'
-                } else if (data.businessImageItemList[i].marketType == 'ISSUANCE_BY_GOVERNMENT') {
-                    data.businessImageItemList[i].marketType = '政府平台发债'
-                } else if (data.businessImageItemList[i].marketType == 'FINANCIAL_LICENSE') {
-                    data.businessImageItemList[i].marketType = '金融牌照'
-                } else if (data.businessImageItemList[i].marketType == 'FUND_SERVICE') {
-                    data.businessImageItemList[i].marketType = '基金服务'
-                } else if (data.businessImageItemList[i].marketType == 'OTHERS') {
-                    data.businessImageItemList[i].marketType = '其他'
+                if (data.BusinessListResponse[i].marketType == 'GOLD_MARKET') {
+                    data.BusinessListResponse[i].marketType = '地金市场';
+                } else if (data.BusinessListResponse[i].marketType == 'PRIMARY_MARKET') {
+                    data.BusinessListResponse[i].marketType = '一级市场';
+                } else if (data.BusinessListResponse[i].marketType == 'SECONDARY_MARKET') {
+                    data.BusinessListResponse[i].marketType = '二级市场';
+                } else if (data.BusinessListResponse[i].marketType == 'PAPER_MARKET') {
+                    data.BusinessListResponse[i].marketType = '票据市场';
+                } else if (data.BusinessListResponse[i].marketType == 'BAD_ASSETS') {
+                    data.BusinessListResponse[i].marketType = '不良资产';
+                } else if (data.BusinessListResponse[i].marketType == 'LARGE_SHORT_BREAK') {
+                    data.BusinessListResponse[i].marketType = '大额短拆';
+                } else if (data.BusinessListResponse[i].marketType == 'ASSET_SECURITIZATION') {
+                    data.BusinessListResponse[i].marketType = '资产证券化';
+                } else if (data.BusinessListResponse[i].marketType == 'ISSUANCE_BY_GOVERNMENT') {
+                    data.BusinessListResponse[i].marketType = '政府平台发债';
+                } else if (data.BusinessListResponse[i].marketType == 'FINANCIAL_LICENSE') {
+                    data.BusinessListResponse[i].marketType = '金融牌照';
+                } else if (data.BusinessListResponse[i].marketType == 'FUND_SERVICE') {
+                    data.BusinessListResponse[i].marketType = '基金服务';
+                } else if (data.BusinessListResponse[i].marketType == 'OTHERS') {
+                    data.BusinessListResponse[i].marketType = '其他';
                 }
-                if( data.businessImageItemList[i].position == 'up'){
-                    data.businessImageItemList[i].position = 'up'
-                }else if( data.businessImageItemList[i].position == 'down'){
-                    data.businessImageItemList[i].position = 'down'
-                }
-                console.log(data.businessImageItemList[i].position)
-                list.push(data.businessImageItemList[i]);
+
+                if (data.BusinessListResponse[i].projecrRef == 'GOLD_MARKET') {
+                    data.BusinessListResponse[i].projecrRef = '地金市场';
+                } else if (data.BusinessListResponse[i].projecrRef == 'PRIMARY_MARKET') {
+                    data.BusinessListResponse[i].projecrRef = '一级市场';
+
+
+                list.push(data.BusinessListResponse[i]);
             }
             document.getElementById("jilu").innerText = "共" + (list.length) + "条记录";
             changepage(1);

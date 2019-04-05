@@ -12,5 +12,4 @@ public enum MarketType {
     FINANCIAL_LICENSE,//金融牌照
     FUND_SERVICE,//基金服务
     OTHERS;//其他
-
 }

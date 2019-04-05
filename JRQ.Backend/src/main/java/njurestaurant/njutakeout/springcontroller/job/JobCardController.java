@@ -191,7 +191,7 @@ public class JobCardController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "city", value = "city", required = true, dataType = "String")
     })
-    @RequestMapping(value = "/findByCity", method = RequestMethod.POST)
+    @RequestMapping(value = "/findByCity", method = RequestMethod.GET)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = JobCardResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),

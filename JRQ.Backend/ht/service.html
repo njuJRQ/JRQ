@@ -27,7 +27,7 @@
 <div class="admin-content">
     <div class="admin-content-body">
         <div class="am-cf am-padding am-padding-bottom-0">
-            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">广告列表</strong> / <small></small></div>
+            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">业务导航图列表</strong> / <small></small></div>
         </div>
 
         <hr>
@@ -38,28 +38,13 @@
                     <div class="am-btn-group am-btn-group-xs">
                         <button type="button" id="checkall"class="am-btn am-btn-default"><span class="icon-check"></span> 全选</button>
                         <button type="button" class="am-btn am-btn-default" onclick="delAll()"><span class="am-icon-trash-o"></span> 删除</button>
-                        <button type="button" class="am-btn am-btn-default">   <a href="service-add.html"><span class="am-icon-plus"></span> 添加广告</a></button>
+                        <button type="button" class="am-btn am-btn-default">   <a href="service-add.html"><span class="am-icon-plus"></span> 添加业务导航图</a></button>
 
 
                     </div>
                 </div>
             </div>
             <div class="am-u-sm-12 am-u-md-3">
-                <!--<div class="am-form-group">
-                  <select data-am-selected="{btnSize: 'sm'}">
-                    <option value="option1">所有类别</option>
-                    <option value="option2">恋爱情感培训</option>
-                    <option value="option3">人际交往改善</option>
-                    <option value="option4">工作学习提升</option>
-                      <option value="option5">陌生环境适应</option>
-                    <option value="option6">自我评价提升</option>
-                    <option value="option7">自卑心理客服</option>
-                    <option value="option8">正视挫折感受</option>
-                    <option value="option9">负面情绪调节</option>
-                    <option value="option10">习得无助培训</option>
-                    <option value="optio11">归因偏差培训</option>
-                  </select>
-                </div>-->
             </div>
             <div class="am-u-sm-12 am-u-md-3">
                 <div class="am-input-group am-input-group-sm">
@@ -79,16 +64,16 @@
 
                         </thead><tr>
                         <th><input type="checkbox" title="id[]"/></th>
-                        <th>广告编号</th>
-                        <th>广告图片</th>
-                        <th>业务市场</th>
-                        <th>广告展示位置</th>
+                        <th>导航图编号</th>
+                        <th>图片</th>
+                        <th>业务类型</th>
+                        <th>展示位置</th>
                         <th class="table-set">操作</th>
                     </tr>
                         <tr id="your-alert-1">
                             <td><input id="c1" type="checkbox" title="id[]"/></td>
                             <td id="number1"></td>
-                            <td><identityImages  id="name1" style="max-height: 30px;"/></td>
+                            <td><img  id="name1" style="max-height: 30px;"/></td>
                             <td id="date1"></td>
                             <td id="place1"></td>
                             <td>
@@ -98,7 +83,7 @@
                                         <a href="service-change.html" onclick="setthisquestion(0)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
 
                                         <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close1" onclick="deletequestion(0)"><span class="am-icon-trash-o"></span>删除</button>
-                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick="setAsChecked(0)"><span class="am-icon-trash-o"></span>选中</button>
+
                                     </div>
                                 </div>
                             </td>
@@ -106,7 +91,7 @@
                         <tr id="your-alert-2">
                             <td><input id="c2" type="checkbox" title="id[]"/></td>
                             <td id="number2"></td>
-                            <td><identityImages  id="name2" style="max-height: 30px;"/></td>
+                            <td><img  id="name2" style="max-height: 30px;"/></td>
                             <td id="date2"></td>
                             <td id="place2"></td>
                             <td>
@@ -116,7 +101,7 @@
                                         <a href="service-change.html" onclick="setthisquestion(1)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
 
                                         <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close2" onclick="deletequestion(1)"><span class="am-icon-trash-o"></span>删除</button>
-                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick="setAsChecked(1)"><span class="am-icon-trash-o"></span>选中</button>
+
                                     </div>
                                 </div>
                             </td>
@@ -124,7 +109,7 @@
                         <tr id="your-alert-3">
                             <td><input id="c3" type="checkbox" title="id[]"/></td>
                             <td id="number3"></td>
-                            <td><identityImages  id="name3" style="max-height: 30px;"/></td>
+                            <td><img  id="name3" style="max-height: 30px;"/></td>
                             <td id="date3"></td>
                             <td id="place3"></td>
                             <td>
@@ -134,7 +119,7 @@
                                         <a href="service-change.html" onclick="setthisquestion(2)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
 
                                         <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close3" onclick="deletequestion(2)"><span class="am-icon-trash-o"></span>删除</button>
-                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick="setAsChecked(2)"><span class="am-icon-trash-o"></span>选中</button>
+
                                     </div>
                                 </div>
                             </td>
@@ -142,7 +127,7 @@
                         <tr id="your-alert-4">
                             <td><input id="c4" type="checkbox" title="id[]"/></td>
                             <td id="number4"></td>
-                            <td><identityImages  id="name4" style="max-height: 30px;"/></td>
+                            <td><img  id="name4" style="max-height: 30px;"/></td>
                             <td id="date4"></td>
                             <td id="place4"></td>
                             <td>
@@ -152,7 +137,7 @@
                                         <a href="service-change.html" onclick="setthisquestion(3)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
 
                                         <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close4" onclick="deletequestion(3)"><span class="am-icon-trash-o"></span>删除</button>
-                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick="setAsChecked(3)"><span class="am-icon-trash-o"></span>选中</button>
+
                                     </div>
                                 </div>
                             </td>
@@ -160,7 +145,7 @@
                         <tr id="your-alert-5">
                             <td><input id="c5" type="checkbox" title="id[]"/></td>
                             <td id="number5"></td>
-                            <td><identityImages  id="name5" style="max-height: 30px;"/></td>
+                            <td><img  id="name5" style="max-height: 30px;"/></td>
                             <td id="date5"></td>
                             <td id="place5"></td>
                             <td>
@@ -170,7 +155,7 @@
                                         <a href="service-change.html" onclick="setthisquestion(4)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-edit"></span>  修改</a>
 
                                         <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" id="doc-alert-btn-close5" onclick="deletequestion(4)"><span class="am-icon-trash-o"></span>删除</button>
-                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick="setAsChecked(4)"><span class="am-icon-trash-o"></span>选中</button>
+
                                     </div>
                                 </div>
                             </td>

@@ -19,7 +19,7 @@
     <div class="admin-content-body">
         <div class="am-cf am-padding am-padding-bottom-0">
             <div class="am-fl am-cf">
-                <strong class="am-text-primary am-text-lg">业务管理</strong> /
+                <strong class="am-text-primary am-text-lg">业务导航图管理</strong> /
 
             </div>
         </div>
@@ -28,52 +28,11 @@
 
         <div class="am-tabs am-margin" data-am-tabs>
             <ul class="am-tabs-nav am-nav am-nav-tabs">
-                <li class="am-active"><a href="#tab1">新增业务</a></li>
-
+                <li class="am-active"><a href="#tab1">新增业务导航图</a></li>
             </ul>
 
             <div class="am-tabs-bd am-form">
                 <div class="am-tab-panel am-fade am-in am-active" id="tab1">
-
-                    <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">联系人</div>
-                        <div class="am-u-sm-8 am-u-md-10">
-                            <input id="linkMan" type="text" value="" style="width: 300px;">
-                        </div>
-                    </div>
-
-                    <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">手机号</div>
-                        <div class="am-u-sm-8 am-u-md-10">
-                            <input id="phone" type="text" value="" style="width: 300px;">
-                        </div>
-                    </div>
-
-                    <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">机构名</div>
-                        <div class="am-u-sm-8 am-u-md-10">
-                            <input id="agencyName" type="text" value="" style="width: 300px;">
-                        </div>
-                    </div>
-
-                    <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">项目信息</div>
-                        <div class="am-u-sm-8 am-u-md-10">
-                            <input id="projectInfo" type="text" value="" style="width: 300px;">
-                        </div>
-                    </div>
-
-                    <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">项目关联</div>
-                        <div class="am-u-sm-8 am-u-md-10">
-                            <select id="projectRef" style="width: 300px">
-                                <option>实控人</option>
-                                <option>核心股东</option>
-                                <option>雇员</option>
-                                <option>一手第三方</option>
-                            </select>
-                        </div>
-                    </div>
 
                     <div class="am-g am-margin-top">
                         <div class="am-u-sm-4 am-u-md-2 am-text-right">业务类别</div>
@@ -95,16 +54,25 @@
                     </div>
 
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">用户openid</div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">导航图位置</div>
                         <div class="am-u-sm-8 am-u-md-10">
-                            <input id="writerOpenid" type="text" value="" style="width: 300px;">
+                            <select id="position" style="width: 300px">
+                                <option>up</option>
+                                <option>down</option>
+                            </select>
                         </div>
                     </div>
 
 
-
-
-
+                    <form id="upload-file-form">
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">图片</div>
+                            <div class="am-u-sm-8 am-u-md-10">
+                                <input type="file" name="file" id="file"><br>
+                            </div>
+                        </div>
+                    </form>
+                    
                 </div>
             </div>
 

@@ -14,44 +14,39 @@ var theGroup = 0;
 var url = getUrl();
 $.ajax(
     {
-        url: url + "/business/getAll",
+        url: url + "/business/getAllImage",
         data: {
         },
         async: false,
         success: function (data) {
-            for (var i = 0; i < data.BusinessListResponse.length; i++) {
+            for (var i = 0; i < data.businessImageItemList.length; i++) {
 
-                if (data.BusinessListResponse[i].marketType == 'GOLD_MARKET') {
-                    data.BusinessListResponse[i].marketType = '地金市场';
-                } else if (data.BusinessListResponse[i].marketType == 'PRIMARY_MARKET') {
-                    data.BusinessListResponse[i].marketType = '一级市场';
-                } else if (data.BusinessListResponse[i].marketType == 'SECONDARY_MARKET') {
-                    data.BusinessListResponse[i].marketType = '二级市场';
-                } else if (data.BusinessListResponse[i].marketType == 'PAPER_MARKET') {
-                    data.BusinessListResponse[i].marketType = '票据市场';
-                } else if (data.BusinessListResponse[i].marketType == 'BAD_ASSETS') {
-                    data.BusinessListResponse[i].marketType = '不良资产';
-                } else if (data.BusinessListResponse[i].marketType == 'LARGE_SHORT_BREAK') {
-                    data.BusinessListResponse[i].marketType = '大额短拆';
-                } else if (data.BusinessListResponse[i].marketType == 'ASSET_SECURITIZATION') {
-                    data.BusinessListResponse[i].marketType = '资产证券化';
-                } else if (data.BusinessListResponse[i].marketType == 'ISSUANCE_BY_GOVERNMENT') {
-                    data.BusinessListResponse[i].marketType = '政府平台发债';
-                } else if (data.BusinessListResponse[i].marketType == 'FINANCIAL_LICENSE') {
-                    data.BusinessListResponse[i].marketType = '金融牌照';
-                } else if (data.BusinessListResponse[i].marketType == 'FUND_SERVICE') {
-                    data.BusinessListResponse[i].marketType = '基金服务';
-                } else if (data.BusinessListResponse[i].marketType == 'OTHERS') {
-                    data.BusinessListResponse[i].marketType = '其他';
+                if (data.businessImageItemList[i].marketType == 'GOLD_MARKET') {
+                    data.businessImageItemList[i].marketType = '地金市场'
+                } else if (data.businessImageItemList[i].marketType == 'PRIMARY_MARKET') {
+                    data.businessImageItemList[i].marketType = '一级市场'
+                } else if (data.businessImageItemList[i].marketType == 'SECONDARY_MARKET') {
+                    data.businessImageItemList[i].marketType = '二级市场'
+                } else if (data.businessImageItemList[i].marketType == 'PAPER_MARKET') {
+                    data.businessImageItemList[i].marketType = '票据市场'
+                } else if (data.businessImageItemList[i].marketType == 'BAD_ASSETS') {
+                    data.businessImageItemList[i].marketType = '不良资产'
+                } else if (data.businessImageItemList[i].marketType == 'LARGE_SHORT_BREAK') {
+                    data.businessImageItemList[i].marketType = '大额短拆'
+                } else if (data.businessImageItemList[i].marketType == 'ASSET_SECURITIZATION') {
+                    data.businessImageItemList[i].marketType = '资产证券化'
+                } else if (data.businessImageItemList[i].marketType == 'ISSUANCE_BY_GOVERNMENT') {
+                    data.businessImageItemList[i].marketType = '政府平台发债'
+                } else if (data.businessImageItemList[i].marketType == 'FINANCIAL_LICENSE') {
+                    data.businessImageItemList[i].marketType = '金融牌照'
+                } else if (data.businessImageItemList[i].marketType == 'FUND_SERVICE') {
+                    data.businessImageItemList[i].marketType = '基金服务'
+                } else if (data.businessImageItemList[i].marketType == 'OTHERS') {
+                    data.businessImageItemList[i].marketType = '其他'
                 }
 
-                if (data.BusinessListResponse[i].projecrRef == 'GOLD_MARKET') {
-                    data.BusinessListResponse[i].projecrRef = '地金市场';
-                } else if (data.BusinessListResponse[i].projecrRef == 'PRIMARY_MARKET') {
-                    data.BusinessListResponse[i].projecrRef = '一级市场';
 
-
-                list.push(data.BusinessListResponse[i]);
+                list.push(data.businessImageItemList[i]);
             }
             document.getElementById("jilu").innerText = "共" + (list.length) + "条记录";
             changepage(1);
@@ -63,10 +58,18 @@ $.ajax(
     }
 )
 
+function getImg(img){
+    if(img.indexOf("https://image-s1.oss-cn-shanghai.aliyuncs.com/")!=(-1)){
+        return "";
+    }else {
+        return "../";
+    }
+}
+
 function setthisquestion(n) {
     var q = list[firstID + n];
     var storage = window.localStorage;
-    storage["thisAd"] = q.id;
+    storage["thisService"] = q.id;
 }
 function deletequestion(n) {
     var r = confirm("确定删除么？");
@@ -75,14 +78,14 @@ function deletequestion(n) {
         var url = getUrl();
         $.ajax(
             {
-                url: url + "/deleteAd",
+                url: url + "/business/deleteImage",
                 data: {
                     id: q.id
                 },
                 async: false,
                 success: function (data) {
                     alert("删除成功");
-                    window.location.href = "businessImageItemList.html";
+                    window.location.href = "service.html";
                 },
                 error: function (xhr) {
                     alert('动态页有问题噶！\n\n' + xhr.responseText);
@@ -152,7 +155,7 @@ function changepage(page) {
     else if (list.length < (firstID + 2)) {
         $("#your-alert-1").show();
         document.getElementById("number" + (firstID % 5 + 1)).innerText = list[firstID].id;
-        document.getElementById("name" + (firstID % 5 + 1)).src = "../" + list[firstID].image;
+        document.getElementById("name" + (firstID % 5 + 1)).src = getImg(list[firstID].image)+list[firstID].image;
         document.getElementById("date" + (firstID % 5 + 1)).innerText = list[firstID].marketType;
         document.getElementById("place" + (firstID % 5 + 1)).innerText = list[firstID].position;
 
@@ -165,12 +168,12 @@ function changepage(page) {
         $("#your-alert-1").show();
         $("#your-alert-2").show();
         document.getElementById("number" + (firstID % 5 + 1)).innerText = list[firstID].id;
-        document.getElementById("name" + (firstID % 5 + 1)).src = "../" + list[firstID].image;
+        document.getElementById("name" + (firstID % 5 + 1)).src =  getImg(list[firstID].image)+list[firstID].image;
         document.getElementById("date" + (firstID % 5 + 1)).innerText = list[firstID].marketType;
         document.getElementById("place" + (firstID % 5 + 1)).innerText = list[firstID].position;
 
         document.getElementById("number" + (firstID % 5 + 2)).innerText = list[firstID + 1].id;
-        document.getElementById("name" + (firstID % 5 + 2)).src = "../" + list[firstID + 1].image;
+        document.getElementById("name" + (firstID % 5 + 2)).src =  getImg(list[firstID+1].image)+list[firstID + 1].image;
         document.getElementById("date" + (firstID % 5 + 2)).innerText = list[firstID + 1].marketType;
         document.getElementById("place" + (firstID % 5 + 2)).innerText = list[firstID + 1].position;
         $("#your-alert-3").hide();
@@ -182,17 +185,17 @@ function changepage(page) {
         $("#your-alert-2").show();
         $("#your-alert-3").show();
         document.getElementById("number" + (firstID % 5 + 1)).innerText = list[firstID].id;
-        document.getElementById("name" + (firstID % 5 + 1)).src = "../" + list[firstID].image;
+        document.getElementById("name" + (firstID % 5 + 1)).src = getImg(list[firstID].image)+list[firstID].image;
         document.getElementById("date" + (firstID % 5 + 1)).innerText = list[firstID].marketType;
         document.getElementById("place" + (firstID % 5 + 1)).innerText = list[firstID].position;
 
         document.getElementById("number" + (firstID % 5 + 2)).innerText = list[firstID + 1].id;
-        document.getElementById("name" + (firstID % 5 + 2)).src = "../" + list[firstID + 1].image;
+        document.getElementById("name" + (firstID % 5 + 2)).src = getImg(list[firstID+1].image)+list[firstID + 1].image;
         document.getElementById("date" + (firstID % 5 + 2)).innerText = list[firstID + 1].marketType;
         document.getElementById("place" + (firstID % 5 + 2)).innerText = list[firstID + 1].position;
 
         document.getElementById("number" + (firstID % 5 + 3)).innerText = list[firstID + 2].id;
-        document.getElementById("name" + (firstID % 5 + 3)).src = "../" + list[firstID + 2].image;
+        document.getElementById("name" + (firstID % 5 + 3)).src = getImg(list[firstID+2].image)+list[firstID + 2].image;
         document.getElementById("date" + (firstID % 5 + 3)).innerText = list[firstID + 2].marketType;
         document.getElementById("place" + (firstID % 5 + 3)).innerText = list[firstID + 2].position;
         $("#your-alert-4").hide();
@@ -204,22 +207,22 @@ function changepage(page) {
         $("#your-alert-3").show();
         $("#your-alert-4").show();
         document.getElementById("number" + (firstID % 5 + 1)).innerText = list[firstID].id;
-        document.getElementById("name" + (firstID % 5 + 1)).src = "../" + list[firstID].image;
+        document.getElementById("name" + (firstID % 5 + 1)).src = getImg(list[firstID].image)+list[firstID].image;
         document.getElementById("date" + (firstID % 5 + 1)).innerText = list[firstID].marketType;
         document.getElementById("place" + (firstID % 5 + 1)).innerText = list[firstID].position;
 
         document.getElementById("number" + (firstID % 5 + 2)).innerText = list[firstID + 1].id;
-        document.getElementById("name" + (firstID % 5 + 2)).src = "../" + list[firstID + 1].image;
+        document.getElementById("name" + (firstID % 5 + 2)).src =  getImg(list[firstID+1].image)+list[firstID + 1].image;
         document.getElementById("date" + (firstID % 5 + 2)).innerText = list[firstID + 1].marketType;
         document.getElementById("place" + (firstID % 5 + 2)).innerText = list[firstID + 1].position;
 
         document.getElementById("number" + (firstID % 5 + 3)).innerText = list[firstID + 2].id;
-        document.getElementById("name" + (firstID % 5 + 3)).src = "../" + list[firstID + 2].image;
+        document.getElementById("name" + (firstID % 5 + 3)).src = getImg(list[firstID+2].image)+ list[firstID + 2].image;
         document.getElementById("date" + (firstID % 5 + 3)).innerText = list[firstID + 2].marketType;
         document.getElementById("place" + (firstID % 5 + 3)).innerText = list[firstID + 2].position;
 
         document.getElementById("number" + (firstID % 5 + 4)).innerText = list[firstID + 3].id;
-        document.getElementById("name" + (firstID % 5 + 4)).src = "../" + list[firstID + 3].image;
+        document.getElementById("name" + (firstID % 5 + 4)).src = getImg(list[firstID+3].image)+ list[firstID + 3].image;
         document.getElementById("date" + (firstID % 5 + 4)).innerText = list[firstID + 3].marketType;
         document.getElementById("place" + (firstID % 5 + 4)).innerText = list[firstID + 3].position;
         $("#your-alert-5").hide();
@@ -231,27 +234,27 @@ function changepage(page) {
         $("#your-alert-4").show();
         $("#your-alert-5").show();
         document.getElementById("number" + (firstID % 5 + 1)).innerText = list[firstID].id;
-        document.getElementById("name" + (firstID % 5 + 1)).src = "../" + list[firstID].image;
+        document.getElementById("name" + (firstID % 5 + 1)).src = getImg(list[firstID].image)+ list[firstID].image;
         document.getElementById("date" + (firstID % 5 + 1)).innerText = list[firstID].marketType;
         document.getElementById("place" + (firstID % 5 + 1)).innerText = list[firstID].position;
 
         document.getElementById("number" + (firstID % 5 + 2)).innerText = list[firstID + 1].id;
-        document.getElementById("name" + (firstID % 5 + 2)).src = "../" + list[firstID + 1].image;
+        document.getElementById("name" + (firstID % 5 + 2)).src = getImg(list[firstID+1].image)+ list[firstID + 1].image;
         document.getElementById("date" + (firstID % 5 + 2)).innerText = list[firstID + 1].marketType;
         document.getElementById("place" + (firstID % 5 + 2)).innerText = list[firstID + 1].position;
 
         document.getElementById("number" + (firstID % 5 + 3)).innerText = list[firstID + 2].id;
-        document.getElementById("name" + (firstID % 5 + 3)).src = "../" + list[firstID + 2].image;
+        document.getElementById("name" + (firstID % 5 + 3)).src = getImg(list[firstID+2].image)+ list[firstID + 2].image;
         document.getElementById("date" + (firstID % 5 + 3)).innerText = list[firstID + 2].marketType;
         document.getElementById("place" + (firstID % 5 + 3)).innerText = list[firstID + 2].position;
 
         document.getElementById("number" + (firstID % 5 + 4)).innerText = list[firstID + 3].id;
-        document.getElementById("name" + (firstID % 5 + 4)).src = "../" + list[firstID + 3].image;
+        document.getElementById("name" + (firstID % 5 + 4)).src = getImg(list[firstID+3].image)+ list[firstID + 3].image;
         document.getElementById("date" + (firstID % 5 + 4)).innerText = list[firstID + 3].marketType;
         document.getElementById("place" + (firstID % 5 + 4)).innerText = list[firstID + 3].position;
 
         document.getElementById("number" + (firstID % 5 + 5)).innerText = list[firstID + 4].id;
-        document.getElementById("name" + (firstID % 5 + 5)).src = "../" + list[firstID + 4].image;
+        document.getElementById("name" + (firstID % 5 + 5)).src =  getImg(list[firstID+4].image)+list[firstID + 4].image;
         document.getElementById("date" + (firstID % 5 + 5)).innerText = list[firstID + 4].marketType;
         document.getElementById("place" + (firstID % 5 + 5)).innerText = list[firstID + 4].position;
     }
@@ -264,7 +267,7 @@ function deletesingle(n) {
     var url = getUrl();
     $.ajax(
         {
-            url: url + "/deleteAd",
+            url: url + "/business/deleteImage",
             data: {
                 id: q.id
             },
@@ -297,7 +300,7 @@ function delAll() {
             deletesingle(5);
         }
         alert("批量删除成功");
-        window.location.href = "businessImageItemList.html";
+        window.location.href = "service.html";
     }
 
 }
@@ -308,8 +311,9 @@ function search() {
         if (list[i].id == text) {
             $("#your-alert-1").show();
             document.getElementById("number" + (firstID % 5 + 1)).innerText = list[i].id;
-            document.getElementById("name" + (firstID % 5 + 1)).innerText = "../" + list[i].image;
+            document.getElementById("name" + (firstID % 5 + 1)).src = getImg(list[firstID].image)+list[i].image;
             document.getElementById("date" + (firstID % 5 + 1)).innerText = list[i].marketType;
+            document.getElementById("place" + (firstID % 5 + 1)).innerText = list[i].position;
             $("#your-alert-2").hide();
             $("#your-alert-3").hide();
             $("#your-alert-4").hide();
@@ -320,32 +324,6 @@ function search() {
 
 }
 
-function setAsChecked(n) {
-    var q = list[firstID + n];
-    $.ajax(
-        {
-            url: url + "/setCheckedAd",
-            data: {
-                id: q.id
-            },
-            async: false,
-            success: function (data) {
-                if (q.position == "首页") {
-                    alert("选中编号为" + q.id + "作为首页广告！")
-                }
-                else if (q.position == "业务") {
-                    alert("选中编号为" + q.id + "作为业务广告！")
-                } else if (q.position == "弹窗") {
-                    alert("选中编号为" + q.id + "作为弹窗广告！")
-                }
-                window.location.href = "businessImageItemList.html";
-            },
-            error: function (xhr) {
-                alert('动态页有问题噶！\n\n' + xhr.responseText);
-            },
-            traditional: true,
-        }
-    )
-}
+
 
 

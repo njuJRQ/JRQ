@@ -33,11 +33,14 @@ public class JobCard {
     @Column
     private String advantage;
 
+    @Column
+    private String city;
+
 
     public JobCard() {
     }
 
-    public JobCard(String expectPosition, String expectWage, String degree, String introduction, boolean isFresh, String enterprise, String advantage) {
+    public JobCard(String expectPosition, String expectWage, String degree, String introduction, boolean isFresh, String enterprise, String advantage, String city) {
         this.expectPosition = expectPosition;
         this.expectWage = expectWage;
         this.degree = degree;
@@ -45,6 +48,7 @@ public class JobCard {
         this.isFresh = isFresh;
         this.enterprise = enterprise;
         this.advantage = advantage;
+        this.city = city;
     }
 
     public String getId() {
@@ -109,5 +113,13 @@ public class JobCard {
 
     public void setAdvantage(String advantage) {
         this.advantage = advantage;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }

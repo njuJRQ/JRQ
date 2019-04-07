@@ -12,7 +12,8 @@ public interface JobCardBlService {
                      String introduction,
                      boolean isFresh,
                      String enterprise,
-                     String advantage) throws NotExistException;
+                     String advantage,
+                     String city) throws NotExistException;
 
     InfoResponse update(String id, String expectPosition,
                         String expectWage,
@@ -20,15 +21,14 @@ public interface JobCardBlService {
                         String introduction,
                         boolean isFresh,
                         String enterprise,
-                        String advantage) throws NotExistException;
+                        String advantage,
+                        String city) throws NotExistException;
 
     InfoResponse deleteById(String id) throws NotExistException;
 
     JobCardResponse findById(String id) throws NotExistException;
 
     JobCardListResponse getAll();
-
-    JobCardListResponse findByUser(String openid) throws NotExistException;
 
     JobCardListResponse findByExpectPosition(String expectPosition);
 

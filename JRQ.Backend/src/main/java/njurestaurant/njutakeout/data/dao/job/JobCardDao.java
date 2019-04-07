@@ -1,13 +1,12 @@
 package njurestaurant.njutakeout.data.dao.job;
 
 import njurestaurant.njutakeout.entity.job.JobCard;
-import njurestaurant.njutakeout.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface JobCardDao extends JpaRepository<JobCard,String> {
-    List<JobCard> findByUser(User user);
+public interface JobCardDao extends JpaRepository<JobCard, String> {
     List<JobCard> findByExpectPosition(String expectPosition);
-    List<JobCard> findByUserCity(String city);
+
+    List<JobCard> findByCity(String city);
 }

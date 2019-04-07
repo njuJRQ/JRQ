@@ -2,11 +2,7 @@
 <html class="no-js fixed-layout">
 <head>
     <meta charset="utf-8">
-
-
-
-
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Amaze UI Admin index Examples</title>
     <meta title="description" content="这是一个 index 页面">
     <meta title="keywords" content="index">
@@ -17,6 +13,7 @@
     <meta title="apple-mobile-web-app-title" content="Amaze UI" />
     <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
     <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style-1.css" />
     <script src="assets/js/getUrl.js"></script>
 </head>
 <body>
@@ -29,11 +26,46 @@
 <!-- sidebar end -->
 
 <!-- content start -->
+<div id="loader" class="loader">
+    <div class="text">上传中，请稍后，Loading...</div>
+    <div class="horizontal">
+        <div class="circlesup">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+        <div class="circlesdwn">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+    </div>
+    <div class="vertical">
+        <div class="circlesup">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+        <div class="circlesdwn">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+    </div>
+</div>
 <div class="admin-content">
     <div class="admin-content-body">
         <div class="am-cf am-padding am-padding-bottom-0">
             <div class="am-fl am-cf">
-                <strong class="am-text-primary am-text-lg">圈子管理</strong> /
+                <strong class="am-text-primary am-text-lg">招聘管理</strong> /
 
             </div>
         </div>
@@ -42,7 +74,7 @@
 
         <div class="am-tabs am-margin" data-am-tabs>
             <ul class="am-tabs-nav am-nav am-nav-tabs">
-                <li class="am-active"><a href="#tab1">添加圈子</a></li>
+                <li class="am-active"><a href="#tab1">添加职位</a></li>
 
             </ul>
 
@@ -50,77 +82,67 @@
 
                 <div class="am-tab-panel am-fade am-in am-active" id="tab1">
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">微信openid</div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">职位名称</div>
                         <div class="am-u-sm-8 am-u-md-10">
-                            <input id="writerOpenid" title="writerOpenid" type="text" value="">
+                            <input id="expectPosition" type="text" value="">
                         </div>
                     </div>
 
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">联系人</div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">薪水</div>
                         <div class="am-u-sm-8 am-u-md-10">
-                            <input id="linkMan" title="writerOpenid" type="text" value="">
+                            <input id="expectWage" type="text" value="">
                         </div>
                     </div>
 
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">联系电话</div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">学历</div>
                         <div class="am-u-sm-8 am-u-md-10">
-                            <input id="phone" title="writerOpenid" type="text" value="">
+                            <input id="degree" type="text" value="">
                         </div>
                     </div>
 
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">机构名称</div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">简介</div>
                         <div class="am-u-sm-8 am-u-md-10">
-                            <input id="agencyName" title="writerOpenid" type="text" value="">
+                            <input id="introduction" type="text" value="">
                         </div>
                     </div>
 
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">项目关联</div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">是否应届生</div>
                         <div class="am-u-sm-8 am-u-md-10">
-                            <!-- <textarea id="content"></textarea> -->
-                            <!-- <input id="projectRef" type="text" value=""> -->
-                            <select id="projectRef">
-                                <option>请选择</option>
-                                <option value="ACTUAL_CONTROLLER">实控人</option>
-                                <option value="CORE_OF_SHAREHOLDERS">核心股东</option>
-                                <option value="EMPLOYEE">雇员</option>
-                                <option value="THIRD_PARTY">一手第三方</option>
+                            <select id="isFresh">
+                                <option>是</option>
+                                <option>否</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">项目信息</div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">所属公司名</div>
                         <div class="am-u-sm-8 am-u-md-10">
-                            <input id="projectInfo" title="writerOpenid" type="text" value="">
+                            <input id="enterprise" type="text" value="">
                         </div>
                     </div>
 
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">图片</div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">一个职位亮点</div>
                         <div class="am-u-sm-8 am-u-md-10">
-                            <div id="imageList">
-                            </div>
-                            <p><img style="width: 5rem;height: 5rem" src="assets/i/add.png" onclick="fileSelect();"></p>
-                            <form id="upload-file-form" enctype="multipart/form-data" style="width:auto;">
-                                <input type="file" name="image" id="image" onchange="fileSelected();" style="display:none;">
-                            </form>
-                            <span><button onclick="clearImage()">重新上传</button></span>
+                            <input id="advantage" type="text" value="">
                         </div>
                     </div>
 
-
-
-
-
-
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">所在城市</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <input id="city" type="text" value="">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="am-margin">
-                <button id="addbutton" onclick="addUser()" type="button" class="am-btn am-btn-primary am-btn-xs"style="background-color: #22cc77; margin-left: 20%;margin-bottom: 20%;">确定</button>
+                <button id="addbutton" onclick="adduser()" type="button" class="am-btn am-btn-primary am-btn-xs"style="background-color: #22cc77; margin-left: 20%;margin-bottom: 20%;">确定</button>
             </div>
 
         </div>
@@ -152,12 +174,9 @@
 <!--<![endif]-->
 <script src="assets/js/amazeui.min.js"></script>
 <script src="assets/js/app.js"></script>
-<script src="assets/js/feed-add.js"></script>
-<script type="text/javascript">
+<script src="assets/js/invite-add.js"></script>
 
-
-
-
+<script>
 </script>
 <script>
     var storage = window.localStorage;

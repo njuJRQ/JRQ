@@ -1,11 +1,8 @@
 package njurestaurant.njutakeout.entity.account;
 
-import njurestaurant.njutakeout.entity.food.Food;
-import njurestaurant.njutakeout.entity.order.Order;
 import njurestaurant.njutakeout.publicdatas.account.Role;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "old_user")
@@ -21,21 +18,15 @@ public class User {
     private String password;
     @Column(name = "role")
     private Role role;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    private List<Order> orders;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    private List<Food> foods;
 
     public User() {
     }
 
-    public User(String avatarUrl, String username, String password, Role role, List<Order> orders, List<Food> foods) {
+    public User(String avatarUrl, String username, String password, Role role) {
         this.avatarUrl = avatarUrl;
         this.username = username;
         this.password = password;
         this.role = role;
-        this.orders = orders;
-        this.foods = foods;
     }
 
     public int getId() {
@@ -76,21 +67,5 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-
-    public List<Food> getFoods() {
-        return foods;
-    }
-
-    public void setFoods(List<Food> foods) {
-        this.foods = foods;
     }
 }

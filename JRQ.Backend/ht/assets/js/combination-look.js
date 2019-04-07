@@ -12,12 +12,10 @@ $.ajax(
         async:false,     
         success: function (data) {
             document.getElementById("id").innerText=data.courseGroupItem.id;
-            document.getElementById("title").innerText=data.document.title;
-            document.getElementById("content").innerText=data.document.content;
-            document.getElementById("writerName").innerText=data.document.writerName;
-            document.getElementById("date").innerText=data.document.date;
-            document.getElementById("likeNum").innerText=data.document.likeNum;
-            path="../"+data.document.attachment;
+            document.getElementById("title").innerText=data.courseGroupItem.title;
+            document.getElementById("image").src="../"+data.courseGroupItem.image;
+            document.getElementById("price").innerText=data.courseGroupItem.price;
+            document.getElementById("courseList").innerText=data.courseGroupItem.courseList;
         },
         error: function (xhr) {
             alert('动态页有问题噶！\n\n' + xhr.responseText);

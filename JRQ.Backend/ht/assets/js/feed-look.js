@@ -3,7 +3,6 @@ var imageList=new Array();
 var url=getUrl();
 var storage = window.localStorage;
 var id=storage["thisFeed"];
-alert(id);
 $.ajax(
     {
         url: url+"/getFeed",

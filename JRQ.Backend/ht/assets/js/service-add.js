@@ -1,50 +1,15 @@
-var url=getUrl();
-var storage = window.localStorage;
-var id=storage["thisService"];
-$.ajax(
-    {
-        url: url+"/business/findImageById",
-        data: {
-            id:id
-        },
-        async:false,
-        success: function (data) {
-            document.getElementById("id").innerText=id;
+function checkRate(input) {
+    var re = /^[0-9]+.?[0-9]*$/; //判断字符串是否为数字 //判断正整数 /^[1-9]+[0-9]*]*$/
+    var nubmer = document.getElementById(input).value;
 
-            if (data.businessImageItem.marketType == 'GOLD_MARKET') {
-                data.businessImageItem.marketType = '地金市场'
-            } else if (data.businessImageItem.marketType == 'PRIMARY_MARKET') {
-                data.businessImageItem.marketType = '一级市场'
-            } else if (data.businessImageItem.marketType == 'SECONDARY_MARKET') {
-                data.businessImageItem.marketType = '二级市场'
-            } else if (data.businessImageItem.marketType == 'PAPER_MARKET') {
-                data.businessImageItem.marketType = '票据市场'
-            } else if (data.businessImageItemList[i].marketType == 'BAD_ASSETS') {
-                data.businessImageItem.marketType = '不良资产'
-            } else if (data.businessImageItem.marketType == 'LARGE_SHORT_BREAK') {
-                data.businessImageItem.marketType = '大额短拆'
-            } else if (data.businessImageItem.marketType == 'ASSET_SECURITIZATION') {
-                data.businessImageItem.marketType = '资产证券化'
-            } else if (data.businessImageItem.marketType == 'ISSUANCE_BY_GOVERNMENT') {
-                data.businessImageItem.marketType = '政府平台发债'
-            } else if (data.businessImageItem.marketType == 'FINANCIAL_LICENSE') {
-                data.businessImageItem.marketType = '金融牌照'
-            } else if (data.businessImageItem.marketType == 'FUND_SERVICE') {
-                data.businessImageItem.marketType = '基金服务'
-            } else if (data.businessImageItem.marketType == 'OTHERS') {
-                data.businessImageItem.marketType = '其他'
-            }
-            document.getElementById("marketType").value=data.businessImageItem.marketType;
-            document.getElementById("position").value=data.businessImageItem.position;
-
-
-        },
-        error: function (xhr) {
-            alert('动态页有问题噶！\n\n' + xhr.responseText);
-        },
-        traditional: true,
+    if (!re.test(nubmer)) {
+        alert(input+"请输入数字");
+        document.getElementById(input).value = "";
+        return false;
     }
-)
+    return true;
+}
+
 
 document.getElementById("ad").onclick=function() {
     var fd = new FormData($("#upload-file-form")[0]);

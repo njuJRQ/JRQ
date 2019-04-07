@@ -98,6 +98,16 @@ public class CourseGroupBlServiceImpl implements CourseGroupBlService {
     }
 
     @Override
+    public CourseGroupListResponse getAll() {
+        List<CourseGroup> courseGroups = courseGroupDataService.getAll();
+        List<CourseGroupItem> courseGroupItems = new ArrayList<>();
+        for (CourseGroup courseGroup : courseGroups) {
+            courseGroupItems.add(new CourseGroupItem(courseGroup));
+        }
+        return new CourseGroupListResponse(courseGroupItems);
+    }
+
+    @Override
     public CourseGroupListResponse getMyCourseGroupList(String openid) throws NotExistException {
         List<CourseGroup> courseGroupList = courseGroupDataService.getAll();
         List<CourseGroupItem> courseGroupItems = new ArrayList<>();

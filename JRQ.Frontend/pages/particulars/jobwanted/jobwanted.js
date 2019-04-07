@@ -31,60 +31,7 @@ Page({
     ],
     index: 0,
     image: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/4.2/%E6%8B%9B%E8%81%98.png',
-    jobCardItems: [{
-        id: 0,
-        title: '张三',
-        money: '10k-14k',
-        text: '着棋设计 未融资',
-        site: '南京 玄武区 大行宫 ',
-        time: '3年-5年',
-        tainer: '本科',
-        image: '/img/user.png',
-        name: '许善-CEO'
-      },
-      {
-        id: 0,
-        title: '李四',
-        money: '10k-14k',
-        text: '着棋设计 未融资',
-        site: '南京 玄武区 大行宫',
-        time: '3年-5年',
-        tainer: '本科',
-        image: '/img/user.png',
-        name: '许善-CEO'
-      },
-      {
-        id: 0,
-        title: '王五',
-        money: '10k-14k',
-        text: '着棋设计 未融资',
-        site: '南京 玄武区 大行宫',
-        time: '3年-5年',
-        tainer: '本科',
-        image: '/img/user.png',
-        name: '许善-CEO'
-      }, {
-        id: 0,
-        title: '李某某',
-        money: '10k-14k',
-        text: '着棋设计 未融资',
-        site: '南京 玄武区 大行宫',
-        time: '3年-5年',
-        tainer: '本科',
-        image: '/img/user.png',
-        name: '许善-CEO'
-      }, {
-        id: 0,
-        title: '张亮',
-        money: '10k-14k',
-        text: '着棋设计 未融资',
-        site: '南京 玄武区 大行宫',
-        time: '3年-5年',
-        tainer: '本科',
-        image: '/img/user.png',
-        name: '许善-CEO'
-      },
-    ]
+    jobCardItems: []
   },
 
   /**
@@ -114,19 +61,12 @@ Page({
       method: 'GET',
       success: (res) => {
         res.data.jobCardItems.forEach(item => {
-          item.image = app.globalData.picUrl + item.user.face
+          item.image = app.globalData.picUrl + item.image
         })
         that.setData({
           jobCardItems: res.data.jobCardItems
         })
       }
-    })
-  },
-  onTouchThisArticle: function(e) {
-    var id = e.currentTarget.dataset.id //获取当前文章id
-    var kind = e.currentTarget.dataset.kind
-    wx.navigateTo({
-      url: '../resume/resume?id=' + id
     })
   },
   /**

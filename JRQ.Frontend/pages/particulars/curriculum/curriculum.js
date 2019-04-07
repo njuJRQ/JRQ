@@ -28,6 +28,9 @@ Page({
           'content-type': 'application/x-www-form-urlencoded'
         },
         method: 'GET',
+        data: {
+          id: courseGroupId
+        },
         success: (res) => {
           res.data.courseGroupItem.courseList.forEach(item => {
             item.image = app.globalData.picUrl + item.image

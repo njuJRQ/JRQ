@@ -35,7 +35,7 @@
     </view>
   </view>
   <!-- 课程 -->
-  <view style='width:100%;background:#fff;' wx-if="{{isShow}}">
+  <view style='width:100%;background:#fff;'>
     <view class='document_more'>
       <text class='document'>最新课程</text>
       <!-- <text class='more' bindtap='moreAction'>更多>></text> -->
@@ -67,7 +67,7 @@
   </view>
   <!-- </view> -->
 
-  <view style='width:100%;background:#fff;' wx-if="{{isShowView}}">
+  <view style='width:100%;background:#fff;'>
     <view class='video_more'>
       <text class='document'>组合课程</text>
       <text class='more'>Curricular</text>
@@ -78,14 +78,14 @@
     <!-- style='height:{{height}}px;' -->
     <view class='articleListWrapper_document '>
       <view class='articleWrapper_document' wx:for='{{articles}}' wx:key='id'>
-        <view class='articles jrq__block' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
+        <view class='articles jrq__block' bindtap='onTouchThisArticle' data-id='{{item.id}}'>
           <view class='article__content'>
             <!-- <image class='article__image' src='{{item.images.length > 0 ? item.images[0]: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png"}}'></image> -->
             <image class='article__banner' mode='widthFix' src='{{item.images.length > 0 ? item.images[0]: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png"}}'></image>
           </view>
           <view class='card_document'>
             <text class='article__titleName'>{{item.title}}</text>
-            <text class='article__writerName'>{{item.content?item.content:'钧融中心'}}</text>
+            <text class='article__writerName'>{{item.writerName?item.writerName:'钧融中心'}}</text>
             <view class='bottom'>
               <view class='doucument_bottom1' wx-if="{{isShowPrice}}">
                 <text class='fees'>{{item.price}}元</text>

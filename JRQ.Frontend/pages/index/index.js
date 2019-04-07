@@ -50,13 +50,10 @@ Page({
 
     ],
     moreType: true,
-    isShowView: true,
-    isShow: true,
     isShowPrice: true,
     height: 290,
     height_video: 400,
     image: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-    showView: true,
     cards: [{
         thumbnail: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
         articleName: '什么是金融？',
@@ -109,9 +106,8 @@ Page({
       articles: [],
       videos: []
     })
-    // this.showAll()
-    this.showVideos()
-    this.showAll1()
+    this.showVideos();
+    this.showCurricular();
 
 
     api.getAd.call(this, 'index', (res) => {
@@ -156,7 +152,6 @@ Page({
     var that = this;
 
     var type = this.data.moreType;
-    console.log(type + '123123')
     if (type) {
       that.setData({
         height_video: '',
@@ -169,68 +164,58 @@ Page({
       })
     }
   },
-  showAll1: function() {
-    console.log('showAll1 success!')
-    // this.judgeView()
-    this.setData({
-      kind: 'document',
-      searchCondition: null,
-      articles: [],
-      videoId: "",
-      videoIdType: "",
-      isShow: true,
-      isShowView: true,
-      height: 290,
-      height_video: 400
-    })
-    // api.getAbstractList.call(this, 'all', app.getOpenid(), this.data.lastId, this.data.lastIdType)
-    api.getAbstractListByLikeNum.call(this, 'document', app.getOpenid())
 
-
-
-    // api.getAd.call(this, 'jump', (res) => {
-    //   // /*console.log(res)*/
-    //   this.setData({
-    //     jumpAd: res.ad.image
-    //   })
-    // })
+  onReachBottom: function() {
+    this.showCurricularBefore(this.data.articles[this.data.articles.length - 1].id);
   },
 
-  showAll: function() {
-    console.log('showAll success!')
-    // this.judgeView()
-    this.setData({
-      currentKind: 'all',
-      searchCondition: null,
-      articles: [],
-      lastId: "",
-      lastIdType: "",
-      isShow: true,
-      isShowView: true,
-      height: 290
-    })
-    api.getAbstractList.call(this, 'all', app.getOpenid(), this.data.lastId, this.data.lastIdType)
-
+  showCurricular: function() {
+    this.showCurricularBefore("");
   },
 
-  //展示文档
-  showDocuments: function() {
-    // this.judgeView()
-    this.setData({
-      currentKind: 'document',
-      searchCondition: null,
-      articles: [],
-      lastId: "",
-      lastIdType: "",
-      isShow: true,
-      isShowView: false,
-      moreType: true,
-      height: ''
+  showCurricularBefore: function(id) {
+    var that = this
+    wx.showLoading({
+      title: '载入中',
     })
-    api.getAbstractList.call(this, 'document', app.getOpenid(), this.data.lastId, this.data.lastIdType)
+    wx.request({
+      url: app.globalData.backendUrl + "getCourseGroupListBefore",
+      data: {
+        openid: wx.getStorageSync("openid"),
+        id: id
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        wx.hideLoading()
+        if (res.data.status == 500) {
+          wx.showToast({
+            title: '获取组合课程列表失败',
+            icon: 'none'
+          })
+          return
+        }
+        var articles = res.data.courseGroupItems
+        if (articles.length <= 0) {
+          return
+        }
+        articles.forEach((article) => {
+          article.images = article.images.map((image) => app.globalData.picUrl + image)
+        })
+        that.data.articles = that.data.articles.concat(articles)
+        that.data.lastId = articles[articles.length - 1].id
+
+        that.data.lastIdType = articles[articles.length - 1].kind
+        that.setData(that.data)
+      }
+    })
   },
+
+  //展示最新课程
   showVideos: function() {
-
     var that = this;
     // that.judgeView()
     that.setData({
@@ -246,38 +231,6 @@ Page({
     })
 
     api.getAbstractListVideo.call(this, 'course', app.getOpenid(), this.data.lastId, this.data.lastIdType)
-  },
-
-  judgeView: function() {
-    var that = this;
-    var kind = this.data.currentKind;
-    switch (kind) {
-      case 'all':
-        that.setData({
-          isShow: true,
-          isShowView: true,
-          height: 290,
-          height_video: 400
-        })
-        break;
-      case 'document':
-        that.setData({
-          isShow: true,
-          isShowView: false,
-          height: 290,
-          height_video: ''
-        })
-        break;
-      case 'course':
-        that.setData({
-          isShow: false,
-          isShowView: true,
-          height: '',
-          height_video: 400
-        })
-      default:
-
-    }
   },
 
   toProjects: function() {
@@ -306,14 +259,6 @@ Page({
     wx.navigateTo({
       url: url
     })
-  },
-
-  //点赞数加一
-  likePlus: function(e) {
-    var id = e.currentTarget.dataset.id //获取当前文章id
-    var kind = e.currentTarget.dataset.kind //获取当前文章kind
-    var article = this.data.articles.filter((article) => article.id === id)[0]
-    api.likePlus.call(this, app.getOpenid(), kind, id, article) //点赞+1
   },
 
   //更新搜索条件
@@ -373,44 +318,6 @@ Page({
         url: '../me/userInfo',
       })
     }
-  },
-
-  onReachBottom: function() {
-    api.getAbstractList.call(this, this.data.currentKind, app.getOpenid(), this.data.lastId, this.data.lastIdType)
-  },
-  showMask: function() {
-    this.setData({
-      flag: false
-    })
-  },
-  closeMask: function() {
-    this.setData({
-      flag: true
-    })
-  },
-  touchMask: function() {
-    wx.navigateTo({
-      url: '/pages/me/updateMe/updateMe',
-    })
-  },
-
-
-  //展示资金类
-  showCapitalClass: function(event) {
-    this.setData({
-      currentKind: 'capital',
-      currentKindName: this.data.capitalClassDesc,
-      searchCondition: null
-    })
-    api.getPersonList.call(this, 'capital')
-  },
-
-  //点击当前文章触发函数
-  onClickThisCard: function(e) {
-    var id = e.currentTarget.dataset.id
-    wx.navigateTo({
-      url: '../me/myHistory/myHistory?id=' + id,
-    })
   },
 
   //通过id获取不同页面

@@ -117,7 +117,6 @@ function getAbstractList(kind, openid, lastId, lastIdType) {
 }
 //热门推荐接口
 function getAbstractListByLikeNum(kind, openid) {
-  console.log('getAbstractListByLikeNum success!')
   var that = this
   wx.showLoading({
     title: '载入中',

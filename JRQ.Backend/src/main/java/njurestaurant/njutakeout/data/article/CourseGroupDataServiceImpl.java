@@ -60,7 +60,7 @@ public class CourseGroupDataServiceImpl implements CourseGroupDataService {
         if (optionalCourseGroup.isPresent()) {
             CourseGroup courseGroup = optionalCourseGroup.get();
             List<CourseGroup> courseGroups;
-            if (courseGroup.getTimeStamp() < 0) {
+            if (id.equals("")) {
                 courseGroups = courseGroupDao.findTop10ByOrderByTimeStampDesc();
             } else {
                 courseGroups = courseGroupDao.findTop10ByTimeStampBeforeOrderByTimeStampDesc(courseGroup.getTimeStamp());

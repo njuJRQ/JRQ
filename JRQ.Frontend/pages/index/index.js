@@ -169,13 +169,15 @@ Page({
     this.showCurricularBefore(this.data.articles[this.data.articles.length - 1].id);
   },
 
-  onTouchThisCurricular: function() {
-
+  onTouchThisCurricular: function(event) {
+    var id = event.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '../particulars/curriculum/curriculum?courseGroupId=' + id
+    })
   },
 
   showCurricular: function() {
     this.showCurricularBefore("");
-    
   },
 
   showCurricularBefore: function(id) {

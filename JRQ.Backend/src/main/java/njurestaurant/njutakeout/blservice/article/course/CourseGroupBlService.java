@@ -46,6 +46,8 @@ public interface CourseGroupBlService {
      */
     CourseGroupListResponse getCourseGroupListBefore(String id, String openid);
 
+    CourseGroupListResponse getAll();
+
     /**
      * 获得用于已购买的课程组合列表
      *

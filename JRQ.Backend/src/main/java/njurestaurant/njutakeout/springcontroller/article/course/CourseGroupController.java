@@ -120,6 +120,18 @@ public class CourseGroupController {
         return r;
     }
 
+    @ApiOperation(value = "获取所有课程组合", notes = "获取所有课程组合")
+    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = CourseGroupListResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getAll() {
+        ResponseEntity<Response> r = new ResponseEntity<>(courseGroupBlService.getAll(), HttpStatus.OK);
+        return r;
+    }
+
     @ApiOperation(value = "获取用户已购买的课程组合", notes = "获取用户已购买的课程组合")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "openId", value = "用户openId", required = true, dataType = "String")

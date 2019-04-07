@@ -166,7 +166,7 @@ Page({
   },
 
   onReachBottom: function() {
-    this.showCurricularBefore(this.data.articles[this.data.articles.length - 1].id);
+    // this.showCurricularBefore(this.data.articles[this.data.articles.length - 1].id);
   },
 
   onTouchThisCurricular: function(event) {
@@ -186,7 +186,7 @@ Page({
       title: '载入中',
     })
     wx.request({
-      url: app.globalData.backendUrl + "getCourseGroupListBefore",
+      url: app.globalData.backendUrl + "courseGroup/getAll",
       data: {
         openid: wx.getStorageSync("openid"),
         id: id
@@ -209,14 +209,14 @@ Page({
         if (articles.length <= 0) {
           return
         }
-        articles.forEach((article) => {
-          article.images = article.images.map((image) => app.globalData.picUrl + image)
-        })
-        that.data.articles = that.data.articles.concat(articles)
-        that.data.lastId = articles[articles.length - 1].id
 
-        that.data.lastIdType = articles[articles.length - 1].kind
-        that.setData(that.data)
+        articles.forEach((article) => {
+          article.image = app.globalData.picUrl + article.image;
+        })
+        var newArticles = that.data.articles.concat(articles)
+        that.setData({
+          articles: newArticles
+        })
       }
     })
   },

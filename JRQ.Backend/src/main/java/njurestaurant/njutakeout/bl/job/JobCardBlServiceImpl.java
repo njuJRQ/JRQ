@@ -2,10 +2,7 @@ package njurestaurant.njutakeout.bl.job;
 
 import njurestaurant.njutakeout.blservice.job.JobCardBlService;
 import njurestaurant.njutakeout.dataservice.job.JobCardDataService;
-import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
-import njurestaurant.njutakeout.dataservice.user.UserDataService;
 import njurestaurant.njutakeout.entity.job.JobCard;
-import njurestaurant.njutakeout.entity.user.User;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.job.JobCardItem;
@@ -20,14 +17,10 @@ import java.util.List;
 @Service
 public class JobCardBlServiceImpl implements JobCardBlService {
     private final JobCardDataService jobCardDataService;
-    private final UserDataService userDataService;
-    private final EnterpriseDataService enterpriseDataService;
 
     @Autowired
-    public JobCardBlServiceImpl(JobCardDataService jobCardDataService, UserDataService userDataService, EnterpriseDataService enterpriseDataService) {
+    public JobCardBlServiceImpl(JobCardDataService jobCardDataService) {
         this.jobCardDataService = jobCardDataService;
-        this.userDataService = userDataService;
-        this.enterpriseDataService = enterpriseDataService;
     }
 
     @Override
@@ -37,8 +30,9 @@ public class JobCardBlServiceImpl implements JobCardBlService {
                             String introduction,
                             boolean isFresh,
                             String enterprise,
-                            String advantage) throws NotExistException {
-        jobCardDataService.add(new JobCard(expectPosition, expectWage, degree, introduction, isFresh, enterprise, advantage));
+                            String advantage,
+                            String city) {
+        jobCardDataService.add(new JobCard(expectPosition, expectWage, degree, introduction, isFresh, enterprise, advantage, city));
         return new InfoResponse();
     }
 
@@ -50,7 +44,8 @@ public class JobCardBlServiceImpl implements JobCardBlService {
                                String introduction,
                                boolean isFresh,
                                String enterprise,
-                               String advantage) throws NotExistException {
+                               String advantage,
+                               String city) throws NotExistException {
         JobCard jobCard = jobCardDataService.findById(id);
         jobCard.setExpectPosition(expectPosition);
         jobCard.setExpectWage(expectWage);
@@ -59,6 +54,7 @@ public class JobCardBlServiceImpl implements JobCardBlService {
         jobCard.setFresh(isFresh);
         jobCard.setEnterprise(enterprise);
         jobCard.setAdvantage(advantage);
+        jobCard.setCity(city);
         jobCardDataService.update(jobCard);
         return new InfoResponse();
     }
@@ -77,19 +73,6 @@ public class JobCardBlServiceImpl implements JobCardBlService {
     @Override
     public JobCardListResponse getAll() {
         List<JobCard> jobCardList = jobCardDataService.getAll();
-        List<JobCardItem> jobCardItems = new ArrayList<>();
-        if (jobCardList != null && jobCardList.size() > 0) {
-            for (JobCard jobCard : jobCardList) {
-                jobCardItems.add(new JobCardItem(jobCard));
-            }
-        }
-        return new JobCardListResponse(jobCardItems);
-    }
-
-    @Override
-    public JobCardListResponse findByUser(String openid) throws NotExistException {
-        User user = userDataService.getUserByOpenid(openid);
-        List<JobCard> jobCardList = jobCardDataService.findByUser(user);
         List<JobCardItem> jobCardItems = new ArrayList<>();
         if (jobCardList != null && jobCardList.size() > 0) {
             for (JobCard jobCard : jobCardList) {

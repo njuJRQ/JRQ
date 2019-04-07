@@ -108,7 +108,7 @@ public class JobCardController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> addJobCard(@RequestBody JobCardParameters parameters) throws NotExistException {
-        return new ResponseEntity<>(jobCardBlService.add(parameters.getExpectPosition(), parameters.getExpectWage(), parameters.getDegree(), parameters.getIntroduction(), parameters.isFresh(), parameters.getEnterprise(), parameters.getAdvantage()), HttpStatus.OK);
+        return new ResponseEntity<>(jobCardBlService.add(parameters.getExpectPosition(), parameters.getExpectWage(), parameters.getDegree(), parameters.getIntroduction(), parameters.isFresh(), parameters.getEnterprise(), parameters.getAdvantage(), parameters.getCity()), HttpStatus.OK);
     }
 
     @ApiOperation(value = "修改招聘信息", notes = "修改招聘信息")
@@ -119,7 +119,7 @@ public class JobCardController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> updateJobCard(@RequestBody JobCardParameters parameters) throws NotExistException {
-        return new ResponseEntity<>(jobCardBlService.update(parameters.getId(), parameters.getExpectPosition(), parameters.getExpectWage(), parameters.getDegree(), parameters.getIntroduction(), parameters.isFresh(), parameters.getEnterprise(), parameters.getAdvantage()), HttpStatus.OK);
+        return new ResponseEntity<>(jobCardBlService.update(parameters.getId(), parameters.getExpectPosition(), parameters.getExpectWage(), parameters.getDegree(), parameters.getIntroduction(), parameters.isFresh(), parameters.getEnterprise(), parameters.getAdvantage(), parameters.getCity()), HttpStatus.OK);
     }
 
     @ApiOperation(value = "根据id获取jobCard内容", notes = "根据课id获取jobCard内容")
@@ -161,20 +161,6 @@ public class JobCardController {
         return new ResponseEntity<>(jobCardBlService.getAll(), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "根据openid查找求职信息", notes = "根据openid查找求职信息")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "openid", value = "用户openid", required = true, dataType = "String")
-    })
-    @RequestMapping(value = "/findByUser", method = RequestMethod.POST)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success", response = JobCardResponse.class),
-            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
-            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
-    @ResponseBody
-    public ResponseEntity<Response> findByUser(@RequestParam(name = "openid") String openid) throws NotExistException {
-        return new ResponseEntity<>(jobCardBlService.findByUser(openid), HttpStatus.OK);
-    }
-
     @ApiOperation(value = "根据职位查找求职信息", notes = "根据职位查找求职信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "expectPosition", value = "expectPosition", required = true, dataType = "String")
@@ -185,7 +171,7 @@ public class JobCardController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> findByExpectPosition(@RequestParam(name = "expectPosition") String expectPosition) throws NotExistException {
+    public ResponseEntity<Response> findByExpectPosition(@RequestParam(name = "expectPosition") String expectPosition) {
         return new ResponseEntity<>(jobCardBlService.findByExpectPosition(expectPosition), HttpStatus.OK);
     }
 
@@ -199,7 +185,7 @@ public class JobCardController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> findByCity(@RequestParam(name = "city") String city) throws NotExistException {
+    public ResponseEntity<Response> findByCity(@RequestParam(name = "city") String city) {
         return new ResponseEntity<>(jobCardBlService.findByCity(city), HttpStatus.OK);
     }
 }

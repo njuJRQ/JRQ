@@ -20,15 +20,13 @@
     <view class='conten' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
       <!-- 标题 -->
       <view class='user_title'>
-        <text>{{item.user.username}}</text>
+        <text>{{item.expectPosition}}</text>
       </view>
       <!-- 个人信息 -->
       <view class='user'>
         <view style='display: flex;'>
           <view class='img_index'>
-            <view>
-              <image class='user_face' src='{{"https://www.junrongcenter.com/"+item.user.face}}'></image>
-            </view>
+            <text class='img_txt'>{{index}}</text>
           </view>
           <view class='text_box'>
           <view class='text_tag'>
@@ -36,10 +34,10 @@
               <text wx:else>非应届生</text>
             </view>
             <view class='text_tag'>
-              <text>{{item.age}}岁</text>
+              <text>{{item.degree}}</text>
             </view>
             <view class='text_tag'>
-              <text>{{item.degree}}</text>
+              <text>{{item.advantage}}</text>
             </view>
           </view>
         </view>
@@ -48,7 +46,7 @@
         </view>
       </view>
       <view class='footer'>
-        <text>{{item.user.company}}</text>
+        <text>{{item.enterprise}}</text>
       </view>
     </view>
   </view>

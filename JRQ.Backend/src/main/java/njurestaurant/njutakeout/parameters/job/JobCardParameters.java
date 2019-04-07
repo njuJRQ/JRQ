@@ -9,11 +9,12 @@ public class JobCardParameters {
     private boolean isFresh;
     private String enterprise;
     private String advantage;
+    private String city;
 
     public JobCardParameters() {
     }
 
-    public JobCardParameters(String id, String expectPosition, String expectWage, String degree, String introduction, boolean isFresh, String enterprise, String advantage) {
+    public JobCardParameters(String id, String expectPosition, String expectWage, String degree, String introduction, boolean isFresh, String enterprise, String advantage, String city) {
         this.id = id;
         this.expectPosition = expectPosition;
         this.expectWage = expectWage;
@@ -22,6 +23,7 @@ public class JobCardParameters {
         this.isFresh = isFresh;
         this.enterprise = enterprise;
         this.advantage = advantage;
+        this.city = city;
     }
 
     public String getId() {
@@ -86,5 +88,13 @@ public class JobCardParameters {
 
     public void setAdvantage(String advantage) {
         this.advantage = advantage;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }

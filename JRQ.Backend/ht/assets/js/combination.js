@@ -231,7 +231,6 @@ function changepage(page) {
         $("#your-alert-1").show();
         document.getElementById("number" + (firstID % 5 + 1)).innerText = list[firstID].id;
         document.getElementById("name" + (firstID % 5 + 1)).innerText = list[firstID].title;
-        document.getElementById("date" + (firstID % 5 + 1)).innerText = list[firstID].date;
         if (isEnterprise) {
             $("#del1").hide();
             $("#del2").hide();
@@ -249,10 +248,10 @@ function changepage(page) {
         $("#your-alert-2").show();
         document.getElementById("number" + (firstID % 5 + 1)).innerText = list[firstID].id;
         document.getElementById("name" + (firstID % 5 + 1)).innerText = list[firstID].title;
-        document.getElementById("date" + (firstID % 5 + 1)).innerText = list[firstID].date;
+
         document.getElementById("number" + (firstID % 5 + 2)).innerText = list[firstID + 1].id;
         document.getElementById("name" + (firstID % 5 + 2)).innerText = list[firstID + 1].title;
-        document.getElementById("date" + (firstID % 5 + 2)).innerText = list[firstID + 1].date;
+        //document.getElementById("date" + (firstID % 5 + 2)).innerText = list[firstID + 1].date;
         if (isEnterprise) {
             $("#del1").hide();
             $("#del2").hide();
@@ -270,13 +269,13 @@ function changepage(page) {
         $("#your-alert-3").show();
         document.getElementById("number" + (firstID % 5 + 1)).innerText = list[firstID].id;
         document.getElementById("name" + (firstID % 5 + 1)).innerText = list[firstID].title;
-        document.getElementById("date" + (firstID % 5 + 1)).innerText = list[firstID].date;
+        //document.getElementById("date" + (firstID % 5 + 1)).innerText = list[firstID].date;
         document.getElementById("number" + (firstID % 5 + 2)).innerText = list[firstID + 1].id;
         document.getElementById("name" + (firstID % 5 + 2)).innerText = list[firstID + 1].title;
-        document.getElementById("date" + (firstID % 5 + 2)).innerText = list[firstID + 1].date;
+        //document.getElementById("date" + (firstID % 5 + 2)).innerText = list[firstID + 1].date;
         document.getElementById("number" + (firstID % 5 + 3)).innerText = list[firstID + 2].id;
         document.getElementById("name" + (firstID % 5 + 3)).innerText = list[firstID + 2].title;
-        document.getElementById("date" + (firstID % 5 + 3)).innerText = list[firstID + 2].date;
+        //document.getElementById("date" + (firstID % 5 + 3)).innerText = list[firstID + 2].date;
 
         if (isEnterprise) {
             $("#del1").hide();
@@ -296,16 +295,16 @@ function changepage(page) {
         $("#your-alert-4").show();
         document.getElementById("number" + (firstID % 5 + 1)).innerText = list[firstID].id;
         document.getElementById("name" + (firstID % 5 + 1)).innerText = list[firstID].title;
-        document.getElementById("date" + (firstID % 5 + 1)).innerText = list[firstID].date;
+        //document.getElementById("date" + (firstID % 5 + 1)).innerText = list[firstID].date;
         document.getElementById("number" + (firstID % 5 + 2)).innerText = list[firstID + 1].id;
         document.getElementById("name" + (firstID % 5 + 2)).innerText = list[firstID + 1].title;
-        document.getElementById("date" + (firstID % 5 + 2)).innerText = list[firstID + 1].date;
+        //document.getElementById("date" + (firstID % 5 + 2)).innerText = list[firstID + 1].date;
         document.getElementById("number" + (firstID % 5 + 3)).innerText = list[firstID + 2].id;
         document.getElementById("name" + (firstID % 5 + 3)).innerText = list[firstID + 2].title;
-        document.getElementById("date" + (firstID % 5 + 3)).innerText = list[firstID + 2].date;
+        //document.getElementById("date" + (firstID % 5 + 3)).innerText = list[firstID + 2].date;
         document.getElementById("number" + (firstID % 5 + 4)).innerText = list[firstID + 3].id;
         document.getElementById("name" + (firstID % 5 + 4)).innerText = list[firstID + 3].title;
-        document.getElementById("date" + (firstID % 5 + 4)).innerText = list[firstID + 3].date;
+       // document.getElementById("date" + (firstID % 5 + 4)).innerText = list[firstID + 3].date;
         if (isEnterprise) {
             $("#del1").hide();
             $("#del2").hide();
@@ -323,19 +322,19 @@ function changepage(page) {
         $("#your-alert-5").show();
         document.getElementById("number" + (firstID % 5 + 1)).innerText = list[firstID].id;
         document.getElementById("name" + (firstID % 5 + 1)).innerText = list[firstID].title;
-        document.getElementById("date" + (firstID % 5 + 1)).innerText = list[firstID].date;
+        //document.getElementById("date" + (firstID % 5 + 1)).innerText = list[firstID].date;
         document.getElementById("number" + (firstID % 5 + 2)).innerText = list[firstID + 1].id;
         document.getElementById("name" + (firstID % 5 + 2)).innerText = list[firstID + 1].title;
-        document.getElementById("date" + (firstID % 5 + 2)).innerText = list[firstID + 1].date;
+        //document.getElementById("date" + (firstID % 5 + 2)).innerText = list[firstID + 1].date;
         document.getElementById("number" + (firstID % 5 + 3)).innerText = list[firstID + 2].id;
         document.getElementById("name" + (firstID % 5 + 3)).innerText = list[firstID + 2].title;
-        document.getElementById("date" + (firstID % 5 + 3)).innerText = list[firstID + 2].date;
+        //document.getElementById("date" + (firstID % 5 + 3)).innerText = list[firstID + 2].date;
         document.getElementById("number" + (firstID % 5 + 4)).innerText = list[firstID + 3].id;
         document.getElementById("name" + (firstID % 5 + 4)).innerText = list[firstID + 3].title;
-        document.getElementById("date" + (firstID % 5 + 4)).innerText = list[firstID + 3].date;
+        //document.getElementById("date" + (firstID % 5 + 4)).innerText = list[firstID + 3].date;
         document.getElementById("number" + (firstID % 5 + 5)).innerText = list[firstID + 4].id;
         document.getElementById("name" + (firstID % 5 + 5)).innerText = list[firstID + 4].title;
-        document.getElementById("date" + (firstID % 5 + 5)).innerText = list[firstID + 4].date;
+        //document.getElementById("date" + (firstID % 5 + 5)).innerText = list[firstID + 4].date;
         if (isEnterprise) {
             $("#del1").hide();
             $("#del2").hide();
@@ -402,7 +401,7 @@ function search() {
             $("#your-alert-1").show();
             document.getElementById("number" + (firstID % 5 + 1)).innerText = list[i].id;
             document.getElementById("name" + (firstID % 5 + 1)).innerText = list[i].title;
-            document.getElementById("date" + (firstID % 5 + 1)).innerText = list[i].date;
+            //document.getElementById("date" + (firstID % 5 + 1)).innerText = list[i].date;
             $("#your-alert-2").hide();
             $("#your-alert-3").hide();
             $("#your-alert-4").hide();

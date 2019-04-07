@@ -169,8 +169,13 @@ Page({
     this.showCurricularBefore(this.data.articles[this.data.articles.length - 1].id);
   },
 
+  onTouchThisCurricular: function() {
+
+  },
+
   showCurricular: function() {
     this.showCurricularBefore("");
+    
   },
 
   showCurricularBefore: function(id) {

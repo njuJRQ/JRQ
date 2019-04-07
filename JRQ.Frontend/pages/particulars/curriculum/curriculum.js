@@ -17,65 +17,68 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
-    api.getCourseList.call(this)
-  
+  onLoad: function(options) {
+    if (options.courseGroupId) {
+      var id = options.id;
+      
+    } else {
+      api.getCourseList.call(this)
+    }
   },
   //展示文章详情
-  onTouchThisArticle: function (e) {
+  onTouchThisArticle: function(e) {
     var id = e.currentTarget.dataset.id //获取当前文章id
     var kind = e.currentTarget.dataset.kind
     wx.navigateTo({
-      url: '../../articleDetail/courseDetail/courseDetail?id='+id
+      url: '../../articleDetail/courseDetail/courseDetail?id=' + id
     })
   },
   /** 
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

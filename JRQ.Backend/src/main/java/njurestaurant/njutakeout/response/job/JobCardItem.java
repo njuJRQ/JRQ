@@ -11,6 +11,7 @@ public class JobCardItem {
     private boolean isFresh;
     private String enterprise;
     private String advantage;
+    private String city;
 
     public JobCardItem() {
     }
@@ -24,6 +25,7 @@ public class JobCardItem {
         this.isFresh = jobCard.isFresh();
         this.enterprise = jobCard.getEnterprise();
         this.advantage = jobCard.getAdvantage();
+        this.city=jobCard.getCity();
     }
 
     public String getId() {
@@ -88,5 +90,13 @@ public class JobCardItem {
 
     public void setAdvantage(String advantage) {
         this.advantage = advantage;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }

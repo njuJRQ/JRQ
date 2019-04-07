@@ -24,9 +24,10 @@ import java.util.UUID;
 @RequestMapping("/jobCard")
 public class JobCardController {
     private JobCardBlService jobCardBlService;
+
     @Autowired
-    private JobCardController(JobCardBlService jobCardBlService){
-        this.jobCardBlService=jobCardBlService;
+    private JobCardController(JobCardBlService jobCardBlService) {
+        this.jobCardBlService = jobCardBlService;
     }
 
     @ApiOperation(value = "上传图片", notes = "上传图片")
@@ -35,11 +36,11 @@ public class JobCardController {
     })
     @RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
     @ResponseBody
-    public String uploadFeed(@RequestParam("image")MultipartFile image){
-        Map<String,Object> map= new HashMap<String,Object>();
-        if(image.isEmpty()){
-            map.put( "result", "error");
-            map.put( "msg", "上传文件不能为空" );
+    public String uploadFeed(@RequestParam("image") MultipartFile image) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        if (image.isEmpty()) {
+            map.put("result", "error");
+            map.put("msg", "上传文件不能为空");
             return "上传文件不能为空";
         } else {
 
@@ -57,7 +58,7 @@ public class JobCardController {
                 inStream = image.getInputStream();
                 FileOutputStream fs = new FileOutputStream(fileName);
                 byte[] buffer = new byte[200000000];
-                while ( (byteread = inStream.read(buffer)) != -1) {
+                while ((byteread = inStream.read(buffer)) != -1) {
                     bytesum += byteread;            //字节数 文件大小
                     fs.write(buffer, 0, byteread);
                 }
@@ -69,20 +70,20 @@ public class JobCardController {
             }
             String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
             File file = new File(fileName);
-            String[] temp=fileName.split("\\.");
-            String thePath="record/user/job/"+uuid+"."+temp[1];
-            String path="record/user/job/"+uuid+"."+temp[1];
-            File tempfile=new File(path);
+            String[] temp = fileName.split("\\.");
+            String thePath = "record/user/job/" + uuid + "." + temp[1];
+            String path = "record/user/job/" + uuid + "." + temp[1];
+            File tempfile = new File(path);
             if (tempfile.exists() && tempfile.isFile()) {
                 tempfile.delete();
             }
             bytesum = 0;
             byteread = 0;
             try {
-                inStream =new FileInputStream(fileName);
+                inStream = new FileInputStream(fileName);
                 FileOutputStream fs = new FileOutputStream(path);
                 byte[] buffer = new byte[20000000];
-                while ( (byteread = inStream.read(buffer)) != -1) {
+                while ((byteread = inStream.read(buffer)) != -1) {
                     bytesum += byteread;            //字节数 文件大小
                     fs.write(buffer, 0, byteread);
                 }
@@ -98,6 +99,7 @@ public class JobCardController {
             return thePath;
         }
     }
+
     @ApiOperation(value = "新建求职信息", notes = "新建求职信息")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ApiResponses(value = {
@@ -106,7 +108,7 @@ public class JobCardController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> addJobCard(@RequestBody JobCardParameters parameters) throws NotExistException {
-        return new ResponseEntity<>(jobCardBlService.add(parameters.getPhoto(),parameters.getExpectPosition(),parameters.getExpectWage(),parameters.getDegree(),parameters.getIntroduction(),parameters.isFresh(),parameters.getAge(),parameters.getWorkExperienceList(),parameters.getEducationExperienceList(),parameters.getOpenid()), HttpStatus.OK);
+        return new ResponseEntity<>(jobCardBlService.add(parameters.getExpectPosition(), parameters.getExpectWage(), parameters.getDegree(), parameters.getIntroduction(), parameters.isFresh(), parameters.getEnterprise(), parameters.getAdvantage()), HttpStatus.OK);
     }
 
     @ApiOperation(value = "修改招聘信息", notes = "修改招聘信息")
@@ -117,7 +119,7 @@ public class JobCardController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> updateJobCard(@RequestBody JobCardParameters parameters) throws NotExistException {
-        return new ResponseEntity<>(jobCardBlService.update(parameters.getId(),parameters.getPhoto(),parameters.getExpectPosition(),parameters.getExpectWage(),parameters.getDegree(),parameters.getIntroduction(),parameters.isFresh(),parameters.getAge(),parameters.getWorkExperienceList(),parameters.getEducationExperienceList()), HttpStatus.OK);
+        return new ResponseEntity<>(jobCardBlService.update(parameters.getId(), parameters.getExpectPosition(), parameters.getExpectWage(), parameters.getDegree(), parameters.getIntroduction(), parameters.isFresh(), parameters.getEnterprise(), parameters.getAdvantage()), HttpStatus.OK);
     }
 
     @ApiOperation(value = "根据id获取jobCard内容", notes = "根据课id获取jobCard内容")
@@ -130,7 +132,7 @@ public class JobCardController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> findById(@RequestParam(name="id")String id) throws NotExistException {
+    public ResponseEntity<Response> findById(@RequestParam(name = "id") String id) throws NotExistException {
         return new ResponseEntity<>(jobCardBlService.findById(id), HttpStatus.OK);
     }
 
@@ -144,18 +146,18 @@ public class JobCardController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> deleteById(@RequestParam(name="id")String id) throws NotExistException {
+    public ResponseEntity<Response> deleteById(@RequestParam(name = "id") String id) throws NotExistException {
         return new ResponseEntity<>(jobCardBlService.deleteById(id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "获取所有招聘信息", notes = "获取所有招聘信息")
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success", response =JobCardListResponse.class),
+            @ApiResponse(code = 200, message = "Success", response = JobCardListResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> getAll(){
+    public ResponseEntity<Response> getAll() {
         return new ResponseEntity<>(jobCardBlService.getAll(), HttpStatus.OK);
     }
 
@@ -169,7 +171,7 @@ public class JobCardController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> findByUser(@RequestParam(name="openid")String openid) throws NotExistException {
+    public ResponseEntity<Response> findByUser(@RequestParam(name = "openid") String openid) throws NotExistException {
         return new ResponseEntity<>(jobCardBlService.findByUser(openid), HttpStatus.OK);
     }
 
@@ -183,7 +185,7 @@ public class JobCardController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> findByExpectPosition(@RequestParam(name="expectPosition")String expectPosition) throws NotExistException {
+    public ResponseEntity<Response> findByExpectPosition(@RequestParam(name = "expectPosition") String expectPosition) throws NotExistException {
         return new ResponseEntity<>(jobCardBlService.findByExpectPosition(expectPosition), HttpStatus.OK);
     }
 
@@ -197,7 +199,7 @@ public class JobCardController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> findByCity(@RequestParam(name="city")String city) throws NotExistException {
+    public ResponseEntity<Response> findByCity(@RequestParam(name = "city") String city) throws NotExistException {
         return new ResponseEntity<>(jobCardBlService.findByCity(city), HttpStatus.OK);
     }
 }

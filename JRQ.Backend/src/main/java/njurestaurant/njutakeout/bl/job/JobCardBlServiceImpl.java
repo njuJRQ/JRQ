@@ -4,9 +4,7 @@ import njurestaurant.njutakeout.blservice.job.JobCardBlService;
 import njurestaurant.njutakeout.dataservice.job.JobCardDataService;
 import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
-import njurestaurant.njutakeout.entity.job.EducationExperience;
 import njurestaurant.njutakeout.entity.job.JobCard;
-import njurestaurant.njutakeout.entity.job.WorkExperience;
 import njurestaurant.njutakeout.entity.user.User;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
@@ -33,23 +31,34 @@ public class JobCardBlServiceImpl implements JobCardBlService {
     }
 
     @Override
-    public InfoResponse add(String photo, String expectPosition, String expectWage, String degree, String introduction, boolean isFresh, int age, List<WorkExperience> workExperienceList, List<EducationExperience> educationExperienceList, String openid) throws NotExistException {
-        User user = userDataService.getUserByOpenid(openid);
-        jobCardDataService.add(new JobCard(photo,expectPosition, expectWage, degree, introduction,isFresh,age,workExperienceList,educationExperienceList,user));
+    public InfoResponse add(String expectPosition,
+                            String expectWage,
+                            String degree,
+                            String introduction,
+                            boolean isFresh,
+                            String enterprise,
+                            String advantage) throws NotExistException {
+        jobCardDataService.add(new JobCard(expectPosition, expectWage, degree, introduction, isFresh, enterprise, advantage));
         return new InfoResponse();
     }
 
     @Override
-    public InfoResponse update(String id,String photo, String expectPosition, String expectWage, String degree, String introduction, boolean isFresh, int age, List<WorkExperience> workExperienceList, List<EducationExperience> educationExperienceList) throws NotExistException {
+    public InfoResponse update(String id,
+                               String expectPosition,
+                               String expectWage,
+                               String degree,
+                               String introduction,
+                               boolean isFresh,
+                               String enterprise,
+                               String advantage) throws NotExistException {
         JobCard jobCard = jobCardDataService.findById(id);
         jobCard.setExpectPosition(expectPosition);
         jobCard.setExpectWage(expectWage);
         jobCard.setDegree(degree);
         jobCard.setIntroduction(introduction);
-        jobCard.setAge(age);
         jobCard.setFresh(isFresh);
-        jobCard.setWorkExperiences(workExperienceList);
-        jobCard.setEducationExperiences(educationExperienceList);
+        jobCard.setEnterprise(enterprise);
+        jobCard.setAdvantage(advantage);
         jobCardDataService.update(jobCard);
         return new InfoResponse();
     }
@@ -62,7 +71,7 @@ public class JobCardBlServiceImpl implements JobCardBlService {
 
     @Override
     public JobCardResponse findById(String id) throws NotExistException {
-        return new JobCardResponse(new JobCardItem(jobCardDataService.findById(id), enterpriseDataService));
+        return new JobCardResponse(new JobCardItem(jobCardDataService.findById(id)));
     }
 
     @Override
@@ -71,7 +80,7 @@ public class JobCardBlServiceImpl implements JobCardBlService {
         List<JobCardItem> jobCardItems = new ArrayList<>();
         if (jobCardList != null && jobCardList.size() > 0) {
             for (JobCard jobCard : jobCardList) {
-                jobCardItems.add(new JobCardItem(jobCard, enterpriseDataService));
+                jobCardItems.add(new JobCardItem(jobCard));
             }
         }
         return new JobCardListResponse(jobCardItems);
@@ -84,7 +93,7 @@ public class JobCardBlServiceImpl implements JobCardBlService {
         List<JobCardItem> jobCardItems = new ArrayList<>();
         if (jobCardList != null && jobCardList.size() > 0) {
             for (JobCard jobCard : jobCardList) {
-                jobCardItems.add(new JobCardItem(jobCard, enterpriseDataService));
+                jobCardItems.add(new JobCardItem(jobCard));
             }
         }
         return new JobCardListResponse(jobCardItems);
@@ -96,7 +105,7 @@ public class JobCardBlServiceImpl implements JobCardBlService {
         List<JobCardItem> jobCardItems = new ArrayList<>();
         if (jobCardList != null && jobCardList.size() > 0) {
             for (JobCard jobCard : jobCardList) {
-                jobCardItems.add(new JobCardItem(jobCard, enterpriseDataService));
+                jobCardItems.add(new JobCardItem(jobCard));
             }
         }
         return new JobCardListResponse(jobCardItems);
@@ -108,7 +117,7 @@ public class JobCardBlServiceImpl implements JobCardBlService {
         List<JobCardItem> jobCardItems = new ArrayList<>();
         if (jobCardList != null && jobCardList.size() > 0) {
             for (JobCard jobCard : jobCardList) {
-                jobCardItems.add(new JobCardItem(jobCard, enterpriseDataService));
+                jobCardItems.add(new JobCardItem(jobCard));
             }
         }
         return new JobCardListResponse(jobCardItems);

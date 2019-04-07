@@ -1,54 +1,29 @@
 package njurestaurant.njutakeout.response.job;
 
-import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
-import njurestaurant.njutakeout.entity.job.EducationExperience;
 import njurestaurant.njutakeout.entity.job.JobCard;
-import njurestaurant.njutakeout.entity.job.WorkExperience;
-import njurestaurant.njutakeout.response.user.UserItem;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class JobCardItem {
     private String id;
-    private String photo;
     private String expectPosition;
     private String expectWage;
     private String degree;
     private String introduction;
     private boolean isFresh;
-    private int age;
-    private List<WorkExperienceItem> workExperienceItemList;
-    private List<EducationExperienceItem> educationExperienceItemList;
-    private UserItem user;
+    private String enterprise;
+    private String advantage;
 
     public JobCardItem() {
     }
 
-    public JobCardItem(JobCard jobCard, EnterpriseDataService enterpriseDataService) {
+    public JobCardItem(JobCard jobCard) {
         this.id = jobCard.getId();
-        this.photo=jobCard.getPhoto();
         this.expectPosition = jobCard.getExpectPosition();
         this.expectWage = jobCard.getExpectWage();
         this.degree = jobCard.getDegree();
         this.introduction = jobCard.getIntroduction();
         this.isFresh = jobCard.isFresh();
-        this.age = jobCard.getAge();
-        this.workExperienceItemList = new ArrayList<>();
-        List<WorkExperience> workExperiences = jobCard.getWorkExperiences();
-        if (workExperiences != null && workExperiences.size() > 0) {
-            for (WorkExperience temp : workExperiences) {
-                this.workExperienceItemList.add(new WorkExperienceItem(temp));
-            }
-        }
-        this.educationExperienceItemList=new ArrayList<>();
-        List<EducationExperience> educationExperiences=jobCard.getEducationExperiences();
-        if(educationExperiences!=null && educationExperiences.size()>0){
-            for(EducationExperience temp:educationExperiences){
-                this.educationExperienceItemList.add(new EducationExperienceItem(temp));
-            }
-        }
-        this.user = new UserItem(jobCard.getUser(), enterpriseDataService);
+        this.enterprise = jobCard.getEnterprise();
+        this.advantage = jobCard.getAdvantage();
     }
 
     public String getId() {
@@ -57,14 +32,6 @@ public class JobCardItem {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
     }
 
     public String getExpectPosition() {
@@ -82,7 +49,6 @@ public class JobCardItem {
     public void setExpectWage(String expectWage) {
         this.expectWage = expectWage;
     }
-
 
     public String getDegree() {
         return degree;
@@ -108,35 +74,19 @@ public class JobCardItem {
         isFresh = fresh;
     }
 
-    public int getAge() {
-        return age;
+    public String getEnterprise() {
+        return enterprise;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setEnterprise(String enterprise) {
+        this.enterprise = enterprise;
     }
 
-    public List<WorkExperienceItem> getWorkExperienceItemList() {
-        return workExperienceItemList;
+    public String getAdvantage() {
+        return advantage;
     }
 
-    public void setWorkExperienceItemList(List<WorkExperienceItem> workExperienceItemList) {
-        this.workExperienceItemList = workExperienceItemList;
-    }
-
-    public List<EducationExperienceItem> getEducationExperienceItemList() {
-        return educationExperienceItemList;
-    }
-
-    public void setEducationExperienceItemList(List<EducationExperienceItem> educationExperienceItemList) {
-        this.educationExperienceItemList = educationExperienceItemList;
-    }
-
-    public UserItem getUser() {
-        return user;
-    }
-
-    public void setUser(UserItem user) {
-        this.user = user;
+    public void setAdvantage(String advantage) {
+        this.advantage = advantage;
     }
 }

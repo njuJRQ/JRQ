@@ -1,10 +1,8 @@
 package njurestaurant.njutakeout.entity.job;
 
-import njurestaurant.njutakeout.entity.user.User;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table
@@ -13,9 +11,6 @@ public class JobCard {
     @Id
     @GeneratedValue(generator = "jpa-uuid")
     private String id;
-
-    @Column
-    private String photo;
 
     @Column
     private String expectPosition;
@@ -33,36 +28,23 @@ public class JobCard {
     private boolean isFresh;
 
     @Column
-    private int age;
+    private String enterprise;
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @Column(name = "workExperience")
-    @ElementCollection(targetClass = WorkExperience.class)
-    private List<WorkExperience> workExperiences;
-
-    @Column(name = "eductionExperience")
-    @ElementCollection(targetClass = EducationExperience.class)
-    private List<EducationExperience> educationExperiences;
+    @Column
+    private String advantage;
 
 
     public JobCard() {
     }
 
-    public JobCard(String photo,String expectPosition, String expectWage,String degree, String introduction, boolean isFresh, int age, List<WorkExperience> workExperiences, List<EducationExperience> educationExperiences, User user) {
-        this.photo=photo;
+    public JobCard(String expectPosition, String expectWage, String degree, String introduction, boolean isFresh, String enterprise, String advantage) {
         this.expectPosition = expectPosition;
         this.expectWage = expectWage;
         this.degree = degree;
         this.introduction = introduction;
-        this.isFresh=isFresh;
-        this.age=age;
-        this.workExperiences=workExperiences;
-        this.educationExperiences= educationExperiences;
-        this.user = user;
+        this.isFresh = isFresh;
+        this.enterprise = enterprise;
+        this.advantage = advantage;
     }
 
     public String getId() {
@@ -71,14 +53,6 @@ public class JobCard {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
     }
 
     public String getExpectPosition() {
@@ -96,7 +70,6 @@ public class JobCard {
     public void setExpectWage(String expectWage) {
         this.expectWage = expectWage;
     }
-
 
     public String getDegree() {
         return degree;
@@ -122,35 +95,19 @@ public class JobCard {
         isFresh = fresh;
     }
 
-    public int getAge() {
-        return age;
+    public String getEnterprise() {
+        return enterprise;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setEnterprise(String enterprise) {
+        this.enterprise = enterprise;
     }
 
-    public List<WorkExperience> getWorkExperiences() {
-        return workExperiences;
+    public String getAdvantage() {
+        return advantage;
     }
 
-    public void setWorkExperiences(List<WorkExperience> workExperiences) {
-        this.workExperiences = workExperiences;
-    }
-
-    public List<EducationExperience> getEducationExperiences() {
-        return educationExperiences;
-    }
-
-    public void setEducationExperiences(List<EducationExperience> educationExperiences) {
-        this.educationExperiences = educationExperiences;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setAdvantage(String advantage) {
+        this.advantage = advantage;
     }
 }

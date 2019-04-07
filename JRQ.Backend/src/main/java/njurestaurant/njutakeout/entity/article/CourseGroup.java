@@ -18,10 +18,14 @@ public class CourseGroup {
     private String writerName;
     @Column
     private String image;
+    @Column
+    private int price;
+    @Column
+    private long timeStamp;
 
     @ManyToMany
     @JoinTable(
-            name="course_group_course",
+            name = "course_group_course",
             joinColumns = @JoinColumn(name = "GROUP_ID", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "COURSE_ID", referencedColumnName = "id"))
     private List<Course> courseList;
@@ -29,10 +33,12 @@ public class CourseGroup {
     public CourseGroup() {
     }
 
-    public CourseGroup(String title, String writerName,String image, List<Course> courseList) {
+    public CourseGroup(String title, String writerName, String image, int price, long timeStamp, List<Course> courseList) {
         this.title = title;
         this.writerName = writerName;
-        this.image=image;
+        this.image = image;
+        this.price = price;
+        this.timeStamp = timeStamp;
         this.courseList = courseList;
     }
 
@@ -42,6 +48,14 @@ public class CourseGroup {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public String getTitle() {
@@ -66,6 +80,14 @@ public class CourseGroup {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public long getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(long timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
     public List<Course> getCourseList() {

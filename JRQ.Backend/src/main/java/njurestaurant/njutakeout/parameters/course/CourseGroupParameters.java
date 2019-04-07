@@ -7,16 +7,18 @@ public class CourseGroupParameters {
     private String title;
     private String writerName;
     private String image;
+    private int price;
     private List<String> courses;
 
     public CourseGroupParameters() {
     }
 
-    public CourseGroupParameters(String id,String title,String writerName,String image, List<String> courses) {
-        this.id=id;
+    public CourseGroupParameters(String id, String title, String writerName, String image, int price, List<String> courses) {
+        this.id = id;
         this.title = title;
-        this.writerName=writerName;
-        this.image=image;
+        this.writerName = writerName;
+        this.image = image;
+        this.price = price;
         this.courses = courses;
     }
 
@@ -34,6 +36,14 @@ public class CourseGroupParameters {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public String getWriterName() {

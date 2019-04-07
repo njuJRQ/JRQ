@@ -10,6 +10,7 @@ public class CourseGroupItem {
     private String id;
     private String title;
     private String image;
+    private String writerName;
     private List<CourseItem> courseList;
 
     public CourseGroupItem() {

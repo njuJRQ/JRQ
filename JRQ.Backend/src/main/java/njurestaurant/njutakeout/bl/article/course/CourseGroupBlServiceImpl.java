@@ -4,7 +4,6 @@ import njurestaurant.njutakeout.blservice.article.course.CourseGroupBlService;
 import njurestaurant.njutakeout.dataservice.admin.AdminDataService;
 import njurestaurant.njutakeout.dataservice.article.CourseDataService;
 import njurestaurant.njutakeout.dataservice.article.CourseGroupDataService;
-import njurestaurant.njutakeout.dataservice.article.LikeDataService;
 import njurestaurant.njutakeout.dataservice.purchase.PurchaseCourseDataService;
 import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
 import njurestaurant.njutakeout.entity.article.Course;
@@ -16,7 +15,6 @@ import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.course.CourseGroupItem;
 import njurestaurant.njutakeout.response.article.course.CourseGroupListResponse;
 import njurestaurant.njutakeout.response.article.course.CourseGroupResponse;
-import njurestaurant.njutakeout.response.article.course.CourseListResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,24 +28,24 @@ public class CourseGroupBlServiceImpl implements CourseGroupBlService {
     private final PurchaseCourseDataService purchaseCourseDataService;
     private final EnterpriseDataService enterpriseDataService;
     private final AdminDataService adminDataService;
-    private final LikeDataService likeDataService;
 
     @Autowired
-    public CourseGroupBlServiceImpl(CourseDataService courseDataService, CourseGroupDataService courseGroupDataService, PurchaseCourseDataService purchaseCourseDataService, EnterpriseDataService enterpriseDataService, AdminDataService adminDataService, LikeDataService likeDataService) {
+    public CourseGroupBlServiceImpl(CourseDataService courseDataService, CourseGroupDataService courseGroupDataService, PurchaseCourseDataService purchaseCourseDataService, EnterpriseDataService enterpriseDataService, AdminDataService adminDataService) {
         this.courseDataService = courseDataService;
         this.courseGroupDataService = courseGroupDataService;
         this.purchaseCourseDataService = purchaseCourseDataService;
         this.enterpriseDataService = enterpriseDataService;
         this.adminDataService = adminDataService;
-        this.likeDataService = likeDataService;
     }
 
     @Override
-    public InfoResponse add(String name,String writerName,String image, List<String> courses) throws NotExistException {
+    public InfoResponse add(String name, String writerName, String image, List<String> courses, int price) throws NotExistException {
         CourseGroup courseGroup = new CourseGroup();
         courseGroup.setTitle(name);
         courseGroup.setWriterName(writerName);
         courseGroup.setImage(image);
+        courseGroup.setTimeStamp(System.currentTimeMillis());
+        courseGroup.setPrice(price);
         List<Course> courseList = new ArrayList<>();
         if (courses != null && courses.size() > 0) {
             for (String courseId : courses) {
@@ -60,11 +58,13 @@ public class CourseGroupBlServiceImpl implements CourseGroupBlService {
     }
 
     @Override
-    public InfoResponse update(String id, String title, String writerName,String image,List<String> courses) throws NotExistException {
+    public InfoResponse update(String id, String title, String writerName, String image, List<String> courses, int price) throws NotExistException {
         CourseGroup courseGroup = courseGroupDataService.findById(id);
         courseGroup.setTitle(title);
         courseGroup.setWriterName(writerName);
         courseGroup.setImage(image);
+        courseGroup.setTimeStamp(System.currentTimeMillis());
+        courseGroup.setPrice(price);
         List<Course> courseList = new ArrayList<>();
         if (courses != null && courses.size() > 0) {
             for (String courseId : courses) {
@@ -81,16 +81,20 @@ public class CourseGroupBlServiceImpl implements CourseGroupBlService {
         return new CourseGroupResponse(new CourseGroupItem(courseGroupDataService.findById(id)));
     }
 
+    /**
+     * 获得课程组合列表
+     *
+     * @param id     @return 课程组合列表
+     * @param openid
+     */
     @Override
-    public CourseGroupListResponse getAll() {
-        List<CourseGroup> courseGroupList = courseGroupDataService.getAll();
-        List<CourseGroupItem> courseGroupItemList = new ArrayList<>();
-        if (courseGroupList != null && courseGroupList.size() > 0) {
-            for (CourseGroup courseGroup : courseGroupList) {
-                courseGroupItemList.add(new CourseGroupItem(courseGroup));
-            }
+    public CourseGroupListResponse getCourseGroupListBefore(String id, String openid) {
+        List<CourseGroup> courseGroups = courseGroupDataService.getCourseGroupListBefore(id);
+        List<CourseGroupItem> courseGroupItems = new ArrayList<>();
+        for (CourseGroup courseGroup : courseGroups) {
+            courseGroupItems.add(new CourseGroupItem(courseGroup));
         }
-        return new CourseGroupListResponse(courseGroupItemList);
+        return new CourseGroupListResponse(courseGroupItems);
     }
 
     @Override
@@ -125,4 +129,5 @@ public class CourseGroupBlServiceImpl implements CourseGroupBlService {
         }
         return hasBought;
     }
+
 }

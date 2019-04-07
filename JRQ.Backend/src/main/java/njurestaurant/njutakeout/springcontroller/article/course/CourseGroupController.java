@@ -3,22 +3,21 @@ package njurestaurant.njutakeout.springcontroller.article.course;
 import io.swagger.annotations.*;
 import njurestaurant.njutakeout.blservice.article.course.CourseGroupBlService;
 import njurestaurant.njutakeout.exception.NotExistException;
-import njurestaurant.njutakeout.exception.SystemException;
 import njurestaurant.njutakeout.parameters.course.CourseGroupParameters;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.Response;
 import njurestaurant.njutakeout.response.WrongResponse;
 import njurestaurant.njutakeout.response.article.course.CourseGroupListResponse;
 import njurestaurant.njutakeout.response.article.course.CourseGroupResponse;
-import njurestaurant.njutakeout.response.event.EventLoadResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/courseGroup")
@@ -63,7 +62,7 @@ public class CourseGroupController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> addCourseGroup(@RequestBody CourseGroupParameters parameters) throws NotExistException {
-        ResponseEntity<Response> r = new ResponseEntity<>(courseGroupBlService.add(parameters.getTitle(), parameters.getWriterName(), parameters.getImage(), parameters.getCourses()), HttpStatus.OK);
+        ResponseEntity<Response> r = new ResponseEntity<>(courseGroupBlService.add(parameters.getTitle(), parameters.getWriterName(), parameters.getImage(), parameters.getCourses(), parameters.getPrice()), HttpStatus.OK);
         return r;
     }
 
@@ -75,7 +74,7 @@ public class CourseGroupController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> updateCourseGroup(@RequestBody CourseGroupParameters parameters) throws NotExistException {
-        ResponseEntity<Response> r = new ResponseEntity<>(courseGroupBlService.update(parameters.getId(), parameters.getTitle(), parameters.getWriterName(), parameters.getImage(), parameters.getCourses()), HttpStatus.OK);
+        ResponseEntity<Response> r = new ResponseEntity<>(courseGroupBlService.update(parameters.getId(), parameters.getTitle(), parameters.getWriterName(), parameters.getImage(), parameters.getCourses(), parameters.getPrice()), HttpStatus.OK);
         return r;
     }
 
@@ -110,14 +109,14 @@ public class CourseGroupController {
     }
 
     @ApiOperation(value = "获取所有课程组合", notes = "获取所有课程组合")
-    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    @RequestMapping(value = "/getCourseGroupListBefore", method = RequestMethod.GET)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = CourseGroupListResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> getAllCourseGroup() {
-        ResponseEntity<Response> r = new ResponseEntity<>(courseGroupBlService.getAll(), HttpStatus.OK);
+    public ResponseEntity<Response> getCourseGroupListBefore(@RequestParam(name = "id") String id, @RequestParam(name = "openid") String openid) {
+        ResponseEntity<Response> r = new ResponseEntity<>(courseGroupBlService.getCourseGroupListBefore(id, openid), HttpStatus.OK);
         return r;
     }
 

@@ -13,9 +13,27 @@ $.ajax(
         },
         async:false,
         success: function (data) {
+            document.getElementById("agencyName").value=data.feed.agencyName;
+            document.getElementById("phone").value=data.feed.phone;
+            document.getElementById("projectInfo").value=data.feed.projectInfo;
+            document.getElementById("linkMan").value=data.feed.linkMan;
+            if(data.feed.projectRef =="ACTUAL_CONTROLLER"){
+                data.feed.projectRef="实控人";
+            }
+            else if(data.feed.projectRef =="CORE_OF_SHAREHOLDERS"){
+                data.feed.projectRef="核心股东";
+            }
+            else if(data.feed.projectRef =="EMPLOYEE"){
+                data.feed.projectRef="雇员";
+            }
+            else if(data.feed.projectRef =="THIRD_PARTY"){
+                data.feed.projectRef="一手第三方";
+            }
+
+            document.getElementById("projectRef").value=data.feed.projectRef;
             document.getElementById("id").innerText=data.feed.id;
             document.getElementById("writerOpenid").innerText=data.feed.writerOpenid;
-            document.getElementById("content").value=data.feed.content;
+            document.getElementById("content").innerText=data.feed.content;
             document.getElementById("date").innerText=data.feed.date;
             document.getElementById("likeNum").innerText=data.feed.likeNum;
             for(var i=0;i<data.feed.images.length;i++){
@@ -69,7 +87,6 @@ function addUser(){
     var url = getUrl();
 
     var id=document.getElementById("id").innerText;
-    var content=$("#content").val();
     if(imageList.length==0){
         imageList.push("");
     }
@@ -78,7 +95,11 @@ function addUser(){
             url: url + "/updateFeed",
             data: {
                 id:id,
-                content:content,
+                linkMan: $("#linkMan").val(),
+                phone: $("#phone").val(),
+                agencyName: $("#agencyName").val(),
+                projectRef:$("#projectRef option:selected").val(),
+                projectInfo:$("#projectInfo").val(),
                 images:imageList
             },
             async: false,

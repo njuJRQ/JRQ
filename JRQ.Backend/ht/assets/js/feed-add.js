@@ -41,7 +41,6 @@ function addUser(){
     var url = getUrl();
 
     var writerOpenid=$("#writerOpenid").val();
-    var content=$("#content").val();
         if(imageList.length==0){
             imageList.push("");
         }
@@ -49,9 +48,13 @@ function addUser(){
             {
                 url: url + "/addFeed",
                 data: {
+                    linkMan: $("#linkMan").val(),
+                    phone: $("#phone").val(),
+                    agencyName: $("#agencyName").val(),
+                    projectRef:$("#projectRef option:selected").val(),
+                    projectInfo:$("#projectInfo").val(),
                     writerOpenid:writerOpenid,
-                    images:imageList,
-                    content:content
+                    images:imageList
                 },
                 async: false,
                 success: function (data) {

@@ -82,7 +82,7 @@ public class CourseGroupController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "课程组合id", required = true, dataType = "String")
     })
-    @RequestMapping(value = "/findById", method = RequestMethod.POST)
+    @RequestMapping(value = "/findById", method = RequestMethod.GET)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = CourseGroupResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),

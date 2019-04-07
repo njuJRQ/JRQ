@@ -19,8 +19,24 @@ Page({
    */
   onLoad: function(options) {
     if (options.courseGroupId) {
-      var id = options.id;
-      
+      var courseGroupId = options.courseGroupId;
+      var that = this
+      wx.request({
+        url: app.globalData.backendUrl + "courseGroup/findById",
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          res.data.courseGroupItem.courseList.forEach(item => {
+            item.image = app.globalData.picUrl + item.image
+          })
+          that.setData({
+            courseList: res.data.courseGroupItem.courseList
+          })
+        }
+      })
     } else {
       api.getCourseList.call(this)
     }

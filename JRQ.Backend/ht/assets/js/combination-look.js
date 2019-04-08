@@ -1,7 +1,6 @@
 var url=getUrl();
 var storage = window.localStorage;
 var id=storage["thisCourse"];
-alert(id)
 $.ajax(
     {
         url: url+"/courseGroup/findById",

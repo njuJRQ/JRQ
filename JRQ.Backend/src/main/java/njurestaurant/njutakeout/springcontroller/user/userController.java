@@ -34,7 +34,8 @@ public class userController {
         this.userBlService = userBlService;
     }
 
-    private static String headPath="";
+    private static String headPath = "";
+
     @ApiOperation(value = "获取用户头像", notes = "获取用户头像")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "face", value = "用户头像", required = true, dataType = "MultipartFile")
@@ -45,11 +46,11 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public void uploadHead(@RequestParam("face")MultipartFile face){
-        Map<String,Object> map= new HashMap<String,Object>();
-        if(face.isEmpty()){
-            map.put( "result", "error");
-            map.put( "msg", "上传文件不能为空" );
+    public void uploadHead(@RequestParam("face") MultipartFile face) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        if (face.isEmpty()) {
+            map.put("result", "error");
+            map.put("msg", "上传文件不能为空");
         } else {
 
             // 获取文件名
@@ -65,9 +66,9 @@ public class userController {
             try {
                 inStream = face.getInputStream();
                 FileOutputStream fs = new FileOutputStream(fileName);
-                headPath=fileName;
+                headPath = fileName;
                 byte[] buffer = new byte[20000000];
-                while ( (byteread = inStream.read(buffer)) != -1) {
+                while ((byteread = inStream.read(buffer)) != -1) {
                     bytesum += byteread;            //字节数 文件大小
                     fs.write(buffer, 0, byteread);
                 }
@@ -81,7 +82,6 @@ public class userController {
 
         }
     }
-
 
 
     @ApiOperation(value = "增加用户", notes = "增加用户")
@@ -106,28 +106,28 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public InfoResponse addUser(@RequestParam(name="openid")String openid, @RequestParam(name="username")String username, @RequestParam(name="phone")String phone, @RequestParam(name="email")String email, @RequestParam(name="company")String company, @RequestParam(name="department")String department, @RequestParam(name="position")String position, @RequestParam(name="intro")String intro, @RequestParam(name="city")String city, @RequestParam(name="credit")String credit, @RequestParam(name="label")List<String> label, @RequestParam(name="levelName")String levelName, @RequestParam(name="valid")String valid) throws NotExistException {
-        boolean is=true;
-        if(valid=="冻结"){
-            is=false;
+    public InfoResponse addUser(@RequestParam(name = "openid") String openid, @RequestParam(name = "username") String username, @RequestParam(name = "phone") String phone, @RequestParam(name = "email") String email, @RequestParam(name = "company") String company, @RequestParam(name = "department") String department, @RequestParam(name = "position") String position, @RequestParam(name = "intro") String intro, @RequestParam(name = "city") String city, @RequestParam(name = "credit") String credit, @RequestParam(name = "label") List<String> label, @RequestParam(name = "levelName") String levelName, @RequestParam(name = "valid") String valid) throws NotExistException {
+        boolean is = true;
+        if (valid == "冻结") {
+            is = false;
         }
         File file = new File(headPath);
         String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
-        String[] temp=headPath.split("\\.");
-        String thePath="record/user/head/"+uuid+"."+temp[1];
-        String path="record/user/head/"+uuid+"."+temp[1];
-        File tempfile=new File(path);
+        String[] temp = headPath.split("\\.");
+        String thePath = "record/user/head/" + uuid + "." + temp[1];
+        String path = "record/user/head/" + uuid + "." + temp[1];
+        File tempfile = new File(path);
         if (tempfile.exists() && tempfile.isFile()) {
-             tempfile.delete();
+            tempfile.delete();
         }
         int bytesum = 0;
         int byteread = 0;
 
         try {
-            InputStream inStream =new FileInputStream(headPath);
+            InputStream inStream = new FileInputStream(headPath);
             FileOutputStream fs = new FileOutputStream(path);
             byte[] buffer = new byte[20000000];
-            while ( (byteread = inStream.read(buffer)) != -1) {
+            while ((byteread = inStream.read(buffer)) != -1) {
                 bytesum += byteread;            //字节数 文件大小
                 fs.write(buffer, 0, byteread);
             }
@@ -140,8 +140,8 @@ public class userController {
         if (file.exists() && file.isFile()) {
             file.delete();
         }
-        InfoResponse r=userBlService.addUser(openid,username,thePath,null,phone,email,company,department,position,intro,city,Integer.parseInt(credit),label,levelName,is);
-        headPath="";
+        InfoResponse r = userBlService.addUser(openid, username, thePath, null, phone, email, company, department, position, intro, city, Integer.parseInt(credit), label, levelName, is);
+        headPath = "";
         return r;
     }
 
@@ -168,12 +168,12 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public InfoResponse addUserWithoutFace(@RequestParam(name="openid")String openid, @RequestParam(name="username")String username, @RequestParam(name="face")String face,@RequestParam(name="phone")String phone, @RequestParam(name="email")String email, @RequestParam(name="company")String company, @RequestParam(name="department")String department, @RequestParam(name="position")String position, @RequestParam(name="intro")String intro, @RequestParam(name="city")String city, @RequestParam(name="credit")String credit, @RequestParam(name="label")List<String> label, @RequestParam(name="levelName")String levelName, @RequestParam(name="valid")String valid) throws NotExistException {
-        boolean is=true;
-        if(valid=="冻结"){
-            is=false;
+    public InfoResponse addUserWithoutFace(@RequestParam(name = "openid") String openid, @RequestParam(name = "username") String username, @RequestParam(name = "face") String face, @RequestParam(name = "phone") String phone, @RequestParam(name = "email") String email, @RequestParam(name = "company") String company, @RequestParam(name = "department") String department, @RequestParam(name = "position") String position, @RequestParam(name = "intro") String intro, @RequestParam(name = "city") String city, @RequestParam(name = "credit") String credit, @RequestParam(name = "label") List<String> label, @RequestParam(name = "levelName") String levelName, @RequestParam(name = "valid") String valid) throws NotExistException {
+        boolean is = true;
+        if (valid == "冻结") {
+            is = false;
         }
-        InfoResponse r=userBlService.updateUser(openid,username,face,null,phone,email,company,department,position,intro,city,Integer.parseInt(credit),label,levelName,is);
+        InfoResponse r = userBlService.updateUser(openid, username, face, null, phone, email, company, department, position, intro, city, Integer.parseInt(credit), label, levelName, is);
         return r;
     }
 
@@ -184,8 +184,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public UserListResponse getUserList(){
-        UserListResponse r=userBlService.getUserList();
+    public UserListResponse getUserList() {
+        UserListResponse r = userBlService.getUserList();
         return r;
     }
 
@@ -199,8 +199,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public UserResponse getUser(@RequestParam(name="openid")String openid) throws NotExistException {
-        UserResponse r=userBlService.getUser(openid);
+    public UserResponse getUser(@RequestParam(name = "openid") String openid) throws NotExistException {
+        UserResponse r = userBlService.getUser(openid);
         return r;
     }
 
@@ -226,17 +226,17 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public InfoResponse updateUser(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username,@RequestParam(name="face")String face,@RequestParam(name="phone")String phone,@RequestParam(name="email")String email,@RequestParam(name="company")String company,@RequestParam(name="department")String department,@RequestParam(name="position")String position,@RequestParam(name="intro")String intro,@RequestParam(name="city")String city,@RequestParam(name="credit")String credit,@RequestParam(name="label")List<String> label,@RequestParam(name="levelName")String levelName,@RequestParam(name="valid")String valid) throws NotExistException {
-        boolean is=true;
-        if(valid=="冻结"){
-            is=false;
+    public InfoResponse updateUser(@RequestParam(name = "openid") String openid, @RequestParam(name = "username") String username, @RequestParam(name = "face") String face, @RequestParam(name = "phone") String phone, @RequestParam(name = "email") String email, @RequestParam(name = "company") String company, @RequestParam(name = "department") String department, @RequestParam(name = "position") String position, @RequestParam(name = "intro") String intro, @RequestParam(name = "city") String city, @RequestParam(name = "credit") String credit, @RequestParam(name = "label") List<String> label, @RequestParam(name = "levelName") String levelName, @RequestParam(name = "valid") String valid) throws NotExistException {
+        boolean is = true;
+        if (valid == "冻结") {
+            is = false;
         }
         File file = new File(headPath);
         String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
-        String[] temp=headPath.split("\\.");
-        String thePath="record/user/head/"+uuid+"."+temp[1];
-        String path="record/user/head/"+uuid+"."+temp[1];
-        File tempfile=new File(path);
+        String[] temp = headPath.split("\\.");
+        String thePath = "record/user/head/" + uuid + "." + temp[1];
+        String path = "record/user/head/" + uuid + "." + temp[1];
+        File tempfile = new File(path);
         if (tempfile.exists() && tempfile.isFile()) {
             tempfile.delete();
         }
@@ -244,10 +244,10 @@ public class userController {
         int byteread = 0;
 
         try {
-            InputStream inStream =new FileInputStream(headPath);
+            InputStream inStream = new FileInputStream(headPath);
             FileOutputStream fs = new FileOutputStream(path);
             byte[] buffer = new byte[20000000];
-            while ( (byteread = inStream.read(buffer)) != -1) {
+            while ((byteread = inStream.read(buffer)) != -1) {
                 bytesum += byteread;            //字节数 文件大小
                 fs.write(buffer, 0, byteread);
             }
@@ -260,8 +260,8 @@ public class userController {
         if (file.exists() && file.isFile()) {
             file.delete();
         }
-        InfoResponse r=userBlService.updateUser(openid,username,thePath,null,phone,email,company,department,position,intro,city,Integer.parseInt(credit),label,levelName,is);
-        headPath="";
+        InfoResponse r = userBlService.updateUser(openid, username, thePath, null, phone, email, company, department, position, intro, city, Integer.parseInt(credit), label, levelName, is);
+        headPath = "";
         return r;
     }
 
@@ -275,8 +275,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public InfoResponse deleteUser(@RequestParam(name="openid")String openid) throws NotExistException {
-        InfoResponse r=userBlService.deleteUser(openid);
+    public InfoResponse deleteUser(@RequestParam(name = "openid") String openid) throws NotExistException {
+        InfoResponse r = userBlService.deleteUser(openid);
         return r;
     }
 
@@ -291,8 +291,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public InfoResponse addClassification(@RequestParam(name="userLabel")String userLabel,@RequestParam(name="workClass")String workClass) {
-        InfoResponse r=userBlService.addClassification(userLabel,workClass);
+    public InfoResponse addClassification(@RequestParam(name = "userLabel") String userLabel, @RequestParam(name = "workClass") String workClass) {
+        InfoResponse r = userBlService.addClassification(userLabel, workClass);
         return r;
     }
 
@@ -306,8 +306,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ClassificationResponse getClassification(@RequestParam(name="userLabel")String userLabel) throws NotExistException {
-        ClassificationResponse r=userBlService.getClassification(userLabel);
+    public ClassificationResponse getClassification(@RequestParam(name = "userLabel") String userLabel) throws NotExistException {
+        ClassificationResponse r = userBlService.getClassification(userLabel);
         return r;
     }
 
@@ -333,8 +333,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public InfoResponse updateClassification(@RequestParam(name="userLabel")String userLabel,@RequestParam(name="workClass")String workClass) throws NotExistException {
-        return userBlService.updateClassification(userLabel,workClass);
+    public InfoResponse updateClassification(@RequestParam(name = "userLabel") String userLabel, @RequestParam(name = "workClass") String workClass) throws NotExistException {
+        return userBlService.updateClassification(userLabel, workClass);
     }
 
     @ApiOperation(value = "删除标签", notes = "删除标签")
@@ -347,7 +347,7 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public BoolResponse deleteClassification(@RequestParam(name="userLabel")String userLabel) throws NotExistException {
+    public BoolResponse deleteClassification(@RequestParam(name = "userLabel") String userLabel) throws NotExistException {
         return userBlService.deleteClassification(userLabel);
     }
 
@@ -358,8 +358,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> getClassificationDescriptionList()  {
-        return new ResponseEntity<>(userBlService.getClassificationDescriptionList(),HttpStatus.OK);
+    public ResponseEntity<Response> getClassificationDescriptionList() {
+        return new ResponseEntity<>(userBlService.getClassificationDescriptionList(), HttpStatus.OK);
     }
 
     @ApiOperation(value = "删除标签", notes = "删除标签")
@@ -373,8 +373,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> updateClassificationDescription(@RequestParam(name="workClass")String workClass,@RequestParam(name="description")String description) throws NotExistException {
-        return new ResponseEntity<>(userBlService.updateClassificationDescription(workClass,description),HttpStatus.OK);
+    public ResponseEntity<Response> updateClassificationDescription(@RequestParam(name = "workClass") String workClass, @RequestParam(name = "description") String description) throws NotExistException {
+        return new ResponseEntity<>(userBlService.updateClassificationDescription(workClass, description), HttpStatus.OK);
     }
 
     @ApiOperation(value = "添加会员等级信息", notes = "添加会员等级信息")
@@ -391,8 +391,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public InfoResponse addLevel(@RequestParam(name="name")String name,@RequestParam(name="cardLimit")String cardLimit,@RequestParam(name="price")String price,@RequestParam(name="courseDiscountedRatio")String courseDiscountedRatio,@RequestParam(name="checkCardPrice")String checkCardPrice) throws NotExistException {
-        return userBlService.addLevel(name,Integer.parseInt(cardLimit), Integer.parseInt(price),Double.parseDouble(courseDiscountedRatio),Integer.parseInt(checkCardPrice));
+    public InfoResponse addLevel(@RequestParam(name = "name") String name, @RequestParam(name = "cardLimit") String cardLimit, @RequestParam(name = "price") String price, @RequestParam(name = "courseDiscountedRatio") String courseDiscountedRatio, @RequestParam(name = "checkCardPrice") String checkCardPrice) throws NotExistException {
+        return userBlService.addLevel(name, Integer.parseInt(cardLimit), Integer.parseInt(price), Double.parseDouble(courseDiscountedRatio), Integer.parseInt(checkCardPrice));
     }
 
     @ApiOperation(value = "获取所有会员等级信息", notes = "获取所有会员等级信息")
@@ -420,8 +420,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public InfoResponse updateLevel(@RequestParam(name="name")String name,@RequestParam(name="cardLimit")String cardLimit,@RequestParam(name="price")String price,@RequestParam(name="courseDiscountedRatio")String courseDiscountedRatio,@RequestParam(name="checkCardPrice")String checkCardPrice) throws NotExistException {
-        return userBlService.updateLevel(name,Integer.parseInt(cardLimit), Integer.parseInt(price),Double.parseDouble(courseDiscountedRatio),Integer.parseInt(checkCardPrice));
+    public InfoResponse updateLevel(@RequestParam(name = "name") String name, @RequestParam(name = "cardLimit") String cardLimit, @RequestParam(name = "price") String price, @RequestParam(name = "courseDiscountedRatio") String courseDiscountedRatio, @RequestParam(name = "checkCardPrice") String checkCardPrice) throws NotExistException {
+        return userBlService.updateLevel(name, Integer.parseInt(cardLimit), Integer.parseInt(price), Double.parseDouble(courseDiscountedRatio), Integer.parseInt(checkCardPrice));
     }
 
     @ApiOperation(value = "更新会员等级信息", notes = "更新会员等级信息")
@@ -434,7 +434,7 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public InfoResponse deleteLevel(@RequestParam(name="name")String name) throws NotExistException {
+    public InfoResponse deleteLevel(@RequestParam(name = "name") String name) throws NotExistException {
         return userBlService.deleteLevel(name);
     }
 
@@ -449,7 +449,7 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> getOpenIdAndSessionKey(@RequestParam(name="jsCode")String jsCode) throws CannotGetOpenIdAndSessionKeyException {
+    public ResponseEntity<Response> getOpenIdAndSessionKey(@RequestParam(name = "jsCode") String jsCode) throws CannotGetOpenIdAndSessionKeyException {
         return new ResponseEntity<>(userBlService.getOpenIdAndSessionKey(jsCode), HttpStatus.OK);
     }
 
@@ -466,8 +466,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> loginMyUser(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username,@RequestParam(name="faceWxUrl")String faceWxUrl) throws NotExistException {
-        return new ResponseEntity<>(userBlService.loginMyUser(openid,username,faceWxUrl), HttpStatus.OK);
+    public ResponseEntity<Response> loginMyUser(@RequestParam(name = "openid") String openid, @RequestParam(name = "username") String username, @RequestParam(name = "faceWxUrl") String faceWxUrl) throws NotExistException {
+        return new ResponseEntity<>(userBlService.loginMyUser(openid, username, faceWxUrl), HttpStatus.OK);
     }
 
     @ApiOperation(value = "小程序前端获取微信小程序的二维码", notes = "小程序前端获取微信小程序的二维码")
@@ -487,8 +487,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> getWxQrCode(@RequestParam(name="scene")String scene,@RequestParam(name="page")String page,@RequestParam(name="width")int width,@RequestParam(name="autoColor")boolean autoColor,@RequestParam(name="lineColorR")String lineColorR,@RequestParam(name="lineColorG")String lineColorG,@RequestParam(name="lineColorB")String lineColorB,@RequestParam(name="isHyaline")boolean isHyaline) throws NotExistException {
-        return new ResponseEntity<>(userBlService.getWxQrCode(scene,page,width,autoColor,lineColorR,lineColorG,lineColorB,isHyaline), HttpStatus.OK);
+    public ResponseEntity<Response> getWxQrCode(@RequestParam(name = "scene") String scene, @RequestParam(name = "page") String page, @RequestParam(name = "width") int width, @RequestParam(name = "autoColor") boolean autoColor, @RequestParam(name = "lineColorR") String lineColorR, @RequestParam(name = "lineColorG") String lineColorG, @RequestParam(name = "lineColorB") String lineColorB, @RequestParam(name = "isHyaline") boolean isHyaline) throws NotExistException {
+        return new ResponseEntity<>(userBlService.getWxQrCode(scene, page, width, autoColor, lineColorR, lineColorG, lineColorB, isHyaline), HttpStatus.OK);
     }
 
     @ApiOperation(value = "用户获取自己的个人信息", notes = "用户获取自己的个人信息")
@@ -501,7 +501,7 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> getMyUser(@RequestParam(name="openid")String openid) throws NotExistException {
+    public ResponseEntity<Response> getMyUser(@RequestParam(name = "openid") String openid) throws NotExistException {
         return new ResponseEntity<>(userBlService.getMyUser(openid), HttpStatus.OK);
     }
 
@@ -524,31 +524,30 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> updateMyProfile(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username,@RequestParam(name="phone")String phone,@RequestParam(name="email")String email,@RequestParam(name="company")String company,@RequestParam(name="department")String department,@RequestParam(name="position")String position,@RequestParam(name="intro")String intro,@RequestParam(name="city")String city,@RequestParam(name="label")List<String> label) throws NotExistException {
+    public ResponseEntity<Response> updateMyProfile(@RequestParam(name = "openid") String openid, @RequestParam(name = "username") String username, @RequestParam(name = "phone") String phone, @RequestParam(name = "email") String email, @RequestParam(name = "company") String company, @RequestParam(name = "department") String department, @RequestParam(name = "position") String position, @RequestParam(name = "intro") String intro, @RequestParam(name = "city") String city, @RequestParam(name = "label") List<String> label) throws NotExistException {
         File file = new File(headPath);
         String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
-        String[] temp=headPath.split("\\.");
-        String thePath="";
-        String path="";
-        if(temp.length>2) {
+        String[] temp = headPath.split("\\.");
+        String thePath = "";
+        String path = "";
+        if (temp.length > 2) {
             thePath = "record/user/head/" + uuid + "." + temp[3];
             path = "record/user/head/" + uuid + "." + temp[3];
-        }
-        else{
+        } else {
             thePath = "record/user/head/" + uuid + "." + temp[1];
             path = "record/user/head/" + uuid + "." + temp[1];
         }
-        File tempfile=new File(path);
+        File tempfile = new File(path);
         if (tempfile.exists() && tempfile.isFile()) {
             tempfile.delete();
         }
         int bytesum = 0;
         int byteread = 0;
         try {
-            InputStream inStream =new FileInputStream(headPath);
+            InputStream inStream = new FileInputStream(headPath);
             FileOutputStream fs = new FileOutputStream(path);
             byte[] buffer = new byte[20000000];
-            while ( (byteread = inStream.read(buffer)) != -1) {
+            while ((byteread = inStream.read(buffer)) != -1) {
                 bytesum += byteread;            //字节数 文件大小
                 fs.write(buffer, 0, byteread);
             }
@@ -561,8 +560,8 @@ public class userController {
         if (file.exists() && file.isFile()) {
             file.delete();
         }
-        headPath="";
-        return new ResponseEntity<>(userBlService.updateMyProfile(openid,username,thePath,phone,email,company,department,position,intro,city,label), HttpStatus.OK);
+        headPath = "";
+        return new ResponseEntity<>(userBlService.updateMyProfile(openid, username, thePath, phone, email, company, department, position, intro, city, label), HttpStatus.OK);
     }
 
     @ApiOperation(value = "用户修改自己的个人信息", notes = "用户修改自己的个人信息")
@@ -585,8 +584,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> updateMyProfileWithoutFile(@RequestParam(name="openid")String openid,@RequestParam(name="username")String username,@RequestParam(name="face")String face,@RequestParam(name="phone")String phone,@RequestParam(name="email")String email,@RequestParam(name="company")String company,@RequestParam(name="department")String department,@RequestParam(name="position")String position,@RequestParam(name="intro")String intro,@RequestParam(name="city")String city,@RequestParam(name="label")List<String> label) throws NotExistException {
-        return new ResponseEntity<>(userBlService.updateMyProfile(openid,username,face,phone,email,company,department,position,intro,city,label), HttpStatus.OK);
+    public ResponseEntity<Response> updateMyProfileWithoutFile(@RequestParam(name = "openid") String openid, @RequestParam(name = "username") String username, @RequestParam(name = "face") String face, @RequestParam(name = "phone") String phone, @RequestParam(name = "email") String email, @RequestParam(name = "company") String company, @RequestParam(name = "department") String department, @RequestParam(name = "position") String position, @RequestParam(name = "intro") String intro, @RequestParam(name = "city") String city, @RequestParam(name = "label") List<String> label) throws NotExistException {
+        return new ResponseEntity<>(userBlService.updateMyProfile(openid, username, face, phone, email, company, department, position, intro, city, label), HttpStatus.OK);
     }
 
     @ApiOperation(value = "根据用户微信openid获取其业务名片", notes = "根据用户微信openid获取其业务名片")
@@ -599,7 +598,7 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> getPerson(@RequestParam(name="openid")String openid) throws NotExistException {
+    public ResponseEntity<Response> getPerson(@RequestParam(name = "openid") String openid) throws NotExistException {
         return new ResponseEntity<>(userBlService.getPerson(openid), HttpStatus.OK);
     }
 
@@ -613,7 +612,7 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> getPersonList(@RequestParam(name="openid")String openid) throws NotExistException {
+    public ResponseEntity<Response> getPersonList(@RequestParam(name = "openid", defaultValue = "-1") String openid) throws NotExistException {
         return new ResponseEntity<>(userBlService.getPersonList(openid), HttpStatus.OK);
     }
 
@@ -627,7 +626,7 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> getPersonListByCondition(@RequestParam(name="condition")String condition) {
+    public ResponseEntity<Response> getPersonListByCondition(@RequestParam(name = "condition") String condition) {
         return new ResponseEntity<>(userBlService.getPersonListByCondition(condition), HttpStatus.OK);
     }
 
@@ -646,8 +645,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> sendMyCard(@RequestParam(name="senderOpenid")String senderOpenid,@RequestParam(name="receiverOpenid")String receiverOpenid,@RequestParam(name="page")String page,@RequestParam(name="formId")String formId,@RequestParam(name="data")String data,@RequestParam(name="emphasisKeyword")String emphasisKeyword) {
-        return new ResponseEntity<>(userBlService.sendMyCard(senderOpenid,receiverOpenid,page,formId,data,emphasisKeyword), HttpStatus.OK);
+    public ResponseEntity<Response> sendMyCard(@RequestParam(name = "senderOpenid") String senderOpenid, @RequestParam(name = "receiverOpenid") String receiverOpenid, @RequestParam(name = "page") String page, @RequestParam(name = "formId") String formId, @RequestParam(name = "data") String data, @RequestParam(name = "emphasisKeyword") String emphasisKeyword) {
+        return new ResponseEntity<>(userBlService.sendMyCard(senderOpenid, receiverOpenid, page, formId, data, emphasisKeyword), HttpStatus.OK);
     }
 
     @ApiOperation(value = "用户获取自己的名片列表", notes = "用户获取自己的名片列表")
@@ -661,8 +660,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> getMyCardList(@RequestParam(name="openid")String openid,@RequestParam(name="kind")String kind) throws NotExistException {
-        return new ResponseEntity<>(userBlService.getMyCardList(openid,kind), HttpStatus.OK);
+    public ResponseEntity<Response> getMyCardList(@RequestParam(name = "openid") String openid, @RequestParam(name = "kind") String kind) throws NotExistException {
+        return new ResponseEntity<>(userBlService.getMyCardList(openid, kind), HttpStatus.OK);
     }
 
     @ApiOperation(value = "将用户收到的名片设置为已读", notes = "将用户收到的名片设置为已读")
@@ -676,8 +675,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> checkMyReceivedCard(@RequestParam(name="senderOpenid")String senderOpenid,@RequestParam(name="receiverOpenid")String receiverOpenid) throws NotExistException {
-        return new ResponseEntity<>(userBlService.checkMyReceivedCard(senderOpenid,receiverOpenid), HttpStatus.OK);
+    public ResponseEntity<Response> checkMyReceivedCard(@RequestParam(name = "senderOpenid") String senderOpenid, @RequestParam(name = "receiverOpenid") String receiverOpenid) throws NotExistException {
+        return new ResponseEntity<>(userBlService.checkMyReceivedCard(senderOpenid, receiverOpenid), HttpStatus.OK);
     }
 
     @ApiOperation(value = "用户查看别人的名片，每天次数有限制", notes = "用户查看别人的名片，每天次数有限制")
@@ -691,8 +690,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> isOtherCardAccessible(@RequestParam(name="userOpenid")String userOpenid,@RequestParam(name="otherOpenid")String otherOpenid) throws NotExistException, CardLimitUseUpException {
-        return new ResponseEntity<>(userBlService.isOtherCardAccessible(userOpenid,otherOpenid), HttpStatus.OK);
+    public ResponseEntity<Response> isOtherCardAccessible(@RequestParam(name = "userOpenid") String userOpenid, @RequestParam(name = "otherOpenid") String otherOpenid) throws NotExistException, CardLimitUseUpException {
+        return new ResponseEntity<>(userBlService.isOtherCardAccessible(userOpenid, otherOpenid), HttpStatus.OK);
     }
 
     @ApiOperation(value = "用户查看别人的名片，每天次数有限制", notes = "用户查看别人的名片，每天次数有限制")
@@ -706,8 +705,8 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> getOtherCard(@RequestParam(name="userOpenid")String userOpenid,@RequestParam(name="otherOpenid")String otherOpenid) throws NotExistException, CardLimitUseUpException {
-        return new ResponseEntity<>(userBlService.getOtherCard(userOpenid,otherOpenid), HttpStatus.OK);
+    public ResponseEntity<Response> getOtherCard(@RequestParam(name = "userOpenid") String userOpenid, @RequestParam(name = "otherOpenid") String otherOpenid) throws NotExistException, CardLimitUseUpException {
+        return new ResponseEntity<>(userBlService.getOtherCard(userOpenid, otherOpenid), HttpStatus.OK);
     }
 
     @ApiOperation(value = "获取用户收到的名片数量", notes = "获取用户收到的名片数量")
@@ -720,7 +719,7 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public String getMyReceivedCardNum(@RequestParam(name="openid")String openid) throws NotExistException {
+    public String getMyReceivedCardNum(@RequestParam(name = "openid") String openid) throws NotExistException {
         return userBlService.getMyReceivedCardNum(openid);
     }
 
@@ -734,7 +733,7 @@ public class userController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public String getMyMutualCardNum(@RequestParam(name="openid")String openid) throws NotExistException {
+    public String getMyMutualCardNum(@RequestParam(name = "openid") String openid) throws NotExistException {
         return userBlService.getMyMutualCardNum(openid);
     }
 }

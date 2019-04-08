@@ -9,8 +9,7 @@ import java.util.List;
 
 public class FeedViewItem {
     private String id; //文章编号
-    //	private String title; //文章标题
-//	private String content; //文章内容
+    private String content; //文章内容
     private String linkMan;//联系人
     private String phone;//电话
     private String agencyName;//机构名
@@ -27,13 +26,12 @@ public class FeedViewItem {
 
     public FeedViewItem(Feed feed, UserDataService userDataService, boolean hasLiked) throws NotExistException {
         this.id = feed.getId();
-//        this.title = feed.getTitle();
-//        this.content = feed.getContent();
-        this.linkMan=feed.getLinkMan();
-        this.phone=feed.getPhone();
-        this.agencyName=feed.getAgencyName();
-        this.projectRef=feed.getProjectRef();
-        this.projectInfo=feed.getProjectInfo();
+        this.content = feed.getProjectInfo();
+        this.linkMan = feed.getLinkMan();
+        this.phone = feed.getPhone();
+        this.agencyName = feed.getAgencyName();
+        this.projectRef = feed.getProjectRef();
+        this.projectInfo = feed.getProjectInfo();
         this.images = feed.getImages();
         this.writerOpenid = feed.getWriterOpenid();
         User user = userDataService.getUserByOpenid(feed.getWriterOpenid());

@@ -9,6 +9,7 @@ import java.util.List;
 
 public class FeedViewItem {
     private String id; //文章编号
+    private String title;//文章标题
     private String content; //文章内容
     private String linkMan;//联系人
     private String phone;//电话
@@ -36,6 +37,7 @@ public class FeedViewItem {
         this.writerOpenid = feed.getWriterOpenid();
         User user = userDataService.getUserByOpenid(feed.getWriterOpenid());
         this.writerName = user.getUsername();
+        this.title = user.getUsername();
         this.writerFace = user.getFace();
         this.date = feed.getDate();
         this.likeNum = feed.getLikeNum();
@@ -49,6 +51,22 @@ public class FeedViewItem {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getLinkMan() {

@@ -380,6 +380,25 @@ public class FeedController {
         return new ResponseEntity<>(feedBlService.getFeedListBeforeByKind(kind,openid,id), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "获取10条项目按条件查询", notes = "获取10条项目按条件查询")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "kind", value = "查询条件", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "openid", value = "用户openid", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "id", value = "圈子ID", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getProjectListBeforeByKind", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> getProjectListBeforeByKindGET(
+            @RequestParam(name="kind")String kind,
+            @RequestParam(name="openid")String openid,
+            @RequestParam(name="id")String id) throws NotExistException {
+        return new ResponseEntity<>(feedBlService.getFeedListBeforeByKind(kind,openid,id), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "通过标题模糊搜索项目", notes = "通过标题模糊搜索项目")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "openid", value = "用户openid", required = true, dataType = "String"),

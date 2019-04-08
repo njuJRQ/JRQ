@@ -379,10 +379,10 @@ public class UserBlServiceImpl implements UserBlService {
         if(openid.equals("-1")){
             for(int i=0;i<userList.size();i++){
                 pageList.add(userList.get(i));
-//                count++;
-//                if(count>=10){
-//                    break;
-//                }
+                count++;
+                if(count>=10){
+                    break;
+                }
             }
         }
         else{

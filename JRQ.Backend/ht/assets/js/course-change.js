@@ -88,8 +88,6 @@ function adduser() {
                         $.ajax(
                             {
                                 url: url + "/updateCourse",
-                                type: "POST",
-
                                 data: {
                                     id: id,
                                     title: $("#title").val(),

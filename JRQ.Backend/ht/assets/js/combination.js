@@ -145,8 +145,8 @@ function setthisquestion(n) {
     var storage = window.localStorage;
     storage["thisCourse"] = q.id;
     console.log(q.id+'===================')
-
 }
+
 function deletequestion(n) {
     var r = confirm("确定删除么？");
     if (r) {

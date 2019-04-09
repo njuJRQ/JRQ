@@ -104,7 +104,7 @@ function adduser() {
                                 async: false,
                                 success: function (data) {
                                     alert("修改成功");
-                                    window.location.href = "course.html";
+                                    window.location.href = "verificine.html";
                                 },
                                 error: function (xhr) {
                                     //alert('动态页有问题噶！\n\n' + xhr.responseText);

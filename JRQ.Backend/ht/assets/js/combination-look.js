@@ -15,7 +15,7 @@ $.ajax(
             document.getElementById("price").innerText=data.courseGroupItem.price;
             var courseList="";
             for(var i=0;i<data.courseGroupItem.courseList.length;i++){
-                courseList=data.courseGroupItem.courseList[i]+" ";
+                courseList=courseList+" "+data.courseGroupItem.courseList[i].title;
             }
             document.getElementById("courseList").innerText=courseList;
         },

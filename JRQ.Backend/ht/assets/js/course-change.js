@@ -44,25 +44,32 @@ function checkRate(input) {
 function adduser() {
     if (checkRate("likeNum") && checkRate("price")) {
         $("#loader").show();
-        // var fd = new FormData($("#upload-file-form")[0]);
-        var el = $('#image')[0];
-        var formData = new FormData();
-        if (!el.files[0]) {
-            return;
-        }
-        formData.append('image', el.files[0]);
+
+         var fd ;
+         if($("#upload-file-form")[0]){
+             fd= new FormData($("#upload-file-form")[0]);
+         }
+        alert(("1"))
+        //var el = $('#image')[0];
+        // var formData = new FormData();
+        // if (!el.files[0]) {
+        //     return;
+        // }
+        //formData.append('image', el.files[0]);
         var url = getUrl();
-        // var fd2 = new FormData($("#upload-video-form")[0]);
-        var ele = $('#video')[0];
-        var form = new FormData();
-        if (!ele.files[0]) {
-            return;
-        }
-        form.append('video', ele.files[0]);
+         var fd2 = new FormData($("#upload-video-form")[0]);
+        // var ele = $('#video')[0];
+
+        // var form = new FormData();
+        // if (!ele.files[0]) {
+        //     return;
+        // }
+        //form.append('video', ele.files[0]);
+
         $.ajax({
             url: url + "/courseImage",
             type: "POST",
-            data: formData,
+            data: fd,
             enctype: 'multipart/form-data',
             processData: false,
             contentType: false,
@@ -75,12 +82,13 @@ function adduser() {
                 $.ajax({
                     url: url + "/courseVideo",
                     type: "POST",
-                    data: form,
+                    data: fd2,
                     enctype: 'multipart/form-data',
                     processData: false,
                     contentType: false,
                     cache: false,
                     success: function (data) {
+
                         if (data != "") {
                             video = data;
                         }
@@ -109,6 +117,7 @@ function adduser() {
                                 traditional: true,
                             }
                         )
+
 
                     },
                     error: function (xhr) {

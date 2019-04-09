@@ -454,4 +454,14 @@ function search() {
 
 }
 
+function shouli(){
+    alert("受理成功！");
+}
 
+function jieqia(){
+    alert("接洽成功！");
+}
+
+function jiean(){
+    alert("结案成功！");
+}

@@ -65,7 +65,7 @@
     <div class="admin-content-body">
         <div class="am-cf am-padding am-padding-bottom-0">
             <div class="am-fl am-cf">
-                <strong class="am-text-primary am-text-lg">合同管理</strong> /
+                <strong class="am-text-primary am-text-lg">文档管理</strong> /
 
             </div>
         </div>
@@ -74,7 +74,7 @@
 
         <div class="am-tabs am-margin" data-am-tabs>
             <ul class="am-tabs-nav am-nav am-nav-tabs">
-                <li class="am-active"><a href="#tab1">修改合同</a></li>
+                <li class="am-active"><a href="#tab1">修改文档</a></li>
 
             </ul>
 
@@ -101,8 +101,18 @@
                         </div>
                     </div>
 
+                    <form id="upload-file-form1">
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">封面图片</div>
+                            <div class="am-u-sm-8 am-u-md-10">
+                                <input type="file" name="image" id="image"><br>
+                            </div>
+
+                        </div>
+                    </form>
+
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">合同名称</div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">作者名</div>
                         <div class="am-u-sm-8 am-u-md-10">
                             <input id="writerName" type="text" value="">
                         </div>
@@ -112,6 +122,13 @@
                         <div class="am-u-sm-4 am-u-md-2 am-text-right">日期</div>
                         <div class="am-u-sm-8 am-u-md-10">
                             <input id="date" type="text" value="">
+                        </div>
+                    </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">价格</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <input id="price" type="text" value="">
                         </div>
                     </div>
 

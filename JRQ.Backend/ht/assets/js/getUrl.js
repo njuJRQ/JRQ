@@ -11,5 +11,5 @@ function getToken(){
     return token;
 }
 function getPicUrl(){
-    return picUrl
+    return picUrl;
 }

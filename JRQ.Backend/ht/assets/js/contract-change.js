@@ -4,6 +4,7 @@ var storage = window.localStorage;
 var id=storage["thisDocument"];
 var path;
 var attachment="";
+
 $.ajax(
     {
         url: url+"/getDocument",
@@ -18,6 +19,7 @@ $.ajax(
             document.getElementById("writerName").value=data.document.writerName;
             document.getElementById("date").value=data.document.date;
             document.getElementById("likeNum").value=data.document.likeNum;
+            document.getElementById("price").value=data.document.price;
             path="../"+data.document.attachment;
             attachment=data.document.attachment;
         },
@@ -43,7 +45,7 @@ function changeFile(){
     if(checkRate("likeNum")) {
         $("#loader").show();
         var fd = new FormData($("#upload-file-form")[0]);
-
+        var fd1 = new FormData($("#upload-file-form1")[0]);
         $.ajax({
             url: url + "/uploadDocument",
             type: "POST",
@@ -53,33 +55,59 @@ function changeFile(){
             contentType: false,
             cache: false,
             success: function (data) {
-                if(data!="") {
+                if (data != "") {
                     attachment = data;
                 }
-                $("#loader").hide();
-                $.ajax(
-                    {
-                        url: url + "/updateDocument",
-                        data: {
-                            id: id,
-                            title: $("#title").val(),
-                            content: $("#content").val(),
-                            attachment:attachment,
-                            writerName: $("#writerName").val(),
-                            date: $("#date").val(),
-                            likeNum: $("#likeNum").val()
-                        },
-                        async: false,
-                        success: function (data) {
-                            alert("修改成功");
-                            window.location.href = "contract.html";
-                        },
-                        error: function (xhr) {
-                            alert('动态页有问题噶！\n\n' + xhr.responseText);
-                        },
-                        traditional: true,
+
+                $.ajax({
+                    url: url + "/documentImage",
+                    type: "POST",
+                    data: fd1,
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    success: function (d) {
+                        if (d != "") {
+                            image = d;
+                        }
+                        $("#loader").hide();
+                        $.ajax(
+                            {
+                                url: url + "/updateDocument",
+                                data: {
+                                    id:id,
+                                    title: $("#title").val(),
+                                    content: $("#content").val(),
+                                    attachment: attachment,
+                                    image: image,
+                                    writerName: $("#writerName").val(),
+                                    price: $("#price").val(),
+                                    likeNum:$("#likeNum").val()
+                                },
+                                async: false,
+                                success: function (data) {
+                                    alert("修改成功");
+                                    window.location.href = "contract.html";
+                                },
+                                error: function (xhr) {
+                                    //alert('动态页有问题噶！\n\n' + xhr.responseText);
+                                },
+                                traditional: true,
+                            }
+                        )
+
+                    },
+                    error: function (xhr) {
+                        $("#loader").hide();
+
+                        //alert(xhr.responseText);
+                        // Handle upload error
+                        // ...
                     }
-                )
+                });
+
+
             },
             error: function (xhr) {
                 $("#loader").hide();
@@ -88,8 +116,5 @@ function changeFile(){
                 // ...
             }
         });
-
-
-
     }
 }

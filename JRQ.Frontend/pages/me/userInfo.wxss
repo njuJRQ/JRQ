@@ -387,6 +387,7 @@
 
 .publish_image {
   width: 25px;
+  height: 20px;
 }
 
 /*底部弹出层*/

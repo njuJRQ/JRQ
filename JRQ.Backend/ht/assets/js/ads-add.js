@@ -18,7 +18,7 @@ function adduser() {
 
     var url = getUrl();
     $.ajax({
-        url: url + "/uploadAd",
+        url: url + "/upload",
         type: "POST",
         data: fd,
         enctype: 'multipart/form-data',
@@ -26,12 +26,13 @@ function adduser() {
         contentType: false,
         cache: false,
         async: false,
-        success: function () {
+        success: function (data) {
             $.ajax(
                 {
                     url: url + "/addAd",
                     data: {
                         link:$("#link").val(),
+                        image:data,
                         showPlace:showPlace
                     },
                     async: false,

@@ -992,7 +992,7 @@ function getUserHistoryAbstractList(myOpenid, otherOpenid) {
 
       that.data.myArticles.forEach((article) => {
         article.writerFace = app.globalData.picUrl + article.writerFace
-        // article.images = article.images.map((image) => app.globalData.picUrl + image)
+        article.images = article.images.map((image) => app.globalData.picUrl + image)
       })
       that.setData(that.data)
     }

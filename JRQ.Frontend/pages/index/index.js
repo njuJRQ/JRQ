@@ -53,6 +53,7 @@ Page({
     isShowPrice: true,
     height: 290,
     height_video: 400,
+    ad: '',
     image: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
     cards: [{
         thumbnail: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
@@ -112,7 +113,7 @@ Page({
 
     api.getAd.call(this, 'index', (res) => {
       this.setData({
-        ad: res.ad
+        ad: res.ad.image
       })
     })
   },

@@ -1,6 +1,7 @@
 var url=getUrl();
 var storage = window.localStorage;
 var id=storage["thisAd"];
+var image="";
 $.ajax(
     {
         url: url+"/getAd",
@@ -20,6 +21,7 @@ $.ajax(
             else if(data.ad.showPlace=="jump"){
                 document.getElementById("showPlace").value="弹窗";
             }
+            image=data.ad.image;
         },
         error: function (xhr) {
             alert('动态页有问题噶！\n\n' + xhr.responseText);
@@ -29,21 +31,6 @@ $.ajax(
 )
 function adduser() {
     var url=getUrl();
-    $.ajax(
-        {
-            url: url+"/deleteAd",
-            data: {
-                id:id
-            },
-            async:false,
-            success: function (data) {
-            },
-            error: function (xhr) {
-                alert('动态页有问题噶！\n\n' + xhr.responseText);
-            },
-            traditional: true,
-        }
-    )
     var fd = new FormData($("#upload-file-form")[0]);
     var obj1 = document.getElementById("showPlace"); //定位id
     var index1 = obj1.selectedIndex; // 选中索引
@@ -58,7 +45,7 @@ function adduser() {
         showPlace="jump";
     }
     $.ajax({
-        url: url + "/uploadAd",
+        url: url + "/upload",
         type: "POST",
         data: fd,
         enctype: 'multipart/form-data',
@@ -66,11 +53,16 @@ function adduser() {
         contentType: false,
         cache: false,
         async: false,
-        success: function () {
+        success: function (data) {
+            if(data!=""){
+                image=data;
+            }
             $.ajax(
                 {
-                    url: url + "/addAd",
+                    url: url + "/updateAd",
                     data: {
+                        id:id,
+                        image:image,
                         link:$("#link").val(),
                         showPlace:showPlace
                     },

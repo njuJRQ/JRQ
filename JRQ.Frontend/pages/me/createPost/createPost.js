@@ -44,7 +44,7 @@ Page({
     var that = this
     const ctx = wx.createCanvasContext('shareCanvas') //画布大小为600x900
     // 底图
-    ctx.drawImage('http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/%E4%B8%AA%E4%BA%BA/post_template.jpg', 0, 0, 600, 600)
+    ctx.drawImage('http://take-out.oss-cn-hangzhou.aliyuncs.com/111.jpg?Expires=1554803097&OSSAccessKeyId=TMP.AQHEyGmj95v7Pxgt-iejeYD9wRjjsaJiRK6CxdW9nzWpXUXFmR9iCjL09_F1ADAtAhUAx4MPGDAzRsUO3pXY1t_ceEeX7vwCFDvlqYDDHaGe7f64PpR5qinkqTeb&Signature=jbVMg4weyMd0vuuDHYBNi1LHM9I%3D', 0, 0, 600, 600)
     //ctx.setFillStyle('#F5F6FD')
     ctx.setFillStyle('#FFF')
     ctx.fillRect(0, 600, 600, 300)
@@ -54,7 +54,8 @@ Page({
     ctx.setTextAlign('left')    // 文字靠左
     ctx.setFillStyle('#000')  // 文字颜色：黑色
     ctx.setFontSize(25)
-    ctx.fillText(this.data.myInfo.username + " 为您推荐", leftMargin + 100, 700)
+    ctx.fillText("长按识别小程序", leftMargin + 100, 685)
+    ctx.fillText(this.data.myInfo.username + " 为您推荐", leftMargin + 100, 720)
     ctx.drawImage(this.data.faceTempUrl, leftMargin, 650, 80, 80)
     // Title
     ctx.setFontSize(40)         // 文字字号：22px

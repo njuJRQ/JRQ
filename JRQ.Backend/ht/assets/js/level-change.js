@@ -1,12 +1,12 @@
 
 var storage=window.localStorage;
-var thisname=storage["thisLevelName"];
+var thisName=storage["thisLevelName"];
 var thisCardLimit=storage["thisLevelCardLimit"];
 var thisPrice=storage["thisLevelPrice"];
 var thisCourseDiscountedRatio=storage["thisCourseDiscountedRatio"];
 var thisCheckCardPrice=storage["thisCheckCardPrice"];
 var url=getUrl();
-document.getElementById("name").innerText=thisname;
+document.getElementById("name").innerText=thisName;
 document.getElementById("cardLimit").value=thisCardLimit;
 document.getElementById("price").value=thisPrice;
 document.getElementById("courseDiscountedRatio").value=thisCourseDiscountedRatio;
@@ -24,7 +24,6 @@ function checkRate(input) {
 }
 document.getElementById("ad").onclick=function() {
     if(checkRate("cardLimit")&&checkRate("price")&&checkRate("courseDiscountedRatio")&&checkRate("checkCardPrice")) {
-        var name = $("#name").val();
         var cardLimit = $("#cardLimit").val();
         var price = $("#price").val();
         var courseDiscountedRatio=$("#courseDiscountedRatio").val();

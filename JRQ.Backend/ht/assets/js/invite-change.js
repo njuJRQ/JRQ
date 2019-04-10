@@ -70,7 +70,7 @@ function changeFile() {
             cache: false,
             async: false,
             success: function (data) {
-                alert("添加成功");
+                alert("修改成功");
                 window.location.href = "invite.html";
             },
             error: function (xhr) {

@@ -36,7 +36,7 @@ public class AdController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public void uploadAd(@RequestParam("face")MultipartFile face){
+    public String uploadAd(@RequestParam("face")MultipartFile face){
         Map<String,Object> map= new HashMap<String,Object>();
         if(face.isEmpty()){
             map.put( "result", "error");
@@ -70,22 +70,8 @@ public class AdController {
             }
 
 
+
         }
-    }
-
-
-    @ApiOperation(value = "添加广告", notes = "添加广告")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "link", value = "广告导向的链接", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "showPlace", value = "广告导向的链接", required = true, dataType = "String")
-    })
-    @RequestMapping(value = "/addAd", method = RequestMethod.GET)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
-            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
-            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
-    @ResponseBody
-    public ResponseEntity<Response> addAd(@RequestParam(name="link")String link,@RequestParam(name="showPlace")String showPlace) {
         File file = new File(headPath);
         String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
         String[] temp=headPath.split("\\.");
@@ -114,8 +100,24 @@ public class AdController {
         if (file.exists() && file.isFile()) {
             file.delete();
         }
-        headPath="";
-        return new ResponseEntity<>(adBlService.addAd(thePath,link,showPlace), HttpStatus.OK);
+        return thePath;
+    }
+
+
+    @ApiOperation(value = "添加广告", notes = "添加广告")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "link", value = "广告导向的链接", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "image", value = "广告图片URL", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "showPlace", value = "广告导向的链接", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/addAd", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = EventLoadResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
+            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+    @ResponseBody
+    public ResponseEntity<Response> addAd(@RequestParam(name="link")String link,@RequestParam(name="image")String image,@RequestParam(name="showPlace")String showPlace) {
+        return new ResponseEntity<>(adBlService.addAd(image,link,showPlace), HttpStatus.OK);
     }
 
     @ApiOperation(value = "根据广告ID获取广告", notes = "根据广告ID获取广告")
@@ -185,6 +187,7 @@ public class AdController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> updateAd(@RequestParam(name="id")String id,@RequestParam(name="image")String image,@RequestParam(name="link")String link,@RequestParam(name="showPlace")String showPlace) throws NotExistException {
+
         return new ResponseEntity<>(adBlService.updateAd(id,image,link,showPlace), HttpStatus.OK);
     }
 

@@ -29,10 +29,33 @@ Page({
     tagList: ['内构重组', '短融过桥', '大宗交易', '银行业务']
   },
 
+  onPullDownRefresh: function (options){
+    var condition = true
+    api.getIOSQualification.call(this, (res) => {
+      console.log(res)
+      condition = res
+      if (!condition) {
+        this.setData({
+          isShow: false
+        })
+      }
+    })
+  
+      var that = this
+      this.data.isGetOtherInfo = false
+      api.getMyInfo.call(this, app.getOpenid()) //获取个人信息
+      api.getUserHistoryAbstractList.call(this, app.getOpenid(), app.getOpenid()) //获取个人历史文章列表信息
+  
+    api.getMyCardLimits.call(this, app.getOpenid())
+    this.getCard()
+    this.mutualCard()
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    
     var condition = true
     api.getIOSQualification.call(this, (res) => {
       console.log(res)

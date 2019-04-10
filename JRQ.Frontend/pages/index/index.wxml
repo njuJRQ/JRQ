@@ -13,7 +13,7 @@
   <!--广告位-->
   <!-- <template class='ad' is='adBar' data='{{ad}}'></template> -->
   <view class='banner'>
-    <image class='banner_img' mode='widthFix' src='https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E6%84%9F%E8%B0%A2%E6%9C%89%E4%BD%A0%20%E4%BC%9A%E5%91%98%E4%B8%93%E4%BA%AB.png'></image>
+    <image class='banner_img' mode='widthFix' src='{{ad}}'></image>
   </view>
   <view class='adBar_btn'>
   </view>

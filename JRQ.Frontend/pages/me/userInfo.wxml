@@ -94,8 +94,11 @@
 
   <view class='publish_project' bindtap='onPublish'>
     <text class='publish_text'>发布项目</text>
-    <image class='publish_image' mode='widthFix' src='img/publish.png'></image>
+    <view bindtap='onPublish'>
+    <image class='publish_image' src='img/publish.png' ></image>
+    </view>
   </view>
+
   <view class='project_bar'>
     <view wx:for='{{myArticles}}' wx:key='id'>
       <template is='articleItem' data='{{item}}'></template>

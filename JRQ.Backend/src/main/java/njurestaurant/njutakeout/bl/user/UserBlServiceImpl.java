@@ -425,47 +425,47 @@ public class UserBlServiceImpl implements UserBlService {
     public BoolResponse sendMyCard(String senderOpenid, String receiverOpenid, String page, String formId, String data, String emphasisKeyword) {
         boolean flag = userDataService.addSendCard(new SendCard(senderOpenid, receiverOpenid, false));
         if (flag) { //若原先SendCard不存在，则发送模板消息
-//			RestTemplate client = new RestTemplate();
-//
-//			//获取accessToken
-//			String accessToken = null;
-//			HttpHeaders headers = new HttpHeaders();
-//			headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-//			HttpEntity<String> entity = new HttpEntity<>("", headers);
-//			ResponseEntity<String> response = client.exchange(
-//					"https://api.weixin.qq.com/cgi-bin/token?" + "&grant_type=client_credential&appid="+ appId + "&secret=" + appSecret, HttpMethod.GET, entity, String.class);
-//			if (response.getStatusCode() == HttpStatus.OK) {
-//				accessToken = (String)JSONObject.fromObject(response.getBody()).get("access_token");
-//			} else {
-//				System.err.println(response);
-//				return new BoolResponse(false, "access_token获取失败("+response+")");
-//			}
-//
-//			//使用accessToken发送模板消息
-//			String wxQrCodeUrl = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token="+accessToken;
-//			Map<String,Object> wxMsgParams = new HashMap<>();
-//			wxMsgParams.put("touser", receiverOpenid);
-//			wxMsgParams.put("template_id", "NJoOn_GhBn_u_CvYSzfx1lxOO06iSrVPdFAdGqPWc4c");
-//			wxMsgParams.put("page", page);
-//			wxMsgParams.put("form_id", formId);
-//			wxMsgParams.put("data", data);
-//			wxMsgParams.put("emphasis_keyword", emphasisKeyword);
-//			MultiValueMap<String, String> wxQrCodeHeaders = new LinkedMultiValueMap<>();
-//			HttpEntity<Object> wxMsgRequest = new HttpEntity<>(wxMsgParams, wxQrCodeHeaders);
-//			ResponseEntity<String> wxMsgResponse = client.exchange(wxQrCodeUrl, HttpMethod.POST, wxMsgRequest, String.class);
-//
-//			//检查请求结果
-//			if (wxMsgResponse.getStatusCode()==HttpStatus.OK) {
-//				JSONObject result = JSONObject.fromObject(wxMsgResponse.getBody());
-//				if (String.valueOf(result.get("errcode")).equals("0")) {
-//					return new BoolResponse(true, wxMsgResponse.getBody());
-//				} else {
-//					return new BoolResponse(false, wxMsgResponse.getBody());
-//				}
-//			} else {
-//				return new BoolResponse(false, "后台请求失败");
-//			}
-            return new BoolResponse(true, "发送成功");
+			RestTemplate client = new RestTemplate();
+
+			//获取accessToken
+			String accessToken = null;
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+			HttpEntity<String> entity = new HttpEntity<>("", headers);
+			ResponseEntity<String> response = client.exchange(
+					"https://api.weixin.qq.com/cgi-bin/token?" + "&grant_type=client_credential&appid="+ appId + "&secret=" + appSecret, HttpMethod.GET, entity, String.class);
+			if (response.getStatusCode() == HttpStatus.OK) {
+				accessToken = (String)JSONObject.fromObject(response.getBody()).get("access_token");
+			} else {
+				System.err.println(response);
+				return new BoolResponse(false, "access_token获取失败("+response+")");
+			}
+
+			//使用accessToken发送模板消息
+			String wxQrCodeUrl = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token="+accessToken;
+			Map<String,Object> wxMsgParams = new HashMap<>();
+			wxMsgParams.put("touser", receiverOpenid);
+			wxMsgParams.put("template_id", "NJoOn_GhBn_u_CvYSzfx1lxOO06iSrVPdFAdGqPWc4c");
+			wxMsgParams.put("page", page);
+			wxMsgParams.put("form_id", formId);
+			wxMsgParams.put("data", data);
+			wxMsgParams.put("emphasis_keyword", emphasisKeyword);
+			MultiValueMap<String, String> wxQrCodeHeaders = new LinkedMultiValueMap<>();
+			HttpEntity<Object> wxMsgRequest = new HttpEntity<>(wxMsgParams, wxQrCodeHeaders);
+			ResponseEntity<String> wxMsgResponse = client.exchange(wxQrCodeUrl, HttpMethod.POST, wxMsgRequest, String.class);
+
+			//检查请求结果
+			if (wxMsgResponse.getStatusCode()==HttpStatus.OK) {
+				JSONObject result = JSONObject.fromObject(wxMsgResponse.getBody());
+				if (String.valueOf(result.get("errcode")).equals("0")) {
+					return new BoolResponse(true, wxMsgResponse.getBody());
+				} else {
+					return new BoolResponse(false, wxMsgResponse.getBody());
+				}
+			} else {
+				return new BoolResponse(false, "后台请求失败");
+			}
+            //return new BoolResponse(true, "发送成功");
         } else {
             return new BoolResponse(false, "已经发送过名片，无需重复发送");
         }

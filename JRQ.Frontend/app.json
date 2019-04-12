@@ -20,7 +20,6 @@
     "pages/me/myHistory/myHistory",
     "pages/articleDetail/courseDetail/courseDetail",
     "pages/articleDetail/documentDetail/documentDetail",
-    "pages/articleDetail/projectDetail/projectDetail",
     "pages/articleDetail/contractDetail/contractDetail",
     "pages/me/publishMyArticle/publishMyArticle",
     "pages/login/login",

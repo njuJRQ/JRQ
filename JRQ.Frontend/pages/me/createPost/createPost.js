@@ -44,7 +44,7 @@ Page({
     var that = this
     const ctx = wx.createCanvasContext('shareCanvas') //画布大小为600x900
     // 底图
-    ctx.drawImage('http://take-out.oss-cn-hangzhou.aliyuncs.com/123.jpg?Expires=1555048571&OSSAccessKeyId=TMP.AQF2BB9IWwfvxsHZ5Q6mY7xIQuRxGDQlj8qKMjQj2zxx1DhwTri_ua4Dq-AiMC4CFQDPJ7rGwODsBwJv3GtfNZcZUYWXHAIVANN2nw7kK25umUUHIKS1-9y4iDYZ&Signature=EAQTVTdOI9EuHqmuKHl2aYEBWfE%3D', 0, 0, 600, 600)
+    ctx.drawImage('../../../img/poster.jpg', 0, 0, 600, 600)
     //ctx.setFillStyle('#F5F6FD')
     ctx.setFillStyle('#FFF')
     ctx.fillRect(0, 600, 600, 300)
@@ -56,6 +56,7 @@ Page({
     ctx.setFontSize(25)
     ctx.fillText("长按识别小程序", leftMargin + 100, 685)
     ctx.fillText(this.data.myInfo.username + " 为您推荐", leftMargin + 100, 720)
+    // ctx.fillText(this.data.myInfo.username + " 为您推荐", leftMargin + 100, 700)
     ctx.drawImage(this.data.faceTempUrl, leftMargin, 650, 80, 80)
     // Title
     ctx.setFontSize(40)         // 文字字号：22px

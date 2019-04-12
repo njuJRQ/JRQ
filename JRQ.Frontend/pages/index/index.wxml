@@ -55,7 +55,7 @@
           <view class='bottom'>
             <view class='document_bottom1' wx-if="{{isShowPrice}}">
               <text class='fees'>{{item.price}}元</text>
-              <text class='vip'>会员免费</text>
+              <text class='vip'>会员特价</text>
             </view>
             <view class='preview'>预览</view>
           </view>

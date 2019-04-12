@@ -14,7 +14,8 @@
         <text class='text'>{{item.text_tex}}</text>
       </view>
       <view>
-        <text class='text'>{{item.time}}</text>
+        <text class='text'>{{item.time1}}</text>
+        <text class='text'>{{item.time2}}</text>
       </view>
       <!-- 合作申请 -->
       <view style='text-align: center'>

@@ -210,11 +210,11 @@ Page({
         if (articles.length <= 0) {
           return
         }
-
+        
         articles.forEach((article) => {
-          article.image = app.globalData.picUrl + article.image;
+          article.image = app.globalData.picUrl+article.image
         })
-        var newArticles = that.data.articles.concat(articles)
+        var newArticles = articles
         that.setData({
           articles: newArticles
         })

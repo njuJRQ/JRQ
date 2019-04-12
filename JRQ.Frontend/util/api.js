@@ -57,11 +57,10 @@ function getAbstractListVideo(kind, openid, lastId, lastIdType) {
       videos.forEach((article) => {
         article.images = article.images.map((image) => app.globalData.picUrl + image)
         article.writerFace = app.globalData.picUrl + article.writerFace
-
+        
       })
       that.data.videos = that.data.videos.concat(videos)
       that.data.lastId = videos[videos.length - 1].id
-
       that.data.lastIdType = videos[videos.length - 1].kind
       console.log(that.data.lastIdType)
       that.setData(that.data)

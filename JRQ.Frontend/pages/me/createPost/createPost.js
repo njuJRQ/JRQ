@@ -44,7 +44,7 @@ Page({
     var that = this
     const ctx = wx.createCanvasContext('shareCanvas') //画布大小为600x900
     // 底图
-    ctx.drawImage('http://take-out.oss-cn-hangzhou.aliyuncs.com/111.jpg?Expires=1554803097&OSSAccessKeyId=TMP.AQHEyGmj95v7Pxgt-iejeYD9wRjjsaJiRK6CxdW9nzWpXUXFmR9iCjL09_F1ADAtAhUAx4MPGDAzRsUO3pXY1t_ceEeX7vwCFDvlqYDDHaGe7f64PpR5qinkqTeb&Signature=jbVMg4weyMd0vuuDHYBNi1LHM9I%3D', 0, 0, 600, 600)
+    ctx.drawImage('http://take-out.oss-cn-hangzhou.aliyuncs.com/123.jpg?Expires=1555048571&OSSAccessKeyId=TMP.AQF2BB9IWwfvxsHZ5Q6mY7xIQuRxGDQlj8qKMjQj2zxx1DhwTri_ua4Dq-AiMC4CFQDPJ7rGwODsBwJv3GtfNZcZUYWXHAIVANN2nw7kK25umUUHIKS1-9y4iDYZ&Signature=EAQTVTdOI9EuHqmuKHl2aYEBWfE%3D', 0, 0, 600, 600)
     //ctx.setFillStyle('#F5F6FD')
     ctx.setFillStyle('#FFF')
     ctx.fillRect(0, 600, 600, 300)

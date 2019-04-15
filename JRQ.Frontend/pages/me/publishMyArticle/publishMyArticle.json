@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "发布项目",
+  "navigationBarTitleText": "发布圈子",
     "usingComponents": {
       "selector": "/pages/selector/selector"
     }

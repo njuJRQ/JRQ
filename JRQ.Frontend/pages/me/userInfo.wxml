@@ -57,7 +57,7 @@
       <view class='coin'>
         <text style='text-align:center;font-size:16px;'>钧融币</text>
         <text style='text-align:center;font-size:16px;'>{{myInfo.credit}}</text>
-        <button class='will'>财富</button>
+        <button class='will'>功能开发中</button>
       </view>
     </view>
     <view class='publish'>
@@ -93,7 +93,7 @@
     </view> -->
 
   <view class='publish_project' bindtap='onPublish'>
-    <text class='publish_text'>发布项目</text>
+    <text class='publish_text'>发布圈子</text>
     <view bindtap='onPublish'>
     <image class='publish_image' src='img/publish.png' ></image>
     </view>

@@ -50,10 +50,19 @@
         </picker>
       </view> -->
       <!-- <view class='div-line'></view> -->
-      <view class='info'>
-        <text class='info__key' bindtap='letShowUserTagsModal'>关注领域</text>
+      <view class='info' bindtap='letShowUserTagsModal'>
+        <text class='info__key'>关注领域</text>
         <!-- 用户标签列表，模态框 -->
-        <modal wx:if="{{showUserTagsModal}}" height='60%' title="用户标签选择(至多三项)" bindcancel="userTagsModalCancel" bindconfirm='userTagsModalConfirm1'>
+        <view class='container'>
+          <view class='tag-wrapper'>
+            <view wx:for="{{newMyInfo.label}}" wx:key="index" class="tag-item-wrapper">
+              <text class="tag-item">{{item}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <modal wx:if="{{showUserTagsModal}}" height='60%' title="用户标签选择(至多三项)" bindcancel="userTagsModalCancel" bindconfirm='userTagsModalConfirm1'>
           <view class='container'>
             <view class='tag-wrapper'>
               <view wx:for="{{userTag1}}" wx:key="index" class='tag-item-wrapper'>
@@ -63,19 +72,20 @@
           </view>
         </modal>
 
-        <view class='container' bindtap='letShowUserTagsModal'>
+      <view class='info' bindtap='letShowUserTagsModal2'>
+        <text class='info__key' >业务标签</text>
+        <!-- 用户标签列表，模态框 -->
+
+        <view class='container'>
           <view class='tag-wrapper'>
-            <view wx:for="{{newMyInfo.label}}" wx:key="index" class="tag-item-wrapper">
+            <view wx:for="{{newMyInfo.label2}}" wx:key="index" class="tag-item-wrapper">
               <text class="tag-item">{{item}}</text>
             </view>
           </view>
         </view>
       </view>
 
-      <view class='info'>
-        <text class='info__key' bindtap='letShowUserTagsModal2'>业务标签</text>
-        <!-- 用户标签列表，模态框 -->
-        <modal wx:if="{{showUserTagsModal2}}" height='60%' title="用户标签选择(至多三项)" bindcancel="userTagsModalCancel" bindconfirm='userTagsModalConfirm2'>
+      <modal wx:if="{{showUserTagsModal2}}" height='60%' title="用户标签选择(至多三项)" bindcancel="userTagsModalCancel" bindconfirm='userTagsModalConfirm2'>
           <view class='container'>
             <view class='tag-wrapper'>
               <view wx:for="{{userTag2}}" wx:key="index" class='tag-item-wrapper'>
@@ -84,15 +94,6 @@
             </view>
           </view>
         </modal>
-
-        <view class='container' bindtap='letShowUserTagsModal2'>
-          <view class='tag-wrapper'>
-            <view wx:for="{{newMyInfo.label2}}" wx:key="index" class="tag-item-wrapper">
-              <text class="tag-item">{{item}}</text>
-            </view>
-          </view>
-        </view>
-      </view>
       <!-- <view class='div-line' bindtap='letShowUserTagsModal'></view> -->
       <view class='info'>
         <text class='info__key'>个人简介:</text>

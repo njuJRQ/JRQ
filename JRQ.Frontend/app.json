@@ -71,7 +71,7 @@
         "pagePath": "pages/projects/project",
         "iconPath": "img/xiangmu.png",
         "selectedIconPath": "img/xiangmu-icon.png",
-        "text": "项目"
+        "text": "圈子"
       },
       {
         "pagePath": "pages/contact/contact",

@@ -55,6 +55,7 @@ public class AbstractItem {
 		this.viewNum = course.getViewNum();
 		this.kind = "course";
 		this.hasLiked = hasLiked;
+		this.price=course.getPrice();
 	}
 
 	public AbstractItem(Document document, AdminDataService adminDataService, boolean hasLiked) {
@@ -73,6 +74,7 @@ public class AbstractItem {
 		this.likeNum = document.getLikeNum();
 		this.kind = "document";
 		this.hasLiked = hasLiked;
+		this.price=document.getPrice();
 	}
 
 	public AbstractItem(Project project, AdminDataService adminDataService, boolean hasLiked) {

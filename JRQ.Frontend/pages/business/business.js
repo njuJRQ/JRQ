@@ -63,7 +63,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    api.getAd.call(this, 'index', (res) => {
+    api.getAd.call(this, 'service', (res) => {
       this.setData({
         image: res.ad.image
       })

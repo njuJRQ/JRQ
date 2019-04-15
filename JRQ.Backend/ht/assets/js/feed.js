@@ -61,6 +61,7 @@ function deletequestion(n){
         $.ajax(
             {
                 url: url + "/deleteFeed",
+                type: 'POST',
                 data: {
                     id: q.id
                 },
@@ -224,6 +225,7 @@ function deletesingle(n){
     $.ajax(
         {
             url: url+"/deleteFeed",
+            type: 'POST',
             data: {
                 id:q.id
             },

@@ -239,6 +239,7 @@ public class PurchaseBlServiceImpl implements PurchaseBlService {
 					} catch (AlreadyExistException e) {
 						return new BoolResponse(false, e.getMessage());
 					}
+					break;
 				case "courseGroup":
 					try {
 						purchaseCourseDataService.addPurchaseCourse(new PurchaseCourse(openid, detail,true));

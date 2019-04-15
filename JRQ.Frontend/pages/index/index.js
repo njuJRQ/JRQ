@@ -54,6 +54,7 @@ Page({
     height: 290,
     height_video: 400,
     ad: '',
+    link:'',
     image: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
     cards: [{
         thumbnail: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
@@ -113,7 +114,8 @@ Page({
 
     api.getAd.call(this, 'index', (res) => {
       this.setData({
-        ad: res.ad.image
+        ad: res.ad.image,
+        link:res.ad.link
       })
     })
   },
@@ -128,10 +130,9 @@ Page({
   //点击广告跳转
   onAd: function() {
     wx.navigateTo({
-      url: '../ad/ad?url=' + this.data.ad.link
+      url: '../ad/ad?url=' + this.data.link
     })
   },
-
   moreAction: function() {
     var that = this;
 

@@ -12,7 +12,7 @@
   </view>
   <!--广告位-->
   <!-- <template class='ad' is='adBar' data='{{ad}}'></template> -->
-  <view class='banner'>
+  <view class='banner'  bindtap='onAd'>
     <image class='banner_img' mode='widthFix' src='{{ad}}'></image>
   </view>
   <view class='adBar_btn'>
@@ -46,8 +46,9 @@
       <view class='articleWrapper' wx:for='{{videos}}' wx:key='id'>
         <view class='article jrq__block' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
           <view class='article__content'>
-            <image class='article__banner' mode='widthFix' src='{{item.images.length > 0 ? item.images[0]: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png"}}'></image>
+          <image class='article__banner' mode='widthFix' src='{{item.images.length > 0 ? item.images[0]: "http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png"}}'></image>
           </view>
+          
           <view class='title_range'>
             <text class='article__titleName'>{{item.title}}</text>
             <text class='article__writerName'>{{item.writerName}}</text>

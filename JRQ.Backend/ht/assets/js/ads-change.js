@@ -54,7 +54,7 @@ function adduser() {
         cache: false,
         async: false,
         success: function (data) {
-            if(data!=""){
+            if(data!=''&&data!='上传文件不能为空'){
                 image=data;
             }
             $.ajax(

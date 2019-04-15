@@ -41,7 +41,8 @@
     "pages/particulars/contract/contract",
     "pages/particulars/association/association",
     "pages/selector/selector",
-    "pages/userTags/userTags"
+    "pages/userTags/userTags",
+    "pages/ad/ad"
   ],
   "window": {
     "backgroundTextStyle": "light",

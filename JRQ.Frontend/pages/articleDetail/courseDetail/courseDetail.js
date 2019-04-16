@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isClick:false,
     isShowPrice:true,
     course: {
       id: 1, //编号
@@ -54,6 +55,7 @@ Page({
     })
   },
 
+  
   //购买该课程
   onPurchase: function () {
     var that = this
@@ -71,10 +73,17 @@ Page({
           case "998": price = that.data.discount998 * price; break;
           default: break;
         }
-        that.data.course.price = price;
+        var is=that.data.isClick
+        if(is){
+        }
+        else{
+          that.data.course.price = price
+          that.data.isClick=true
+        }
+        
         wx.showModal({
           title: '确认购买',
-          content: '确认以' + price + '的价格购买\r\n' + that.data.course.title + '\r\n吗？',
+          content: '确认以' + that.data.course.price + '的价格购买\r\n' + that.data.course.title + '\r\n吗？',
           success: (res) => {
             if (res.confirm) {
               console.log(that.data.course.id)

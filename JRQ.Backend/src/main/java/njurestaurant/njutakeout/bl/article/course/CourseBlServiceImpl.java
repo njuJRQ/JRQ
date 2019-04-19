@@ -9,7 +9,6 @@ import njurestaurant.njutakeout.dataservice.purchase.PurchaseCourseDataService;
 import njurestaurant.njutakeout.dataservice.user.EnterpriseDataService;
 import njurestaurant.njutakeout.dataservice.user.UserDataService;
 import njurestaurant.njutakeout.entity.article.Course;
-import njurestaurant.njutakeout.entity.article.Feed;
 import njurestaurant.njutakeout.entity.article.LeaveWord;
 import njurestaurant.njutakeout.entity.purchase.PurchaseCourseKey;
 import njurestaurant.njutakeout.entity.user.Enterprise;
@@ -18,14 +17,14 @@ import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.course.CourseItem;
 import njurestaurant.njutakeout.response.article.course.CourseListResponse;
 import njurestaurant.njutakeout.response.article.course.CourseResponse;
-import njurestaurant.njutakeout.response.article.feed.FeedItem;
-import njurestaurant.njutakeout.response.article.leaveWord.LeaveWordItem;
 import njurestaurant.njutakeout.response.article.leaveWord.LeaveWordViewItem;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,9 +50,12 @@ public class CourseBlServiceImpl implements CourseBlService {
 	}
 
 	@Override
-	public InfoResponse addCourse(String title, String image, String writerName, long likeNum, String video, int price,boolean isTextualResearchCourse) {
-		String preview = generatePreviewVideo(video);
-		courseDataService.addCourse(new Course(title, image, writerName, System.currentTimeMillis(), likeNum, video, price, preview,0,isTextualResearchCourse,null));
+	public InfoResponse addCourse(String title, String detail,String image, String writerName, long likeNum, int price,boolean isTextualResearchCourse,List<String> videos) {
+		List<String> previews=new ArrayList<>();
+		for(String v:videos){
+			previews.add(generatePreviewVideo(v));
+		}
+		courseDataService.addCourse(new Course(title,detail, image, writerName, System.currentTimeMillis(), likeNum, "", price, "",0,isTextualResearchCourse,null,videos,previews));
 		return new InfoResponse();
 	}
 
@@ -95,7 +97,7 @@ public class CourseBlServiceImpl implements CourseBlService {
 	}
 
 	@Override
-	public InfoResponse updateCourse(String id, String title, String image, String writerName, long likeNum, String video, int price) throws NotExistException {
+	public InfoResponse updateCourse(String id, String title, String detail,String image, String writerName, long likeNum, int price) throws NotExistException {
 		Course course = courseDataService.getCourseById(id);
 		course.setTitle(title);
 		//若课程图片发生了变化，则删除旧图片
@@ -105,21 +107,23 @@ public class CourseBlServiceImpl implements CourseBlService {
 			}
 			course.setImage(image);
 		}
+		course.setDetail(detail);
 		course.setWriterName(writerName);
 		course.setTimeStamp(System.currentTimeMillis());
 		course.setLikeNum(likeNum);
 		//若课程视频发生了变化，则删除旧视频，并重新生成预览视频
-		if (!course.getVideo().equals(video)) {
-			if (! new File(course.getVideo()).delete()) {
-				System.err.println("课程视频"+course.getVideo()+"删除失败");
-			}
-			if (! new File(course.getPreview()).delete()) {
-				System.err.println("课程预览视频"+course.getPreview()+"删除失败");
-			}
-			course.setVideo(video);
-			course.setPreview(generatePreviewVideo(video));
-		}
+//		if (!course.getVideo().equals(video)) {
+//			if (! new File(course.getVideo()).delete()) {
+//				System.err.println("课程视频"+course.getVideo()+"删除失败");
+//			}
+//			if (! new File(course.getPreview()).delete()) {
+//				System.err.println("课程预览视频"+course.getPreview()+"删除失败");
+//			}
+//			course.setVideo(video);
+//			course.setPreview(generatePreviewVideo(video));
+//		}
 		course.setPrice(price);
+
 		courseDataService.saveCourse(course);
 		return new InfoResponse();
 	}

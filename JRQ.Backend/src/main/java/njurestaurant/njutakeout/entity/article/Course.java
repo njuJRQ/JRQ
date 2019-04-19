@@ -19,6 +19,9 @@ public class Course {
 	private String title;
 
 	@Column
+	private String detail;
+
+	@Column
 	private String image;
 
 	@Column
@@ -31,7 +34,7 @@ public class Course {
 	private long likeNum;
 
 	@Column
-	private String video;
+	private String video;//原有视频路径 但接下来将不在使用，但为了保留原来的数据，暂且保留
 
 	@Column
 	private int price;
@@ -50,11 +53,20 @@ public class Course {
 			fetch = FetchType.LAZY)
 	private List<CourseGroup> courseGroups;
 
+	@Column
+	@ElementCollection(targetClass = String.class)
+	private List<String> videos;
+
+	@Column
+	@ElementCollection(targetClass = String.class)
+	private List<String> previews;
+
 	public Course() {
 	}
 
-	public Course(String title, String image, String writerName, long timeStamp, long likeNum, String video, int price, String preview, long viewNum,boolean isTextualResearchCourse,List<CourseGroup> courseGroups) {
+	public Course(String title, String detail,String image, String writerName, long timeStamp, long likeNum, String video, int price, String preview, long viewNum,boolean isTextualResearchCourse,List<CourseGroup> courseGroups,List<String> videos,List<String> previews) {
 		this.title = title;
+		this.detail=detail;
 		this.image = image;
 		this.writerName = writerName;
 		this.timeStamp = timeStamp;
@@ -65,6 +77,8 @@ public class Course {
 		this.viewNum = viewNum;
 		this.isTextualResearchCourse=isTextualResearchCourse;
 		this.courseGroups=courseGroups;
+		this.videos=videos;
+		this.previews=previews;
 	}
 
 	public String getId() {
@@ -166,5 +180,29 @@ public class Course {
 
 	public void setCourseGroups(List<CourseGroup> courseGroups) {
 		this.courseGroups = courseGroups;
+	}
+
+	public List<String> getVideos() {
+		return videos;
+	}
+
+	public void setVideos(List<String> videos) {
+		this.videos = videos;
+	}
+
+	public List<String> getPreviews() {
+		return previews;
+	}
+
+	public void setPreviews(List<String> previews) {
+		this.previews = previews;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
 }

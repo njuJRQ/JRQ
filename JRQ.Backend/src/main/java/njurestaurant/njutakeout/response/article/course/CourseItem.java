@@ -2,6 +2,8 @@ package njurestaurant.njutakeout.response.article.course;
 
 import njurestaurant.njutakeout.entity.article.Course;
 
+import java.util.List;
+
 public class CourseItem {
 	private String id;
 	private String title;
@@ -15,6 +17,8 @@ public class CourseItem {
 	private long viewNum;
 	private boolean hasBought; //用户是否已经购买（管理员获取页面不应显示这个属性）
 	private boolean hasLiked; //用户是否已经点赞
+	private List<String> videos;
+	private List<String> previews;
 
 	//注意：管理员使用这个构造方法
 	public CourseItem(Course course){
@@ -30,6 +34,8 @@ public class CourseItem {
 		this.viewNum = course.getViewNum();
 		this.hasBought = true; //后台管理员只要能获取到这个Course，那么一定是有权限查看，就hasBought为true
 		this.hasLiked = false; //后台管理员不应显示这一项
+		this.videos=course.getVideos();
+		this.previews=course.getPreviews();
 	}
 
 	//注意：用户使用这个构造方法
@@ -50,6 +56,8 @@ public class CourseItem {
 		this.viewNum = course.getViewNum();
 		this.hasBought = hasBought;
 		this.hasLiked = hasLiked;
+		this.videos=course.getVideos();
+		this.previews=course.getPreviews();
 	}
 
 	public String getId() {
@@ -147,5 +155,21 @@ public class CourseItem {
 
 	public void setHasLiked(boolean hasLiked) {
 		this.hasLiked = hasLiked;
+	}
+
+	public List<String> getVideos() {
+		return videos;
+	}
+
+	public void setVideos(List<String> videos) {
+		this.videos = videos;
+	}
+
+	public List<String> getPreviews() {
+		return previews;
+	}
+
+	public void setPreviews(List<String> previews) {
+		this.previews = previews;
 	}
 }

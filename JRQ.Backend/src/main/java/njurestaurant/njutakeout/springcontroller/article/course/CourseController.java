@@ -15,10 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import static njurestaurant.njutakeout.util.FormatDateTime.toLongDateString;
 
@@ -188,11 +185,12 @@ public class CourseController {
     @ApiOperation(value = "添加课程", notes = "添加课程")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "title", value = "课程标题", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "detail", value = "课程详情", required = true, dataType = "String"),
             @ApiImplicitParam(name = "writerName", value = "作者名字", required = true, dataType = "String"),
             @ApiImplicitParam(name = "price", value = "课程价格", required = true, dataType = "int"),
             @ApiImplicitParam(name = "image", value = "image", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "video", value = "video", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "isTextualResearchCourse", value = "isTextualResearchCourse", required = true, dataType = "boolean")
+            @ApiImplicitParam(name = "isTextualResearchCourse", value = "isTextualResearchCourse", required = true, dataType = "boolean"),
+            @ApiImplicitParam(name = "videos", value = "videos", required = true, dataType = "List<String>")
     })
     @RequestMapping(value = "/addCourse", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -200,8 +198,8 @@ public class CourseController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> addCourse(@RequestParam(name="title")String title, @RequestParam(name="writerName")String writerName, @RequestParam(name="price")int price,@RequestParam(name="image")String image,@RequestParam(name="video")String video,@RequestParam(name="isTextualResearchCourse")boolean isTextualResearchCourse) {
-        ResponseEntity<Response> r=new ResponseEntity<>(courseBlService.addCourse(title,image,writerName,0,video,price,isTextualResearchCourse), HttpStatus.OK);
+    public ResponseEntity<Response> addCourse(@RequestParam(name="title")String title,@RequestParam(name="detail")String detail,  @RequestParam(name="writerName")String writerName, @RequestParam(name="price")int price,@RequestParam(name="image")String image,@RequestParam(name="isTextualResearchCourse")boolean isTextualResearchCourse,@RequestParam(name="videos")List<String> videos) {
+        ResponseEntity<Response> r=new ResponseEntity<>(courseBlService.addCourse(title,detail,image,writerName,0,price,isTextualResearchCourse,videos), HttpStatus.OK);
         return r;
     }
 
@@ -285,12 +283,12 @@ public class CourseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "课程id", required = true, dataType = "String"),
             @ApiImplicitParam(name = "title", value = "课程标题", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "detail", value = "课程详情", required = true, dataType = "String"),
             @ApiImplicitParam(name = "writerName", value = "作者名字", required = true, dataType = "String"),
             @ApiImplicitParam(name = "date", value = "发布日期", required = true, dataType = "String"),
             @ApiImplicitParam(name = "likeNum", value = "点赞数", required = true, dataType = "long"),
             @ApiImplicitParam(name = "price", value = "课程价格", required = true, dataType = "int"),
             @ApiImplicitParam(name = "image", value = "image", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "video", value = "video", required = true, dataType = "String")
     })
     @RequestMapping(value = "/updateCourse", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -298,12 +296,12 @@ public class CourseController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> updateCourse(@RequestParam(name="id")String id, @RequestParam(name="title")String title, @RequestParam(name="writerName")String writerName, @RequestParam(name="date")String date, @RequestParam(name="likeNum")long likeNum, @RequestParam(name="price")int price, @RequestParam(name="image")String image, @RequestParam(name="video")String video, HttpServletRequest request) throws NotExistException {
+    public ResponseEntity<Response> updateCourse(@RequestParam(name="id")String id, @RequestParam(name="title")String title,  @RequestParam(name="detail")String detail, @RequestParam(name="writerName")String writerName, @RequestParam(name="date")String date, @RequestParam(name="likeNum")long likeNum, @RequestParam(name="price")int price, @RequestParam(name="image")String image,HttpServletRequest request) throws NotExistException {
         //logger.log(time+ip+"update course "+id+title+)
         //"time:"+toLongDateString(new Date())+" ip:"+request.getRemoteAddr()+" update course"
         recordBlService.addRecord("time:"+toLongDateString(new Date())+" ip:"+request.getRemoteAddr()+" update course:"
-            +" id:"+id+" title:"+title+" writerName:"+writerName+" date:"+date+" likeNum:"+likeNum+" price:"+price+" image:"+image+" video:"+video);
-        ResponseEntity<Response> r= new ResponseEntity<>(courseBlService.updateCourse(id,title,image,writerName,likeNum,video,price), HttpStatus.OK);
+            +" id:"+id+" title:"+title+" writerName:"+writerName+" date:"+date+" likeNum:"+likeNum+" price:"+price+" image:"+image);
+        ResponseEntity<Response> r= new ResponseEntity<>(courseBlService.updateCourse(id,title,detail,image,writerName,likeNum,price), HttpStatus.OK);
         return r;
     }
 

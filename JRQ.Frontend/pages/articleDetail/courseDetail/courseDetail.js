@@ -17,7 +17,7 @@ Page({
       writerName: '锄禾日当午', //作者名字
       date: '2018-1-1', //日期
       likeNum: 999, //点赞数
-      video: 'http://www.w3school.com.cn/i/movie.ogg', //视屏url
+      videos: ['http://www.w3school.com.cn/i/movie.ogg'], //视屏url
       price: 998, //价格
     }
   },
@@ -69,8 +69,8 @@ Page({
         var price = that.data.course.price
         switch (res.levelName) {
           case "common": break;
-          case "298": price = that.data.discount298 * price; break;
-          case "998": price = that.data.discount998 * price; break;
+          case "298": price = parseInt(that.data.discount298 * price); break;
+          case "998": price = parseInt(that.data.discount998 * price); break;
           default: break;
         }
         var is=that.data.isClick

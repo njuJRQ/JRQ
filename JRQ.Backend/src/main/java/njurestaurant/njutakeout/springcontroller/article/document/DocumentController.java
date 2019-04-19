@@ -15,10 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import static njurestaurant.njutakeout.util.FormatDateTime.toLongDateString;
 
@@ -190,11 +187,12 @@ public class DocumentController {
     @ApiOperation(value = "添加文档", notes = "添加文档")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "title", value = "文档标题", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "detail", value = "文档详情", required = true, dataType = "String"),
             @ApiImplicitParam(name = "content", value = "文档内容", required = true, dataType = "String"),
             @ApiImplicitParam(name = "image", value = "图片路径", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "attachment", value = "附件路径", required = true, dataType = "String"),
             @ApiImplicitParam(name = "writerName", value = "作者名字", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "price", value = "价格", required = true, dataType = "String")
+            @ApiImplicitParam(name = "price", value = "价格", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "attachments", value = "附件路径列表", required = true, dataType = "List<String>")
     })
     @RequestMapping(value = "/addDocument", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -202,8 +200,8 @@ public class DocumentController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> addDocument(@RequestParam(name="title")String title, @RequestParam(name="content")String content, @RequestParam(name="image")String image, @RequestParam(name="attachment")String attachment,@RequestParam(name="writerName")String writerName, @RequestParam(name="price")String price) {
-        ResponseEntity<Response> r=new ResponseEntity<>(documentBlService.addDocument(title,content,image,attachment,writerName,Integer.parseInt(price),0,false), HttpStatus.OK);
+    public ResponseEntity<Response> addDocument(@RequestParam(name="title")String title,@RequestParam(name="detail")String detail, @RequestParam(name="content")String content, @RequestParam(name="image")String image, @RequestParam(name="writerName")String writerName, @RequestParam(name="price")String price,@RequestParam(name="attachments")List<String> attachments) {
+        ResponseEntity<Response> r=new ResponseEntity<>(documentBlService.addDocument(title,detail,content,image,"",writerName,Integer.parseInt(price),0,false,attachments), HttpStatus.OK);
         return r;
     }
 
@@ -223,7 +221,7 @@ public class DocumentController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
     public ResponseEntity<Response> addContract(@RequestParam(name="title")String title, @RequestParam(name="content")String content, @RequestParam(name="image")String image, @RequestParam(name="attachment")String attachment,@RequestParam(name="writerName")String writerName, @RequestParam(name="price")String price) {
-        ResponseEntity<Response> r=new ResponseEntity<>(documentBlService.addDocument(title,content,image,attachment,writerName,Integer.parseInt(price),0,true), HttpStatus.OK);
+        ResponseEntity<Response> r=new ResponseEntity<>(documentBlService.addDocument(title,"",content,image,attachment,writerName,Integer.parseInt(price),0,true,null), HttpStatus.OK);
         return r;
     }
 
@@ -267,6 +265,7 @@ public class DocumentController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "文档id", required = true, dataType = "String"),
             @ApiImplicitParam(name = "title", value = "文档标题", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "detail", value = "文档详情", required = true, dataType = "String"),
             @ApiImplicitParam(name = "content", value = "文档内容", required = true, dataType = "String"),
             @ApiImplicitParam(name = "image", value = "图片路径", required = true, dataType = "String"),
             @ApiImplicitParam(name = "attachment", value = "附件路径", required = true, dataType = "String"),
@@ -282,17 +281,17 @@ public class DocumentController {
     @ResponseBody
     public ResponseEntity<Response> updateDocument(@RequestParam(name="id")String id,
                                                    @RequestParam(name="title")String title,
+                                                   @RequestParam(name="detail")String detail,
                                                    @RequestParam(name="content")String content,
                                                    @RequestParam(name="image")String image,
-                                                   @RequestParam(name="attachment")String attachment,
                                                    @RequestParam(name="writerName")String writerName,
                                                    @RequestParam(name="price")String price,
                                                    @RequestParam(name="likeNum")String likeNum,
                                                    HttpServletRequest request) throws NotExistException {
 
         recordBlService.addRecord("time:"+toLongDateString(new Date())+" ip:"+request.getRemoteAddr()+" update document"+
-        " id:"+id+" title:"+title+" content:"+content+" attachment:"+attachment+" writerName:"+writerName+" price:"+price+" likeNum:"+likeNum);
-        ResponseEntity<Response> r= new ResponseEntity<>(documentBlService.updateDocument(id,title,content,image,attachment,writerName,Integer.parseInt(price),Long.parseLong(likeNum)), HttpStatus.OK);
+        " id:"+id+" title:"+title+" content:"+content+" attachment:"+" writerName:"+writerName+" price:"+price+" likeNum:"+likeNum);
+        ResponseEntity<Response> r= new ResponseEntity<>(documentBlService.updateDocument(id,title,detail,content,image,writerName,Integer.parseInt(price),Long.parseLong(likeNum)), HttpStatus.OK);
         return r;
     }
 

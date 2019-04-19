@@ -2,9 +2,12 @@ package njurestaurant.njutakeout.response.article.document;
 
 import njurestaurant.njutakeout.entity.article.Document;
 
+import java.util.List;
+
 public class DocumentItem {
 	private String id;//编号
 	private String title;//标题
+	private String detail;
 	private String content; //内容
 	private String image;//图片路径
 	private String attachment; //附件路径
@@ -15,11 +18,14 @@ public class DocumentItem {
 	private boolean hasLiked; //用户是否已经点赞
 	private String preview; //附件预览图（若附件为PDF则为图片路径，否则为空）
 	private boolean isContract;
+	private List<String> attachments;
+	private List<String> previews;
 
 	//注意：管理员调用这个构造方法
 	public DocumentItem(Document document){
 		this.id = document.getId();
 		this.title = document.getTitle();
+		this.detail=document.getDetail();
 		this.content = document.getContent();
 		this.image = document.getImage();
 		this.attachment = document.getAttachment();
@@ -29,12 +35,15 @@ public class DocumentItem {
 		this.likeNum = document.getLikeNum();
 		this.preview = document.getPreview();
 		this.isContract=document.isContract();
+		this.attachments=document.getAttachments();
+		this.previews=document.getPreviews();
 	}
 
 	//注意：用户调用这个构造方法
 	public DocumentItem(Document document, boolean hasLiked){
 		this.id = document.getId();
 		this.title = document.getTitle();
+		this.detail=document.getDetail();
 		this.content = document.getContent();
 		this.image = document.getImage();
 		this.attachment = document.getAttachment();
@@ -45,6 +54,8 @@ public class DocumentItem {
 		this.hasLiked = hasLiked;
 		this.preview = document.getPreview();
 		this.isContract=document.isContract();
+		this.attachments=document.getAttachments();
+		this.previews=document.getPreviews();
 	}
 
 	public String getId() {

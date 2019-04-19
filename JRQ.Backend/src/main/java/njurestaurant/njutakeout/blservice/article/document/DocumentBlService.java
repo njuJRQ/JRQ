@@ -4,21 +4,23 @@ import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.article.document.DocumentListResponse;
 import njurestaurant.njutakeout.response.article.document.DocumentResponse;
-import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 public interface DocumentBlService {
 	/**
 	 * 添加文档(Admin)
 	 * @param title 文档标题
+	 * @param detail 文档详情
 	 * @param content 文档内容
 	 * @param image 图片路径
-	 * @param attachment 文档附件路径
 	 * @param writerName 作者名字
 	 * @param price 价格
 	 * @param likeNum 点赞数
+	 * @param attachments 附件列表
 	 * @return 是否成功
 	 */
-	InfoResponse addDocument(String title, String content, String image, String attachment, String writerName, int price, long likeNum,boolean isContract);
+	InfoResponse addDocument(String title, String detail,String content, String image,String attachment,String writerName, int price, long likeNum,boolean isContract,List<String> attachments);
 
 	/**
 	 * 根据文档ID获取文档(Admin)
@@ -43,15 +45,16 @@ public interface DocumentBlService {
 	 * 根据文档ID修改文档(Admin)
 	 * @param id 文档ID
 	 * @param title 文档标题
+	 * @param detail 文档详情
 	 * @param content 文档内容
 	 * @param image 图片路径
-	 * @param attachment 文档附件路径
+	 *
 	 * @param writerName 作者名字
 	 * @param price 价格
 	 * @param likeNum 点赞数
 	 * @return 是否成功
 	 */
-	InfoResponse updateDocument(String id, String title, String content, String image, String attachment, String writerName, int price, long likeNum) throws NotExistException;
+	InfoResponse updateDocument(String id, String title, String detail ,String content, String image, String writerName, int price, long likeNum) throws NotExistException;
 
 	/**
 	 * 根据文档ID删除文档(Admin)

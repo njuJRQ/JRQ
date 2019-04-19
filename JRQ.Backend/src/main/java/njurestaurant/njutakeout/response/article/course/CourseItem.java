@@ -2,11 +2,13 @@ package njurestaurant.njutakeout.response.article.course;
 
 import njurestaurant.njutakeout.entity.article.Course;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CourseItem {
 	private String id;
 	private String title;
+	private String detail;
 	private String image;
 	private String writerName;
 	private String date;
@@ -24,6 +26,7 @@ public class CourseItem {
 	public CourseItem(Course course){
 		this.id = course.getId();
 		this.title = course.getTitle();
+		this.detail=course.getDetail();
 		this.image = course.getImage();
 		this.writerName = course.getWriterName();
 		this.date = course.getDate();
@@ -42,22 +45,30 @@ public class CourseItem {
 	public CourseItem(Course course, boolean hasBought, boolean hasLiked){
 		this.id = course.getId();
 		this.title = course.getTitle();
+		this.detail=course.getDetail();
 		this.image = course.getImage();
 		this.writerName = course.getWriterName();
 		this.date = course.getDate();
 		this.likeNum = course.getLikeNum();
+
 		if(hasBought) {
 			this.video = course.getVideo();
+            this.videos=course.getVideos();
+
 		} else {
+			List<String> tempVideos=new ArrayList<>();
 			this.video = course.getPreview();
+            for(int i=0;i<course.getVideos().size();i++){
+				tempVideos.add(course.getPreviews().get(i));
+            }
+            this.videos=tempVideos;
 		}
 		this.price = course.getPrice();
 		this.isTextualResearchCourse=course.isTextualResearchCourse();
 		this.viewNum = course.getViewNum();
 		this.hasBought = hasBought;
 		this.hasLiked = hasLiked;
-		this.videos=course.getVideos();
-		this.previews=course.getPreviews();
+
 	}
 
 	public String getId() {
@@ -171,5 +182,13 @@ public class CourseItem {
 
 	public void setPreviews(List<String> previews) {
 		this.previews = previews;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
 }

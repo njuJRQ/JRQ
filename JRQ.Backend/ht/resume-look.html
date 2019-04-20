@@ -28,7 +28,7 @@
     <div class="admin-content-body">
         <div class="am-cf am-padding am-padding-bottom-0">
             <div class="am-fl am-cf">
-                <strong class="am-text-primary am-text-lg">查看人员</strong> /
+                <strong class="am-text-primary am-text-lg">查看简历</strong> /
 
             </div>
         </div>
@@ -37,65 +37,66 @@
 
         <div class="am-tabs am-margin" data-am-tabs>
             <ul class="am-tabs-nav am-nav am-nav-tabs">
-                <li class="am-active"><a href="#tab1">查看人员</a></li>
+                <li class="am-active"><a href="#tab1">查看简历</a></li>
 
             </ul>
 
             <div class="am-tabs-bd">
                 <div class="am-tab-panel am-fade am-in am-active" id="tab1">
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">课程ID</div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">简历id</div>
                         <div id="id" class="am-u-sm-8 am-u-md-10"></div>
                     </div>
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">课程名称</div>
-                        <div id="title" class="am-u-sm-8 am-u-md-10"></div>
-                    </div>
-                    <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">课程详情</div>
-                        <div id="details" class="am-u-sm-8 am-u-md-10"></div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">姓名</div>
+                        <div id="expectPosition" class="am-u-sm-8 am-u-md-10"></div>
                     </div>
 
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">课程图片</div>
-                        <div class="am-u-sm-8 am-u-md-10"><img id="image" style="width: 200px;height: 200px;"></div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">年龄</div>
+                        <div id="age" class="am-u-sm-8 am-u-md-10"></div>
+                    </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">申请职位</div>
+                        <div id="expectWage" class="am-u-sm-8 am-u-md-10"></div>
+                    </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">职位id</div>
+                        <div id="positionId" class="am-u-sm-8 am-u-md-10"></div>
                     </div>
 
 
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">作者名称</div>
-                        <div id="writerName" class="am-u-sm-8 am-u-md-10"></div>
-                    </div>
-
-                    <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">日期</div>
-                        <div id="date" class="am-u-sm-8 am-u-md-10"></div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">学历</div>
+                        <div id="degree" class="am-u-sm-8 am-u-md-10"></div>
                     </div>
                 </div>
                 <div class="am-g am-margin-top">
-                    <div class="am-u-sm-4 am-u-md-2 am-text-right">点赞数</div>
-                    <div id="likeNum" class="am-u-sm-8 am-u-md-10"></div>
+                    <div class="am-u-sm-4 am-u-md-2 am-text-right">毕业院校</div>
+                    <div id="introduction" class="am-u-sm-8 am-u-md-10"></div>
                 </div>
 
-                <div id="videos" class="am-g am-margin-top">
-                    <div class="am-u-sm-4 am-u-md-2 am-text-right">课程视频</div>
-                    <div class="am-u-sm-8 am-u-md-10"><button type="button" onclick="look()">点击查看课程视频</button></div>
-                    <div class="am-u-sm-8 am-u-md-10"><button type="button" onclick="look()">点击查看课程视频</button></div>
-                    <div class="am-u-sm-8 am-u-md-10"><button type="button" onclick="look()">点击查看课程视频</button></div>
-                    <div class="am-u-sm-8 am-u-md-10"><button type="button" onclick="look()">点击查看课程视频</button></div>
+                <div class="am-g am-margin-top">
+                    <div class="am-u-sm-4 am-u-md-2 am-text-right">是否应届生</div>
+                    <div id="isFresh" class="am-u-sm-8 am-u-md-10"></div>
+                </div>
+
+                <div class="am-g am-margin-top">
+                    <div class="am-u-sm-4 am-u-md-2 am-text-right">实习经历</div>
+                    <div id="enterprise" class="am-u-sm-8 am-u-md-10"></div>
                 </div>
                 <div class="am-g am-margin-top">
-                    <div class="am-u-sm-4 am-u-md-2 am-text-right">价格</div>
-                    <div id="price" class="am-u-sm-8 am-u-md-10"></div>
+                    <div class="am-u-sm-4 am-u-md-2 am-text-right">教育经历</div>
+                    <div id="advantage" class="am-u-sm-8 am-u-md-10"></div>
                 </div>
-
-
 
                 <div class="am-margin">
-                <a href="course.html">
-                    <button type="button" class="am-btn am-btn-primary am-btn-xs"style="background-color: #22cc77; margin-left: 20%;margin-bottom: 20%;">返回</button>
-                </a>
-            </div>
+                    <a href="resume.html">
+                        <button type="button" class="am-btn am-btn-primary am-btn-xs"style="background-color: #22cc77; margin-left: 20%;margin-bottom: 20%;">返回</button>
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -127,7 +128,7 @@
 <script src="assets/js/amazeui.min.js"></script>
 <script src="assets/js/app.js"></script>
 <script src="assets/js/getUrl.js"></script>
-<script src="./assets/js/course-look.js"></script>
+<script src="assets/js/invite-look.js"></script>
 <script>
     var storage = window.localStorage;
     if(storage["has"]!="yes"){

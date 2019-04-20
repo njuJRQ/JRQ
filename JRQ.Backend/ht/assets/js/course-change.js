@@ -16,6 +16,7 @@ $.ajax(
         success: function (data) {
             document.getElementById("id").innerText = data.course.id;
             document.getElementById("title").value = data.course.title;
+            document.getElementById("details").innerText=data.course.detail;
             document.getElementById("writerName").value = data.course.writerName;
             document.getElementById("date").value = data.course.date;
             document.getElementById("likeNum").value = data.course.likeNum;
@@ -96,6 +97,7 @@ function adduser() {
                                     title: $("#title").val(),
                                     writerName: $("#writerName").val(),
                                     date: $("#date").val(),
+                                    detail:$("#details").val(),
                                     likeNum: $("#likeNum").val(),
                                     price: parseInt($("#price").val()),
                                     image: image,

@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html class="no-js fixed-layout">
 <head>
@@ -13,6 +14,8 @@
     <meta title="apple-mobile-web-app-title" content="Amaze UI" />
     <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
     <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style-1.css" />
+    <script src="assets/js/getUrl.js"></script>
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -24,11 +27,12 @@
 <!-- sidebar end -->
 
 <!-- content start -->
+
 <div class="admin-content">
     <div class="admin-content-body">
         <div class="am-cf am-padding am-padding-bottom-0">
             <div class="am-fl am-cf">
-                <strong class="am-text-primary am-text-lg">查看文档</strong> /
+                <strong class="am-text-primary am-text-lg">简历管理</strong>
 
             </div>
         </div>
@@ -37,66 +41,82 @@
 
         <div class="am-tabs am-margin" data-am-tabs>
             <ul class="am-tabs-nav am-nav am-nav-tabs">
-                <li class="am-active"><a href="#tab1">查看文档</a></li>
-
+                <li class="am-active"><a href="#tab1">修改简历</a></li>
             </ul>
 
             <div class="am-tabs-bd">
                 <div class="am-tab-panel am-fade am-in am-active" id="tab1">
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">简历编号</div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">简历id</div>
                         <div id="id" class="am-u-sm-8 am-u-md-10"></div>
                     </div>
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">职位名称</div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">姓名</div>
                         <div id="expectPosition" class="am-u-sm-8 am-u-md-10"></div>
+                        <input id="#" type="text" value="">
                     </div>
 
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">岗位编号</div>
-                        <div id="#" class="am-u-sm-8 am-u-md-10"></div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">年龄</div>
+                        <div id="age" class="am-u-sm-8 am-u-md-10"></div>
+                        <input id="#1" type="text" value="">
                     </div>
 
                     <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">薪水</div>
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">申请职位</div>
                         <div id="expectWage" class="am-u-sm-8 am-u-md-10"></div>
+                        <input id="#2" type="text" value="">
                     </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">职位id</div>
+                        <div id="positionId" class="am-u-sm-8 am-u-md-10"></div>
+                    </div>
+
 
                     <div class="am-g am-margin-top">
                         <div class="am-u-sm-4 am-u-md-2 am-text-right">学历</div>
                         <div id="degree" class="am-u-sm-8 am-u-md-10"></div>
+                        <input id="#4" type="text" value="">
                     </div>
                 </div>
                 <div class="am-g am-margin-top">
-                    <div class="am-u-sm-4 am-u-md-2 am-text-right">简介</div>
+                    <div class="am-u-sm-4 am-u-md-2 am-text-right">毕业院校</div>
                     <div id="introduction" class="am-u-sm-8 am-u-md-10"></div>
+                    <input id="#5" type="text" value="">
                 </div>
 
                 <div class="am-g am-margin-top">
                     <div class="am-u-sm-4 am-u-md-2 am-text-right">是否应届生</div>
-                    <div id="isFresh" class="am-u-sm-8 am-u-md-10"></div>
+                    <div  class="am-u-sm-8 am-u-md-10">
+                        <select id="isFresh">
+                            <option>是</option>
+                            <option>否</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="am-g am-margin-top">
-                    <div class="am-u-sm-4 am-u-md-2 am-text-right">所属公司名</div>
+                    <div class="am-u-sm-4 am-u-md-2 am-text-right">实习经历</div>
                     <div id="enterprise" class="am-u-sm-8 am-u-md-10"></div>
+                    <input id="#6" type="text" value="">
                 </div>
                 <div class="am-g am-margin-top">
-                    <div class="am-u-sm-4 am-u-md-2 am-text-right">一个职位亮点</div>
+                    <div class="am-u-sm-4 am-u-md-2 am-text-right">教育经历</div>
                     <div id="advantage" class="am-u-sm-8 am-u-md-10"></div>
+                    <input id="#7" type="text" value="">
                 </div>
-                <div class="am-g am-margin-top">
-                    <div class="am-u-sm-4 am-u-md-2 am-text-right">所在城市</div>
-                    <div id="city" class="am-u-sm-8 am-u-md-10"></div>
-                </div>
-
 
                 <div class="am-margin">
-                    <a href="invite.html">
+                    <a href="resume.html">
                         <button type="button" class="am-btn am-btn-primary am-btn-xs"style="background-color: #22cc77; margin-left: 20%;margin-bottom: 20%;">返回</button>
                     </a>
                 </div>
             </div>
+            <div class="am-margin">
+                <button onclick="changeFile()" type="button" class="am-btn am-btn-primary am-btn-xs"style="background-color: #22cc77; margin-left: 20%;margin-bottom: 20%;">确定</button>
+            </div>
+
         </div>
 
         <footer class="admin-content-footer">
@@ -126,8 +146,13 @@
 <!--<![endif]-->
 <script src="assets/js/amazeui.min.js"></script>
 <script src="assets/js/app.js"></script>
-<script src="assets/js/getUrl.js"></script>
-<script src="assets/js/invite-look.js"></script>
+<script src="assets/js/invite-change.js"></script>
+<script type="text/javascript">
+
+
+
+
+</script>
 <script>
     var storage = window.localStorage;
     if(storage["has"]!="yes"){

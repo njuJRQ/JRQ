@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table
@@ -16,6 +17,9 @@ public class Document {
 
 	@Column
 	private String title;//标题
+
+	@Column
+	private String detail;//标题
 
 	@Column
 	private String content; //内容
@@ -44,11 +48,20 @@ public class Document {
 	@Column
 	private boolean isContract;//是否是合同
 
+	@Column
+	@ElementCollection(targetClass = String.class)
+	private List<String> attachments;
+
+	@Column
+	@ElementCollection(targetClass = String.class)
+	private List<String> previews;
+
 	public Document(){
 	}
 
-	public Document(String title, String content, String image, String attachment, String writerName, int price, long timeStamp, long likeNum, String preview,boolean isContract) {
+	public Document(String title,String detail, String content, String image, String attachment, String writerName, int price, long timeStamp, long likeNum, String preview,boolean isContract,List<String> attachments,List<String> previews) {
 		this.title = title;
+		this.detail=detail;
 		this.content = content;
 		this.image = image;
 		this.attachment = attachment;
@@ -58,6 +71,8 @@ public class Document {
 		this.likeNum = likeNum;
 		this.preview = preview;
 		this.isContract=isContract;
+		this.attachments=attachments;
+		this.previews=previews;
 	}
 
 	public String getId() {
@@ -151,5 +166,29 @@ public class Document {
 
 	public void setContract(boolean contract) {
 		isContract = contract;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
+	public List<String> getAttachments() {
+		return attachments;
+	}
+
+	public void setAttachments(List<String> attachments) {
+		this.attachments = attachments;
+	}
+
+	public List<String> getPreviews() {
+		return previews;
+	}
+
+	public void setPreviews(List<String> previews) {
+		this.previews = previews;
 	}
 }

@@ -41,9 +41,13 @@ public class DocumentBlServiceImpl implements DocumentBlService {
     }
 
     @Override
-    public InfoResponse addDocument(String title, String content, String image, String attachment, String writerName, int price, long likeNum, boolean isContract) {
-        String preview = generatePreviewImage(attachment);
-        documentDataService.addDocument(new Document(title, content, image, attachment, writerName, price, System.currentTimeMillis(), likeNum, preview, isContract));
+    public InfoResponse addDocument(String title, String detail, String content, String image,String attachment, String writerName, int price, long likeNum, boolean isContract,List<String> attachments) {
+        List<String> previews=new ArrayList<>();
+        for(String a:attachments){
+            previews.add(generatePreviewImage(a));
+        }
+        String preview=generatePreviewImage(attachment);
+        documentDataService.addDocument(new Document(title, detail,content, image, attachment, writerName, price, System.currentTimeMillis(), likeNum, preview, isContract,attachments,previews));
         return new InfoResponse();
     }
 
@@ -73,17 +77,16 @@ public class DocumentBlServiceImpl implements DocumentBlService {
     }
 
     @Override
-    public InfoResponse updateDocument(String id, String title, String content, String image, String attachment, String writerName, int price, long likeNum) throws NotExistException {
+    public InfoResponse updateDocument(String id, String title, String detail,String content, String image, String writerName, int price, long likeNum) throws NotExistException {
         Document document = documentDataService.getDocumentById(id);
         document.setTitle(title);
         document.setContent(content);
         document.setImage(image);
-        document.setAttachment(attachment);
+        document.setDetail(detail);
         document.setWriterName(writerName);
         document.setPrice(price);
         document.setTimeStamp(System.currentTimeMillis());
         document.setLikeNum(likeNum);
-        document.setPreview(generatePreviewImage(attachment));
         documentDataService.saveDocument(document);
         return new InfoResponse();
     }

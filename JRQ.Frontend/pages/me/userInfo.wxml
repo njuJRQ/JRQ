@@ -23,7 +23,7 @@
   </view>
   <view class='container'>
     <view class='tag-wrapper'>
-      <view wx:for="{{myInfo.label}}" wx:key="index" class='tag-item-wrapper'>
+      <view wx:for="{{myInfo.label2}}" wx:key="index" class='tag-item-wrapper'>
         <text class='tag-item'>{{item}}</text>
       </view>
     </view>

@@ -24,6 +24,7 @@
       <text>课程作者：{{course.writerName}}</text>
       <text>课程发布日期：{{course.date}}</text>
       <text>课程点赞数：{{course.likeNum}}</text>
+      <text>课程详情：{{course.detail}}</text>
     </view>
   </view>
   <view class='course-video'>
@@ -31,8 +32,13 @@
     <view class='div-line'></view>
     <view class='content'>
       <text wx-if="{{isShowPrice}}" wx:if='{{!course.hasBought}}'>视频预览1分钟：请购买该课程后观看完整课程视频</text>
-      <video src='{{course.video}}'></video>
-      
+      <block wx:for="{{course.videos}}" wx:for-item="item" wx:for-index="index">
+    <view catchtap='onPostTap'>
+      <text>{{course.title}}第{{index+1}}节</text>
+      <video src="{{item}}"></video>
+    </view>
+  </block>
+
     </view>
   </view>
   <view class='course-buttons row' wx-if="{{isShowPrice}}">

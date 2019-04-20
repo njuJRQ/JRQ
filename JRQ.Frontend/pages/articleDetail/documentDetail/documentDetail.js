@@ -16,7 +16,9 @@ Page({
       writerName: '锄禾日当午',
       date: '2018-1-1',
       likeNum: 999,
-      isShowPrice: false
+      isShowPrice: false,
+      price:0,
+      
     }
   },
 

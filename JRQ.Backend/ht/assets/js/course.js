@@ -77,7 +77,7 @@ $.ajax(
                 if (isSuper) {
                     $.ajax(
                         {
-                            url: url + "/getCourseList",
+                            url: url + "/getOrdinaryCourseList",
                             // type: "POST",
 
                             data: {},

@@ -365,6 +365,7 @@ function getMyCourse(openid, courseId, then) {
         let course = res.data.course
         course.image = app.globalData.picUrl + course.image
         course.video = app.globalData.picUrl + course.video
+        course.videos = course.videos.map((video) => app.globalData.picUrl + video)
         console.log(course)
         then(course)
       }
@@ -387,6 +388,8 @@ function getDocument(id) {
     success: (res) => {
       if (res.statusCode == 200) {
         res.data.document.preview = app.globalData.picUrl + res.data.document.preview
+        res.data.document.attachments = res.data.document.attachments.map((attachment) => app.globalData.picUrl + attachment)
+        res.data.document.previews = res.data.document.previews.map((preview) => app.globalData.picUrl + preview)
         that.setData({
           document: res.data.document
         })
@@ -1509,10 +1512,10 @@ function getTextualResearchCourseList(then) {
 }
 
 function getCourseList(then) {
-  console.log('getCourseList success!')
+  console.log('getOrdinaryCourseList success!')
   var that = this
   wx.request({
-    url: app.globalData.backendUrl + "getCourseList",
+    url: app.globalData.backendUrl + "getOrdinaryCourseList",
 
 
     header: {
@@ -1604,8 +1607,11 @@ function getDocumentList(then) {
     method: 'GET',
     success: (res) => {
       res.data.documents.forEach(item => {
-        item.image = app.globalData.picUrl + item.preview
+        item.image = app.globalData.picUrl + item.image
+        item.attachments = item.attachments.map((attachment) => app.globalData.picUrl + attachment)
+        item.previews = item.previews.map((preview) => app.globalData.picUrl + preview)
       })
+      
       that.setData({
         documentsList: res.data.documents
       })

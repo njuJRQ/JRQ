@@ -5,9 +5,17 @@
 
 <view class="container container--color-white">
   <view class='box'>
-    <view class='header_img'>
+    <!--<view class='header_img'>
       <image class='img_a' src='{{image}}' mode='widthFix'></image>
-    </view>
+    </view>-->
+      <!--轮播广告-->
+    <swiper class='header_img' indicator-dots='true' indicator-active-color='white' autoplay='true' interval='5000' duration='1000' circular='true'> 
+      <block wx:for="{{banners}}" wx:for-index="index"> 
+        <swiper-item>
+          <image src='{{banners[index]}}' class='img_a' mode='widthFix'></image> 
+        </swiper-item> 
+      </block>
+    </swiper> 
     <view class='conten_box'>
     <view class='conten'>
       <view class='chunk' wx:for="{{images}}" wx:key="id">

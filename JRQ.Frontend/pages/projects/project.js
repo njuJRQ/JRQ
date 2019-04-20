@@ -26,6 +26,8 @@ Page({
     winHeight: 0,
     // tab切换 
     currentTab: 0,
+
+    boxOpacity: 1,
   },
   onLoad: function() {
 
@@ -51,7 +53,6 @@ Page({
         });
       }
     })
-
   },
 
   likePlus: function(event) {
@@ -204,4 +205,19 @@ Page({
   itemclick(event) {
     articleItem.onClickThisFace(event.currentTarget.dataset.id)
   },
+
+  // 滑动屏幕浏览时半透明化
+  onScrollStart: function (ev) {
+    this.setData({
+      boxOpacity: 0.7
+    })
+    //console.log(this.data.boxOpacity);
+  },
+
+  onScrollStop: function (ev) {
+    this.setData({
+      boxOpacity: 1
+    })
+    //console.log(this.data.boxOpacity);
+  },  
 })

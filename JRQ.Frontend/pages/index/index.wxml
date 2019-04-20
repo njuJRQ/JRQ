@@ -12,9 +12,20 @@
   </view>
   <!--广告位-->
   <!-- <template class='ad' is='adBar' data='{{ad}}'></template> -->
+
+  <!--原广告
   <view class='banner'  bindtap='onAd'>
     <image class='banner_img' mode='widthFix' src='{{ad}}'></image>
   </view>
+  -->
+  <!--轮播广告-->
+  <swiper class='banner' is='adBar' indicator-dots='true' indicator-active-color='white' autoplay='true' interval='5000' duration='1000' circular='true'> 
+    <block wx:for="{{ads}}" wx:for-index="index"> 
+      <swiper-item bindtap='onAd' data-index='{{index}}'> <!--data-index保存link的下标-->
+        <image src='{{ads[index]}}' class='banner_img' mode='widthFix'></image> 
+      </swiper-item> 
+    </block>
+  </swiper> 
   <view class='adBar_btn'>
   </view>
   <!--内容  -->

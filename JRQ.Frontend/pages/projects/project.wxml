@@ -2,7 +2,7 @@
 <import src='/template/findBar/searchBar.wxml' />
 <import src='/template/articleItem/articleItem.wxml'></import>
 
-<view class='container container--color-white'>
+<view class='container container--color-white'  bindtouchstart="onScrollStart" bindtouchend="onScrollStop">
   <view class='headWrapper' style='background-color:black; background-size: cover;background-repeat: no-repeat; background-position: bottom'>
     <!--搜索框-->
     <!-- <view>
@@ -53,4 +53,8 @@
     </swiper-item>
   </swiper>
 
+  <!--浮窗  --> 
+  <view class="float-box" style="opacity:{{boxOpacity}};"> 
+    <navigator url='../me/publishMyArticle/publishMyArticle' hover-class="none">我有业务</navigator >          
+  </view> 
 </view>

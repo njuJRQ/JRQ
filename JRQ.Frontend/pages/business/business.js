@@ -7,6 +7,7 @@ Page({
    */
   data: {
     image: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/44.jpg',
+    banners: [],
     images: [{
       id: 0,
       image_a: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E5%9C%B0%E4%BA%A7.png',
@@ -66,6 +67,14 @@ Page({
     api.getAd.call(this, 'service', (res) => {
       this.setData({
         image: res.ad.image
+      })
+      // 使用banners代替原来的image
+      var banners_temp = this.data.banners;
+      banners_temp.push(res.ad.image);
+      banners_temp.push(res.ad.image); 
+      banners_temp.push(res.ad.image);
+      this.setData({
+        banners: banners_temp
       })
     })
   },

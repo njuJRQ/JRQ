@@ -115,7 +115,7 @@
   line-height: 43rpx;
   background-color: #fff;
   color: #e9c05f;
-  font-size: 10px;
+  font-size: 12px;
   border-radius: 38rpx;
   border: 0.2px solid#e9c05f;
   box-shadow: 0 5rpx 0.1rpx 1rpx #d8d7d6;
@@ -145,7 +145,7 @@
 /* 发布 */
 
 .publish {
-  font-size: 15px;
+  font-size: 17px;
   margin-bottom: 10px;
   margin-left: -4%;
   margin-top: 11%;
@@ -380,7 +380,7 @@
 }
 
 .publish_text {
-  font-size: 10px;
+  font-size: 11px;
   color: #f2c75e;
   margin-top: 4%;
 }

@@ -1512,10 +1512,10 @@ function getTextualResearchCourseList(then) {
 }
 
 function getCourseList(then) {
-  console.log('getCourseList success!')
+  console.log('getOrdinaryCourseList success!')
   var that = this
   wx.request({
-    url: app.globalData.backendUrl + "getCourseList",
+    url: app.globalData.backendUrl + "getOrdinaryCourseList",
 
 
     header: {

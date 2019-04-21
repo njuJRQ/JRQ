@@ -1,5 +1,6 @@
 $("#loader").hide();
 var index=1;
+var deletes=[];
 function checkRate(input) {
     var re = /^[0-9]+.?[0-9]*$/; //判断字符串是否为数字 //判断正整数 /^[1-9]+[0-9]*]*$/
     var nubmer = document.getElementById(input).value;
@@ -35,17 +36,35 @@ function addFile(){
 }
 function delFile(){
     var divNode=document.getElementById("container");
+    var str_tem=event.target.id.substring(0,event.target.id.length-3);
+    //alert(str_tem)
     var child=document.getElementById(event.target.id+"file");
+    deletes.push(str_tem)
     divNode.removeChild(child);
 }
 
 
 function adduser() {
-
     var videos=[]
     var url=getUrl();
     var i=0;
     while(i<index){
+        var flag=0;
+        var tem_index=0;
+        while( tem_index<deletes.length){
+            if(deletes[tem_index]==i){
+                alert(i)
+                flag=1;
+                break;
+            }
+            tem_index=tem_index+1;
+        }
+
+        if(flag==1){
+            i=i+1;
+            continue
+        }
+
 
         var form2 = new FormData();
         var str_i=i.toString()

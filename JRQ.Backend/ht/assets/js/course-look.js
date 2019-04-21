@@ -36,7 +36,6 @@ $.ajax(
 )
 
 function look(video1){
-    alert(video1)
     storage["thisVideo"]=video1;
     window.location.href="tv.html";
 

@@ -1,4 +1,5 @@
 $("#loader").hide();
+
 var index=1;
 var deletes=[];
 function checkRate(input) {
@@ -45,6 +46,7 @@ function delFile(){
 
 
 function adduser() {
+    $("#loader").show();
     var videos=[]
     var url=getUrl();
     var i=0;
@@ -53,7 +55,7 @@ function adduser() {
         var tem_index=0;
         while( tem_index<deletes.length){
             if(deletes[tem_index]==i){
-                alert(i)
+
                 flag=1;
                 break;
             }
@@ -80,7 +82,7 @@ function adduser() {
             cache: false,
             async: false,
             success: function (data) {
-                $("#loader").hide();
+
                 if(data!="") {
 
                     videos.push(data);
@@ -100,7 +102,6 @@ function adduser() {
 
 
     if(checkRate("price")) {
-        $("#loader").show();
         var url = getUrl();
         var storage = window.localStorage;
         var id = storage["adminUsername"];
@@ -115,6 +116,7 @@ function adduser() {
         }
         formData.append('image', el.files[0]);
 
+        $("#loader").hide();
         $.ajax({
             url: url + "/courseImage",
             type: "POST",
@@ -125,7 +127,7 @@ function adduser() {
             cache: false,
             async: false,
             success: function (data) {
-                alert(videos)
+
                 if(data!="") {
                     image = data;
                 }

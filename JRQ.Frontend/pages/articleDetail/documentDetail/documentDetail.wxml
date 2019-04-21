@@ -20,16 +20,20 @@
     <text style='color:black; font-size:1rem; font-weight:bold;'>文档介绍</text>
     <view class='div-line'></view>
     <view class='detail column' style='font-size:0.8rem;'>
-      <text>课程作者：{{document.writerName}}</text>
-      <text>课程发布日期：{{document.date}}</text>
-      <text>课程点赞数：{{document.likeNum}}</text>
+      <text>文档作者：{{document.writerName}}</text>
+      <text>文档发布日期：{{document.date}}</text>
+      <text>文档点赞数：{{document.likeNum}}</text>
+      <text>文档详情：{{document.detail}}</text>
     </view>
   </view>
-  <view class='course-video'>
+
+  <block wx:for="{{document.attachments}}" wx:for-item="item" wx:for-index="index">
+    
+      <text>{{document.title}} 第{{index+1}}节</text>
+      <view class='course-video'>
     <text style='color:black; font-size:1rem; font-weight:bold;'>文档预览</text>
     <view class='div-line'></view>
-
-    <image class='document__preview' mode='widthFix' src='{{document.preview}}' data-src='{{document.previews}}' bindtap='previewImg'></image>
+    <image class='document__preview' mode='widthFix' src='{{document.previews[index]}}' data-src='{{document.previews[index]}}' bindtap='previewImg'></image>
   </view>
   <view class='download' wx-if="{{isShowPrice}}" style='margin: 20px'>
     <view wx:if='{{!isDownLoadAttachment}}'>
@@ -39,4 +43,11 @@
       <button class='jrq__button' bindtap='onOpen'>打开文档</button>
     </view>
   </view>
+    
+  </block>
+
+
+  
+
+
 </view>

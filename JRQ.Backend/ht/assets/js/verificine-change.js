@@ -16,6 +16,7 @@ $.ajax(
         success: function (data) {
             document.getElementById("id").innerText = data.course.id;
             document.getElementById("title").value = data.course.title;
+            document.getElementById("details").innerText=data.course.detail;
             document.getElementById("writerName").value = data.course.writerName;
             document.getElementById("date").value = data.course.date;
             document.getElementById("likeNum").value = data.course.likeNum;
@@ -45,7 +46,7 @@ function adduser() {
     if (checkRate("likeNum") && checkRate("price")) {
         $("#loader").show();
 
-         var fd = new FormData($("#upload-file-form")[0]);
+        var fd = new FormData($("#upload-file-form")[0]);
         //var el = $('#image')[0];
         // var formData = new FormData();
         // if (!el.files[0]) {
@@ -53,7 +54,7 @@ function adduser() {
         // }
         //formData.append('image', el.files[0]);
         var url = getUrl();
-         var fd2 = new FormData($("#upload-video-form")[0]);
+        var fd2 = new FormData($("#upload-video-form")[0]);
         // var ele = $('#video')[0];
         // var form = new FormData();
         // if (!ele.files[0]) {
@@ -96,6 +97,7 @@ function adduser() {
                                     title: $("#title").val(),
                                     writerName: $("#writerName").val(),
                                     date: $("#date").val(),
+                                    detail:$("#details").val(),
                                     likeNum: $("#likeNum").val(),
                                     price: parseInt($("#price").val()),
                                     image: image,

@@ -19,7 +19,6 @@
             #closeBtn {
                 display: none;
             }
-
             #admin-offcanvas {
                 left: 0;
                 width: 58%;
@@ -111,6 +110,7 @@
                         <li><a href="business.html" class="am-cf" target="right"><span class="am-icon-signing"></span>业务列表</a></li>
                         <li><a href="service.html" class="am-cf" target="right"><span class="am-icon-signing"></span>业务导航图列表</a></li>
                         <li><a href="invite.html" class="am-cf" target="right"><span class="am-icon-signing"></span>招聘管理</a></li>
+                        <li><a href="resume.html" class="am-cf" target="right"><span class="am-icon-signing"></span>简历管理</a></li>
                     </ul>
 
 
@@ -160,7 +160,14 @@
                         <li><a href="ads.html" class="am-cf" target="right"><span class="am-icon-signing"></span> 广告位列表</a>
                         </li>
 
+                        <li><a href="poster.html" class="am-cf" target="right"><span class="am-icon-signing"></span>海报管理</a>
+                        </li>
+
                     </ul>
+
+
+
+
                 </li>
                 <li id="c7" class="admin-parent">
                     <a class="am-cf" data-am-collapse="{target: '#collapse-nav-7'}"><span
@@ -217,7 +224,6 @@
             $(this).next().slideToggle(200);
             $(".am-list .am-cf").removeClass("active")
             $(this).toggleClass("active");
-
         })
         $(".am-list ul li a").click(function () {
             $(".am-list ul li a").removeClass("active");
@@ -243,15 +249,12 @@
      $('.doc-oc-js').on('click', function() {
      $myOc.offCanvas($(this).data('rel'));
      });
-
      $myOc.on('open.offcanvas.amui', function() {
      console.log(id + ' 打开了。');
      }).on('close.offcanvas.amui', function() {
      console.log(id + ' 关闭了。');
      });
      });*/
-
-
     $('#closeBtn').click(function () {
         $('#admin-offcanvas').toggle();
         if ($('#admin-offcanvas').css('display') == 'none') {
@@ -262,13 +265,11 @@
     })
     $('#phoneTbtn').click(function () {
         $('#admin-offcanvas').toggle();
-
         if ($('#admin-offcanvas').css('display') == 'none') {
             $('.admin-content.rightnav').css({left: '0', width: '100%'});
         } else {
             $('.admin-content.rightnav').css({left: '20%', width: '80%'});
         }
-
     });
     if ($(document).width() <= 600) {
         $('#admin-offcanvas').on('click', 'li>a', function () {
@@ -278,7 +279,6 @@
             }
         })
     }
-
     var storage = window.localStorage;
     var user=storage["adminUsername"];
     var url=getUrl();
@@ -310,7 +310,6 @@
                         break;
                     }
                 }
-
             },
             error: function (xhr) {
                 //alert('动态页有问题噶！\n\n' + xhr.responseText);
@@ -318,7 +317,6 @@
             traditional: true,
         }
     )
-
     function getout(){
         var storage = window.localStorage;
         storage["has"]="no";

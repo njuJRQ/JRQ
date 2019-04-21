@@ -227,6 +227,7 @@
             }
         });
     })
+
     $(document).on('click','table thead input[type="checkbox"]',function(){
         if($(this).is(':checked')){
             $('tbody input[type="checkbox"]').prop('checked',true);
@@ -242,6 +243,7 @@
             $('thead input[type="checkbox"]').prop('checked',false);
         }
     })
+
     //批量删除
     function DelSelect(){
         var Checkbox=false;
@@ -270,4 +272,6 @@
     }
 </script>
 </body>
+
 </html>
+

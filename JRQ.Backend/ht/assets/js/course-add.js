@@ -23,10 +23,10 @@ function addFile(){
     newInput.setAttribute("name","选择文件");
     newDiv.appendChild(newInput);
 
-
     var newInput=document.createElement("input");
     newInput.setAttribute("type","button");
     newInput.setAttribute("value","删除");
+
     newInput.setAttribute("id",index.toString()+"del");
     newInput.setAttribute("onclick","delFile()");
     newDiv.appendChild(newInput);
@@ -34,11 +34,11 @@ function addFile(){
     divNode.appendChild(fragment);
 }
 function delFile(){
-    alert(event.target.id);
     var divNode=document.getElementById("container");
     var child=document.getElementById(event.target.id+"file");
     divNode.removeChild(child);
 }
+
 
 function adduser() {
 
@@ -49,7 +49,6 @@ function adduser() {
 
         var form2 = new FormData();
         var str_i=i.toString()
-
         form2.append('video',$('#'+str_i)[0].files[0]);
 
         $.ajax({
@@ -75,6 +74,7 @@ function adduser() {
         });
 
         //添加文件
+
         i=i+1;
 
     }
@@ -110,6 +110,7 @@ function adduser() {
                 if(data!="") {
                     image = data;
                 }
+
                 $.ajax(
                     {
                         url: url + "/addCourse",
@@ -134,6 +135,7 @@ function adduser() {
                         traditional: true,
                     }
                 )
+
 
 
 

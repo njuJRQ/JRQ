@@ -62,7 +62,6 @@ Page({
       }
     })
     var that = this
-    if (this.data.document.attachment) {
       api.getMyUser.call(this, app.getOpenid(), (res) => {
         if (res.levelName == "common") {
           wx.showModal({
@@ -85,12 +84,7 @@ Page({
           })
         }
       })
-    } else {
-      wx.showModal({
-        content: '该项目不存在附件',
-        showCancel: false
-      })
-    }
+    
   },
 
   onOpen: function() {

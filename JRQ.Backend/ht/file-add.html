@@ -95,6 +95,13 @@
                         </div>
                     </div>
 
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">文档详情</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <textarea id="detail"></textarea>
+                        </div>
+                    </div>
+
 
                     <form id="upload-file-form1">
                         <div class="am-g am-margin-top">
@@ -108,9 +115,16 @@
 
                     <form id="upload-file-form">
                         <div class="am-g am-margin-top">
-                            <div class="am-u-sm-4 am-u-md-2 am-text-right">附件</div>
-                            <div class="am-u-sm-8 am-u-md-10">
-                                <input type="file" name="attachment" id="attachment"><br>
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">文档</div>
+
+                            <input type="button" value="选择更多" onclick="addFile()"/>
+                            <div id="container" >
+
+                                <div id="0delfile" >
+                                    <input type="file" id="0" value="选择文件" name="选择文件"/>
+                                    <input type="button" id="0del" value="删除" onclick="delFile()" />
+
+                                </div>
                             </div>
 
                         </div>

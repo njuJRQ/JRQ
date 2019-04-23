@@ -4,7 +4,7 @@ var storage = window.localStorage;
 var id=storage["thisDocument"];
 var path;
 var attachment="";
-
+var image="";
 $.ajax(
     {
         url: url+"/getDocument",
@@ -15,6 +15,7 @@ $.ajax(
         success: function (data) {
             document.getElementById("id").innerText=data.document.id;
             document.getElementById("title").value=data.document.title;
+            document.getElementById("detail").value=data.document.detail;
             document.getElementById("content").value=data.document.content;
             document.getElementById("writerName").value=data.document.writerName;
             document.getElementById("date").value=data.document.date;
@@ -22,6 +23,7 @@ $.ajax(
             document.getElementById("price").value=data.document.price;
             path="../"+data.document.attachment;
             attachment=data.document.attachment;
+            image=data.document.image;
         },
         error: function (xhr) {
             alert('动态页有问题噶！\n\n' + xhr.responseText);
@@ -44,77 +46,56 @@ function checkRate(input) {
 function changeFile(){
     if(checkRate("likeNum")) {
         $("#loader").show();
-        var fd = new FormData($("#upload-file-form")[0]);
+
         var fd1 = new FormData($("#upload-file-form1")[0]);
+
         $.ajax({
-            url: url + "/uploadDocument",
+            url: url + "/documentImage",
             type: "POST",
-            data: fd,
+            data: fd1,
             enctype: 'multipart/form-data',
             processData: false,
             contentType: false,
             cache: false,
-            success: function (data) {
-                if (data != "") {
-                    attachment = data;
+            success: function (d) {
+                if (d != "") {
+                    image = d;
                 }
-
-                $.ajax({
-                    url: url + "/documentImage",
-                    type: "POST",
-                    data: fd1,
-                    enctype: 'multipart/form-data',
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                    success: function (d) {
-                        if (d != "") {
-                            image = d;
-                        }
-                        $("#loader").hide();
-                        $.ajax(
-                            {
-                                url: url + "/updateDocument",
-                                data: {
-                                    id:id,
-                                    title: $("#title").val(),
-                                    content: $("#content").val(),
-                                    attachment: attachment,
-                                    image: image,
-                                    writerName: $("#writerName").val(),
-                                    price: $("#price").val(),
-                                    likeNum:$("#likeNum").val()
-                                },
-                                async: false,
-                                success: function (data) {
-                                    alert("修改成功");
-                                    window.location.href = "contract.html";
-                                },
-                                error: function (xhr) {
-                                    //alert('动态页有问题噶！\n\n' + xhr.responseText);
-                                },
-                                traditional: true,
-                            }
-                        )
-
-                    },
-                    error: function (xhr) {
-                        $("#loader").hide();
-
-                        //alert(xhr.responseText);
-                        // Handle upload error
-                        // ...
+                $("#loader").hide();
+                $.ajax(
+                    {
+                        url: url + "/updateDocument",
+                        data: {
+                            id:id,
+                            title: $("#title").val(),
+                            detail:$("#detail").val(),
+                            content: $("#content").val(),
+                            image: image,
+                            writerName: $("#writerName").val(),
+                            price: $("#price").val(),
+                            likeNum:$("#likeNum").val()
+                        },
+                        async: false,
+                        success: function (data) {
+                            alert("修改成功");
+                            window.location.href = "contract.html";
+                        },
+                        error: function (xhr) {
+                            //alert('动态页有问题噶！\n\n' + xhr.responseText);
+                        },
+                        traditional: true,
                     }
-                });
-
+                )
 
             },
             error: function (xhr) {
                 $("#loader").hide();
+
                 //alert(xhr.responseText);
                 // Handle upload error
                 // ...
             }
         });
+
     }
 }

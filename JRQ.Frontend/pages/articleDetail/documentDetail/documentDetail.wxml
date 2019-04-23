@@ -36,12 +36,13 @@
     <image class='document__preview' mode='widthFix' src='{{document.previews[index]}}' data-src='{{document.previews[index]}}' bindtap='previewImg'></image>
   </view>
   <view class='download' wx-if="{{isShowPrice}}" style='margin: 20px'>
-    <view wx:if='{{!isDownLoadAttachment}}'>
-      <button class='jrq__button' bindtap='onDownload' disabled='{{!document.attachment}}'>下载文档</button>
+    <!-- <view wx:if='{{!isDownLoadAttachment[index]}}'> -->
+    <view>
+      <button class='jrq__button' bindtap='onDownload' data-index='{{index}}'>下载并打开文档</button>
     </view>
-    <view wx:else>
-      <button class='jrq__button' bindtap='onOpen'>打开文档</button>
-    </view>
+    <!-- <view wx:else>
+      <button class='jrq__button' bindtap='onOpen' data-index='{{index}}'>打开文档</button>
+    </view> -->
   </view>
     
   </block>

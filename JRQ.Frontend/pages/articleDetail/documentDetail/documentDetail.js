@@ -18,8 +18,11 @@ Page({
       likeNum: 999,
       isShowPrice: false,
       price:0,
-      
-    }
+      attachments:[],
+      attachment:'',
+      previews:[]
+    },
+    //isDownLoadAttachments:[]
   },
 
   /**
@@ -45,12 +48,17 @@ Page({
     })
     try {
       api.getDocument.call(this, options.id)
+      
+      
     } catch (e) {
       console.log('获取编号为' + options.id + '的文档失败')
     }
+    
+
+
   },
 
-  onDownload: function() {
+  onDownload: function(event) {
     var condition = true
     api.getIOSQualification.call(this, (res) => {
       console.log(res)
@@ -77,22 +85,26 @@ Page({
           })
 
         } else {
-          api.downloadFile.call(this, this.data.document.attachment, () => {
-            that.setData({
-              isDownLoadAttachment: true
-            })
+          var index = event.currentTarget.dataset.index
+          console.log([index])
+          console.log(this.data.document.attachments[index])
+          api.downloadFile.call(this, this.data.document.attachments[index], () => {
+            // let isDownLoadAttachment = "isDownLoadAttachments[" + index + "]"
+            // that.setData({
+            //   [isDownLoadAttachment]: true,
+            // })
           })
         }
       })
     
   },
 
-  onOpen: function() {
-    var that = this
-    wx.openDocument({
-      filePath: that.data.savedFilePath,
-    })
-  },
+  // onOpen: function (event) {
+  //   var that = this
+  //   wx.openDocument({
+  //     filePath: that.data.savedFilePath,
+  //   })
+  // },
 
   previewImg: function(event) {
     var src = event.currentTarget.dataset.src; //获取data-src

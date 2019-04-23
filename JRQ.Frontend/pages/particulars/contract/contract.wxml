@@ -7,7 +7,7 @@
 
 
 <view class="container container--color-white">
-  <view class='box'  wx:for="{{documents}}" wx:key="id">
+  <view class='box'  wx:for="{{documentsList}}" wx:key="id">
     <view class='conten' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
       <view class='vessel'>
         <view class='img'>

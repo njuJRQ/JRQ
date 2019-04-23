@@ -16,7 +16,7 @@ $.ajax(
         success: function (data) {
             document.getElementById("id").innerText = data.course.id;
             document.getElementById("title").value = data.course.title;
-            document.getElementById("details").innerText=data.course.detail;
+            document.getElementById("detail").value=data.course.detail;
             document.getElementById("writerName").value = data.course.writerName;
             document.getElementById("date").value = data.course.date;
             document.getElementById("likeNum").value = data.course.likeNum;
@@ -74,53 +74,32 @@ function adduser() {
                 if (data != "") {
                     image = data;
                 }
-
-                $.ajax({
-                    url: url + "/courseVideo",
-                    type: "POST",
-                    data: fd2,
-                    enctype: 'multipart/form-data',
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                    success: function (d) {
-
-                        if (d != "") {
-                            video = d;
-                        }
-                        $("#loader").hide();
-                        $.ajax(
-                            {
-                                url: url + "/updateCourse",
-                                data: {
-                                    id: id,
-                                    title: $("#title").val(),
-                                    writerName: $("#writerName").val(),
-                                    date: $("#date").val(),
-                                    detail:$("#details").val(),
-                                    likeNum: $("#likeNum").val(),
-                                    price: parseInt($("#price").val()),
-                                    image: image,
-                                    video: video
-                                },
-                                async: false,
-                                success: function (data) {
-                                    alert("修改成功");
-                                    window.location.href = "verificine.html";
-                                },
-                                error: function (xhr) {
-                                    //alert('动态页有问题噶！\n\n' + xhr.responseText);
-                                },
-                                traditional: true,
-                            }
-                        )
-
-
-                    },
-                    error: function (xhr) {
-                        $("#loader").hide();
+                $("#loader").hide();
+                $.ajax(
+                    {
+                        url: url + "/updateCourse",
+                        data: {
+                            id: id,
+                            title: $("#title").val(),
+                            detail:$("#detail").val(),
+                            writerName: $("#writerName").val(),
+                            date: $("#date").val(),
+                            likeNum: $("#likeNum").val(),
+                            price: parseInt($("#price").val()),
+                            image: image
+                        },
+                        async: false,
+                        success: function (data) {
+                            alert("修改成功");
+                            window.location.href = "verificine.html";
+                        },
+                        error: function (xhr) {
+                            //alert('动态页有问题噶！\n\n' + xhr.responseText);
+                        },
+                        traditional: true,
                     }
-                });
+                )
+
 
             },
             error: function (xhr) {

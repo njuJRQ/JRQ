@@ -84,48 +84,58 @@
                     <div class="am-g am-margin-top">
                         <div class="am-u-sm-4 am-u-md-2 am-text-right">合同标题</div>
                         <div class="am-u-sm-8 am-u-md-10">
-                            <input id="title" title="title" type="text" value="">
+                            <input id="title" type="text" value="">
                         </div>
                     </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">合同描述</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <textarea id="content"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">合同详情</div>
+                        <div class="am-u-sm-8 am-u-md-10">
+                            <textarea id="detail"></textarea>
+                        </div>
+                    </div>
+
+
+                    <form id="upload-file-form1">
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">封面图片</div>
+                            <div class="am-u-sm-8 am-u-md-10">
+                                <input type="file" name="image" id="image"><br>
+                            </div>
+
+                        </div>
+                    </form>
+
+                    <form id="upload-file-form">
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">合同</div>
+
+                            <input type="button" value="选择更多" onclick="addFile()"/>
+                            <div id="container" >
+
+                                <div id="0delfile" >
+                                    <input type="file" id="0" value="选择文件" name="选择文件"/>
+                                    <input type="button" id="0del" value="删除" onclick="delFile()" />
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
 
                     <div class="am-g am-margin-top">
                         <div class="am-u-sm-4 am-u-md-2 am-text-right">合同价格</div>
                         <div class="am-u-sm-8 am-u-md-10">
-                            <input id="price" title="price" type="text" value="">
+                            <input id="price" type="text" value="">
                         </div>
                     </div>
-                    
-                    <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">公司名称</div>
-                        <div class="am-u-sm-8 am-u-md-10">
-                            <input id="writerName" title="writerName" type="text" value="">
-                        </div>
-                    </div>
-                    <div class="am-g am-margin-top">
-                        <div class="am-u-sm-4 am-u-md-2 am-text-right">内容</div>
-                        <div class="am-u-sm-8 am-u-md-10">
-                            <textarea id="content" title="content"></textarea>
-                        </div>
-                    </div>
-                    <form id="upload-file-form">
-                        <div class="am-g am-margin-top">
-                            <div class="am-u-sm-4 am-u-md-2 am-text-right">合同图片</div>
-                            <div class="am-u-sm-8 am-u-md-10">
-                                <input type="file" title="image" id="image"><br>
-                            </div>
-
-                        </div>
-                    </form>
-
-                    <form id="upload-video-form">
-                        <div class="am-g am-margin-top">
-                            <div class="am-u-sm-4 am-u-md-2 am-text-right">附件</div>
-                            <div class="am-u-sm-8 am-u-md-10">
-                                <input type="file" title="attachment" id="attachment"><br>
-                            </div>
-                        </div>
-                    </form>
-
 
                 </div>
             </div>
@@ -163,11 +173,8 @@
 <script src="assets/js/amazeui.min.js"></script>
 <script src="assets/js/app.js"></script>
 <script src="assets/js/contract-add.js"></script>
-<script type="text/javascript">
 
-
-
-
+<script>
 </script>
 <script>
     var storage = window.localStorage;

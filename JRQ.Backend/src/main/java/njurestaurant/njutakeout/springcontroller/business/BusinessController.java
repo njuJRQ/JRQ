@@ -4,7 +4,6 @@ import io.swagger.annotations.*;
 import njurestaurant.njutakeout.blservice.business.BusinessBlService;
 import njurestaurant.njutakeout.blservice.business.BusinessImageBlService;
 import njurestaurant.njutakeout.exception.NotExistException;
-import njurestaurant.njutakeout.publicdatas.business.MarketType;
 import njurestaurant.njutakeout.response.InfoResponse;
 import njurestaurant.njutakeout.response.Response;
 import njurestaurant.njutakeout.response.WrongResponse;
@@ -16,13 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/business")
@@ -69,10 +65,16 @@ public class BusinessController {
       return new ResponseEntity<>(businessImageBlService.add(marketType,position,image),HttpStatus.OK);
     }
 
+
+
     @ApiOperation(value = "修改业务静态图片", notes = "修改业务静态图片")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "image", value = "image", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "id", value = "id", required = true, dataType = "String")
+
+            @ApiImplicitParam(name = "id", value = "id", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "marketType", value = "marketType", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "position", value = "position", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "image", value = "image", required = true, dataType = "String")
+
     })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = InfoResponse.class),
@@ -80,8 +82,8 @@ public class BusinessController {
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @RequestMapping(value = "/updateImage", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Response> updateImage(@RequestParam("id")String id,@RequestParam("image") String image) throws NotExistException {
-        return new ResponseEntity<>(businessImageBlService.update(id,image),HttpStatus.OK);
+    public ResponseEntity<Response> updateImage(@RequestParam("id")String id,@RequestParam("marketType")String marketType,@RequestParam("position")String position,@RequestParam("image") String image) throws NotExistException {
+        return new ResponseEntity<>(businessImageBlService.update(id,marketType,position,image),HttpStatus.OK);
     }
 
     @ApiOperation(value = "删除业务静态图片", notes = "删除业务静态图片")

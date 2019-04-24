@@ -1,6 +1,7 @@
 var url=getUrl();
 var storage = window.localStorage;
 var id=storage["thisService"];
+var image;
 $.ajax(
     {
         url: url+"/business/findImageById",
@@ -19,7 +20,7 @@ $.ajax(
                 data.businessImageItem.marketType = '二级市场'
             } else if (data.businessImageItem.marketType == 'PAPER_MARKET') {
                 data.businessImageItem.marketType = '票据市场'
-            } else if (data.businessImageItemList[i].marketType == 'BAD_ASSETS') {
+            } else if (data.businessImageItem.marketType == 'BAD_ASSETS') {
                 data.businessImageItem.marketType = '不良资产'
             } else if (data.businessImageItem.marketType == 'LARGE_SHORT_BREAK') {
                 data.businessImageItem.marketType = '大额短拆'
@@ -36,7 +37,7 @@ $.ajax(
             }
             document.getElementById("marketType").value=data.businessImageItem.marketType;
             document.getElementById("position").value=data.businessImageItem.position;
-
+            image=data.businessImageItem.image;
 
         },
         error: function (xhr) {
@@ -49,7 +50,7 @@ $.ajax(
 document.getElementById("ad").onclick=function() {
     var fd = new FormData($("#upload-file-form")[0]);
     var url=getUrl();
-    var image;
+
 
     $.ajax({
         url: url + "/upload",
@@ -60,7 +61,8 @@ document.getElementById("ad").onclick=function() {
         contentType: false,
         cache: false,
         success: function (data) {
-            if (data != "") {
+
+            if (data != ""&&data!='上传文件不能为空') {
                 image = data;
             }
 
@@ -106,14 +108,15 @@ document.getElementById("ad").onclick=function() {
             }
             $.ajax(
                 {
-                    url: url + "/business/uploadImage",
+                    url: url + "/business/updateImage",
                     data: {
+                        id:id,
                         marketType:marketType,
                         position:position,
                         image:image
                     },
                     success: function (data) {
-                        alert("添加成功");
+                        alert("修改成功");
                         window.location.href = "service.html";
                     },
                     error: function (xhr) {

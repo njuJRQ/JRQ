@@ -15,7 +15,65 @@
    </view> <view class='main_img'  bindtap='letShowUserTagsModal2'>
    <image src='{{mian_imgC}}' mode='widthFix'></image>
    </view>
+   
   </view>
+
+<view class='main'>
+   <view class='main_img'  bindtap='letShowUserTagsModal2'>
+   <image src='{{mian_imgD}}' mode='widthFix'></image>
+   </view>
+    <view class='main_img'  bindtap='letShowUserTagsModal2'>
+   <image src='{{mian_imgE}}' mode='widthFix'></image>
+   </view> <view class='main_img'  bindtap='letShowUserTagsModal2'>
+   <image src='{{mian_imgF}}' mode='widthFix'></image>
+   </view>
+   
+  </view>
+
+  <view class='main'>
+   <view class='main_img'  bindtap='letShowUserTagsModal2'>
+   <image src='{{mian_imgG}}' mode='widthFix'></image>
+   </view>
+    <view class='main_img'  bindtap='letShowUserTagsModal2'>
+   <image src='{{mian_imgH}}' mode='widthFix'></image>
+   </view> <view class='main_img'  bindtap='letShowUserTagsModal2'>
+   <image src='{{mian_imgI}}' mode='widthFix'></image>
+   </view>
+   
+  </view>
+
+  <view class='main'>
+   <view class='main_img'  bindtap='letShowUserTagsModal2'>
+   <image src='{{mian_imgJ}}' mode='widthFix'></image>
+   </view>
+    <view class='main_img'  bindtap='letShowUserTagsModal2'>
+   <image src='{{mian_imgK}}' mode='widthFix'></image>
+   </view> <view class='main_img'  bindtap='letShowUserTagsModal2'>
+   <image src='{{mian_imgL}}' mode='widthFix'></image>
+   </view>
+   
+  </view>
+
+  <view class='main'>
+   <view class='main_img'  bindtap='letShowUserTagsModal2'>
+   <image src='{{mian_imgM}}' mode='widthFix'></image>
+   </view>
+    <view class='main_img'  bindtap='letShowUserTagsModal2'>
+   <image src='{{mian_imgN}}' mode='widthFix'></image>
+   </view> <view class='main_img'  bindtap='letShowUserTagsModal2'>
+   <image src='{{mian_imgO}}' mode='widthFix'></image>
+   </view>
+   
+  </view>
+
+  <view class='main'>
+   <view class='main_img'  bindtap='letShowUserTagsModal2'>
+   <image src='{{mian_imgP}}' mode='widthFix'></image>
+   </view>
+    
+   
+  </view>
+  
             <modal wx:if="{{showUserTagsModal2}}" height='60%' title="功能正在开发中，敬请期待" bindcancel="userTagsModalCancel" bindconfirm='userTagsModalConfirm2'>
           <view class='container'>
             <view class='tag-wrapper'>

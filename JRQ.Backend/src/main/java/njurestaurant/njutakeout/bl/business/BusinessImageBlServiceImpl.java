@@ -1,15 +1,14 @@
 package njurestaurant.njutakeout.bl.business;
 
-import njurestaurant.njutakeout.blservice.business.BusinessBlService;
 import njurestaurant.njutakeout.blservice.business.BusinessImageBlService;
-import njurestaurant.njutakeout.dataservice.business.BusinessDataService;
 import njurestaurant.njutakeout.dataservice.business.BusinessImageDataService;
-import njurestaurant.njutakeout.entity.business.Business;
 import njurestaurant.njutakeout.entity.business.BusinessImage;
 import njurestaurant.njutakeout.exception.NotExistException;
 import njurestaurant.njutakeout.publicdatas.business.MarketType;
 import njurestaurant.njutakeout.response.InfoResponse;
-import njurestaurant.njutakeout.response.business.*;
+import njurestaurant.njutakeout.response.business.BusinessImageItem;
+import njurestaurant.njutakeout.response.business.BusinessImageListResponse;
+import njurestaurant.njutakeout.response.business.BusinessImageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +30,11 @@ public class BusinessImageBlServiceImpl implements BusinessImageBlService {
     }
 
     @Override
-    public InfoResponse update(String id, String image) throws NotExistException {
+    public InfoResponse update(String id, String marketType,String position,String image) throws NotExistException {
         BusinessImage businessImage=businessImageDataService.findById(id);
+        MarketType m=MarketType.valueOf(marketType);
+        businessImage.setMarketType(m);
+        businessImage.setPosition(position);
         businessImage.setImage(image);
         businessImageDataService.update(businessImage);
         return new InfoResponse();

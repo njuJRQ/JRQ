@@ -385,12 +385,20 @@ function getDocument(id) {
       'content-type': 'application/x-www-form-urlencoded'
     },
     method: 'GET',
+    async:true,
     success: (res) => {
       if (res.statusCode == 200) {
         res.data.document.preview = app.globalData.picUrl + res.data.document.preview
         res.data.document.attachments = res.data.document.attachments.map((attachment) => app.globalData.picUrl + attachment)
         res.data.document.previews = res.data.document.previews.map((preview) => app.globalData.picUrl + preview)
+        var newArray=[false]
+        var isDownLoadAttachments=[]
+        var len = res.data.document.attachments.length
+        for (var i = 0; i < len; i++) {
+          isDownLoadAttachments = isDownLoadAttachments.concat(newArray)
+        }
         that.setData({
+          isDownLoadAttachments: isDownLoadAttachments,
           document: res.data.document
         })
         console.log(res.data.document)
@@ -1008,22 +1016,27 @@ function downloadFile(filepath, then) {
     title: '下载中',
   })
   wx.downloadFile({
-    url: app.globalData.picUrl + filepath,
+    url: filepath,
     header: {
       'Authorization': 'Bearer ' + app.getToken(),
       'content-type': 'application/x-www-form-urlencoded'
     },
     success: (res) => {
       wx.hideLoading()
-      wx.saveFile({
-        tempFilePath: res.tempFilePath,
-        success: (res) => {
-          that.setData({
-            savedFilePath: res.savedFilePath
-          })
-          if (then) then()
-        }
+      wx.openDocument({
+        filePath: res.tempFilePath,
       })
+      // wx.saveFile({
+      //   tempFilePath: res.tempFilePath,
+      //   success: (res) => {
+
+      //     that.setData({
+      //       savedFilePath: res.savedFilePath
+      //     })
+          
+      //     if (then) then()
+      //   }
+      // })
     }
   })
 }
@@ -1559,10 +1572,13 @@ function getContractList(then) {
     // }
     success: (res) => {
       res.data.documents.forEach(item => {
-        item.image = app.globalData.picUrl + item.preview
+        item.image = app.globalData.picUrl + item.image
+        item.attachments = item.attachments.map((attachment) => app.globalData.picUrl + attachment)
+        item.previews = item.previews.map((preview) => app.globalData.picUrl + preview)
       })
+
       that.setData({
-        documents: res.data.documents
+        documentsList: res.data.documents
       })
       console.log(res.data)
     }
@@ -1635,6 +1651,12 @@ function getImage(marketType) {
     method: 'GET',
     success: (res) => {
       if (res.statusCode == 200) {
+        if (res.data.down.indexOf("oss")<0){
+        res.data.down = app.globalData.picUrl + res.data.down
+        }
+        if (res.data.up.indexOf("oss") <0) {
+          res.data.up = app.globalData.picUrl + res.data.up
+        }
         that.setData({
           image: res.data
         })

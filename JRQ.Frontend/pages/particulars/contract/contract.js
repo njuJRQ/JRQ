@@ -1,29 +1,32 @@
-// pages/particulars/contract/contract.js
-const app = getApp();
+//index.js
+// 获取应用实例
+const app = getApp()
 var api = require('../../../util/api.js')
+const {
+  bg1
+} = require('../../../util/data.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-documents:[]
+    documentsList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
     api.getContractList.call(this)
-    // api.getDocumentList.call(this)
 
   },
   onTouchThisArticle: function (e) {
     var id = e.currentTarget.dataset.id //获取当前文章id
-    console.log(id)
     var kind = e.currentTarget.dataset.kind
     wx.navigateTo({
-      url: '../../articleDetail/contractDetail/contractDetail?id=' + id
+      url: '../../articleDetail/documentDetail/documentDetail?id=' + id
     })
   },
   /**

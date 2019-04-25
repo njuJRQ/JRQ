@@ -207,12 +207,13 @@ public class DocumentController {
 
     @ApiOperation(value = "添加合同", notes = "添加合同")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "title", value = "文档标题", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "content", value = "文档内容", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "title", value = "合同标题", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "detail", value = "合同详情", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "content", value = "合同内容", required = true, dataType = "String"),
             @ApiImplicitParam(name = "image", value = "图片路径", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "attachment", value = "附件路径", required = true, dataType = "String"),
             @ApiImplicitParam(name = "writerName", value = "作者名字", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "price", value = "价格", required = true, dataType = "String")
+            @ApiImplicitParam(name = "price", value = "价格", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "attachments", value = "附件路径列表", required = true, dataType = "List<String>")
     })
     @RequestMapping(value = "/addContract", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -220,8 +221,8 @@ public class DocumentController {
             @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
             @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
     @ResponseBody
-    public ResponseEntity<Response> addContract(@RequestParam(name="title")String title, @RequestParam(name="content")String content, @RequestParam(name="image")String image, @RequestParam(name="attachment")String attachment,@RequestParam(name="writerName")String writerName, @RequestParam(name="price")String price) {
-        ResponseEntity<Response> r=new ResponseEntity<>(documentBlService.addDocument(title,"",content,image,attachment,writerName,Integer.parseInt(price),0,true,null), HttpStatus.OK);
+    public ResponseEntity<Response> addContract(@RequestParam(name="title")String title,@RequestParam(name="detail")String detail, @RequestParam(name="content")String content, @RequestParam(name="image")String image, @RequestParam(name="writerName")String writerName, @RequestParam(name="price")String price,@RequestParam(name="attachments")List<String> attachments) {
+        ResponseEntity<Response> r=new ResponseEntity<>(documentBlService.addDocument(title,detail,content,image,"",writerName,Integer.parseInt(price),0,true,attachments), HttpStatus.OK);
         return r;
     }
 

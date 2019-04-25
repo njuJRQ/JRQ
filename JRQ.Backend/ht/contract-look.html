@@ -37,7 +37,7 @@
 
         <div class="am-tabs am-margin" data-am-tabs>
             <ul class="am-tabs-nav am-nav am-nav-tabs">
-                <li class="am-active"><a href="#tab1">查看文档</a></li>
+                <li class="am-active"><a href="#tab1">查看合同</a></li>
 
             </ul>
 
@@ -55,6 +55,11 @@
                     <div class="am-g am-margin-top">
                         <div class="am-u-sm-4 am-u-md-2 am-text-right">合同描述</div>
                         <div id="content" class="am-u-sm-8 am-u-md-10"></div>
+                    </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">合同详情</div>
+                        <div id="detail" class="am-u-sm-8 am-u-md-10"></div>
                     </div>
 
                     <div class="am-g am-margin-top">
@@ -83,13 +88,14 @@
                     <div id="likeNum" class="am-u-sm-8 am-u-md-10"></div>
                 </div>
 
-                <div class="am-g am-margin-top">
+                <div id="files" class="am-g am-margin-top">
                     <div class="am-u-sm-4 am-u-md-2 am-text-right">附件路径</div>
-                    <div class="am-u-sm-8 am-u-md-10"><button type="button" onclick="attatchment()">点击查看项目附件</button></div>
+                    <div class="am-u-sm-8 am-u-md-10"><button type="button" onclick="attatchment()">点击查看合同附件</button></div>
+                    <div class="am-u-sm-8 am-u-md-10"><button type="button" onclick="attatchment()">点击查看合同附件</button></div>
                 </div>
 
                 <div class="am-margin">
-                    <a href="file.html">
+                    <a href="contract.html">
                         <button type="button" class="am-btn am-btn-primary am-btn-xs"style="background-color: #22cc77; margin-left: 20%;margin-bottom: 20%;">返回</button>
                     </a>
                 </div>
@@ -124,7 +130,7 @@
 <script src="assets/js/amazeui.min.js"></script>
 <script src="assets/js/app.js"></script>
 <script src="assets/js/getUrl.js"></script>
-<script src="assets/js/file-look.js"></script>
+<script src="assets/js/contract-look.js"></script>
 <script>
     var storage = window.localStorage;
     if(storage["has"]!="yes"){

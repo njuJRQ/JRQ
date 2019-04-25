@@ -150,7 +150,7 @@
 
 .float-box navigator{ 
   font-size: 13px; 
-  max-width: 80rpx; 
+  max-width: 34px; 
   color: #fff; 
   text-align: center; 
 } 

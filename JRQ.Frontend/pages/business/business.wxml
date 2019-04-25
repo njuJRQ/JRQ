@@ -8,7 +8,12 @@
     <!--<view class='header_img'>
       <image class='img_a' src='{{image}}' mode='widthFix'></image>
     </view>-->
-      <!--轮播广告-->
+    <view class='topReminder {{show?"show":""}}'>您的个人信息尚不完整 >>
+      <view class='nav' bindtap='toModifyCard'>立刻前往</view>
+      <image class='closeReminderPic' src='../../img/close.png' bindtap='closeNow'></image>
+    </view>
+
+    <!--轮播广告-->
     <swiper class='header_img' indicator-dots='true' indicator-active-color='white' autoplay='true' interval='5000' duration='1000' circular='true'> 
       <block wx:for="{{banners}}" wx:for-index="index"> 
         <swiper-item>

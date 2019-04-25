@@ -1,4 +1,5 @@
 // pages/business/business.js
+const app = getApp()
 var api = require('../../util/api.js')
 Page({
 
@@ -57,7 +58,8 @@ Page({
         image_a: 'https://image-s1.oss-cn-shanghai.aliyuncs.com/junrongquan/%E5%85%B6%E5%AE%83.png',
       // text: '其他类' 
 
-    }]
+    }],
+    show: 0,  //是否展示topReminder
   },
 
   /**
@@ -134,6 +136,7 @@ Page({
       })
     }
   },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -145,9 +148,34 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    /* 获取用户信息 */
+    var that = this
+    api.getMyInfo.call(this, app.getOpenid(), () => {
+      //that.data.myInfo.company = "";  //test only
+      if (typeof (that.data.myInfo.username) == 'undefined' || that.data.myInfo.username == ''
+        || typeof (that.data.myInfo.phone) == 'undefined' || that.data.myInfo.phone == ''
+        || typeof (that.data.myInfo.company) == 'undefined' || that.data.myInfo.company == '') {
+        that.setData({
+          show: 1
+        })
+        setTimeout(function () {
+          that.setData({
+            show: 0
+          })
+        }, 4000)
+      }
+    })
   },
-
+  toModifyCard: function () {
+    wx.navigateTo({
+      url: '../me/modifyMyCard/modifyMyCard'
+    })
+  },
+  closeNow: function () {
+    this.setData({
+      show: 0
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

@@ -44,12 +44,48 @@ Page({
     publishType: "",
     linkMan: "",
     phone: "",
+    agencyName: "",
   },
   /**
    * 生命周期函数--监听页面加载
    */
+  onLoad: function(){
+    /* 获取用户信息 */
+    var that = this
+    api.getMyInfo.call(this, app.getOpenid(), () => {
+      that.setData({
+        linkMan: that.data.myInfo.username,
+        phone: that.data.myInfo.phone,
+        agencyName: that.data.myInfo.company,
+      })
+      /* 验证信息是否完整 */
+      if (typeof (this.data.linkMan) == 'undefined' || this.data.linkMan == ''
+        || typeof (this.data.phone) == 'undefined' || this.data.phone == ''
+        || typeof (this.data.agencyName) == 'undefined' || this.data.agencyName == '') {
+        wx.showModal({
+          title: '提示',
+          content: '您的个人信息尚不完整，是否立刻前往填写？',
+          success: function (res) {
+            if (res.confirm) {
+              wx.navigateTo({
+                url: '../modifyMyCard/modifyMyCard'
+              })
+            }
+          }
+        })
+      }
+    })
+  },
   onShow: function(options) {
-
+    /* 重新获取用户信息 */
+    var that = this
+    api.getMyInfo.call(this, app.getOpenid(), () => {
+      that.setData({
+        linkMan: that.data.myInfo.username,
+        phone: that.data.myInfo.phone,
+        agencyName: that.data.myInfo.company,
+      })
+    })
   },
   //获取textarea输入文本内容
   bindInputValue: function(e) {

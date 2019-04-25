@@ -130,9 +130,13 @@ Page({
       city: 'city',
       department: 'department',
       position: 'position',
-      intro: 'intro'
+      intro: 'intro',
+      card: '',
     },
-    newMyInfo: {}
+    cardDisplay: 'none',
+    uploadOrModifyCard: '上传名片',
+    uploadOrModifyCardPic: '/pages/me/img/revise.png',
+    newMyInfo: {},
   },
 
   userTagSelect1: function(e) {
@@ -267,6 +271,24 @@ Page({
     this.data.newMyInfo.intro = e.detail.value;
   },
 
+  updateCard: function () {
+    var that = this;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        var tempFilePath = res.tempFilePaths[0]
+        console.log(tempFilePath)
+        that.data.myInfo.card = tempFilePath
+        that.data.newMyInfo.card = tempFilePath
+        that.data.cardDisplay='block'
+        that.data.uploadOrModifyCard='修改名片'
+        that.setData(that.data)
+      },
+    })
+  },
+
   updateAllTag1: function(e) {
     var newAllUserTags = [];
     for (var i = 0; i < this.data.userTag1.length; i++) {
@@ -330,6 +352,12 @@ Page({
         /* 复制myInfo到newMyInfo中 */
         that.data.newMyInfo = that.data.myInfo
         that.selectedUserTags = label
+        /* 判断是否有名片 */
+        //console.log(that.data.myInfo.card);
+        if (typeof (that.data.myInfo.card) != 'undefined' && that.data.myInfo.card != '') {
+          that.data.cardDisplay = 'block'
+          that.data.uploadOrModifyCard = '修改名片'
+        }
         that.setData(that.data)
         that.updateAllTag1();
         that.updateAllTag2();

@@ -7,7 +7,7 @@
   <view style='width: 100%;'>
     <view class='infos column'>
       <view class='info'>
-        <text class='info__key'>姓名</text>
+        <text class='info__key'>真实姓名</text>
         <input class='info__value' placeholder='{{myInfo.username}}' bindinput='updateName'></input>
       </view>
       <!-- <view class='div-line'></view> -->
@@ -98,6 +98,14 @@
       <view class='info'>
         <text class='info__key'>个人简介:</text>
         <textarea class='info__value info__textarea' auto-height="true" placeholder='{{myInfo.intro}}' bindinput='updateIntro'></textarea>
+      </view>
+      <view class='infoCard'>
+        <text class='info__key'>名片</text>
+        <view class='uploadButton' bindtap='updateCard'>
+          <text>{{uploadOrModifyCard}}</text>
+          <image class='uploadButtonPic' src='{{uploadOrModifyCardPic}}'></image>
+        </view>
+        <image class='bussinessCard' src='{{myInfo.card}}' mode='widthFix' style='display:{{cardDisplay}}'></image>
       </view>
     </view>
   </view>

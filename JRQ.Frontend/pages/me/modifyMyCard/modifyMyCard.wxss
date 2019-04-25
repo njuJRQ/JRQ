@@ -35,7 +35,7 @@ page {
 .info {
   width: 96%;
   margin-left: 2%;
-  border-bottom-color: rgb(230, 230, 230);
+  border-bottom-color: rgb(229, 229, 229);
   border-bottom-style: solid;
   border-bottom-width: 1px;
   justify-content: space-between;
@@ -116,4 +116,35 @@ tag
   background: #c09b54;
   color: #fff;
   border-radius: 40rpx;
+}
+
+
+.infoCard {
+  width: 96%;
+  margin-left: 2%;
+  border-bottom-color: rgb(230, 230, 230);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  padding: 10px;
+}
+
+.uploadButton {
+  font-size: 0.8rem;
+  float: right;
+  color: rgb(150, 150, 150);
+}
+
+.uploadButtonPic{
+  display: block;
+  width:14px;
+  height:14px;
+  float:right;
+  margin-top:2px;
+  padding-left:3px;
+}
+
+.bussinessCard{
+  display: block;
+  width:100%;
+  margin-top:10px;
 }

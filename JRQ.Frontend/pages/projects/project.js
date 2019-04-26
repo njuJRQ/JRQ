@@ -28,6 +28,9 @@ Page({
     currentTab: 0,
 
     boxOpacity: 1,
+
+    //占半位的字符数组
+    halfChar: ['0','1','2','3','4','5','6','7','8','9','.',',', '/','(',')','[',']','{','}','!','`','^','*','-','+','=',':',';','"','\'']
   },
   onLoad: function() {
 
@@ -125,6 +128,7 @@ Page({
 
   // 点击tab切换 
   swichNav: function(e) {
+    
     var currentTabIndex = e.currentTarget.dataset.current;
     var that = this;
     if (this.data.currentTab === currentTabIndex) {
@@ -134,6 +138,7 @@ Page({
         currentTab: currentTabIndex
       })
       console.log(this.data.currentTab)
+      /* 不要再切换了，会自动触发bindchange，再调用函数则在点击nav后会触发两次刷新
       switch (this.data.currentTab) {
         case '0':
           console.log('enter showPrior')
@@ -149,7 +154,8 @@ Page({
           that.showTime()
           break;
         default:
-      }
+      }*/
+      
     }
 
   },
@@ -161,14 +167,11 @@ Page({
       articles: [],
       openid: "",
       id: "",
-
       //lastIdType: ""
     })
 
-    // api.getFeedList.call(this, 'latest', app.getOpenid(), this.data.lastId)
     console.log("showPrior")
-    api.getFeedList.call(this, 'isPreferred', app.getOpenid(), this.data.id)
-    console.log(api.getFeedList.call(this, 'isPreferred', app.getOpenid(), this.data.id))
+    api.getFeedList.call(this, 'isPreferred', app.getOpenid(), this.data.id, "", this.examineExpand)
     console.log("showPrior success")
   },
 
@@ -180,7 +183,7 @@ Page({
       lastIdType: "",
       flag: false
     })
-    api.getFeedList.call(this, 'hot', app.getOpenid(), this.data.lastId, this.data.id)
+    api.getFeedList.call(this, 'hot', app.getOpenid(), this.data.lastId, this.data.id, this.examineExpand)
   },
   showTime: function() {
     this.setData({
@@ -191,7 +194,7 @@ Page({
       lastIdType: ""
     })
 
-    api.getFeedList.call(this, 'time', app.getOpenid(), this.data.lastId, this.data.id)
+    api.getFeedList.call(this, 'time', app.getOpenid(), this.data.lastId, this.data.id, this.examineExpand)
   },
 
   onPullDownRefresh: function() {
@@ -199,11 +202,90 @@ Page({
   },
 
   onReachBottom: function() {
-    api.getFeedList.call(this, app.getOpenid(), this.data.lastId)
+    api.getFeedList.call(this, app.getOpenid(), this.data.lastId, "", this.examineExpand)
   },
 
+  examineExpand: function(){
+    var that = this;
+    for (var index in that.data.articles) {
+      if (that.countLines(that.data.articles[index].content) > 5) {
+        that.data.articles[index].canExpand = 1; // 可以展开
+        that.data.articles[index].isExpanded = false;
+      }
+      else {
+        that.data.articles[index].canExpand = 0;
+        that.data.articles[index].isExpanded = true;
+      }
+      that.data.articles[index].ExpandOrNarrow = '展开';
+    }
+    
+    that.setData(that.data);
+  },
+
+  countLines: function(content){
+    var count = 0;
+    var line = 1;
+    for(var i = 0; i < content.length; i++){
+      if(content.charAt(i) == '\n'){
+        line = line + 1;
+        count = 0;
+      }
+      else if (this.takeHalfPlace(content.charAt(i))){
+        count = count + 0.5;
+        if (count >= 22) {
+          line = line + 1;
+          count = 0;
+        }
+      }
+      else{
+        count = count + 1;
+        if (count >= 22) {    // 因为可能为0.5，所以不能用等于22
+          line = line + 1;
+          count = 0;
+        }
+      }
+    }
+    return line;
+  },
+  /* 是否只占半个汉字的位置 */
+  takeHalfPlace: function(c){
+      if(this.data.halfChar.indexOf(c)>-1) return true;
+      return false;
+  },
+  changeExpand: function(event){
+    var that = this;
+    var articleid = event.currentTarget.dataset.articleid;
+    for (var index in that.data.articles) {
+      if (that.data.articles[index].id == articleid) {
+        that.data.articles[index].isExpanded = !that.data.articles[index].isExpanded;
+        that.data.articles[index].ExpandOrNarrow = 
+          that.data.articles[index].ExpandOrNarrow == '展开' ? '收起' : '展开';
+        that.setData(that.data);
+        break;
+      }
+    }
+  },
+  
   itemclick(event) {
-    articleItem.onClickThisFace(event.currentTarget.dataset.id)
+    //不要点击整个item，而是点击头像才跳转到history
+    //articleItem.onClickThisFace(event.currentTarget.dataset.id)
+    //console.log(this.data.articles);  //test only!!!
+  },
+
+  /* 虽然使用了template，但模版最终也是渲染在调用者project.wxml上，所以模版的bindtap事件可以写在这里 */
+  onClickThisFace: function (event) {
+    wx.navigateTo({
+      url: '../me/myHistory/myHistory?id=' + event.currentTarget.dataset.id,
+    })
+  },
+  previewImg: function (event) {
+    var src = event.currentTarget.dataset.src; //获取data-src
+    var imgList = event.currentTarget.dataset.list; //获取data-list
+    //图片预览
+    wx.previewImage({
+      current: src, // 当前显示图片的http链接
+      urls: imgList // 需要预览的图片http链接列表
+    })
   },
 
   // 滑动屏幕浏览时半透明化
@@ -211,13 +293,11 @@ Page({
     this.setData({
       boxOpacity: 0.7
     })
-    //console.log(this.data.boxOpacity);
   },
 
   onScrollStop: function (ev) {
     this.setData({
       boxOpacity: 1
     })
-    //console.log(this.data.boxOpacity);
   },  
 })

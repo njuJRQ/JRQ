@@ -53,11 +53,27 @@
   margin: 5px 0 10px 0;
   display: -webkit-box;
   overflow: hidden;
-  text-overflow: ellipsis;
+  /* text-overflow: ellipsis; */
   word-wrap: break-word;
   white-space: normal !important;
-  -webkit-line-clamp: 3;
+  
   -webkit-box-orient: vertical;
+}
+
+/* 控制展开或收起 */
+.expand{
+  -webkit-line-clamp: 0;   /* 行数限制，0表示不限制*/
+}
+.narrow{
+  -webkit-line-clamp: 5;
+}
+
+.expandButton{
+  display:block;
+  color: rgb(33, 81, 172);
+  font-size: 0.7rem;
+  font-weight: 500;
+  margin: -5px 0 10px 0;
 }
 
 .article__bottom {

@@ -213,7 +213,7 @@ function getAbstractListByCondition(openid, condition) {
 }
 
 
-function getFeedList(kind, openid, lastId, id) {
+function getFeedList(kind, openid, lastId, id, then) {
   console.log("getFeedList success!")
   if (!id) {
     id = "";
@@ -275,6 +275,8 @@ function getFeedList(kind, openid, lastId, id) {
         that.data.lastId = articles[articles.length - 1].id
         //that.data.lastIdType = articles[articles.length - 1].kind
         that.setData(that.data)
+        /* 增加可能的后续处理 */
+        if (then) then()
       } else if (res.statusCode == 500) {
         wx.showModal({
           title: res.data.error,

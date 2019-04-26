@@ -1,4 +1,5 @@
 var articleItem = {
+  /* no use */
   //图片点击事件
   previewImg: function(event) {
     var src = event.currentTarget.dataset.src; //获取data-src
@@ -10,11 +11,13 @@ var articleItem = {
     })
   },
 
+  /* no use */
   onClickThisFace: function(id) {
     wx.navigateTo({
       url: '../me/myHistory/myHistory?id=' + id,
     })
   },
+
 }
 
 export default articleItem;

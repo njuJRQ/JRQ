@@ -6,8 +6,8 @@
     </view> -->
     <view class='article_row'>
       <!--作者信息-->
-      <view class='writer' id='{{item.writerOpenid}}' bindtap='onClickThisFace' data-item='{{item}}'>
-        <image class='writer__face' src='{{item.writerFace}}'></image>
+      <view class='writer' id='{{item.writerOpenid}}' data-item='{{item}}'>
+        <image class='writer__face' src='{{item.writerFace}}' data-id='{{item.writerOpenid}}'  bindtap='onClickThisFace'></image>
         <view class='name_width'>
         </view>
 
@@ -22,7 +22,9 @@
           <text class='title' wx:elif="{{item.projectRef.length==20}}">核心股东</text>
           <text class='title' wx:elif="{{item.projectRef.length==8}}">雇员</text>
           <text class='title' wx:elif="{{item.projectRef.length==11}}">一手第三方</text>
-          <text class='article__content'>{{item.projectInfo}}</text>
+          <text class="article__content {{item.isExpanded?'expand':'narrow'}}">{{item.projectInfo}}</text>
+          <!--展开/收起按钮-->
+          <text class='expandButton' bindtap="changeExpand" style="display:{{item.canExpand==0 ? 'none' : 'block'}}" data-articleid="{{item.id}}">{{item.ExpandOrNarrow}}</text>
         </view>
         <!--文章图片-->
         <view class='article__imageList'>

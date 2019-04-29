@@ -531,11 +531,6 @@ function purchaseCourse(courseId, openid, price, date, then) {
 }
 
 function getMyInfo(openid, then) {
-  /**
-   * 方法：getUser
-   * 参数：
-   * 无
-   */
   var that = this
   wx.showLoading({
     title: '载入中',
@@ -553,7 +548,9 @@ function getMyInfo(openid, then) {
     success: (res) => {
       wx.hideLoading()
       that.data.myInfo = res.data.user
+      //console.log(res.data.user)
       that.data.myInfo.face = app.globalData.picUrl + that.data.myInfo.face
+      //that.data.myInfo.card = app.globalData.picUrl + that.data.myInfo.card
       if (that.data.myInfo.levelName == '998') {
         that.data.myInfo.medals.push('http://junrongcenter.oss-cn-beijing.aliyuncs.com/updateMe/gold.png')
       } else if (that.data.myInfo.levelName == '298') {
@@ -564,6 +561,30 @@ function getMyInfo(openid, then) {
       if (that.data.myInfo.isEnterprise) {
         that.data.myInfo.medals.push('http://junrongcenter.oss-cn-beijing.aliyuncs.com/updateMe/enterprise.png')
       }
+      that.setData(that.data)
+      if (then) then()
+    }
+  })
+}
+
+function getMyCard(openid, then) {
+  var that = this
+  wx.showLoading({
+    title: '载入中',
+  })
+  wx.request({
+    url: app.globalData.backendUrl + "getMyCard",
+    data: {
+      openid: openid
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      wx.hideLoading()
+      that.data.myInfo.card = app.globalData.picUrl + res.data.card
       that.setData(that.data)
       if (then) then()
     }
@@ -848,6 +869,7 @@ function modifyMyInfo() {
           position: that.data.newMyInfo.position,
           intro: that.data.newMyInfo.intro,
           label: that.data.newMyInfo.label
+          //card: that.data.newMyInfo.card
         },
         header: {
           'Authorization': 'Bearer ' + app.getToken(),
@@ -905,6 +927,58 @@ function modifyMyInfo() {
             wx.navigateBack()
           }, 1000)
         }
+      })
+    }
+  })
+}
+
+function modifyMyCard() {
+  var that = this
+  wx.showLoading({
+    title: '上传中',
+  })
+  wx.uploadFile({
+    //上传用户名片
+    url: app.globalData.backendUrl + "uploadCard",
+    filePath: that.data.newMyInfo.card,
+    name: 'card',
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    success: (res) => {
+      wx.request({
+        //上传用户信息
+        url: app.globalData.backendUrl + "updateCard",
+        data: {
+          openid: app.getOpenid(),
+          card: that.data.newMyInfo.card
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'POST',
+        success: (res) => {
+          wx.hideLoading()
+          wx.showToast({
+            title: '修改成功',
+            icon: 'succes',
+            duration: 1000,
+            mask: true
+          })
+          setTimeout(() => {
+            wx.navigateBack()
+          }, 1000)
+        }
+      })
+    },
+    fail: (res) => {
+      wx.showToast({
+        title: '名片上传失败',
+        icon: 'none',
+        duration: 1000,
+        mask: true
       })
     }
   })
@@ -1668,6 +1742,144 @@ function getImage(marketType) {
   })
 }
 
+
+function getResume(openid, jobid, then) {
+  var that = this
+  wx.showLoading({
+    title: '载入中',
+  })
+  wx.request({
+    url: app.globalData.backendUrl + "getResume",
+    data: {
+      openid: openid,
+      jobid: jobid
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      wx.hideLoading()
+      that.data.resume = res.data.resume
+
+      that.data.resume.face = app.globalData.picUrl + that.data.resume.face
+      // other pre-process if needed
+      that.setData(that.data)
+      if (then) then()
+    }
+  })
+}
+
+function saveResume() {
+  var that = this
+  wx.showLoading({
+    title: '上传中',
+  })
+  wx.request({
+    //上传用户信息
+    dataType: "json",
+    url: app.globalData.backendUrl + "saveResume",
+    data: {
+      openid: app.getOpenid(),
+      jobid: that.data.jid,
+
+      name: that.data.resume.name,
+      face: that.data.resume.face.replace(app.globalData.picUrl, ""),
+      isFresh: that.data.resume.isFresh,
+      degree: that.data.resume.degree,
+      age: that.data.resume.age,
+      phone: that.data.resume.phone,
+      email: that.data.resume.email,
+      experience: that.data.resume.experience,
+      expectPosition: that.data.resume.expectPosition,
+      expectCity: that.data.resume.expectCity,
+      lowWage: that.data.resume.lowWage,
+      highWage: that.data.resume.highWage,
+      internship: that.data.resume.internship,
+      education: that.data.resume.education,
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      "Accept": "application/json, text/javascript, */*; q=0.01",
+      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+    },
+    method: 'POST',
+    success: (res) => {
+      wx.hideLoading()
+      if (res.data.status == 500 || res.data.status == 404) {
+        wx.showToast({
+          title: '保存失败',
+          icon: 'none'
+        })
+        return
+      }
+      wx.showToast({
+        title: '保存成功',
+        icon: 'succes',
+        duration: 1000,
+        mask: true
+      })
+    }
+  })
+}
+
+function saveResumeAndSend() {
+  var that = this
+  wx.showLoading({
+    title: '上传中',
+  })
+  wx.request({
+    //上传用户信息
+    dataType: "json",
+    url: app.globalData.backendUrl + "saveResumeAndSend",
+    data: {
+      openid: app.getOpenid(),
+      jobid: that.data.jid,
+
+      name: that.data.resume.name,
+      face: that.data.resume.face.replace(app.globalData.picUrl, ""),
+      isFresh: that.data.resume.isFresh,
+      degree: that.data.resume.degree,
+      age: that.data.resume.age,
+      phone: that.data.resume.phone,
+      email: that.data.resume.email,
+      experience: that.data.resume.experience,
+      expectPosition: that.data.resume.expectPosition,
+      expectCity: that.data.resume.expectCity,
+      lowWage: that.data.resume.lowWage,
+      highWage: that.data.resume.highWage,
+      internship: that.data.resume.internship,
+      education: that.data.resume.education,
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      "Accept": "application/json, text/javascript, */*; q=0.01",
+      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+    },
+    method: 'POST',
+    success: (res) => {
+      wx.hideLoading()
+      if (res.data.status == 500 || res.data.status == 404) {
+        wx.showToast({
+          title: '保存失败',
+          icon: 'none'
+        })
+        return
+      }
+      wx.showToast({
+        title: '投递成功',
+        icon: 'succes',
+        duration: 1000,
+        mask: true
+      })
+      setTimeout(() => {
+        wx.navigateBack()
+      }, 1000)
+    }
+  })
+}
+
 module.exports = {
   getAbstractList: getAbstractList,
   getAbstractListByCondition: getAbstractListByCondition,
@@ -1719,5 +1931,10 @@ module.exports = {
   getPartnership: getPartnership,
   getFindById: getFindById,
   businessAdd: businessAdd,
-  getImage: getImage
+  getImage: getImage,
+  getResume: getResume,
+  saveResume: saveResume,
+  saveResumeAndSend: saveResumeAndSend,
+  getMyCard: getMyCard,
+  modifyMyCard: modifyMyCard,
 }

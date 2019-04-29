@@ -7,6 +7,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    uid:'',
+    jid:'',
+
     isPreviewing: false,   //是否处于预览模式
 
     icon_user: '/img/icon_user.png',
@@ -14,57 +17,23 @@ Page({
     icon_eduo: "/img/icon_eduo.png",
 
     resume : {
-      name: '胡某某', /* 姓名 */
-      face: "/img/user.png", /* 头像 */
-
-      isFresh: true,  /* 是否为应届生 */
-      degree: '本科',    /* 学历 */
-      age: 21,  /* 年龄 */
-      phone: '17321232126',
-      email: '12345_54321_123@qq.com',
-      experience: 2,  /* 实习经历（年） */
-      
-      expectPosition: '平面设计师',  /* 期待岗位 */
-      expectCity: '南京', /* 期待工作地点 */
-      lowWage: 10,  /* 期待最低月薪 */
-      highWage: 14, /* 期待最高月薪 */
-
-      internship: [{
-          company: "南京某某某公司",
-          fromTime: '2018.05.16',
-          toTime: '2019.09.26',
-          position: '平面设计师',
-          grade: '表现良好',
-          content: '负责1981现代林园的招标广告设计及制作，同时兼任团队美术顾问及总监'
-        },
-        {
-          company: "南京可嘴可乐有限公司",
-          fromTime: '2017.05.16',
-          toTime: '2017.09.26',
-          position: '艺术总监',
-          grade: '表现优异',
-          content: '负责可嘴可乐瓶装汽水的外形设计，标签设计，商标设计及广告设计负责可嘴可乐瓶装汽水的外形设计，标签设计，商标设计及广告设计负责可嘴可乐瓶装汽水的外形设计，标签设计，商标设计及广告设计负责可嘴可乐瓶装汽水的外形设计，标签设计，商标设计及广告设计负责可嘴可乐瓶装汽水的外形设计，标签设计，商标设计及广告设计负责可嘴可乐瓶装汽水的外形设计，标签设计，商标设计及广告设计'
-        }
-      ],
-
-      education: [{
-          school: "南京林业大学",
-          fromTime: '2012',
-          toTime: '2016',
-          degree: '本科',
-          major: '平面设计',
-        },
-        {
-          school: "南京林业大学",
-          fromTime: '2016',
-          toTime: '2020',
-          degree: '硕士',
-          major: '平面设计',
-        }
-      ],
+      name: '',
+      face: "/img/user.png",
+      isFresh: false,
+      degree: '',
+      age: 0,
+      phone: '',
+      email: '',
+      experience: 0,
+      expectPosition: '',
+      expectCity: '',
+      lowWage: 0,
+      highWage: 0,
+      internship: [],
+      education: [],
     },
-    freshOrNot: ["非应届生", "应届生"],
 
+    freshOrNot: ["非应届生", "应届生"],
     degrees: ['高中','大专','本科','硕士','博士'],
     degreeIndex: 0,
     years: [],
@@ -75,37 +44,30 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    //console.log(options)
+    this.data.uid=options.uid;
+    this.data.jid=options.jid;
 
     /* 获取数据 */
-    this.fakeEmptyResume();
-    //api.xxx.call(this,options.uid,options.jid,...);
- 
-    /* 初始化处理, 顺序不要颠倒, 且应该都要放在 then 函数里！！！ */
-    this.ensureInternAndEducation();   // 保证至少有一个education和internship
-    this.initialExpectation(options);   // 根据职位信息填充预期职位和预期工作地点
-    this.initialYears();  // 初始化年份数组和教育经历的年份picker选中信息
-    this.initialDegreeIndex();  // 为所有学历字段添加当前选择的索引信息
-  },
+    api.getResume.call(this, options.uid, options.jid, () => {
+      /* 初始化处理, 顺序不要颠倒！！！ */
+      this.ensureInternAndEducation();   // 保证至少有一个education和internship
+      this.initialExpectation(options);   // 根据职位信息填充预期职位和预期工作地点
+      this.initialYears();  // 初始化年份数组和教育经历的年份picker选中信息
+      this.initialDegreeIndex();  // 为所有学历字段添加当前选择的索引信息
 
-  fakeEmptyResume: function(){
-    this.data.resume= {
-      name: '',
-      face: "/img/user.png",
-      isFresh: false,
-      degree: '',
-      age: 0,
-      phone: '',
-      email: '',
-      experience: 0,
-      expectPosition: '', 
-      expectCity: '', 
-      lowWage: 0,
-      highWage: 0,
-      internship:[],
-      education:[],
-    }
-    this.setData(this.data);
+      var that = this;
+      api.getMyInfo.call(that, app.getOpenid(), () => {
+        /* 若之前未填写，则自动获取手机和邮箱 */
+        console.log(that.data.myInfo)
+        if (that.data.resume.phone == '') {
+          that.data.resume.phone = that.data.myInfo.phone;
+        }
+        if (that.data.resume.email == '') {
+          that.data.resume.email = that.data.myInfo.email;
+        }
+        that.setData(that.data)
+      })
+    });
   },
 
   ensureInternAndEducation: function (){
@@ -260,11 +222,13 @@ Page({
   
   save: function () {
     // 只保存不需要检查信息完整性
-    console.log(this.data.resume)
-    //api.xxx.call(this)
+    console.log(this.data.resume.education)
+    /* api.js中showToast提示是否成功 */
+    api.saveResume.call(this)
   },
 
   saveAndSend: function (){
+    var that = this;
     if (this.checkInfomation()) {
       console.log(this.data.resume)
       wx.showModal({
@@ -272,7 +236,7 @@ Page({
         content: '是否确认投递简历？',
         success: function (res) {
           if (res.confirm) {
-            //api.yyy.call(this)
+            api.saveResumeAndSend.call(that)
           } 
         }
       })

@@ -285,6 +285,8 @@ Page({
         that.data.cardDisplay='block'
         that.data.uploadOrModifyCard='修改名片'
         that.setData(that.data)
+        
+        api.modifyMyCard.call(this)
       },
     })
   },
@@ -363,6 +365,9 @@ Page({
         that.updateAllTag2();
       })
     })
+
+    api.getMyCard.call(this, app.getOpenid)
+    
   },
 
   onSave: function() {

@@ -17,7 +17,7 @@
   </view>
 
   <view class='box' wx:for="{{jobCardItems}}" wx:for-index="index" wx:key="">
-    <view class='conten' data-id='{{item.id}}'>
+    <view class='conten' data-jid='{{item.id}}' data-expectposition='{{item.expectPosition}}' data-city='{{item.city}}' bindtap="checkResume">
       <!-- 标题 -->
       <view class='user_title'>
         <text>{{item.expectPosition}}</text>

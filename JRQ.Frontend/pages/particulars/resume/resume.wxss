@@ -11,42 +11,89 @@ page{
   background: rgb(255, 255, 255);
 }
 .container {
-  background: rgb(240, 240, 240);
+  background: #34495ee8;/* rgb(242, 193, 74) */
 }
-
 .box {
   width: 95%;
   margin: 0 auto;
 }
-
 .conten {
   width: 95%;
   margin: 0 auto;
   /* border: 1px solid red; */
 }
-
 .top {
   display: flex;
   justify-content: space-between;
-  height: 100px;
-  margin-top: 20px;
-  border-bottom: 1px solid rgb(0, 0, 0);
+  margin-top: 10px;
+  border-bottom: 1px solid white;
   padding-bottom: 15px;
 }
-
+.middle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.footer{
+  margin-top: 10px;
+  padding-bottom: 30px;
+}
 .typeface {
-  line-height: 40px;
+  width:100px;
 }
 
 .title {
-  font-size: 18px;
-  color: rgb(0, 0, 0);
+  font-size: 22px;
+  color: white;
   display: block;
+  line-height: 40px;
+  height:40px;
+  margin-top:10px;
+  text-align: center;
+}
+
+.showBorder input {   /* 预览时的input样式 */
+  border: 1px solid white;
+  border-radius: 5px;
+  padding-left: 5px;   /* 与开头的间距 */
+  padding-right: 5px;   /* 保证小input框的内容是居中的 */
+}
+
+.showBorder .icon_text{
+  padding-left: 0px;
+  padding-right: 0px;
+  text-align: center;
+}
+
+.showBorder textarea {  /* 修改时的textarea样式 */
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.noBorder textarea {  /* 预览时的textarea样式（wxml文件中设置了预览时auto-height） */
+    /*border-radius: 15px;    /* 屏蔽四个角 */
+    /* 四角样式 */
+    background: 
+    linear-gradient(to left, white, white) left top no-repeat,
+    linear-gradient(to bottom, white, white) left top no-repeat,
+    linear-gradient(to left, white, white) right top no-repeat,
+    linear-gradient(to bottom, white, white) right top no-repeat,
+    linear-gradient(to left, white, white) left bottom no-repeat,
+    linear-gradient(to bottom, white, white) left bottom no-repeat,
+    linear-gradient(to left, white, white) right bottom no-repeat,
+    linear-gradient(to left, white, white) right bottom no-repeat;
+    background-size: 1px 15px, 15px 1px, 1px 15px, 15px 1px;
+}
+
+.placeholderStyle{
+  color: rgb(184, 178, 178);
 }
 
 .title_studu {
-  font-size: 10px;
-  color: rgb(158, 158, 158);
+  font-size: 11px;
+  color: rgb(184, 178, 178);/*rgb(158, 158, 158);*/
   display: block;
 }
 
@@ -64,48 +111,318 @@ page{
 
 }
 
-.middle {
-  width: 220px;
+.icon {
+  width: 70px;
+  height: 20px;
+  line-height: 20px;
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin-top: 20px;
-  padding-bottom: 10px;
+  margin-bottom: 10px;
+  /*margin-right: 20px;*/
 }
 
-.icon {
-  width: 55px;
-  height: 18px;
-  line-height: 18px;
+.icon_long {
+  width: 90px;
+  height: 20px;
+  line-height: 20px;
   display: flex;
-  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.phone, .email {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  height: 20px;
+  line-height: 20px;
 }
 
 .icon_img {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 20px;
+}
+
+.icon_text {
+  font-size: 11px;
+  color: white; /*rgb(158, 158, 158)*/
+  display: block;
+  margin-left:10px;
+}
+
+.icon_text_short {
+  width: 40px;
+}
+
+.icon_text_long {
+  width: 60px;
+}
+
+.phone_text, .email_text {
+  width: 100%;
+  font-size: 11px;
+  color: white; /*rgb(158, 158, 158)*/
+  display: block;
+  margin-left:10px;
 }
 
 .experience {
-  width: 250px;
+  width:100%;
+  height: 20px;
+  line-height: 20px;
+  display: flex;
   margin-top: 15px;
+  margin-bottom: 10px;
+  font-size: 11px;
+}
+
+.experience_text {
+  width: 20px;
+  height: 20px;
+  font-size: 11px;
+  color: white; /*rgb(158, 158, 158)*/
+  text-align: center;
+}
+
+.experience_mention{
+  display: block;
+  height: 20px;
+  line-height: 20px;
+  font-size: 11px;
+  padding-top:3px;
+  margin-left:10px;
+  color: rgb(184, 178, 178);
+}
+
+
+.wage{
+  display: flex;
+  float:right;
+  height: 20;
+  line-height: 20;
+}
+
+.wage_mention{
+  display: flex;
+  height: 20px;
+  line-height: 20px;
+  font-size: 11px;
+  padding-top:2px;
+  margin-left:2px;
+  color: rgb(184, 178, 178);
+  vertical-align: center;
 }
 
 .expect {
   width: 100%;
 }
 
+.expect_a{
+  display: flex;
+  margin-bottom:10px;
+}
+
 .expect_b {
   display: flex;
   justify-content: space-between;
   line-height: 30px;
+  /*margin-top:10px;*/
+}
+
+.expect_c {
+  display: flex;
+  justify-content: space-between;
+  line-height: 30px;
+  margin-top:5px;
+}
+
+.addButton{  
+  width: 19px; 
+  height: 19px; 
+  margin:auto 0;
+  position: absolute;
+  right:5%;
+}
+
+.takeALine{
+  display: block;
+  width:100%;
+  height:19px;
+  margin:5px 0;
+}
+
+.minusButton{
+  float:right;
+  width: 19px; 
+  height: 19px; 
+
+}
+
+.expect_v {
+  justify-content: space-between;
+  margin-top:5px;
 }
 
 .title_txt {
-  color: rgb(0, 0, 0);
-  font-size: 12px;
+  color: white;
+  font-size: 14px;
 }
-.footer{
-  margin-top: 15px;
-padding-bottom: 50px;
+
+.important_txt {
+  color: white;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.normal_txt{
+  font-size: 11px;
+  color: white;
+  display: block;
+}
+
+.gradeArea{
+  width:96%;
+  height: 45px;
+  margin:8px 0 5px 0;
+  padding: 5px;
+  /*
+  overflow: hidden;
+  text-overflow: hidden;
+  */
+}
+/* 想要避免autoheight增高时出现滚动条，但真机上不会出现，仅在开发工具中出现
+.gradeArea::-webkit-scrollbar{
+  width:0;
+  height: 0;
+  color: transparent;
+}
+*/
+.degreeAndMajor{
+  display: flex;
+}
+
+.degree_text{
+  width: 40px;
+  height: 20px;
+  font-size: 11px;
+  color: white; /*rgb(158, 158, 158)*/
+  text-align: center;
+}
+
+.major_text{
+  width: 63px;
+  height: 20px;
+  font-size: 11px;
+  color: white; /*rgb(158, 158, 158)*/
+  text-align: center;
+}
+
+.date {
+  float:right;
+  display: flex;
+}
+
+.date_mention{
+  display: block;
+  height: 20px;
+  line-height: 20px;
+  font-size: 11px;
+  padding-top:3px;
+  margin-left:2px;
+  color: rgb(184, 178, 178);
+}
+
+.date_text{
+  width: 40px;
+  height: 20px;
+  font-size: 11px;
+  color: white; /*rgb(158, 158, 158)*/
+  text-align: center;
+}
+
+.date_long{
+  width: 60px;
+  height: 20px;
+  font-size: 11px;
+  color: white; /*rgb(158, 158, 158)*/
+  text-align: center;
+}
+
+.buttons{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.button {
+  display: flex;
+  width:100%;
+  height: 40px;
+  /*line-height: 25px;
+  padding:0px auto;*/
+  border:2px,solid,white;
+  border-radius: 5px;
+  background-color: green;
+  margin:3px 0;
+  justify-content: center;
+}
+
+.button::after{
+  border:2px,solid,white;
+  border-radius: 5px;
+}
+/*
+.button[plain] {
+  display: flex;
+  height: 25px;
+  line-height: 25px;
+  border:2px,solid,white;
+  border-radius: 5px;
+  background-color: black;
+}
+
+.button[plain]::after {
+  border:2px,solid,white;
+  border-radius: 5px;
+}*/
+
+
+.button_img {
+  width: 25px;
+  height: 25px;
+  margin:auto 0;
+}
+
+.button_text {
+  color:white;
+  font-size:15px;  
+
+  text-align: center;
+  vertical-align: center;
+  margin:auto 5px auto 0px;
+}
+
+.color_preview{
+  background-color: rgb(26, 172, 25);
+}
+
+.color_preview_hover{
+  background-color: rgb(26, 196, 26);
+}
+
+.color_save{
+  background-color: hsl(39, 100%, 50%);
+}
+
+.color_save_hover{
+  background-color: hsl(46, 100%, 50%);
+}
+
+.color_send{
+  background-color: rgb(230, 64, 64);
+}
+
+.color_send_hover{
+  background-color: rgb(235, 81, 81);
 }

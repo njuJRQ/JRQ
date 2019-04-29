@@ -3,86 +3,159 @@
 <import src='/template/adBar/adBar.wxml'></import>
 <import src='/template/likeIcon/likeIcon.wxml'></import>
 
-<view class="container container--color-white">
+<view class="container container--color-white {{isPreviewing?'noBorder':'showBorder'}}">
   <view class='box' >
     <view class='conten'>
       <!-- 头部信息 -->
       <view class='top'>
         <view class='typeface'>
-          <text class='title'>{{jobCardItem.user.username}}</text>
-          <text class='title_studu'>{{jobCardItem.user.company}}</text>
+          <input class='title' placeholder='姓名' placeholder-class='placeholderStyle' value='{{resume.name}}' disabled='{{isPreviewing?true:false}}' bindinput='updateName'></input>
         </view>
         <view class='img'>
-          <image class='img_image' src='{{jobCardItem.face}}'></image>
+          <image class='img_image' src='{{resume.face}}'></image>
         </view>
       </view>
 
-      <!-- 学历信息 -->
+      <!-- 基本信息 -->
       <view class='top'>
         <view class='middle'>
-          <view class='icon'>
-            <image class='icon_img' src='/img/icon_user.png'></image>
-            <text class='title_studu' wx:if="{{jobCardItem.isFresh}}">应届生</text>
-              <text class='title_studu' wx:else>非应届生</text>
+          <view class='icon_long'>
+            <image class='icon_img' src='/img/people.png'></image>
+            <picker range='{{freshOrNot}}' value='{{resume.isFresh?1:0}}' bindchange='changeFresh' disabled='{{isPreviewing?true:false}}'>
+              <input class='icon_text .icon_text_long' value='{{freshOrNot[resume.isFresh?1:0]}}' disabled='true'></input>
+            </picker>
           </view>
           <view class='icon'>
-            <image class='icon_img' src='/img/icon_age.png'></image>
-            <text class='title_studu'>{{jobCardItem.degree}}</text>
+            <image class='icon_img' src='/img/degree.png'></image>
+            <picker range='{{degrees}}' value='{{degreeIndex}}' bindchange='changeDegree' disabled='{{isPreviewing?true:false}}'>
+              <input class='icon_text .icon_text_short' placeholder='本科'  placeholder-class='placeholderStyle' value='{{resume.degree}}' disabled='true'></input>
+            </picker>
           </view>
           <view class='icon'>
-            <image class='icon_img' src='/img/icon_eduo.png'></image>
-            <text class='title_studu'>{{jobCardItem.age}}</text>
+            <image class='icon_img' src='/img/age.png'></image>
+            <input class='icon_text .icon_text_short' placeholder='年龄' value='{{resume.age}}' disabled='{{isPreviewing?true:false}}' type='number' bindinput='updateAge'></input>
+          </view>
+          <view class='phone'>
+            <image class='icon_img' src='/img/phone.png'></image>
+            <input class='phone_text' placeholder='手机' placeholder-class='placeholderStyle' value='{{resume.phone}}' disabled='{{isPreviewing?true:false}}' type='number' bindinput='updatePhone'></input>
+          </view>
+          <view class='email'>
+            <image class='icon_img' src='/img/email.png'></image>
+            <input class='email_text' placeholder='邮箱' placeholder-class='placeholderStyle' value='{{resume.email}}' disabled='{{isPreviewing?true:false}}' bindinput='updateEmail'></input>
           </view>
           <view class='experience'>
-            <text class='title_studu'>{{jobCardItem.experience}}</text>
+            <input class='experience_text' placeholder='0' placeholder-class='placeholderStyle' value='{{resume.experience}}' disabled='{{isPreviewing?true:false}}' type='number' bindinput='updateExperience'></input>
+            <text class='experience_mention'>年实习经历</text>
           </view>
         </view>
       </view>
+
       <!-- 期望 -->
       <view class='top'>
         <view class='expect'>
           <view class='expect_a'>
             <text class='title_txt'>求职期望</text>
-          </view>
-          <view class='expect_b'>
-            <text class='title_txt'>{{jobCardItem.expectPosition}}</text>
-            <text class='title_txt'>{{jobCardItem.expectWage}}</text>
-          </view>
+            </view>
+            <view class='expect_c'>
+              <text class='important_txt'>{{resume.expectPosition}}， {{resume.expectCity}}</text>
+              <view class='wage'>
+                <input class='experience_text' placeholder='0' placeholder-class='placeholderStyle' value='{{resume.lowWage}}' disabled='{{isPreviewing?true:false}}' type='number' bindinput='updateLow'></input>
+                <text class='wage_mention' decode="{{true}}">k&nbsp;-&nbsp;&nbsp;</text>
+                <input class='experience_text' placeholder='0' placeholder-class='placeholderStyle' value='{{resume.highWage}}' disabled='{{isPreviewing?true:false}}' type='number' bindinput='updateHigh'></input>
+                <text class='wage_mention'>k</text>
+              </view>
+            </view>
+            <text class='title_studu'>行业不限</text>
         </view>
       </view>
+
       <!-- 经历 -->
       <view class='top'>
         <view class='expect'>
           <view class='expect_a'>
             <text class='title_txt'>实习经历</text>
+            <image class='addButton' src='/img/plus.png'style="display:{{isPreviewing?'none':'block'}}" bindtap='addInternship'></image>
           </view>
-          <view class='expect_b'>
-            <text class='title_txt'>{{jobCardItem.company}}</text>
-            <text class='title_studu'>{{jobCardItem.time}}</text>
-          </view>
-          <view class='expect_v'>
-            <text class='title_studu'>平面设计师-设计</text>
-          </view>
-          <view class='expect_v'>
-            <text class='title_studu'>成绩:</text>
-            <text class='title_studu'>内容:</text>
+          <view wx:for="{{resume.internship}}" wx:for-index="index" wx:key="">
+            <view class='takeALine' style="display:{{index==0||isPreviewing?'none':'block'}}">
+              <image class='minusButton' src='/img/minus.png' data-index='{{index}}' bindtap='deleteInternship'></image>
+            </view>
+            <view class='expect_b'>
+              <input class='important_txt' placeholder='公司名称' placeholder-class='placeholderStyle' value='{{item.company}}' disabled='{{isPreviewing?true:false}}' data-index='{{index}}' bindinput='updateCompany'></input>
+              <view class='date'>
+                <picker mode='date' value='{{item.fromTime}}' bindchange='changeDate' disabled='{{isPreviewing?true:false}}' data-index='{{index}}' data-type='internship' data-kind='from'>
+                  <input class='date_long' placeholder='开始日' placeholder-class='placeholderStyle' value='{{item.fromTime}}' disabled='true'></input>
+                </picker>
+                <text class='date_mention' decode="{{true}}">&nbsp;-&nbsp;&nbsp;</text>
+                <picker mode='date' value='{{item.toTime}}' bindchange='changeDate' disabled='{{isPreviewing?true:false}}' data-index='{{index}}' data-type='internship' data-kind='to'>
+                  <input class='date_long' placeholder='结束日' placeholder-class='placeholderStyle' value='{{item.toTime}}' disabled='true'></input>
+                </picker>
+              </view>
+            </view>
+            <view class='expect_v'>
+              <input class='normal_txt' placeholder='职位名称' placeholder-class='placeholderStyle' value='{{item.position}}' disabled='{{isPreviewing?true:false}}' data-index='{{index}}' bindinput='updatePosition'></input>
+            </view>
+            <view class='expect_v'>
+              <view> <!--这里设置style='line-height:20px'可以统一行高，但autoheight会无效-->
+                <text class='normal_txt'>成绩：</text>
+                <textarea class='normal_txt gradeArea' value='{{item.grade}}' disabled='{{isPreviewing?true:false}}' auto-height data-index='{{index}}' bindinput='updateGrade'></textarea> 
+              </view>
+              <view>
+                <text class='normal_txt'>工作内容：</text>
+                <textarea class='normal_txt gradeArea' value='{{item.content}}' disabled='{{isPreviewing?true:false}}' auto-height data-index='{{index}}'  bindinput='updateContent'></textarea> 
+              </view>
+            </view>
           </view>
         </view>
       </view>
-      <!--  -->
-           <view class='footer'>
+
+      <view class='footer'>
         <view class='expect'>
           <view class='expect_a'>
             <text class='title_txt'>教育经历</text>
+            <image class='addButton' src='/img/plus.png'style="display:{{isPreviewing?'none':'block'}}" bindtap='addEducation'></image>
           </view>
-          <view class='expect_b'>
-            <text class='title_txt'>南京林业大学</text>
-            <text class='title_studu'>2016-2020</text>
-          </view>
-          <view class='expect_v'>
-            <text class='title_studu'>本科-平面设计</text>
+          <view wx:for="{{resume.education}}" wx:for-index="index" wx:key="">
+            <view class='takeALine' style="display:{{index==0||isPreviewing?'none':'block'}}">
+              <image class='minusButton' src='/img/minus.png' data-index='{{index}}' bindtap='deleteEducation'></image>
+            </view>
+            <view class='expect_b'>
+              <input class='important_txt' placeholder='学校名称' placeholder-class='placeholderStyle' value='{{item.school}}' disabled='{{isPreviewing?true:false}}' data-index='{{index}}' bindinput='updateSchool'></input>
+            <view class='date'>
+              <picker range='{{years}}' value='{{item.fromTime}}' bindchange='changeYear' disabled='{{isPreviewing?true:false}}' data-index='{{index}}' data-type='education' data-kind='from'>
+                <input class='date_text' placeholder='开始年' placeholder-class='placeholderStyle' value='{{item.fromTime}}' disabled='true'></input>
+              </picker>
+              <text class='date_mention'decode="{{true}}">&nbsp;-&nbsp;&nbsp;</text>
+              <picker range='{{years}}' value='{{item.toTime}}' bindchange='changeYear' disabled='{{isPreviewing?true:false}}' data-index='{{index}}' data-type='education' data-kind='to'>
+                <input class='date_text' placeholder='结束年' placeholder-class='placeholderStyle' value='{{item.toTime}}' disabled='true'></input>
+              </picker>
+            </view>
+            </view>
+            <view class='expect_v'>
+              <view class='degreeAndMajor'>
+                <picker range='{{degrees}}' value='{{item.degreeIndex}}' bindchange='changeItemDegree' disabled='{{isPreviewing?true:false}}' data-index='{{index}}'>
+                  <input class='degree_text' placeholder='学历' placeholder-class='placeholderStyle' value='{{item.degree}}' disabled='true'></input>
+                </picker>
+                <text class='wage_mention'decode="{{true}}">&nbsp;-&nbsp;&nbsp;</text>
+                <input class='major_text' placeholder='专业' placeholder-class='placeholderStyle' value='{{item.major}}' disabled='{{isPreviewing?true:false}}' data-index='{{index}}' bindinput='updateMajor'></input>
+              </view>
+            </view>
           </view>
         </view>
+      </view>
+      <view class='buttons'>
+        <button class='button color_preview' hover-class="color_preview_hover" bindtap='preview'>
+          <text class='button_text'>{{isPreviewing?'退出预览':'预览'}}</text>
+          <!--<image class='button_img' src="{{isPreviewing?'/img/eye-close.png':'/img/eye-open.png'}}"></image>-->
+        </button> 
+        <button class='button color_save' hover-class="color_save_hover" bindtap='save'>
+          <text class='button_text'>保存</text>
+          <!--<image class='button_img' src="/img/save.png"></image>-->
+        </button>
+        <button class='button color_send' hover-class="color_send_hover" bindtap='saveAndSend'>
+          <text class='button_text'decode="{{true}}">&nbsp;&nbsp;&nbsp;保存并投递</text>
+          <image class='button_img' src="/img/send.png"></image>
+        </button>
       </view>
     </view>
   </view>

@@ -95,7 +95,7 @@
           </view>
         </modal>
       <!-- <view class='div-line' bindtap='letShowUserTagsModal'></view> -->
-      <view class='info'>
+      <view wx:if="{{isShow}}" class='info'>
         <text class='info__key'>个人简介:</text>
         <textarea class='info__value info__textarea' auto-height="true" placeholder='{{myInfo.intro}}' bindinput='updateIntro'></textarea>
       </view>

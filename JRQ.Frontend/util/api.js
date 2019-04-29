@@ -847,7 +847,8 @@ function modifyMyInfo() {
           department: that.data.newMyInfo.department,
           position: that.data.newMyInfo.position,
           intro: that.data.newMyInfo.intro,
-          label: that.data.newMyInfo.label
+          label: that.data.newMyInfo.label,
+          label2: that.data.newMyInfo.label2
         },
         header: {
           'Authorization': 'Bearer ' + app.getToken(),

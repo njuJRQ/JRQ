@@ -215,9 +215,10 @@ function getAbstractListByCondition(openid, condition) {
 
 function getFeedList(kind, openid, lastId, id, then) {
   console.log("getFeedList success!")
-  if (!id) {
-    id = "";
-    console.log("id=null")
+  console.log(lastId)
+  if (!lastId) {
+    lastId = "";
+    console.log("lastId=null")
   }
   var that = this
   wx.showLoading({
@@ -235,7 +236,7 @@ function getFeedList(kind, openid, lastId, id, then) {
       kind: kind,
       openid: openid,
       // articleType: lastIdType,
-      id: id
+      id: lastId
     },
 
     method: 'POST',
@@ -276,13 +277,13 @@ function getFeedList(kind, openid, lastId, id, then) {
         //that.data.lastIdType = articles[articles.length - 1].kind
         that.setData(that.data)
         /* 增加可能的后续处理 */
-        if (then) then()
-      } else if (res.statusCode == 500) {
-        wx.showModal({
-          title: res.data.error,
-          content: res.data.message,
-          showCancel: false
-        })
+      //   if (then) then()
+      // } else if (res.statusCode == 500) {
+      //   wx.showModal({
+      //     title: res.data.error,
+      //     content: res.data.message,
+      //     showCancel: false
+      //   })
       }
     },
     fail: (res) => {

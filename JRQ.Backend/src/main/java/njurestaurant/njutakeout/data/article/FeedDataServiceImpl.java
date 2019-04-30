@@ -47,7 +47,7 @@ public class FeedDataServiceImpl implements FeedDataService {
 
 	@Override
 	public List<Feed> getAllFeeds() {
-		return feedDao.findAll();
+		return feedDao.findFeedsByOrderByTimeStampDesc();
 	}
 
 	@Override

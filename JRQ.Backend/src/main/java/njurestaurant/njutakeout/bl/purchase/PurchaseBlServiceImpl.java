@@ -258,7 +258,7 @@ public class PurchaseBlServiceImpl implements PurchaseBlService {
 			purchaseDataService.addPurchase(new Purchase(openid, type, detail, price, date)); //记录订单
 			return new BoolResponse(true, "购买成功");
 		} else {
-			return new BoolResponse(false, "账户余额不足");
+			return new BoolResponse(false, "账户余额不足，请前往个人界面进行充值");
 		}
 	}
 

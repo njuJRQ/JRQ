@@ -202,7 +202,7 @@ Page({
   },
 
   onReachBottom: function() {
-    api.getFeedList.call(this, app.getOpenid(), this.data.lastId, "", this.examineExpand)
+    api.getFeedList.call(this, 'time', app.getOpenid(), this.data.lastId, this.data.id, this.examineExpand)
   },
 
   examineExpand: function(){

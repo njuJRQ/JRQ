@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface FeedDao extends JpaRepository<Feed, String> {
+	List<Feed> findFeedsByOrderByTimeStampDesc();
 	List<Feed> findFeedsByWriterOpenidOrderByTimeStampDesc(String writerOpenid);
 	List<Feed> findFeedsByWriterOpenidInAndTimeStamp(List<String> friendOpenids, long timeStamp);
 	List<Feed> findTop10ByWriterOpenidInOrderByTimeStampDesc(List<String> friendOpenids);

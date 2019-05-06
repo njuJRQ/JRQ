@@ -25,7 +25,7 @@
 
   <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 31}}px;" bindchange="bindChange">
     <swiper-item class="swiper-items" wx-if="{{isShow}}">
-      <scroll-view class='scroll-views' scroll-x="false" scroll-y="true">
+      <scroll-view class='scroll-views' scroll-x="false" scroll-y="true" bindscrolltolower='onReachBottom'>
         <view wx:if='{{articles.length > 0}}' class='articleListWrapper_view'>
           <view wx:for='{{articles}}' wx:key='id' bindtap='itemclick' data-id='{{item.writerOpenid}}'>
             <template is='articleItem' data='{{item}}'></template>
@@ -34,7 +34,7 @@
       </scroll-view>
     </swiper-item>
     <swiper-item class="swiper-items" wx-if="{{isShow}}">
-      <scroll-view class='scroll-views' scroll-x="false" scroll-y="true">
+      <scroll-view class='scroll-views' scroll-x="false" scroll-y="true" bindscrolltolower='onReachBottom'>
         <view wx:if='{{articles.length > 0}}' class='articleListWrapper_view'>
           <view wx:for='{{articles}}' wx:key='id' bindtap='itemclick' data-id='{{item.writerOpenid}}'>
             <template is='articleItem' data='{{item}}'></template>
@@ -43,7 +43,7 @@
       </scroll-view>
     </swiper-item>
     <swiper-item class="swiper-items" wx-if="{{isShow}}">
-      <scroll-view class='scroll-views' scroll-x="false" scroll-y="true">
+      <scroll-view class='scroll-views' scroll-x="false" scroll-y="true" bindscrolltolower='onReachBottom'>
         <view wx:if='{{articles.length > 0}}' class='articleListWrapper_view'>
           <view wx:for='{{articles}}' wx:key='id' bindtap='itemclick' data-id='{{item.writerOpenid}}'>
             <template is='articleItem' data='{{item}}'></template>

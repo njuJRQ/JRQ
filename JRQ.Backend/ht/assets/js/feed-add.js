@@ -47,6 +47,7 @@ function addUser(){
         $.ajax(
             {
                 url: url + "/addFeed",
+                type:'POST',
                 data: {
                     linkMan: $("#linkMan").val(),
                     phone: $("#phone").val(),

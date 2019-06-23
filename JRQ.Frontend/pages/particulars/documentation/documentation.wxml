@@ -7,6 +7,13 @@
 
 
 <view class="container container--color-white">
+<view class='headWrapper' style='background-color:black; background-size: cover;background-repeat: no-repeat; background-position: bottom'>
+    <!--搜索框-->
+    <view>
+      <template class='search' is='searchBar' data='{{placeholder: "搜搜你感兴趣的文档吧~", searchCondition: searchCondition,onSearch:onSearch}}'></template>
+    </view>
+  </view>
+
   <view class='box'  wx:for="{{documentsList}}" wx:key="id">
     <view class='conten' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
       <view class='vessel'>

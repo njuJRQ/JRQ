@@ -21,7 +21,7 @@ Page({
   onLoad: function(options) {
     api.getIOSQualification.call(this, (res) => {
       condition = res
-      if (!condition) {
+      if (condition) {
         this.setData({
           isShowPrice: false
         })

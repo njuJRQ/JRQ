@@ -62,7 +62,7 @@ Page({
     api.getIOSQualification.call(this, (res) => {
       console.log(res)
       condition = res
-      if(!condition){
+      if(condition){
         this.setData({
           isShow:false
         })

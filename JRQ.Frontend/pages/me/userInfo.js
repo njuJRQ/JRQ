@@ -34,7 +34,7 @@ Page({
     api.getIOSQualification.call(this, (res) => {
       console.log(res)
       condition = res
-      if (!condition) {
+      if (condition) {
         this.setData({
           isShow: false
         })
@@ -60,7 +60,7 @@ Page({
     api.getIOSQualification.call(this, (res) => {
       console.log(res)
       condition = res
-      if (!condition) {
+      if (condition) {
         this.setData({
           isShow: false
         })
@@ -83,7 +83,17 @@ Page({
     this.getCard()
     this.mutualCard()
   },
+  onShow: function(options){
 
+      var that = this
+      this.data.isGetOtherInfo = false
+      api.getMyInfo.call(this, app.getOpenid()) //获取个人信息
+      api.getUserHistoryAbstractList.call(this, app.getOpenid(), app.getOpenid()) //获取个人历史文章列表信息
+    
+    api.getMyCardLimits.call(this, app.getOpenid())
+    this.getCard()
+    this.mutualCard()
+  },
   getCard: function() {
     var that = this;
     wx.request({

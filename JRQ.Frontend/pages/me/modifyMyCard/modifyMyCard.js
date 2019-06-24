@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isShow:true,
     labelArray: ['承兑汇票', '股票质押', '大宗减持', '定增', '短拆过桥', '企业信用贷', '供应链金融', '商业保理', '融资租赁', '股权融资', '并购重组', '壳资源', '基金产品', '资产证券化', '土地并购', '自定义'],
     userTag1: [{
         name: '高科·智造',
@@ -123,7 +124,7 @@ Page({
     labelIndex: 0,
     myInfo: {
       face: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-      username: 'USERname',
+      username: 'username',
       phone: 'phone',
       email: 'email',
       company: 'company',
@@ -187,18 +188,21 @@ Page({
 
   letShowUserTagsModal: function() {
     this.setData({
+      isShow: false,
       showUserTagsModal: true
     })
   },
 
   letShowUserTagsModal2: function() {
     this.setData({
+      isShow:false,
       showUserTagsModal2: true
     })
   },
 
   userTagsModalCancel: function() {
     this.setData({
+      isShow: true,
       showUserTagsModal: false,
       showUserTagsModal2: false,
     })
@@ -209,6 +213,7 @@ Page({
     var newMyInfo = this.data.newMyInfo;
     newMyInfo.label = this.data.selectedUserTags;
     this.setData({
+      isShow: true,
       newMyInfo: newMyInfo,
       showUserTagsModal: false
     })
@@ -218,6 +223,7 @@ Page({
     var newMyInfo = this.data.newMyInfo;
     newMyInfo.label2 = this.data.selectedUserTags2;
     this.setData({
+      isShow: true,
       newMyInfo: newMyInfo,
       showUserTagsModal2: false
     })
@@ -239,8 +245,9 @@ Page({
     })
   },
 
-  updatename: function(e) {
-    this.data.newMyInfo.name = e.detail.value;
+  updateName: function(e) {
+    this.data.newMyInfo.username = e.detail.value;
+    console.log(this.data.newMyInfo)
   },
 
   updatePhone: function(e) {

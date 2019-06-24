@@ -19,6 +19,16 @@
       <view class='type_txt'>
         <!-- <text class='type'>以下信息本平台严格保密，请放心填写</text> -->
       </view>
+
+      <!-- 项目 -->
+        <view class='textarea'>
+          <text class='basic'>项目信息</text>
+          <view class="textarea-wrp">
+            <textarea value='{{projectInfo}}' bindinput='projectInfoInput'  auto-focus="true" style="height: 5em;" />
+          </view>
+        </view>
+
+        
       <view class='basic'>基础信息*</view>
       <!-- 输入框 -->
       <view class='section_box'>
@@ -42,13 +52,7 @@
           </view>
            
         </view>
-        <!-- 项目 -->
-        <view class='textarea'>
-          <text class='basic'>项目信息</text>
-          <view class="textarea-wrp">
-            <textarea value='{{projectInfo}}' bindinput='projectInfoInput'  auto-focus="true" style="height: 5em;" />
-          </view>
-        </view>
+        
         <!--上传图片  -->
         
       </view>

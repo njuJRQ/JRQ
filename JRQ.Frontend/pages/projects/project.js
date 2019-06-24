@@ -38,7 +38,7 @@ Page({
     api.getIOSQualification.call(this, (res) => {
       console.log(res)
       condition = res
-      if (!condition) {
+      if (condition) {
         this.setData({
           isShowVIP: false
         })
@@ -202,7 +202,7 @@ Page({
   },
 
   onReachBottom: function() {
-    api.getFeedList.call(this, app.getOpenid(), this.data.lastId, "", this.examineExpand)
+    api.getFeedList.call(this, 'time', app.getOpenid(), this.data.lastId, this.data.id, this.examineExpand)
   },
 
   examineExpand: function(){

@@ -10,6 +10,20 @@
   background-color: white;
 }
 
+.headWrapper {
+  width: 100%;
+  background-color: rgb(242, 197, 72);
+}
+
+.search {
+  /* background-color: rgb(200, 165, 65); */
+  width: 95%;
+  margin: 0 auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+
 .box {
   width: 95%;
   margin: 0 auto;

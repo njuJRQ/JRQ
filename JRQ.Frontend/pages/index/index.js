@@ -93,7 +93,7 @@ Page({
     api.getIOSQualification.call(this, (res) => {
       console.log(res)
       condition = res
-      if (!condition) {
+      if (condition) {
         this.setData({
           isShowPrice: false
         })
@@ -123,8 +123,8 @@ Page({
       var ads_temp = this.data.ads;
       var links_temp = this.data.links;
       ads_temp.push(res.ad.image);
-      ads_temp.push(res.ad.image);
-      ads_temp.push(res.ad.image);
+      ads_temp.push("https://take-out.oss-cn-hangzhou.aliyuncs.com/%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC.jpg");
+      ads_temp.push("https://take-out.oss-cn-hangzhou.aliyuncs.com/%E5%9F%BA%E9%87%91%E6%9C%8D%E5%8A%A1.jpg");
       links_temp.push(res.ad.link);
       links_temp.push(res.ad.link);
       links_temp.push(res.ad.link);

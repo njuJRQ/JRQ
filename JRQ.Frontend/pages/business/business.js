@@ -73,8 +73,8 @@ Page({
       // 使用banners代替原来的image
       var banners_temp = this.data.banners;
       banners_temp.push(res.ad.image);
-      banners_temp.push(res.ad.image); 
-      banners_temp.push(res.ad.image);
+      banners_temp.push("https://take-out.oss-cn-hangzhou.aliyuncs.com/%E5%9F%BA%E9%87%91%E6%9C%8D%E5%8A%A1.jpg"); 
+      banners_temp.push("https://take-out.oss-cn-hangzhou.aliyuncs.com/%E8%B5%84%E4%BA%A7%E8%AF%81%E5%88%B8%E5%8C%96.jpg");
       this.setData({
         banners: banners_temp
       })

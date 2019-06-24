@@ -460,7 +460,7 @@ public class UserBlServiceImpl implements UserBlService {
 				if (String.valueOf(result.get("errcode")).equals("0")) {
 					return new BoolResponse(true, wxMsgResponse.getBody());
 				} else {
-					return new BoolResponse(false, wxMsgResponse.getBody());
+					return new BoolResponse(false, "发送成功，但该用户最近未操作小程序，可能无法及时收到您的名片");
 				}
 			} else {
 				return new BoolResponse(false, "后台请求失败");

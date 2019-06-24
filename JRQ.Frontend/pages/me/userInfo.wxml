@@ -61,7 +61,7 @@
       </view>
     </view>
     <view class='publish'>
-      <text>我的发布</text>
+      <text>我的发布(下拉刷新)</text>
     </view>
   </view>
   <!-- 时间轴 -->

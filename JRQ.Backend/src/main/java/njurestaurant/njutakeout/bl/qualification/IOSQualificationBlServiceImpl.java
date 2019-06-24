@@ -18,4 +18,9 @@ public class IOSQualificationBlServiceImpl implements IOSQualificationBlService 
     public boolean getIOSQualification() {
         return iosQualificationDataService.getIOSQualificationById(1).isStatus();
     }
+
+    @Override
+    public boolean getAppQualification() {
+        return iosQualificationDataService.getIOSQualificationById(2).isStatus();
+    }
 }

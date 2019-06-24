@@ -14,11 +14,14 @@ page {
   border-width: 1px 0;
   border-color: rgba(0, 0, 0, 0.212);
   border-style: solid;
-  justify-content: flex-start;
+  /*justify-content: flex-start;*/
+  display:inline-flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 .navbar view {
   margin: 5px 20px;
-  font-size: 0.6rem;
+  font-size: 12px;  /*0.6rem*/
 }
 /*关于名片的属性*/
 .cards {
@@ -40,14 +43,14 @@ page {
   border-radius: 5px;
 }
 .one-card-info text {
-  font-size: 0.4rem;
+  font-size: 11px; /*0.4rem*/
 }
 .one-card-info-username {
   margin: 0 0 10px 0;
 }
 .one-card-info-username > text {
   margin: 0 10px 0 0;
-  font-size:0.8rem;
+  font-size:13px;  /*0.8rem*/
   color:#252D47;
 }
 .one-card-info-username image {
@@ -66,5 +69,5 @@ page {
   height: 35px;
 }
 .icons text {
-  font-size: 0.6rem;
+  font-size: 12px; /*0.6rem*/
 }

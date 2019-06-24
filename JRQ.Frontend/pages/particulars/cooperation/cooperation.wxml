@@ -14,36 +14,39 @@
   </view>
     <view class='conten'>
     <view class='type_txt'>以下信息平台严格保密,请放心填写</view>
-      <view class='basic'>基础信息*</view>
+      <view class='basic'>基础信息<text class='must'>*</text></view>
       <!-- 输入框 -->
       <view class='section_box'>
-
-        <view class="section">
-          <text class='types'>联系人</text>
-          <input name="linkMan" value="{{linkMan}}" bindblur='linkManInput' class='placeholder' />
+        <view class="aLine">
+          <view class="section">
+            <text class='types'>联系人</text>
+            <input name="linkMan" value="{{linkMan}}" bindblur='linkManInput' class='placeholders' />
+          </view>
+          <view class='section'>
+            <text class='types'>手机号</text>
+            <input name="phone" value="{{phone}}" bindblur='phoneInput'  class='placeholders' />
+          </view>
         </view>
-        <view class='section'>
-          <text class='types'>手机号</text>
-          <input name="phone" value="{{phone}}" bindblur='phoneInput'  class='placeholders' />
-        </view>
-        <view class='section'>
-          <text class='types'>机构名</text>
-          <input name="agencyName" value="{{agencyName}}" bindblur='agencyNameInput' class='placeholders' />
-        </view>
-        <view class="section">
-          <text class='types'>项目关联</text>
-             <selector value='{{type}}' prop-array='{{selectArray}}' bind:myget='getDate'></selector>
+        <view class="aLine">
+          <view class='section'>
+            <text class='types'>机构名</text>
+            <input name="agencyName" value="{{agencyName}}" bindblur='agencyNameInput' class='placeholder' />
+          </view>
+          <view class="section">
+            <text class='types'>项目关联</text>
+              <selector value='{{type}}' prop-array='{{selectArray}}' bind:myget='getDate' class='sss'></selector>
+          </view>
         </view>
         <!-- 项目 -->
         <view class='textarea'>
           <text class='basic'>项目信息</text>
           <view class="textarea-wrp">
-            <textarea  auto-focus="true" style="height: 3em;" />
+            <textarea  auto-focus="true" style="height: 5em;" />
           </view>
         </view>
         <!--上传图片  -->
-        <view style='margin-top:10px'>
-          <text class='basic'>凭证信息*</text>
+        <view style='margin-top:0px'>
+          <text class='basic'>凭证信息</text><text class='must'>*</text>
           <text class='types'>请上传相应的证明文件，如名片，身份证等</text>
         </view>
         <view class='img_box' wx:for="{{files}}" wx:key="*this" wx:for-item="value">
@@ -51,7 +54,7 @@
         </view>
       </view>
       <view class='img_box'>
-        <image class='img' bindtap="changeAvatar" src='/img/upload.png'></image>
+        <image class='img' bindtap="changeAvatar" src='../../me/publishMyArticle/img/plusPhoto.png'></image>
       </view>
               <view class='publisher-chooser'>
             <view class='publisher-button'>

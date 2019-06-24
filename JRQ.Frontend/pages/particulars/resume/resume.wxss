@@ -11,7 +11,7 @@ page{
   background: rgb(255, 255, 255);
 }
 .container {
-  background: #34495ee8;/* rgb(242, 193, 74) */
+  background: rgb(242, 198, 94);/* #34495ee8 rgb(242, 193, 74)*/
 }
 .box {
   width: 95%;
@@ -88,12 +88,12 @@ page{
 }
 
 .placeholderStyle{
-  color: rgb(184, 178, 178);
+  color: rgb(158, 158, 158); /*rgb(184, 178, 178)*/
 }
 
 .title_studu {
   font-size: 11px;
-  color: rgb(184, 178, 178);/*rgb(158, 158, 158);*/
+  color: rgb(158, 158, 158);/*rgb(184, 178, 178)*/
   display: block;
 }
 

@@ -277,7 +277,7 @@ function getFeedList(kind, openid, lastId, id, then) {
         //that.data.lastIdType = articles[articles.length - 1].kind
         that.setData(that.data)
         /* 增加可能的后续处理 */
-      //   if (then) then()
+        if (then) then()
       // } else if (res.statusCode == 500) {
       //   wx.showModal({
       //     title: res.data.error,
@@ -869,13 +869,10 @@ function modifyMyInfo() {
           department: that.data.newMyInfo.department,
           position: that.data.newMyInfo.position,
           intro: that.data.newMyInfo.intro,
-<<<<<<< HEAD
-          label: that.data.newMyInfo.label
+          //label: that.data.newMyInfo.label
           //card: that.data.newMyInfo.card
-=======
           label: that.data.newMyInfo.label,
           label2: that.data.newMyInfo.label2
->>>>>>> d11fe86cda6e1c1ddfdcd50b2027b1f5c18d339a
         },
         header: {
           'Authorization': 'Bearer ' + app.getToken(),

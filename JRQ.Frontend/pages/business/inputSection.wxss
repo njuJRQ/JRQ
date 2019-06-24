@@ -1,54 +1,3 @@
-/**index.wxss**/
-@import '/style/common.wxss';
-@import '/template/findBar/searchBar.wxss';
-@import '/template/adBar/adBar.wxss';
-@import '/template/likeIcon/likeIcon.wxss';
-@import '/pages/business/inputSection.wxss';
-
-/* 本页面的样式 */
-
-.container {
-  background-color: white;
-}
-.img_image {
-  width: 100%;
-}
-/* .box {
-  margin: 0 auto;
-} */
-
-.conten {
-  flex: 1;
-  flex-wrap: wrap;
-  width: 90%;
-  margin: 0 auto;
-  padding-top: 10px;
-}
-
-
-.text {
-  color: black;
-  font-size: 12px;
-}
-
-.type_txt {
-  text-align: center;
-  font-size: 12px;
-  color: #cccccc;
-}
-
-.type {
-  color: black;
-  font-size: 10px;
-}
-
-.basic {
-  color: black;
-  font-size: 14px;
-  margin-top: 0px;
-}
-
-/*
 .section_box {
   display: flex;
   justify-content: space-between;
@@ -65,20 +14,13 @@
 
 .placeholder {
   background-color: #fff;
-  width: 100px;
+  width: 85px;
   border-radius: 5px;
   margin-left: 10px;
   border: 1px solid rgb(221, 201, 162);
 
   padding-left:5px;
   font-size:12px;
-}
-
-.types {
-  color: black;
-  font-size: 12px;
-  align-items: center;
-  margin-right: 5px;
 }
 
 .placeholders {
@@ -91,18 +33,21 @@
   padding-left:5px;
   font-size:12px;
 }
-*/
 
-/*
-.sss{
-  min-width:150px;
-  border:1px solid red;
+selector{
+  margin-left: 3px;
 }
-*/
 
-/*
+.types {
+  color: black;
+  font-size: 12px;
+  align-items: center;
+  margin-right: 5px;
+}
+
 .textarea {
   margin-top: 10px;
+  margin-bottom: 15px;
   width: 100%;
 }
 
@@ -112,7 +57,6 @@
   margin: 0 auto;
   margin-top: 5px;
   border: 1px solid rgb(221, 201, 162);
-  margin-bottom: 10px;
 
   font-size: 12px;
   padding:5px;
@@ -128,6 +72,7 @@
   height: 45px;
   margin-right: 5px;
 }
+
 
 .publisher-button {
   background: rgb(208, 133, 14);
@@ -147,4 +92,11 @@
 .select {
   width: 60px;
 }
-*/
+
+.aLine{
+  /*
+  display: inline-flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  */
+}

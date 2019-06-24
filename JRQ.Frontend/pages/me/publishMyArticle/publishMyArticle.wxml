@@ -21,21 +21,22 @@
       <view style='text-align: center'>
         <text class='title'>{{item.title_txt}}</text>
       </view>
-      <view class='type_txt'>
-        <text class='type'>以下信息本平台严格保密，请放心填写</text>
-      </view>
-      <view class='basic'>基础信息*</view>
+      <view class='type_txt'></view>
+      <text class='type'>以下信息本平台严格保密，请放心填写</text>
+      <view class='basic'>基础信息<text class='must'>*</text></view>
       <!-- 输入框 -->
       <view class='section_box' bindsubmit="formSubmit" bindreset="formReset">
-
+       <view class="aLine">
         <view class="section">
           <text class='types'>联系人</text>
-          <input value='{{linkMan}}' bindblur='linkManInput' class='placeholder' name='linkMan' />
+          <input value='{{linkMan}}' bindblur='linkManInput' class='placeholders' name='linkMan' />
         </view>
         <view class='section'>
           <text class='types'>手机号</text>
           <input value='{{phone}}' bindblur='phoneInput' class='placeholders' name='phone' />
         </view>
+        </view>
+        <view class="aLine">
         <view class='section'>
           <text class='types'>机构名</text>
           <input value='{{agencyName}}' bindblur='agencyNameInput' class='placeholders' name='agencyName' />
@@ -44,11 +45,13 @@
           <text class='types'>项目关联</text>
           <selector value='{{projectRef}}' prop-array='{{selectArray}}' bind:myget='getDate'></selector>
         </view>
+         </view>
+
         <!-- 项目 -->
         <view class='textarea'>
           <text class='basic'>项目信息</text>
           <view class="textarea-wrp">
-            <textarea auto-focus="true" name="projectInfo" style="height: 3em" value='{{projectInfo}}' bindinput='bindProjectInfo'></textarea>
+            <textarea auto-focus="true" name="projectInfo" style="height: 5em" value='{{projectInfo}}' bindinput='bindProjectInfo'></textarea>
           </view>
         </view>
         <view class='publisher'>
@@ -64,7 +67,7 @@
             </view>
           </view>
           <view class='publisher-chooser'>
-            <view class='publisher-button'>
+            <view class='publisher-button1'>
               <button class='jrq__button v-center h-center' bindtap='onPublish'>发布项目</button>
             </view>
           </view>

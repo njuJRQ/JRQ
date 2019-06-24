@@ -6,6 +6,7 @@
 @import '/template/findBar/searchBar.wxss';
 @import '/template/adBar/adBar.wxss';
 @import '/template/likeIcon/likeIcon.wxss';
+@import '/pages/business/inputSection.wxss';
 
 /* 本页面的样式 */
 
@@ -14,7 +15,7 @@
 }
 
 .box {
-  width: 95%;
+  width: 90%;
   margin: 0 auto;
 }
 
@@ -37,70 +38,23 @@
 
 .type_txt {
   text-align: center;
-  margin-bottom: 1px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   border-bottom: 1px solid rgb(221, 201, 162);
 }
 
 .type {
   color: rgb(217, 217, 217);
-  font-size: 10px;
+  font-size: 11px;
+  text-align: center;
 }
 
 .basic {
-  color: rgb(216, 216, 216);
+  color: black;
   font-size: 14px;
   margin-top: 5px;
 }
 
-.section_box {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.section {
-  display: flex;
-  flex-wrap: nowrap;
-  margin-top: 10px;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.placeholder {
-  background-color: rgb(216, 216, 216);
-  width: 80px;
-  border-radius: 5px;
-  margin-left: 5px;
-}
-
-.types {
-  color: rgb(217, 217, 217);
-  font-size: 12px;
-  align-items: center;
-}
-
-.placeholders {
-  background-color: rgb(216, 216, 216);
-  width: 120px;
-  border-radius: 5px;
-  margin-left: 5px;
-}
-
-.textarea {
-  margin-top: 10px;
-}
-
-.textarea-wrp {
-  background-color: rgb(216, 216, 216);
-  border-radius: 5px;
-  margin: 0 auto;
-  margin-top: 10px;
-}
-.img{
-  width: 45px;
-  height: 45px;
-  margin-right: 5px;
-}
 page {
   background-color: #efefef;
   font-size: 0.7rem;
@@ -143,13 +97,13 @@ page {
   margin: 0 0 10px 0;
 }
 
-.publisher-button {
+.publisher-button1 {
   margin: 20px 0 0 0;
   width: 100%;
 }
 
-.publisher-button button {
-  width: 90%;
+.publisher-button1 button {
+  width: 100%;
   height: 40px;
   font-size: 1rem;
 }
